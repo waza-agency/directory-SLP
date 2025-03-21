@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './scrollbar.css';
+@import './animations.css';
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --color-primary: #9D2235;
+  --color-secondary: #1A1A1A;
+  --color-background: #FFFFFF;
+  --color-accent: #D4AF37;
+  --color-light: #F8F8F8;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-secondary);
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Custom animation classes */
+.hover-lift {
+  transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Custom shadows */
+.shadow-elegant {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Refined button styles */
+.btn-primary {
+  @apply bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary-dark transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-white text-secondary border border-gray-200 px-6 py-3 rounded-md font-medium hover:bg-gray-50 transition-colors;
+}
+
+.btn-outline {
+  @apply border border-primary text-primary px-6 py-3 rounded-md font-medium hover:bg-primary/5 transition-colors;
+}
+
+/* Add any additional global styles here */ 

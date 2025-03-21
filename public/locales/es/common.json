@@ -1,0 +1,124 @@
+{
+  "app_title": "SLP Descubre - Explora San Luis Potosí",
+  "app_description": "Explora el patrimonio cultural, la gastronomía y la vida vibrante de San Luis Potosí",
+  "site_title": "SLP Descubre - Explora San Luis Potosí",
+  "site_description": "Tu portal para descubrir la magia de San Luis Potosí - su arquitectura colonial, ricas tradiciones y tesoros locales",
+  "home": "Inicio",
+  "explore": "Explorar",
+  "about": "Acerca de",
+  "contact": "Contacto",
+  "language": "Idioma",
+  "search": "Buscar",
+  "search_placeholder": "Buscar lugares...",
+  "search_button": "Buscar",
+  "category": "Categoría",
+  "all_categories": "Todas las Categorías",
+  "no_places_found": "No se encontraron lugares. Intenta ajustar tus filtros.",
+  "common": {
+    "learnMore": "Saber Más",
+    "readMore": "Leer Más",
+    "viewAll": "Ver Todo",
+    "contactUs": "Contáctanos",
+    "getStarted": "Comenzar",
+    "scrollToTop": "Volver arriba",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "goToSlide": "Ir a diapositiva"
+  },
+  "featuredPlaces": {
+    "noPlaces": "Aún no se han agregado lugares destacados.",
+    "checkFeatured": "Verifica que hayas marcado lugares como destacados en tu fuente de datos.",
+    "title": "Destinos Destacados",
+    "description": "Explora estos tesoros seleccionados que muestran lo mejor de la cultura, gastronomía y hospitalidad de San Luis Potosí.",
+    "featured": "Destacado",
+    "noDescription": "Descubre este extraordinario lugar en San Luis Potosí.",
+    "viewDetails": "Ver Detalles"
+  },
+  "placeCard": {
+    "viewDetails": "Ver Detalles"
+  },
+  "no_image": "Imagen no disponible",
+  "visit_website": "Visitar Sitio Web",
+  "view_on_map": "Ver en el Mapa",
+  "list_view": "Vista de Lista",
+  "map_view": "Vista de Mapa",
+  "view_all_places": "Ver Todos los Lugares",
+  "places_found": "lugares encontrados",
+  "featured": "Destacado",
+  "hero": {
+    "title": "Descubre la Esencia de San Luis Potosí",
+    "subtitle": "Explora un Tesoro Colonial en el Corazón de México",
+    "description": "Recorre calles empedradas, edificios coloridos y siglos de historia en una de las ciudades coloniales más encantadoras de México.",
+    "explore": "Explorar Lugares",
+    "about": "Conocer Más",
+    "explorePlaces": "Descubrir Lugares",
+    "viewCategories": "Explorar Categorías"
+  },
+  "welcome": {
+    "subtitle": "BIENVENIDO A SAN LUIS POTOSÍ",
+    "title": "Un Viaje por la Cultura y Tradición",
+    "description": "San Luis Potosí ofrece una perfecta combinación de historia colonial, ricas tradiciones y experiencias modernas que cautivan los corazones de todos los que la visitan.",
+    "card1": {
+      "title": "Rico Patrimonio Cultural",
+      "description": "Desde impresionante arquitectura barroca hasta vibrantes tradiciones folclóricas, sumérgete en siglos de riqueza cultural."
+    },
+    "card2": {
+      "title": "Delicias Culinarias",
+      "description": "Experimenta los sabores únicos de la cocina potosina, desde las tradicionales enchiladas potosinas hasta innovaciones gastronómicas modernas."
+    },
+    "card3": {
+      "title": "Experiencias Locales",
+      "description": "Conéctate con el corazón y alma de San Luis Potosí a través de experiencias auténticas creadas por expertos locales."
+    }
+  },
+  "cultural": {
+    "subtitle": "RICO PATRIMONIO",
+    "title": "Descubre Nuestro Legado Cultural",
+    "description": "San Luis Potosí posee una riqueza cultural que refleja siglos de historia, desde su designación como Patrimonio de la Humanidad por UNESCO hasta su vibrante escena artística y tradiciones culinarias.",
+    "learnMore": "Conocer Más",
+    "history": {
+      "title": "Historia Colonial",
+      "description": "Fundada en 1592, la ciudad preserva su herencia colonial española a través de su magnífica arquitectura y diseño urbano."
+    },
+    "architecture": {
+      "title": "Esplendor Barroco",
+      "description": "Maravíllate con las ornamentadas fachadas e interiores barrocos de iglesias y edificios que muestran la riqueza minera de la región."
+    },
+    "gastronomy": {
+      "title": "Tradiciones Culinarias",
+      "description": "Saborea platos únicos como enchiladas potosinas, asado de boda y gorditas que definen el rico patrimonio gastronómico de la región."
+    }
+  },
+  "categories": {
+    "popularTitle": "Explora Por Categoría",
+    "popularDescription": "Descubre lo mejor que San Luis Potosí tiene para ofrecer, organizado por categoría para tu conveniencia.",
+    "restaurant": "Restaurante",
+    "cafe": "Café",
+    "bar": "Bar",
+    "hotel": "Hotel",
+    "museum": "Museo",
+    "park": "Parque",
+    "shop": "Tienda",
+    "service": "Servicio",
+    "other": "Otro"
+  },
+  "localBrands": {
+    "subtitle": "APOYA LO LOCAL",
+    "title": "Marcas y Artesanos Potosinos",
+    "description": "Descubre y apoya a artesanos locales, creadores y emprendedores que encarnan el espíritu y las tradiciones de San Luis Potosí.",
+    "support": "Cada compra apoya la economía local y ayuda a preservar nuestras tradiciones culturales."
+  },
+  "footer": {
+    "description": "SLP Descubre es tu guía completa de los mejores lugares, experiencias y tesoros culturales en San Luis Potosí, México.",
+    "navigation": "Navegación",
+    "categories": "Categorías",
+    "newsletter": "Boletín Informativo",
+    "newsletterDescription": "Suscríbete para recibir actualizaciones sobre nuevos lugares, eventos y características especiales en San Luis Potosí.",
+    "emailPlaceholder": "Tu correo electrónico",
+    "subscribe": "Suscribirme",
+    "copyright": "SLP Descubre. Todos los derechos reservados.",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "cookies": "Política de Cookies"
+  }
+} 

@@ -1,0 +1,124 @@
+{
+  "app_title": "SLP Descubre - Entdecken Sie San Luis Potosí",
+  "app_description": "Erkunden Sie das kulturelle Erbe, die Gastronomie und das lebendige Leben von San Luis Potosí",
+  "site_title": "SLP Descubre - Entdecken Sie San Luis Potosí",
+  "site_description": "Ihr Tor zur Entdeckung der Magie von San Luis Potosí - seine koloniale Architektur, reiche Traditionen und lokale Schätze",
+  
+  "home": "Startseite",
+  "explore": "Erkunden",
+  "about": "Über uns",
+  "contact": "Kontakt",
+  "language": "Sprache",
+  
+  "search": "Suchen",
+  "search_placeholder": "Orte suchen...",
+  "search_button": "Suchen",
+  "category": "Kategorie",
+  "all_categories": "Alle Kategorien",
+  
+  "no_places_found": "Keine Orte gefunden. Versuchen Sie, Ihre Filter anzupassen.",
+  "featuredPlaces": {
+    "noPlaces": "Es wurden noch keine hervorgehobenen Orte hinzugefügt.",
+    "checkFeatured": "Überprüfen Sie, ob Sie Unternehmen in Ihrer Datenquelle als hervorgehoben markiert haben.",
+    "title": "Ausgewählte Reiseziele",
+    "description": "Entdecken Sie diese handverlesenen Schätze, die das Beste der Kultur, Küche und Gastfreundschaft von San Luis Potosí zeigen.",
+    "featured": "Hervorgehoben",
+    "noDescription": "Entdecken Sie diesen bemerkenswerten Ort in San Luis Potosí.",
+    "viewDetails": "Details anzeigen"
+  },
+  
+  "placeCard": {
+    "viewDetails": "Details anzeigen"
+  },
+  
+  "no_image": "Kein Bild verfügbar",
+  "visit_website": "Website besuchen",
+  "view_on_map": "Auf Karte anzeigen",
+  "list_view": "Listenansicht",
+  "map_view": "Kartenansicht",
+  "view_all_places": "Alle Orte anzeigen",
+  "places_found": "Orte gefunden",
+  "featured": "Hervorgehoben",
+  
+  "hero": {
+    "title": "Entdecken Sie die Essenz von San Luis Potosí",
+    "subtitle": "Erkunden Sie einen kolonialen Schatz im Herzen Mexikos",
+    "description": "Reisen Sie durch kopfsteingepflasterte Straßen, bunte Gebäude und Jahrhunderte der Geschichte in einer der bezauberndsten Kolonialstädte Mexikos.",
+    "explore": "Orte erkunden",
+    "about": "Mehr erfahren",
+    "explorePlaces": "Orte entdecken",
+    "viewCategories": "Kategorien durchsuchen"
+  },
+  
+  "welcome": {
+    "subtitle": "WILLKOMMEN IN SAN LUIS POTOSÍ",
+    "title": "Eine Reise durch Kultur und Tradition",
+    "description": "San Luis Potosí bietet eine perfekte Mischung aus Kolonialgeschichte, reichen Traditionen und modernen Lebenserfahrungen, die die Herzen aller Besucher fesselt.",
+    "card1": {
+      "title": "Reiches kulturelles Erbe",
+      "description": "Von beeindruckender Barockarchitektur bis hin zu lebendigen Folklorettraditionen, tauchen Sie ein in jahrhundertelangen kulturellen Reichtum."
+    },
+    "card2": {
+      "title": "Kulinarische Köstlichkeiten",
+      "description": "Erleben Sie die einzigartigen Aromen der potosinen Küche, von traditionellen Enchiladas Potosinas bis hin zu modernen gastronomischen Innovationen."
+    },
+    "card3": {
+      "title": "Lokale Erlebnisse",
+      "description": "Verbinden Sie sich mit Herz und Seele von San Luis Potosí durch authentische Erlebnisse, die von lokalen Experten gestaltet wurden."
+    }
+  },
+  
+  "cultural": {
+    "subtitle": "REICHES ERBE",
+    "title": "Entdecken Sie unser kulturelles Erbe",
+    "description": "San Luis Potosí verfügt über einen kulturellen Reichtum, der Jahrhunderte der Geschichte widerspiegelt, von seiner Ernennung zum UNESCO-Weltkulturerbe bis hin zu seiner lebendigen Kunstszene und kulinarischen Traditionen.",
+    "learnMore": "Mehr erfahren",
+    "history": {
+      "title": "Kolonialgeschichte",
+      "description": "Die 1592 gegründete Stadt bewahrt ihr spanisches Kolonialerbe durch prächtige Architektur und städtebauliche Gestaltung."
+    },
+    "architecture": {
+      "title": "Barocker Glanz",
+      "description": "Bestaunen Sie die kunstvoll verzierten Barockfassaden und Innenräume von Kirchen und Gebäuden, die den Bergbaureichtum der Region zur Schau stellen."
+    },
+    "gastronomy": {
+      "title": "Kulinarische Traditionen",
+      "description": "Genießen Sie einzigartige Gerichte wie Enchiladas Potosinas, Asado de Boda und Gorditas, die das reiche gastronomische Erbe der Region definieren."
+    }
+  },
+  
+  "categories": {
+    "popularTitle": "Nach Kategorie erkunden",
+    "popularDescription": "Entdecken Sie das Beste, was San Luis Potosí zu bieten hat, für Ihre Bequemlichkeit nach Kategorien geordnet.",
+    "restaurant": "Restaurant",
+    "cafe": "Café",
+    "bar": "Bar",
+    "hotel": "Hotel",
+    "museum": "Museum",
+    "park": "Park",
+    "shop": "Geschäft",
+    "service": "Dienstleistung",
+    "other": "Andere"
+  },
+  
+  "localBrands": {
+    "subtitle": "UNTERSTÜTZEN SIE LOKALES",
+    "title": "Potosino Marken & Handwerker",
+    "description": "Entdecken und unterstützen Sie lokale Handwerker, Kreative und Unternehmer, die den Geist und die Traditionen von San Luis Potosí verkörpern.",
+    "support": "Jeder Kauf unterstützt die lokale Wirtschaft und hilft, kulturelle Traditionen zu bewahren."
+  },
+  
+  "footer": {
+    "description": "SLP Descubre ist Ihr umfassender Leitfaden zu den besten Orten, Erlebnissen und kulturellen Schätzen in San Luis Potosí, Mexiko.",
+    "navigation": "Navigation",
+    "categories": "Kategorien",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Abonnieren Sie, um Updates über neue Orte, Veranstaltungen und spezielle Funktionen in San Luis Potosí zu erhalten.",
+    "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "subscribe": "Abonnieren",
+    "copyright": "SLP Descubre. Alle Rechte vorbehalten.",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "cookies": "Cookie-Richtlinie"
+  }
+} 

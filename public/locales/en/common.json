@@ -1,0 +1,250 @@
+{
+  "app_title": "SLP Descubre - Your Expat Guide to San Luis Potosí",
+  "app_description": "The essential resource for expatriates and newcomers in San Luis Potosí - discover local insights, services, and community",
+  "site_title": "SLP Descubre - Your Expat Guide to San Luis Potosí",
+  "site_description": "Navigate life in San Luis Potosí with ease - from relocation services to local insights and city hacks for expatriates",
+  
+  "home": "Home",
+  "explore": "Explore",
+  "about": "About",
+  "contact": "Contact",
+  "language": "Language",
+  
+  "search": "Search",
+  "search_placeholder": "Search for places...",
+  "search_button": "Search",
+  "category": "Category",
+  "all_categories": "All Categories",
+  
+  "common": {
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "contactUs": "Contact Us",
+    "getStarted": "Get Started",
+    "scrollToTop": "Scroll to top",
+    "previous": "Previous",
+    "next": "Next",
+    "goToSlide": "Go to slide"
+  },
+  
+  "cta": {
+    "needHelp": "Need Relocation Help?",
+    "contactUs": "Contact Us",
+    "bookConsultation": "Book a Consultation",
+    "getStarted": "Get Started",
+    "viewServices": "View All Services"
+  },
+  
+  "no_places_found": "No places found. Try adjusting your filters.",
+  "featuredPlaces": {
+    "noPlaces": "No featured places have been added yet.",
+    "checkFeatured": "Check that you have marked businesses as featured in your data source.",
+    "title": "Featured Destinations",
+    "description": "Explore these handpicked gems that showcase the best of San Luis Potosí's culture, cuisine, and hospitality.",
+    "featured": "Featured",
+    "noDescription": "Discover this remarkable place in San Luis Potosí.",
+    "viewDetails": "View Details"
+  },
+  
+  "placeCard": {
+    "viewDetails": "View Details"
+  },
+  
+  "no_image": "No image available",
+  "visit_website": "Visit Website",
+  "view_on_map": "View on Map",
+  "list_view": "List View",
+  "map_view": "Map View",
+  "view_all_places": "View All Places",
+  "places_found": "places found",
+  "featured": "Featured",
+  
+  "hero": {
+    "expatGuide": "Your Personal Connection in San Luis Potosí",
+    "title": "We Know Everyone You Need to Know",
+    "subtitle": "Your Insider Guide to San Luis Potosí",
+    "description": "Skip the confusion and frustration of figuring things out alone. We've built relationships with the best service providers, housing options, and local experts throughout the city.",
+    "personalTouch": "Think of us as that well-connected friend who always \"knows a guy\" - we'll make the right introductions and handle all the details for you.",
+    "connectWithUs": "Connect With Us",
+    "ourServices": "Our Services",
+    "explore": "Explore Places",
+    "about": "Learn More",
+    "explorePlaces": "Discover Places",
+    "viewCategories": "Browse Categories",
+    "relocationServices": "Relocation Services"
+  },
+  
+  "welcome": {
+    "subtitle": "YOUR PERSONAL CONCIERGE",
+    "title": "We've Got Your Back in San Luis Potosí",
+    "description": "Getting set up in a new city can be overwhelming, especially in a foreign country. That's why we've built relationships with all the right people - so you don't have to.",
+    "intermediary": "We handle all arrangements and introductions for a simple service fee, saving you time, stress, and often money.",
+    "card1": {
+      "title": "Local Connections",
+      "description": "We'll introduce you to our trusted network of service providers, from plumbers and electricians to language tutors and childcare professionals.",
+      "cta": "Connect Me"
+    },
+    "card2": {
+      "title": "Restaurant Reservations",
+      "description": "Get tables at the best restaurants, special treatment, and even custom menus - all through our personal relationships with local establishments.",
+      "cta": "Book Through Us"
+    },
+    "card3": {
+      "title": "Exclusive Events",
+      "description": "Access invitation-only gatherings, private tours, and special experiences not available to the general public.",
+      "cta": "See Events"
+    }
+  },
+  
+  "expatServices": {
+    "subtitle": "EXPAT SERVICES",
+    "title": "Making Your Transition Seamless",
+    "description": "Our specialized services for expatriates cover everything you need to settle comfortably in San Luis Potosí.",
+    "viewAll": "View All Services",
+    "relocation": {
+      "title": "Relocation Assistance",
+      "description": "Comprehensive support with visa paperwork, local registration, and essential setup services for new arrivals.",
+      "cta": "Get Help Now"
+    },
+    "housing": {
+      "title": "Housing Services",
+      "description": "Find expat-friendly housing options, navigate rental agreements, and get support with utilities and home setup.",
+      "cta": "Find Housing"
+    },
+    "legal": {
+      "title": "Legal & Administrative",
+      "description": "Expert assistance with residency permits, banking setup, tax considerations, and other official procedures.",
+      "cta": "Book Consultation"
+    },
+    "community": {
+      "title": "Community Integration",
+      "description": "Connect with fellow expatriates, join international groups, and participate in cultural exchange activities.",
+      "cta": "Join Community"
+    }
+  },
+  
+  "cityHacks": {
+    "subtitle": "INSIDER TIPS",
+    "title": "Local Insights for Expatriates",
+    "description": "Practical tips and insider knowledge to help you navigate daily life in San Luis Potosí like a local.",
+    "viewAll": "View All City Hacks",
+    "transport": {
+      "title": "Transportation Hacks",
+      "description": "Navigate public transit, taxis, rideshares, and learn where to rent or buy vehicles with expat-friendly services."
+    },
+    "shopping": {
+      "title": "Shopping Guide",
+      "description": "Find international products, navigate local markets, and discover the best places for everyday essentials."
+    },
+    "language": {
+      "title": "Language Essentials",
+      "description": "Essential Spanish phrases, language exchange opportunities, and translation services for expatriates."
+    }
+  },
+  
+  "cultural": {
+    "subtitle": "CULTURAL INTEGRATION",
+    "title": "Understanding Local Culture & Customs",
+    "description": "San Luis Potosí boasts a cultural richness that reflects centuries of history, from its designation as a UNESCO World Heritage site to its vibrant arts scene and culinary traditions.",
+    "expatDescription": "Navigate the rich cultural landscape of San Luis Potosí with our expat-focused guides, helping you understand and participate in local traditions while respecting cultural norms.",
+    "learnMore": "Learn More",
+    "viewCalendar": "View Cultural Calendar",
+    "bookTour": "Book a Cultural Tour",
+    "imageCaption1": "Historic Center - UNESCO World Heritage Site",
+    "imageCaption2": "Traditional Festivals and Celebrations",
+    "imageCaption3": "Colonial Architecture in Downtown",
+    "history": {
+      "title": "Colonial History",
+      "description": "Founded in 1592, the city preserves its Spanish colonial heritage through magnificent architecture and urban design.",
+      "expatTitle": "History for Newcomers",
+      "expatDescription": "Guided historical walks and tours designed for expatriates, with English-speaking guides explaining the context behind the city's rich heritage."
+    },
+    "architecture": {
+      "title": "Baroque Splendor",
+      "description": "Marvel at the ornate baroque facades and interiors of churches and buildings that showcase the region's mining wealth."
+    },
+    "festivals": {
+      "title": "Local Festivities & Events",
+      "description": "Join community celebrations, festivals, and cultural events with our expat-friendly guides explaining traditions and customs."
+    },
+    "language": {
+      "title": "Language & Communication",
+      "description": "Resources to help you navigate language barriers, including Spanish classes tailored to expatriates and translation services."
+    },
+    "gastronomy": {
+      "title": "Culinary Traditions",
+      "description": "Savor unique dishes like enchiladas potosinas, asado de boda, and gorditas that define the region's rich gastronomic heritage."
+    }
+  },
+  
+  "categories": {
+    "subtitle": "ESSENTIAL RESOURCES",
+    "popularTitle": "Expat-Friendly Services & Resources",
+    "popularDescription": "Everything you need to settle in and thrive in San Luis Potosí, organized by category for easy access.",
+    "restaurant": "Restaurant",
+    "cafe": "Café",
+    "bar": "Bar",
+    "hotel": "Hotel",
+    "museum": "Museum",
+    "park": "Park",
+    "shop": "Shop",
+    "service": "Service",
+    "other": "Other",
+    "expat": {
+      "essentials": {
+        "title": "Daily Essentials",
+        "description": "Grocery stores, supermarkets, pharmacies, and essential services with international products and English-speaking staff."
+      },
+      "healthcare": {
+        "title": "Healthcare",
+        "description": "Expat-friendly hospitals, clinics, specialists, and emergency services with English-speaking medical professionals."
+      },
+      "accommodation": {
+        "title": "Housing",
+        "description": "Long and short-term rentals, real estate services, and relocation assistance tailored to expatriate needs."
+      },
+      "education": {
+        "title": "Education",
+        "description": "International schools, language courses, universities, and continuing education opportunities for expatriates."
+      },
+      "recreation": {
+        "title": "Recreation & Leisure",
+        "description": "Sports facilities, fitness centers, entertainment venues, and cultural activities welcoming to the international community."
+      },
+      "transportation": {
+        "title": "Transportation",
+        "description": "Reliable transportation options, vehicle rentals, driving regulations, and navigation resources for newcomers."
+      },
+      "services": {
+        "title": "Professional Services",
+        "description": "Banking, legal assistance, translation services, and administrative support for foreigners living in the city."
+      },
+      "community": {
+        "title": "Community & Social",
+        "description": "Expat groups, social clubs, networking events, and volunteer opportunities to help you build connections."
+      }
+    }
+  },
+  
+  "localBrands": {
+    "subtitle": "SUPPORT LOCAL",
+    "title": "Potosino Brands & Artisans",
+    "description": "Discover and support local artisans, creators, and entrepreneurs who embody the spirit and traditions of San Luis Potosí.",
+    "support": "Each purchase supports the local economy and helps preserve cultural traditions."
+  },
+  
+  "footer": {
+    "description": "SLP Descubre is your comprehensive guide to the best places, experiences, and cultural treasures in San Luis Potosí, Mexico.",
+    "navigation": "Navigation",
+    "categories": "Categories",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Subscribe to receive updates on new places, events, and special features in San Luis Potosí.",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "copyright": "SLP Descubre. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy"
+  }
+} 
