@@ -1,11 +1,19 @@
 [build]
   command = "npm run netlify-build"
   publish = "out"
+  plugins = []
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
   NODE_VERSION = "18"
   NEXT_TELEMETRY_DISABLED = "1"
+  NETLIFY_USE_YARN = "false"
+
+# Explicitly disable all plugins
+[[plugins]]
+package = "."
+  [plugins.inputs]
+  disable_nextjs_plugin = true
 
 # Language-specific redirects for root
 [[redirects]]

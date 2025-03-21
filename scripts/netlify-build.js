@@ -438,4 +438,63 @@ function addScriptToHtmlFiles(dir) {
 
 addScriptToHtmlFiles(path.join(process.cwd(), 'out'));
 
+// Step 8: Create a .netlify directory with state.json to prevent Netlify Next.js plugin
+console.log('\n🔧 Creating Netlify state file to disable plugins...');
+const netlifyStateDir = path.join(process.cwd(), 'out', '.netlify');
+fs.mkdirSync(netlifyStateDir, { recursive: true });
+
+const stateJson = {
+  "siteId": "dummy-site-id",
+  "plugins": [],
+  "skipNextjsPlugin": true
+};
+
+fs.writeFileSync(
+  path.join(netlifyStateDir, 'state.json'),
+  JSON.stringify(stateJson, null, 2)
+);
+console.log('✅ Created .netlify/state.json');
+
+// Create a functions directory with a deploy-succeeded function to override any plugins
+const functionsDir = path.join(netlifyStateDir, 'functions');
+fs.mkdirSync(functionsDir, { recursive: true });
+
+const deploySucceededFunction = `
+// This file overrides any plugin functionality
+exports.handler = async function() {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ success: true })
+  };
+};
+`;
+
+fs.writeFileSync(
+  path.join(functionsDir, 'deploy-succeeded.js'),
+  deploySucceededFunction
+);
+console.log('✅ Created deploy-succeeded.js function');
+
+// Copy netlify.toml to the output directory to ensure our config is used
+try {
+  const netlifyTomlPath = path.join(process.cwd(), 'netlify.toml');
+  const outputTomlPath = path.join(process.cwd(), 'out', 'netlify.toml');
+  
+  if (fs.existsSync(netlifyTomlPath)) {
+    // Read the original netlify.toml
+    let netlifyConfig = fs.readFileSync(netlifyTomlPath, 'utf8');
+    
+    // Make sure plugins are explicitly disabled
+    if (!netlifyConfig.includes('plugins = []')) {
+      netlifyConfig = netlifyConfig.replace('[build]', '[build]\n  plugins = []');
+    }
+    
+    // Write the modified version to the output directory
+    fs.writeFileSync(outputTomlPath, netlifyConfig);
+    console.log('✅ Copied and modified netlify.toml to output directory');
+  }
+} catch (error) {
+  console.error('⚠️ Error copying netlify.toml:', error);
+}
+
 console.log('\n✅ Build process completed successfully!'); 
