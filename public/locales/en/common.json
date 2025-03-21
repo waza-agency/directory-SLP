@@ -266,6 +266,13 @@
     "support": "Each purchase supports the local economy and helps preserve cultural traditions."
   },
   
+  "uniqueMeetings": {
+    "subtitle": "UNIQUE EXPERIENCES",
+    "title": "Weird Cool Places for Potosino-Style Business Meetings",
+    "description": "Think outside the office! Discover beautiful, out-of-the-ordinary locations where locals impress clients and hold memorable meetings with a true Potosino flair.",
+    "viewAll": "View All Locations"
+  },
+  
   "footer": {
     "description": "SLP Descubre is your comprehensive guide to the best places, experiences, and cultural treasures in San Luis Potosí, Mexico.",
     "navigation": "Navigation",

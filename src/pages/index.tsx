@@ -22,6 +22,64 @@ export default function Home({ places }: HomeProps) {
   const restaurants = places.filter(place => place.category === 'restaurant');
   const cafes = places.filter(place => place.category === 'cafe');
   const localBrands = places.filter(place => place.category === 'shop' && place.tags?.includes('local'));
+  
+  // Filter for unique business meeting locations
+  const uniqueMeetingPlaces = places.filter(place => 
+    (place.category === 'park' || place.category === 'museum' || place.category === 'attraction') &&
+    (place.name.includes('Jardín Japonés') || 
+     place.name.includes('Presa San José') || 
+     place.name.includes('Tangamanga') || 
+     place.tags?.includes('unique') || 
+     place.tags?.includes('scenic'))
+  );
+
+  // If we don't have any unique meeting places in the database, add some sample ones for testing
+  if (uniqueMeetingPlaces.length === 0) {
+    const sampleMeetingPlaces = [
+      {
+        id: 'meeting-1',
+        name: 'Jardín Japonés',
+        category: 'park',
+        address: 'Parque Tangamanga I, San Luis Potosí',
+        description: 'A serene Japanese garden with koi ponds, bridges, and pagodas - perfect for an inspiring outdoor meeting.',
+        tags: ['unique', 'scenic', 'outdoor'],
+        featured: false,
+        imageUrl: 'https://images.unsplash.com/photo-1614609422930-49b254889f5e?q=80&w=2070'
+      },
+      {
+        id: 'meeting-2',
+        name: 'Presa San José',
+        category: 'attraction',
+        address: 'Camino a la Presa San José, San Luis Potosí',
+        description: 'The historic reservoir offers stunning views and several terraces for memorable business conversations.',
+        tags: ['unique', 'scenic', 'outdoor'],
+        featured: false,
+        imageUrl: 'https://images.unsplash.com/photo-1572320495585-a3e7a6a682c6?q=80&w=2071'
+      },
+      {
+        id: 'meeting-3',
+        name: 'Aviario del Parque Tangamanga',
+        category: 'attraction',
+        address: 'Parque Tangamanga I, San Luis Potosí',
+        description: 'Meet surrounded by exotic birds in this unique aviary setting, guaranteed to make your meeting memorable.',
+        tags: ['unique', 'zoo', 'outdoor'],
+        featured: false,
+        imageUrl: 'https://images.unsplash.com/photo-1621510007845-cc3953f0cec6?q=80&w=2070'
+      },
+      {
+        id: 'meeting-4',
+        name: 'Museo Laberinto',
+        category: 'museum',
+        address: 'Calzada de Guadalupe 705, San Luis Potosí',
+        description: 'An interactive science museum with private rooms available for innovative thinking and creative meetings.',
+        tags: ['unique', 'indoor', 'cultural'],
+        featured: false,
+        imageUrl: 'https://images.unsplash.com/photo-1545987796-200677ee1011?q=80&w=2070'
+      }
+    ];
+    // We don't actually modify the places array - just create a local variable
+    uniqueMeetingPlaces.push(...sampleMeetingPlaces);
+  }
 
   return (
     <>
@@ -608,120 +666,6 @@ export default function Home({ places }: HomeProps) {
           </div>
         </section>
 
-        {/* Featured Potosinos Section - NEW */}
-        <section className="py-24 px-4 bg-white border-t border-gray-100">
-          <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <span className="text-secondary text-sm font-medium uppercase tracking-wider">
-                COMMUNITY SPOTLIGHT
-              </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-2 mb-4">
-                Featured Potosinos
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Meet the remarkable individuals who contribute to San Luis Potosí's vibrant culture, entrepreneurial spirit, and rich heritage.
-              </p>
-              <p className="text-sm text-secondary mt-3 max-w-xl mx-auto">
-                <span className="inline-block bg-secondary/10 px-3 py-1 rounded-full">From yesterday and today, honoring tradition while shaping the future</span>
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-              {/* Person 1 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosino-1.jpg"
-                    alt="María González"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">María González</h3>
-                <p className="text-primary font-medium text-sm mb-3">Chef & Cultural Ambassador</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
-                </p>
-                <a href="/community/maria-gonzalez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read her story →
-                </a>
-              </div>
-              
-              {/* Person 2 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosino-2.jpg"
-                    alt="Carlos Ramírez"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">Carlos Ramírez</h3>
-                <p className="text-primary font-medium text-sm mb-3">Artisan & Master Craftsman</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Creating stunning traditional pottery that honors the region's artistic legacy while mentoring the next generation of artisans.
-                </p>
-                <a href="/community/carlos-ramirez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read his story →
-                </a>
-              </div>
-              
-              {/* Person 3 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosino-3.jpg"
-                    alt="Alejandra Vega"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">Alejandra Vega</h3>
-                <p className="text-primary font-medium text-sm mb-3">Entrepreneur & Innovator</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Transforming the local tech scene through her startup incubator while creating opportunities for young Potosinos in technology.
-                </p>
-                <a href="/community/alejandra-vega" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read her story →
-                </a>
-              </div>
-              
-              {/* Person 4 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosino-4.jpg"
-                    alt="Miguel Ortiz"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">Miguel Ortiz</h3>
-                <p className="text-primary font-medium text-sm mb-3">Historian & Cultural Guide</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Sharing the rich history of San Luis Potosí through immersive tours and educational programs that bring the past to life.
-                </p>
-                <a href="/community/miguel-ortiz" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read his story →
-                </a>
-              </div>
-            </div>
-            
-            <div className="mt-16 text-center">
-              <a href="/community" className="inline-flex items-center justify-center space-x-2 bg-white border border-secondary text-secondary px-6 py-3 rounded-md shadow-sm hover:bg-secondary hover:text-white transition-colors font-medium">
-                <span>Meet More Remarkable Potosinos</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-              <p className="text-sm text-gray-500 mt-6 max-w-xl mx-auto">
-                Know someone who deserves to be featured? <a href="/contact?subject=Community Nomination" className="text-primary hover:underline">Nominate them here</a>
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* Cultural Heritage Section - Updated for Expats */}
         <section className="py-24 px-4 bg-gray-50 border-t-4 border-secondary">
           <div className="container mx-auto">
@@ -839,6 +783,108 @@ export default function Home({ places }: HomeProps) {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Potosinos Section - NEW */}
+        <section className="py-24 px-4 bg-white border-t border-gray-100">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <span className="text-secondary text-sm font-medium uppercase tracking-wider">
+                COMMUNITY SPOTLIGHT
+              </span>
+              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-2 mb-4">
+                Featured Potosinos
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Meet the remarkable individuals who contribute to San Luis Potosí's vibrant culture, entrepreneurial spirit, and rich heritage.
+              </p>
+              <p className="text-sm text-secondary mt-3 max-w-xl mx-auto">
+                <span className="inline-block bg-secondary/10 px-3 py-1 rounded-full">From yesterday and today, honoring tradition while shaping the future</span>
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+              {/* Person 1 */}
+              <div className="text-center">
+                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
+                  <Image
+                    src="/images/potosino-1.jpg"
+                    alt="María González"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="font-medium text-xl text-gray-900 mb-1">María González</h3>
+                <p className="text-primary font-medium text-sm mb-3">Chef & Cultural Ambassador</p>
+                <p className="text-gray-600 text-sm mb-4 px-2">
+                  Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
+                </p>
+                <a href="/community/maria-gonzalez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                  Read her story →
+                </a>
+              </div>
+              
+              {/* Person 2 */}
+              <div className="text-center">
+                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
+                  <Image
+                    src="/images/potosino-2.jpg"
+                    alt="Carlos Ramírez"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="font-medium text-xl text-gray-900 mb-1">Carlos Ramírez</h3>
+                <p className="text-primary font-medium text-sm mb-3">Artisan & Master Craftsman</p>
+                <p className="text-gray-600 text-sm mb-4 px-2">
+                  Continuing five generations of silversmithing traditions while incorporating contemporary designs that have gained international recognition.
+                </p>
+                <a href="/community/carlos-ramirez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                  Read his story →
+                </a>
+              </div>
+              
+              {/* Person 3 */}
+              <div className="text-center">
+                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
+                  <Image
+                    src="/images/potosino-3.jpg"
+                    alt="Alejandra Moreno"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="font-medium text-xl text-gray-900 mb-1">Alejandra Moreno</h3>
+                <p className="text-primary font-medium text-sm mb-3">Environmental Advocate</p>
+                <p className="text-gray-600 text-sm mb-4 px-2">
+                  Leading initiatives to preserve the natural beauty and resources of the region through community-based conservation projects.
+                </p>
+                <a href="/community/alejandra-moreno" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                  Read her story →
+                </a>
+              </div>
+              
+              {/* Person 4 */}
+              <div className="text-center">
+                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
+                  <Image
+                    src="/images/potosino-4.jpg"
+                    alt="Javier Luna"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="font-medium text-xl text-gray-900 mb-1">Javier Luna</h3>
+                <p className="text-primary font-medium text-sm mb-3">Musician & Cultural Educator</p>
+                <p className="text-gray-600 text-sm mb-4 px-2">
+                  Revitalizing traditional Huasteca music and sharing it with new generations through performances and educational programs.
+                </p>
+                <a href="/community/javier-luna" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                  Read his story →
+                </a>
               </div>
             </div>
           </div>
@@ -1309,6 +1355,80 @@ export default function Home({ places }: HomeProps) {
                     className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-6 py-3 rounded-md transition-colors"
                   >
                     {t('common.viewAll')}
+                  </a>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Unique Business Meeting Spots Section */}
+        {uniqueMeetingPlaces.length > 0 && (
+          <section className="py-20 px-4 bg-amber-50 border-t border-amber-100">
+            <div className="container mx-auto">
+              <div className="text-center mb-12">
+                <span className="text-amber-600 text-sm font-medium uppercase tracking-wider">
+                  {t('uniqueMeetings.subtitle')}
+                </span>
+                <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4">
+                  {t('uniqueMeetings.title')}
+                </h2>
+                <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+                  {t('uniqueMeetings.description')}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {uniqueMeetingPlaces.slice(0, 4).map((place) => (
+                  <div
+                    key={place.id}
+                    onClick={() => setSelectedPlace(place)}
+                    className="cursor-pointer bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all group"
+                  >
+                    <div className="flex flex-col md:flex-row h-full">
+                      <div className="relative h-48 md:h-auto md:w-2/5">
+                        {place.imageUrl ? (
+                          <Image
+                            src={place.imageUrl}
+                            alt={place.name}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200" />
+                        )}
+                      </div>
+                      <div className="p-6 md:w-3/5 flex flex-col justify-center">
+                        <div className="mb-2">
+                          <span className="inline-block text-xs px-2 py-1 bg-amber-100 text-amber-800 rounded-full font-medium">
+                            {place.category}
+                          </span>
+                        </div>
+                        <h3 className="font-serif text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">
+                          {place.name}
+                        </h3>
+                        <p className="text-gray-600 line-clamp-3 mb-4 text-sm">
+                          {place.description}
+                        </p>
+                        <div className="flex items-center text-xs text-gray-500">
+                          <svg className="w-4 h-4 mr-1 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          </svg>
+                          {place.address}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {uniqueMeetingPlaces.length > 4 && (
+                <div className="mt-10 text-center">
+                  <a 
+                    href="/category/unique-meetings" 
+                    className="inline-block bg-amber-600 hover:bg-amber-700 text-white font-medium px-6 py-3 rounded-md transition-colors"
+                  >
+                    {t('uniqueMeetings.viewAll')}
                   </a>
                 </div>
               )}
