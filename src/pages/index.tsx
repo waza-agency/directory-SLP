@@ -1531,15 +1531,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     // Default to English if locale is not provided
     const currentLocale = locale || 'en';
     
-    // Ensure translations are properly loaded
-    const translations = await serverSideTranslations(currentLocale, ['common']);
-    
-    // Log for debugging during build
-    console.log(`Successfully loaded translations for locale: ${currentLocale}`);
-    
     return {
       props: {
-        ...translations,
+        ...(await serverSideTranslations(currentLocale, ['common'])),
         places,
       },
       revalidate: 3600, // Revalidate every hour

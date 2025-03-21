@@ -36,3 +36,7 @@ yarn-error.log*
 credenciales.json
 *_test.json
 debug_output.json
+
+# netlify
+.netlify
+/.netlify/
