@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "netlify-build": "npm run postinstall && next build",
+    "netlify-build": "node scripts/netlify-build.js",
+    "export": "next export",
+    "build-static": "next build && next export",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "node scripts/ensure-translations.js"

@@ -1,9 +1,9 @@
 [build]
   command = "npm run netlify-build"
-  publish = ".next"
+  publish = "out"
 
 [build.environment]
-  NETLIFY_NEXT_PLUGIN_SKIP = "false"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
   NODE_VERSION = "18"
 
 [[plugins]]

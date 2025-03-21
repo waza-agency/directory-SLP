@@ -18,8 +18,8 @@ const nextConfig = {
     domains: [],
     unoptimized: true,
   },
-  // Fix for experimental.outputStandalone deprecation warning
-  output: 'standalone',
+  // Export as static site for Netlify
+  output: 'export',
 };
 
 module.exports = nextConfig; 
