@@ -352,6 +352,19 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
             }
           }
           
+          // Parse tags from column 12 (after hours)
+          if (row[12] && typeof row[12] === 'string') {
+            const tagsContent = cleanText(row[12]);
+            if (tagsContent) {
+              // Split by commas, semi-colons, or pipe characters and trim each tag
+              place.tags = tagsContent.split(/[,;|]/).map(tag => tag.trim().toLowerCase()).filter(tag => tag.length > 0);
+              // Log tags for debugging
+              if (place.tags.length > 0) {
+                console.log(`Tags for ${place.name}:`, place.tags);
+              }
+            }
+          }
+          
           // Featured status from detected column
           if (row.length > featuredColumnIndex) {
             const featuredValue = String(row[featuredColumnIndex] || '').toLowerCase().trim();
@@ -377,6 +390,110 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
         // Log featured places count
         const featuredCount = places.filter(p => p.featured).length;
         console.log(`Total places: ${places.length}, Featured places: ${featuredCount}`);
+        
+        // Add some test local brand shops if none exist
+        const localBrands = places.filter(place => place.category === 'shop' && place.tags?.includes('local'));
+        if (localBrands.length === 0) {
+          console.log('No local brands found, adding sample data for testing');
+          
+          // Sample local brand shops
+          const sampleBrands = [
+            {
+              id: 'brand-1',
+              name: 'Artesanías Potosinas',
+              category: 'shop',
+              address: 'Centro Histórico, San Luis Potosí',
+              description: 'Traditional handcrafted goods from local artisans.',
+              tags: ['local', 'artisan', 'handmade'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?q=80&w=2070'
+            },
+            {
+              id: 'brand-2',
+              name: 'Mezcal Potosino',
+              category: 'shop',
+              address: 'Av. Universidad 55, San Luis Potosí',
+              description: 'Local mezcal producer featuring traditional and innovative flavors.',
+              tags: ['local', 'mezcal', 'spirits'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070'
+            },
+            {
+              id: 'brand-3',
+              name: 'Dulces Típicos SLP',
+              category: 'shop',
+              address: 'Mercado Hidalgo, San Luis Potosí',
+              description: 'Traditional sweets and candies from the region.',
+              tags: ['local', 'food', 'sweets'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?q=80&w=2071'
+            },
+            {
+              id: 'brand-4',
+              name: 'Cerámica Potosina',
+              category: 'shop',
+              address: 'Calle 5 de Mayo 120, Centro',
+              description: 'Beautiful local ceramics and pottery.',
+              tags: ['local', 'ceramics', 'artisan'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1565193566173-7a0af771daa1?q=80&w=2065'
+            },
+            {
+              id: 'brand-5',
+              name: 'Textiles San Luis',
+              category: 'shop',
+              address: 'Plaza de Armas 15, Centro',
+              description: 'Traditional textiles and garments made by local craftspeople.',
+              tags: ['local', 'textiles', 'clothing'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2080'
+            },
+            {
+              id: 'brand-6',
+              name: 'Joyería Artesanal',
+              category: 'shop',
+              address: 'Calle Universidad 205',
+              description: 'Handcrafted jewelry inspired by local traditions and using local materials.',
+              tags: ['local', 'jewelry', 'artisan'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?q=80&w=2070'
+            },
+            {
+              id: 'brand-7',
+              name: 'Productos Orgánicos SLP',
+              category: 'shop',
+              address: 'Av. Carranza 308',
+              description: 'Local organic products, from honey to herbal remedies.',
+              tags: ['local', 'organic', 'food'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974'
+            },
+            {
+              id: 'brand-8',
+              name: 'Arte Popular Potosino',
+              category: 'shop',
+              address: 'Plaza de los Fundadores 12',
+              description: 'A gallery showcasing and selling works from local artists.',
+              tags: ['local', 'art', 'gallery'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2070'
+            },
+            {
+              id: 'brand-9',
+              name: 'Chocolate San Luis',
+              category: 'shop',
+              address: 'Calle Zaragoza 225',
+              description: 'Artisanal chocolate made with traditional techniques and local ingredients.',
+              tags: ['local', 'chocolate', 'food'],
+              featured: false,
+              imageUrl: 'https://images.unsplash.com/photo-1614077984293-be479501806f?q=80&w=2070'
+            }
+          ];
+          
+          // Add the sample brands to the places array
+          places.push(...sampleBrands);
+          console.log(`Added ${sampleBrands.length} sample local brands for testing`);
+        }
         
         return places;
       } else {

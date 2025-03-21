@@ -91,9 +91,9 @@
       "cta": "Book Through Us"
     },
     "card3": {
-      "title": "Exclusive Events",
-      "description": "Access invitation-only gatherings, private tours, and special experiences not available to the general public.",
-      "cta": "See Events"
+      "title": "Relocation Support",
+      "description": "Navigate bureaucratic processes, banking setup, and essential services to smoothly integrate into the Potosino lifestyle.",
+      "cta": "Get Support"
     }
   },
   
@@ -121,6 +121,38 @@
       "title": "Community Integration",
       "description": "Connect with fellow expatriates, join international groups, and participate in cultural exchange activities.",
       "cta": "Join Community"
+    },
+    "family": {
+      "title": "Family Support Services",
+      "description": "Babysitters, tutoring, international schooling assistance, and pediatric healthcare connections for expatriate families.",
+      "cta": "Get Family Support"
+    },
+    "petcare": {
+      "title": "Pet Care Services",
+      "description": "Dog walkers, pet sitters, veterinary recommendations, pet-friendly housing, and pet import/registration assistance.",
+      "cta": "Find Pet Services"
+    },
+    "wellness": {
+      "title": "Wellness & Mental Health",
+      "description": "Bilingual counseling, expat adjustment support groups, English-speaking medical specialists, and stress management resources.",
+      "cta": "Book Wellness Services"
+    },
+    "homeservices": {
+      "title": "Home Services Network",
+      "description": "Vetted electricians and plumbers, housekeeping, moving, furniture assembly, and interior design for transitional homes.",
+      "cta": "Find Home Services"
+    },
+    "contactCta": "Contact Us for Expat Services",
+    "feeDisclosure": "We charge a simple service fee to connect you with our trusted network of local professionals and service providers.",
+    "cultural": {
+      "title": "Cultural Immersion",
+      "description": "Experience the rich traditions, history and authentic culture of San Luis Potosí through guided immersion services like cooking classes with local chefs or social gatherings with both locals and fellow expats.",
+      "cta": "Join an Experience"
+    },
+    "experiences": {
+      "title": "Exclusive Experiences",
+      "description": "Access to invitation-only gatherings, private tours, and special experiences not available to the general public.",
+      "cta": "Book Exclusive Experience"
     }
   },
   
