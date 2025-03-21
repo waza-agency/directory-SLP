@@ -1,9 +1,7 @@
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
-  const { t } = useTranslation('common');
   const currentYear = new Date().getFullYear();
   
   return (
@@ -16,7 +14,7 @@ export default function Footer() {
               SLP <span className="text-primary">Descubre</span>
             </span>
             <p className="mt-4 text-gray-300 text-sm leading-relaxed">
-              {t('footer.description')}
+              Your personal connection in San Luis Potosí. We help expatriates navigate the city with curated recommendations and local insights.
             </p>
             <div className="mt-6 flex space-x-4">
               <a href="https://facebook.com" className="text-gray-400 hover:text-white transition-colors">
@@ -44,26 +42,26 @@ export default function Footer() {
           
           {/* Navigation Links */}
           <div className="col-span-1">
-            <h4 className="font-medium text-white text-lg mb-4">{t('footer.navigation')}</h4>
+            <h4 className="font-medium text-white text-lg mb-4">Navigation</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                  {t('home')}
+                  Home
                 </Link>
               </li>
               <li>
                 <Link href="/places" className="text-gray-300 hover:text-white transition-colors">
-                  {t('explore')}
+                  Explore
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                  {t('about')}
+                  About
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
-                  {t('contact')}
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -71,31 +69,31 @@ export default function Footer() {
           
           {/* Categories */}
           <div className="col-span-1">
-            <h4 className="font-medium text-white text-lg mb-4">{t('footer.categories')}</h4>
+            <h4 className="font-medium text-white text-lg mb-4">Categories</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/?category=restaurant" className="text-gray-300 hover:text-white transition-colors">
-                  {t('categories.restaurant')}
+                  Restaurant
                 </Link>
               </li>
               <li>
                 <Link href="/?category=cafe" className="text-gray-300 hover:text-white transition-colors">
-                  {t('categories.cafe')}
+                  Café
                 </Link>
               </li>
               <li>
                 <Link href="/?category=museum" className="text-gray-300 hover:text-white transition-colors">
-                  {t('categories.museum')}
+                  Museum
                 </Link>
               </li>
               <li>
                 <Link href="/?category=hotel" className="text-gray-300 hover:text-white transition-colors">
-                  {t('categories.hotel')}
+                  Hotel
                 </Link>
               </li>
               <li>
                 <Link href="/?category=shop" className="text-gray-300 hover:text-white transition-colors">
-                  {t('categories.shop')}
+                  Shop
                 </Link>
               </li>
             </ul>
@@ -103,19 +101,19 @@ export default function Footer() {
           
           {/* Newsletter */}
           <div className="col-span-1">
-            <h4 className="font-medium text-white text-lg mb-4">{t('footer.newsletter')}</h4>
-            <p className="text-gray-300 text-sm mb-4">{t('footer.newsletterDescription')}</p>
+            <h4 className="font-medium text-white text-lg mb-4">Newsletter</h4>
+            <p className="text-gray-300 text-sm mb-4">Subscribe to our newsletter to receive updates and exclusive content.</p>
             <form className="flex flex-col space-y-2">
               <input
                 type="email"
-                placeholder={t('footer.emailPlaceholder')}
+                placeholder="Enter your email address"
                 className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button 
                 type="submit"
                 className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary-dark transition-colors"
               >
-                {t('footer.subscribe')}
+                Subscribe
               </button>
             </form>
           </div>
@@ -123,18 +121,18 @@ export default function Footer() {
         
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400">
-            &copy; {currentYear} {t('footer.copyright')}
+            &copy; {currentYear} SLP Descubre - All rights reserved
           </p>
           
           <div className="mt-4 md:mt-0 flex space-x-6">
             <Link href="/privacy" className="text-sm text-gray-400 hover:text-white transition-colors">
-              {t('footer.privacy')}
+              Privacy Policy
             </Link>
             <Link href="/terms" className="text-sm text-gray-400 hover:text-white transition-colors">
-              {t('footer.terms')}
+              Terms of Service
             </Link>
             <Link href="/cookies" className="text-sm text-gray-400 hover:text-white transition-colors">
-              {t('footer.cookies')}
+              Cookie Policy
             </Link>
           </div>
         </div>

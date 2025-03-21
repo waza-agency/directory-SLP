@@ -15,6 +15,9 @@ package = "."
   [plugins.inputs]
   disable_nextjs_plugin = true
 
+# Temporarily removing all redirects and language-specific configurations
+# Will re-add these when we implement i18n
+
 # Language-specific redirects for root
 [[redirects]]
   from = "/"

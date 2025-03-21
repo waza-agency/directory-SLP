@@ -20,6 +20,11 @@ export interface Place {
   };
   rating?: number;
   priceLevel?: number;
+  reviews?: {
+    author: string;
+    rating: number;
+    text: string;
+  }[];
 }
 
 export type PlaceCategory = 

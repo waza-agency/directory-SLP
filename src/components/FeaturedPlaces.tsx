@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { Place } from '@/types';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
@@ -11,7 +10,6 @@ interface FeaturedPlacesProps {
 }
 
 export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlacesProps) {
-  const { t } = useTranslation('common');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -27,9 +25,9 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
-        <h3 className="text-xl font-medium text-gray-700 mb-2">{t('featuredPlaces.noPlaces')}</h3>
+        <h3 className="text-xl font-medium text-gray-700 mb-2">No featured places have been added yet.</h3>
         <p className="text-md text-gray-500 max-w-md mx-auto">
-          {t('featuredPlaces.checkFeatured')}
+          Check that you have marked businesses as featured in your data source.
         </p>
       </div>
     );
@@ -69,10 +67,10 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
         <div className={`flex flex-col md:flex-row justify-between items-center mb-12 ${isVisible ? 'animate-fadeInUp' : ''}`}>
           <div>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              {t('featuredPlaces.title')}
+              Featured Destinations
             </h2>
             <p className="text-gray-600 max-w-2xl">
-              {t('featuredPlaces.description')}
+              Explore these handpicked gems that showcase the best of San Luis Potosí's culture, cuisine, and hospitality.
             </p>
           </div>
           
@@ -81,7 +79,7 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
               <button 
                 onClick={prevSlide}
                 disabled={isAnimating}
-                aria-label={t('common.previous')}
+                aria-label="Previous"
                 className="w-10 h-10 rounded-full flex items-center justify-center bg-white border border-gray-200 text-gray-600 hover-scale hover:border-primary hover:text-primary transition-all duration-300"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,7 +89,7 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
               <button 
                 onClick={nextSlide}
                 disabled={isAnimating}
-                aria-label={t('common.next')}
+                aria-label="Next"
                 className="w-10 h-10 rounded-full flex items-center justify-center bg-white border border-gray-200 text-gray-600 hover-scale hover:border-primary hover:text-primary transition-all duration-300"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -144,7 +142,7 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
                     setCurrentIndex(index);
                     setTimeout(() => setIsAnimating(false), 500);
                   }}
-                  aria-label={`${t('common.goToSlide')} ${index + 1}`}
+                  aria-label={`Go to slide ${index + 1}`}
                   className={`w-3 h-3 mx-1 rounded-full transition-all duration-300 hover:bg-primary ${
                     currentIndex === index ? 'bg-primary scale-125' : 'bg-gray-300'
                   }`}

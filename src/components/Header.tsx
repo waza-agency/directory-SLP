@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 
 export default function Header() {
   const router = useRouter();
-  const { t } = useTranslation('common');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   
@@ -34,28 +32,28 @@ export default function Header() {
             href="/"
             className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
           >
-            {t('home')}
+            Home
           </Link>
           
           <Link 
             href="/places"
             className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
           >
-            {t('explore')}
+            Explore
           </Link>
           
           <Link 
             href="/about"
             className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
           >
-            {t('about')}
+            About
           </Link>
           
           <Link 
             href="/contact"
             className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
           >
-            {t('contact')}
+            Contact
           </Link>
           
           {/* Desktop Language Dropdown */}
@@ -118,7 +116,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('home')}
+              Home
             </Link>
             
             <Link 
@@ -126,7 +124,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('explore')}
+              Explore
             </Link>
             
             <Link 
@@ -134,7 +132,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('about')}
+              About
             </Link>
             
             <Link 
@@ -142,11 +140,11 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('contact')}
+              Contact
             </Link>
             
             <div className="pt-2 border-t border-gray-100">
-              <p className="text-xs text-gray-500 mb-2">{t('language')}</p>
+              <p className="text-xs text-gray-500 mb-2">Language</p>
               <div className="grid grid-cols-2 gap-2">
                 {Object.entries(languages).map(([code, name]) => (
                   <button

@@ -1,9 +1,7 @@
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function HeroBanner() {
-  const { t } = useTranslation('common');
   const [isVisible, setIsVisible] = useState(false);
   const [bgLoaded, setBgLoaded] = useState(false);
 
@@ -40,19 +38,19 @@ export default function HeroBanner() {
           <div>
             <h1 className={`font-serif text-5xl md:text-7xl text-white mb-6 leading-tight transition-all duration-1000 
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              {t('hero.title', 'Descubre la Esencia de San Luis Potosí')}
+              We Know Everyone You Need to Know
             </h1>
             <p className={`text-xl md:text-2xl text-white/90 mb-10 leading-relaxed transition-all duration-1000 delay-300
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              {t('hero.subtitle', 'Explorando la ciudad colonial y todos sus tesoros gastronómicos, culturales e históricos')}
+              Your Insider Guide to San Luis Potosí
             </p>
             <div className={`flex flex-col sm:flex-row justify-center gap-4 transition-all duration-1000 delay-500
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <Link href="/places" className="btn-primary shadow-lg hover-glow transition-all duration-300">
-                {t('hero.explorePlaces', 'Descubrir Lugares')}
+                Discover Places
               </Link>
               <Link href="/#categories" className="btn-outline border-2 border-white text-white hover:bg-white/10 hover-scale transition-all duration-300">
-                {t('hero.viewCategories', 'Explorar Categorías')}
+                Browse Categories
               </Link>
             </div>
             <div className={`mt-12 flex justify-center transition-all duration-1000 delay-700
