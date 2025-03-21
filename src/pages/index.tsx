@@ -1525,16 +1525,35 @@ export default function Home({ places }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const places = await fetchPlacesFromSheet();
-  
-  // Default to English if locale is not provided
-  const currentLocale = locale || 'en';
-  
-  return {
-    props: {
-      ...(await serverSideTranslations(currentLocale, ['common'])),
-      places,
-    },
-    revalidate: 3600, // Revalidate every hour
-  };
+  try {
+    const places = await fetchPlacesFromSheet();
+    
+    // Default to English if locale is not provided
+    const currentLocale = locale || 'en';
+    
+    // Ensure translations are properly loaded
+    const translations = await serverSideTranslations(currentLocale, ['common']);
+    
+    // Log for debugging during build
+    console.log(`Successfully loaded translations for locale: ${currentLocale}`);
+    
+    return {
+      props: {
+        ...translations,
+        places,
+      },
+      revalidate: 3600, // Revalidate every hour
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    
+    // Return default props even if there's an error
+    return {
+      props: {
+        ...(await serverSideTranslations(locale || 'en', ['common'])),
+        places: [],
+      },
+      revalidate: 600, // Retry sooner if there was an error
+    };
+  }
 }; 

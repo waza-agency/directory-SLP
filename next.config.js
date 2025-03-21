@@ -19,7 +19,16 @@ const nextConfig = {
     unoptimized: true,
   },
   // Fix for experimental.outputStandalone deprecation warning
-  output: 'standalone'
+  output: 'standalone',
+
+  // Ensure localization works correctly in production
+  trailingSlash: false,
+  
+  // Configure static generation
+  env: {
+    // Add any additional environment variables needed at build time
+    NODE_ENV: process.env.NODE_ENV,
+  }
 };
 
 module.exports = nextConfig; 
