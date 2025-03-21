@@ -2,7 +2,7 @@ module.exports = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es', 'de', 'ja'],
-    localeDetection: true,
+    localeDetection: false,
   },
   debug: process.env.NODE_ENV === 'development',
   ns: ['common'],

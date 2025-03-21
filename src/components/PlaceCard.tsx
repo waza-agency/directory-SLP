@@ -7,9 +7,10 @@ interface PlaceCardProps {
   place: Place;
   featured?: boolean;
   onClick?: () => void;
+  isSelected?: boolean;
 }
 
-export default function PlaceCard({ place, featured, onClick }: PlaceCardProps) {
+export default function PlaceCard({ place, featured, onClick, isSelected }: PlaceCardProps) {
   const { t } = useTranslation('common');
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -123,7 +124,7 @@ export default function PlaceCard({ place, featured, onClick }: PlaceCardProps) 
   
   return (
     <div 
-      className={`bg-white rounded-xl overflow-hidden shadow-elegant hover-lift transition-all duration-300 cursor-pointer ${featured ? 'featured-card border-t-4 border-primary' : ''}`} 
+      className={`bg-white rounded-xl overflow-hidden shadow-elegant hover-lift transition-all duration-300 cursor-pointer ${featured ? 'featured-card border-t-4 border-primary' : ''} ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}`} 
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
