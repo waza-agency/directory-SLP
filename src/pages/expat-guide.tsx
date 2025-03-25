@@ -9,6 +9,21 @@ export default function ExpatGuidePage() {
   const { t } = useTranslation('common');
   const [activeSection, setActiveSection] = useState('emergency');
 
+  const scrollToSection = (sectionId: string) => {
+    setActiveSection(sectionId);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100; // Adjust this value based on your header height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const sections = [
     { id: 'emergency', name: 'Emergency Contacts' },
     { id: 'healthcare', name: 'Healthcare' },
@@ -160,7 +175,7 @@ export default function ExpatGuidePage() {
               {sections.map((section) => (
                 <button
                   key={section.id}
-                  onClick={() => setActiveSection(section.id)}
+                  onClick={() => scrollToSection(section.id)}
                   className={`px-6 py-2 rounded-full whitespace-nowrap transition-colors ${
                     activeSection === section.id
                       ? 'bg-secondary text-white'
