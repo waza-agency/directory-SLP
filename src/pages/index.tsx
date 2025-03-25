@@ -9,6 +9,8 @@ import PlaceModal from '@/components/PlaceModal';
 import { useState } from 'react';
 import Image from 'next/image';
 import { CalendarIcon } from '@heroicons/react/24/outline';
+import { getImageUrl } from '@/utils/image';
+import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 
 interface HomeProps {
   places: Place[];
@@ -49,6 +51,14 @@ const upcomingEvents = [
     image: '/images/calendar/music.jpg'
   },
   {
+    id: 'kids-carnival',
+    title: 'Summer Kids Carnival',
+    date: 'June 8-9',
+    category: 'kids-family',
+    location: 'Parque Tangamanga I',
+    image: '/images/calendar/kids-family.jpg'
+  },
+  {
     id: 'sports-tournament',
     title: 'Regional Sports Tournament',
     date: 'May 15',
@@ -86,51 +96,58 @@ const eventCategories = [
   {
     id: 'arts-culture',
     title: 'Arts & Culture',
-    image: '/images/calendar/arts-culture.jpg',
+    image: '/images/event-categories/arts-culture.jpg',
     description: 'Exhibitions, galleries, and cultural performances throughout the city.',
-    color: 'bg-pink-500'
+    color: 'pink-500'
   },
   {
     id: 'culinary',
     title: 'Culinary',
-    image: '/images/calendar/culinary.jpg',
+    image: '/images/event-categories/culinary.jpeg',
     description: 'Food festivals, cooking classes, and gastronomic experiences.',
-    color: 'bg-orange-500'
+    color: 'orange-500'
   },
   {
     id: 'music',
     title: 'Music',
-    image: '/images/calendar/music.jpg',
+    image: '/images/event-categories/music.webp',
     description: 'Concerts, live performances, and musical festivals.',
-    color: 'bg-purple-500'
+    color: 'purple-500'
+  },
+  {
+    id: 'kids-family',
+    title: 'Kids & Family',
+    image: '/images/event-categories/kids-family.jpeg',
+    description: 'Interactive workshops, shows, and activities designed for children and families.',
+    color: 'cyan-500'
   },
   {
     id: 'sports',
     title: 'Sports',
-    image: '/images/calendar/sports.jpg',
+    image: '/images/event-categories/sports.jpg',
     description: 'Sporting events, tournaments, and recreational activities.',
-    color: 'bg-blue-500'
+    color: 'blue-500'
   },
   {
     id: 'traditional',
     title: 'Traditional',
-    image: '/images/calendar/traditional.jpg',
+    image: '/images/event-categories/traditional.jpg',
     description: 'Cultural celebrations and traditional festivities.',
-    color: 'bg-red-500'
+    color: 'red-500'
   },
   {
     id: 'wellness',
     title: 'Wellness',
-    image: '/images/calendar/wellness.jpg',
+    image: '/images/event-categories/wellness.webp',
     description: 'Yoga classes, wellness workshops, and health-focused events.',
-    color: 'bg-green-500'
+    color: 'green-500'
   },
   {
     id: 'community-social',
     title: 'Community & Social',
-    image: '/images/calendar/community-social.jpg',
+    image: '/images/event-categories/community-social.jpg',
     description: 'Meetups, social gatherings, and community activities.',
-    color: 'bg-yellow-500'
+    color: 'yellow-500'
   }
 ];
 
@@ -179,6 +196,20 @@ export default function Home({ places = [] }: HomeProps) {
   // Function to get upcoming events for a category
   const getUpcomingEventsForCategory = (categoryId: string) => {
     return upcomingEvents.filter(event => event.category === categoryId).slice(0, 2);
+  };
+
+  const getGradientClass = (color: string) => {
+    const gradientMap: { [key: string]: string } = {
+      'pink-500': 'from-pink-500',
+      'orange-500': 'from-orange-500',
+      'purple-500': 'from-purple-500',
+      'cyan-500': 'from-cyan-500',
+      'blue-500': 'from-blue-500',
+      'red-500': 'from-red-500',
+      'green-500': 'from-green-500',
+      'yellow-500': 'from-yellow-500'
+    };
+    return gradientMap[color] || 'from-primary';
   };
 
   return (
@@ -478,6 +509,409 @@ export default function Home({ places = [] }: HomeProps) {
           </div>
         </section>
 
+        {/* Practical Categories for Expats & Families - NEW */}
+        <section className="py-20 px-4 bg-white border-t border-gray-100">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-primary text-sm font-medium uppercase tracking-wider">
+                CURATED FOR REAL NEEDS
+              </span>
+              <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4">
+                Local Gems By Practical Categories
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover places in San Luis Potosí that meet your specific needs as a newcomer, family, or expat - details you won't easily find elsewhere.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Practical Category 1 - Restaurants with Playgrounds */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/restaurants-with-playgrounds.png"
+                    alt="Restaurants with Playgrounds"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Restaurants with Playgrounds</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Enjoy a relaxed meal while your children play in dedicated, safe areas perfect for family outings.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>17 locations</span>
+                    </div>
+                    <a href="/category/restaurants-with-playgrounds" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 2 - Private Dining Rooms */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/private-dining-rooms.jpg"
+                    alt="Private Dining Rooms"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Private Dining Rooms</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Ideal venues for business meetings, private celebrations, or quiet dining away from the crowd.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>14 locations</span>
+                    </div>
+                    <a href="/category/private-dining-rooms" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 3 - Language Exchange Cafes */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/language-exchange-cafes.jpg"
+                    alt="Language Exchange Cafes"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Language Exchange Cafes</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Cafes and venues where you can practice Spanish with locals and meet other expats in a relaxed environment.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>8 locations</span>
+                    </div>
+                    <a href="/category/language-exchange-cafes" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 4 - Remote Work Cafes */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/remote-work-cafes.avif"
+                    alt="Remote Work Cafes"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Remote Work Cafes</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Offices with reliable Wi-Fi, ample power outlets, and a work-friendly atmosphere for digital nomads and remote workers.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>19 locations</span>
+                    </div>
+                    <a href="/category/remote-work-cafes" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 5 - Easy Parking Spots */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/easy-parking-spots.png"
+                    alt="Easy Parking Spots"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Easy Parking Spots</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Find parking spots easily in San Luis Potosí with these convenient locations.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>16 locations</span>
+                    </div>
+                    <a href="/category/easy-parking-spots" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 6 - International Markets */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/international-markets.jpg"
+                    alt="International Markets"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">International Markets</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Find imported goods and international products from your home country at these specialty markets and stores.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>7 locations</span>
+                    </div>
+                    <a href="/category/international-markets" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 7 - English-Speaking Healthcare */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/english-speaking-healthcare.jpg"
+                    alt="English-Speaking Healthcare"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">English-Speaking Healthcare</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Medical facilities, clinics, and pharmacies with English-speaking staff and international insurance acceptance.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>5 locations</span>
+                    </div>
+                    <a href="/category/english-speaking-healthcare" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 8 - Family Activities */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/family-activities.webp"
+                    alt="Family Activities"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Family Activities</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Kid-friendly venues, entertainment centers, and educational activities perfect for families with children.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>14 locations</span>
+                    </div>
+                    <a href="/category/family-activities" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 9 - Sports & Fitness */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/sports-fitness.webp"
+                    alt="Sports & Fitness"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Sports & Fitness</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Gyms, sports clubs, and fitness centers with international standards and English-speaking trainers.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>11 locations</span>
+                    </div>
+                    <a href="/category/sports-fitness" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 10 - Outdoors */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/outdoors.jpeg"
+                    alt="Outdoors"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Outdoors</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Parks, hiking trails, outdoor activities, and nature spots perfect for exploring San Luis Potosí's natural beauty.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>8 locations</span>
+                    </div>
+                    <a href="/category/outdoors" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 11 - Activities for a Rainy Day */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/activities-rainy-day.jpg"
+                    alt="Activities for a Rainy Day"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Activities for a Rainy Day</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Indoor entertainment options including museums, escape rooms, bowling alleys, and indoor play centers for all ages.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>12 locations</span>
+                    </div>
+                    <a href="/category/activities-rainy-day" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Practical Category 12 - Local and Organic Products */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48">
+                  <ResponsiveImage
+                    src="/images/practical-categories/local-organic-products.jpeg"
+                    alt="Local and Organic Products"
+                    height="192px"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Local and Organic Products</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Farmers markets, organic stores, and local producers offering fresh, sustainable, and locally sourced products.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                      <span>10 locations</span>
+                    </div>
+                    <a href="/category/local-organic-products" className="text-primary font-medium text-sm hover:underline">
+                      View all →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Potosino Brands Section */}
         <section className="py-24 px-4 bg-white">
           <div className="container mx-auto">
@@ -640,207 +1074,117 @@ export default function Home({ places = [] }: HomeProps) {
           </div>
         </section>
 
-        {/* Events Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-4">Upcoming Events</h2>
-            <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Discover the vibrant cultural scene of San Luis Potosí with our curated calendar of events and local experiences.
-            </p>
-
-            {/* Event Categories */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <button className="bg-primary text-white px-6 py-2 rounded-full">All Events</button>
-              <button className="bg-white text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100">Arts & Culture</button>
-              <button className="bg-white text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100">Culinary</button>
-              <button className="bg-white text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100">Music</button>
-              <button className="bg-white text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100">Sports</button>
-              <button className="bg-white text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100">Traditional</button>
-            </div>
-
-            {/* Event Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Art Exhibition Event */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/events/upcoming/art-exhibition-potosi.jpg"
-                    alt="Contemporary Art Exhibition: Potosí Reimagined"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute top-4 left-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Arts & Culture
-                  </div>
-                  <div className="absolute top-4 right-4 bg-white text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
-                    Apr 15-20
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-bold mb-2">Contemporary Art Exhibition: "Potosí Reimagined"</h3>
-                  <p className="text-gray-600 text-sm mb-4">A showcase of local artists reimagining the cultural heritage of San Luis Potosí through modern artistic expression.</p>
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Centro de las Artes
-                  </div>
-                </div>
-              </div>
-
-              {/* Gastronomy Festival Event */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/events/upcoming/gastronomy-festival.jpg"
-                    alt="Potosino Gastronomy Festival"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Culinary
-                  </div>
-                  <div className="absolute top-4 right-4 bg-white text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
-                    May 5-7
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-bold mb-2">Potosino Gastronomy Festival</h3>
-                  <p className="text-gray-600 text-sm mb-4">Experience the rich culinary traditions of San Luis Potosí with tastings, cooking demonstrations, and food markets.</p>
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Plaza de Armas
-                  </div>
-                </div>
-              </div>
-
-              {/* Symphony Event */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/events/upcoming/symphony-stars.jpg"
-                    alt="Symphony Under the Stars"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Music
-                  </div>
-                  <div className="absolute top-4 right-4 bg-white text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
-                    June 10
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-bold mb-2">Symphony Under the Stars</h3>
-                  <p className="text-gray-600 text-sm mb-4">An enchanting evening of classical music performed by the San Luis Potosí Symphony Orchestra in the open air.</p>
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Calzada de Guadalupe
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Event Categories Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-4">Event Categories</h2>
-            <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Explore events by category and discover the diverse experiences San Luis Potosí has to offer.
-            </p>
+        <section className="py-20 px-4 bg-gray-50">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-primary text-sm font-medium uppercase tracking-wider">
+                DISCOVER WHAT'S HAPPENING
+              </span>
+              <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4">
+                Event Categories
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Explore different types of events and activities happening in San Luis Potosí.
+              </p>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {eventCategories.map((category) => {
-                const categoryEvents = getUpcomingEventsForCategory(category.id);
-                return (
-                  <div 
-                    key={category.id}
-                    className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
-                  >
-                    <div className="relative h-48">
-                      <Image
-                        src={category.image}
-                        alt={category.title}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className={`absolute top-4 left-4 ${category.color} text-white px-3 py-1 rounded-full text-sm font-medium`}>
-                        {category.title}
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2">{category.title}</h3>
-                      <p className="text-gray-600 mb-4">{category.description}</p>
-                      
-                      {/* Latest Events Preview */}
-                      <div className="space-y-3 mb-4">
-                        <div className="flex items-center text-sm text-gray-500">
-                          <CalendarIcon className="w-4 h-4 mr-2" />
-                          <span>Upcoming Events</span>
-                        </div>
-                        {categoryEvents.length > 0 ? (
-                          <div className="space-y-2">
-                            {categoryEvents.map((event) => (
-                              <div key={event.id} className="text-sm">
-                                <div className="font-medium text-gray-900">{event.title}</div>
-                                <div className="flex items-center justify-between text-gray-500 mt-1">
-                                  <span>{event.date}</span>
-                                  <span>{event.location}</span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="text-sm text-gray-600">
-                            No upcoming events in this category
-                          </div>
-                        )}
-                      </div>
-                      
-                      <button 
-                        className="w-full bg-gray-900 text-white py-2 rounded-md hover:bg-gray-800 transition-colors duration-200"
-                        onClick={() => {/* Add navigation to category page */}}
-                      >
-                        View All Events
-                      </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {eventCategories.map((category) => (
+                <div 
+                  key={category.id}
+                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
+                >
+                  <div className="relative h-48">
+                    <ResponsiveImage
+                      src={category.image}
+                      alt={category.title}
+                      height="192px"
+                      objectFit="cover"
+                      className="w-full h-full"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${getGradientClass(category.color)} to-transparent opacity-60`} />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="text-white font-medium text-xl">{category.title}</h3>
                     </div>
                   </div>
-                );
-              })}
+                  <div className="p-5">
+                    <p className="text-gray-600 text-sm mb-4">
+                      {category.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center text-xs text-gray-500">
+                        <CalendarIcon className="w-4 h-4 mr-1" />
+                        <span>{getUpcomingEventsForCategory(category.id).length} upcoming</span>
+                      </div>
+                      <a href={`/events/${category.id}`} className="text-primary font-medium text-sm hover:underline">
+                        View events →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Featured Potosinos Section - NEW */}
+        {/* Upcoming Events Section */}
+        <section className="py-20 px-4 bg-white">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-primary text-sm font-medium uppercase tracking-wider">
+                MARK YOUR CALENDAR
+              </span>
+              <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4">
+                Upcoming Events
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Don't miss out on these exciting events happening in San Luis Potosí.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {upcomingEvents.map((event) => (
+                <div 
+                  key={event.id}
+                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
+                >
+                  <div className="relative h-48">
+                    <ResponsiveImage
+                      src={`/images/calendar/${event.id}.jpg`}
+                      alt={event.title}
+                      height="192px"
+                      objectFit="cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <span className={`inline-block px-2 py-1 rounded-full text-xs text-white bg-${eventCategories.find(cat => cat.id === event.category)?.color || 'primary'} mb-2`}>
+                        {eventCategories.find(cat => cat.id === event.category)?.title}
+                      </span>
+                      <h3 className="text-white font-medium text-lg leading-tight">{event.title}</h3>
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <CalendarIcon className="w-4 h-4 mr-2" />
+                        <span>{event.date}</span>
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        <span>{event.location}</span>
+                      </div>
+                    </div>
+                    <a href={`/events/${event.id}`} className="text-primary font-medium text-sm hover:underline">
+                      Learn more →
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Potosinos Section */}
         <section className="py-24 px-4 bg-white border-t border-gray-100">
           <div className="container mx-auto">
             <div className="text-center mb-16">
@@ -863,13 +1207,14 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
                   <Image
-                    src="/images/potosinos/potosino-1.jpg"
+                    src="/images/potosinos/maria-gonzalez.jpeg"
                     alt="María González"
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      target.src = '/images/potosinos/placeholder.jpg';
                     }}
                   />
                 </div>
@@ -887,13 +1232,14 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
                   <Image
-                    src="/images/potosinos/potosino-2.jpg"
+                    src="/images/potosinos/carlos-ramirez.jpeg"
                     alt="Carlos Ramírez"
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      target.src = '/images/potosinos/placeholder.jpg';
                     }}
                   />
                 </div>
@@ -911,13 +1257,14 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
                   <Image
-                    src="/images/potosinos/potosino-3.jpg"
+                    src="/images/potosinos/alejandra-vega.jpeg"
                     alt="Alejandra Vega"
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      target.src = '/images/potosinos/placeholder.jpg';
                     }}
                   />
                 </div>
@@ -935,13 +1282,14 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
                   <Image
-                    src="/images/potosinos/potosino-4.jpg"
+                    src="/images/potosinos/miguel-ortiz.jpeg"
                     alt="Miguel Ortiz"
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      target.src = '/images/potosinos/placeholder.jpg';
                     }}
                   />
                 </div>
@@ -1091,452 +1439,6 @@ export default function Home({ places = [] }: HomeProps) {
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent py-4 px-4">
                       <span className="text-white text-sm font-medium">{t('cultural.imageCaption3')}</span>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Practical Categories for Expats & Families - NEW */}
-        <section className="py-20 px-4 bg-white border-t border-gray-100">
-          <div className="container mx-auto">
-            <div className="text-center mb-12">
-              <span className="text-primary text-sm font-medium uppercase tracking-wider">
-                CURATED FOR REAL NEEDS
-              </span>
-              <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4">
-                Local Gems By Practical Categories
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Discover places in San Luis Potosí that meet your specific needs as a newcomer, family, or expat - details you won't easily find elsewhere.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Practical Category 1 */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-kids.jpg"
-                    alt="Family-Friendly Restaurants"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Restaurants with Playgrounds</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Enjoy a relaxed meal while your children play in dedicated, safe areas. Perfect for family outings.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>8 locations</span>
-                    </div>
-                    <a href="/category/restaurants-with-playgrounds" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Practical Category 2 */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-meetings.jpg"
-                    alt="Business Venues"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Restaurants with Private Rooms</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Ideal venues for business meetings, private celebrations, or quiet dining experiences away from the crowd.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>12 locations</span>
-                    </div>
-                    <a href="/category/private-dining-rooms" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Practical Category 3 */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-spanish.jpg"
-                    alt="Language Practice Spots"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Language Exchange Spots</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Cafés and venues where you can practice Spanish with locals and meet other expats in a relaxed environment.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>5 locations</span>
-                    </div>
-                    <a href="/category/language-exchange-cafes" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Practical Category 4 */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-wifi.jpg"
-                    alt="Remote Work Spots"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Best Remote Work Spots</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Offices with reliable Wi-Fi, ample power outlets, and a work-friendly atmosphere for digital nomads and remote workers.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>15 locations</span>
-                    </div>
-                    <a href="/category/remote-work-cafes" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Practical Category 5 */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-parking.jpg"
-                    alt="Easy Parking Venues"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Easy Parking Venues</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Find parking spots easily in San Luis Potosí with these convenient locations.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>10 locations</span>
-                    </div>
-                    <a href="/category/easy-parking" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 6 - International Markets */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-markets.jpg"
-                    alt="International Markets"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">International Markets</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Find imported goods and international products from your home country at these specialty markets and stores.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>7 locations</span>
-                    </div>
-                    <a href="/category/international-markets" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 7 - Healthcare Services */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-healthcare.jpg"
-                    alt="Healthcare Services"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">English-Speaking Healthcare</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Medical facilities, clinics, and pharmacies with English-speaking staff and international insurance acceptance.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>9 locations</span>
-                    </div>
-                    <a href="/category/english-healthcare" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 8 - Family Activities */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-family.jpg"
-                    alt="Family Activities"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Family Activities</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Kid-friendly venues, entertainment centers, and educational activities perfect for families with children.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>14 locations</span>
-                    </div>
-                    <a href="/category/family-activities" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 9 - Sports & Fitness */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-sports.jpg"
-                    alt="Sports & Fitness"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Sports & Fitness</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Gyms, sports clubs, and recreational facilities with English-speaking trainers and international atmosphere.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>11 locations</span>
-                    </div>
-                    <a href="/category/sports-fitness" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 10 - Outdoor Activities */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-outdoor.jpeg"
-                    alt="Outdoor Activities"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpeg', '.jpg').replace('.jpg', '.png');
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Outdoor Adventures</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    From hiking trails and rock climbing spots to scenic picnic locations and mountain biking routes - discover the best outdoor activities in and around SLP.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>16 locations</span>
-                    </div>
-                    <a href="/category/outdoor-activities" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 11 - Rainy Day Activities */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-rainy.jpg"
-                    alt="Rainy Day Activities"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Rainy Day Escapes</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Indoor entertainment venues, museums, art galleries, and cozy cafés perfect for those unexpected rainy days in San Luis Potosí.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>13 locations</span>
-                    </div>
-                    <a href="/category/rainy-day-activities" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Practical Category 12 - Local and Organic Product Shops */}
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
-                <div className="relative h-44">
-                  <Image
-                    src="/images/practical/practical-organic.jpg"
-                    alt="Local and Organic Products"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-medium text-xl">Local & Organic Shops</h3>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="text-gray-600 text-sm mb-4">
-                    Discover shops offering fresh local produce, organic products, and sustainable goods. Perfect for health-conscious shoppers and eco-friendly living.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                      <span>10 locations</span>
-                    </div>
-                    <a href="/category/local-organic-shops" className="text-primary font-medium text-sm hover:underline">
-                      View all →
-                    </a>
                   </div>
                 </div>
               </div>
