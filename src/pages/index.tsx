@@ -1207,7 +1207,7 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
                   <Image
-                    src="/images/potosinos/maria-gonzalez.jpeg"
+                    src="/images/potosinos/maria-gonzalez.jpg"
                     alt="María González"
                     fill
                     className="object-cover"
@@ -1466,16 +1466,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/dining/traditional.jpg"
+                    src="/images/restaurants-and-bars/traditional-restaurants.jpg"
                     alt="Traditional Restaurants"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1511,16 +1515,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/dining/modern.jpg"
+                    src="/images/restaurants-and-bars/modern-restaurants.jpg"
                     alt="Modern Restaurants"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1556,16 +1564,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/dining/cocktails.jpg"
+                    src="/images/restaurants-and-bars/cocktail-bars.jpg"
                     alt="Cocktail Bars"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1601,16 +1613,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/dining/terraces.jpg"
+                    src="/images/restaurants-and-bars/terraces.jpg"
                     alt="Terraces"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1646,16 +1662,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/dining/cantinas.jpg"
+                    src="/images/restaurants-and-bars/cantinas.jpg"
                     alt="Cantinas"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1691,16 +1711,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/dining/live-music.jpg"
+                    src="/images/restaurants-and-bars/live-music.jpg"
                     alt="Live Music Venues"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1767,16 +1791,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/meeting-spots/presa.jpg"
+                    src="/images/meeting-spots/presa-san-jose.jpg"
                     alt="Presa San José"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1813,12 +1841,16 @@ export default function Home({ places = [] }: HomeProps) {
                     alt="Japanese Garden"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -1851,16 +1883,20 @@ export default function Home({ places = [] }: HomeProps) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/meeting-spots/zoo.jpg"
+                    src="/images/meeting-spots/tangamanga-zoo.jpg"
                     alt="Tangamanga Park Zoo"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
-                    quality={90}
+                    quality={75}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = target.src.replace('.jpg', '.png');
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
