@@ -24,7 +24,7 @@ export default function HistoryPage() {
         <section className="relative h-[40vh] min-h-[300px] bg-secondary">
           <div className="absolute inset-0">
             <Image
-              src="/images/history.jpg"
+              src="/images/history-tour.jpg"
               alt="Historical architecture in San Luis Potosí"
               fill
               className="object-cover opacity-50"
@@ -100,7 +100,7 @@ export default function HistoryPage() {
             <div className="space-y-8">
               <div className="relative h-[300px] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/history.jpg"
+                  src="/images/history-tour.jpg"
                   alt="Historical architecture in San Luis Potosí"
                   fill
                   className="object-cover"

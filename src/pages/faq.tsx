@@ -2,7 +2,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState } from 'react';
-import Footer from '@/components/Footer';
 
 export default function FAQPage() {
   const { t } = useTranslation('common');
@@ -90,7 +89,7 @@ export default function FAQPage() {
         <meta property="og:type" content="website" />
       </Head>
 
-      <main className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
         <div className="bg-white">
           <div className="container mx-auto px-4 py-16">
@@ -171,9 +170,7 @@ export default function FAQPage() {
             </div>
           </div>
         </div>
-
-        <Footer currentPage="home" />
-      </main>
+      </div>
     </>
   );
 }

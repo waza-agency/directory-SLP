@@ -2,59 +2,8 @@ import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import Image from 'next/image';
 
-interface FooterProps {
-  currentPage?: 'history' | 'festivals' | 'language' | 'home';
-}
-
-export default function Footer({ currentPage = 'home' }: FooterProps) {
+export default function Footer() {
   const { t } = useTranslation('common');
-
-  const getContextualLinks = () => {
-    switch (currentPage) {
-      case 'history':
-        return {
-          title: 'Historical Resources',
-          links: [
-            { href: '/cultural/history', label: 'Historical Tours' },
-            { href: '/cultural/history#colonial', label: 'Colonial Heritage' },
-            { href: '/cultural/history#mining', label: 'Mining History' },
-            { href: '/book-tour', label: 'Book a Tour' }
-          ]
-        };
-      case 'festivals':
-        return {
-          title: 'Festival Resources',
-          links: [
-            { href: '/cultural/festivals', label: 'Cultural Calendar' },
-            { href: '/cultural/festivals#traditional', label: 'Traditional Festivals' },
-            { href: '/cultural/festivals#modern', label: 'Modern Events' },
-            { href: '/cultural-calendar', label: 'View Full Calendar' }
-          ]
-        };
-      case 'language':
-        return {
-          title: 'Language Resources',
-          links: [
-            { href: '/cultural/language', label: 'Language Classes' },
-            { href: '/cultural/language#translation', label: 'Translation Services' },
-            { href: '/cultural/language#exchange', label: 'Language Exchange' },
-            { href: '/language-classes', label: 'Book Classes' }
-          ]
-        };
-      default:
-        return {
-          title: 'Quick Links',
-          links: [
-            { href: '/cultural/history', label: 'History' },
-            { href: '/cultural/festivals', label: 'Festivals' },
-            { href: '/cultural/language', label: 'Language' },
-            { href: '/about', label: 'About Us' }
-          ]
-        };
-    }
-  };
-
-  const contextualLinks = getContextualLinks();
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -96,23 +45,36 @@ export default function Footer({ currentPage = 'home' }: FooterProps) {
             </div>
           </div>
 
-          {/* Contextual Links */}
+          {/* Quick Links */}
           <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
-              {contextualLinks.title}
+              Quick Links
             </h3>
             <ul className="mt-4 space-y-4">
-              {contextualLinks.links.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-base text-gray-400 hover:text-white">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/cultural/history" className="text-base text-gray-400 hover:text-white">
+                  History
+                </Link>
+              </li>
+              <li>
+                <Link href="/cultural/festivals" className="text-base text-gray-400 hover:text-white">
+                  Festivals
+                </Link>
+              </li>
+              <li>
+                <Link href="/cultural/language" className="text-base text-gray-400 hover:text-white">
+                  Language
+                </Link>
+              </li>
+              <li>
+                <Link href="/places" className="text-base text-gray-400 hover:text-white">
+                  Places
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Additional Resources */}
+          {/* Resources */}
           <div>
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
               Resources
