@@ -27,7 +27,7 @@ export default function Header() {
         </Link>
         
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-8">
           <Link 
             href="/"
             className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
@@ -47,6 +47,13 @@ export default function Header() {
             className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
           >
             About
+          </Link>
+
+          <Link 
+            href="/faq"
+            className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+          >
+            FAQ
           </Link>
           
           <Link 
@@ -90,10 +97,10 @@ export default function Header() {
               </div>
             )}
           </div>
-        </div>
+        </nav>
         
         {/* Mobile Menu Button */}
-        <button 
+        <button
           className="md:hidden text-gray-500 hover:text-gray-700"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -134,6 +141,14 @@ export default function Header() {
             >
               About
             </Link>
+
+            <Link 
+              href="/faq"
+              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              FAQ
+            </Link>
             
             <Link 
               href="/contact"
@@ -143,7 +158,7 @@ export default function Header() {
               Contact
             </Link>
             
-            <div className="pt-2 border-t border-gray-100">
+            <div className="pt-3 border-t border-gray-200">
               <p className="text-xs text-gray-500 mb-2">Language</p>
               <div className="grid grid-cols-2 gap-2">
                 {Object.entries(languages).map(([code, name]) => (
