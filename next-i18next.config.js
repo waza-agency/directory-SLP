@@ -1,9 +1,11 @@
 // Static export friendly i18next config
 module.exports = {
-  // Remove the i18n config as it's not compatible with static export
-  // We're handling this ourselves with the static HTML files
-  ns: ['common'],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
+  },
   defaultNS: 'common',
+  ns: ['common'],
   localePath: './public/locales',
   react: {
     useSuspense: false,

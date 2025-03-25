@@ -13,6 +13,7 @@
     "postinstall": "node scripts/ensure-translations.js"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "autoprefixer": "^10.4.16",
     "googleapis": "^129.0.0",
     "i18next": "^23.7.11",

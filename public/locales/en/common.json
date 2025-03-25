@@ -1,21 +1,69 @@
 {
   "app_title": "SLP Descubre - Your Expat Guide to San Luis Potosí",
   "app_description": "The essential resource for expatriates and newcomers in San Luis Potosí - discover local insights, services, and community",
+  "home": "Home",
+  "contact": "Contact",
+  "search": "Search",
+  "categories": {
+    "subtitle": "ESSENTIAL RESOURCES",
+    "popularTitle": "Expat-Friendly Services & Resources",
+    "popularDescription": "Everything you need to settle in and thrive in San Luis Potosí, organized by category for easy access.",
+    "restaurant": "Restaurant",
+    "cafe": "Café",
+    "bar": "Bar",
+    "hotel": "Hotel",
+    "museum": "Museum",
+    "park": "Park",
+    "shop": "Shop",
+    "service": "Service",
+    "other": "Other",
+    "expat": {
+      "essentials": {
+        "title": "Daily Essentials",
+        "description": "Grocery stores, supermarkets, pharmacies, and essential services with international products and English-speaking staff."
+      },
+      "healthcare": {
+        "title": "Healthcare",
+        "description": "Expat-friendly hospitals, clinics, specialists, and emergency services with English-speaking medical professionals."
+      },
+      "accommodation": {
+        "title": "Housing",
+        "description": "Long and short-term rentals, real estate services, and relocation assistance tailored to expatriate needs."
+      },
+      "education": {
+        "title": "Education",
+        "description": "International schools, language courses, universities, and continuing education opportunities for expatriates."
+      },
+      "recreation": {
+        "title": "Recreation & Leisure",
+        "description": "Sports facilities, fitness centers, entertainment venues, and cultural activities welcoming to the international community."
+      },
+      "transportation": {
+        "title": "Transportation",
+        "description": "Reliable transportation options, vehicle rentals, driving regulations, and navigation resources for newcomers."
+      },
+      "services": {
+        "title": "Professional Services",
+        "description": "Banking, legal assistance, translation services, and administrative support for foreigners living in the city."
+      },
+      "community": {
+        "title": "Community & Social",
+        "description": "Expat groups, social clubs, networking events, and volunteer opportunities to help you build connections."
+      }
+    }
+  },
+  "back": {
+    "home": "Back to Home"
+  },
   "site_title": "SLP Descubre - Your Expat Guide to San Luis Potosí",
   "site_description": "Navigate life in San Luis Potosí with ease - from relocation services to local insights and city hacks for expatriates",
-  
-  "home": "Home",
   "explore": "Explore",
   "about": "About",
-  "contact": "Contact",
   "language": "Language",
-  
-  "search": "Search",
   "search_placeholder": "Search for places...",
   "search_button": "Search",
   "category": "Category",
   "all_categories": "All Categories",
-  
   "common": {
     "learnMore": "Learn More",
     "readMore": "Read More",
@@ -27,7 +75,6 @@
     "next": "Next",
     "goToSlide": "Go to slide"
   },
-  
   "cta": {
     "needHelp": "Need Relocation Help?",
     "contactUs": "Contact Us",
@@ -35,7 +82,6 @@
     "getStarted": "Get Started",
     "viewServices": "View All Services"
   },
-  
   "no_places_found": "No places found. Try adjusting your filters.",
   "featuredPlaces": {
     "noPlaces": "No featured places have been added yet.",
@@ -46,11 +92,9 @@
     "noDescription": "Discover this remarkable place in San Luis Potosí.",
     "viewDetails": "View Details"
   },
-  
   "placeCard": {
     "viewDetails": "View Details"
   },
-  
   "no_image": "No image available",
   "visit_website": "Visit Website",
   "view_on_map": "View on Map",
@@ -59,7 +103,6 @@
   "view_all_places": "View All Places",
   "places_found": "places found",
   "featured": "Featured",
-  
   "hero": {
     "expatGuide": "Your Personal Connection in San Luis Potosí",
     "title": "We Know Everyone You Need to Know",
@@ -74,7 +117,6 @@
     "viewCategories": "Browse Categories",
     "relocationServices": "Relocation Services"
   },
-  
   "welcome": {
     "subtitle": "YOUR PERSONAL CONCIERGE",
     "title": "We've Got Your Back in San Luis Potosí",
@@ -96,7 +138,6 @@
       "cta": "Get Support"
     }
   },
-  
   "expatServices": {
     "subtitle": "EXPAT SERVICES",
     "title": "Making Your Transition Seamless",
@@ -155,7 +196,6 @@
       "cta": "Book Exclusive Experience"
     }
   },
-  
   "cityHacks": {
     "subtitle": "INSIDER TIPS",
     "title": "Local Insights for Expatriates",
@@ -174,7 +214,6 @@
       "description": "Essential Spanish phrases, language exchange opportunities, and translation services for expatriates."
     }
   },
-  
   "cultural": {
     "subtitle": "CULTURAL INTEGRATION",
     "title": "Understanding Local Culture & Customs",
@@ -209,70 +248,18 @@
       "description": "Savor unique dishes like enchiladas potosinas, asado de boda, and gorditas that define the region's rich gastronomic heritage."
     }
   },
-  
-  "categories": {
-    "subtitle": "ESSENTIAL RESOURCES",
-    "popularTitle": "Expat-Friendly Services & Resources",
-    "popularDescription": "Everything you need to settle in and thrive in San Luis Potosí, organized by category for easy access.",
-    "restaurant": "Restaurant",
-    "cafe": "Café",
-    "bar": "Bar",
-    "hotel": "Hotel",
-    "museum": "Museum",
-    "park": "Park",
-    "shop": "Shop",
-    "service": "Service",
-    "other": "Other",
-    "expat": {
-      "essentials": {
-        "title": "Daily Essentials",
-        "description": "Grocery stores, supermarkets, pharmacies, and essential services with international products and English-speaking staff."
-      },
-      "healthcare": {
-        "title": "Healthcare",
-        "description": "Expat-friendly hospitals, clinics, specialists, and emergency services with English-speaking medical professionals."
-      },
-      "accommodation": {
-        "title": "Housing",
-        "description": "Long and short-term rentals, real estate services, and relocation assistance tailored to expatriate needs."
-      },
-      "education": {
-        "title": "Education",
-        "description": "International schools, language courses, universities, and continuing education opportunities for expatriates."
-      },
-      "recreation": {
-        "title": "Recreation & Leisure",
-        "description": "Sports facilities, fitness centers, entertainment venues, and cultural activities welcoming to the international community."
-      },
-      "transportation": {
-        "title": "Transportation",
-        "description": "Reliable transportation options, vehicle rentals, driving regulations, and navigation resources for newcomers."
-      },
-      "services": {
-        "title": "Professional Services",
-        "description": "Banking, legal assistance, translation services, and administrative support for foreigners living in the city."
-      },
-      "community": {
-        "title": "Community & Social",
-        "description": "Expat groups, social clubs, networking events, and volunteer opportunities to help you build connections."
-      }
-    }
-  },
-  
   "localBrands": {
     "subtitle": "SUPPORT LOCAL",
     "title": "Potosino Brands & Artisans",
     "description": "Discover and support local artisans, creators, and entrepreneurs who embody the spirit and traditions of San Luis Potosí.",
     "support": "Each purchase supports the local economy and helps preserve cultural traditions."
   },
-  
   "uniqueMeetings": {
     "subtitle": "UNIQUE EXPERIENCES",
     "title": "Weird Cool Places for Potosino-Style Business Meetings",
     "description": "Think outside the office! Discover beautiful, out-of-the-ordinary locations where locals impress clients and hold memorable meetings with a true Potosino flair.",
     "viewAll": "View All Locations"
   },
-  
   "footer": {
     "description": "SLP Descubre is your comprehensive guide to the best places, experiences, and cultural treasures in San Luis Potosí, Mexico.",
     "navigation": "Navigation",
@@ -286,4 +273,4 @@
     "terms": "Terms of Service",
     "cookies": "Cookie Policy"
   }
-} 
+}

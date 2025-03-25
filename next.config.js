@@ -15,13 +15,12 @@ const nextConfig = {
     domains: [],
     unoptimized: true,
   },
-  // Export as static site for Netlify
+  // Static site export configuration
   output: 'export',
-  
-  // Temporarily disable any experimental or i18n features
-  // that might cause export issues
-  experimental: {
-    // Disable any experimental features
+  // Disable features not compatible with static export
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
   },
 };
 

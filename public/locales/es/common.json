@@ -1,14 +1,30 @@
 {
   "app_title": "SLP Descubre - Explora San Luis Potosí",
   "app_description": "Explora el patrimonio cultural, la gastronomía y la vida vibrante de San Luis Potosí",
+  "home": "Inicio",
+  "contact": "Contacto",
+  "search": "Buscar",
+  "categories": {
+    "popularTitle": "Explora Por Categoría",
+    "popularDescription": "Descubre lo mejor que San Luis Potosí tiene para ofrecer, organizado por categoría para tu conveniencia.",
+    "restaurant": "Restaurante",
+    "cafe": "Café",
+    "bar": "Bar",
+    "hotel": "Hotel",
+    "museum": "Museo",
+    "park": "Parque",
+    "shop": "Tienda",
+    "service": "Servicio",
+    "other": "Otro"
+  },
+  "back": {
+    "home": "Volver al Inicio"
+  },
   "site_title": "SLP Descubre - Explora San Luis Potosí",
   "site_description": "Tu portal para descubrir la magia de San Luis Potosí - su arquitectura colonial, ricas tradiciones y tesoros locales",
-  "home": "Inicio",
   "explore": "Explorar",
   "about": "Acerca de",
-  "contact": "Contacto",
   "language": "Idioma",
-  "search": "Buscar",
   "search_placeholder": "Buscar lugares...",
   "search_button": "Buscar",
   "category": "Categoría",
@@ -89,19 +105,6 @@
       "description": "Saborea platos únicos como enchiladas potosinas, asado de boda y gorditas que definen el rico patrimonio gastronómico de la región."
     }
   },
-  "categories": {
-    "popularTitle": "Explora Por Categoría",
-    "popularDescription": "Descubre lo mejor que San Luis Potosí tiene para ofrecer, organizado por categoría para tu conveniencia.",
-    "restaurant": "Restaurante",
-    "cafe": "Café",
-    "bar": "Bar",
-    "hotel": "Hotel",
-    "museum": "Museo",
-    "park": "Parque",
-    "shop": "Tienda",
-    "service": "Servicio",
-    "other": "Otro"
-  },
   "localBrands": {
     "subtitle": "APOYA LO LOCAL",
     "title": "Marcas y Artesanos Potosinos",
@@ -121,4 +124,4 @@
     "terms": "Términos de Servicio",
     "cookies": "Política de Cookies"
   }
-} 
+}

@@ -1,8 +1,10 @@
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
+import '../i18n';
+import { appWithTranslation } from 'next-i18next';
+import nextI18nConfig from '../../next-i18next.config.js';
 
-// Simple version without translation wrapper
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
@@ -11,8 +13,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
-
-// Translation support disabled temporarily
-// Will re-enable this later:
-// export default appWithTranslation(MyApp); 
+export default appWithTranslation(MyApp, nextI18nConfig); 
