@@ -108,9 +108,25 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     };
   }
 
+  // Map the data to correct field names
+  const mappedPlaces = places?.map(place => ({
+    ...place,
+    imageUrl: place.image_url // Map image_url to imageUrl
+  })) || [];
+
+  // Log the places data to debug image URLs
+  console.log('Fetched places:', JSON.stringify(mappedPlaces, null, 2));
+  
+  // Log each place's image URL
+  mappedPlaces?.forEach(place => {
+    console.log(`Place: ${place.name}`);
+    console.log(`Image URL: ${place.imageUrl}`);
+    console.log('---');
+  });
+
   return {
     props: {
-      places: places || [],
+      places: mappedPlaces,
       ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
     revalidate: 60, // Revalidate every minute

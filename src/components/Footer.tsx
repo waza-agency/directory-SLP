@@ -110,8 +110,8 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-4">
               <li>
-                <a href="mailto:info@slpdescubre.com" className="text-base text-gray-400 hover:text-white">
-                  info@slpdescubre.com
+                <a href="mailto:info@sanluisway.com" className="text-base text-gray-400 hover:text-white">
+                  info@sanluisway.com
                 </a>
               </li>
               <li>

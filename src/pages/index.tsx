@@ -313,7 +313,7 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('welcome.card1.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('welcome.card1.description')}</p>
-                <a href="/contact?service=cultural" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <a href="/local-connections" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('welcome.card1.cta')}
                 </a>
               </div>
@@ -326,7 +326,7 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('expatServices.cultural.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('expatServices.cultural.description')}</p>
-                <a href="/contact?service=experiences" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <a href="/cultural-experiences" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('expatServices.cultural.cta')}
                 </a>
               </div>
@@ -339,7 +339,7 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('welcome.card3.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('welcome.card3.description')}</p>
-                <a href="/contact?service=relocation" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <a href="/relocation-support" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('welcome.card3.cta')}
                 </a>
               </div>
@@ -1332,7 +1332,7 @@ export default function Home({ places = [] }: HomeProps) {
                   CULTURAL HERITAGE
                 </span>
                 <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
-                  Unique Meeting Spots
+                  Cultural Heritage & Traditions
                 </h2>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   {t('cultural.expatDescription')}
