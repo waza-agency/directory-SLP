@@ -222,51 +222,53 @@ export default function Home({ places = [] }: HomeProps) {
       
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative h-[80vh] min-h-[600px] bg-secondary">
+        <section className="relative h-[75vh] min-h-[600px] bg-secondary">
           {/* Background Image */}
           <div className="absolute inset-0">
             <Image
               src="/images/hero-bg.jpg"
               alt="San Luis Potosí"
               fill
-              className="object-cover opacity-50"
+              className="object-cover opacity-40"
               priority
               sizes="100vw"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
           </div>
           
           {/* Content */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
             <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
-              <span className="bg-primary/80 text-white px-4 py-2 rounded-full text-xl font-bold mb-6 backdrop-blur-sm">
+              <span className="bg-primary/90 text-white px-6 py-3 rounded-full text-xl font-bold mb-6 backdrop-blur-sm transform hover:scale-105 transition-transform duration-300">
                 {t('hero.expatGuide')}
               </span>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight animate-fade-in">
                 {t('hero.title')}
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-3xl">
+              <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-3xl font-light">
                 {t('hero.description')}
               </p>
-              <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl">
+              <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl font-light">
                 {t('hero.personalTouch')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="/contact" className="btn-primary text-white px-8 py-3 rounded-md font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                <a href="/contact" className="btn-primary text-white px-8 py-3 rounded-full font-medium text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
                   {t('hero.connectWithUs')}
                 </a>
-                <a href="/services" className="bg-secondary text-white px-8 py-3 rounded-md font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                <a href="/services" className="bg-white text-secondary px-8 py-3 rounded-full font-medium text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
                   {t('hero.ourServices')}
                 </a>
               </div>
-              <div className="mt-16">
+              <div className="mt-12">
                 <a 
                   href="#discover" 
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-white/80 hover:text-white transition-colors group"
                   aria-label="Scroll down"
                 >
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
-                    className="h-10 w-10 animate-bounce" 
+                    className="h-10 w-10 animate-bounce group-hover:animate-none" 
                     fill="none" 
                     viewBox="0 0 24 24" 
                     stroke="currentColor"
@@ -285,19 +287,19 @@ export default function Home({ places = [] }: HomeProps) {
         </section>
 
         {/* Welcome/About Section */}
-        <section id="discover" className="py-24 px-4">
+        <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto">
-            <div className="max-w-3xl mx-auto text-center mb-16">
+            <div className="max-w-4xl mx-auto text-center mb-16">
               <span className="text-primary text-sm font-medium uppercase tracking-wider">
                 {t('welcome.subtitle')}
               </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-2 mb-6">
+              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
                 {t('welcome.title')}
               </h2>
-              <p className="text-lg text-gray-600 mb-4">
+              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
                 {t('welcome.description')}
               </p>
-              <p className="text-md text-primary font-medium">
+              <p className="text-lg text-primary font-medium bg-white/80 px-6 py-3 rounded-full inline-block shadow-lg">
                 {t('welcome.intermediary')}
               </p>
             </div>
@@ -345,150 +347,150 @@ export default function Home({ places = [] }: HomeProps) {
           </div>
         </section>
 
-        {/* Expat Services Section - NEW */}
-        <section className="py-24 px-4 bg-secondary/5">
+        {/* Expat Services Section */}
+        <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto">
             <div className="max-w-3xl mx-auto text-center mb-16">
               <span className="text-primary text-sm font-medium uppercase tracking-wider">
                 {t('expatServices.subtitle')}
               </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-2 mb-6">
+              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
                 {t('expatServices.title')}
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-xl text-gray-600">
                 {t('expatServices.description')}
               </p>
-              <div className="mt-4 bg-white p-4 rounded-lg border border-primary/20 max-w-2xl mx-auto">
-                <p className="text-sm text-gray-800 italic">
+              <div className="mt-8 bg-white p-6 rounded-xl border border-primary/20 max-w-2xl mx-auto shadow-lg">
+                <p className="text-lg text-gray-800 italic">
                   We connect you with trusted local professionals and service providers, serving as your personal intermediary to navigate bureaucracy and language barriers.
                 </p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.relocation.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.relocation.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.relocation.description')}</p>
                 <a 
                   href="/contact?service=relocation" 
-                  className="block text-center bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.relocation.cta')}
                 </a>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.housing.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.housing.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.housing.description')}</p>
                 <a 
                   href="/contact?service=housing" 
-                  className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.housing.cta')}
                 </a>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.legal.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.legal.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.legal.description')}</p>
                 <a 
                   href="/contact?service=legal" 
-                  className="block text-center bg-secondary hover:bg-secondary-light text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-secondary hover:bg-secondary-light text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.legal.cta')}
                 </a>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.community.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.community.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.community.description')}</p>
                 <a 
                   href="/contact?service=community" 
-                  className="block text-center bg-rose-600 hover:bg-rose-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-rose-600 hover:bg-rose-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.community.cta')}
                 </a>
               </div>
 
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.family.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.family.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.family.description')}</p>
                 <a 
                   href="/contact?service=family" 
-                  className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.family.cta')}
                 </a>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905a3.61 3.61 0 01-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.petcare.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.petcare.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.petcare.description')}</p>
                 <a 
                   href="/contact?service=petcare" 
-                  className="block text-center bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.petcare.cta')}
                 </a>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.wellness.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.wellness.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.wellness.description')}</p>
                 <a 
                   href="/contact?service=wellness" 
-                  className="block text-center bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.wellness.cta')}
                 </a>
               </div>
               
-              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift">
-                <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+              <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
+                <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2">{t('expatServices.homeservices.title')}</h3>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.homeservices.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.homeservices.description')}</p>
                 <a 
                   href="/contact?service=homeservices" 
-                  className="block text-center bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                  className="block text-center bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.homeservices.cta')}
                 </a>
@@ -1188,10 +1190,10 @@ export default function Home({ places = [] }: HomeProps) {
         <section className="py-24 px-4 bg-white border-t border-gray-100">
           <div className="container mx-auto">
             <div className="text-center mb-16">
-              <span className="text-secondary text-sm font-medium uppercase tracking-wider">
+              <span className="text-secondary text-sm font-medium uppercase tracking-wider bg-gradient-to-r from-purple-100 to-pink-100 px-6 py-2 rounded-full">
                 COMMUNITY SPOTLIGHT
               </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-2 mb-4">
+              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
                 Featured Potosinos
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -1204,13 +1206,13 @@ export default function Home({ places = [] }: HomeProps) {
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
               {/* Person 1 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
+              <div className="text-center group">
+                <div className="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl group-hover:shadow-2xl transition-all duration-300">
                   <Image
                     src="/images/potosinos/maria-gonzalez.jpg"
                     alt="María González"
                     fill
-                    className="object-cover"
+                    className="object-cover transform group-hover:scale-110 transition-transform duration-300"
                     sizes="(max-width: 768px) 100vw, 25vw"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -1218,13 +1220,16 @@ export default function Home({ places = [] }: HomeProps) {
                     }}
                   />
                 </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">María González</h3>
-                <p className="text-primary font-medium text-sm mb-3">Chef & Cultural Ambassador</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
+                <h3 className="font-medium text-2xl text-gray-900 mb-2 group-hover:text-primary transition-colors">María González</h3>
+                <p className="text-primary font-medium text-sm mb-4">Chef & Cultural Ambassador</p>
+                <p className="text-gray-600 text-sm mb-6 px-2">
                   Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
                 </p>
-                <a href="/community/maria-gonzalez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read her story →
+                <a href="/community/maria-gonzalez" className="inline-flex items-center text-secondary hover:text-secondary-dark text-sm font-medium group">
+                  Read her story
+                  <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </a>
               </div>
               
@@ -1305,14 +1310,14 @@ export default function Home({ places = [] }: HomeProps) {
             </div>
             
             <div className="mt-16 text-center">
-              <a href="/community" className="inline-flex items-center justify-center space-x-2 bg-white border border-secondary text-secondary px-6 py-3 rounded-md shadow-sm hover:bg-secondary hover:text-white transition-colors font-medium">
+              <a href="/community" className="inline-flex items-center justify-center space-x-3 bg-secondary hover:bg-secondary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
                 <span>Meet More Remarkable Potosinos</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
-              <p className="text-sm text-gray-500 mt-6 max-w-xl mx-auto">
-                Know someone who deserves to be featured? <a href="/contact?subject=Community Nomination" className="text-primary hover:underline">Nominate them here</a>
+              <p className="text-sm text-gray-500 mt-8 max-w-xl mx-auto">
+                Know someone who deserves to be featured? <a href="/contact?subject=Community Nomination" className="text-primary hover:text-primary-dark font-medium">Nominate them here</a>
               </p>
             </div>
           </div>
@@ -1323,11 +1328,11 @@ export default function Home({ places = [] }: HomeProps) {
           <div className="container mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
-                <span className="text-primary text-sm font-medium uppercase tracking-wider">
-                  {t('cultural.subtitle')}
+                <span className="text-primary text-sm font-medium uppercase tracking-wider bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-2 rounded-full">
+                  CULTURAL HERITAGE
                 </span>
-                <h2 className="font-serif text-4xl font-bold text-gray-900 mt-2 mb-6">
-                  {t('cultural.title')}
+                <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
+                  Unique Meeting Spots
                 </h2>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   {t('cultural.expatDescription')}
@@ -1505,7 +1510,7 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 8:00 AM - 10:00 PM</span>
                     </div>
                   </div>
-                  <a href="/category/traditional-restaurants" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <a href="/traditional-cuisine" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all traditional restaurants →
                   </a>
                 </div>
@@ -1554,7 +1559,7 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 1:00 PM - 11:00 PM</span>
                     </div>
                   </div>
-                  <a href="/category/modern-restaurants" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <a href="/modern-dining" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all modern restaurants →
                   </a>
                 </div>
@@ -1932,17 +1937,40 @@ export default function Home({ places = [] }: HomeProps) {
             <div className="mt-12 text-center">
               <a 
                 href="/unique-meeting-spots" 
-                className="inline-block bg-secondary hover:bg-secondary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
+                className="inline-block bg-secondary hover:bg-secondary-dark text-white font-medium px-10 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
               >
                 View All Unique Meeting Spots
               </a>
-              <p className="text-sm text-gray-500 mt-4">
-                Want to book a unique venue? <a href="/contact" className="text-primary hover:underline">Contact us</a> for assistance with reservations and special arrangements.
+              <p className="text-sm text-gray-500 mt-8">
+                Want to book a unique venue? <a href="/contact" className="text-primary hover:text-primary-dark font-medium">Contact us</a> for assistance with reservations and special arrangements.
               </p>
             </div>
           </div>
         </section>
       </main>
+
+      {/* Floating Contact Button */}
+      <div className="fixed bottom-8 right-8 z-50">
+        <a 
+          href="/contact" 
+          className="flex items-center justify-center w-16 h-16 bg-primary text-white rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group"
+          aria-label="Contact Us"
+        >
+          <svg 
+            className="w-8 h-8 transform group-hover:rotate-12 transition-transform" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={1.5} 
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+            />
+          </svg>
+        </a>
+      </div>
     </>
   );
 }

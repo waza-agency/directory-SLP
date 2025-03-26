@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { Place } from '@/types';
+import { Place, Event } from '@/types';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -570,5 +570,122 @@ function getMockPlaces(): Place[] {
       tags: ['luxury', 'central', 'colonial'],
       featured: true
     }
+  ];
+}
+
+export async function fetchEventsFromSheet(): Promise<Event[]> {
+  // Check if we're running in a Netlify build environment
+  const isNetlifyBuild = process.env.NETLIFY === 'true';
+  
+  if (isNetlifyBuild) {
+    console.log('Running in Netlify build environment, using mock data');
+    return getMockEvents();
+  }
+  
+  try {
+    // Make sure we have a Google Sheet ID
+    if (!process.env.GOOGLE_SHEET_ID) {
+      console.error('GOOGLE_SHEET_ID environment variable is not set');
+      return getMockEvents();
+    }
+    
+    const sheets = getGoogleSheets();
+    
+    console.log("Fetching events from Google Sheets...");
+    console.log(`Using Sheet ID: ${process.env.GOOGLE_SHEET_ID}`);
+    
+    // Get information about the spreadsheet to find available sheets
+    let sheetName = "Events"; // Default sheet name
+    try {
+      const sheetInfo = await sheets.spreadsheets.get({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      });
+      
+      console.log("Available sheets:", sheetInfo.data.sheets?.map(s => s.properties?.title));
+      
+      // Get first sheet name if available
+      if (sheetInfo.data.sheets && sheetInfo.data.sheets.length > 0) {
+        const firstSheet = sheetInfo.data.sheets[0].properties?.title;
+        
+        // Check if "Events" exists in the available sheets
+        const hasEventsSheet = sheetInfo.data.sheets.some(
+          s => s.properties?.title?.toLowerCase() === "events"
+        );
+        
+        // If "Events" sheet doesn't exist, use the first sheet
+        if (!hasEventsSheet && firstSheet) {
+          sheetName = firstSheet;
+          console.log(`"Events" sheet not found, using first sheet: ${sheetName}`);
+        }
+      }
+    } catch (sheetInfoError) {
+      console.error("Error getting sheet info:", sheetInfoError);
+      // Continue with default "Events" sheet name
+    }
+    
+    const range = `${sheetName}!A2:J`; // Adjust range based on your sheet structure
+    console.log(`Fetching data from range: ${range}`);
+    
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: range,
+    });
+
+    const rows = response.data.values || [];
+    console.log(`Fetched ${rows.length} events from the sheet`);
+    
+    // Map sheet rows to Event objects
+    const events = rows.map((row: any, index: number) => {
+      if (!row[0]) {
+        // Skip empty rows
+        console.log(`Skipping empty row ${index+2}`);
+        return null;
+      }
+
+      // Get column values with proper cleaning
+      const cleanText = (text?: string): string => {
+        if (!text) return '';
+        return text.trim();
+      };
+
+      const event: Event = {
+        id: cleanText(row[0]),
+        title: cleanText(row[1]),
+        description: cleanText(row[2]),
+        date: cleanText(row[3]),
+        time: cleanText(row[4]),
+        location: cleanText(row[5]),
+        category: cleanText(row[6]) as 'sports' | 'cultural' | 'other',
+        imageUrl: isValidImageUrl(row[7]) ? cleanText(row[7]) : undefined,
+        price: cleanText(row[8]),
+        featured: cleanText(row[9])?.toLowerCase() === 'true',
+      };
+
+      return event;
+    }).filter((event): event is Event => event !== null);
+
+    console.log(`Successfully processed ${events.length} events`);
+    return events;
+  } catch (error) {
+    console.error('Error fetching events from Google Sheets:', error);
+    return getMockEvents();
+  }
+}
+
+function getMockEvents(): Event[] {
+  return [
+    {
+      id: 'sports-tournament-1',
+      title: 'Regional Sports Tournament',
+      description: 'Annual sports tournament featuring various disciplines including soccer, basketball, and volleyball.',
+      date: '2024-05-15',
+      time: '09:00 AM',
+      location: 'Parque Tangamanga',
+      category: 'sports',
+      imageUrl: '/images/events/sports-tournament.jpg',
+      price: 'Free',
+      featured: true,
+    },
+    // Add more mock events as needed
   ];
 } 

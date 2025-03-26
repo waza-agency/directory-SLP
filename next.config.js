@@ -15,13 +15,8 @@ const nextConfig = {
     domains: [],
     unoptimized: true,
   },
-  // Static site export configuration
-  output: 'export',
-  // Disable features not compatible with static export
+  // Enable trailing slash for consistency
   trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
 };
 
 module.exports = nextConfig; 

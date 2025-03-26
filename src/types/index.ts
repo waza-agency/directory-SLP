@@ -41,4 +41,19 @@ export type PlaceCategory =
 export interface FilterOptions {
   category?: PlaceCategory | 'all';
   searchTerm?: string;
+}
+
+export interface Event {
+  id: string;
+  title: string;
+  description: string | null;
+  start_date: string;
+  end_date: string;
+  location: string;
+  category: 'sports' | 'cultural' | 'other';
+  image_url: string | null;
+  featured: boolean;
+  place_id?: string | null;
+  created_at?: string;
+  updated_at?: string;
 } 

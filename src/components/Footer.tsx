@@ -13,11 +13,11 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.jpeg"
                 alt="SLP Descubre Logo"
-                width={150}
+                width={500}
                 height={50}
-                className="h-12 w-auto"
+                className="h-16 w-auto"
               />
             </Link>
             <p className="text-gray-400 mb-4">

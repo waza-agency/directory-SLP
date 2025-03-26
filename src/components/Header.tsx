@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Header() {
@@ -23,7 +24,13 @@ export default function Header() {
     <header className="bg-white border-b border-gray-100 py-4 px-6 shadow-elegant sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <span className="font-serif text-2xl font-bold text-gray-900">SLP <span className="text-primary">Descubre</span></span>
+          <Image
+            src="/images/logo.jpeg"
+            alt="SLP Descubre Logo"
+            width={600}
+            height={60}
+            className="h-20 w-auto"
+          />
         </Link>
         
         {/* Desktop Navigation */}
