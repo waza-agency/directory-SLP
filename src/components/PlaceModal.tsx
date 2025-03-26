@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { Place } from '@/types';
 import { useEffect } from 'react';
 import PlaceImage from './PlaceImage';
@@ -11,8 +10,6 @@ interface PlaceModalProps {
 }
 
 export default function PlaceModal({ place, onClose, activeTab = 'description', setActiveTab }: PlaceModalProps) {
-  const { t } = useTranslation('common');
-
   // Close on ESC key press
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {

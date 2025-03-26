@@ -4,10 +4,14 @@ import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import LoadingIndicator from './LoadingIndicator';
 
+interface TranslationsObject {
+  [key: string]: string | TranslationsObject;
+}
+
 // Add this to fix the TypeScript error for window.translations
 declare global {
   interface Window {
-    translations?: Record<string, any>;
+    translations?: TranslationsObject;
   }
 }
 
@@ -34,7 +38,7 @@ export default function Layout({ children }: LayoutProps) {
         
         if (key) {
           // Get translated value from nested object
-          let value: any = window.translations || {};
+          let value: string | TranslationsObject = window.translations || {};
           const parts = key.split('.');
           
           // Navigate through the nested properties

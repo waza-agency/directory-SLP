@@ -13,7 +13,7 @@ interface IntersectionObserverOptions {
  * @param options Configuration options for the IntersectionObserver
  * @returns [ref, isIntersecting] - ref to attach to the element, and boolean indicating if the element is in view
  */
-export default function useIntersectionObserver(options: IntersectionObserverOptions = {}): [RefObject<any>, boolean] {
+export default function useIntersectionObserver<T extends Element>(options: IntersectionObserverOptions = {}): [RefObject<T>, boolean] {
   const { 
     root = null, 
     rootMargin = '0px', 
@@ -21,7 +21,7 @@ export default function useIntersectionObserver(options: IntersectionObserverOpt
     triggerOnce = true 
   } = options;
   
-  const elementRef = useRef<Element>(null);
+  const elementRef = useRef<T>(null);
   const [isIntersecting, setIsIntersecting] = useState<boolean>(false);
 
   useEffect(() => {

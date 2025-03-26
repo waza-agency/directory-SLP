@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { PlaceCategory } from '@/types';
 import Link from 'next/link';
 
@@ -8,8 +7,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ selectedCategory, onCategorySelect }: SidebarProps) {
-  const { t } = useTranslation('common');
-
   const categories: { id: PlaceCategory; icon: string; label: string }[] = [
     { id: 'restaurant', icon: '🍽️', label: 'Restaurantes' },
     { id: 'bar', icon: '🍸', label: 'Bares' },

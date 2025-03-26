@@ -28,9 +28,9 @@ const getGoogleSheets = () => {
           const sheets = google.sheets({ version: 'v4', auth });
           console.log('Successfully initialized Google Sheets API with credentials file');
           return sheets;
-        } catch (parseError: any) {
-          console.error('Error parsing credentials file:', parseError);
-          throw new Error('Failed to parse credentials file: ' + parseError.message);
+        } catch (error) {
+          console.error('Error parsing credentials file:', error);
+          throw new Error(`Failed to parse credentials file: ${error instanceof Error ? error.message : String(error)}`);
         }
       } else {
         console.warn(`Credentials file not found at path: ${credentialsPath}`);
@@ -61,9 +61,9 @@ const getGoogleSheets = () => {
     const sheets = google.sheets({ version: 'v4', auth });
     console.log('Successfully initialized Google Sheets API with environment variables');
     return sheets;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error initializing Google Sheets API with environment variables:', error);
-    throw new Error('Failed to initialize Google Sheets API: ' + error.message);
+    throw new Error(`Failed to initialize Google Sheets API: ${error instanceof Error ? error.message : String(error)}`);
   }
 };
 
@@ -107,7 +107,7 @@ function isValidImageUrl(url: string): boolean {
     new URL(url);
     console.log('Valid URL format:', url);
     return true;
-  } catch (error) {
+  } catch {
     console.log('Invalid URL format:', url);
     return false;
   }

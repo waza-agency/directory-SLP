@@ -1,7 +1,7 @@
 import { Event } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CalendarIcon, MapPinIcon, ClockIcon, TicketIcon, ShareIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, MapPinIcon, TicketIcon, ShareIcon } from '@heroicons/react/24/outline';
 
 interface EventListProps {
   events: Event[];

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'next-i18next';
 import { Place } from '@/types';
 
 // Import Google Maps types
@@ -17,7 +16,6 @@ export default function Map({ places, selectedPlace, onPlaceSelect }: MapProps) 
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<GoogleMap | null>(null);
   const [markers, setMarkers] = useState<GoogleMarker[]>([]);
-  const { t } = useTranslation('common');
   
   // Default location for San Luis Potosí
   const defaultLocation: LatLngLiteral = {
@@ -64,7 +62,7 @@ export default function Map({ places, selectedPlace, onPlaceSelect }: MapProps) 
         document.body.removeChild(script);
       }
     };
-  }, []);
+  }, [defaultLocation]);
   
   // Add markers when places or map changes
   useEffect(() => {
@@ -129,7 +127,7 @@ export default function Map({ places, selectedPlace, onPlaceSelect }: MapProps) 
         window.google.maps.event.removeListener(listener);
       });
     }
-  }, [map, places, onPlaceSelect]);
+  }, [map, places, onPlaceSelect, markers]);
   
   // Center on selected place
   useEffect(() => {

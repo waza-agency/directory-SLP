@@ -112,7 +112,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
         new URL(url);
         console.log(`Valid direct URL for ${place.name}:`, url);
         return url;
-      } catch (urlError) {
+      } catch {
         console.error(`Invalid URL format for ${place.name}:`, url);
         return getDefaultImage(place.category);
       }

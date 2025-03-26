@@ -1,10 +1,7 @@
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
-  const { t } = useTranslation('common');
-
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">

@@ -14,7 +14,7 @@ interface EntranceAnimationOptions {
  * @param options Configuration options for the animation
  * @returns [ref, isVisible, animationClasses] - ref to attach to the element, visibility state, and animation classes
  */
-export default function useEntranceAnimation(options: EntranceAnimationOptions = {}) {
+export default function useEntranceAnimation<T extends HTMLElement>(options: EntranceAnimationOptions = {}) {
   const { 
     threshold = 0.1, 
     triggerOnce = true,
@@ -44,5 +44,5 @@ export default function useEntranceAnimation(options: EntranceAnimationOptions =
   // Generate animation classes based on the visibility state
   const animationClasses = isVisible ? 'visible' : '';
   
-  return [elementRef, isVisible, animationClasses] as [RefObject<any>, boolean, string];
+  return [elementRef, isVisible, animationClasses] as [RefObject<T>, boolean, string];
 } 

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getImageUrl, getResponsiveSizes, getImageDimensions, ImageSize } from '@/utils/image';
+import { getResponsiveSizes, getImageDimensions, ImageSize } from '@/utils/image';
 
 interface ResponsiveImageProps {
   src: string;
@@ -24,7 +24,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   objectPosition = 'center',
   height = '100%',
 }) => {
-  const dimensions = getImageDimensions(size);
+  getImageDimensions(size); // Call is needed for side effects
 
   return (
     <div 

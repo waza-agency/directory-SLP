@@ -51,12 +51,10 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
     // Auto advance slides every 6 seconds if more than one place
     if (places.length <= 1) return;
     
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 6000);
+    const interval = setInterval(nextSlide, 6000);
     
     return () => clearInterval(interval);
-  }, [places.length, currentIndex]);
+  }, [places.length, isAnimating]);
 
   return (
     <section 

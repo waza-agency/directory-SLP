@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -11,6 +12,7 @@ import Image from 'next/image';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
+import HeroBanner from '@/components/HeroBanner';
 
 interface HomeProps {
   places: Place[];
@@ -19,9 +21,9 @@ interface HomeProps {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
-      places: [], // Static data will be handled client-side for now
-    },
+      places: [],
+      ...(await serverSideTranslations(locale || 'en', ['common']))
+    }
   };
 };
 
@@ -162,37 +164,6 @@ export default function Home({ places = [] }: HomeProps) {
   const localBrands = places?.filter(place => place.category === 'shop' && place.tags?.includes('local')) || [];
   const potosinoBrands = places?.filter(place => place.category === 'shop' && place.tags?.includes('potosino')) || [];
 
-  // Featured Potosino Brands
-  const featuredPotosinoBrands = [
-    {
-      id: 'botanas-provi',
-      name: 'Botanas Provi',
-      description: 'Traditional Mexican snacks and treats made with authentic recipes passed down through generations.',
-      image: '/images/brands/botanas-provi.jpg',
-      category: 'food',
-      tags: ['potosino', 'snacks', 'traditional'],
-      featured: true
-    },
-    {
-      id: 'panaderia-la-superior',
-      name: 'Panaderías La Superior',
-      description: 'Artisanal bakery offering fresh bread, pastries, and traditional Mexican baked goods since 1950.',
-      image: '/images/brands/panaderia-la-superior.jpg',
-      category: 'food',
-      tags: ['potosino', 'bakery', 'traditional'],
-      featured: true
-    },
-    {
-      id: 'aguas-de-lourdes',
-      name: 'Aguas de Lourdes',
-      description: 'Refreshing traditional Mexican aguas frescas and beverages made with natural ingredients.',
-      image: '/images/brands/aguas-de-lourdes.jpg',
-      category: 'beverages',
-      tags: ['potosino', 'drinks', 'traditional'],
-      featured: true
-    }
-  ];
-
   // Function to get upcoming events for a category
   const getUpcomingEventsForCategory = (categoryId: string) => {
     return upcomingEvents.filter(event => event.category === categoryId).slice(0, 2);
@@ -215,77 +186,15 @@ export default function Home({ places = [] }: HomeProps) {
   return (
     <>
       <Head>
-        <title>SLP Descubre - Discover San Luis Potosí</title>
-        <meta name="description" content="Your gateway to discovering the magic of San Luis Potosí - its colonial architecture, rich traditions, and local treasures" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>SLP Descubre - Your Insider Guide to San Luis Potosí</title>
+        <meta name="description" content="Discover San Luis Potosí with our comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <meta name="keywords" content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture" />
       </Head>
-      
+
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative h-[75vh] min-h-[600px] bg-secondary">
-          {/* Background Image */}
-          <div className="absolute inset-0">
-            <Image
-              src="/images/hero-bg.jpg"
-              alt="San Luis Potosí"
-              fill
-              className="object-cover opacity-40"
-              priority
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20"></div>
-          </div>
-          
-          {/* Content */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
-            <div className="container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
-              <span className="bg-primary/90 text-white px-6 py-3 rounded-full text-xl font-bold mb-6 backdrop-blur-sm transform hover:scale-105 transition-transform duration-300">
-                {t('hero.expatGuide')}
-              </span>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight animate-fade-in">
-                {t('hero.title')}
-              </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-3xl font-light">
-                {t('hero.description')}
-              </p>
-              <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl font-light">
-                {t('hero.personalTouch')}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="/contact" className="btn-primary text-white px-8 py-3 rounded-full font-medium text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-                  {t('hero.connectWithUs')}
-                </a>
-                <a href="/services" className="bg-white text-secondary px-8 py-3 rounded-full font-medium text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-                  {t('hero.ourServices')}
-                </a>
-              </div>
-              <div className="mt-12">
-                <a 
-                  href="#discover" 
-                  className="text-white/80 hover:text-white transition-colors group"
-                  aria-label="Scroll down"
-                >
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-10 w-10 animate-bounce group-hover:animate-none" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        <HeroBanner />
+        
         {/* Welcome/About Section */}
         <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto">
@@ -313,9 +222,9 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('welcome.card1.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('welcome.card1.description')}</p>
-                <a href="/local-connections" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <Link href="/local-connections" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('welcome.card1.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
@@ -326,9 +235,9 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('expatServices.cultural.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('expatServices.cultural.description')}</p>
-                <a href="/cultural-experiences" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <Link href="/cultural-experiences" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('expatServices.cultural.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
@@ -339,9 +248,9 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('welcome.card3.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('welcome.card3.description')}</p>
-                <a href="/relocation-support" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <Link href="/relocation-support" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('welcome.card3.cta')}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -376,12 +285,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.relocation.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.relocation.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=relocation" 
                   className="block text-center bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.relocation.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -392,12 +301,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.housing.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.housing.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=housing" 
                   className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.housing.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -408,12 +317,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.legal.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.legal.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=legal" 
                   className="block text-center bg-secondary hover:bg-secondary-light text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.legal.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -424,12 +333,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.community.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.community.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=community" 
                   className="block text-center bg-rose-600 hover:bg-rose-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.community.cta')}
-                </a>
+                </Link>
               </div>
 
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -440,12 +349,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.family.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.family.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=family" 
                   className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.family.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -456,12 +365,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.petcare.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.petcare.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=petcare" 
                   className="block text-center bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.petcare.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -472,12 +381,12 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.wellness.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.wellness.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=wellness" 
                   className="block text-center bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.wellness.cta')}
-                </a>
+                </Link>
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
@@ -488,22 +397,22 @@ export default function Home({ places = [] }: HomeProps) {
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.homeservices.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.homeservices.description')}</p>
-                <a 
+                <Link 
                   href="/contact?service=homeservices" 
                   className="block text-center bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.homeservices.cta')}
-                </a>
+                </Link>
               </div>
             </div>
             
             <div className="mt-12 text-center">
-              <a 
+              <Link 
                 href="/contact" 
                 className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
               >
                 {t('expatServices.contactCta')}
-              </a>
+              </Link>
               <p className="text-sm text-gray-500 mt-4 max-w-xl mx-auto">
                 {t('expatServices.feeDisclosure')}
               </p>
@@ -552,9 +461,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>17 locations</span>
                     </div>
-                    <a href="/category/restaurants-with-playgrounds" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/restaurants-with-playgrounds" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -584,9 +493,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>14 locations</span>
                     </div>
-                    <a href="/category/private-dining-rooms" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/private-dining-rooms" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -616,9 +525,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>8 locations</span>
                     </div>
-                    <a href="/category/language-exchange-cafes" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/language-exchange-cafes" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -648,9 +557,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>19 locations</span>
                     </div>
-                    <a href="/category/remote-work-cafes" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/remote-work-cafes" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -680,9 +589,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>16 locations</span>
                     </div>
-                    <a href="/category/easy-parking-spots" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/easy-parking-spots" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -712,9 +621,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>7 locations</span>
                     </div>
-                    <a href="/category/international-markets" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/international-markets" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -744,9 +653,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>5 locations</span>
                     </div>
-                    <a href="/category/english-speaking-healthcare" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/english-speaking-healthcare" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -776,9 +685,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>14 locations</span>
                     </div>
-                    <a href="/category/family-activities" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/family-activities" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -808,9 +717,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>11 locations</span>
                     </div>
-                    <a href="/category/sports-fitness" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/sports-fitness" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -840,9 +749,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>8 locations</span>
                     </div>
-                    <a href="/category/outdoors" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/outdoors" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -872,9 +781,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>12 locations</span>
                     </div>
-                    <a href="/category/activities-rainy-day" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/activities-rainy-day" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -904,9 +813,9 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                       <span>10 locations</span>
                     </div>
-                    <a href="/category/local-organic-products" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/local-organic-products" className="text-primary font-medium text-sm hover:underline">
                       View all →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -930,49 +839,114 @@ export default function Home({ places = [] }: HomeProps) {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredPotosinoBrands.map((brand) => (
-                <div key={brand.id} className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
-                  <div className="relative h-48">
-                    <Image
-                      src={brand.image}
-                      alt={brand.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{brand.name}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{brand.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
-                          {brand.category}
-                        </span>
-                      </div>
-                      <button 
-                        onClick={() => setSelectedPlace(brand as any)}
-                        className="text-primary hover:text-primary-dark transition-colors"
-                      >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </button>
+              {/* Featured Potosino Brands */}
+              <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
+                <div className="relative h-48">
+                  <Image
+                    src="/images/brands/botanas-provi.jpg"
+                    alt="Botanas Provi"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Botanas Provi</h3>
+                  <p className="text-gray-600 text-sm mb-4">Traditional Mexican snacks and treats made with authentic recipes passed down through generations.</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
+                        food
+                      </span>
                     </div>
+                    <Link 
+                      href="/brands/botanas-provi"
+                      className="text-primary hover:text-primary-dark transition-colors"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
+                <div className="relative h-48">
+                  <Image
+                    src="/images/brands/panaderia-la-superior.jpg"
+                    alt="Panaderías La Superior"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Panaderías La Superior</h3>
+                  <p className="text-gray-600 text-sm mb-4">Artisanal bakery offering fresh bread, pastries, and traditional Mexican baked goods since 1950.</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
+                        food
+                      </span>
+                    </div>
+                    <Link 
+                      href="/brands/panaderia-la-superior"
+                      className="text-primary hover:text-primary-dark transition-colors"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
+                <div className="relative h-48">
+                  <Image
+                    src="/images/brands/aguas-de-lourdes.jpg"
+                    alt="Aguas de Lourdes"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Aguas de Lourdes</h3>
+                  <p className="text-gray-600 text-sm mb-4">Refreshing traditional Mexican aguas frescas and beverages made with natural ingredients.</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
+                        beverages
+                      </span>
+                    </div>
+                    <Link 
+                      href="/brands/aguas-de-lourdes"
+                      className="text-primary hover:text-primary-dark transition-colors"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <div className="mt-12 text-center">
-              <a 
+              <Link 
                 href="/brands" 
                 className="inline-block btn-primary text-white py-3 px-8 rounded-md font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
               >
                 View All Potosino Brands
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -992,12 +966,12 @@ export default function Home({ places = [] }: HomeProps) {
                   {t('cityHacks.description')}
                 </p>
               </div>
-              <a 
+              <Link 
                 href="/city-hacks" 
                 className="mt-6 md:mt-0 inline-block text-secondary hover:text-secondary-light font-medium"
               >
                 {t('cityHacks.viewAll')} →
-              </a>
+              </Link>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1019,9 +993,9 @@ export default function Home({ places = [] }: HomeProps) {
                   <p className="text-gray-600 text-sm mb-4">
                     {t('cityHacks.transport.description')}
                   </p>
-                  <a href="/city-hacks/transport" className="text-secondary hover:text-secondary-light font-medium text-sm">
+                  <Link href="/city-hacks/transport" className="text-secondary hover:text-secondary-light font-medium text-sm">
                     {t('common.readMore')} →
-                  </a>
+                  </Link>
                 </div>
               </div>
               
@@ -1043,9 +1017,9 @@ export default function Home({ places = [] }: HomeProps) {
                   <p className="text-gray-600 text-sm mb-4">
                     {t('cityHacks.shopping.description')}
                   </p>
-                  <a href="/city-hacks/shopping" className="text-secondary hover:text-secondary-light font-medium text-sm">
+                  <Link href="/city-hacks/shopping" className="text-secondary hover:text-secondary-light font-medium text-sm">
                     {t('common.readMore')} →
-                  </a>
+                  </Link>
                 </div>
               </div>
               
@@ -1067,9 +1041,9 @@ export default function Home({ places = [] }: HomeProps) {
                   <p className="text-gray-600 text-sm mb-4">
                     {t('cityHacks.language.description')}
                   </p>
-                  <a href="/city-hacks/language" className="text-secondary hover:text-secondary-light font-medium text-sm">
+                  <Link href="/city-hacks/language" className="text-secondary hover:text-secondary-light font-medium text-sm">
                     {t('common.readMore')} →
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -1119,9 +1093,9 @@ export default function Home({ places = [] }: HomeProps) {
                         <CalendarIcon className="w-4 h-4 mr-1" />
                         <span>{getUpcomingEventsForCategory(category.id).length} upcoming</span>
                       </div>
-                      <a href={`/events/${category.id}`} className="text-primary font-medium text-sm hover:underline">
+                      <Link href={`/events/${category.id}`} className="text-primary font-medium text-sm hover:underline">
                         View events →
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -1176,9 +1150,9 @@ export default function Home({ places = [] }: HomeProps) {
                         <span>{event.location}</span>
                       </div>
                     </div>
-                    <a href={`/events/${event.id}`} className="text-primary font-medium text-sm hover:underline">
+                    <Link href={`/events/${event.id}`} className="text-primary font-medium text-sm hover:underline">
                       Learn more →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -1225,12 +1199,12 @@ export default function Home({ places = [] }: HomeProps) {
                 <p className="text-gray-600 text-sm mb-6 px-2">
                   Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
                 </p>
-                <a href="/community/maria-gonzalez" className="inline-flex items-center text-secondary hover:text-secondary-dark text-sm font-medium group">
+                <Link href="/community/maria-gonzalez" className="inline-flex items-center text-secondary hover:text-secondary-dark text-sm font-medium group">
                   Read her story
                   <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </a>
+                </Link>
               </div>
               
               {/* Person 2 */}
@@ -1253,9 +1227,9 @@ export default function Home({ places = [] }: HomeProps) {
                 <p className="text-gray-600 text-sm mb-4 px-2">
                   Creating stunning traditional pottery that honors the region's artistic legacy while mentoring the next generation of artisans.
                 </p>
-                <a href="/community/carlos-ramirez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                <Link href="/community/carlos-ramirez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
                   Read his story →
-                </a>
+                </Link>
               </div>
               
               {/* Person 3 */}
@@ -1278,9 +1252,9 @@ export default function Home({ places = [] }: HomeProps) {
                 <p className="text-gray-600 text-sm mb-4 px-2">
                   Transforming the local tech scene through her startup incubator while creating opportunities for young Potosinos in technology.
                 </p>
-                <a href="/community/alejandra-vega" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                <Link href="/community/alejandra-vega" className="text-secondary hover:text-secondary-dark text-sm font-medium">
                   Read her story →
-                </a>
+                </Link>
               </div>
               
               {/* Person 4 */}
@@ -1303,21 +1277,21 @@ export default function Home({ places = [] }: HomeProps) {
                 <p className="text-gray-600 text-sm mb-4 px-2">
                   Sharing the rich history of San Luis Potosí through immersive tours and educational programs that bring the past to life.
                 </p>
-                <a href="/community/miguel-ortiz" className="text-secondary hover:text-secondary-dark text-sm font-medium">
+                <Link href="/community/miguel-ortiz" className="text-secondary hover:text-secondary-dark text-sm font-medium">
                   Read his story →
-                </a>
+                </Link>
               </div>
             </div>
             
             <div className="mt-16 text-center">
-              <a href="/community" className="inline-flex items-center justify-center space-x-3 bg-secondary hover:bg-secondary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
+              <Link href="/community" className="inline-flex items-center justify-center space-x-3 bg-secondary hover:bg-secondary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
                 <span>Meet More Remarkable Potosinos</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
+              </Link>
               <p className="text-sm text-gray-500 mt-8 max-w-xl mx-auto">
-                Know someone who deserves to be featured? <a href="/contact?subject=Community Nomination" className="text-primary hover:text-primary-dark font-medium">Nominate them here</a>
+                Know someone who deserves to be featured? <Link href="/contact?subject=Community Nomination" className="text-primary hover:text-primary-dark font-medium">Nominate them here</Link>
               </p>
             </div>
           </div>
@@ -1345,14 +1319,14 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                     </div>
                     <div>
-                      <a href="/cultural/history" className="block hover:opacity-80 transition-opacity">
+                      <Link href="/cultural/history" className="block hover:opacity-80 transition-opacity">
                         <h3 className="font-medium text-gray-900 mb-2">
                           {t('cultural.history.expatTitle')}
                         </h3>
                         <p className="text-gray-600">
                           {t('cultural.history.expatDescription')}
                         </p>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -1362,14 +1336,14 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                     </div>
                     <div>
-                      <a href="/cultural/festivals" className="block hover:opacity-80 transition-opacity">
+                      <Link href="/cultural/festivals" className="block hover:opacity-80 transition-opacity">
                         <h3 className="font-medium text-gray-900 mb-2">
                           {t('cultural.festivals.title')}
                         </h3>
                         <p className="text-gray-600">
                           {t('cultural.festivals.description')}
                         </p>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -1379,30 +1353,30 @@ export default function Home({ places = [] }: HomeProps) {
                       </svg>
                     </div>
                     <div>
-                      <a href="/cultural/language" className="block hover:opacity-80 transition-opacity">
+                      <Link href="/cultural/language" className="block hover:opacity-80 transition-opacity">
                         <h3 className="font-medium text-gray-900 mb-2">
                           {t('cultural.language.title')}
                         </h3>
                         <p className="text-gray-600">
                           {t('cultural.language.description')}
                         </p>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                  <a 
+                  <Link 
                     href="/cultural-calendar" 
                     className="btn-primary"
                   >
                     {t('cultural.viewCalendar')}
-                  </a>
-                  <a 
+                  </Link>
+                  <Link 
                     href="/cultural-tours" 
                     className="bg-white border border-gray-200 text-gray-700 px-6 py-3 rounded-md font-medium hover:border-gray-300 transition-colors text-center"
                   >
                     {t('cultural.bookTour')}
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="grid grid-cols-12 gap-4">
@@ -1510,9 +1484,9 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 8:00 AM - 10:00 PM</span>
                     </div>
                   </div>
-                  <a href="/traditional-cuisine" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/traditional-cuisine" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all traditional restaurants →
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -1559,9 +1533,9 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 1:00 PM - 11:00 PM</span>
                     </div>
                   </div>
-                  <a href="/modern-dining" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/modern-dining" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all modern restaurants →
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -1608,9 +1582,9 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 6:00 PM - 2:00 AM</span>
                     </div>
                   </div>
-                  <a href="/category/cocktail-bars" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/category/cocktail-bars" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all cocktail bars →
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -1657,9 +1631,9 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 4:00 PM - 11:00 PM</span>
                     </div>
                   </div>
-                  <a href="/category/terraces" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/category/terraces" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all terraces →
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -1706,9 +1680,9 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 12:00 PM - 10:00 PM</span>
                     </div>
                   </div>
-                  <a href="/category/cantinas" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/category/cantinas" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all cantinas →
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -1755,22 +1729,22 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 7:00 PM - 2:00 AM</span>
                     </div>
                   </div>
-                  <a href="/category/live-music" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/category/live-music" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     View all live music venues →
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
 
             <div className="mt-12 text-center">
-              <a 
+              <Link 
                 href="/dining" 
                 className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
               >
                 Explore All Dining Spots
-              </a>
+              </Link>
               <p className="text-sm text-gray-500 mt-4">
-                Looking for specific cuisine or atmosphere? <a href="/contact" className="text-primary hover:underline">Contact us</a> for personalized recommendations.
+                Looking for specific cuisine or atmosphere? <Link href="/contact" className="text-primary hover:underline">Contact us</Link> for personalized recommendations.
               </p>
             </div>
           </div>
@@ -1927,22 +1901,22 @@ export default function Home({ places = [] }: HomeProps) {
                       <span>Open daily 9:00 AM - 5:00 PM</span>
                     </div>
                   </div>
-                  <a href="/category/meeting-spots#zoo" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                  <Link href="/category/meeting-spots#zoo" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
                     Learn more about the zoo →
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
 
             <div className="mt-12 text-center">
-              <a 
+              <Link 
                 href="/unique-meeting-spots" 
                 className="inline-block bg-secondary hover:bg-secondary-dark text-white font-medium px-10 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
               >
                 View All Unique Meeting Spots
-              </a>
+              </Link>
               <p className="text-sm text-gray-500 mt-8">
-                Want to book a unique venue? <a href="/contact" className="text-primary hover:text-primary-dark font-medium">Contact us</a> for assistance with reservations and special arrangements.
+                Want to book a unique venue? <Link href="/contact" className="text-primary hover:text-primary-dark font-medium">Contact us</Link> for assistance with reservations and special arrangements.
               </p>
             </div>
           </div>
@@ -1962,12 +1936,12 @@ export default function Home({ places = [] }: HomeProps) {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Partner With Us</h3>
                   <p className="text-gray-600 mb-4">Share your business with our engaged community of expats and locals.</p>
-                  <a href="/advertise" className="text-amber-500 hover:text-amber-600 font-medium inline-flex items-center">
+                  <Link href="/advertise" className="text-amber-500 hover:text-amber-600 font-medium inline-flex items-center">
                     Learn about advertising
                     <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -1981,12 +1955,12 @@ export default function Home({ places = [] }: HomeProps) {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">List Your Business</h3>
                   <p className="text-gray-600 mb-4">Join our directory of authentic Potosino businesses and reach new customers.</p>
-                  <a href="/join-directory" className="text-indigo-500 hover:text-indigo-600 font-medium inline-flex items-center">
+                  <Link href="/join-directory" className="text-indigo-500 hover:text-indigo-600 font-medium inline-flex items-center">
                     Join the directory
                     <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -1996,7 +1970,7 @@ export default function Home({ places = [] }: HomeProps) {
 
       {/* Floating Contact Button */}
       <div className="fixed bottom-8 right-8 z-50">
-        <a 
+        <Link 
           href="/contact" 
           className="flex items-center justify-center w-16 h-16 bg-primary text-white rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group"
           aria-label="Contact Us"
@@ -2014,7 +1988,7 @@ export default function Home({ places = [] }: HomeProps) {
               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
             />
           </svg>
-        </a>
+        </Link>
       </div>
     </>
   );
