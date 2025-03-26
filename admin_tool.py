@@ -41,9 +41,11 @@ class AdminTool:
         self.places_tab = ttk.Frame(self.notebook)
         self.events_tab = ttk.Frame(self.notebook)
         self.services_tab = ttk.Frame(self.notebook)
+        self.brands_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.places_tab, text='Places')
         self.notebook.add(self.events_tab, text='Events')
         self.notebook.add(self.services_tab, text='Services')
+        self.notebook.add(self.brands_tab, text='Potosino Brands')
 
         # Initialize place form
         self.init_place_form()
@@ -51,6 +53,8 @@ class AdminTool:
         self.init_event_form()
         # Initialize service form
         self.init_service_form()
+        # Initialize brand form
+        self.init_brand_form()
 
     def upload_image(self, file_path, folder_name):
         try:
@@ -84,7 +88,7 @@ class AdminTool:
             'private-dining-rooms', 'language-exchange-cafes', 'remote-work-cafes',
             'easy-parking-spots', 'international-markets', 'english-speaking-healthcare',
             'family-activities', 'sports-fitness', 'outdoor-activities',
-            'activities-rainy-day', 'local-organic-products'
+            'activities-rainy-day', 'local-organic-products', 'shop'
         ]
 
         # Create form frame
@@ -142,12 +146,33 @@ class AdminTool:
         self.place_hours = ttk.Entry(form_frame, width=50)
         self.place_hours.grid(row=9, column=1, columnspan=2, sticky='w', pady=5)
 
+        # Tags section
+        tags_frame = ttk.LabelFrame(form_frame, text="Tags", padding=5)
+        tags_frame.grid(row=10, column=0, columnspan=3, sticky='w', pady=5)
+        
+        # Helper text for brands
+        ttk.Label(tags_frame, text="For brands, select 'shop' as category and check 'Potosino Brand'", 
+                  foreground="blue").grid(row=0, column=0, columnspan=2, sticky='w', pady=5)
+        
+        # Potosino brand checkbox
+        self.place_potosino_tag = tk.BooleanVar()
+        ttk.Checkbutton(tags_frame, text="Potosino Brand", variable=self.place_potosino_tag).grid(row=1, column=0, sticky='w', padx=5)
+        
+        # Local brand checkbox
+        self.place_local_tag = tk.BooleanVar()
+        ttk.Checkbutton(tags_frame, text="Local Brand", variable=self.place_local_tag).grid(row=1, column=1, sticky='w', padx=5)
+        
+        # Other tags
+        ttk.Label(tags_frame, text="Other Tags (comma separated):").grid(row=2, column=0, columnspan=2, sticky='w', pady=5)
+        self.place_other_tags = ttk.Entry(tags_frame, width=50)
+        self.place_other_tags.grid(row=3, column=0, columnspan=2, sticky='w', pady=5)
+
         # Featured checkbox
         self.place_featured = tk.BooleanVar()
-        ttk.Checkbutton(form_frame, text="Featured", variable=self.place_featured).grid(row=10, column=1, sticky='w', pady=5)
+        ttk.Checkbutton(form_frame, text="Featured", variable=self.place_featured).grid(row=11, column=0, sticky='w', pady=5)
 
         # Submit button
-        ttk.Button(form_frame, text="Add Place", command=self.add_place).grid(row=11, column=0, columnspan=3, pady=20)
+        ttk.Button(form_frame, text="Add Place", command=self.add_place).grid(row=12, column=0, columnspan=3, pady=20)
 
     def init_event_form(self):
         # Event categories
@@ -277,6 +302,86 @@ class AdminTool:
         # Submit button
         ttk.Button(form_frame, text="Add Service", command=self.add_service).grid(row=12, column=0, columnspan=3, pady=20)
 
+    def init_brand_form(self):
+        # Brand categories
+        self.brand_categories = [
+            'food', 'beverages', 'clothing', 'crafts', 'household', 
+            'cosmetics', 'technology', 'furniture', 'accessories',
+            'automotive', 'entertainment', 'other'
+        ]
+
+        # Create form frame
+        form_frame = ttk.LabelFrame(self.brands_tab, text="Add New Potosino Brand", padding="10")
+        form_frame.pack(fill='x', padx=10, pady=5)
+
+        # Name
+        ttk.Label(form_frame, text="Brand Name:").grid(row=0, column=0, sticky='w', pady=5)
+        self.brand_name = ttk.Entry(form_frame, width=50)
+        self.brand_name.grid(row=0, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Category
+        ttk.Label(form_frame, text="Category:").grid(row=1, column=0, sticky='w', pady=5)
+        self.brand_category = ttk.Combobox(form_frame, values=self.brand_categories, width=47)
+        self.brand_category.grid(row=1, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Year Founded
+        ttk.Label(form_frame, text="Year Founded:").grid(row=2, column=0, sticky='w', pady=5)
+        self.brand_year_founded = ttk.Entry(form_frame, width=50)
+        self.brand_year_founded.grid(row=2, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Address
+        ttk.Label(form_frame, text="Address:").grid(row=3, column=0, sticky='w', pady=5)
+        self.brand_address = ttk.Entry(form_frame, width=50)
+        self.brand_address.grid(row=3, column=1, columnspan=2, sticky='w', pady=5)
+
+        # City
+        ttk.Label(form_frame, text="City:").grid(row=4, column=0, sticky='w', pady=5)
+        self.brand_city = ttk.Entry(form_frame, width=50)
+        self.brand_city.grid(row=4, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Phone
+        ttk.Label(form_frame, text="Phone:").grid(row=5, column=0, sticky='w', pady=5)
+        self.brand_phone = ttk.Entry(form_frame, width=50)
+        self.brand_phone.grid(row=5, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Website
+        ttk.Label(form_frame, text="Website:").grid(row=6, column=0, sticky='w', pady=5)
+        self.brand_website = ttk.Entry(form_frame, width=50)
+        self.brand_website.grid(row=6, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Instagram
+        ttk.Label(form_frame, text="Instagram:").grid(row=7, column=0, sticky='w', pady=5)
+        self.brand_instagram = ttk.Entry(form_frame, width=50)
+        self.brand_instagram.grid(row=7, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Description
+        ttk.Label(form_frame, text="Description:").grid(row=8, column=0, sticky='w', pady=5)
+        self.brand_description = tk.Text(form_frame, width=50, height=4)
+        self.brand_description.grid(row=8, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Products
+        ttk.Label(form_frame, text="Notable Products:").grid(row=9, column=0, sticky='w', pady=5)
+        self.brand_products = ttk.Entry(form_frame, width=50)
+        self.brand_products.grid(row=9, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Where to buy
+        ttk.Label(form_frame, text="Where to Buy:").grid(row=10, column=0, sticky='w', pady=5)
+        self.brand_where_to_buy = ttk.Entry(form_frame, width=50)
+        self.brand_where_to_buy.grid(row=10, column=1, columnspan=2, sticky='w', pady=5)
+
+        # Image upload
+        ttk.Label(form_frame, text="Brand Logo/Image:").grid(row=11, column=0, sticky='w', pady=5)
+        self.brand_image_path = tk.StringVar()
+        ttk.Entry(form_frame, textvariable=self.brand_image_path, width=40).grid(row=11, column=1, sticky='w', pady=5)
+        ttk.Button(form_frame, text="Browse", command=lambda: self.browse_file(self.brand_image_path)).grid(row=11, column=2, sticky='w', pady=5)
+
+        # Featured checkbox
+        self.brand_featured = tk.BooleanVar()
+        ttk.Checkbutton(form_frame, text="Featured", variable=self.brand_featured).grid(row=12, column=0, sticky='w', pady=5)
+
+        # Submit button
+        ttk.Button(form_frame, text="Add Brand", command=self.add_brand).grid(row=13, column=0, columnspan=3, pady=20)
+
     def browse_file(self, path_var):
         file_path = filedialog.askopenfilename(
             filetypes=[("Image files", "*.jpg *.jpeg *.png *.gif *.webp")]
@@ -293,6 +398,20 @@ class AdminTool:
                 if not image_url:
                     return
 
+            # Process tags
+            tags = []
+            if self.place_potosino_tag.get():
+                tags.append('potosino')
+            if self.place_local_tag.get():
+                tags.append('local')
+            
+            # Add other tags if provided
+            other_tags = self.place_other_tags.get().strip()
+            if other_tags:
+                # Split by comma and strip whitespace from each tag
+                additional_tags = [tag.strip().lower() for tag in other_tags.split(',') if tag.strip()]
+                tags.extend(additional_tags)
+
             data = {
                 'name': self.place_name.get(),
                 'category': self.place_category.get(),
@@ -302,9 +421,10 @@ class AdminTool:
                 'website': self.place_website.get(),
                 'instagram': self.place_instagram.get(),
                 'description': self.place_description.get('1.0', 'end-1c'),
-                'imageUrl': image_url,
+                'image_url': image_url,
                 'hours': self.place_hours.get(),
-                'featured': self.place_featured.get()
+                'featured': self.place_featured.get(),
+                'tags': tags
             }
 
             # Validate required fields
@@ -439,6 +559,53 @@ class AdminTool:
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
+    def add_brand(self):
+        try:
+            # Upload image if selected
+            image_url = None
+            if self.brand_image_path.get():
+                image_url = self.upload_image(self.brand_image_path.get(), 'brands')
+                if not image_url:
+                    return
+
+            # Create timestamp for created_at
+            timestamp = datetime.now().isoformat()
+
+            data = {
+                'name': self.brand_name.get(),
+                'category': self.brand_category.get(),
+                'year_founded': self.brand_year_founded.get(),
+                'address': self.brand_address.get(),
+                'city': self.brand_city.get(),
+                'phone': self.brand_phone.get(),
+                'website': self.brand_website.get(),
+                'instagram': self.brand_instagram.get(),
+                'description': self.brand_description.get('1.0', 'end-1c'),
+                'notable_products': self.brand_products.get(),
+                'where_to_buy': self.brand_where_to_buy.get(),
+                'image_url': image_url,
+                'featured': self.brand_featured.get(),
+                'created_at': timestamp,
+                'updated_at': timestamp
+            }
+
+            # Validate required fields
+            if not data['name'] or not data['category']:
+                messagebox.showerror("Error", "Name and category are required fields!")
+                return
+
+            # Insert into database
+            result = supabase.table('brands').insert(data).execute()
+            
+            if result.data:
+                messagebox.showinfo("Success", "Brand added successfully!")
+                self.clear_brand_form()
+            else:
+                messagebox.showerror("Error", "Failed to add brand")
+
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
     def clear_place_form(self):
         self.place_name.delete(0, 'end')
         self.place_category.set('')
@@ -450,6 +617,9 @@ class AdminTool:
         self.place_description.delete('1.0', 'end')
         self.place_image_path.set('')
         self.place_hours.delete(0, 'end')
+        self.place_potosino_tag.set(False)
+        self.place_local_tag.set(False)
+        self.place_other_tags.delete(0, 'end')
         self.place_featured.set(False)
 
     def clear_event_form(self):
@@ -475,6 +645,21 @@ class AdminTool:
         self.service_hours.delete(0, 'end')
         self.service_image_path.set('')
         self.service_featured.set(False)
+
+    def clear_brand_form(self):
+        self.brand_name.delete(0, 'end')
+        self.brand_category.set('')
+        self.brand_year_founded.delete(0, 'end')
+        self.brand_address.delete(0, 'end')
+        self.brand_city.delete(0, 'end')
+        self.brand_phone.delete(0, 'end')
+        self.brand_website.delete(0, 'end')
+        self.brand_instagram.delete(0, 'end')
+        self.brand_description.delete('1.0', 'end')
+        self.brand_products.delete(0, 'end')
+        self.brand_where_to_buy.delete(0, 'end')
+        self.brand_image_path.set('')
+        self.brand_featured.set(False)
 
 if __name__ == "__main__":
     root = tk.Tk()

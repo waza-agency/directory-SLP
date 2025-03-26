@@ -3,6 +3,120 @@ import { Place, Event } from '@/types';
 import * as fs from 'fs';
 import * as path from 'path';
 
+// Sample local brand shops
+const sampleBrands = [
+  {
+    id: 'brand-provi',
+    name: 'Botanas Provi',
+    category: 'shop',
+    address: 'Centro Histórico, San Luis Potosí',
+    description: 'Traditional Mexican snacks and treats made with authentic recipes passed down through generations.',
+    tags: ['local', 'potosino', 'food', 'snacks'],
+    featured: true,
+    imageUrl: '/images/brands/botanas-provi.jpg'
+  },
+  {
+    id: 'brand-superior',
+    name: 'Panaderías La Superior',
+    category: 'shop',
+    address: 'Av. Carranza 150, Centro',
+    description: 'Artisanal bakery offering fresh bread, pastries, and traditional Mexican baked goods since 1950.',
+    tags: ['local', 'potosino', 'food', 'bakery'],
+    featured: true,
+    imageUrl: '/images/brands/panaderia-la-superior.jpg'
+  },
+  {
+    id: 'brand-lourdes',
+    name: 'Aguas de Lourdes',
+    category: 'shop',
+    address: 'Calle Universidad 205',
+    description: 'Refreshing traditional Mexican aguas frescas and beverages made with natural ingredients.',
+    tags: ['local', 'potosino', 'beverages', 'drinks'],
+    featured: true,
+    imageUrl: '/images/brands/aguas-de-lourdes.jpg'
+  },
+  {
+    id: 'brand-1',
+    name: 'Chocolates Costanzo',
+    category: 'shop',
+    address: 'Centro Histórico, San Luis Potosí',
+    description: 'Traditional Mexican chocolates and sweets made with authentic recipes since 1927.',
+    tags: ['local', 'potosino', 'food', 'chocolate'],
+    featured: true,
+    imageUrl: '/images/brands/chocolates-costanzo.jpg'
+  },
+  {
+    id: 'brand-2',
+    name: 'Quesos Carranco',
+    category: 'shop',
+    address: 'Av. Universidad 55, San Luis Potosí',
+    description: 'Artisanal cheese producer offering a wide variety of traditional Mexican cheeses.',
+    tags: ['local', 'potosino', 'food', 'dairy'],
+    featured: true,
+    imageUrl: '/images/brands/quesos-carranco.jpg'
+  },
+  {
+    id: 'brand-3',
+    name: 'Cajeta Coronado',
+    category: 'shop',
+    address: 'Mercado Hidalgo, San Luis Potosí',
+    description: 'Traditional Mexican caramel (cajeta) made with goat milk using family recipes.',
+    tags: ['local', 'potosino', 'food', 'sweets'],
+    featured: true,
+    imageUrl: '/images/brands/cajeta-coronado.jpg'
+  },
+  {
+    id: 'brand-4',
+    name: 'Bicicletas Mercurio',
+    category: 'shop',
+    address: 'Calle 5 de Mayo 120, Centro',
+    description: 'Local bicycle manufacturer and retailer with a rich history in San Luis Potosí.',
+    tags: ['local', 'potosino', 'sports', 'bicycles'],
+    featured: true,
+    imageUrl: '/images/brands/bicicletas-mercurio.jpg'
+  },
+  {
+    id: 'brand-5',
+    name: 'Canel\'s',
+    category: 'shop',
+    address: 'Plaza de Armas 15, Centro',
+    description: 'Traditional Mexican candy manufacturer known for their signature cinnamon-flavored candies.',
+    tags: ['local', 'potosino', 'food', 'sweets'],
+    featured: true,
+    imageUrl: '/images/brands/canels.jpg'
+  },
+  {
+    id: 'brand-6',
+    name: 'Ron Potosí',
+    category: 'shop',
+    address: 'Calle Universidad 205',
+    description: 'Local rum distillery producing premium spirits with traditional methods.',
+    tags: ['local', 'potosino', 'spirits', 'beverages'],
+    featured: true,
+    imageUrl: '/images/brands/ron-potosino.jpg'
+  },
+  {
+    id: 'brand-7',
+    name: 'Las Sevillanas',
+    category: 'shop',
+    address: 'Av. Carranza 308',
+    description: 'Traditional Mexican bakery famous for their fresh bread and pastries.',
+    tags: ['local', 'potosino', 'food', 'bakery'],
+    featured: true,
+    imageUrl: '/images/brands/las-sevillanas.jpg'
+  },
+  {
+    id: 'brand-8',
+    name: 'Productos Don Tacho',
+    category: 'shop',
+    address: 'Plaza de los Fundadores 12',
+    description: 'Local producer of traditional Mexican snacks and food products.',
+    tags: ['local', 'potosino', 'food', 'snacks'],
+    featured: true,
+    imageUrl: '/images/brands/productos-don-tacho.jpg'
+  }
+];
+
 // Initialize the Google Sheets API
 const getGoogleSheets = () => {
   console.log('Initializing Google Sheets API...');
@@ -122,14 +236,14 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
   
   if (isNetlifyBuild) {
     console.log('Running in Netlify build environment, using mock data');
-    return getMockPlaces();
+    return [...getMockPlaces(), ...sampleBrands];
   }
   
   try {
     // Make sure we have a Google Sheet ID
     if (!process.env.GOOGLE_SHEET_ID) {
       console.error('GOOGLE_SHEET_ID environment variable is not set');
-      return getMockPlaces();
+      return [...getMockPlaces(), ...sampleBrands];
     }
     
     // Fallback credentials - for testing only
@@ -404,104 +518,14 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
         if (localBrands.length === 0) {
           console.log('No local brands found, adding sample data for testing');
           
-          // Sample local brand shops
-          const sampleBrands = [
-            {
-              id: 'brand-1',
-              name: 'Artesanías Potosinas',
-              category: 'shop',
-              address: 'Centro Histórico, San Luis Potosí',
-              description: 'Traditional handcrafted goods from local artisans.',
-              tags: ['local', 'artisan', 'handmade'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?q=80&w=2070'
-            },
-            {
-              id: 'brand-2',
-              name: 'Mezcal Potosino',
-              category: 'shop',
-              address: 'Av. Universidad 55, San Luis Potosí',
-              description: 'Local mezcal producer featuring traditional and innovative flavors.',
-              tags: ['local', 'mezcal', 'spirits'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070'
-            },
-            {
-              id: 'brand-3',
-              name: 'Dulces Típicos SLP',
-              category: 'shop',
-              address: 'Mercado Hidalgo, San Luis Potosí',
-              description: 'Traditional sweets and candies from the region.',
-              tags: ['local', 'food', 'sweets'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?q=80&w=2071'
-            },
-            {
-              id: 'brand-4',
-              name: 'Cerámica Potosina',
-              category: 'shop',
-              address: 'Calle 5 de Mayo 120, Centro',
-              description: 'Beautiful local ceramics and pottery.',
-              tags: ['local', 'ceramics', 'artisan'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1565193566173-7a0af771daa1?q=80&w=2065'
-            },
-            {
-              id: 'brand-5',
-              name: 'Textiles San Luis',
-              category: 'shop',
-              address: 'Plaza de Armas 15, Centro',
-              description: 'Traditional textiles and garments made by local craftspeople.',
-              tags: ['local', 'textiles', 'clothing'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2080'
-            },
-            {
-              id: 'brand-6',
-              name: 'Joyería Artesanal',
-              category: 'shop',
-              address: 'Calle Universidad 205',
-              description: 'Handcrafted jewelry inspired by local traditions and using local materials.',
-              tags: ['local', 'jewelry', 'artisan'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?q=80&w=2070'
-            },
-            {
-              id: 'brand-7',
-              name: 'Productos Orgánicos SLP',
-              category: 'shop',
-              address: 'Av. Carranza 308',
-              description: 'Local organic products, from honey to herbal remedies.',
-              tags: ['local', 'organic', 'food'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974'
-            },
-            {
-              id: 'brand-8',
-              name: 'Arte Popular Potosino',
-              category: 'shop',
-              address: 'Plaza de los Fundadores 12',
-              description: 'A gallery showcasing and selling works from local artists.',
-              tags: ['local', 'art', 'gallery'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=2070'
-            },
-            {
-              id: 'brand-9',
-              name: 'Chocolate San Luis',
-              category: 'shop',
-              address: 'Calle Zaragoza 225',
-              description: 'Artisanal chocolate made with traditional techniques and local ingredients.',
-              tags: ['local', 'chocolate', 'food'],
-              featured: false,
-              imageUrl: 'https://images.unsplash.com/photo-1614077984293-be479501806f?q=80&w=2070'
-            }
-          ];
-          
           // Add the sample brands to the places array
           places.push(...sampleBrands);
           console.log(`Added ${sampleBrands.length} sample local brands for testing`);
         }
+        
+        // After processing the places from the sheet, add our sample brands
+        places.push(...sampleBrands);
+        console.log(`Added ${sampleBrands.length} sample Potosino brands`);
         
         return places;
       } else {
@@ -514,7 +538,7 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
     }
   } catch (error) {
     console.error('Error fetching data from Google Sheets:', error);
-    return [];
+    return [...getMockPlaces(), ...sampleBrands];
   }
 }
 
@@ -634,7 +658,7 @@ export async function fetchEventsFromSheet(): Promise<Event[]> {
     const rows = response.data.values || [];
     console.log(`Fetched ${rows.length} events from the sheet`);
     
-    // Map sheet rows to Event objects
+    // Process events
     const events = rows.map((row: any, index: number) => {
       if (!row[0]) {
         // Skip empty rows
@@ -645,20 +669,22 @@ export async function fetchEventsFromSheet(): Promise<Event[]> {
       // Get column values with proper cleaning
       const cleanText = (text?: string): string => {
         if (!text) return '';
+        // Trim whitespace and convert to proper encoding if needed
         return text.trim();
       };
 
       const event: Event = {
-        id: cleanText(row[0]),
-        title: cleanText(row[1]),
-        description: cleanText(row[2]),
-        date: cleanText(row[3]),
-        time: cleanText(row[4]),
-        location: cleanText(row[5]),
-        category: cleanText(row[6]) as 'sports' | 'cultural' | 'other',
-        imageUrl: isValidImageUrl(row[7]) ? cleanText(row[7]) : undefined,
-        price: cleanText(row[8]),
-        featured: cleanText(row[9])?.toLowerCase() === 'true',
+        id: row[0] ? `event-${index}-${cleanText(row[0]).substring(0, 10).replace(/\s/g, '-')}` : `event-${Math.random().toString(36).substring(2, 9)}`,
+        title: cleanText(row[0]),
+        description: cleanText(row[1]),
+        start_date: cleanText(row[2]),
+        end_date: cleanText(row[3]),
+        location: cleanText(row[4]),
+        category: (cleanText(row[5]).toLowerCase() === 'sports' || cleanText(row[5]).toLowerCase() === 'cultural') 
+          ? cleanText(row[5]).toLowerCase() as 'sports' | 'cultural'
+          : 'other',
+        image_url: cleanText(row[6]),
+        featured: cleanText(row[7])?.toLowerCase() === 'true',
       };
 
       return event;
@@ -678,14 +704,23 @@ function getMockEvents(): Event[] {
       id: 'sports-tournament-1',
       title: 'Regional Sports Tournament',
       description: 'Annual sports tournament featuring various disciplines including soccer, basketball, and volleyball.',
-      date: '2024-05-15',
-      time: '09:00 AM',
+      start_date: '2024-05-15',
+      end_date: '2024-05-15',
       location: 'Parque Tangamanga',
       category: 'sports',
-      imageUrl: '/images/events/sports-tournament.jpg',
-      price: 'Free',
+      image_url: '/images/events/sports-tournament.jpg',
       featured: true,
     },
-    // Add more mock events as needed
+    {
+      id: 'cultural-festival-1',
+      title: 'Cultural Festival',
+      description: 'A celebration of local arts, music, and traditions.',
+      start_date: '2024-06-01',
+      end_date: '2024-06-03',
+      location: 'Centro Histórico',
+      category: 'cultural',
+      image_url: '/images/events/cultural-festival.jpg',
+      featured: true,
+    }
   ];
 } 

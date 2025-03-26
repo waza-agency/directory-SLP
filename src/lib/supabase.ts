@@ -91,4 +91,17 @@ export const getEventById = async (id: string) => {
 
   if (error) throw error
   return data
+}
+
+export const getPotosinoBrands = async () => {
+  const { data, error } = await supabase
+    .from('places')
+    .select('*')
+    .eq('category', 'shop')
+    .eq('tags', ['potosino'])
+    .order('featured', { ascending: false })
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data;
 } 

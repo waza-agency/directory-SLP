@@ -111,6 +111,12 @@
     "description": "Descubre y apoya a artesanos locales, creadores y emprendedores que encarnan el espíritu y las tradiciones de San Luis Potosí.",
     "support": "Cada compra apoya la economía local y ayuda a preservar nuestras tradiciones culturales."
   },
+  "brands": {
+    "title": "Marcas Potosinas",
+    "description": "Descubre negocios locales y artesanos de San Luis Potosí",
+    "heading": "Marcas y Artesanos Potosinos",
+    "subheading": "Descubre y apoya a artesanos locales, creadores y emprendedores que encarnan el espíritu y las tradiciones de San Luis Potosí."
+  },
   "footer": {
     "description": "SLP Descubre es tu guía completa de los mejores lugares, experiencias y tesoros culturales en San Luis Potosí, México.",
     "navigation": "Navegación",

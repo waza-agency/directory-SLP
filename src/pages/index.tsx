@@ -4,7 +4,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { Place } from '@/types';
-import { fetchPlacesFromSheet } from '@/lib/api/google-sheets';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import { useState } from 'react';
@@ -13,19 +12,36 @@ import { CalendarIcon } from '@heroicons/react/24/outline';
 import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
+import { Brand, getFeaturedBrands } from '@/lib/brands';
 
 interface HomeProps {
-  places: Place[];
+  featuredBrands: Brand[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      places: [],
-      ...(await serverSideTranslations(locale || 'en', ['common']))
-    }
-  };
-};
+export async function getStaticProps({ locale }: any) {
+  try {
+    // Only fetch featured brands from Supabase
+    const featuredBrands = await getFeaturedBrands(3);
+
+    return {
+      props: {
+        featuredBrands,
+        ...(await serverSideTranslations(locale || 'en', ['common'])),
+      },
+      // Revalidate at most once per hour
+      revalidate: 3600,
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    return {
+      props: {
+        featuredBrands: [],
+        ...(await serverSideTranslations(locale || 'en', ['common'])),
+      },
+      revalidate: 3600,
+    };
+  }
+}
 
 const upcomingEvents = [
   {
@@ -153,16 +169,16 @@ const eventCategories = [
   }
 ];
 
-export default function Home({ places = [] }: HomeProps) {
+export default function Home({ featuredBrands = [] }: HomeProps) {
   const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
   
-  const featuredPlaces = places?.filter(place => place.featured) || [];
-  const restaurants = places?.filter(place => place.category === 'restaurant') || [];
-  const cafes = places?.filter(place => place.category === 'cafe') || [];
-  const localBrands = places?.filter(place => place.category === 'shop' && place.tags?.includes('local')) || [];
-  const potosinoBrands = places?.filter(place => place.category === 'shop' && place.tags?.includes('potosino')) || [];
+  const featuredPlaces = [] as Place[];
+  const restaurants = [] as Place[];
+  const cafes = [] as Place[];
+  const localBrands = [] as Place[];
+  const potosinoBrands = [] as Place[];
 
   // Function to get upcoming events for a category
   const getUpcomingEventsForCategory = (categoryId: string) => {
@@ -840,112 +856,51 @@ export default function Home({ places = [] }: HomeProps) {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Featured Potosino Brands */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/brands/botanas-provi.jpg"
-                    alt="Botanas Provi"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Botanas Provi</h3>
-                  <p className="text-gray-600 text-sm mb-4">Traditional Mexican snacks and treats made with authentic recipes passed down through generations.</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
-                        food
-                      </span>
+              {featuredBrands.slice(0, 3).map(brand => (
+                <div key={brand.id} className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
+                  <div className="relative h-48">
+                    <Image
+                      src={brand.image_url || "/images/placeholder.jpg"}
+                      alt={brand.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{brand.name}</h3>
+                    <p className="text-gray-600 text-sm mb-4">{brand.description}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
+                          {brand.category}
+                        </span>
+                      </div>
+                      <Link 
+                        href={`/brands/${brand.id}`}
+                        className="text-primary hover:text-primary-dark transition-colors"
+                      >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </Link>
                     </div>
-                    <Link 
-                      href="/brands/botanas-provi"
-                      className="text-primary hover:text-primary-dark transition-colors"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    </Link>
                   </div>
                 </div>
-              </div>
-
-              <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/brands/panaderia-la-superior.jpg"
-                    alt="Panaderías La Superior"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Panaderías La Superior</h3>
-                  <p className="text-gray-600 text-sm mb-4">Artisanal bakery offering fresh bread, pastries, and traditional Mexican baked goods since 1950.</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
-                        food
-                      </span>
-                    </div>
-                    <Link 
-                      href="/brands/panaderia-la-superior"
-                      className="text-primary hover:text-primary-dark transition-colors"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/brands/aguas-de-lourdes.jpg"
-                    alt="Aguas de Lourdes"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Aguas de Lourdes</h3>
-                  <p className="text-gray-600 text-sm mb-4">Refreshing traditional Mexican aguas frescas and beverages made with natural ingredients.</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
-                        beverages
-                      </span>
-                    </div>
-                    <Link 
-                      href="/brands/aguas-de-lourdes"
-                      className="text-primary hover:text-primary-dark transition-colors"
-                    >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
             
-            <div className="mt-12 text-center">
+            <div className="text-center mt-12">
               <Link 
                 href="/brands" 
-                className="inline-block btn-primary text-white py-3 px-8 rounded-md font-medium hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md text-white bg-primary shadow-sm hover:bg-primary-dark transition-colors"
               >
-                View All Potosino Brands
+                Explore all brands
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </Link>
             </div>
           </div>
