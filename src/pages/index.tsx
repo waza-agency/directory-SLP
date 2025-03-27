@@ -13,35 +13,44 @@ import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
 import { Brand, getFeaturedBrands } from '@/lib/brands';
+import { Event } from '@/types';
+import { supabase } from '@/lib/supabase';
 
 interface HomeProps {
-  featuredBrands: Brand[];
+  events: Event[];
+  featuredBrands?: any[];
 }
 
-export async function getStaticProps({ locale }: any) {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
-    // Only fetch featured brands from Supabase
-    const featuredBrands = await getFeaturedBrands(3);
+    // Fetch upcoming events from Supabase
+    const { data: events, error } = await supabase
+      .from('events')
+      .select('*')
+      .gte('end_date', new Date().toISOString())
+      .order('start_date', { ascending: true })
+      .limit(8); // Limit to 8 events for the homepage
+
+    if (error) throw error;
 
     return {
       props: {
-        featuredBrands,
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
+        ...(await serverSideTranslations(locale, ['common'])),
+        events: events || [],
       },
-      // Revalidate at most once per hour
-      revalidate: 3600,
+      revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
-    console.error('Error in getStaticProps:', error);
+    console.error('Error fetching events:', error);
     return {
       props: {
-        featuredBrands: [],
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
+        ...(await serverSideTranslations(locale, ['common'])),
+        events: [],
       },
       revalidate: 3600,
     };
   }
-}
+};
 
 const upcomingEvents = [
   {
@@ -169,7 +178,7 @@ const eventCategories = [
   }
 ];
 
-export default function Home({ featuredBrands = [] }: HomeProps) {
+export default function Home({ events = [], featuredBrands = [] }: HomeProps) {
   const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
@@ -182,7 +191,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
 
   // Function to get upcoming events for a category
   const getUpcomingEventsForCategory = (categoryId: string) => {
-    return upcomingEvents.filter(event => event.category === categoryId).slice(0, 2);
+    return events.filter(event => event.category === categoryId).slice(0, 2);
   };
 
   const getGradientClass = (color: string) => {
@@ -197,6 +206,16 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
       'yellow-500': 'from-yellow-500'
     };
     return gradientMap[color] || 'from-primary';
+  };
+
+  // Helper function to format date consistently
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
   return (
@@ -1075,22 +1094,22 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {upcomingEvents.map((event) => (
+              {events.map((event) => (
                 <div 
                   key={event.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
                 >
                   <div className="relative h-48">
-                    <ResponsiveImage
-                      src={`/images/calendar/${event.id}.jpg`}
+                    <Image
+                      src={event.image_url || '/images/events/default.jpg'}
                       alt={event.title}
-                      height="192px"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-4">
                       <span className={`inline-block px-2 py-1 rounded-full text-xs text-white bg-${eventCategories.find(cat => cat.id === event.category)?.color || 'primary'} mb-2`}>
-                        {eventCategories.find(cat => cat.id === event.category)?.title}
+                        {eventCategories.find(cat => cat.id === event.category)?.title || event.category}
                       </span>
                       <h3 className="text-white font-medium text-lg leading-tight">{event.title}</h3>
                     </div>
@@ -1099,7 +1118,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center text-sm text-gray-500">
                         <CalendarIcon className="w-4 h-4 mr-2" />
-                        <span>{event.date}</span>
+                        <span>{formatDate(event.start_date)}</span>
                       </div>
                       <div className="text-sm text-gray-500">
                         <span>{event.location}</span>
