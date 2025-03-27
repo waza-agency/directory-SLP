@@ -916,7 +916,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                       </svg>
                       <span>12 locations</span>
                     </div>
-                    <Link href="/category/activities-rainy-day" className="text-primary font-medium text-sm hover:underline">
+                    <Link href="/category/rainy-day-activities" className="text-primary font-medium text-sm hover:underline">
                       View all →
                     </Link>
                   </div>
