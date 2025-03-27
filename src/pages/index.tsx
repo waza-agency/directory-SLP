@@ -8,7 +8,7 @@ import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import { useState } from 'react';
 import Image from 'next/image';
-import { CalendarIcon } from '@heroicons/react/24/outline';
+import { CalendarIcon, MegaphoneIcon, StarIcon, NewspaperIcon } from '@heroicons/react/24/outline';
 import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
@@ -19,6 +19,8 @@ import { supabase } from '@/lib/supabase';
 interface HomeProps {
   events: Event[];
   featuredBrands?: any[];
+  featuredAdvertisers?: any[];
+  sponsoredContent?: any[];
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
@@ -43,11 +45,63 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
     if (brandsError) throw brandsError;
 
+    // Mock featured advertisers data
+    const featuredAdvertisers = [
+      {
+        id: '1',
+        name: 'Hotel Real de Minas',
+        description: 'Luxury accommodations in the heart of San Luis Potosí',
+        imageUrl: '/images/advertisers/hotel-real.jpg',
+        ctaUrl: '/places/hotel-real-de-minas'
+      },
+      {
+        id: '2',
+        name: 'Restaurante La Antigua',
+        description: 'Traditional Mexican cuisine with a modern twist',
+        imageUrl: '/images/advertisers/la-antigua.jpg',
+        ctaUrl: '/places/la-antigua'
+      },
+      {
+        id: '3',
+        name: 'Centro Comercial Plaza San Luis',
+        description: 'Your premier shopping destination in SLP',
+        imageUrl: '/images/advertisers/plaza-san-luis.jpg',
+        ctaUrl: '/places/plaza-san-luis'
+      }
+    ];
+
+    // Mock sponsored content data
+    const sponsoredContent = [
+      {
+        id: '1',
+        title: 'Discover the Magic of Real de Catorce',
+        description: 'A comprehensive guide to exploring this historic mining town and its surrounding natural wonders.',
+        imageUrl: '/images/sponsored/real-de-catorce.jpg',
+        ctaUrl: '/guides/real-de-catorce'
+      },
+      {
+        id: '2',
+        title: 'The Ultimate Foodie Guide to SLP',
+        description: 'From street tacos to fine dining: Your complete guide to San Luis Potosí\'s culinary scene.',
+        imageUrl: '/images/sponsored/food-guide.jpg',
+        ctaUrl: '/guides/foodie-guide'
+      },
+      {
+        id: '3',
+        title: 'Weekend Getaways from San Luis Potosí',
+        description: 'Explore the best day trips and weekend destinations within reach of the city.',
+        imageUrl: '/images/sponsored/weekend-getaways.jpg',
+        ctaUrl: '/guides/weekend-getaways'
+      }
+    ];
+
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
         events: events || [],
         featuredBrands: brands || [],
+        featuredAdvertisers,
+        sponsoredContent
       },
       revalidate: 3600, // Revalidate every hour
     };
@@ -58,6 +112,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
         ...(await serverSideTranslations(locale, ['common'])),
         events: [],
         featuredBrands: [],
+        featuredAdvertisers: [],
+        sponsoredContent: []
       },
       revalidate: 3600,
     };
@@ -190,7 +246,7 @@ const eventCategories = [
   }
 ];
 
-export default function Home({ events = [], featuredBrands = [] }: HomeProps) {
+export default function Home({ events = [], featuredBrands = [], featuredAdvertisers = [], sponsoredContent = [] }: HomeProps) {
   const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
@@ -233,8 +289,8 @@ export default function Home({ events = [], featuredBrands = [] }: HomeProps) {
   return (
     <>
       <Head>
-        <title>SLP Descubre - Your Insider Guide to San Luis Potosí</title>
-        <meta name="description" content="Discover San Luis Potosí with our comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <title>San Luis Way - Your Insider Guide to San Luis Potosí</title>
+        <meta name="description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
         <meta name="keywords" content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture" />
       </Head>
 
@@ -242,6 +298,38 @@ export default function Home({ events = [], featuredBrands = [] }: HomeProps) {
         {/* Hero Section */}
         <HeroBanner />
         
+        {/* Featured Advertisers Banner */}
+        <section className="bg-white py-8">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Featured Advertisers</h2>
+              <Link href="/advertise" className="text-sm text-primary hover:text-primary-dark">
+                Advertise with us →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featuredAdvertisers?.map((advertiser) => (
+                <div key={advertiser.id} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+                  <div className="aspect-w-16 aspect-h-9 mb-4">
+                    <Image
+                      src={advertiser.imageUrl}
+                      alt={advertiser.name}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-md"
+                    />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">{advertiser.name}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{advertiser.description}</p>
+                  <Link href={advertiser.ctaUrl} className="text-primary hover:text-primary-dark text-sm font-medium">
+                    Learn More →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Welcome/About Section */}
         <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto">
@@ -2067,6 +2155,235 @@ export default function Home({ events = [], featuredBrands = [] }: HomeProps) {
                     </svg>
                   </Link>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Newsletter Signup with CTA */}
+        <section className="bg-primary text-white py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center">
+              <NewspaperIcon className="h-12 w-12 mx-auto mb-4" />
+              <h2 className="text-3xl font-bold mb-4">Stay Updated with SLP Descubre</h2>
+              <p className="text-lg mb-8">Get weekly updates on the best events, places, and experiences in San Luis Potosí.</p>
+              <form className="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-4 py-3 rounded-lg text-gray-900"
+                />
+                <button
+                  type="submit"
+                  className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        {/* Sponsored Content Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-gray-900">Sponsored Content</h2>
+              <Link href="/sponsor" className="text-primary hover:text-primary-dark">
+                Become a Sponsor →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sponsoredContent?.map((content) => (
+                <div key={content.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <div className="aspect-w-16 aspect-h-9">
+                    <Image
+                      src={content.imageUrl}
+                      alt={content.title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center mb-2">
+                      <StarIcon className="h-5 w-5 text-yellow-400 mr-1" />
+                      <span className="text-sm text-gray-600">Sponsored</span>
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{content.title}</h3>
+                    <p className="text-gray-600 mb-4">{content.description}</p>
+                    <Link href={content.ctaUrl} className="text-primary hover:text-primary-dark font-medium">
+                      Read More →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Premium Listing Section */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <MegaphoneIcon className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h2 className="text-3xl font-bold mb-4">Get More Visibility for Your Business</h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Join our premium listing program and reach thousands of potential customers in San Luis Potosí.
+              </p>
+              <Link
+                href="/premium-listing"
+                className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+              >
+                Upgrade to Premium
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Business Growth Section */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-gradient-to-r from-primary to-primary-dark rounded-2xl p-8 md:p-12 text-white">
+                <div className="flex flex-col md:flex-row items-center justify-between">
+                  <div className="md:w-2/3 mb-8 md:mb-0">
+                    <h2 className="text-3xl font-bold mb-4">Grow Your Business in San Luis Potosí</h2>
+                    <p className="text-lg mb-6">Join San Luis Way's premium business directory and connect with thousands of potential customers. Get featured placement, priority support, and exclusive marketing opportunities.</p>
+                    <ul className="space-y-3 mb-8">
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Featured placement in search results
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Priority customer support
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Exclusive marketing opportunities
+                      </li>
+                    </ul>
+                    <Link
+                      href="/business-growth"
+                      className="inline-block bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                    >
+                      Learn More About Premium Benefits
+                    </Link>
+                  </div>
+                  <div className="md:w-1/3">
+                    <div className="bg-white/10 rounded-xl p-6 backdrop-blur-sm">
+                      <h3 className="text-xl font-semibold mb-4">Premium Features</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-center">
+                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          Custom Business Profile
+                        </li>
+                        <li className="flex items-center">
+                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          Analytics Dashboard
+                        </li>
+                        <li className="flex items-center">
+                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          Direct Customer Messaging
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Event Sponsorship Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Sponsor Local Events</h2>
+              <p className="text-lg text-gray-600 mb-8">Connect with our engaged community through event sponsorship opportunities</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-xl p-8 shadow-md">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                    <CalendarIcon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold">Event Sponsorship</h3>
+                </div>
+                <p className="text-gray-600 mb-6">Get your brand in front of thousands of engaged locals and visitors at our featured events.</p>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-center text-gray-600">
+                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Logo placement on event materials
+                  </li>
+                  <li className="flex items-center text-gray-600">
+                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Social media promotion
+                  </li>
+                  <li className="flex items-center text-gray-600">
+                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    VIP event access
+                  </li>
+                </ul>
+                <Link
+                  href="/event-sponsorship"
+                  className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors"
+                >
+                  Learn More
+                </Link>
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-md">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                    <MegaphoneIcon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold">Digital Advertising</h3>
+                </div>
+                <p className="text-gray-600 mb-6">Reach your target audience with precision through our digital advertising platform.</p>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-center text-gray-600">
+                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Targeted audience reach
+                  </li>
+                  <li className="flex items-center text-gray-600">
+                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Performance analytics
+                  </li>
+                  <li className="flex items-center text-gray-600">
+                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Flexible campaign options
+                  </li>
+                </ul>
+                <Link
+                  href="/digital-advertising"
+                  className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors"
+                >
+                  Get Started
+                </Link>
               </div>
             </div>
           </div>
