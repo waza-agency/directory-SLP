@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import {
@@ -14,6 +14,7 @@ import {
   HeartIcon,
   ScaleIcon
 } from '@heroicons/react/24/outline';
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface ContactFormData {
   name: string;
@@ -102,6 +103,8 @@ export default function LocalConnections() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -112,8 +115,16 @@ export default function LocalConnections() {
     }));
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaValue(token);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaValue) {
+      setSubmitStatus('error');
+      return;
+    }
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -125,6 +136,7 @@ export default function LocalConnections() {
         },
         body: JSON.stringify({
           ...formData,
+          recaptchaToken: recaptchaValue,
           to: 'info@sanluisway.com',
           subject: `Local Service Request: ${formData.serviceCategory} - ${formData.specificService}`
         }),
@@ -141,11 +153,13 @@ export default function LocalConnections() {
           urgencyLevel: '',
           message: ''
         });
+        recaptchaRef.current?.reset();
       } else {
         throw new Error('Failed to send message');
       }
     } catch (error) {
       setSubmitStatus('error');
+      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -374,7 +388,7 @@ export default function LocalConnections() {
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Additional Details
+                    Message
                   </label>
                   <textarea
                     id="message"
@@ -384,13 +398,21 @@ export default function LocalConnections() {
                     rows={4}
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-                    placeholder="Please describe your needs, including any specific requirements or concerns..."
+                    placeholder="Please provide details about your service request..."
+                  />
+                </div>
+
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                    onChange={handleRecaptchaChange}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !recaptchaValue}
                   className="w-full bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Sending...' : 'Submit Request'}

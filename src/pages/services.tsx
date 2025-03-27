@@ -119,7 +119,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.relocation.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.relocation.description')}</p>
-              <Link href="/contact?service=relocation" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-relocation-support" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.relocation.cta')}
               </Link>
             </div>
@@ -133,7 +133,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.housing.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.housing.description')}</p>
-              <Link href="/contact?service=housing" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-housing-services" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.housing.cta')}
               </Link>
             </div>
@@ -147,7 +147,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.legal.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.legal.description')}</p>
-              <Link href="/contact?service=legal" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-legal-administrative" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.legal.cta')}
               </Link>
             </div>
@@ -161,7 +161,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.community.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.community.description')}</p>
-              <Link href="/contact?service=community" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-community-integration" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.community.cta')}
               </Link>
             </div>
@@ -175,7 +175,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.family.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.family.description')}</p>
-              <Link href="/contact?service=family" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-family-support" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.family.cta')}
               </Link>
             </div>
@@ -189,7 +189,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.petcare.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.petcare.description')}</p>
-              <Link href="/contact?service=petcare" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-pet-care" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.petcare.cta')}
               </Link>
             </div>
@@ -203,7 +203,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.wellness.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.wellness.description')}</p>
-              <Link href="/contact?service=wellness" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-wellness-services" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.wellness.cta')}
               </Link>
             </div>
@@ -217,7 +217,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.homeservices.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.homeservices.description')}</p>
-              <Link href="/contact?service=homeservices" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-home-services" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.homeservices.cta')}
               </Link>
             </div>
@@ -231,7 +231,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.cultural.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.cultural.description')}</p>
-              <Link href="/contact?service=cultural" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-cultural-services" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.cultural.cta')}
               </Link>
             </div>
@@ -245,7 +245,7 @@ const ServicesPage: NextPage = () => {
               </div>
               <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('expatServices.experiences.title')}</h3>
               <p className="text-gray-600 mb-6">{t('expatServices.experiences.description')}</p>
-              <Link href="/contact?service=experiences" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
+              <Link href="/san-luis-potosi-experiences" className="btn-primary text-white py-3 px-6 rounded-md inline-block">
                 {t('expatServices.experiences.cta')}
               </Link>
             </div>

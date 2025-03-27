@@ -2,14 +2,16 @@ import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface ContactFormData {
   name: string;
   email: string;
   subject: string;
   message: string;
+  phone?: string;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) => {
@@ -25,6 +27,8 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   
   const {
     register,
@@ -34,19 +38,50 @@ export default function Contact() {
   } = useForm<ContactFormData>();
 
   const onSubmit = async (data: ContactFormData) => {
+    if (!recaptchaValue) {
+      setSubmitError('Please verify that you are not a robot');
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError('');
     
     try {
-      // Here you would typically send the data to your backend
-      // For now, we'll just simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          service: data.subject,
+          to: 'info@sanluisway.com',
+          recaptchaToken: recaptchaValue
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send message');
+      }
+      
       setSubmitSuccess(true);
       reset();
+      setRecaptchaValue(null);
+      recaptchaRef.current?.reset();
     } catch (error) {
-      setSubmitError('Failed to send message. Please try again.');
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaValue(token);
+    if (!token) {
+      setSubmitError('Please verify that you are not a robot');
+    } else {
+      setSubmitError('');
     }
   };
 
@@ -140,6 +175,18 @@ export default function Contact() {
                   </div>
 
                   <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone (optional)
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      {...register('phone')}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
                       Subject
                     </label>
@@ -169,6 +216,14 @@ export default function Contact() {
                     )}
                   </div>
 
+                  <div className="flex justify-center">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                      onChange={handleRecaptchaChange}
+                    />
+                  </div>
+
                   {submitError && (
                     <div className="bg-red-50 text-red-800 p-4 rounded-lg">
                       {submitError}
@@ -177,7 +232,7 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !recaptchaValue}
                     className="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}

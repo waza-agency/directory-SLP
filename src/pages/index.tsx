@@ -264,7 +264,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">{t('welcome.card3.title')}</h3>
                 <p className="text-gray-600 mb-4 flex-grow">{t('welcome.card3.description')}</p>
-                <Link href="/relocation-support" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <Link href="/san-luis-potosi-relocation-support" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
                   {t('welcome.card3.cta')}
                 </Link>
               </div>
@@ -296,16 +296,16 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 8a3 3 0 11-6 0 3 3 0 016 0zm-3 11a8 8 0 100-16 8 8 0 000 16zm0 0v3m0-3h3m-3 0h-3m3 0v-3" />
                   </svg>
                 </div>
-                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.relocation.title')}</h3>
-                <p className="text-gray-600 text-sm mb-4">{t('expatServices.relocation.description')}</p>
+                <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.experiences.title')}</h3>
+                <p className="text-gray-600 text-sm mb-4">{t('expatServices.experiences.description')}</p>
                 <Link 
-                  href="/contact?service=relocation" 
+                  href="/san-luis-potosi-experiences" 
                   className="block text-center bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  {t('expatServices.relocation.cta')}
+                  {t('expatServices.experiences.cta')}
                 </Link>
               </div>
               
@@ -318,7 +318,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.housing.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.housing.description')}</p>
                 <Link 
-                  href="/contact?service=housing" 
+                  href="/san-luis-potosi-housing-services" 
                   className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.housing.cta')}
@@ -334,7 +334,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.legal.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.legal.description')}</p>
                 <Link 
-                  href="/contact?service=legal" 
+                  href="/san-luis-potosi-legal-administrative" 
                   className="block text-center bg-secondary hover:bg-secondary-light text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.legal.cta')}
@@ -350,7 +350,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.community.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.community.description')}</p>
                 <Link 
-                  href="/contact?service=community" 
+                  href="/san-luis-potosi-community-integration" 
                   className="block text-center bg-rose-600 hover:bg-rose-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.community.cta')}
@@ -366,7 +366,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.family.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.family.description')}</p>
                 <Link 
-                  href="/contact?service=family" 
+                  href="/san-luis-potosi-family-support" 
                   className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.family.cta')}
@@ -382,7 +382,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.petcare.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.petcare.description')}</p>
                 <Link 
-                  href="/contact?service=petcare" 
+                  href="/san-luis-potosi-pet-care" 
                   className="block text-center bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.petcare.cta')}
@@ -398,7 +398,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.wellness.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.wellness.description')}</p>
                 <Link 
-                  href="/contact?service=wellness" 
+                  href="/san-luis-potosi-wellness-services" 
                   className="block text-center bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.wellness.cta')}
@@ -414,7 +414,7 @@ export default function Home({ featuredBrands = [] }: HomeProps) {
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.homeservices.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.homeservices.description')}</p>
                 <Link 
-                  href="/contact?service=homeservices" 
+                  href="/san-luis-potosi-home-services" 
                   className="block text-center bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.homeservices.cta')}

@@ -1,9 +1,10 @@
 import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
+import ReCAPTCHA from 'react-google-recaptcha';
 import {
   HomeIcon,
   DocumentTextIcon,
@@ -123,13 +124,23 @@ export default function RelocationSupport() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleServiceChange = (service: string) => {
     setSelectedService(service);
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaValue(token);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaValue) {
+      setSubmitStatus('error');
+      return;
+    }
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -141,8 +152,9 @@ export default function RelocationSupport() {
         },
         body: JSON.stringify({
           ...formData,
+          recaptchaToken: recaptchaValue,
           to: 'info@sanluisway.com',
-          subject: 'Relocation Support Request'
+          subject: `Relocation Support Request: ${selectedService}`
         }),
       });
 
@@ -162,11 +174,13 @@ export default function RelocationSupport() {
           additionalServices: [],
           message: ''
         });
+        recaptchaRef.current?.reset();
       } else {
         throw new Error('Failed to send message');
       }
     } catch (error) {
       setSubmitStatus('error');
+      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -199,7 +213,7 @@ export default function RelocationSupport() {
         />
         <meta 
           name="keywords" 
-          content="relocation services, San Luis Potosí, immigration support, housing, education, settlement services, expat services" 
+          content="relocation services, San Luis Potosí, visa support, housing assistance, education services, settlement services" 
         />
       </Head>
 
@@ -499,13 +513,21 @@ export default function RelocationSupport() {
                     onChange={handleChange}
                     rows={4}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Please share any specific requirements, concerns, or questions about your relocation..."
+                    placeholder="Any other details about your relocation needs..."
+                  />
+                </div>
+
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                    onChange={handleRecaptchaChange}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !recaptchaValue}
                   className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Sending...' : 'Submit Request'}
