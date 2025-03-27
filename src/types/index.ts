@@ -36,6 +36,7 @@ export type PlaceCategory =
   | 'park' 
   | 'shop' 
   | 'service' 
+  | 'live-music'
   | 'other';
 
 export interface FilterOptions {
