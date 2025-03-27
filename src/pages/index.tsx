@@ -24,28 +24,40 @@ interface HomeProps {
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Fetch upcoming events from Supabase
-    const { data: events, error } = await supabase
+    const { data: events, error: eventsError } = await supabase
       .from('events')
       .select('*')
       .gte('end_date', new Date().toISOString())
       .order('start_date', { ascending: true })
-      .limit(8); // Limit to 8 events for the homepage
+      .limit(8);
 
-    if (error) throw error;
+    if (eventsError) throw eventsError;
+
+    // Fetch featured brands
+    const { data: brands, error: brandsError } = await supabase
+      .from('brands')
+      .select('*')
+      .eq('featured', true)
+      .order('name', { ascending: true })
+      .limit(6);
+
+    if (brandsError) throw brandsError;
 
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
         events: events || [],
+        featuredBrands: brands || [],
       },
       revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
-    console.error('Error fetching events:', error);
+    console.error('Error fetching data:', error);
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
         events: [],
+        featuredBrands: [],
       },
       revalidate: 3600,
     };
@@ -854,6 +866,125 @@ export default function Home({ events = [], featuredBrands = [] }: HomeProps) {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Outdoors Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Outdoor Adventures</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Discover San Luis Potosí's natural wonders and outdoor activities
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Hiking Card */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/outdoors/hiking.jpg"
+                    alt="Hiking trails in San Luis Potosí"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover"
+                    priority={false}
+                    quality={85}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Hiking Trails</h3>
+                  <p className="text-gray-600 mb-4">
+                    Explore scenic trails in the Sierra de Álvarez and Huasteca Potosina
+                  </p>
+                  <Link href="/outdoors#hiking" className="text-secondary hover:text-secondary-light font-medium">
+                    Learn more →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Running Card */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/outdoors/running.webp"
+                    alt="Running groups in San Luis Potosí"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover"
+                    priority={false}
+                    quality={85}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Running Groups</h3>
+                  <p className="text-gray-600 mb-4">
+                    Join local running communities and discover the best routes
+                  </p>
+                  <Link href="/outdoors#running" className="text-secondary hover:text-secondary-light font-medium">
+                    Learn more →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Camping Card */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/outdoors/camping.jpg"
+                    alt="Camping spots in San Luis Potosí"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover"
+                    priority={false}
+                    quality={85}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Camping Spots</h3>
+                  <p className="text-gray-600 mb-4">
+                    Find the perfect camping locations in natural areas
+                  </p>
+                  <Link href="/outdoors#camping" className="text-secondary hover:text-secondary-light font-medium">
+                    Learn more →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Adventures Card */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/outdoors/adventures.jpg"
+                    alt="Outdoor adventures in San Luis Potosí"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-cover"
+                    priority={false}
+                    quality={85}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">More Adventures</h3>
+                  <p className="text-gray-600 mb-4">
+                    Discover rock climbing, cycling, and other outdoor activities
+                  </p>
+                  <Link href="/outdoors#adventures" className="text-secondary hover:text-secondary-light font-medium">
+                    Learn more →
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <Link 
+                href="/outdoors" 
+                className="inline-block bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-light transition-colors"
+              >
+                Explore All Outdoor Activities
+              </Link>
             </div>
           </div>
         </section>
