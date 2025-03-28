@@ -1989,6 +1989,55 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
+              
+              {/* Open For Breakfast */}
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
+                <div className="relative h-52">
+                  <Image
+                    src="/images/restaurants-and-bars/breakfast.jpg"
+                    alt="Breakfast Restaurants"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
+                    quality={75}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src.endsWith('.jpg')) {
+                        target.src = target.src.replace('.jpg', '.webp');
+                      } else if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace('.webp', '.png');
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-medium text-xl">Open For Breakfast</h3>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-gray-600 text-sm mb-4">
+                    Start your day with delicious breakfast options from traditional Mexican morning fare to international cuisine and cozy cafés.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center text-sm text-gray-500">
+                      <svg className="w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                      <span>9 locations</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <svg className="w-4 h-4 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Open early 7:00 AM - 12:00 PM</span>
+                    </div>
+                  </div>
+                  <Link href="/category/open-for-breakfast" className="text-primary font-medium text-sm hover:underline mt-4 inline-block">
+                    View all breakfast spots →
+                  </Link>
+                </div>
+              </div>
             </div>
 
             <div className="mt-12 text-center">

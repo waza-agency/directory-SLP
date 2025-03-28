@@ -88,7 +88,7 @@ class AdminTool:
             'private-dining-rooms', 'language-exchange-cafes', 'remote-work-cafes',
             'easy-parking-spots', 'international-markets', 'english-speaking-healthcare',
             'family-activities', 'sports-fitness', 'outdoor-activities',
-            'activities-rainy-day', 'local-organic-products', 'shop'
+            'activities-rainy-day', 'local-organic-products', 'shop', 'breakfast'
         ]
 
         # Create form frame
@@ -162,10 +162,14 @@ class AdminTool:
         self.place_local_tag = tk.BooleanVar()
         ttk.Checkbutton(tags_frame, text="Local Brand", variable=self.place_local_tag).grid(row=1, column=1, sticky='w', padx=5)
         
+        # Breakfast spot checkbox
+        self.place_breakfast_tag = tk.BooleanVar()
+        ttk.Checkbutton(tags_frame, text="Breakfast Spot", variable=self.place_breakfast_tag).grid(row=2, column=0, sticky='w', padx=5)
+        
         # Other tags
-        ttk.Label(tags_frame, text="Other Tags (comma separated):").grid(row=2, column=0, columnspan=2, sticky='w', pady=5)
+        ttk.Label(tags_frame, text="Other Tags (comma separated):").grid(row=3, column=0, columnspan=2, sticky='w', pady=5)
         self.place_other_tags = ttk.Entry(tags_frame, width=50)
-        self.place_other_tags.grid(row=3, column=0, columnspan=2, sticky='w', pady=5)
+        self.place_other_tags.grid(row=4, column=0, columnspan=2, sticky='w', pady=5)
 
         # Featured checkbox
         self.place_featured = tk.BooleanVar()
@@ -404,6 +408,8 @@ class AdminTool:
                 tags.append('potosino')
             if self.place_local_tag.get():
                 tags.append('local')
+            if self.place_breakfast_tag.get():
+                tags.append('breakfast')
             
             # Add other tags if provided
             other_tags = self.place_other_tags.get().strip()
@@ -619,6 +625,7 @@ class AdminTool:
         self.place_hours.delete(0, 'end')
         self.place_potosino_tag.set(False)
         self.place_local_tag.set(False)
+        self.place_breakfast_tag.set(False)
         self.place_other_tags.delete(0, 'end')
         self.place_featured.set(False)
 
