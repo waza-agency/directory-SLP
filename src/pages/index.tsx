@@ -298,6 +298,38 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         {/* Hero Section */}
         <HeroBanner />
         
+        {/* City Recognition Announcement */}
+        <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-8 border-y border-primary/20">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
+              <div className="flex items-center gap-4">
+                <div className="bg-primary/20 rounded-full p-3">
+                  <MegaphoneIcon className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900 mb-1">
+                    San Luis Potosí: Mexico's 2nd Best City to Live In!
+                  </h2>
+                  <p className="text-gray-600">
+                    According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico! 
+                  </p>
+                </div>
+              </div>
+              <Link 
+                href="https://sanluis.eluniversal.com.mx/metropoli/por-que-san-luis-potosi-es-una-de-las-10-mejores-ciudades-para-vivir-en-mexico/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-secondary px-6 py-3 rounded-full transition-colors whitespace-nowrap font-medium"
+              >
+                Learn More
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Featured Advertisers Banner */}
         <section className="bg-white py-8">
           <div className="container mx-auto px-4">
@@ -2499,6 +2531,69 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
           </div>
         </section>
+
+        {/* Local Insights for Expats Section */}
+        {/* ... existing code ... */}
+
+        {/* Pedestrian Street Banner - NEW */}
+        <section className="py-12 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-gray-100">
+          <div className="container mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/pedestrian-street.jpg"
+                  alt="San Luis Potosí's Historic Pedestrian Street"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="flex items-center space-x-2 text-white/90 text-sm">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    <span>Centro Histórico</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                  URBAN DISTINCTION
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  America's Longest Pedestrian Street
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Experience the vibrant heart of San Luis Potosí along our historic pedestrian corridor, where colonial architecture meets modern life. This remarkable street showcases local artisans, cafes, and cultural landmarks.
+                </p>
+                <div className="flex gap-6 mb-6">
+                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
+                    <div className="text-xl font-bold text-primary mb-0.5">2.5 km</div>
+                    <div className="text-sm text-gray-600">Total Length</div>
+                  </div>
+                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
+                    <div className="text-xl font-bold text-primary mb-0.5">100+</div>
+                    <div className="text-sm text-gray-600">Local Businesses</div>
+                  </div>
+                </div>
+                <Link 
+                  href="/attractions/pedestrian-street-guide" 
+                  className="inline-flex items-center text-primary hover:text-primary-dark font-medium group"
+                >
+                  Explore the Street
+                  <svg className="w-5 h-5 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Outdoors Section */}
+        {/* ... existing code ... */}
       </main>
 
       {/* Floating Contact Button */}
