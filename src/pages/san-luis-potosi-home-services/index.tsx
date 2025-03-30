@@ -239,7 +239,7 @@ ${formData.additionalInformation || 'None provided'}
         <div className="relative bg-gradient-to-r from-yellow-600 to-yellow-800 text-white">
           <div className="absolute inset-0">
             <Image
-              src="/images/home-services/hero.jpg"
+              src="/images/home-services/hero.png"
               alt="Home Services Network in San Luis Potosí"
               fill
               className="object-cover opacity-20"

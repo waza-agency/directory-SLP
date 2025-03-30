@@ -183,7 +183,7 @@ ${formData.additionalRequirements || 'None provided'}
         <div className="relative bg-gradient-to-r from-green-600 to-green-800 text-white">
           <div className="absolute inset-0">
             <Image
-              src="/images/housing-services/hero.jpg"
+              src="/images/housing-services/hero.png"
               alt="Housing Services in San Luis Potosí"
               fill
               className="object-cover opacity-20"

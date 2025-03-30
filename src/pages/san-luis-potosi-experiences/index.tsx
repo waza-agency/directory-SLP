@@ -192,7 +192,7 @@ export default function Experiences() {
         <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
           <div className="absolute inset-0">
             <Image
-              src="/images/experiences/hero.jpg"
+              src="/images/experiences/San-Luis-Potosi-Ciudad.webp"
               alt="Unique Experiences in San Luis Potosí"
               fill
               className="object-cover opacity-20"
