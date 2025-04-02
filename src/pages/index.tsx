@@ -15,6 +15,7 @@ import HeroBanner from '@/components/HeroBanner';
 import { Brand, getFeaturedBrands } from '@/lib/brands';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
+import TangamangaBanner from '@/components/TangamangaBanner';
 
 interface HomeProps {
   events: Event[];
@@ -484,6 +485,9 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
           </div>
         </section>
+
+        {/* Parque Tangamanga Banner */}
+        <TangamangaBanner />
 
         {/* Expat Services Section */}
         <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">

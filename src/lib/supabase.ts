@@ -1,10 +1,22 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/supabase'
 
+// Ensure environment variables are loaded
+if (typeof window !== 'undefined') {
+  console.log('Browser environment variables:', {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  })
+}
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Environment variables not found:', {
+    url: supabaseUrl,
+    key: supabaseAnonKey
+  })
   throw new Error('Missing Supabase environment variables')
 }
 
