@@ -46,7 +46,7 @@ export default function FamilyActivities() {
         {/* Hero Section */}
         <section className="relative h-[400px]">
           <Image
-            src="/images/practical-categories/family-activities.jpg"
+            src="/images/practical-categories/family-activities.webp"
             alt="Family Activities"
             fill
             className="object-cover"
