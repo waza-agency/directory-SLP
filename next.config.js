@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
+const { i18n } = require('./next-i18next.config.js');
+
 const nextConfig = {
+  i18n,
   reactStrictMode: true,
   eslint: {
     // Disable ESLint during builds
@@ -25,6 +28,22 @@ const nextConfig = {
   },
   // Enable trailing slash for consistency
   trailingSlash: true,
+  // Enable more detailed output during builds
+  onDemandEntries: {
+    // Keep pages in memory for longer during development
+    maxInactiveAge: 60 * 60 * 1000, // 1 hour
+    pagesBufferLength: 5,
+  },
+  // Function to customize webpack configuration for more detailed logging
+  webpack: (config, { dev, isServer }) => {
+    if (dev) {
+      // Add more detailed logs in development
+      config.infrastructureLogging = {
+        level: 'verbose',
+      };
+    }
+    return config;
+  },
   async headers() {
     return [
       {

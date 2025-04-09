@@ -13,14 +13,6 @@ export default function HeroBanner() {
     setIsVisible(true);
   }, []);
 
-  const handleContactClick = (e: React.MouseEvent) => {
-    router.push('/contact');
-  };
-
-  const handleServicesClick = (e: React.MouseEvent) => {
-    router.push('/services');
-  };
-
   return (
     <section className="relative h-[75vh] min-h-[600px] bg-secondary">
       {/* Background Image */}
@@ -54,7 +46,7 @@ export default function HeroBanner() {
             {t('hero.personalTouch')}
           </p>
           <Link
-            href="#discover"
+            href="#explore"
             className="block mt-12"
           >
             <svg 

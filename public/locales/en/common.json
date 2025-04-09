@@ -278,5 +278,18 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "cookies": "Cookie Policy"
-  }
+  },
+  "loading": "Loading places...",
+  "error": {
+    "fetching_places": "Failed to fetch places. Please try again later."
+  },
+  "place_not_found": "Place not found",
+  "error_fetching_place": "Error fetching place details",
+  "back_to_places": "Back to Places",
+  "no_rating": "No rating",
+  "description": "Description",
+  "address": "Address",
+  "website": "Website",
+  "phone": "Phone",
+  "email": "Email"
 }

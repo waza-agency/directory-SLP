@@ -35,32 +35,61 @@ module.exports = {
       animation: {
         'float': 'float 3s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'glitch': 'glitch 1s linear infinite',
-        'glow': 'glow 2s ease-in-out infinite',
+        'shine': 'shine 2s linear infinite',
+        'slide-in': 'slideIn 0.5s ease-out forwards',
+        'fade-in': 'fadeIn 0.5s ease-out forwards',
+        'retro-strobe': 'retroStrobe 4s linear infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '50%': { transform: 'translateY(-5px)' },
         },
         'pulse-slow': {
           '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0.5 },
+          '50%': { opacity: 0.7 },
         },
-        glitch: {
-          '0%, 100%': { transform: 'translate(0)' },
-          '20%': { transform: 'translate(-2px, 2px)' },
-          '40%': { transform: 'translate(-2px, -2px)' },
-          '60%': { transform: 'translate(2px, 2px)' },
-          '80%': { transform: 'translate(2px, -2px)' },
+        shine: {
+          '0%': { 
+            backgroundPosition: '200% center',
+            opacity: 0.9,
+          },
+          '100%': { 
+            backgroundPosition: '-200% center',
+            opacity: 1,
+          },
         },
-        glow: {
+        slideIn: {
+          '0%': { 
+            transform: 'translateY(10px)',
+            opacity: 0 
+          },
+          '100%': { 
+            transform: 'translateY(0)',
+            opacity: 1 
+          },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        retroStrobe: {
           '0%, 100%': { 
-            textShadow: '0 0 10px rgba(255,255,255,0.3), 0 0 20px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.1)'
+            textShadow: '2px 2px 0px #FFB6C1, -2px -2px 0px #4169E1',
+            transform: 'translate(0)',
+          },
+          '25%': { 
+            textShadow: '-2px 2px 0px #4169E1, 2px -2px 0px #FFB6C1',
+            transform: 'translate(-1px, 1px)',
           },
           '50%': { 
-            textShadow: '0 0 20px rgba(255,255,255,0.5), 0 0 30px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.2)'
+            textShadow: '-2px -2px 0px #FFB6C1, 2px 2px 0px #4169E1',
+            transform: 'translate(1px, -1px)',
           },
+          '75%': { 
+            textShadow: '2px -2px 0px #4169E1, -2px 2px 0px #FFB6C1',
+            transform: 'translate(-1px, -1px)',
+          }
         },
       },
       transitionProperty: {

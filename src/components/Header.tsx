@@ -1,13 +1,25 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'next-i18next';
+import { searchPlaces } from '@/lib/supabase';
 
 export default function Header() {
   const router = useRouter();
+  const { t, ready } = useTranslation('common');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const changeLanguage = (locale: string) => {
     router.push(router.pathname, router.asPath, { locale });
   };
@@ -19,6 +31,47 @@ export default function Header() {
     de: 'Deutsch',
     ja: '日本語'
   };
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      if (searchQuery.length < 2) {
+        setSearchResults([]);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const results = await searchPlaces(searchQuery);
+        setSearchResults(results.slice(0, 5)); // Show only first 5 results
+        setShowResults(true);
+      } catch (error) {
+        console.error('Error searching places:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const timeoutId = setTimeout(fetchResults, 300);
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/places?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  const handleResultClick = (placeId: string) => {
+    router.push(`/places/${placeId}`);
+    setShowResults(false);
+    setSearchQuery('');
+  };
+
+  // Don't render anything until translations are ready and component is mounted
+  if (!ready || !mounted) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50">
@@ -41,21 +94,21 @@ export default function Header() {
               href="/"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              Home
+              {t('home')}
             </Link>
             
             <Link 
               href="/places"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              Explore
+              {t('explore')}
             </Link>
             
             <Link 
               href="/about"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              About
+              {t('about')}
             </Link>
 
             <Link 
@@ -69,7 +122,7 @@ export default function Header() {
               href="/contact"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              Contact
+              {t('contact')}
             </Link>
             
             {/* Language Selector */}
@@ -150,16 +203,48 @@ export default function Header() {
 
             {/* Search Bar */}
             <div className="relative w-64">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full pl-8 pr-4 py-1 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent"
-              />
-              <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
+              <form onSubmit={handleSearch} className="relative">
+                <input
+                  type="text"
+                  placeholder={t('search_placeholder')}
+                  className="w-full pl-8 pr-4 py-1 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setShowResults(true)}
+                />
+                <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
+                  <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </form>
+
+              {/* Search Results Dropdown */}
+              {showResults && (searchQuery.length >= 2) && (
+                <div className="absolute right-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  {loading ? (
+                    <div className="p-4 text-center">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary mx-auto"></div>
+                    </div>
+                  ) : searchResults.length > 0 ? (
+                    <div className="py-1">
+                      {searchResults.map((place) => (
+                        <button
+                          key={place.id}
+                          onClick={() => handleResultClick(place.id)}
+                          className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
+                        >
+                          {place.name}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-4 text-sm text-gray-500 text-center">
+                      {t('no_places_found')}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -174,7 +259,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
+              {t('home')}
             </Link>
             
             <Link 
@@ -182,7 +267,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              Explore
+              {t('explore')}
             </Link>
             
             <Link 
@@ -190,7 +275,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              {t('about')}
             </Link>
 
             <Link 
@@ -206,22 +291,24 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              {t('contact')}
             </Link>
 
             <div className="pt-3 border-t border-gray-200">
-              <div className="relative w-full mb-3">
+              <form onSubmit={handleSearch} className="relative w-full mb-3">
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder={t('search_placeholder')}
                   className="w-full pl-8 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
                   <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-              </div>
+              </form>
 
               <p className="text-xs text-gray-500 mb-2">Categories</p>
               <div className="space-y-2">
@@ -253,10 +340,10 @@ export default function Header() {
                       changeLanguage(code);
                       setIsMenuOpen(false);
                     }}
-                    className={`text-sm px-3 py-2 border rounded-md transition-colors ${
-                      router.locale === code 
-                        ? 'bg-primary/10 text-primary border-primary' 
-                        : 'text-gray-700 border-gray-200 hover:border-gray-300'
+                    className={`text-sm px-3 py-1 rounded-md ${
+                      router.locale === code
+                        ? 'bg-primary text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
                     {name}

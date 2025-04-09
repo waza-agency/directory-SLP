@@ -304,27 +304,30 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
               <div className="flex items-center gap-4">
-                <div className="bg-primary/20 rounded-full p-3">
+                <div className="bg-primary/20 rounded-full p-3 animate-float">
                   <MegaphoneIcon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-1">
+                  <h2 className="text-xl font-bold mb-1 animate-slide-in animate-retro-strobe">
                     San Luis Potosí: Mexico's 2nd Best City to Live In!
                   </h2>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 animate-slide-in [animation-delay:200ms]">
                     According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico! 
                   </p>
                 </div>
               </div>
               <Link 
-                href="https://sanluis.eluniversal.com.mx/metropoli/por-que-san-luis-potosi-es-una-de-las-10-mejores-ciudades-para-vivir-en-mexico/" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-secondary px-6 py-3 rounded-full transition-colors whitespace-nowrap font-medium"
+                href="/about#rankings" 
+                className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full font-medium transition-all duration-300 group animate-slide-in [animation-delay:400ms]"
               >
                 Learn More
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <svg 
+                  className="w-4 h-4 transform transition-transform group-hover:translate-x-1" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
             </div>
