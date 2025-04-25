@@ -27,7 +27,7 @@ interface HomeProps {
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
-    // Fetch upcoming events from Supabase 
+    // Fetch upcoming events from Supabase
     const { data: events, error: eventsError } = await supabase
       .from('events')
       .select('*')
@@ -83,10 +83,10 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       },
       {
         id: '3',
-        title: 'Weekend Getaways from San Luis Potosí by Corazón de Xoconostle',
-        description: 'Explore the best day trips and weekend destinations within reach of the city with certified local experts.',
+        title: 'Weekend Getaways from San Luis Potosí',
+        description: 'Explore the best day trips and weekend destinations within reach of the city.',
         imageUrl: '/images/sponsored/weekend-getaways.jpg',
-        ctaUrl: '/weekend-getaways'
+        ctaUrl: '/guides/weekend-getaways'
       }
     ];
 
@@ -312,14 +312,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
     <div className="slp-root">
       <Head>
         <title>San Luis Way - Your Insider Guide to San Luis Potosí</title>
-        <meta 
-          name="description" 
-          content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." 
-        />
-        <meta 
-          name="keywords" 
-          content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture" 
-        />
+        <meta name="description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <meta name="keywords" content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture" />
       </Head>
       
       <main className="min-h-screen bg-white">

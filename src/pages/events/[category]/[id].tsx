@@ -83,7 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         event: event || null,
         relatedEvents: relatedEvents || [],
       },
-      revalidate: 3600,
+      revalidate: 600,
     };
   } catch (error) {
     console.error('Error fetching event data:', error);
@@ -93,7 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         event: null,
         relatedEvents: [],
       },
-      revalidate: 3600,
+      revalidate: 600,
     };
   }
 };

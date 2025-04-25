@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         events: events || [],
         categoryCounts,
       },
-      revalidate: 3600, // Revalidar cada hora
+      revalidate: 600, // Revalidar cada 10 minutos
     };
   } catch (error) {
     console.error('Error al obtener eventos:', error);
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         events: [],
         categoryCounts: { all: 0, sports: 0, cultural: 0, other: 0 },
       },
-      revalidate: 3600,
+      revalidate: 600, // Revalidar cada 10 minutos
     };
   }
 };

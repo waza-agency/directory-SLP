@@ -57,6 +57,37 @@ export const getFeaturedBrands = async (limit = 3): Promise<Brand[]> => {
 };
 
 /**
+ * Get random Potosino brands from Supabase
+ * Returns a randomly selected set of brands
+ */
+export const getRandomPotosinoBrands = async (limit = 3): Promise<Brand[]> => {
+  try {
+    // First, get all brands
+    const { data, error } = await supabase
+      .from('brands')
+      .select('*');
+
+    if (error) {
+      console.error('Error fetching brands for random selection:', error);
+      return [];
+    }
+
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    // Shuffle the array to get random selection
+    const shuffled = [...data].sort(() => 0.5 - Math.random());
+    
+    // Return the first 'limit' items
+    return shuffled.slice(0, limit);
+  } catch (error) {
+    console.error('Error in getRandomPotosinoBrands:', error);
+    return [];
+  }
+};
+
+/**
  * Get a brand by ID
  */
 export const getBrandById = async (id: string): Promise<Brand | null> => {

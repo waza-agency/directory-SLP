@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         ...(await serverSideTranslations(locale ?? 'en', ['common'])),
         events: events || [],
       },
-      revalidate: 3600,
+      revalidate: 600,
     };
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         ...(await serverSideTranslations(locale ?? 'en', ['common'])),
         events: [],
       },
-      revalidate: 3600,
+      revalidate: 600,
     };
   }
 };
