@@ -31,7 +31,7 @@ export default function EventList({ events }: EventListProps) {
       {events.map((event) => (
         <Link
           key={event.id}
-          href={`/events/sports/${event.id}`}
+          href={`/events/${event.category}/${event.id}`}
           className="group"
         >
           <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">

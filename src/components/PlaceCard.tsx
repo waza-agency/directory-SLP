@@ -18,109 +18,60 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
   
   // Category colors map for accent colors
   const categoryColors: Record<string, string> = {
-    restaurant: 'border-amber-600 text-amber-600 bg-amber-50',
-    cafe: 'border-emerald-600 text-emerald-600 bg-emerald-50',
-    bar: 'border-purple-600 text-purple-600 bg-purple-50',
-    hotel: 'border-blue-600 text-blue-600 bg-blue-50',
-    museum: 'border-red-600 text-red-600 bg-red-50',
-    park: 'border-green-600 text-green-600 bg-green-50',
-    shop: 'border-orange-600 text-orange-600 bg-orange-50',
+    food: 'border-amber-600 text-amber-600 bg-amber-50',
+    beverages: 'border-emerald-600 text-emerald-600 bg-emerald-50',
+    'outdoor-activities': 'border-green-600 text-green-600 bg-green-50',
     service: 'border-indigo-600 text-indigo-600 bg-indigo-50',
+    'sports-fitness': 'border-blue-600 text-blue-600 bg-blue-50',
+    'private-dining-rooms': 'border-purple-600 text-purple-600 bg-purple-50',
+    'language-exchange-cafes': 'border-teal-600 text-teal-600 bg-teal-50',
+    'family-activities': 'border-pink-600 text-pink-600 bg-pink-50',
+    terraces: 'border-yellow-600 text-yellow-600 bg-yellow-50',
+    'live-music': 'border-red-600 text-red-600 bg-red-50',
     other: 'border-gray-600 text-gray-600 bg-gray-50',
   };
 
   // Get default image based on category
   const getDefaultImage = (category: string) => {
     const defaultImages: Record<string, string> = {
-      restaurant: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',
-      cafe: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb',
-      bar: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b',
-      hotel: 'https://images.unsplash.com/photo-1566073771259-6a8506099945',
-      museum: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3',
-      park: 'https://images.unsplash.com/photo-1551717743-49959800b1f6',
-      shop: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8',
+      food: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',
+      beverages: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb',
+      'outdoor-activities': 'https://images.unsplash.com/photo-1551717743-49959800b1f6',
       service: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40',
+      'sports-fitness': 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f',
+      'private-dining-rooms': 'https://images.unsplash.com/photo-1587899897387-091ebd01a6e2',
+      'language-exchange-cafes': 'https://images.unsplash.com/photo-1534531173927-aeb928d54385',
+      'family-activities': 'https://images.unsplash.com/photo-1608889476561-6242cfdbf622',
+      terraces: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf',
+      'live-music': 'https://images.unsplash.com/photo-1483393458019-411bc6bd104e',
     };
     return defaultImages[category] || 'https://images.unsplash.com/photo-1506619216599-9d16d0903dfd';
   };
 
-  // Process image URL to handle various formats
+  // Simplified image URL handling
   const getImageUrl = (url: string | undefined) => {
-    console.log(`Processing image URL for ${place.name}:`, { originalUrl: url });
-    
-    if (!url) {
-      console.log(`No URL provided for ${place.name}, using default image`);
+    if (!url || url.trim() === '') {
       return getDefaultImage(place.category);
     }
     
-    try {
-      // Clean the URL first
-      url = url.trim();
-      console.log(`Cleaned URL for ${place.name}:`, url);
+    // Clean the URL
+    url = url.trim();
+    
+    // Handle Google Drive links
+    if (url.includes('drive.google.com')) {
+      const fileIdMatch = url.match(/\/file\/d\/([-\w]{25,})/);
+      const idParamMatch = url.match(/[?&]id=([-\w]{25,})/);
+      const ucIdMatch = url.match(/\/uc\?.*id=([-\w]{25,})/);
       
-      // Handle Google Drive links
-      if (url.includes('drive.google.com')) {
-        console.log(`Processing Google Drive URL for ${place.name}`);
-        // Handle different Google Drive URL formats
-        let fileId = null;
-        
-        // Format: /file/d/[ID]/view
-        const fileIdMatch = url.match(/\/file\/d\/([-\w]{25,})/);
-        if (fileIdMatch) {
-          fileId = fileIdMatch[1];
-          console.log(`Found file ID from /file/d/ format:`, fileId);
-        }
-        
-        // Format: /open?id=[ID]
-        const idParamMatch = url.match(/[?&]id=([-\w]{25,})/);
-        if (!fileId && idParamMatch) {
-          fileId = idParamMatch[1];
-          console.log(`Found file ID from open?id format:`, fileId);
-        }
-        
-        // Format: /uc?id=[ID]
-        const ucIdMatch = url.match(/\/uc\?.*id=([-\w]{25,})/);
-        if (!fileId && ucIdMatch) {
-          fileId = ucIdMatch[1];
-          console.log(`Found file ID from uc?id format:`, fileId);
-        }
-        
-        if (fileId) {
-          const processedUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-          console.log(`Processed Google Drive URL for ${place.name}:`, processedUrl);
-          return processedUrl;
-        } else {
-          console.error(`Could not extract file ID from Google Drive URL for ${place.name}:`, url);
-        }
-      }
+      const fileId = fileIdMatch?.[1] || idParamMatch?.[1] || ucIdMatch?.[1];
       
-      // Handle Blogger URLs
-      if (url.includes('blogger.googleusercontent.com')) {
-        console.log(`Processing Blogger URL for ${place.name}`);
-        const processedUrl = url.split('=')[0];
-        console.log(`Processed Blogger URL:`, processedUrl);
-        return processedUrl;
+      if (fileId) {
+        return `https://drive.google.com/uc?export=view&id=${fileId}`;
       }
-      
-      // Handle TripAdvisor URLs
-      if (url.includes('tripadvisor.com')) {
-        console.log(`Using TripAdvisor URL as is for ${place.name}:`, url);
-        return url;
-      }
-      
-      // For all other URLs, validate the URL
-      try {
-        new URL(url);
-        console.log(`Valid direct URL for ${place.name}:`, url);
-        return url;
-      } catch {
-        console.error(`Invalid URL format for ${place.name}:`, url);
-        return getDefaultImage(place.category);
-      }
-    } catch (error) {
-      console.error(`Error processing image URL for ${place.name}:`, error);
-      return getDefaultImage(place.category);
     }
+    
+    // Return the URL as is for all other cases
+    return url;
   };
   
   return (
@@ -141,12 +92,18 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={featured}
             onError={() => setImageError(true)}
+            unoptimized={true}
           />
           
           {/* Category Badge */}
           <div className={`absolute top-4 left-4 z-10 transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
             <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${categoryColors[place.category] || categoryColors.other}`}>
-              {t(`categories.${place.category}`)}
+              {t(`categories.${place.category}`, {
+                defaultValue: place.category
+                  .split('-')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')
+              })}
             </span>
           </div>
           

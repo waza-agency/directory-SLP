@@ -149,6 +149,16 @@ export default function Footer() {
               </Link>
             </div>
           </div>
+          
+          {/* Waza Studio Credit */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-500 text-sm">
+              Made with <span className="text-pink-500">❤</span> by <a href="https://wazastudio.com" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-medium hover:text-pink-400 transition-colors">Waza Studio</a>
+            </p>
+            <p className="text-gray-500 text-sm mt-1">
+              We are <span className="text-pink-500 font-bold">WAZA</span>. And we're coding a cooler world.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

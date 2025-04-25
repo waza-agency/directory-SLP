@@ -366,57 +366,57 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* San Luis en Primavera 2025 Festival Highlight */}
-        <section className="py-16 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
+        {/* Festival del Vino 2025 Highlight */}
+        <section className="py-16 px-4 bg-gradient-to-r from-red-50 to-purple-50">
           <div className="container mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src="/images/festival-primavera.jpg"
-                  alt="Festival San Luis en Primavera 2025"
+                  src="/images/events/festival-del-vino.jpg"
+                  alt="Festival Internacional del Vino 2025"
                   fill
-                  className="object-cover"
+                  className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <CalendarIcon className="w-5 h-5" />
-                    <span className="font-medium">April 12-19, 2025</span>
+                    <span className="font-medium">6 & 7 de Junio, 2025</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <div className="inline-block px-3 py-1 bg-purple-100 text-purple-800 rounded-full font-medium text-sm mb-4">
+                <div className="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full font-medium text-sm mb-4">
                   Featured Event
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-serif">
-                  Festival Internacional San Luis en Primavera 2025
+                  Festival Internacional del Vino de San Luis Potosí
                 </h2>
                 <div className="prose prose-lg mb-8 text-gray-600">
                   <p>
-                    One of Mexico's most anticipated cultural events is coming to San Luis Potosí! Experience a week of music, 
-                    art, theater, and cultural celebrations featuring performances by renowned artists including Eugenia León, 
-                    Jorge Drexler, and Ana Bárbara.
+                    El Centro de las Artes, recinto histórico de nuestro Estado, sirve como marco para uno de los fines de semana 
+                    más importantes para el vino y la gastronomía en nuestro país. Disfruta de una experiencia sensorial única con más 
+                    de 500 vinos de todo el mundo.
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
-                      <span className="text-purple-600 font-bold">•</span>
-                      <span>All events are free and accessible for everyone</span>
+                      <span className="text-red-600 font-bold">•</span>
+                      <span>Más de 500 vinos de todo el mundo</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-purple-600 font-bold">•</span>
-                      <span>South Korea is the 2025 guest country</span>
+                      <span className="text-red-600 font-bold">•</span>
+                      <span>Bodegas nacionales e internacionales</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-purple-600 font-bold">•</span>
-                      <span>Over 25 venues across the city</span>
+                      <span className="text-red-600 font-bold">•</span>
+                      <span>Experiencias gastronómicas y catas premium</span>
                     </li>
                   </ul>
                 </div>
                 <Link 
-                  href="/events/san-luis-en-primavera-2025" 
-                  className="bg-primary hover:bg-primary-dark text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
+                  href="/events/festival-del-vino-2025" 
+                  className="bg-red-800 hover:bg-red-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 >
                   Learn More
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
