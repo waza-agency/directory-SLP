@@ -17,12 +17,21 @@ import { Brand, getRandomPotosinoBrands } from '@/lib/brands';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
 import TangamangaBanner from '@/components/TangamangaBanner';
+import SEO from '@/components/common/SEO';
 
 interface HomeProps {
   events: Event[];
   featuredBrands?: any[];
   featuredAdvertisers?: any[];
-  sponsoredContent?: any[];
+  sponsoredContent?: {
+    id: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    ctaUrl: string;
+    sponsorLogo?: string;
+    sponsorName?: string;
+  }[];
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
@@ -72,21 +81,27 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
         title: 'Discover the Magic of Real de Catorce',
         description: 'A comprehensive guide to exploring this historic mining town and its surrounding natural wonders.',
         imageUrl: '/images/sponsored/real-de-catorce.jpg',
-        ctaUrl: '/guides/real-de-catorce'
+        ctaUrl: '/guides/real-de-catorce',
+        sponsorLogo: '/images/brands/corazon-xoconostle.png',
+        sponsorName: 'Corazón de Xoconostle'
       },
       {
         id: '2',
         title: 'The Ultimate Foodie Guide to SLP',
         description: 'From street tacos to fine dining: Your complete guide to San Luis Potosí\'s culinary scene.',
         imageUrl: '/images/sponsored/food-guide.jpg',
-        ctaUrl: '/guides/foodie-guide'
+        ctaUrl: '/guides/foodie-guide',
+        sponsorLogo: '/images/brands/la-legendaria-logo.png',
+        sponsorName: 'La Legendaria'
       },
       {
         id: '3',
         title: 'Weekend Getaways from San Luis Potosí by Corazón de Xoconostle',
         description: 'Explore the best day trips and weekend destinations within reach of the city with certified local experts.',
         imageUrl: '/images/sponsored/weekend-getaways.jpg',
-        ctaUrl: '/weekend-getaways'
+        ctaUrl: '/weekend-getaways',
+        sponsorLogo: '/images/brands/corazon-de-xoconostle-logo.png',
+        sponsorName: 'Corazón de Xoconostle'
       }
     ];
 
@@ -310,17 +325,12 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
   return (
     <div className="slp-root slp-pattern-bg">
-      <Head>
-        <title>San Luis Way - Your Insider Guide to San Luis Potosí</title>
-        <meta 
-          name="description" 
-          content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." 
-        />
-        <meta 
-          name="keywords" 
-          content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture" 
-        />
-      </Head>
+      <SEO 
+        title="San Luis Way - Your Insider Guide to San Luis Potosí"
+        description="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP."
+        keywords="San Luis Potosí, SLP, expat guide, local guide, places, events, culture, travel, expatriate community, Mexico"
+        ogImage="/og-image.jpg"
+      />
       
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
@@ -1366,9 +1376,22 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     />
                   </div>
                   <div className="p-6">
-                    <div className="flex items-center mb-2">
-                      <StarIcon className="h-5 w-5 text-yellow-400 mr-1" />
-                      <span className="text-sm text-gray-600">Sponsored</span>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center">
+                        <StarIcon className="h-5 w-5 text-yellow-400 mr-1" />
+                        <span className="text-sm text-gray-600">Sponsored</span>
+                      </div>
+                      {content.sponsorLogo && (
+                        <div className="flex items-center">
+                          <Image
+                            src={content.sponsorLogo}
+                            alt={content.sponsorName || 'Sponsor'}
+                            width={80}
+                            height={30}
+                            className="object-contain"
+                          />
+                        </div>
+                      )}
                     </div>
                     <h3 className="text-xl font-semibold mb-2">{content.title}</h3>
                     <p className="text-gray-600 mb-4">{content.description}</p>

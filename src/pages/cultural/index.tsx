@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase';
 import Footer from '@/components/Footer';
 import { CalendarIcon, MapPinIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import EventList from '@/components/EventList';
+import SEO from '@/components/common/SEO';
 
 interface CulturalPageProps {
   events: Event[];
@@ -29,38 +30,31 @@ export default function CulturalPage({ events }: CulturalPageProps) {
 
   return (
     <>
-      <Head>
-        <title>Cultural Heritage of San Luis Potosí - SLP Descubre</title>
-        <meta name="description" content="Discover the rich cultural heritage, traditions, arts, and customs of San Luis Potosí - a guide for expatriates and visitors." />
-        <meta name="keywords" content="San Luis Potosí culture, traditions, museums, arts, cultural events, Mexican heritage" />
-        <meta property="og:title" content="Cultural Heritage of San Luis Potosí - SLP Descubre" />
-        <meta property="og:description" content="Explore the vibrant cultural scene and traditional heritage of San Luis Potosí, Mexico." />
-        <meta property="og:image" content="/images/cultural/san-luis-potosi-cathedral.jpg" />
-      </Head>
+      <SEO 
+        title="Cultural Heritage of San Luis Potosí"
+        description="Discover the rich cultural heritage, traditions, arts, and customs of San Luis Potosí - a comprehensive guide for expatriates and visitors."
+        keywords="San Luis Potosí culture, traditions, museums, arts, cultural events, Mexican heritage, festivals, historical sites, colonial architecture, local customs"
+        ogImage="/images/cultural/san-luis-potosi-cathedral.jpg"
+        ogType="website"
+      />
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative h-[50vh] min-h-[400px] bg-secondary">
+        <section className="relative h-[50vh] min-h-[400px] bg-gradient-to-r from-blue-900 to-blue-700">
           <div className="absolute inset-0">
             <Image
               src="/images/cultural/san-luis-potosi-cathedral.jpg"
-              alt="Cultural heritage of San Luis Potosí"
+              alt="San Luis Potosí Cathedral"
               fill
-              className="object-cover opacity-60"
+              className="object-cover mix-blend-overlay opacity-60"
               priority
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/images/cultural/cultural-default.jpg';
-              }}
             />
           </div>
           <div className="relative container mx-auto px-4 h-full flex items-center">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                Cultural Heritage of San Luis Potosí
-              </h1>
-              <p className="text-white text-xl drop-shadow-md">
-                Discover the rich traditions, arts, and customs of this historic region
+            <div className="max-w-3xl text-white">
+              <h1 className="text-5xl font-bold mb-6">Cultural Heritage</h1>
+              <p className="text-xl">
+                Explore the rich traditions, arts, and customs that make San Luis Potosí a cultural treasure of Mexico.
               </p>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
+import SEO from '@/components/common/SEO';
 
 export default function AboutPage() {
   const { t } = useTranslation('common');
@@ -61,13 +62,12 @@ export default function AboutPage() {
 
   return (
     <>
-      <Head>
-        <title>About Us - SLP Descubre</title>
-        <meta name="description" content="Learn about SLP Descubre's mission to help expatriates discover and integrate into the rich cultural landscape of San Luis Potosí." />
-        <meta name="keywords" content="SLP Descubre, about us, San Luis Potosí, expat community, cultural integration" />
-        <meta property="og:title" content="About Us - SLP Descubre" />
-        <meta property="og:description" content="Your bridge to San Luis Potosí's culture and community." />
-      </Head>
+      <SEO
+        title="About Us - San Luis Way"
+        description="Learn about San Luis Way's mission to help expatriates discover and integrate into the rich cultural landscape of San Luis Potosí."
+        keywords="San Luis Way, about us, San Luis Potosí, expat community, cultural integration, expatriate services, Mexico relocation"
+        ogImage="/images/cultura-1.jpg"
+      />
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
@@ -84,7 +84,7 @@ export default function AboutPage() {
           <div className="relative container mx-auto px-4 h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                About SLP Descubre
+                About San Luis Way
               </h1>
               <p className="text-white text-lg">
                 Your bridge to discovering and embracing the rich cultural heritage of San Luis Potosí

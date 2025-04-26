@@ -13,6 +13,7 @@ import {
   IdentificationIcon,
   ClipboardDocumentCheckIcon,
 } from '@heroicons/react/24/outline';
+import SEO from '@/components/common/SEO';
 
 interface ContactFormData {
   name: string;
@@ -137,17 +138,12 @@ export default function LegalAdministrative() {
 
   return (
     <>
-      <Head>
-        <title>Legal & Administrative Services | San Luis Way - Expert Support</title>
-        <meta 
-          name="description" 
-          content="Professional legal and administrative support in San Luis Potosí. Expert assistance with residency permits, banking setup, tax considerations, and official procedures." 
-        />
-        <meta 
-          name="keywords" 
-          content="legal services, administrative services, San Luis Potosí, residency permits, banking setup, tax consultation, legal documentation" 
-        />
-      </Head>
+      <SEO
+        title="Legal & Administrative Services in San Luis Potosí"
+        description="Professional legal and administrative support for expatriates in SLP. Expert assistance with residency permits, banking setup, tax considerations, and official procedures."
+        keywords="legal services, administrative services, San Luis Potosí, residency permits, banking setup, tax consultation, legal documentation, expat legal help, Mexico paperwork, immigration lawyers, visa services, notary public"
+        ogImage="/images/legal-administrative/hero.jpg"
+      />
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}

@@ -2,6 +2,10 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState } from 'react';
+import { GetStaticProps } from 'next';
+import { Disclosure } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import SEO from '@/components/common/SEO';
 
 export default function FAQPage() {
   const { t } = useTranslation('common');
@@ -80,14 +84,12 @@ export default function FAQPage() {
 
   return (
     <>
-      <Head>
-        <title>Frequently Asked Questions - SLP Descubre</title>
-        <meta name="description" content="Find answers to common questions about living in San Luis Potosí, cultural activities, language learning, and more." />
-        <meta name="keywords" content="FAQ, San Luis Potosí, expat guide, cultural activities, language learning, festivals, historical tours" />
-        <meta property="og:title" content="Frequently Asked Questions - SLP Descubre" />
-        <meta property="og:description" content="Find answers to common questions about living in San Luis Potosí, cultural activities, language learning, and more." />
-        <meta property="og:type" content="website" />
-      </Head>
+      <SEO
+        title="Frequently Asked Questions"
+        description="Find answers to common questions about living in San Luis Potosí, cultural activities, language learning, and more to help make your expatriate experience smoother."
+        keywords="FAQ, San Luis Potosí, expat guide, cultural activities, language learning, festivals, historical tours, Mexico relocation, living in SLP, expatriate questions"
+        ogType="website"
+      />
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}

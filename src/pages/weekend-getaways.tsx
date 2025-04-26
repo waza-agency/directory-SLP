@@ -419,6 +419,17 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                       <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </a>
+                  
+                  <div className="flex items-center mt-4">
+                    <p className="text-gray-600 text-sm mr-2">Powered by:</p>
+                    <Image 
+                      src="/images/brands/corazon-de-xoconostle-logo.png" 
+                      alt="Corazon de Xoconostle" 
+                      width={120} 
+                      height={40} 
+                      className="object-contain" 
+                    />
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Block specific directories
+Disallow: /.next/
+Disallow: /.github/
+Disallow: /migrations/
+Disallow: /scripts/
+Disallow: /supabase/
+Disallow: /.vscode/
+
+# Allow access to favicon and other important files
+Allow: /favicon.ico
+Allow: /sitemap.xml
+Allow: /robots.txt
+
+# Sitemap
+Sitemap: https://www.sanluisway.com/sitemap.xml 

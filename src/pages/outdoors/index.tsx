@@ -4,20 +4,19 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
+import SEO from '@/components/common/SEO';
 
 export default function OutdoorsPage() {
   const { t } = useTranslation('common');
 
   return (
     <>
-      <Head>
-        <title>Outdoor Activities & Adventures - SLP Descubre</title>
-        <meta name="description" content="Discover outdoor activities in San Luis Potosí, from hiking trails and running groups to camping spots and adventure sports." />
-        <meta name="keywords" content="San Luis Potosí outdoors, hiking trails, running groups, camping spots, adventure sports, Sierra de Álvarez, Huasteca Potosina" />
-        <meta property="og:title" content="Outdoor Activities & Adventures - SLP Descubre" />
-        <meta property="og:description" content="Explore the natural wonders and outdoor activities of San Luis Potosí." />
-        <meta property="og:image" content="/images/outdoors/hero.webp" />
-      </Head>
+      <SEO
+        title="Outdoor Activities & Adventures in San Luis Potosí"
+        description="Discover outdoor activities in San Luis Potosí, from hiking trails and running groups to camping spots and adventure sports, with expert guidance from local specialists."
+        keywords="San Luis Potosí outdoors, hiking trails, running groups, camping spots, adventure sports, Sierra de Álvarez, Huasteca Potosina, outdoor experiences, adventure tours, local guides"
+        ogImage="/images/outdoors/hero.webp"
+      />
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
@@ -41,6 +40,17 @@ export default function OutdoorsPage() {
               <p className="text-white text-lg">
                 Discover the natural wonders and outdoor activities of San Luis Potosí
               </p>
+              <div className="flex items-center mt-6">
+                <p className="text-white text-sm font-medium mr-3">In collaboration with</p>
+                <div className="relative w-40 h-16 bg-white/10 rounded-md p-1">
+                  <Image 
+                    src="/images/brands/corazon-de-xoconostle-logo.png"
+                    alt="Corazón de Xoconostle Logo"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -89,6 +99,9 @@ export default function OutdoorsPage() {
                       <li>Best time: October to March</li>
                       <li>Trail length: 5-15 km</li>
                     </ul>
+                    <p className="text-sm text-gray-500 italic mt-2">
+                      Expert guided treks available through Corazón de Xoconostle, including the popular Picacho de Bernalejo route.
+                    </p>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">Huasteca Potosina</h3>
@@ -186,6 +199,9 @@ export default function OutdoorsPage() {
                       <li>Safety guidelines</li>
                       <li>Leave no trace principles</li>
                     </ul>
+                    <p className="text-sm text-gray-500 italic mt-2">
+                      Special guided camping experiences available with Corazón de Xoconostle, including their popular Xilitla climbing camp.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -208,6 +224,9 @@ export default function OutdoorsPage() {
                       <li>Natural climbing areas</li>
                       <li>Guided experiences</li>
                     </ul>
+                    <p className="text-sm text-gray-500 italic mt-2">
+                      Technical climbing sessions in Guadalcázar available with certified instructors from Corazón de Xoconostle.
+                    </p>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">Cycling</h3>
@@ -372,6 +391,9 @@ export default function OutdoorsPage() {
                     <p><span className="font-semibold">Distance:</span> 250 km</p>
                     <p><span className="font-semibold">Highlights:</span> Historic buildings, desert landscape, spiritual tourism</p>
                   </div>
+                  <p className="text-xs text-gray-500 italic mt-2">
+                    Guided tours with Jeep vehicles (Willys) available through Corazón de Xoconostle.
+                  </p>
                 </div>
               </div>
 
@@ -436,6 +458,10 @@ export default function OutdoorsPage() {
                   <li>Group tours</li>
                   <li>Custom experiences</li>
                 </ul>
+                <div className="mt-4 text-sm text-gray-500">
+                  <p>For expert-led adventures with certified local guides, we recommend our partners at 
+                  <a href="https://www.corazondexoconostle.com/index.php/en/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline"> Corazón de Xoconostle</a>, who specialize in authentic outdoor experiences throughout San Luis Potosí.</p>
+                </div>
               </div>
             </div>
           </section>
