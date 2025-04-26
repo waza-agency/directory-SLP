@@ -22,8 +22,8 @@ module.exports = {
           light: '#0000B3',
         },
         background: {
-          DEFAULT: '#FFFFFF',
-          alt: '#F8F8F8',
+          DEFAULT: '#F5F8FC',
+          alt: '#F0F4FA',
         },
         accent: {
           DEFAULT: '#FFCB05',  // Same as primary for consistency

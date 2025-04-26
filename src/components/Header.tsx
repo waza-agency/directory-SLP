@@ -75,9 +75,12 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
+      {/* San Luis color accent line */}
+      <div className="bg-gradient-to-r from-primary to-secondary h-1"></div>
+      
       {/* Main Navigation Bar */}
-      <div className="bg-white border-b border-gray-100 py-4 px-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <div className="bg-background shadow-sm">
+        <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
           <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.jpeg"
@@ -178,7 +181,7 @@ export default function Header() {
       </div>
 
       {/* Categories Navigation Bar */}
-      <div className="bg-gray-50 border-b border-gray-100 hidden md:block">
+      <div className="bg-background-alt border-b border-gray-100 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-12">
             {/* Categories */}

@@ -61,13 +61,19 @@ export default function Layout({ children }: LayoutProps) {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
+      {/* Decorative top pleca */}
+      <div className="slp-pleca"></div>
+      
       <LoadingIndicator />
       <Header />
       
       <main className="flex-grow">
         {children}
       </main>
+      
+      {/* Decorative bottom pleca */}
+      <div className="slp-pleca"></div>
       
       <ScrollToTop />
       <Footer />

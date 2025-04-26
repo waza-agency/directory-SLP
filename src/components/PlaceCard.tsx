@@ -76,7 +76,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
   
   return (
     <div 
-      className={`bg-white rounded-xl overflow-hidden shadow-elegant hover-lift transition-all duration-300 cursor-pointer ${featured ? 'featured-card border-t-4 border-primary' : ''} ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}`}
+      className={`slp-card bg-white rounded-xl overflow-hidden shadow-elegant hover-lift transition-all duration-300 cursor-pointer ${featured ? 'featured-card border-t-4 border-primary' : 'border-t-2 border-transparent hover:border-secondary/30'} ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
@@ -118,6 +118,9 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
           
           {/* Overlay Gradient */}
           <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-90' : 'opacity-100'}`}></div>
+          
+          {/* Corner Accent */}
+          <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-primary/20 to-transparent pointer-events-none"></div>
         </div>
         
         {/* Content */}
@@ -160,7 +163,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
           
           {/* Location */}
           <div className="flex items-center text-sm text-gray-500 mb-2">
-            <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 mr-2 flex-shrink-0 text-secondary/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             </svg>
             <span className="line-clamp-1">{place.address}</span>
@@ -172,13 +175,13 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
               {place.tags.slice(0, 3).map((tag) => (
                 <span 
                   key={tag} 
-                  className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md"
+                  className="text-xs px-2 py-1 bg-secondary/5 text-secondary/70 rounded-md"
                 >
                   {tag}
                 </span>
               ))}
               {place.tags.length > 3 && (
-                <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md">
+                <span className="text-xs px-2 py-1 bg-secondary/5 text-secondary/70 rounded-md">
                   +{place.tags.length - 3}
                 </span>
               )}
@@ -187,12 +190,12 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
         </div>
         
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-100 bg-gray-50">
+        <div className="px-6 py-4 border-t border-gray-100 bg-background-alt">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-primary hover:text-primary-dark transition-colors">
+            <span className="text-sm font-medium text-secondary hover:text-secondary-light transition-colors">
               {t('placeCard.viewDetails')}
             </span>
-            <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </div>

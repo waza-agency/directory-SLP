@@ -309,7 +309,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
   };
 
   return (
-    <div className="slp-root">
+    <div className="slp-root slp-pattern-bg">
       <Head>
         <title>San Luis Way - Your Insider Guide to San Luis Potosí</title>
         <meta 
@@ -322,7 +322,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         />
       </Head>
       
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <HeroBanner />
         
@@ -362,7 +362,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Featured Advertisers Banner */}
-        <section className="bg-white py-8">
+        <section className="bg-background-alt py-8 relative slp-corner-accent">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Featured Advertisers</h2>
@@ -394,7 +394,9 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Festival del Vino 2025 Highlight */}
-        <section className="py-16 px-4 bg-gradient-to-r from-red-50 to-purple-50">
+        <section className="py-16 px-4 slp-gradient-bg relative">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-secondary opacity-10"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-secondary opacity-10"></div>
           <div className="container mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
@@ -420,7 +422,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-serif">
                   Festival Internacional del Vino de San Luis Potosí
                 </h2>
-                <div className="prose prose-lg mb-8 text-gray-600">
+                <div className="prose prose-lg mb-8 text-gray-600 slp-accent-border">
                   <p>
                     El Centro de las Artes, recinto histórico de nuestro Estado, sirve como marco para uno de los fines de semana 
                     más importantes para el vino y la gastronomía en nuestro país. Disfruta de una experiencia sensorial única con más 
@@ -455,6 +457,77 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
+        {/* Blue Background Section */}
+        <section className="py-16 px-4 bg-secondary/5 relative">
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-secondary/10 to-transparent"></div>
+          <div className="absolute inset-0" 
+               style={{
+                 backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(0, 0, 122, 0.03) 100px, rgba(0, 0, 122, 0.03) 200px)`,
+               }}>
+          </div>
+          <div className="container mx-auto relative">
+            <div className="max-w-3xl mx-auto text-center mb-16">
+              <span className="inline-block bg-secondary text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+                Conecta con San Luis Potosí
+              </span>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">Descubre experiencias locales únicas</h2>
+              <p className="text-lg text-gray-600">
+                Explora lo mejor de San Luis Potosí con nuestra guía completa de servicios, eventos y lugares para visitar.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="slp-card p-8 text-center">
+                <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Comunidad de Expatriados</h3>
+                <p className="text-gray-600 mb-6">Conecta con otros expatriados y comparte experiencias en San Luis Potosí.</p>
+                <Link href="/community" className="inline-flex items-center text-secondary font-medium">
+                  Conoce más
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+              
+              <div className="slp-card p-8 text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Descubre Lugares</h3>
+                <p className="text-gray-600 mb-6">Encuentra los mejores restaurantes, tiendas y espacios de ocio en la ciudad.</p>
+                <Link href="/places" className="inline-flex items-center text-primary font-medium">
+                  Explorar
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+              
+              <div className="slp-card p-8 text-center">
+                <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Eventos Culturales</h3>
+                <p className="text-gray-600 mb-6">Mantente al día de las festividades, conciertos y exposiciones en San Luis.</p>
+                <Link href="/events" className="inline-flex items-center text-secondary font-medium">
+                  Ver calendario
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* Welcome/About Section */}
         <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto">
