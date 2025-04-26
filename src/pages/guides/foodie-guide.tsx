@@ -39,16 +39,20 @@ const foodExperiences = [
   {
     id: "street-food",
     name: "Street Food & Markets",
-    description: "Vibrant street food culture offering delicious, affordable bites from tacos to gorditas and regional snacks.",
+    description: "The heart of Potosino cuisine beats in its vibrant street food scene. Explore bustling markets and neighborhood corners for delicious, affordable bites from iconic tacos al pastor and gorditas to legendary tortas.",
     imageUrl: "/images/food/street-food-main.jpg",
-    pairings: "La Legendaria Weiss or Clara",
-    bestFor: "Casual dining and authentic local experiences",
+    pairings: "La Legendaria Weiss, Clara, or Session IPA",
+    bestFor: "Casual dining, authentic local experiences, and late-night cravings",
     locations: [
-      "Mercado República",
-      "Callejón San Francisco",
-      "Tacos El Pata"
+      "Mercado República (Variety)",
+      "Callejón San Francisco (Evening tacos)",
+      "Gorditas de Morales (Famous gordita street)",
+      "Tortas Oscar's (Multiple locations - Lomo, Choriqueso)",
+      "Tacos La Esquinita (Multiple locations - Pastor)",
+      "El Chiapaneco (Cochito Horneado Tacos/Tortas)",
+      "Tacos El Pata (Late night)"
     ],
-    culturalNotes: "Street food in San Luis Potosí reflects the daily life and culinary traditions of the region, with many vendors using recipes passed down through generations."
+    culturalNotes: "Street food in San Luis Potosí reflects the daily life and culinary traditions of the region. Many vendors, like those in the famous 'Gorditas de Morales' area, are family legacies using recipes passed down through generations, creating bustling community hubs."
   }
 ];
 
@@ -291,7 +295,7 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 
                 {experience.id === "street-food" && (
                   <p className="text-gray-700 mb-6">
-                    The true soul of Potosino cuisine isn't found in white-tablecloth establishments but in the bustling corridors of Mercado República and the steam rising from street carts as the sun sets. Here, gorditas stuffed with guisados simmer on ancient comals, while tacos dorados sizzle in well-seasoned pans. Each vendor specializes in their signature creation, often using recipes unchanged for decades. The flavors are bold and honest, the portions generous, and the experience immersive—a symphony of aromas, calls from vendors, and the satisfying crunch of freshly made tortillas that pairs perfectly with a refreshing La Legendaria Weiss beer.
+                    The true soul of Potosino cuisine isn't confined to white-tablecloth establishments but thrives in the bustling corridors of Mercado República, the famous street dedicated to Gorditas de Morales, and the steam rising from street carts as the sun sets. Here, gorditas stuffed with diverse guisados simmer on ancient comals, tacos al pastor are expertly carved from the trompo at spots like Tacos La Esquinita, and legendary tortas like those from Tortas Oscar's are assembled with generations of expertise. Each vendor specializes in their signature creation, often using recipes unchanged for decades. The flavors are bold and honest, the portions generous, and the experience immersive—a symphony of aromas, calls from vendors, and the satisfying crunch of freshly made tortillas or the warm embrace of a perfect torta, best enjoyed with a refreshing La Legendaria Weiss or Clara.
                   </p>
                 )}
 
@@ -313,12 +317,12 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                   
                   {experience.id === "street-food" && (
                     <p className="text-gray-700 mb-2">
-                      Street food in San Luis is an interactive experience. Vendors will guide you through their offerings, often preparing your selection right before your eyes. Don't be afraid to ask questions or watch the cooking process—most vendors take pride in their craft and enjoy sharing their knowledge with interested visitors.
+                      Street food vendors and small eateries are essential cultural ambassadors in San Luis Potosí. Many stalls, especially in areas like the renowned 'Gorditas de Morales', represent family legacies spanning decades, with specialties that draw regulars from across the city. The vendor-customer relationship is often personal—regulars are greeted by name, and their usual orders remembered. Joining this vibrant community, even temporarily as a visitor, offers insight into everyday Potosino life that few tourist experiences can match.
                     </p>
                   )}
                   
                   <ul className="list-disc list-inside text-gray-700 ml-2 mb-2">
-                    <li>Best time to visit: {experience.id === "street-food" ? "Early evening (6-8pm)" : "Lunch (1-3pm) or Dinner (7-9pm)"}</li>
+                    <li>Best time to visit: {experience.id === "street-food" ? "Lunchtime (Gorditas), Early evening & late night (Tacos, Tortas)" : "Lunch (1-3pm) or Dinner (7-9pm)"}</li>
                     <li>Average cost: {experience.id === "modern-fusion" ? "$$$" : experience.id === "traditional-potosino" ? "$$" : "$"}</li>
                     <li>Reservation needed: {experience.id === "modern-fusion" ? "Yes, 1-2 weeks in advance" : experience.id === "traditional-potosino" ? "Recommended on weekends" : "No"}</li>
                     <li>Best for: {experience.bestFor}</li>
@@ -342,14 +346,15 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                   
                   {experience.id === "street-food" && (
                     <p className="text-gray-700 mb-2">
-                      Don't miss the gorditas at Mercado República, particularly those filled with chicharrón prensado (pressed pork rinds in chile sauce). Their richness is perfectly cut by the light, citrusy notes of La Legendaria's Weiss beer. At Tacos El Pata, the tacos de cabeza (head meat tacos) offer incredible depth of flavor that pairs wonderfully with the refreshing La Legendaria Clara, whose subtle sweetness complements the meat's richness.
+                      Seek out the legendary Gorditas de Morales – try fillings like chicharrón prensado (pressed pork rinds in chile sauce) or rajas con queso (poblano strips with cheese); their richness is perfectly cut by the light, citrusy notes of La Legendaria's Weiss beer. Don't miss the Tacos al Pastor from Tacos La Esquinita, paired with a crisp La Legendaria Clara. For a substantial meal, grab a Torta de Lomo or Choriqueso from Tortas Oscar's, complemented by the balanced hops of a La Legendaria Session IPA. Explore unique regional flavors with a Torta de Cochito Horneado (Chiapanecan baked pork) from El Chiapaneco.
                     </p>
                   )}
                   
                   <ul className="list-disc list-inside text-gray-700 ml-2 mb-2">
-                    <li>{experience.id === "traditional-potosino" ? "Enchiladas potosinas + La Legendaria Dorada" : experience.id === "modern-fusion" ? "Duck with guajillo glaze + La Legendaria IPA" : "Gorditas de chicharrón + La Legendaria Weiss"}</li>
-                    <li>{experience.id === "traditional-potosino" ? "Asado de boda + La Legendaria Rubia" : experience.id === "modern-fusion" ? "Chocolate desserts + La Legendaria La Noche" : "Tacos de cabeza + La Legendaria Clara"}</li>
-                    <li>{experience.id === "traditional-potosino" ? "Caldo de rata (pork soup) + La Legendaria Amber" : experience.id === "modern-fusion" ? "Cactus carpaccio + La Legendaria Pilsner" : "Elotes preparados + La Legendaria Session IPA"}</li>
+                    <li>{experience.id === "traditional-potosino" ? "Enchiladas potosinas + La Legendaria Dorada" : experience.id === "modern-fusion" ? "Duck with guajillo glaze + La Legendaria IPA" : "Gorditas de Morales (Chicharrón/Rajas) + La Legendaria Weiss"}</li>
+                    <li>{experience.id === "traditional-potosino" ? "Asado de boda + La Legendaria Rubia" : experience.id === "modern-fusion" ? "Chocolate desserts + La Legendaria La Noche" : "Tacos al Pastor (La Esquinita) + La Legendaria Clara"}</li>
+                    <li>{experience.id === "traditional-potosino" ? "Caldo de rata (pork soup) + La Legendaria Amber" : experience.id === "modern-fusion" ? "Cactus carpaccio + La Legendaria Pilsner" : "Tortas Oscar's (Lomo/Choriqueso) + La Legendaria Session IPA"}</li>
+                    <li>{experience.id === "street-food" ? "Torta de Cochito Horneado (El Chiapaneco) + La Legendaria Amber" : ""}</li>
                   </ul>
                 </div>
 
@@ -378,7 +383,7 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                   
                   {experience.id === "street-food" && (
                     <p className="text-gray-700 mt-2">
-                      Street food vendors are essential cultural ambassadors in San Luis Potosí. Many stalls represent family legacies spanning decades, with specialties that draw regulars from across the city. The vendor-customer relationship is often personal—regulars are greeted by name, and their usual orders remembered. Joining this community, even temporarily as a visitor, offers insight into everyday Potosino life that few tourist experiences can match.
+                      Street food vendors and small eateries are essential cultural ambassadors in San Luis Potosí. Many stalls, especially in areas like the renowned 'Gorditas de Morales', represent family legacies spanning decades, with specialties that draw regulars from across the city. The vendor-customer relationship is often personal—regulars are greeted by name, and their usual orders remembered. Joining this vibrant community, even temporarily as a visitor, offers insight into everyday Potosino life that few tourist experiences can match. Asking locals for their favorite 'puesto' (stall) often leads to the best hidden gems.
                     </p>
                   )}
                 </div>
