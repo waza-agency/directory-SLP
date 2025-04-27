@@ -15,7 +15,7 @@ import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
 import { Brand, getRandomPotosinoBrands } from '@/lib/brands';
 import { Event } from '@/types';
-import { supabase } from '@/lib/supabase';
+import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import TangamangaBanner from '@/components/TangamangaBanner';
 import SEO from '@/components/common/SEO';
 
@@ -36,15 +36,21 @@ interface HomeProps {
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
+    // Use the helper function to get the safety buffer date
+    const safetyDateString = getSafetyDateBuffer();
+    
     // Fetch upcoming events from Supabase 
-    const { data: events, error: eventsError } = await supabase
+    const { data: eventsData, error: eventsError } = await supabase
       .from('events')
       .select('*')
-      .gte('end_date', new Date().toISOString())
+      .gte('end_date', safetyDateString)
       .order('start_date', { ascending: true })
-      .limit(8);
+      .limit(12); // Fetch more than needed for filtering
 
     if (eventsError) throw eventsError;
+
+    // Use the helper to filter events and then take only the first 8
+    const events = filterUpcomingEvents(eventsData).slice(0, 8);
 
     // Fetch random Potosino brands instead of just featured ones
     const brands = await getRandomPotosinoBrands(3);
@@ -1914,7 +1920,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
                   <Link 
-                    href="/cultural-calendar" 
+                    href="/events/cultural" 
                     className="btn-primary"
                   >
                     {t('cultural.viewCalendar')}
@@ -2578,7 +2584,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
         {/* Ad Banners Section */}
         <section className="py-16 px-4 bg-gray-50">
-          <div className="container mx-auto">
+          <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Partner With Us Banner */}
               <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-start space-x-6">

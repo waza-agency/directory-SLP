@@ -51,10 +51,11 @@ export interface Event {
   start_date: string;
   end_date: string;
   location: string;
-  category: 'sports' | 'cultural' | 'other';
+  category: 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'other';
   image_url: string | null;
   featured: boolean;
   place_id?: string | null;
   created_at?: string;
   updated_at?: string;
+  show_in_cultural_calendar?: boolean;
 } 

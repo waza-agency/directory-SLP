@@ -18,21 +18,42 @@ interface EventsPageProps {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
-    // Obtener eventos futuros
-    const { data: events, error } = await supabase
+    // Calculate the safety buffer date - 7 days in the past
+    const safetyDateBuffer = new Date();
+    safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
+    const safetyDateString = safetyDateBuffer.toISOString();
+    
+    // Obtener eventos 
+    const { data: eventsData, error } = await supabase
       .from('events')
       .select('*')
-      .gte('end_date', new Date().toISOString())
+      // Removed date filter temporarily
       .order('start_date', { ascending: true });
 
     if (error) throw error;
+
+    console.log('All events found:', eventsData?.length || 0); // Log for debugging
+
+    // Skip the date filtering temporarily
+    const events = eventsData || [];
 
     // Calcular conteo de categorías
     const categoryCounts: Record<string, number> = {
       all: events?.length || 0,
       sports: events?.filter(event => event.category === 'sports').length || 0,
-      cultural: events?.filter(event => event.category === 'cultural').length || 0,
-      other: events?.filter(event => event.category === 'other').length || 0,
+      cultural: events?.filter(event => 
+        event.category === 'cultural' || 
+        event.category === 'arts-culture' || 
+        event.category === 'music'
+      ).length || 0,
+      culinary: events?.filter(event => event.category === 'culinary').length || 0,
+      other: events?.filter(event => 
+        event.category !== 'sports' && 
+        event.category !== 'cultural' && 
+        event.category !== 'arts-culture' && 
+        event.category !== 'music' &&
+        event.category !== 'culinary'
+      ).length || 0,
     };
 
     return {
@@ -49,7 +70,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       props: {
         ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: [],
-        categoryCounts: { all: 0, sports: 0, cultural: 0, other: 0 },
+        categoryCounts: { 
+          all: 0, 
+          sports: 0, 
+          cultural: 0, 
+          culinary: 0, 
+          other: 0 
+        },
       },
       revalidate: 600, // Revalidar cada 10 minutos
     };
@@ -66,9 +93,39 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
   useEffect(() => {
     let result = events;
     
+    // Ensure cultural events are marked for cultural calendar for consistent filtering
+    // This doesn't change the database, just the client-side state
+    result = result.map(event => {
+      if (event.category === 'cultural' || 
+          event.category === 'arts-culture' || 
+          event.category === 'music') {
+        return { ...event, show_in_cultural_calendar: true };
+      }
+      return event;
+    });
+    
     // Filtrar por categoría
     if (selectedCategory !== 'all') {
-      result = result.filter(event => event.category === selectedCategory);
+      if (selectedCategory === 'cultural') {
+        // For cultural category, include arts-culture and music events too
+        // as well as any marked for cultural calendar
+        result = result.filter(event => 
+          event.category === 'cultural' || 
+          event.category === 'arts-culture' || 
+          event.category === 'arts culture' || 
+          event.category === 'music' ||
+          event.show_in_cultural_calendar === true
+        );
+      } else if (selectedCategory === 'arts-culture') {
+        // Arts-culture filter should also work (direct URL navigation)
+        result = result.filter(event => 
+          event.category === 'arts-culture' || 
+          event.category === 'arts culture'
+        );
+      } else {
+        // For other categories, filter exactly
+        result = result.filter(event => event.category === selectedCategory);
+      }
     }
     
     // Filtrar por término de búsqueda
@@ -222,9 +279,15 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
                       <div className="flex items-center gap-2 mb-2">
                         <span className={`inline-block w-3 h-3 rounded-full ${
                           event.category === 'sports' ? 'bg-blue-500' : 
-                          event.category === 'cultural' ? 'bg-purple-500' : 'bg-amber-500'
+                          (event.category === 'cultural' || event.category === 'arts-culture' || event.category === 'music') ? 'bg-purple-500' : 
+                          event.category === 'culinary' ? 'bg-amber-500' :
+                          'bg-gray-500'
                         }`}></span>
-                        <span className="text-sm text-gray-600 capitalize">{event.category}</span>
+                        <span className="text-sm text-gray-600 capitalize">
+                          {(event.category === 'arts-culture' || event.category === 'arts culture' || event.category === 'music') 
+                            ? 'cultural' 
+                            : event.category}
+                        </span>
                       </div>
                       <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
                         {event.title}

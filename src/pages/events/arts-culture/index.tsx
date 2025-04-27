@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, ClockIcon, TicketIcon, ShareIcon } from '@heroicons/react/24/outline';
 
-interface SportsEventsProps {
+interface ArtsEventsProps {
   events: Event[];
 }
 
@@ -29,14 +29,22 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
     const safetyDateString = safetyDateBuffer.toISOString();
     
+    // Get arts-culture and music events
     const { data: eventsData, error } = await supabase
       .from('events')
       .select('*')
-      .eq('category', 'sports')
-      .gte('end_date', safetyDateString) // Use safety buffer date instead
+      .or('category.eq.arts-culture,category.eq.music')
+      .gte('end_date', safetyDateString)
       .order('start_date', { ascending: true });
 
     if (error) throw error;
+
+    console.log('Arts-culture events found with category filtering:', eventsData?.length || 0);
+
+    // Add more detailed logging for debugging
+    eventsData?.forEach((event, index) => {
+      console.log(`Event ${index + 1}: ${event.title} (${event.category})`);
+    });
 
     // Apply additional client-side filtering to ensure we only show upcoming or current events
     const currentDate = new Date();
@@ -54,7 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     return {
       props: {
         ...(await serverSideTranslations(locale ?? 'en', ['common'])),
-        events: events || [],
+        events,
       },
       revalidate: 600,
     };
@@ -70,7 +78,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   }
 };
 
-export default function SportsEvents({ events }: SportsEventsProps) {
+export default function ArtsEvents({ events }: ArtsEventsProps) {
   const { t } = useTranslation('common');
 
   const featuredEvents = events.filter(event => event.featured);
@@ -79,32 +87,26 @@ export default function SportsEvents({ events }: SportsEventsProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <div className="relative bg-gradient-to-r from-pink-600 to-purple-800 text-white">
         <div className="absolute inset-0">
           <Image
-            src="/images/events/sports-hero.png"
-            alt="Sports Events"
+            src="/images/cultural/cultural-default.jpg"
+            alt="Arts & Culture Events"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-30"
             priority
-            onError={(e) => {
-              // Fallback to jpg if png fails to load
-              const target = e.target as HTMLImageElement;
-              target.src = '/images/events/sports-hero.jpg';
-            }}
           />
         </div>
         <div className="container mx-auto px-4 py-16 relative">
           <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">{t('sportsEvents')}</h1>
+            <h1 className="text-5xl font-bold mb-6">Arts & Culture Events</h1>
             <p className="text-xl mb-8">
-              Discover exciting sports events, tournaments, and activities in San Luis Potosí. 
-              From local matches to international competitions, find your next sporting adventure.
+              Discover vibrant arts and cultural events in San Luis Potosí. From exhibitions and theater performances to workshops and music, immerse yourself in the local creative scene.
             </p>
             <div className="flex gap-4">
               <Link
                 href="#featured-events"
-                className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
+                className="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold hover:bg-pink-50 transition-colors"
               >
                 View Featured Events
               </Link>
@@ -127,7 +129,7 @@ export default function SportsEvents({ events }: SportsEventsProps) {
               <h2 className="text-3xl font-bold text-gray-900">{t('featuredEvents')}</h2>
               <Link
                 href="#all-events"
-                className="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-2"
+                className="text-pink-600 hover:text-pink-700 font-semibold flex items-center gap-2"
               >
                 View All Events
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +141,7 @@ export default function SportsEvents({ events }: SportsEventsProps) {
               {featuredEvents.map((event) => (
                 <Link
                   key={event.id}
-                  href={`/events/sports/${event.id}`}
+                  href={`/events/arts-culture/${event.id}`}
                   className="group"
                 >
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -160,11 +162,11 @@ export default function SportsEvents({ events }: SportsEventsProps) {
                     )}
                     <div className="p-6">
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                        <span className="bg-pink-100 text-pink-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
                           Featured
                         </span>
                       </div>
-                      <h2 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">
+                      <h2 className="text-xl font-bold mb-3 group-hover:text-pink-600 transition-colors">
                         {event.title}
                       </h2>
                       <div className="space-y-3 text-gray-600">
@@ -182,13 +184,13 @@ export default function SportsEvents({ events }: SportsEventsProps) {
                       </div>
                       <p className="mt-4 text-gray-700 line-clamp-2">{event.description}</p>
                       <div className="mt-6 flex items-center justify-between">
-                        <button className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1">
+                        <button className="text-pink-600 font-semibold hover:text-pink-700 flex items-center gap-1">
                           Learn More
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </button>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <button className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition-colors flex items-center gap-2">
                           <TicketIcon className="w-5 h-5" />
                           Get Tickets
                         </button>
@@ -231,11 +233,11 @@ export default function SportsEvents({ events }: SportsEventsProps) {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">No Events Found</h3>
               <p className="text-gray-600 mb-6">
-                There are no upcoming sports events at the moment. Check back later for new events!
+                There are no upcoming arts and culture events at the moment. Check back later for new events!
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-pink-600 hover:bg-pink-700 transition-colors"
               >
                 Return to Home
               </Link>

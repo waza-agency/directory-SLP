@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
-export type EventCategory = 'sports' | 'cultural' | 'other' | 'all';
+export type EventCategory = 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'other' | 'all';
 
 interface EventCategoryFilterProps {
   selectedCategory: EventCategory;
@@ -25,6 +25,8 @@ export default function EventCategoryFilter({
     { id: 'all', icon: '🗓️', label: t('allEvents') },
     { id: 'sports', icon: '🏆', label: t('sportsEvents'), href: '/events/sports' },
     { id: 'cultural', icon: '🎭', label: t('culturalEvents'), href: '/events/cultural' },
+    { id: 'music', icon: '🎵', label: t('musicEvents') || 'Music', href: '/events/music' },
+    { id: 'culinary', icon: '🍽️', label: t('culinaryEvents') || 'Food & Drinks', href: '/events/culinary' },
     { id: 'other', icon: '✨', label: t('otherEvents'), href: '/events/other' },
   ];
 

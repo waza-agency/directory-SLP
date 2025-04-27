@@ -166,6 +166,7 @@ export interface Database {
           place_id: string | null
           created_at: string
           updated_at: string
+          show_in_cultural_calendar: boolean | null
         }
         Insert: {
           id?: string
@@ -180,6 +181,7 @@ export interface Database {
           place_id?: string | null
           created_at?: string
           updated_at?: string
+          show_in_cultural_calendar?: boolean | null
         }
         Update: {
           id?: string
@@ -194,6 +196,7 @@ export interface Database {
           place_id?: string | null
           created_at?: string
           updated_at?: string
+          show_in_cultural_calendar?: boolean | null
         }
       }
       featured_photos: {

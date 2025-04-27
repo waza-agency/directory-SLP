@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, ClockIcon, TicketIcon, ShareIcon } from '@heroicons/react/24/outline';
 
-interface SportsEventsProps {
+interface CulturalEventsProps {
   events: Event[];
 }
 
@@ -29,34 +29,55 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
     const safetyDateString = safetyDateBuffer.toISOString();
     
+    // Get all events regardless of category to maximize what we show in the cultural section
     const { data: eventsData, error } = await supabase
       .from('events')
       .select('*')
-      .eq('category', 'sports')
-      .gte('end_date', safetyDateString) // Use safety buffer date instead
+      .gte('end_date', safetyDateString)
       .order('start_date', { ascending: true });
 
     if (error) throw error;
+
+    console.log('All events found:', eventsData?.length || 0);
+
+    // Filter on the client side for cultural events (including arts-culture and music)
+    // Or any event with show_in_cultural_calendar flag
+    const culturalEvents = eventsData ? eventsData.filter(event => 
+      // Include events with cultural categories
+      event.category === 'cultural' || 
+      event.category === 'arts-culture' || 
+      event.category === 'music' ||
+      // Or events marked for the cultural calendar
+      event.show_in_cultural_calendar === true
+    ) : [];
+
+    console.log('Cultural events found after filtering:', culturalEvents.length);
 
     // Apply additional client-side filtering to ensure we only show upcoming or current events
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // Set to start of day
     
-    const events = eventsData ? eventsData.filter(event => {
+    const events = culturalEvents.filter(event => {
       // Parse the start date to properly compare regardless of format
       const eventStartDate = new Date(event.start_date);
       eventStartDate.setHours(0, 0, 0, 0); // Set to start of day
       
       // Keep events that start today or in the future, or ongoing events
       return eventStartDate >= currentDate || new Date(event.end_date) >= currentDate;
-    }) : [];
+    });
+
+    // For debugging - log what we found
+    console.log('Cultural events after date filtering:', events.length);
+    events.forEach(event => {
+      console.log(`${event.title} | Category: ${event.category} | Cultural Calendar: ${event.show_in_cultural_calendar ? 'Yes' : 'No'}`);
+    });
 
     return {
       props: {
         ...(await serverSideTranslations(locale ?? 'en', ['common'])),
-        events: events || [],
+        events,
       },
-      revalidate: 600,
+      revalidate: 60, // Revalidate every minute for testing
     };
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -65,52 +86,72 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         ...(await serverSideTranslations(locale ?? 'en', ['common'])),
         events: [],
       },
-      revalidate: 600,
+      revalidate: 60,
     };
   }
 };
 
-export default function SportsEvents({ events }: SportsEventsProps) {
+export default function CulturalEvents({ events }: CulturalEventsProps) {
   const { t } = useTranslation('common');
 
   const featuredEvents = events.filter(event => event.featured);
   const regularEvents = events.filter(event => !event.featured);
 
+  const getCategoryDisplayInfo = (event: Event) => {
+    // Determine category display based on the event category OR if it's marked for cultural calendar
+    let category = event.category;
+    let bgColor = 'bg-gray-500';
+    
+    // Override category display if explicitly marked for cultural calendar
+    if (event.show_in_cultural_calendar) {
+      category = 'cultural';
+    }
+    
+    // Set color based on category or cultural calendar flag
+    if (category === 'sports') {
+      bgColor = 'bg-blue-500';
+    } else if (category === 'cultural' || category === 'arts-culture' || category === 'music') {
+      bgColor = 'bg-amber-500'; // Changed to amber for cultural events
+    } else if (category === 'culinary') {
+      bgColor = 'bg-amber-500';
+    }
+    
+    return { 
+      displayCategory: category === 'arts-culture' ? 'cultural' : category,
+      bgColor 
+    };
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      {/* Hero Section - Yellow/Gold Vibrant Version */}
+      <div className="relative bg-gradient-to-r from-amber-500 to-yellow-400 text-white">
         <div className="absolute inset-0">
           <Image
-            src="/images/events/sports-hero.png"
-            alt="Sports Events"
+            src="/images/cultural/cultural-default.jpg"
+            alt="Cultural Events"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-30 mix-blend-multiply"
             priority
-            onError={(e) => {
-              // Fallback to jpg if png fails to load
-              const target = e.target as HTMLImageElement;
-              target.src = '/images/events/sports-hero.jpg';
-            }}
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-900/30 to-transparent"></div>
         </div>
         <div className="container mx-auto px-4 py-16 relative">
           <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">{t('sportsEvents')}</h1>
-            <p className="text-xl mb-8">
-              Discover exciting sports events, tournaments, and activities in San Luis Potosí. 
-              From local matches to international competitions, find your next sporting adventure.
+            <h1 className="text-5xl font-bold mb-6 drop-shadow-md">{t('culturalEvents')}</h1>
+            <p className="text-xl mb-8 drop-shadow">
+              Experience the rich cultural tapestry of San Luis Potosí through festivals, exhibitions, concerts, and performances that celebrate local and international arts and heritage.
             </p>
             <div className="flex gap-4">
               <Link
                 href="#featured-events"
-                className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
+                className="bg-white text-amber-600 px-6 py-3 rounded-full font-semibold hover:bg-amber-50 transition-colors shadow-md"
               >
                 View Featured Events
               </Link>
               <Link
                 href="#all-events"
-                className="border-2 border-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors"
+                className="border-2 border-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors shadow-md"
               >
                 Browse All Events
               </Link>
@@ -127,7 +168,7 @@ export default function SportsEvents({ events }: SportsEventsProps) {
               <h2 className="text-3xl font-bold text-gray-900">{t('featuredEvents')}</h2>
               <Link
                 href="#all-events"
-                className="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-2"
+                className="text-amber-600 hover:text-amber-700 font-semibold flex items-center gap-2"
               >
                 View All Events
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +180,7 @@ export default function SportsEvents({ events }: SportsEventsProps) {
               {featuredEvents.map((event) => (
                 <Link
                   key={event.id}
-                  href={`/events/sports/${event.id}`}
+                  href={`/events/${event.category}/${event.id}`}
                   className="group"
                 >
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -160,11 +201,11 @@ export default function SportsEvents({ events }: SportsEventsProps) {
                     )}
                     <div className="p-6">
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                        <span className="bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
                           Featured
                         </span>
                       </div>
-                      <h2 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">
+                      <h2 className="text-xl font-bold mb-3 group-hover:text-amber-600 transition-colors">
                         {event.title}
                       </h2>
                       <div className="space-y-3 text-gray-600">
@@ -182,13 +223,13 @@ export default function SportsEvents({ events }: SportsEventsProps) {
                       </div>
                       <p className="mt-4 text-gray-700 line-clamp-2">{event.description}</p>
                       <div className="mt-6 flex items-center justify-between">
-                        <button className="text-blue-600 font-semibold hover:text-blue-700 flex items-center gap-1">
+                        <button className="text-amber-600 font-semibold hover:text-amber-700 flex items-center gap-1">
                           Learn More
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </button>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2">
+                        <button className="bg-amber-600 text-white px-4 py-2 rounded-full hover:bg-amber-700 transition-colors flex items-center gap-2">
                           <TicketIcon className="w-5 h-5" />
                           Get Tickets
                         </button>
@@ -201,7 +242,7 @@ export default function SportsEvents({ events }: SportsEventsProps) {
           </section>
         )}
 
-        {/* Regular Events Section */}
+        {/* Regular Events Section - amber/gold version */}
         {regularEvents.length > 0 && (
           <section id="all-events" className="mb-16">
             <div className="flex items-center justify-between mb-8">
@@ -231,11 +272,11 @@ export default function SportsEvents({ events }: SportsEventsProps) {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">No Events Found</h3>
               <p className="text-gray-600 mb-6">
-                There are no upcoming sports events at the moment. Check back later for new events!
+                There are no upcoming cultural events at the moment. Check back later for new events!
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-amber-600 hover:bg-amber-700 transition-colors"
               >
                 Return to Home
               </Link>

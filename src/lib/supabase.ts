@@ -92,27 +92,73 @@ export const getFeaturedPlaces = async () => {
   });
 }
 
+// Helper function to filter events by date consistently across all pages
+export const filterUpcomingEvents = (events: any[] | null) => {
+  if (!events || !Array.isArray(events)) return [];
+  
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Set to start of day
+  
+  return events.filter(event => {
+    // Parse the start date to properly compare regardless of format
+    const eventStartDate = new Date(event.start_date);
+    eventStartDate.setHours(0, 0, 0, 0); // Set to start of day
+    
+    // If end_date is missing, create a default end date 2 hours after start
+    let eventEndDate: Date;
+    if (!event.end_date) {
+      eventEndDate = new Date(event.start_date);
+      // Add 2 hours to the start time
+      eventEndDate.setHours(eventEndDate.getHours() + 2);
+    } else {
+      eventEndDate = new Date(event.end_date);
+    }
+    
+    // Include events that:
+    // 1. Start today or in the future, OR
+    // 2. Are currently ongoing (end date is today or in the future)
+    return eventStartDate >= currentDate || eventEndDate >= currentDate;
+  });
+};
+
+// Get a safety buffer date for use in Supabase queries
+export const getSafetyDateBuffer = (daysBack = 7) => {
+  const safetyDateBuffer = new Date();
+  safetyDateBuffer.setDate(safetyDateBuffer.getDate() - daysBack);
+  return safetyDateBuffer.toISOString();
+};
+
 export const getEvents = async () => {
+  // Calculate the safety buffer date - 7 days in the past
+  const safetyDateString = getSafetyDateBuffer();
+  
   const { data, error } = await supabase
     .from('events')
     .select('*')
-    .gte('end_date', new Date().toISOString())
-    .order('start_date', { ascending: true })
+    .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
+    .order('start_date', { ascending: true });
 
-  if (error) throw error
-  return data
+  if (error) throw error;
+  
+  // Apply the consistent filtering logic
+  return filterUpcomingEvents(data);
 }
 
 export const getFeaturedEvents = async () => {
-  const { data, error } = await supabase
+  // Use safety buffer for initial query to get more recent events
+  const safetyDateString = getSafetyDateBuffer();
+  
+  const { data: eventsData, error } = await supabase
     .from('events')
     .select('*')
     .eq('featured', true)
-    .gte('end_date', new Date().toISOString())
-    .order('start_date', { ascending: true })
+    .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
+    .order('start_date', { ascending: true });
 
-  if (error) throw error
-  return data
+  if (error) throw error;
+  
+  // Now use the filterUpcomingEvents function to properly filter with our date logic
+  return filterUpcomingEvents(eventsData);
 }
 
 export const getFeaturedPhotos = async () => {
@@ -372,4 +418,4 @@ export const getRandomPlaces = async (limit: number = 16) => {
     console.error('Error getting random places:', error);
     throw error;
   }
-} 
+}

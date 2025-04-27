@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
-import Footer from '@/components/Footer';
 import { CalendarIcon, MapPinIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import EventList from '@/components/EventList';
 import SEO from '@/components/common/SEO';
@@ -90,7 +89,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                 <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-all duration-300">
                   <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
                     </svg>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">Festivals & Traditions</h3>
@@ -337,31 +336,36 @@ export default function CulturalPage({ events }: CulturalPageProps) {
           </section>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
-    // Fetch cultural events from Supabase
+    // Try to include specific cultural categories since the column might not exist yet
     const { data: events, error } = await supabase
       .from('events')
       .select('*')
-      .eq('category', 'cultural')
+      .or('category.eq.cultural,category.eq.arts-culture,category.eq.music')
       .gte('end_date', new Date().toISOString())
       .order('start_date', { ascending: true })
       .limit(6);
 
     if (error) throw error;
 
+    console.log('Cultural events found using category filtering:', events?.length || 0);
+
+    // Log individual events for debugging
+    events?.forEach((event, index) => {
+      console.log(`Event ${index + 1}: ${event.title} (${event.category})`);
+    });
+
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
         events: events || [],
       },
-      revalidate: 3600, // Revalidate every hour
+      revalidate: 60,
     };
   } catch (error) {
     console.error('Error fetching cultural events:', error);
@@ -370,7 +374,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
         ...(await serverSideTranslations(locale, ['common'])),
         events: [],
       },
-      revalidate: 3600,
+      revalidate: 60,
     };
   }
 }; 
