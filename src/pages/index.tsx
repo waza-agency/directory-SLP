@@ -372,8 +372,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Featured Advertisers Banner */}
-        <section className="bg-background-alt py-8 relative slp-corner-accent">
-          <div className="container mx-auto px-4">
+        <section className="bg-background-alt py-8 relative slp-corner-accent overflow-hidden">
+          <div className="absolute inset-0 z-0" style={{
+            backgroundImage: `url('/images/advertisers/plaza-san-luis.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.15
+          }}></div>
+          <div className="container mx-auto px-4 relative z-10">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">{t('featuredAdvertisers.title', 'Featured Advertisers')}</h2>
               <Link href="/advertise" className="text-sm text-primary hover:text-primary-dark">
@@ -383,15 +389,6 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {featuredAdvertisers?.map((advertiser) => (
                 <div key={advertiser.id} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-                  <div className="aspect-w-16 aspect-h-9 mb-4">
-                    <Image
-                      src={advertiser.imageUrl}
-                      alt={advertiser.name}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-md"
-                    />
-                  </div>
                   <h3 className="font-semibold text-lg mb-2">{advertiser.name}</h3>
                   <p className="text-gray-600 text-sm mb-4">{advertiser.description}</p>
                   <Link href={advertiser.ctaUrl} className="text-primary hover:text-primary-dark text-sm font-medium">
@@ -1673,136 +1670,175 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Featured Potosinos Section */}
-        <section className="py-24 px-4 bg-white border-t border-gray-100">
-          <div className="container mx-auto">
+        <section className="py-24 px-4 bg-white border-t border-gray-100 relative overflow-hidden">
+          <div className="absolute inset-0 z-0" style={{
+            backgroundImage: `url('/images/backgrounds/blue-pattern.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.2
+          }}></div>
+          <div className="container mx-auto relative z-10">
             <div className="text-center mb-16">
-              <span className="text-secondary text-sm font-medium uppercase tracking-wider bg-gradient-to-r from-purple-100 to-pink-100 px-6 py-2 rounded-full">
+              <span className="text-secondary text-sm font-medium uppercase tracking-wider bg-white px-6 py-2 rounded-full shadow-md">
                 COMMUNITY SPOTLIGHT
               </span>
               <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
                 Featured Potosinos
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
                 Meet the remarkable individuals who contribute to San Luis Potosí's vibrant culture, entrepreneurial spirit, and rich heritage.
               </p>
-              <p className="text-sm text-secondary mt-3 max-w-xl mx-auto">
-                <span className="inline-block bg-secondary/10 px-3 py-1 rounded-full">From yesterday and today, honoring tradition while shaping the future</span>
+              <p className="text-sm text-gray-600 mt-3 max-w-xl mx-auto">
+                <span className="inline-block bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">From yesterday and today, honoring tradition while shaping the future</span>
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Person 1 */}
-              <div className="text-center group">
-                <div className="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl group-hover:shadow-2xl transition-all duration-300">
-                  <Image
-                    src="/images/potosinos/maria-gonzalez.jpg"
-                    alt="María González"
-                    fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/potosinos/placeholder.jpg';
-                    }}
-                  />
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
+                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <Image
+                      src="/images/potosinos/maria-gonzalez.jpg"
+                      alt="María González"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/potosinos/placeholder.jpg';
+                      }}
+                    />
+                  </div>
                 </div>
-                <h3 className="font-medium text-2xl text-gray-900 mb-2 group-hover:text-primary transition-colors">María González</h3>
-                <p className="text-primary font-medium text-sm mb-4">Chef & Cultural Ambassador</p>
-                <p className="text-gray-600 text-sm mb-6 px-2">
-                  Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
-                </p>
-                <Link href="/community/maria-gonzalez" className="inline-flex items-center text-secondary hover:text-secondary-dark text-sm font-medium group">
-                  Read her story
-                  <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
+                <div className="p-6 text-center">
+                  <h3 className="font-medium text-xl text-gray-900 mb-1">María González</h3>
+                  <p className="text-primary font-medium text-sm mb-4">Chef & Cultural Ambassador</p>
+                  <div className="h-24 overflow-hidden">
+                    <p className="text-gray-600 text-sm">
+                      Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
+                    </p>
+                  </div>
+                  <Link href="/community/maria-gonzalez" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
+                    Read her story
+                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
               
               {/* Person 2 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosinos/carlos-ramirez.jpeg"
-                    alt="Carlos Ramírez"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/potosinos/placeholder.jpg';
-                    }}
-                  />
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
+                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <Image
+                      src="/images/potosinos/carlos-ramirez.jpeg"
+                      alt="Carlos Ramírez"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/potosinos/placeholder.jpg';
+                      }}
+                    />
+                  </div>
                 </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">Carlos Ramírez</h3>
-                <p className="text-primary font-medium text-sm mb-3">Artisan & Master Craftsman</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Creating stunning traditional pottery that honors the region's artistic legacy while mentoring the next generation of artisans.
-                </p>
-                <Link href="/community/carlos-ramirez" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read his story →
-                </Link>
+                <div className="p-6 text-center">
+                  <h3 className="font-medium text-xl text-gray-900 mb-1">Carlos Ramírez</h3>
+                  <p className="text-primary font-medium text-sm mb-4">Artisan & Master Craftsman</p>
+                  <div className="h-24 overflow-hidden">
+                    <p className="text-gray-600 text-sm">
+                      Creating stunning traditional pottery that honors the region's artistic legacy while mentoring the next generation of artisans.
+                    </p>
+                  </div>
+                  <Link href="/community/carlos-ramirez" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
+                    Read his story
+                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
               
               {/* Person 3 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosinos/alejandra-vega.jpeg"
-                    alt="Alejandra Vega"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/potosinos/placeholder.jpg';
-                    }}
-                  />
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
+                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <Image
+                      src="/images/potosinos/alejandra-vega.jpeg"
+                      alt="Alejandra Vega"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/potosinos/placeholder.jpg';
+                      }}
+                    />
+                  </div>
                 </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">Alejandra Vega</h3>
-                <p className="text-primary font-medium text-sm mb-3">Entrepreneur & Innovator</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Transforming the local tech scene through her startup incubator while creating opportunities for young Potosinos in technology.
-                </p>
-                <Link href="/community/alejandra-vega" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read her story →
-                </Link>
+                <div className="p-6 text-center">
+                  <h3 className="font-medium text-xl text-gray-900 mb-1">Alejandra Vega</h3>
+                  <p className="text-primary font-medium text-sm mb-4">Entrepreneur & Innovator</p>
+                  <div className="h-24 overflow-hidden">
+                    <p className="text-gray-600 text-sm">
+                      Transforming the local tech scene through her startup incubator while creating opportunities for young Potosinos in technology.
+                    </p>
+                  </div>
+                  <Link href="/community/alejandra-vega" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
+                    Read her story
+                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
               
               {/* Person 4 */}
-              <div className="text-center">
-                <div className="relative w-48 h-48 mx-auto mb-5 rounded-full overflow-hidden border-4 border-white shadow-md">
-                  <Image
-                    src="/images/potosinos/miguel-ortiz.jpeg"
-                    alt="Miguel Ortiz"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/images/potosinos/placeholder.jpg';
-                    }}
-                  />
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
+                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <Image
+                      src="/images/potosinos/miguel-ortiz.jpeg"
+                      alt="Miguel Ortiz"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/potosinos/placeholder.jpg';
+                      }}
+                    />
+                  </div>
                 </div>
-                <h3 className="font-medium text-xl text-gray-900 mb-1">Miguel Ortiz</h3>
-                <p className="text-primary font-medium text-sm mb-3">Historian & Cultural Guide</p>
-                <p className="text-gray-600 text-sm mb-4 px-2">
-                  Sharing the rich history of San Luis Potosí through immersive tours and educational programs that bring the past to life.
-                </p>
-                <Link href="/community/miguel-ortiz" className="text-secondary hover:text-secondary-dark text-sm font-medium">
-                  Read his story →
-                </Link>
+                <div className="p-6 text-center">
+                  <h3 className="font-medium text-xl text-gray-900 mb-1">Miguel Ortiz</h3>
+                  <p className="text-primary font-medium text-sm mb-4">Historian & Cultural Guide</p>
+                  <div className="h-24 overflow-hidden">
+                    <p className="text-gray-600 text-sm">
+                      Sharing the rich history of San Luis Potosí through immersive tours and educational programs that bring the past to life.
+                    </p>
+                  </div>
+                  <Link href="/community/miguel-ortiz" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
+                    Read his story
+                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
             
             <div className="mt-16 text-center">
-              <Link href="/community" className="inline-flex items-center justify-center space-x-3 bg-secondary hover:bg-secondary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
+              <Link href="/community" className="inline-flex items-center justify-center space-x-3 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
                 <span>Meet More Remarkable Potosinos</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
-              <p className="text-sm text-gray-500 mt-8 max-w-xl mx-auto">
+              <p className="text-sm text-gray-600 mt-8 max-w-xl mx-auto">
                 Know someone who deserves to be featured? <Link href="/contact?subject=Community Nomination" className="text-primary hover:text-primary-dark font-medium">Nominate them here</Link>
               </p>
             </div>
