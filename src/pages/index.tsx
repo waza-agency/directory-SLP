@@ -78,12 +78,12 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     const sponsoredContent = [
       {
         id: '1',
-        title: 'Discover the Magic of Real de Catorce',
-        description: 'A comprehensive guide to exploring this historic mining town and its surrounding natural wonders.',
-        imageUrl: '/images/sponsored/real-de-catorce.jpg',
-        ctaUrl: '/guides/real-de-catorce',
-        sponsorLogo: '/images/brands/corazon-xoconostle.png',
-        sponsorName: 'Corazón de Xoconostle'
+        title: 'Discover the Potosino Wine Scene',
+        description: 'Explore the emerging wine regions of San Luis Potosí, local vineyards, and unique wine experiences throughout the state.',
+        imageUrl: '/images/sponsored/potosino-wine.jpg',
+        ctaUrl: '/guides/potosino-wine-scene',
+        sponsorLogo: '/images/brands/la-gran-via-logo.jpg',
+        sponsorName: 'La Gran Vía'
       },
       {
         id: '2',
@@ -375,9 +375,9 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         <section className="bg-background-alt py-8 relative slp-corner-accent">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Featured Advertisers</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{t('featuredAdvertisers.title', 'Featured Advertisers')}</h2>
               <Link href="/advertise" className="text-sm text-primary hover:text-primary-dark">
-                Advertise with us →
+                {t('featuredAdvertisers.advertise', 'Advertise with us')} →
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -412,7 +412,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
                 <Image
                   src="/images/events/festival-del-vino.jpg"
-                  alt="Festival Internacional del Vino 2025"
+                  alt={t('festivalVino.title', 'International Wine Festival 2025')}
                   fill
                   className="object-cover object-center"
                 />
@@ -420,7 +420,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 <div className="absolute bottom-0 left-0 p-6 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <CalendarIcon className="w-5 h-5" />
-                    <span className="font-medium">6 & 7 de Junio, 2025</span>
+                    <span className="font-medium">{t('festivalVino.date', 'June 6 & 7, 2025')}</span>
                   </div>
                 </div>
               </div>
@@ -430,26 +430,24 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   Featured Event
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-serif">
-                  Festival Internacional del Vino de San Luis Potosí
+                  {t('festivalVino.title', 'International Wine Festival of San Luis Potosí')}
                 </h2>
                 <div className="prose prose-lg mb-8 text-gray-600 slp-accent-border">
                   <p>
-                    El Centro de las Artes, recinto histórico de nuestro Estado, sirve como marco para uno de los fines de semana 
-                    más importantes para el vino y la gastronomía en nuestro país. Disfruta de una experiencia sensorial única con más 
-                    de 500 vinos de todo el mundo.
+                    {t('festivalVino.description', 'The Arts Center, a historic venue in our state, serves as the setting for one of the most important weekends for wine and gastronomy in our country. Enjoy a unique sensory experience with more than 500 wines from around the world.')}
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-red-600 font-bold">•</span>
-                      <span>Más de 500 vinos de todo el mundo</span>
+                      <span>{t('festivalVino.feature1', 'More than 500 wines from around the world')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-red-600 font-bold">•</span>
-                      <span>Bodegas nacionales e internacionales</span>
+                      <span>{t('festivalVino.feature2', 'National and international wineries')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-red-600 font-bold">•</span>
-                      <span>Experiencias gastronómicas y catas premium</span>
+                      <span>{t('festivalVino.feature3', 'Gastronomic experiences and premium tastings')}</span>
                     </li>
                   </ul>
                 </div>
@@ -457,7 +455,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   href="/events/festival-del-vino-2025" 
                   className="bg-red-800 hover:bg-red-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 >
-                  Learn More
+                  {t('festivalVino.learnMore', 'Learn More')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -478,11 +476,11 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           <div className="container mx-auto relative">
             <div className="max-w-3xl mx-auto text-center mb-16">
               <span className="inline-block bg-secondary text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-                Conecta con San Luis Potosí
+                {t('localExperiences.connect', 'Connect with San Luis Potosí')}
               </span>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">Descubre experiencias locales únicas</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('localExperiences.title', 'Discover unique local experiences')}</h2>
               <p className="text-lg text-gray-600">
-                Explora lo mejor de San Luis Potosí con nuestra guía completa de servicios, eventos y lugares para visitar.
+                {t('localExperiences.description', 'Explore the best of San Luis Potosí with our complete guide to services, events, and places to visit.')}
               </p>
             </div>
             
@@ -493,10 +491,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Comunidad de Expatriados</h3>
-                <p className="text-gray-600 mb-6">Conecta con otros expatriados y comparte experiencias en San Luis Potosí.</p>
+                <h3 className="text-xl font-semibold mb-4">{t('localExperiences.expatCommunity.title', 'Expat Community')}</h3>
+                <p className="text-gray-600 mb-6">{t('localExperiences.expatCommunity.description', 'Connect with other expatriates and share experiences in San Luis Potosí.')}</p>
                 <Link href="/community" className="inline-flex items-center text-secondary font-medium">
-                  Conoce más
+                  {t('localExperiences.expatCommunity.cta', 'Learn more')}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -509,10 +507,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Descubre Lugares</h3>
-                <p className="text-gray-600 mb-6">Encuentra los mejores restaurantes, tiendas y espacios de ocio en la ciudad.</p>
+                <h3 className="text-xl font-semibold mb-4">{t('localExperiences.discoverPlaces.title', 'Discover Places')}</h3>
+                <p className="text-gray-600 mb-6">{t('localExperiences.discoverPlaces.description', 'Find the best restaurants, shops, and leisure spaces in the city.')}</p>
                 <Link href="/places" className="inline-flex items-center text-primary font-medium">
-                  Explorar
+                  {t('localExperiences.discoverPlaces.cta', 'Explore')}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -525,10 +523,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">Eventos Culturales</h3>
-                <p className="text-gray-600 mb-6">Mantente al día de las festividades, conciertos y exposiciones en San Luis.</p>
+                <h3 className="text-xl font-semibold mb-4">{t('localExperiences.culturalEvents.title', 'Cultural Events')}</h3>
+                <p className="text-gray-600 mb-6">{t('localExperiences.culturalEvents.description', 'Stay up to date with festivals, concerts, and exhibitions in San Luis.')}</p>
                 <Link href="/events" className="inline-flex items-center text-secondary font-medium">
-                  Ver calendario
+                  {t('localExperiences.culturalEvents.cta', 'View calendar')}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -884,6 +882,63 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
         {/* Parque Tangamanga Banner */}
         <TangamangaBanner />
+
+        {/* Pedestrian Street Banner - MOVED HERE */}
+        <section className="py-12 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-gray-100">
+          <div className="container mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/pedestrian-street.jpg"
+                  alt="San Luis Potosí's Historic Pedestrian Street"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="flex items-center space-x-2 text-white/90 text-sm">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    <span>Centro Histórico</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                  URBAN DISTINCTION
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  America's Longest Pedestrian Street
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Experience the vibrant heart of San Luis Potosí along our historic pedestrian corridor, where colonial architecture meets modern life. This remarkable street showcases local artisans, cafes, and cultural landmarks.
+                </p>
+                <div className="flex gap-6 mb-6">
+                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
+                    <div className="text-xl font-bold text-primary mb-0.5">2.5 km</div>
+                    <div className="text-sm text-gray-600">Total Length</div>
+                  </div>
+                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
+                    <div className="text-xl font-bold text-primary mb-0.5">100+</div>
+                    <div className="text-sm text-gray-600">Local Businesses</div>
+                  </div>
+                </div>
+                <Link 
+                  href="/attractions/pedestrian-street-guide" 
+                  className="inline-flex items-center text-primary hover:text-primary-dark font-medium group"
+                >
+                  Explore the Street
+                  <svg className="w-5 h-5 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Practical Categories Section */}
         <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-50">
@@ -1367,18 +1422,21 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {sponsoredContent?.map((content) => (
                 <div key={content.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="aspect-w-16 aspect-h-9">
+                  <div className="relative" style={{ aspectRatio: '16/9', height: '200px' }}>
                     <Image
                       src={content.imageUrl}
                       alt={content.title}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover"
                     />
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center">
-                        <StarIcon className="h-5 w-5 text-yellow-400 mr-1" />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5 text-yellow-400 mr-1">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                        </svg>
                         <span className="text-sm text-gray-600">Sponsored</span>
                       </div>
                       {content.sponsorLogo && (
@@ -1388,7 +1446,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                             alt={content.sponsorName || 'Sponsor'}
                             width={80}
                             height={30}
-                            className="object-contain"
+                            style={{ objectFit: 'contain' }}
                           />
                         </div>
                       )}
@@ -1874,6 +1932,63 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pedestrian Street Banner - MOVED HERE (AFTER CULTURAL HERITAGE) */}
+        <section className="py-12 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-gray-100">
+          <div className="container mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/pedestrian-street.jpg"
+                  alt="San Luis Potosí's Historic Pedestrian Street"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="flex items-center space-x-2 text-white/90 text-sm">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    <span>Centro Histórico</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                  URBAN DISTINCTION
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  America's Longest Pedestrian Street
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Experience the vibrant heart of San Luis Potosí along our historic pedestrian corridor, where colonial architecture meets modern life. This remarkable street showcases local artisans, cafes, and cultural landmarks.
+                </p>
+                <div className="flex gap-6 mb-6">
+                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
+                    <div className="text-xl font-bold text-primary mb-0.5">2.5 km</div>
+                    <div className="text-sm text-gray-600">Total Length</div>
+                  </div>
+                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
+                    <div className="text-xl font-bold text-primary mb-0.5">100+</div>
+                    <div className="text-sm text-gray-600">Local Businesses</div>
+                  </div>
+                </div>
+                <Link 
+                  href="/attractions/pedestrian-street-guide" 
+                  className="inline-flex items-center text-primary hover:text-primary-dark font-medium group"
+                >
+                  Explore the Street
+                  <svg className="w-5 h-5 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>
@@ -2644,66 +2759,6 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Local Insights for Expats Section */}
-        {/* ... existing code ... */}
-
-        {/* Pedestrian Street Banner - NEW */}
-        <section className="py-12 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-gray-100">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="relative h-[300px] rounded-xl overflow-hidden shadow-xl">
-                <Image
-                  src="/images/pedestrian-street.jpg"
-                  alt="San Luis Potosí's Historic Pedestrian Street"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="flex items-center space-x-2 text-white/90 text-sm">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    </svg>
-                    <span>Centro Histórico</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-                  URBAN DISTINCTION
-                </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  America's Longest Pedestrian Street
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Experience the vibrant heart of San Luis Potosí along our historic pedestrian corridor, where colonial architecture meets modern life. This remarkable street showcases local artisans, cafes, and cultural landmarks.
-                </p>
-                <div className="flex gap-6 mb-6">
-                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
-                    <div className="text-xl font-bold text-primary mb-0.5">2.5 km</div>
-                    <div className="text-sm text-gray-600">Total Length</div>
-                  </div>
-                  <div className="bg-white/80 rounded-lg px-4 py-2 shadow-sm">
-                    <div className="text-xl font-bold text-primary mb-0.5">100+</div>
-                    <div className="text-sm text-gray-600">Local Businesses</div>
-                  </div>
-                </div>
-                <Link 
-                  href="/attractions/pedestrian-street-guide" 
-                  className="inline-flex items-center text-primary hover:text-primary-dark font-medium group"
-                >
-                  Explore the Street
-                  <svg className="w-5 h-5 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Outdoors Section */}
         {/* ... existing code ... */}
       </main>
 
