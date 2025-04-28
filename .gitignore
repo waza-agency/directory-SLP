@@ -9,6 +9,12 @@ node_modules
 # next.js
 /.next/
 /out/
+.next/
+**/.next/
+**/.next/**/*
+.next/**/*
+.next/cache/
+.next/cache/**/*
 
 # production
 /build
@@ -28,6 +34,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env_safe
 
 # vercel
 .vercel
@@ -40,3 +47,7 @@ debug_output.json
 # netlify
 .netlify
 /.netlify/
+
+# Build and cache
+*.pack
+*.pack.gz
