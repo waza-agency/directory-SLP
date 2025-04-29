@@ -5,6 +5,8 @@ import '../i18n';
 import { appWithTranslation } from 'next-i18next';
 import nextI18nConfig from '../../next-i18next.config.js';
 import Head from 'next/head';
+import { AuthProvider } from '@/lib/supabase-auth';
+import { CartProvider } from '@/lib/cart-context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -60,9 +62,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AuthProvider>
+        <CartProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </CartProvider>
+      </AuthProvider>
     </>
   );
 }

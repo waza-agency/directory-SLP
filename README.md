@@ -96,8 +96,7 @@ This document provides instructions for setting up and managing the database for
 ## Prerequisites
 
 - Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
-- Prisma CLI
+- Supabase account
 
 ## Database Setup
 
@@ -106,34 +105,15 @@ This document provides instructions for setting up and managing the database for
 npm install
 ```
 
-2. Install Prisma CLI:
-```bash
-npm install prisma --save-dev
-```
-
-3. Create a PostgreSQL database:
-```bash
-createdb directory_slp
-```
-
-4. Update the `.env` file with your database credentials:
+2. Setup your Supabase environment variables in the `.env` file:
 ```env
-DATABASE_URL="postgresql://username:password@localhost:5432/directory_slp?schema=public"
-```
-
-5. Run database migrations:
-```bash
-npx prisma migrate dev --name init
-```
-
-6. Generate Prisma Client:
-```bash
-npx prisma generate
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 ## Database Schema
 
-The application uses the following main tables:
+The application uses Supabase for data storage with the following main tables:
 
 ### Places
 - Stores information about locations in San Luis Potosí
@@ -162,38 +142,16 @@ The application uses the following main tables:
 - Manages homepage featured images
 - Supports titles, subtitles, and links
 
-## Development Commands
-
-- Generate Prisma Client:
-```bash
-npx prisma generate
-```
-
-- Create a new migration:
-```bash
-npx prisma migrate dev --name migration_name
-```
-
-- Reset database:
-```bash
-npx prisma migrate reset
-```
-
-- View database in Prisma Studio:
-```bash
-npx prisma studio
-```
-
 ## Environment Variables
 
 Required environment variables:
-- `DATABASE_URL`: PostgreSQL connection string
+- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`: Google Maps API key for maps integration
 
 ## Best Practices
 
-1. Always create migrations for schema changes
-2. Use Prisma Studio for database management
-3. Keep the schema in sync with the application needs
-4. Regularly backup the database
-5. Use environment variables for sensitive information 
+1. Use Supabase Studio for database management
+2. Keep the schema in sync with the application needs
+3. Regularly backup the database
+4. Use environment variables for sensitive information 

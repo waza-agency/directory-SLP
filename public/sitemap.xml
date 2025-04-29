@@ -24,6 +24,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/account/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/account/profile</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/admin/debug-events</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/admin/event-checker</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/admin/rebuild</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/advertise</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -124,6 +149,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/checkout</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/checkout/success</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/community</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -149,6 +184,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/cultural/culinary-traditions</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/cultural/customs-etiquette</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/cultural/festivals</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -164,6 +209,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/cultural/religious-practices</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/debug</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/events/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -174,12 +229,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/events/arts-culture/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/events/community-social</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/events/culinary</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/events/cultural/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -239,9 +304,19 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/guides/potosino-wine-scene</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/join-directory</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/listings/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/living-guide</loc>
@@ -255,6 +330,11 @@
   </url>
   <url>
     <loc>https://sanluisway.com/modern-dining</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/order-confirmation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -327,6 +407,21 @@
     <loc>https://sanluisway.com/services</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/shop/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/signin</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/signup</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/submit-listing/business</loc>

@@ -4,12 +4,16 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 import { searchPlaces } from '@/lib/supabase';
+import Cart from './common/Cart';
+import { useAuth } from '@/lib/supabase-auth';
 
 export default function Header() {
   const router = useRouter();
   const { t, ready } = useTranslation('common');
+  const { user, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [showResults, setShowResults] = useState(false);
@@ -66,6 +70,12 @@ export default function Header() {
     router.push(`/places/${placeId}`);
     setShowResults(false);
     setSearchQuery('');
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push('/');
+    setIsUserMenuOpen(false);
   };
 
   // Don't render anything until translations are ready and component is mounted
@@ -127,6 +137,72 @@ export default function Header() {
             >
               {t('contact')}
             </Link>
+            
+            {/* Shopping Cart */}
+            <Cart />
+            
+            {/* Authentication Buttons or User Menu */}
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="text-gray-700 hover:text-primary transition-colors flex items-center"
+                >
+                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium mr-2">
+                    {user.email ? user.email.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                  <span className="text-sm hidden lg:inline">
+                    {user.email?.split('@')[0]}
+                  </span>
+                  <svg 
+                    className={`ml-1 w-4 h-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 20 20" 
+                    fill="currentColor"
+                  >
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10">
+                    <Link 
+                      href="/account"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
+                    >
+                      My Account
+                    </Link>
+                    <Link 
+                      href="/account/orders"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
+                    >
+                      My Orders
+                    </Link>
+                    <button
+                      onClick={handleSignOut}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link 
+                  href="/signin" 
+                  className="text-gray-700 hover:text-primary text-sm font-medium transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className="bg-primary hover:bg-primary-dark text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
             
             {/* Language Selector */}
             <div className="relative">
@@ -192,6 +268,10 @@ export default function Header() {
               </Link>
               <Link href="/places" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 PLACES
+              </Link>
+              <Link href="/shop" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+                SHOP
+                <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">NEW</span>
               </Link>
               <Link href="/events" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 EVENTS
@@ -296,22 +376,61 @@ export default function Header() {
             >
               {t('contact')}
             </Link>
+            
+            {/* Authentication Links for Mobile */}
+            <div className="pt-3 border-t border-gray-200">
+              <p className="text-xs text-gray-500 mb-2">Account</p>
+              {user ? (
+                <div className="space-y-2">
+                  <Link 
+                    href="/account" 
+                    className="block text-sm text-gray-700 hover:text-primary"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    My Account
+                  </Link>
+                  <Link 
+                    href="/account/orders" 
+                    className="block text-sm text-gray-700 hover:text-primary"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    My Orders
+                  </Link>
+                  <button
+                    onClick={async () => {
+                      await handleSignOut();
+                      setIsMenuOpen(false);
+                    }}
+                    className="block text-sm text-gray-700 hover:text-primary"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Link 
+                    href="/signin" 
+                    className="block text-sm text-gray-700 hover:text-primary"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link 
+                    href="/signup" 
+                    className="block bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1.5 rounded-md transition-colors inline-block"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <form onSubmit={handleSearch} className="relative w-full mb-3">
-                <input
-                  type="text"
-                  placeholder={t('search_placeholder')}
-                  className="w-full pl-8 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                  <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-              </form>
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-xs text-gray-500">Shopping Cart</p>
+                <Cart />
+              </div>
 
               <p className="text-xs text-gray-500 mb-2">Categories</p>
               <div className="space-y-2">
@@ -320,6 +439,10 @@ export default function Header() {
                 </Link>
                 <Link href="/places" className="block text-sm text-gray-700 hover:text-primary">
                   Places
+                </Link>
+                <Link href="/shop" className="block text-sm text-gray-700 hover:text-primary">
+                  Shop
+                  <span className="ml-1 px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">NEW</span>
                 </Link>
                 <Link href="/events" className="block text-sm text-gray-700 hover:text-primary">
                   Events

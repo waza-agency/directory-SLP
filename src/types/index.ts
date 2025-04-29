@@ -25,6 +25,10 @@ export interface Place {
     rating: number;
     text: string;
   }[];
+  price?: number;
+  inventory?: number;
+  isPurchasable?: boolean;
+  sku?: string;
 }
 
 export type PlaceCategory = 
