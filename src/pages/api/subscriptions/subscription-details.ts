@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
+import { supabaseAdmin } from '@/lib/api/supabase-admin';
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,6 +23,10 @@ export default async function handler(
       return res.status(401).json({ message: 'Unauthorized' });
     }
     
+    // Check if this is an admin request
+    const isAdmin = req.query.admin === 'true';
+    const targetUserId = req.query.userId as string || session.user.id;
+
     // Get subscription_id from query params
     const { subscription_id } = req.query;
     
@@ -29,20 +34,48 @@ export default async function handler(
       return res.status(400).json({ message: 'Valid subscription ID is required' });
     }
     
+    // If admin, verify admin status before proceeding
+    if (isAdmin) {
+      const { data: adminRoleData } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+        
+      if (adminRoleData?.role !== 'admin') {
+        return res.status(403).json({
+          error: 'forbidden',
+          description: 'Admin access required'
+        });
+      }
+    }
+    
+    // Use the appropriate client
+    const client = isAdmin ? supabaseAdmin : supabase;
+    
     // Fetch the subscription from our database
-    const { data: subscription, error } = await supabase
+    const { data: subscription, error } = await client
       .from('business_subscriptions')
       .select(`
         *,
         subscription_plans(*)
       `)
       .eq('id', subscription_id)
-      .eq('user_id', session.user.id)
+      // Only restrict to user_id for non-admin requests
+      .eq(isAdmin ? 'id' : 'user_id', isAdmin ? subscription_id : session.user.id)
       .single();
     
     if (error || !subscription) {
       console.error('Error fetching subscription:', error);
       return res.status(404).json({ message: 'Subscription not found' });
+    }
+    
+    // For non-admin users, verify they own this subscription
+    if (!isAdmin && subscription.user_id !== session.user.id) {
+      return res.status(403).json({
+        error: 'forbidden',
+        description: 'You can only access your own subscription details'
+      });
     }
     
     // If there's a stripe_subscription_id, fetch additional details from Stripe

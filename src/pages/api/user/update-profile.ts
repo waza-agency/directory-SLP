@@ -23,7 +23,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const userId = session.user.id;
-    const { name, phone, address, city, country, zipCode, account_type } = req.body;
+    const { 
+      name, 
+      phone, 
+      address, 
+      city, 
+      country, 
+      zipCode, 
+      account_type,
+      bio,
+      occupation,
+      interests,
+      profile_picture_url
+    } = req.body;
 
     // Update user profile in the users table
     const { error } = await supabase
@@ -36,6 +48,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         country,
         zip_code: zipCode,
         account_type,
+        bio,
+        occupation,
+        interests,
+        profile_picture_url,
         updated_at: new Date().toISOString(),
       })
       .eq('id', userId);

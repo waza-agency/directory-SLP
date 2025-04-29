@@ -154,4 +154,55 @@ Required environment variables:
 1. Use Supabase Studio for database management
 2. Keep the schema in sync with the application needs
 3. Regularly backup the database
-4. Use environment variables for sensitive information 
+4. Use environment variables for sensitive information
+
+## Stripe Subscription Setup
+
+To enable business subscriptions, you need to set up Stripe properly:
+
+1. Create subscription products and prices in your Stripe dashboard:
+   - Create a product called "Business Profile"
+   - Create two prices for this product:
+     - Monthly price: 250 MXN (recurring monthly)
+     - Yearly price: 2500 MXN (recurring yearly)
+   - Note the price IDs for both (they start with "price_")
+
+2. Update your database with the correct price IDs:
+   ```sql
+   UPDATE public.subscription_plans
+   SET 
+     stripe_monthly_price_id = 'price_YOUR_MONTHLY_PRICE_ID',
+     stripe_yearly_price_id = 'price_YOUR_YEARLY_PRICE_ID'
+   WHERE name = 'Business Profile';
+   ```
+
+3. Set up Stripe webhook:
+   - In your Stripe dashboard, go to Developers > Webhooks
+   - Add an endpoint: `https://your-domain.com/api/webhook/stripe`
+   - Select events to listen for:
+     - `checkout.session.completed`
+     - `invoice.paid`
+     - `invoice.payment_failed`
+     - `customer.subscription.deleted`
+     - `payment_intent.succeeded`
+     - `payment_intent.payment_failed`
+   - Get the webhook signing secret and add it to your environment variables as `STRIPE_WEBHOOK_SECRET`
+
+4. Add the following environment variables:
+   ```
+   STRIPE_SECRET_KEY=sk_test_...
+   STRIPE_PUBLISHABLE_KEY=pk_test_...
+   STRIPE_WEBHOOK_SECRET=whsec_...
+   NEXT_PUBLIC_SITE_URL=https://your-domain.com
+   ```
+
+## Testing Subscriptions
+
+To test the subscription flow:
+
+1. Use Stripe test cards like `4242 4242 4242 4242` for success scenarios
+2. Navigate to `/business/subscription` as a logged-in user
+3. Select a plan and complete the checkout process
+4. You should be redirected to the success page
+5. Verify that the business profile now has an active subscription
+6. Try creating a business listing 

@@ -1,11 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 
 // Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+if (!stripeKey) {
+  console.error('Missing Stripe secret key - subscriptions will not work');
+}
+
+const stripe = new Stripe(stripeKey || 'sk_test_dummy', {
   apiVersion: '2023-10-16',
 });
+
+// Subscription plan prices (hardcoded fallbacks in case DB lookup fails)
+const MONTHLY_PRICE_ID = process.env.STRIPE_MONTHLY_PRICE_ID || 'price_placeholder';
+const YEARLY_PRICE_ID = process.env.STRIPE_YEARLY_PRICE_ID || 'price_placeholder';
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,151 +26,93 @@ export default async function handler(
   }
 
   try {
+    // Log request details for debugging
+    console.log('Request body:', {
+      plan: req.body.plan,
+      user_id: req.body.user_id,
+      business_id: req.body.business_id
+    });
+    
     // Initialize Supabase client
-    const supabase = createServerSupabaseClient({ req, res });
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
     
-    // Get the user session
-    const { data: { session } } = await supabase.auth.getSession();
+    console.log('Environment:', {
+      hasSupabaseUrl: !!supabaseUrl,
+      hasSupabaseKey: !!supabaseKey,
+      hasStripeKey: !!stripeKey,
+    });
     
-    if (!session) {
-      return res.status(401).json({ message: 'Unauthorized' });
+    if (!supabaseUrl || !supabaseKey) {
+      return res.status(500).json({ message: 'Missing Supabase configuration' });
     }
     
-    // Get request body
-    const { plan_id, payment_method_id, business_id } = req.body;
-    
-    if (!plan_id || !payment_method_id) {
-      return res.status(400).json({ message: 'Missing required fields: plan_id or payment_method_id' });
+    if (!stripeKey) {
+      return res.status(500).json({ message: 'Missing Stripe configuration' });
     }
     
-    // Fetch the plan details
-    const { data: plan, error: planError } = await supabase
-      .from('subscription_plans')
-      .select('*')
-      .eq('id', plan_id)
-      .single();
-      
-    if (planError || !plan) {
-      console.error('Error fetching plan:', planError);
-      return res.status(404).json({ message: 'Subscription plan not found' });
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    
+    // Extract parameters from request body
+    const { plan, user_id, business_id } = req.body;
+    
+    if (!plan || !user_id) {
+      return res.status(400).json({ message: 'Missing required fields: plan and user_id' });
     }
     
-    // Check if user already has an active subscription
-    const { data: existingSubscription, error: subscriptionError } = await supabase
-      .from('business_subscriptions')
-      .select('*')
-      .eq('user_id', session.user.id)
-      .or('status.eq.active,status.eq.cancelling')
-      .maybeSingle();
-      
-    if (subscriptionError) {
-      console.error('Error checking existing subscription:', subscriptionError);
-      return res.status(500).json({ message: 'Error checking existing subscription' });
-    }
-    
-    if (existingSubscription) {
-      return res.status(409).json({ 
-        message: 'You already have an active subscription',
-        subscription: existingSubscription
-      });
-    }
-    
-    // Get or create a Stripe customer for the user
-    let customerId: string;
-    
-    const { data: customer } = await supabase
+    // Get user details for checkout
+    const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('stripe_customer_id')
-      .eq('id', session.user.id)
+      .select('email')
+      .eq('id', user_id)
       .single();
-      
-    if (customer && customer.stripe_customer_id) {
-      customerId = customer.stripe_customer_id;
-    } else {
-      // Get user details for creating a new customer
-      const { data: userData } = await supabase
-        .from('users')
-        .select('email, full_name')
-        .eq('id', session.user.id)
-        .single();
-        
-      // Create a new customer in Stripe
-      const newCustomer = await stripe.customers.create({
-        email: userData?.email || session.user.email,
-        name: userData?.full_name,
-        metadata: {
-          user_id: session.user.id
-        }
-      });
-      
-      customerId = newCustomer.id;
-      
-      // Update user with Stripe customer ID
-      await supabase
-        .from('users')
-        .update({ stripe_customer_id: customerId })
-        .eq('id', session.user.id);
+    
+    if (userError) {
+      console.error('Error fetching user:', userError);
+      return res.status(500).json({ message: 'Error fetching user information' });
     }
     
-    // Attach the payment method to the customer
-    await stripe.paymentMethods.attach(payment_method_id, {
-      customer: customerId,
-    });
+    if (!userData || !userData.email) {
+      return res.status(404).json({ message: 'User not found or missing email' });
+    }
     
-    // Set as default payment method
-    await stripe.customers.update(customerId, {
-      invoice_settings: {
-        default_payment_method: payment_method_id,
-      },
-    });
+    // Just get the right Stripe price ID based on plan
+    const stripePriceId = plan === 'yearly' ? YEARLY_PRICE_ID : MONTHLY_PRICE_ID;
     
-    // Create the subscription in Stripe
-    const subscription = await stripe.subscriptions.create({
-      customer: customerId,
-      items: [
+    console.log('Creating Stripe checkout session with price ID:', stripePriceId);
+    
+    // Create checkout session
+    const checkoutSession = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
         {
-          price: plan.stripe_price_id,
+          price: stripePriceId,
+          quantity: 1,
         },
       ],
-      payment_behavior: 'default_incomplete',
-      payment_settings: {
-        payment_method_types: ['card'],
-        save_default_payment_method: 'on_subscription',
-      },
-      expand: ['latest_invoice.payment_intent'],
+      mode: 'subscription',
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/business/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/business/subscription`,
+      customer_email: userData.email,
+      metadata: {
+        userId: user_id,
+        businessId: business_id || null,
+        interval: plan, // 'monthly' or 'yearly'
+      }
     });
     
-    // Create subscription record in our database
-    const { data: newSubscription, error: createError } = await supabase
-      .from('business_subscriptions')
-      .insert({
-        user_id: session.user.id,
-        business_id: business_id || null,
-        plan_id: plan.id,
-        stripe_subscription_id: subscription.id,
-        status: subscription.status,
-        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })
-      .select()
-      .single();
-      
-    if (createError) {
-      console.error('Error creating subscription record:', createError);
-      // Cancel the Stripe subscription if we couldn't create the record
-      await stripe.subscriptions.del(subscription.id);
-      return res.status(500).json({ message: 'Error creating subscription record' });
-    }
+    console.log('Checkout session created with ID:', checkoutSession.id);
     
     return res.status(200).json({
-      message: 'Subscription created successfully',
-      subscription: newSubscription,
-      client_secret: (subscription.latest_invoice as any).payment_intent?.client_secret || null
+      message: 'Checkout session created successfully',
+      checkoutUrl: checkoutSession.url,
+      sessionId: checkoutSession.id
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Subscription creation error:', error);
-    return res.status(500).json({ message: 'Error creating subscription' });
+    return res.status(500).json({ 
+      message: error?.message || 'Error creating subscription',
+      stack: process.env.NODE_ENV === 'development' ? error?.stack : undefined
+    });
   }
 } 

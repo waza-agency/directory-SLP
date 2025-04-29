@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { supabaseAdmin } from '@/lib/api/supabase-admin';
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,19 +22,50 @@ export default async function handler(
       return res.status(401).json({ message: 'Unauthorized' });
     }
     
+    // Check if this is an admin request
+    const isAdmin = req.query.admin === 'true';
+    const targetUserId = req.query.userId as string || session.user.id;
+    
+    // For non-admin users, only allow accessing their own subscriptions
+    if (!isAdmin && targetUserId !== session.user.id) {
+      return res.status(403).json({
+        error: 'forbidden',
+        description: 'You can only access your own subscription details'
+      });
+    }
+    
+    // If admin, verify admin status before proceeding
+    if (isAdmin) {
+      const { data: adminRoleData } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+        
+      if (adminRoleData?.role !== 'admin') {
+        return res.status(403).json({
+          error: 'forbidden',
+          description: 'Admin access required'
+        });
+      }
+    }
+    
+    // Use the appropriate client
+    const client = isAdmin ? supabaseAdmin : supabase;
+    
     // Set default status filter to active
     const status = Array.isArray(req.query.status) 
       ? req.query.status.join(',') 
       : req.query.status || 'active';
     
     // Build the query to fetch subscriptions
-    let query = supabase
+    let query = client
       .from('business_subscriptions')
       .select(`
         *,
         subscription_plans(*)
       `)
-      .eq('user_id', session.user.id);
+      .eq('user_id', targetUserId);
     
     // Apply status filter if provided
     if (status !== 'all') {

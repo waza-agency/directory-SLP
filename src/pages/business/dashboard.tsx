@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,7 +7,8 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
-import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import axios from 'axios';
 
 // Types
 type BusinessProfile = {
@@ -56,6 +57,10 @@ export default function BusinessDashboardPage() {
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [debugData, setDebugData] = useState<any>(null);
   const [isDebugMode, setIsDebugMode] = useState(false);
+  const dropdownRef1 = useRef<HTMLDivElement>(null);
+  const dropdownRef2 = useRef<HTMLDivElement>(null);
+  const buttonRef1 = useRef<HTMLButtonElement>(null);
+  const buttonRef2 = useRef<HTMLButtonElement>(null);
 
   // For testing with a specific user ID
   const testUserId = 'd6e52249-d9a5-40c1-a0db-555f861345f6';
@@ -79,6 +84,38 @@ export default function BusinessDashboardPage() {
     }
   }, [user, router.query]);
 
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      // For the first dropdown
+      if (dropdownRef1.current && buttonRef1.current && 
+          !dropdownRef1.current.contains(event.target as Node) && 
+          !buttonRef1.current.contains(event.target as Node)) {
+        const menu = document.getElementById('create-listing-dropdown');
+        if (menu && !menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+        }
+      }
+      
+      // For the second dropdown
+      if (dropdownRef2.current && buttonRef2.current && 
+          !dropdownRef2.current.contains(event.target as Node) && 
+          !buttonRef2.current.contains(event.target as Node)) {
+        const menu = document.getElementById('create-first-listing-dropdown');
+        if (menu && !menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+        }
+      }
+    }
+    
+    // Add event listener
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      // Remove event listener on cleanup
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const fetchBusinessData = async () => {
     setIsLoadingData(true);
     try {
@@ -93,45 +130,140 @@ export default function BusinessDashboardPage() {
         console.error('Error fetching business profile:', profileError);
       }
 
+      // Debug log for profileData
+      console.log('[DEBUG] Profile data:', profileData);
+
       if (profileData) {
         setBusinessProfile(profileData);
 
-        // Fetch subscription
-        const { data: subscriptionData, error: subscriptionError } = await supabase
-          .from('subscriptions')
-          .select('*, subscription_plans(*)')
-          .eq('user_id', user?.id)
-          .eq('status', 'active')
-          .single();
+        // Check subscription status directly from Stripe
+        try {
+          console.log('[DEBUG] Calling Stripe status endpoint with userId:', user?.id);
+          const { data: stripeStatusData } = await axios.post('/api/subscriptions/stripe-status', {
+            userId: user?.id
+          });
+          
+          console.log('[DEBUG] Stripe status response:', stripeStatusData);
+          
+          if (stripeStatusData.active && stripeStatusData.subscriptionDetails) {
+            // Use the subscription details directly from Stripe
+            const { data: planData } = await supabase
+              .from('subscription_plans')
+              .select('*')
+              .eq('id', stripeStatusData.subscriptionDetails.plan_id || profileData.plan_id)
+              .single();
+              
+            console.log('[DEBUG] Plan data:', planData);
+              
+            if (planData) {
+              // Create subscription object using real-time Stripe data
+              const stripeSubscription = {
+                id: stripeStatusData.subscriptionDetails.id,
+                status: stripeStatusData.subscriptionDetails.status,
+                plan_id: stripeStatusData.subscriptionDetails.plan_id || profileData.plan_id,
+                current_period_end: stripeStatusData.subscriptionDetails.current_period_end,
+                subscription_plans: planData
+              };
+              
+              setSubscription(stripeSubscription);
+              
+              // Log for debugging
+              console.log('Using real-time Stripe subscription data', stripeSubscription);
+            }
+          } else {
+            console.log('[DEBUG] No active subscription in Stripe, falling back to database');
+            // Fallback to database query if no active subscription found in Stripe
+            const { data: subscriptionData, error: subscriptionError } = await supabase
+              .from('subscriptions')
+              .select('*, subscription_plans(*)')
+              .eq('user_id', user?.id)
+              .eq('status', 'active')
+              .single();
 
-        if (subscriptionError && subscriptionError.code !== 'PGRST116') {
-          console.error('Error fetching subscription:', subscriptionError);
-        }
+            console.log('[DEBUG] Database subscription data:', subscriptionData);
+            console.log('[DEBUG] Database subscription error:', subscriptionError);
 
-        if (subscriptionData) {
-          setSubscription(subscriptionData);
-        } else if (profileData.subscription_status === 'active') {
-          // If no active subscription was found in the subscriptions table, but business_profile indicates active subscription
-          // Fetch the subscription plan details to create a fallback subscription object
-          const { data: planData } = await supabase
-            .from('subscription_plans')
-            .select('*')
+            if (subscriptionError && subscriptionError.code !== 'PGRST116') {
+              console.error('Error fetching subscription:', subscriptionError);
+            }
+
+            if (subscriptionData) {
+              setSubscription(subscriptionData);
+              console.log('[DEBUG] Using subscription data from database:', subscriptionData);
+            } else if (profileData.subscription_status === 'active') {
+              console.log('[DEBUG] Profile shows active subscription, creating fallback');
+              // If no active subscription was found in the subscriptions table, but business_profile indicates active subscription
+              // Fetch the subscription plan details to create a fallback subscription object
+              const { data: planData } = await supabase
+                .from('subscription_plans')
+                .select('*')
+                .single();
+                
+                console.log('[DEBUG] Fallback plan data:', planData);
+                
+                if (planData) {
+                  // Create a fallback subscription object using business_profile data
+                  const fallbackSubscription = {
+                    id: profileData.subscription_id || 'fallback-id',
+                    status: 'active',
+                    plan_id: planData.id,
+                    current_period_end: profileData.subscription_end_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                    subscription_plans: planData
+                  };
+                  
+                  setSubscription(fallbackSubscription);
+                  
+                  // Log this situation for debugging
+                  console.log('Using fallback subscription data from business_profile', fallbackSubscription);
+                }
+            } else {
+              console.log('[DEBUG] No active subscription found in any source');
+            }
+          }
+        } catch (stripeError) {
+          console.error('Error checking Stripe subscription status:', stripeError);
+          console.log('[DEBUG] Failed to check Stripe, error:', stripeError);
+          
+          // Fallback to original subscription checking logic
+          const { data: subscriptionData, error: subscriptionError } = await supabase
+            .from('subscriptions')
+            .select('*, subscription_plans(*)')
+            .eq('user_id', user?.id)
+            .eq('status', 'active')
             .single();
-            
-          if (planData) {
-            // Create a fallback subscription object using business_profile data
-            const fallbackSubscription = {
-              id: profileData.subscription_id || 'fallback-id',
-              status: 'active',
-              plan_id: planData.id,
-              current_period_end: profileData.subscription_end_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-              subscription_plans: planData
-            };
-            
-            setSubscription(fallbackSubscription);
-            
-            // Log this situation for debugging
-            console.log('Using fallback subscription data from business_profile', fallbackSubscription);
+
+          console.log('[DEBUG] Fallback database query - data:', subscriptionData);
+          console.log('[DEBUG] Fallback database query - error:', subscriptionError);
+
+          if (subscriptionError && subscriptionError.code !== 'PGRST116') {
+            console.error('Error fetching subscription:', subscriptionError);
+          }
+
+          if (subscriptionData) {
+            setSubscription(subscriptionData);
+            console.log('[DEBUG] Using subscription from database after Stripe failure');
+          } else if (profileData.subscription_status === 'active') {
+            console.log('[DEBUG] Using profile subscription status as fallback');
+            // Fallback to business profile data if necessary
+            const { data: planData } = await supabase
+              .from('subscription_plans')
+              .select('*')
+              .single();
+              
+            console.log('[DEBUG] Fallback plan data after Stripe error:', planData);
+              
+            if (planData) {
+              const fallbackSubscription = {
+                id: profileData.subscription_id || 'fallback-id',
+                status: 'active',
+                plan_id: planData.id,
+                current_period_end: profileData.subscription_end_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                subscription_plans: planData
+              };
+              
+              setSubscription(fallbackSubscription);
+              console.log('Using fallback subscription data after Stripe API error', fallbackSubscription);
+            }
           }
         }
 
@@ -149,6 +281,8 @@ export default function BusinessDashboardPage() {
         if (listingsData) {
           setListings(listingsData);
         }
+      } else {
+        console.log('[DEBUG] No profile data found');
       }
     } catch (error) {
       console.error('Error loading business data:', error);
@@ -214,364 +348,464 @@ export default function BusinessDashboardPage() {
           error: listingsError
         }
       });
-
-      // Update UI with test user data if current user is the test user
-      if (user?.id === testUserId) {
-        if (profileData) setBusinessProfile(profileData);
-        if (subscriptionData) setSubscription(subscriptionData);
-        if (listingsData) setListings(listingsData);
-      }
     } catch (error) {
-      console.error('Error fetching test user data:', error);
+      console.error('Error in debug mode:', error);
     }
   };
 
-  // Don't render anything while checking auth status
-  if (isLoading) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const handleDeleteListing = async (listingId: string) => {
+    if (confirm(t('confirm_delete_listing', 'Are you sure you want to delete this listing?'))) {
+      try {
+        const { error } = await supabase
+          .from('business_listings')
+          .delete()
+          .eq('id', listingId);
+          
+        if (error) {
+          console.error('Error deleting listing:', error);
+          alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+        } else {
+          // Refresh listings
+          fetchBusinessData();
+        }
+      } catch (error) {
+        console.error('Error deleting listing:', error);
+        alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+      }
+    }
+  };
+
+  if (isLoading || isLoadingData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
       </div>
     );
   }
 
-  // If user is not logged in, don't render anything (redirect will happen)
   if (!user) {
-    return null;
+    return null; // Will redirect in useEffect
   }
+
+  const canCreateListing = businessProfile && subscription && 
+    (listings.length < subscription.subscription_plans.max_listings || 
+    subscription.subscription_plans.max_listings === -1);
 
   return (
     <>
       <Head>
         <title>Business Dashboard | Directory SLP</title>
-        <meta name="description" content="Manage your business profile, subscription, and products" />
+        <meta name="description" content="Manage your business listings and subscriptions" />
       </Head>
 
-      <div className="min-h-screen py-12 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">Business Dashboard</h1>
-
-            {isLoadingData ? (
-              <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-              </div>
-            ) : !businessProfile ? (
-              <div className="bg-white rounded-lg shadow-sm p-8 text-center">
-                <ExclamationCircleIcon className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
-                <h2 className="text-2xl font-semibold mb-4">You don't have a business profile</h2>
-                <p className="text-gray-600 mb-8">
-                  To access all business features, you need to create a profile and subscribe to a plan.
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="mb-8 flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">{t('business_dashboard', 'Business Dashboard')}</h1>
+              {businessProfile && (
+                <p className="mt-2 text-lg text-gray-600">
+                  {t('welcome_business', 'Welcome, {{business}}', { business: businessProfile.business_name })}
                 </p>
-                <Link 
-                  href="/business/subscription" 
-                  className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"
-                >
-                  Create Business Profile
-                </Link>
+              )}
+            </div>
+          </div>
+
+          {/* Business Navigation */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            {/* Sidebar */}
+            <div className="md:col-span-1">
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <div className="space-y-1">
+                  <p className="font-medium text-gray-900">{businessProfile?.business_name || 'Your Business'}</p>
+                  <p className="text-sm text-gray-500">{user.email}</p>
+                </div>
+                
+                <div className="mt-6 space-y-2">
+                  <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
+                    {t('business.dashboard', 'Dashboard')}
+                  </Link>
+                  <Link href="/business/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
+                    {t('business.profile', 'Business Profile')}
+                  </Link>
+                  <Link href="/business/subscription" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
+                    {t('business.subscription', 'Subscription')}
+                  </Link>
+                  <Link href="/account" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
+                    {t('business.backToAccount', 'Back to Account')}
+                  </Link>
+                </div>
               </div>
-            ) : (
-              <>
-                {/* Business Profile & Subscription Status */}
-                <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                  <div className="flex flex-col md:flex-row justify-between">
-                    <div className="mb-6 md:mb-0">
-                      <h2 className="text-xl font-semibold text-gray-900 mb-2">{businessProfile.business_name}</h2>
-                      <p className="text-gray-600">{businessProfile.business_description || 'No description'}</p>
-                      
-                      <div className="mt-4">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          {businessProfile.business_category}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h3 className="font-medium text-gray-900 mb-2">Subscription Status</h3>
-                      
-                      {subscription ? (
-                        <div>
-                          <div className="flex items-center mb-1">
-                            <span className={`w-3 h-3 rounded-full mr-2 ${
-                              subscription.status === 'active' ? 'bg-green-500' : 
-                              subscription.status === 'past_due' ? 'bg-yellow-500' : 'bg-red-500'
-                            }`}></span>
-                            <span className="font-medium">
-                              {subscription.status === 'active' ? 'Active' : 
-                              subscription.status === 'past_due' ? 'Payment Due' : 'Cancelled'}
-                            </span>
-                          </div>
-                          <p className="text-sm text-gray-600">
-                            Plan: {subscription.subscription_plans.name}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            Expires: {new Date(subscription.current_period_end).toLocaleDateString()}
-                          </p>
-                          <div className="mt-3">
-                            <div className="text-sm text-gray-600 mb-1">
-                              Products: {listings.length}/{subscription.subscription_plans.max_listings}
-                            </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2.5">
-                              <div 
-                                className="bg-primary h-2.5 rounded-full" 
-                                style={{ 
-                                  width: `${Math.min(100, (listings.length / subscription.subscription_plans.max_listings) * 100)}%` 
-                                }}
-                              ></div>
-                            </div>
-                          </div>
-                        </div>
-                      ) : businessProfile?.subscription_status === 'active' ? (
-                        <div>
-                          <div className="flex items-center mb-1">
-                            <span className="w-3 h-3 rounded-full mr-2 bg-green-500"></span>
-                            <span className="font-medium">Active</span>
-                          </div>
-                          <p className="text-sm text-gray-600">
-                            Active subscription confirmed
-                          </p>
-                          {businessProfile.subscription_end_date && (
-                            <p className="text-sm text-gray-600">
-                              Expires: {new Date(businessProfile.subscription_end_date).toLocaleDateString()}
-                            </p>
-                          )}
-                          <div className="mt-3 text-sm text-gray-600">
-                            <p>Products: {listings.length}/10</p>
-                            <p className="mt-1 text-xs text-orange-500">Reload the page if information is incomplete</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <div className="flex items-center mb-1">
-                            <span className="w-3 h-3 rounded-full mr-2 bg-red-500"></span>
-                            <span className="font-medium">No active subscription</span>
-                          </div>
-                          <p className="text-sm text-gray-600 mb-3">
-                            You need a subscription to publish products.
-                          </p>
-                          <Link 
-                            href="/business/subscription" 
-                            className="text-sm text-primary hover:underline"
-                          >
-                            Subscribe now
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
+            </div>
 
-                {/* Business Listings */}
-                <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900">My Products</h2>
-                    
-                    {(subscription || businessProfile?.subscription_status === 'active') && 
-                      (!subscription || listings.length < (subscription?.subscription_plans?.max_listings || 10)) ? (
-                        <div className="flex space-x-2">
-                          <Link 
-                            href="/business/listings/create" 
-                            className="inline-flex items-center bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors"
-                          >
-                            <PlusIcon className="h-5 w-5 mr-1" />
-                            New Product
-                          </Link>
-                          <Link 
-                            href="/business/listings/create-service" 
-                            className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-                          >
-                            <PlusIcon className="h-5 w-5 mr-1" />
-                            New Service
-                          </Link>
-                        </div>
-                      ) : (
-                        <span className="text-sm text-gray-500">
-                          {subscription ? 'Product limit reached' : 'Subscription required'}
-                        </span>
-                      )}
-                  </div>
-                  
-                  {listings.length === 0 ? (
-                    <div className="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
-                      <p className="text-gray-600 mb-4">You haven't published any products or services yet</p>
-                      {(subscription || businessProfile?.subscription_status === 'active') && (
-                        <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
-                          <Link 
-                            href="/business/listings/create" 
-                            className="inline-flex items-center justify-center text-primary hover:underline"
-                          >
-                            <PlusIcon className="h-5 w-5 mr-1" />
-                            Add a Product
-                          </Link>
-                          <Link 
-                            href="/business/listings/create-service" 
-                            className="inline-flex items-center justify-center text-blue-600 hover:underline"
-                          >
-                            <PlusIcon className="h-5 w-5 mr-1" />
-                            Add a Service
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Product
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Category
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Type
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Price
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Status
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Date
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Actions
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {listings.map((listing) => (
-                            <tr key={listing.id}>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center">
-                                  <div className="h-10 w-10 flex-shrink-0">
-                                    {listing.images && listing.images.length > 0 ? (
-                                      <div className="relative h-10 w-10 rounded-md overflow-hidden">
-                                        <Image
-                                          src={listing.images[0]}
-                                          alt={listing.title}
-                                          fill
-                                          className="object-cover"
-                                        />
-                                      </div>
-                                    ) : (
-                                      <div className="h-10 w-10 rounded-md bg-gray-200 flex items-center justify-center">
-                                        <span className="text-xs text-gray-500">No img</span>
-                                      </div>
-                                    )}
-                                  </div>
-                                  <div className="ml-4">
-                                    <div className="text-sm font-medium text-gray-900 line-clamp-1">
-                                      <Link href={`/listings/${listing.id}`} className="hover:underline">
-                                        {listing.title}
-                                      </Link>
-                                    </div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {listing.category}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  listing.type === 'service' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
-                                }`}>
-                                  {listing.type === 'service' ? 'Service' : 'Product'}
-                                </span>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                ${listing.price?.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  listing.status === 'active' ? 'bg-green-100 text-green-800' :
-                                  listing.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                  'bg-red-100 text-red-800'
-                                }`}>
-                                  {listing.status === 'active' ? 'Active' :
-                                  listing.status === 'pending' ? 'Pending' : 'Inactive'}
-                                </span>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {new Date(listing.created_at).toLocaleDateString()}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div className="flex justify-end space-x-2">
-                                  <Link 
-                                    href={`/business/listings/edit/${listing.id}`} 
-                                    className="text-indigo-600 hover:text-indigo-900"
-                                  >
-                                    <PencilIcon className="h-5 w-5" />
-                                  </Link>
-                                  <button
-                                    onClick={() => {/* TODO: Implement delete functionality */}}
-                                    className="text-red-600 hover:text-red-900"
-                                  >
-                                    <TrashIcon className="h-5 w-5" />
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
+            {/* Main Content */}
+            <div className="md:col-span-3">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+                <div className="mb-4 md:mb-0">
+                  <p className="text-gray-600">
+                    Manage your business listings and subscription
+                  </p>
                 </div>
-
-                {/* Debug Information Section - Only visible in debug mode */}
-                {isDebugMode && debugData && (
-                  <div className="bg-gray-800 text-white rounded-lg shadow-sm p-6 mb-8 overflow-auto">
-                    <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-semibold">Debug Information</h2>
-                      <button 
-                        onClick={() => setIsDebugMode(false)}
-                        className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
+                
+                <div className="flex flex-col xs:flex-row gap-2">
+                  {/* Create Listing dropdown */}
+                  <div className="relative inline-block text-left">
+                    <div>
+                      <button
+                        ref={buttonRef1}
+                        type="button"
+                        className={`inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                          !canCreateListing ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                        id="create-listing-menu-button"
+                        aria-expanded="true"
+                        aria-haspopup="true"
+                        onClick={(e) => {
+                          if (!canCreateListing) {
+                            e.preventDefault();
+                            alert(t('max_listings_reached', 'You have reached the maximum number of listings for your subscription plan.'));
+                          } else {
+                            const menu = document.getElementById('create-listing-dropdown');
+                            if (menu && buttonRef1.current) {
+                              // Position the menu below the button using the ref
+                              const buttonRect = buttonRef1.current.getBoundingClientRect();
+                              menu.style.top = `${buttonRect.bottom + window.scrollY}px`;
+                              menu.style.left = `${buttonRect.right - menu.offsetWidth + window.scrollX}px`;
+                              menu.classList.toggle('hidden');
+                            }
+                          }
+                        }}
                       >
-                        Close Debug
+                        <PlusIcon className="h-4 w-4 mr-2" />
+                        {t('create_listing', 'Create Listing')}
                       </button>
                     </div>
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-lg font-medium mb-2">Current User ID: {user.id}</h3>
-                        <p className="text-sm text-gray-300">Test User ID: {testUserId}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Business Profile Card */}
+              {businessProfile && (
+                <div className="bg-white rounded-lg shadow overflow-hidden mb-8">
+                  <div className="p-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                      <div className="flex items-center">
+                        {businessProfile.logo_url ? (
+                          <div className="h-16 w-16 rounded-full overflow-hidden mr-4">
+                            <Image 
+                              src={businessProfile.logo_url} 
+                              alt={businessProfile.business_name}
+                              width={64}
+                              height={64}
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-16 w-16 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                            <span className="text-2xl font-semibold text-indigo-800">
+                              {businessProfile.business_name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                        <div>
+                          <h2 className="text-xl font-semibold">{businessProfile.business_name}</h2>
+                          <p className="text-gray-600">{businessProfile.business_category}</p>
+                        </div>
                       </div>
-                      
-                      <div>
-                        <h3 className="text-lg font-medium mb-2">Business Profile</h3>
-                        <pre className="bg-gray-900 p-3 rounded-md overflow-auto text-sm">
-                          {JSON.stringify(debugData.businessProfile, null, 2)}
-                        </pre>
+                    </div>
+                    
+                    {businessProfile.business_description && (
+                      <div className="mb-6">
+                        <h3 className="text-sm font-medium text-gray-500 mb-2">{t('business_description', 'Business Description')}</h3>
+                        <p className="text-gray-900">{businessProfile.business_description}</p>
                       </div>
+                    )}
+                    
+                    <div className="border-t border-gray-200 pt-4">
+                      <h3 className="text-sm font-medium text-gray-500 mb-2">{t('subscription_details', 'Subscription Details')}</h3>
                       
+                      {subscription ? (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <div className="text-sm text-gray-500">{t('plan', 'Plan')}</div>
+                            <div className="font-medium">{subscription.subscription_plans.name}</div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-gray-500">{t('status', 'Status')}</div>
+                            <div className="font-medium">
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                subscription.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {subscription.status === 'active' ? t('active', 'Active') : t('inactive', 'Inactive')}
+                              </span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-sm text-gray-500">{t('renewal_date', 'Renewal Date')}</div>
+                            <div className="font-medium">
+                              {subscription.current_period_end 
+                                ? formatDate(subscription.current_period_end) 
+                                : t('not_available', 'Not available')}
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-2 text-yellow-600">
+                          <ExclamationCircleIcon className="h-5 w-5" />
+                          <span>{t('no_active_subscription', 'No active subscription')}</span>
+                          <Link 
+                            href="/business/subscription" 
+                            className="text-indigo-600 font-medium hover:text-indigo-900"
+                          >
+                            {t('get_subscription', 'Get Subscription')}
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Listings Section */}
+              <div className="bg-white rounded-lg shadow overflow-hidden">
+                <div className="p-6 border-b border-gray-200">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl font-semibold">{t('your_listings', 'Your Listings')}</h2>
+                    
+                    <div className="flex items-center space-x-2">
+                      {subscription && (
+                        <p className="text-sm text-gray-600">
+                          {subscription.subscription_plans.max_listings === -1 
+                            ? t('unlimited_listings_available', 'Unlimited listings available')
+                            : t('listings_count', '{{current}}/{{max}} listings', { 
+                                current: listings.length, 
+                                max: subscription.subscription_plans.max_listings 
+                              })
+                          }
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                {listings.length > 0 ? (
+                  <ul className="divide-y divide-gray-200">
+                    {listings.map(listing => (
+                      <li key={listing.id} className="p-6">
+                        <div className="flex flex-col md:flex-row justify-between">
+                          <div className="flex-1 md:mr-8">
+                            <h3 className="text-lg font-medium text-indigo-600 mb-1">
+                              {listing.title}
+                            </h3>
+                            <p className="text-gray-600 mb-2">
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 mr-2">
+                                {listing.category}
+                              </span>
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mr-2">
+                                {listing.type === 'service' ? t('service', 'Service') : t('product', 'Product')}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                {formatDate(listing.created_at)}
+                              </span>
+                            </p>
+                            <p className="text-gray-900 line-clamp-3 mb-4">
+                              {listing.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              <Link
+                                href={`/business/listings/edit/${listing.id}`}
+                                className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                              >
+                                <PencilIcon className="h-4 w-4 mr-1" />
+                                {t('edit', 'Edit')}
+                              </Link>
+                              <button
+                                onClick={() => handleDeleteListing(listing.id)}
+                                className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-1 focus:ring-red-500"
+                              >
+                                <TrashIcon className="h-4 w-4 mr-1" />
+                                {t('delete', 'Delete')}
+                              </button>
+                              <Link
+                                href={`/listings/${listing.id}`}
+                                className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {t('view_public', 'View Public')}
+                              </Link>
+                            </div>
+                          </div>
+                          
+                          <div className="mt-4 md:mt-0 flex-shrink-0">
+                            {listing.images && listing.images.length > 0 ? (
+                              <div className="h-24 w-24 sm:h-32 sm:w-32 rounded-md overflow-hidden">
+                                <Image
+                                  src={listing.images[0]}
+                                  alt={listing.title}
+                                  width={128}
+                                  height={128}
+                                  className="h-full w-full object-cover"
+                                />
+                              </div>
+                            ) : (
+                              <div className="h-24 w-24 sm:h-32 sm:w-32 bg-gray-100 rounded-md flex items-center justify-center">
+                                <span className="text-gray-400">
+                                  {t('no_image', 'No image')}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="p-10 text-center">
+                    <p className="text-gray-600 mb-6">
+                      {t('no_listings_yet', 'You haven\'t created any listings yet.')}
+                    </p>
+                    <div className="relative inline-block text-left">
                       <div>
-                        <h3 className="text-lg font-medium mb-2">Subscription</h3>
-                        <pre className="bg-gray-900 p-3 rounded-md overflow-auto text-sm">
-                          {JSON.stringify(debugData.subscription, null, 2)}
-                        </pre>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-lg font-medium mb-2">User Data</h3>
-                        <pre className="bg-gray-900 p-3 rounded-md overflow-auto text-sm">
-                          {JSON.stringify(debugData.user, null, 2)}
-                        </pre>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-lg font-medium mb-2">Listings</h3>
-                        <pre className="bg-gray-900 p-3 rounded-md overflow-auto text-sm">
-                          {JSON.stringify(debugData.listings, null, 2)}
-                        </pre>
+                        <button
+                          ref={buttonRef2}
+                          type="button"
+                          className={`inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                            !canCreateListing ? 'opacity-50 cursor-not-allowed' : ''
+                          }`}
+                          id="create-first-listing-menu-button"
+                          aria-expanded="true"
+                          aria-haspopup="true"
+                          onClick={(e) => {
+                            if (!canCreateListing) {
+                              e.preventDefault();
+                              alert(t('max_listings_reached', 'You have reached the maximum number of listings for your subscription plan.'));
+                            } else {
+                              const menu = document.getElementById('create-first-listing-dropdown');
+                              if (menu && buttonRef2.current) {
+                                // Position the menu below the button using the ref
+                                const buttonRect = buttonRef2.current.getBoundingClientRect();
+                                menu.style.top = `${buttonRect.bottom + window.scrollY}px`;
+                                menu.style.left = `${buttonRect.left + (buttonRect.width/2) - (menu.offsetWidth/2) + window.scrollX}px`;
+                                menu.classList.toggle('hidden');
+                              }
+                            }
+                          }}
+                        >
+                          <PlusIcon className="h-4 w-4 mr-2" />
+                          {t('create_first_listing', 'Create your first listing')}
+                        </button>
                       </div>
                     </div>
                   </div>
                 )}
-              </>
-            )}
+              </div>
+              
+              {/* Debug Data (only shown in debug mode) */}
+              {isDebugMode && debugData && (
+                <div className="mt-8 bg-gray-100 rounded-lg shadow overflow-hidden">
+                  <div className="p-4 bg-gray-200 font-mono">
+                    <h2 className="text-lg font-bold">Debug Data</h2>
+                    <p className="text-xs text-gray-700">Test User ID: {testUserId}</p>
+                  </div>
+                  <div className="p-4 overflow-auto">
+                    <pre className="text-xs">{JSON.stringify(debugData, null, 2)}</pre>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Portal-like dropdowns attached at the root level of the document 
+           to prevent them from being cut off by parent containers */}
+      <div 
+        ref={dropdownRef1}
+        id="create-listing-dropdown"
+        className="hidden fixed origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+        role="menu" 
+        aria-orientation="vertical" 
+        aria-labelledby="create-listing-menu-button" 
+        tabIndex={-1}
+        style={{ width: '12rem' }} // Match w-48
+      >
+        <div className="py-1" role="none">
+          <Link 
+            href="/business/listings/create" 
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
+            role="menuitem" 
+            tabIndex={-1} 
+            id="create-listing-menu-item-0"
+            onClick={(e) => {
+              const menu = document.getElementById('create-listing-dropdown');
+              if (menu) menu.classList.add('hidden');
+            }}
+          >
+            {t('create_product', 'Create Product')}
+          </Link>
+          <Link 
+            href="/business/listings/create-service" 
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
+            role="menuitem" 
+            tabIndex={-1} 
+            id="create-listing-menu-item-1"
+            onClick={(e) => {
+              const menu = document.getElementById('create-listing-dropdown');
+              if (menu) menu.classList.add('hidden');
+            }}
+          >
+            {t('create_service', 'Create Service')}
+          </Link>
+        </div>
+      </div>
+
+      <div 
+        ref={dropdownRef2}
+        id="create-first-listing-dropdown"
+        className="hidden fixed origin-top-center rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+        role="menu" 
+        aria-orientation="vertical" 
+        aria-labelledby="create-first-listing-menu-button" 
+        tabIndex={-1}
+        style={{ width: '12rem' }} // Match w-48
+      >
+        <div className="py-1" role="none">
+          <Link 
+            href="/business/listings/create" 
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
+            role="menuitem" 
+            tabIndex={-1} 
+            id="create-first-listing-menu-item-0"
+            onClick={(e) => {
+              const menu = document.getElementById('create-first-listing-dropdown');
+              if (menu) menu.classList.add('hidden');
+            }}
+          >
+            {t('create_product', 'Create Product')}
+          </Link>
+          <Link 
+            href="/business/listings/create-service" 
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
+            role="menuitem" 
+            tabIndex={-1} 
+            id="create-first-listing-menu-item-1"
+            onClick={(e) => {
+              const menu = document.getElementById('create-first-listing-dropdown');
+              if (menu) menu.classList.add('hidden');
+            }}
+          >
+            {t('create_service', 'Create Service')}
+          </Link>
         </div>
       </div>
     </>
@@ -581,7 +815,7 @@ export default function BusinessDashboardPage() {
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'es', ['common'])),
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 } 

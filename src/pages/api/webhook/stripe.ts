@@ -1,265 +1,228 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { buffer } from 'micro';
 import Stripe from 'stripe';
-import { createClient } from '@supabase/supabase-js';
+import { buffer } from 'micro';
+import { supabase } from '@/lib/supabase-admin';
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-04-10',
-});
-
-// Initialize Supabase with service role key for admin access
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-  process.env.SUPABASE_SERVICE_KEY as string
-);
-
-// Disable the default body parser
+// Disable default body parser since we need the raw body for Stripe signature verification
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// Initialize Stripe with the secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: '2023-10-16',
+});
+
+// Webhook handler
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
-    return res.status(405).end();
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Get the raw request body for signature verification
+    // Get the raw body for signature verification
     const rawBody = await buffer(req);
     const signature = req.headers['stripe-signature'] as string;
 
     if (!signature) {
-      return res.status(400).json({ error: 'Missing stripe-signature header' });
+      return res.status(400).json({ error: 'Missing Stripe signature' });
     }
 
-    // Verify the event is from Stripe
+    // Verify the event with Stripe
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
+    if (!webhookSecret) {
+      return res.status(500).json({ error: 'Stripe webhook secret is not configured' });
+    }
+
+    // Construct and verify the event
     let event: Stripe.Event;
-    
     try {
-      event = stripe.webhooks.constructEvent(
-        rawBody.toString(),
-        signature,
-        process.env.STRIPE_WEBHOOK_SECRET as string
-      );
-    } catch (err: any) {
-      console.error(`⚠️ Webhook signature verification failed.`, err.message);
-      return res.status(400).json({ error: `Webhook Error: ${err.message}` });
+      event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
+    } catch (err) {
+      console.error('Webhook signature verification failed:', err);
+      return res.status(400).json({ error: 'Invalid signature' });
     }
 
-    // Handle the event based on its type
+    // Handle different event types
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
-        
-        // Handle subscription session
-        if (session.mode === 'subscription') {
-          // Get user ID from metadata
-          const userId = session.metadata?.userId;
-          
-          if (!userId) {
-            console.error('No userId found in session metadata');
-            return res.status(400).json({ error: 'No userId found in session metadata' });
-          }
-
-          // Update business profile with subscription info
-          const { error: updateError } = await supabase
-            .from('business_profiles')
-            .update({
-              subscription_status: 'active',
-              subscription_id: session.subscription as string,
-              subscription_start_date: new Date().toISOString(),
-              subscription_end_date: session.metadata?.interval === 'monthly' 
-                ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() 
-                : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-            })
-            .eq('user_id', userId);
-
-          if (updateError) {
-            console.error('Error updating business profile subscription status:', updateError);
-            return res.status(500).json({ error: 'Error updating business profile subscription status' });
-          }
-
-          // Update user's account type
-          const { error: userUpdateError } = await supabase
-            .from('users')
-            .update({ account_type: 'business' })
-            .eq('id', userId);
-
-          if (userUpdateError) {
-            console.error('Error updating user account type:', userUpdateError);
-          }
-        } else if (session.metadata?.orderId) {
-          // Handle normal checkout session for products/orders
-          const orderId = session.metadata.orderId;
-        
-          if (!orderId) {
-            console.error('No orderId found in session metadata');
-            return res.status(400).json({ error: 'No orderId found in session metadata' });
-          }
-
-          // Update order status to 'paid'
-          const { error: updateError } = await supabase
-            .from('orders')
-            .update({
-              status: 'paid',
-              payment_id: session.payment_intent as string,
-            })
-            .eq('id', orderId);
-
-          if (updateError) {
-            console.error('Error updating order status:', updateError);
-            return res.status(500).json({ error: 'Error updating order status' });
-          }
-        }
-
+        await handleCheckoutSessionCompleted(session);
         break;
       }
-
-      case 'invoice.paid': {
-        const invoice = event.data.object as Stripe.Invoice;
-        const subscriptionId = invoice.subscription as string;
-        
-        if (subscriptionId) {
-          // Get the subscription details
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-          
-          // Get the customer ID
-          const customerId = subscription.customer as string;
-          
-          // Find the business profile with this customer ID
-          const { data: profiles, error: findError } = await supabase
-            .from('business_profiles')
-            .select('id, user_id')
-            .eq('stripe_customer_id', customerId);
-
-          if (findError) {
-            console.error('Error finding business profile:', findError);
-          } else if (profiles && profiles.length > 0) {
-            // Update business profile subscription status
-            const { error: updateError } = await supabase
-              .from('business_profiles')
-              .update({ 
-                subscription_status: 'active',
-                subscription_end_date: new Date(subscription.current_period_end * 1000).toISOString()
-              })
-              .eq('id', profiles[0].id);
-
-            if (updateError) {
-              console.error('Error updating business subscription status:', updateError);
-            }
-          }
-        }
+      case 'customer.subscription.created':
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object as Stripe.Subscription;
+        await handleSubscriptionChange(subscription);
         break;
       }
-
-      case 'invoice.payment_failed': {
-        const invoice = event.data.object as Stripe.Invoice;
-        const subscriptionId = invoice.subscription as string;
-        
-        if (subscriptionId) {
-          // Get the subscription details
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-          
-          // Get the customer ID
-          const customerId = subscription.customer as string;
-          
-          // Find the business profile with this customer ID
-          const { data: profiles, error: findError } = await supabase
-            .from('business_profiles')
-            .select('id')
-            .eq('stripe_customer_id', customerId);
-
-          if (findError) {
-            console.error('Error finding business profile:', findError);
-          } else if (profiles && profiles.length > 0) {
-            // Update business profile subscription status to past_due
-            const { error: updateError } = await supabase
-              .from('business_profiles')
-              .update({ subscription_status: 'past_due' })
-              .eq('id', profiles[0].id);
-
-            if (updateError) {
-              console.error('Error updating business subscription status:', updateError);
-            }
-          }
-        }
-        break;
-      }
-
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription;
-        const customerId = subscription.customer as string;
-        
-        // Find the business profile with this customer ID
-        const { data: profiles, error: findError } = await supabase
-          .from('business_profiles')
-          .select('id')
-          .eq('stripe_customer_id', customerId);
-
-        if (findError) {
-          console.error('Error finding business profile:', findError);
-        } else if (profiles && profiles.length > 0) {
-          // Update business profile subscription status to canceled
-          const { error: updateError } = await supabase
-            .from('business_profiles')
-            .update({ 
-              subscription_status: 'canceled',
-              subscription_end_date: new Date(subscription.current_period_end * 1000).toISOString()
-            })
-            .eq('id', profiles[0].id);
-
-          if (updateError) {
-            console.error('Error updating business subscription status:', updateError);
-          }
-        }
+        await handleSubscriptionDeleted(subscription);
         break;
       }
-
-      case 'payment_intent.succeeded': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
-        break;
-      }
-
-      case 'payment_intent.payment_failed': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.error(`❌ Payment failed: ${paymentIntent.last_payment_error?.message}`);
-        
-        // Find the order with this payment intent
-        const { data: orders, error: findError } = await supabase
-          .from('orders')
-          .select('id')
-          .eq('payment_id', paymentIntent.id);
-
-        if (findError) {
-          console.error('Error finding order:', findError);
-        } else if (orders && orders.length > 0) {
-          // Update order status to 'failed'
-          const { error: updateError } = await supabase
-            .from('orders')
-            .update({ status: 'failed' })
-            .eq('id', orders[0].id);
-
-          if (updateError) {
-            console.error('Error updating order status to failed:', updateError);
-          }
-        }
-        
-        break;
-      }
-
       default:
-        // Unexpected event type
-        console.log(`Unhandled event type ${event.type}`);
+        console.log(`Unhandled event type: ${event.type}`);
     }
 
-    // Return a 200 response to acknowledge receipt of the event
-    res.status(200).json({ received: true });
-  } catch (err: any) {
-    console.error('Error processing webhook:', err);
-    res.status(500).json({ error: `Webhook handler failed: ${err.message}` });
+    return res.status(200).json({ received: true });
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    return res.status(500).json({ 
+      error: 'Error processing webhook',
+      details: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+}
+
+// Handle checkout.session.completed event
+async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
+  if (!session.customer) {
+    console.error('No customer ID in checkout session');
+    return;
+  }
+
+  const customerId = typeof session.customer === 'string' 
+    ? session.customer 
+    : session.customer.id;
+
+  // Associate Stripe customer with user in database
+  if (session.client_reference_id) {
+    const userId = session.client_reference_id;
+    const { error } = await supabase
+      .from('users')
+      .update({ stripe_customer_id: customerId })
+      .eq('id', userId);
+
+    if (error) {
+      console.error('Error updating user with Stripe customer ID:', error);
+    }
+  } else {
+    console.warn('No client_reference_id found in session, cannot update user');
+  }
+
+  // If there's a subscription in the session, handle it
+  if (session.subscription) {
+    const subscriptionId = typeof session.subscription === 'string'
+      ? session.subscription
+      : session.subscription.id;
+    
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    await handleSubscriptionChange(subscription);
+  }
+}
+
+// Handle subscription changes (created or updated)
+async function handleSubscriptionChange(subscription: Stripe.Subscription) {
+  if (!subscription.customer) {
+    console.error('No customer ID in subscription');
+    return;
+  }
+
+  const customerId = typeof subscription.customer === 'string'
+    ? subscription.customer
+    : subscription.customer.id;
+
+  // Get the user with this customer ID
+  const { data: users, error: userError } = await supabase
+    .from('users')
+    .select('id')
+    .eq('stripe_customer_id', customerId);
+
+  if (userError || !users?.length) {
+    console.error('Error finding user with Stripe customer ID:', userError || 'No user found');
+    return;
+  }
+
+  const userId = users[0].id;
+
+  // Get details for updating user's subscription status
+  const status = subscription.status;
+  const priceId = subscription.items.data[0]?.price.id;
+  const productId = subscription.items.data[0]?.price.product as string;
+
+  // Update subscription data in database
+  const { error: updateError } = await supabase
+    .from('user_subscriptions')
+    .upsert({
+      user_id: userId,
+      subscription_id: subscription.id,
+      status,
+      price_id: priceId,
+      product_id: productId,
+      current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+      cancel_at_period_end: subscription.cancel_at_period_end,
+      created_at: new Date(subscription.created * 1000).toISOString(),
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' });
+
+  if (updateError) {
+    console.error('Error updating user subscription data:', updateError);
+  }
+
+  // If subscription is active, update any related functionality
+  if (status === 'active' || status === 'trialing') {
+    // For example, update user permissions or access levels
+    const { error: userUpdateError } = await supabase
+      .from('users')
+      .update({ is_subscribed: true })
+      .eq('id', userId);
+
+    if (userUpdateError) {
+      console.error('Error updating user subscription status:', userUpdateError);
+    }
+  }
+}
+
+// Handle subscription deleted
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  if (!subscription.customer) {
+    console.error('No customer ID in deleted subscription');
+    return;
+  }
+
+  const customerId = typeof subscription.customer === 'string'
+    ? subscription.customer
+    : subscription.customer.id;
+
+  // Find user with this customer ID
+  const { data: users, error: userError } = await supabase
+    .from('users')
+    .select('id')
+    .eq('stripe_customer_id', customerId);
+
+  if (userError || !users?.length) {
+    console.error('Error finding user with Stripe customer ID:', userError || 'No user found');
+    return;
+  }
+
+  const userId = users[0].id;
+
+  // Update subscription status to cancelled
+  const { error: updateError } = await supabase
+    .from('user_subscriptions')
+    .update({
+      status: 'canceled',
+      updated_at: new Date().toISOString(),
+    })
+    .eq('user_id', userId);
+
+  if (updateError) {
+    console.error('Error updating cancelled subscription:', updateError);
+  }
+
+  // Update user subscription status
+  const { error: userUpdateError } = await supabase
+    .from('users')
+    .update({ is_subscribed: false })
+    .eq('id', userId);
+
+  if (userUpdateError) {
+    console.error('Error updating user subscription status:', userUpdateError);
   }
 } 

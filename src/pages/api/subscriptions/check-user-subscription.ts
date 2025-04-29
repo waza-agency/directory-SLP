@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { supabaseAdmin } from '@/lib/api/supabase-admin';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -22,11 +23,42 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
+    // Check if this is an admin request
+    const isAdmin = req.query.admin === 'true';
+    const targetUserId = req.query.userId as string || session.user.id;
+    
+    // For non-admin users, only allow checking their own subscription
+    if (!isAdmin && targetUserId !== session.user.id) {
+      return res.status(403).json({
+        error: 'forbidden',
+        description: 'You can only access your own subscription details',
+      });
+    }
+    
+    // If admin, verify admin status before proceeding
+    if (isAdmin) {
+      const { data: adminRoleData } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+        
+      if (adminRoleData?.role !== 'admin') {
+        return res.status(403).json({
+          error: 'forbidden',
+          description: 'Admin access required',
+        });
+      }
+    }
+    
+    // Use the appropriate client
+    const client = isAdmin ? supabaseAdmin : supabase;
+    
     // Get the business profile along with subscription status
-    const { data: businessProfile, error: profileError } = await supabase
+    const { data: businessProfile, error: profileError } = await client
       .from('business_profiles')
       .select('*')
-      .eq('user_id', session.user.id)
+      .eq('user_id', targetUserId)
       .maybeSingle();
 
     if (profileError && profileError.code !== 'PGRST116') {
@@ -35,10 +67,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Get the subscription details if exists
-    const { data: subscription, error: subscriptionError } = await supabase
+    const { data: subscription, error: subscriptionError } = await client
       .from('subscriptions')
       .select('*, subscription_plans(*)')
-      .eq('user_id', session.user.id)
+      .eq('user_id', targetUserId)
       .eq('status', 'active')
       .maybeSingle();
 
@@ -50,7 +82,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get business listings count
     let listingsCount = 0;
     if (businessProfile) {
-      const { data: listingsData, error: listingsError } = await supabase
+      const { data: listingsData, error: listingsError } = await client
         .from('business_listings')
         .select('id', { count: 'exact' })
         .eq('business_id', businessProfile.id);

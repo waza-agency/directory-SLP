@@ -61,6 +61,14 @@ export default function AccountPage() {
 
   const fetchUserOrders = async () => {
     try {
+      // Check if the user is a business account
+      if (profile?.account_type === 'business') {
+        // For business accounts, we might handle received orders differently
+        // Currently, we're just showing an empty state
+        setOrders([]);
+        return;
+      }
+
       // First get all orders
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
@@ -69,29 +77,47 @@ export default function AccountPage() {
         .order('created_at', { ascending: false });
 
       if (orderError) {
+        // If the error is related to the table not existing, just set empty orders
+        if (orderError.code === '42P01') { // PostgreSQL code for undefined_table
+          console.log('Orders table does not exist yet:', orderError);
+          setOrders([]);
+          return;
+        }
         throw orderError;
+      }
+
+      if (!orderData || orderData.length === 0) {
+        setOrders([]);
+        return;
       }
 
       // Then get the count of items in each order
       const ordersWithItemCount = await Promise.all(
         orderData.map(async (order) => {
-          const { count, error: countError } = await supabase
-            .from('order_items')
-            .select('*', { count: 'exact', head: true })
-            .eq('order_id', order.id);
+          try {
+            const { count, error: countError } = await supabase
+              .from('order_items')
+              .select('*', { count: 'exact', head: true })
+              .eq('order_id', order.id);
 
-          if (countError) {
-            console.error('Error counting order items:', countError);
+            if (countError) {
+              console.error('Error counting order items:', countError);
+              return { ...order, items: 0 };
+            }
+
+            return { ...order, items: count || 0 };
+          } catch (err) {
+            console.error('Error processing order item count:', err);
             return { ...order, items: 0 };
           }
-
-          return { ...order, items: count || 0 };
         })
       );
 
       setOrders(ordersWithItemCount);
     } catch (error) {
       console.error('Error fetching user orders:', error);
+      // Set orders to empty array to avoid display issues
+      setOrders([]);
     }
   };
 
@@ -161,9 +187,20 @@ export default function AccountPage() {
                     <Link href="/account/orders" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                       {t('account.orders', 'Orders')}
                     </Link>
-                    <Link href="/account/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                      {t('account.profile', 'Profile')}
-                    </Link>
+                    
+                    {/* Only show the User Profile link if the user doesn't have a business profile */}
+                    {!hasBusinessProfile && (
+                      <Link href="/account/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
+                        {t('account.profile', 'Profile')}
+                      </Link>
+                    )}
+                    
+                    {/* Business Profile Link - Only shown if user has a business profile */}
+                    {hasBusinessProfile && (
+                      <Link href="/business/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
+                        {t('account.businessProfile', 'Business Profile')}
+                      </Link>
+                    )}
                     
                     {/* Business Dashboard Link - Only shown if user has a business profile */}
                     {hasBusinessProfile && (
@@ -206,7 +243,7 @@ export default function AccountPage() {
                           <p>{user.email}</p>
                           <p>{profile?.phone || t('account.notProvided', 'Not provided')}</p>
                         </div>
-                        <Link href="/account/profile" className="inline-block mt-3 text-sm text-primary hover:text-primary-dark">
+                        <Link href={hasBusinessProfile ? "/business/profile" : "/account/profile"} className="inline-block mt-3 text-sm text-primary hover:text-primary-dark">
                           {t('account.editProfile', 'Edit Profile')}
                         </Link>
                       </div>
@@ -221,7 +258,7 @@ export default function AccountPage() {
                         ) : (
                           <p className="text-sm text-gray-600">{t('account.noAddressProvided', 'No address provided')}</p>
                         )}
-                        <Link href="/account/profile" className="inline-block mt-3 text-sm text-primary hover:text-primary-dark">
+                        <Link href={hasBusinessProfile ? "/business/profile" : "/account/profile"} className="inline-block mt-3 text-sm text-primary hover:text-primary-dark">
                           {t('account.updateAddress', 'Update Address')}
                         </Link>
                       </div>
@@ -232,7 +269,11 @@ export default function AccountPage() {
                 {/* Recent orders */}
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-semibold text-gray-900">{t('account.recentOrders', 'Recent Orders')}</h2>
+                    <h2 className="text-xl font-semibold text-gray-900">
+                      {profile?.account_type === 'business' 
+                        ? 'Recent Received Orders'
+                        : t('account.recentOrders', 'Recent Orders')}
+                    </h2>
                     <Link href="/account/orders" className="text-sm text-primary hover:text-primary-dark">
                       {t('account.viewAll', 'View All')}
                     </Link>
@@ -240,10 +281,20 @@ export default function AccountPage() {
                   
                   {orders.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">{t('account.noOrders', 'You haven\'t placed any orders yet.')}</p>
-                      <Link href="/marketplace" className="inline-block px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
-                        {t('account.startShopping', 'Start Shopping')}
-                      </Link>
+                      <p className="text-gray-600 mb-4">
+                        {profile?.account_type === 'business' 
+                          ? "You haven't received any orders yet."
+                          : t('account.noOrders', 'You haven\'t placed any orders yet.')}
+                      </p>
+                      {profile?.account_type === 'business' ? (
+                        <Link href="/business/subscription" className="inline-block px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
+                          Subscribe your business and start receiving orders
+                        </Link>
+                      ) : (
+                        <Link href="/marketplace" className="inline-block px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
+                          {t('account.startShopping', 'Start Shopping')}
+                        </Link>
+                      )}
                     </div>
                   ) : (
                     <div className="overflow-x-auto">

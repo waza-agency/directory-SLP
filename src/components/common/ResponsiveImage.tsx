@@ -46,6 +46,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
           objectFit,
           objectPosition,
         }}
+        unoptimized={src.startsWith('http') && !src.includes('supabase')}
       />
     </div>
   );

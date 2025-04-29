@@ -438,5 +438,30 @@
       "description": "Stay up to date with festivals, concerts, and exhibitions in San Luis.",
       "cta": "View calendar"
     }
-  }
+  },
+  "business_dashboard": "Business Dashboard",
+  "welcome_business": "Welcome, {{business}}",
+  "business_description": "Business Description",
+  "subscription_details": "Subscription Details",
+  "plan": "Plan",
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
+  "renewal_date": "Renewal Date",
+  "not_available": "Not available",
+  "no_active_subscription": "No active subscription",
+  "get_subscription": "Get Subscription",
+  "your_listings": "Your Listings",
+  "unlimited_listings_available": "Unlimited listings available",
+  "listings_count": "{{current}}/{{max}} listings",
+  "max_listings_reached": "You have reached the maximum number of listings for your subscription plan.",
+  "create_listing": "Create Listing",
+  "edit": "Edit",
+  "delete": "Delete",
+  "view_public": "View Public",
+  "no_listings_yet": "You haven't created any listings yet.",
+  "create_first_listing": "Create your first listing",
+  "confirm_delete_listing": "Are you sure you want to delete this listing?",
+  "error_deleting_listing": "There was an error deleting this listing. Please try again.",
+  "edit_profile": "Edit Profile"
 }

@@ -6,6 +6,11 @@ ADD COLUMN IF NOT EXISTS subscription_start_date TIMESTAMP WITH TIME ZONE,
 ADD COLUMN IF NOT EXISTS subscription_end_date TIMESTAMP WITH TIME ZONE,
 ADD COLUMN IF NOT EXISTS stripe_customer_id TEXT;
 
+-- Add stripe price ID columns to subscription_plans if they don't exist
+ALTER TABLE public.subscription_plans
+ADD COLUMN IF NOT EXISTS stripe_monthly_price_id TEXT,
+ADD COLUMN IF NOT EXISTS stripe_yearly_price_id TEXT;
+
 -- Create function to sync subscription status with business_profiles
 CREATE OR REPLACE FUNCTION sync_subscription_status()
 RETURNS TRIGGER AS $$

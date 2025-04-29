@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS public.subscription_plans (
   max_listings INTEGER NOT NULL DEFAULT 10,
   features JSONB NOT NULL,
   is_active BOOLEAN DEFAULT true NOT NULL,
+  stripe_price_id TEXT,
+  stripe_monthly_price_id TEXT,
+  stripe_yearly_price_id TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL
 );
@@ -55,9 +58,35 @@ CREATE TABLE IF NOT EXISTS public.business_profiles (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL
 );
 
--- Add business_profile_id to products/listings table if it doesn't exist
-ALTER TABLE public.products
-ADD COLUMN IF NOT EXISTS business_profile_id UUID REFERENCES public.business_profiles(id);
+-- Create business_listings table for product listings
+CREATE TABLE IF NOT EXISTS public.business_listings (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  business_id UUID REFERENCES public.business_profiles(id) NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  category TEXT NOT NULL,
+  price TEXT,
+  images JSONB,
+  address TEXT,
+  city TEXT,
+  phone TEXT,
+  website TEXT,
+  email TEXT,
+  hours JSONB,
+  services JSONB,
+  status TEXT DEFAULT 'active',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL
+);
+
+-- Add business_profile_id to products/listings table if it exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'products') THEN
+    ALTER TABLE public.products
+    ADD COLUMN IF NOT EXISTS business_profile_id UUID REFERENCES public.business_profiles(id);
+  END IF;
+END $$;
 
 -- Add subscription-related fields to users table
 ALTER TABLE public.users
@@ -76,6 +105,7 @@ VALUES
 ALTER TABLE public.subscription_plans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.business_profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.business_listings ENABLE ROW LEVEL SECURITY;
 
 -- Policies for subscription_plans
 CREATE POLICY "Anyone can view subscription plans" ON public.subscription_plans
@@ -115,6 +145,20 @@ CREATE POLICY "Users can update their own business profile" ON public.business_p
 CREATE POLICY "Users can insert their own business profile" ON public.business_profiles
   FOR INSERT WITH CHECK (user_id = auth.uid());
 
+-- Policies for business_listings
+CREATE POLICY "Anyone can view business listings" ON public.business_listings
+  FOR SELECT USING (true);
+
+-- Users can manage their own business listings
+CREATE POLICY "Users can manage their own business listings" ON public.business_listings
+  FOR ALL USING (
+    EXISTS (
+      SELECT 1 FROM public.business_profiles
+      WHERE business_profiles.id = business_listings.business_id
+      AND business_profiles.user_id = auth.uid()
+    )
+  );
+
 -- Create function to update the updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -135,4 +179,8 @@ FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
 
 CREATE TRIGGER update_business_profiles_updated_at
 BEFORE UPDATE ON public.business_profiles
+FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
+
+CREATE TRIGGER update_business_listings_updated_at
+BEFORE UPDATE ON public.business_listings
 FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column(); 
