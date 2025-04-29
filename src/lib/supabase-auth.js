@@ -127,12 +127,63 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signIn = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    console.log('AuthProvider signIn called with:', email);
+    
+    if (!supabase || !supabase.auth) {
+      console.error('Supabase client or auth is not available in signIn function');
+      return { data: null, error: new Error('Supabase client is not available') };
+    }
+    
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
+      console.log('Supabase signIn response:', { data: data ? 'data present' : 'no data', error });
 
-    return { data, error };
+      if (!error && data?.user) {
+        // Check if user exists in our database
+        const { data: existingUser, error: checkError } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+          
+        if (checkError && checkError.code === 'PGRST116') {
+          console.log('No user record found for this auth user, creating one now:', data.user.id);
+          // User doesn't exist in our users table, create one
+          try {
+            const { error: insertError } = await supabase.from('users').insert([
+              { 
+                id: data.user.id,
+                email: data.user.email,
+                account_type: 'user', // Default to user account type
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              }
+            ]);
+            
+            if (insertError) {
+              console.error('Error creating user record on sign in:', insertError);
+            } else {
+              console.log('User record created successfully on sign in');
+            }
+          } catch (insertErr) {
+            console.error('Exception when creating user record on sign in:', insertErr);
+          }
+        } else if (checkError) {
+          console.error('Error checking for existing user:', checkError);
+        } else {
+          console.log('Existing user record found:', existingUser?.id);
+        }
+      }
+
+      return { data, error };
+    } catch (err) {
+      console.error('Unexpected error in signIn:', err);
+      return { data: null, error: err };
+    }
   };
 
   const signOut = async () => {

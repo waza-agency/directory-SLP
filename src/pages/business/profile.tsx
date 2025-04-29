@@ -41,7 +41,7 @@ interface BusinessProfile {
   id: string;
   user_id: string;
   business_name: string;
-  business_description?: string;
+  description?: string;
   logo_url?: string;
   cover_image_url?: string;
   business_category: string;
@@ -115,7 +115,7 @@ export default function BusinessProfilePage() {
   // Expanded form data state to include all fields
   const [formData, setFormData] = useState({
     business_name: '',
-    business_description: '',
+    description: '',
     business_category: '',
     address: '',
     city: '',
@@ -177,24 +177,24 @@ export default function BusinessProfilePage() {
       // Set form data with all available fields
       setFormData({
         business_name: data.business_name || '',
-        business_description: data.business_description || '',
+        description: data.description || '',
         business_category: data.business_category || '',
         address: data.address || '',
         city: data.city || '',
         state: data.state || '',
-        zip_code: data.zip_code || '',
+        zip_code: data.postal_code || '', // Map postal_code to zip_code
         country: data.country || '',
         phone: data.phone || '',
         email: data.email || '',
         website: data.website || '',
-        instagram: data.instagram || '',
-        facebook: data.facebook || '',
-        twitter: data.twitter || '',
-        linkedin: data.linkedin || '',
+        instagram: data.instagram_handle || '', // Map instagram_handle to instagram
+        facebook: data.facebook_url || '', // Map facebook_url to facebook
+        twitter: data.twitter_handle || '', // Map twitter_handle to twitter
+        linkedin: data.linkedin_url || '', // Map linkedin_url to linkedin
         youtube: data.youtube || '',
         tiktok: data.tiktok || '',
         whatsapp: data.whatsapp || '',
-        business_hours: data.business_hours || {},
+        business_hours: data.hours_of_operation || data.business_hours || {}, // Try both fields
         tax_id: data.tax_id || '',
         year_established: data.year_established ? String(data.year_established) : '',
         number_of_employees: data.number_of_employees || '',
@@ -246,25 +246,32 @@ export default function BusinessProfilePage() {
 
     const file = e.target.files[0];
     setUploadingLogo(true);
+    setError('');
 
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${businessProfile?.id}-logo-${Date.now()}.${fileExt}`;
-      const filePath = `business-images/${fileName}`;
+      const filePath = `${fileName}`;
 
       // Upload the file to Supabase Storage
       const { error: uploadError } = await supabase.storage
-        .from('business-images')
-        .upload(filePath, file);
+        .from('profile-images')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
 
       if (uploadError) {
+        console.error('Storage upload error:', uploadError);
         throw uploadError;
       }
 
       // Get the public URL
       const { data: { publicUrl } } = supabase.storage
-        .from('business-images')
+        .from('profile-images')
         .getPublicUrl(filePath);
+
+      console.log('Logo uploaded successfully:', publicUrl);
 
       // Update the logo URL
       setLogoUrl(publicUrl);
@@ -276,6 +283,7 @@ export default function BusinessProfilePage() {
         .eq('id', businessProfile?.id);
 
       if (updateError) {
+        console.error('Database update error:', updateError);
         throw updateError;
       }
     } catch (error) {
@@ -293,25 +301,32 @@ export default function BusinessProfilePage() {
 
     const file = e.target.files[0];
     setUploadingCover(true);
+    setError('');
 
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${businessProfile?.id}-cover-${Date.now()}.${fileExt}`;
-      const filePath = `business-images/${fileName}`;
+      const filePath = `${fileName}`;
 
       // Upload the file to Supabase Storage
-      const { error: uploadError } = await supabase.storage
-        .from('business-images')
-        .upload(filePath, file);
+      const { error: uploadError, data } = await supabase.storage
+        .from('profile-images')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
 
       if (uploadError) {
+        console.error('Storage upload error:', uploadError);
         throw uploadError;
       }
 
       // Get the public URL
       const { data: { publicUrl } } = supabase.storage
-        .from('business-images')
+        .from('profile-images')
         .getPublicUrl(filePath);
+
+      console.log('Image uploaded successfully:', publicUrl);
 
       // Update the cover image URL
       setCoverImageUrl(publicUrl);
@@ -323,6 +338,7 @@ export default function BusinessProfilePage() {
         .eq('id', businessProfile?.id);
 
       if (updateError) {
+        console.error('Database update error:', updateError);
         throw updateError;
       }
     } catch (error) {
@@ -349,18 +365,47 @@ export default function BusinessProfilePage() {
         throw new Error('Please enter a valid year established');
       }
 
+      // Map form fields to database column names
+      const dataToUpdate = {
+        business_name: formData.business_name,
+        description: formData.description,
+        business_category: formData.business_category,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        postal_code: formData.zip_code, // Map zip_code to postal_code
+        country: formData.country,
+        phone: formData.phone,
+        email: formData.email,
+        website: formData.website,
+        instagram_handle: formData.instagram, // Map instagram to instagram_handle
+        facebook_url: formData.facebook, // Map facebook to facebook_url
+        twitter_handle: formData.twitter, // Map twitter to twitter_handle
+        linkedin_url: formData.linkedin, // Map linkedin to linkedin_url
+        hours_of_operation: formData.business_hours, // Map business_hours to hours_of_operation
+        tax_id: formData.tax_id,
+        year_established: yearEstablished,
+        number_of_employees: formData.number_of_employees,
+        payment_methods: formData.payment_methods,
+        languages_spoken: formData.languages_spoken,
+        certifications: formData.certifications,
+        youtube: formData.youtube,
+        tiktok: formData.tiktok,
+        whatsapp: formData.whatsapp,
+        logo_url: logoUrl,
+        cover_image_url: coverImageUrl,
+        updated_at: new Date().toISOString()
+      };
+
+      console.log('Updating business profile with data:', dataToUpdate);
+
       const { error } = await supabase
         .from('business_profiles')
-        .update({
-          ...formData,
-          logo_url: logoUrl,
-          cover_image_url: coverImageUrl,
-          year_established: yearEstablished,
-          updated_at: new Date().toISOString()
-        })
+        .update(dataToUpdate)
         .eq('id', businessProfile?.id);
 
       if (error) {
+        console.error('Database update error:', error);
         throw error;
       }
 
@@ -639,14 +684,14 @@ export default function BusinessProfilePage() {
                       </div>
 
                       <div className="md:col-span-2">
-                        <label htmlFor="business_description" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                           Business Description
                         </label>
                         <textarea
-                          id="business_description"
-                          name="business_description"
+                          id="description"
+                          name="description"
                           rows={4}
-                          value={formData.business_description}
+                          value={formData.description}
                           onChange={handleInputChange}
                           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                           placeholder="Describe your business, services, and what makes you unique..."

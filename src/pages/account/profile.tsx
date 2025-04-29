@@ -55,6 +55,9 @@ export default function ProfilePage() {
 
   const fetchUserProfile = async () => {
     try {
+      console.log('Fetching profile for user ID:', user?.id);
+      
+      // Query user profile from Supabase
       const { data, error } = await supabase
         .from('users')
         .select('*')
@@ -62,8 +65,11 @@ export default function ProfilePage() {
         .single();
 
       if (error) {
+        console.error('Supabase query error:', error);
         throw error;
       }
+
+      console.log('User profile data received:', data);
 
       // Set profile image URL if available
       if (data.profile_picture_url) {
@@ -89,6 +95,49 @@ export default function ProfilePage() {
       });
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      
+      // If no user found, create a new user record
+      if (user && error.code === 'PGRST116') {
+        try {
+          console.log('Creating new user profile for:', user.id);
+          
+          // Create a new user record
+          const { data: newUser, error: createError } = await supabase
+            .from('users')
+            .insert([
+              { 
+                id: user.id,
+                email: user.email,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              }
+            ])
+            .select()
+            .single();
+            
+          if (createError) {
+            console.error('Error creating user profile:', createError);
+            throw createError;
+          }
+          
+          console.log('Created new user profile:', newUser);
+          
+          // Reset form with empty data
+          reset({
+            name: '',
+            phone: '',
+            address: '',
+            city: '',
+            country: '',
+            zipCode: '',
+            bio: '',
+            occupation: '',
+            interests: '',
+          });
+        } catch (createError) {
+          console.error('Failed to create user profile:', createError);
+        }
+      }
     }
   };
 
@@ -127,25 +176,36 @@ export default function ProfilePage() {
 
     const file = e.target.files[0];
     setUploadingImage(true);
+    setSubmitError(null);
 
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${user?.id}-profile-${Date.now()}.${fileExt}`;
-      const filePath = `profile-images/${fileName}`;
+      const filePath = fileName;
+
+      console.log('Uploading file to path:', filePath);
 
       // Upload the file to Supabase Storage
-      const { error: uploadError } = await supabase.storage
+      const { error: uploadError, data } = await supabase.storage
         .from('user-images')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
 
       if (uploadError) {
+        console.error('Storage upload error:', uploadError);
         throw uploadError;
       }
+
+      console.log('File uploaded successfully:', data);
 
       // Get the public URL of the uploaded file
       const { data: { publicUrl } } = supabase.storage
         .from('user-images')
         .getPublicUrl(filePath);
+
+      console.log('Image URL:', publicUrl);
 
       // Update the profile image URL
       setProfileImageUrl(publicUrl);
@@ -157,6 +217,7 @@ export default function ProfilePage() {
         .eq('id', user?.id);
 
       if (updateError) {
+        console.error('Database update error:', updateError);
         throw updateError;
       }
     } catch (error) {
@@ -184,28 +245,43 @@ export default function ProfilePage() {
     setSubmitSuccess(false);
 
     try {
-      const response = await fetch('/api/user/update-profile', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          profile_picture_url: profileImageUrl,
-          interests: userInterests
-        }),
+      console.log('Submitting profile data:', {
+        ...data,
+        profile_picture_url: profileImageUrl,
+        interests: userInterests
       });
 
-      const result = await response.json();
+      // Use Supabase client directly instead of API route
+      const { error } = await supabase
+        .from('users')
+        .update({
+          name: data.name,
+          phone: data.phone,
+          address: data.address,
+          city: data.city,
+          country: data.country,
+          zip_code: data.zipCode,
+          bio: data.bio,
+          occupation: data.occupation,
+          interests: userInterests,
+          profile_picture_url: profileImageUrl,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user?.id);
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to update profile');
+      if (error) {
+        console.error('Error updating profile in Supabase:', error);
+        throw new Error(error.message || 'Failed to update profile');
       }
 
+      console.log('Profile updated successfully');
       setSubmitSuccess(true);
+      
+      // Refresh user profile data
+      fetchUserProfile();
     } catch (error: any) {
-      setSubmitError(error.message);
       console.error('Error updating profile:', error);
+      setSubmitError(error.message || 'Failed to update profile. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -248,16 +324,16 @@ export default function ProfilePage() {
               )}
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              {submitSuccess && (
-                <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-md">
-                  {t('profile.profileUpdated', 'Your profile has been updated successfully')}
+            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+              {submitError && (
+                <div className="bg-red-50 text-red-700 p-4 border-b border-red-100">
+                  {submitError}
                 </div>
               )}
-
-              {submitError && (
-                <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-md">
-                  {submitError}
+              
+              {submitSuccess && (
+                <div className="bg-green-50 text-green-700 p-4 border-b border-green-100">
+                  {t('profile.updateSuccess', 'Profile updated successfully!')}
                 </div>
               )}
 

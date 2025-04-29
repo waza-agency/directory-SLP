@@ -15,9 +15,10 @@ type BusinessProfile = {
   id: string;
   user_id: string;
   business_name: string;
-  business_description?: string;
+  description?: string;
   business_category: string;
   logo_url?: string;
+  cover_image_url?: string;
   active_listings_count: number;
   subscription_status?: string;
   subscription_end_date?: string;
@@ -523,10 +524,11 @@ export default function BusinessDashboardPage() {
                       </div>
                     </div>
                     
-                    {businessProfile.business_description && (
-                      <div className="mb-6">
+                    {/* Business Description */}
+                    {businessProfile.description && (
+                      <div className="mb-8">
                         <h3 className="text-sm font-medium text-gray-500 mb-2">{t('business_description', 'Business Description')}</h3>
-                        <p className="text-gray-900">{businessProfile.business_description}</p>
+                        <p className="text-gray-900">{businessProfile.description}</p>
                       </div>
                     )}
                     
