@@ -1,19 +1,34 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+
+// CORS middleware
+function cors(req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return true;
+  }
+  return false;
+}
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-04-10', // Use the latest API version
+  apiVersion: '2025-04-30.basil',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (cors(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
     // Create authenticated Supabase client
-    const supabase = createServerSupabaseClient({ req, res });
+    const supabase = createPagesServerClient({ req, res });
     
     // Check if we have a session
     const {
@@ -39,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Format line items for Stripe
     const lineItems = items.map((item: any) => ({
       price_data: {
-        currency: 'usd',
+        currency: 'mxn',
         product_data: {
           name: item.name,
           images: item.image ? [item.image] : [],

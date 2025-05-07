@@ -17,6 +17,8 @@ interface Product {
   images?: string[];
   price?: number;
   status: string;
+  business_id?: string;
+  shipping_fee?: number;
 }
 
 export default function ShopPage() {
@@ -202,16 +204,20 @@ export default function ShopPage() {
                           name={product.title}
                           price={parseFloat(product.price?.toString() || "100")}
                           imageUrl={product.images && product.images.length > 0 ? product.images[0] : undefined}
+                          businessId={product.business_id}
                           mode="cart"
                           className="text-sm py-1.5 flex-1"
+                          shippingFee={product.shipping_fee || 0}
                         />
                         <BuyButton
                           productId={product.id}
                           name={product.title}
                           price={parseFloat(product.price?.toString() || "100")}
                           imageUrl={product.images && product.images.length > 0 ? product.images[0] : undefined}
+                          businessId={product.business_id}
                           mode="buy"
                           className="text-sm py-1.5 flex-1"
+                          shippingFee={product.shipping_fee || 0}
                         />
                       </div>
                     </div>

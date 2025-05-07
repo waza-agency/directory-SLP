@@ -51,6 +51,7 @@ type BusinessListing = {
   created_at: string;
   updated_at: string;
   business_id: string;
+  shipping_fee?: number;
 };
 
 type ListingDetailProps = {
@@ -343,6 +344,7 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
                         quantity={quantity}
                         mode="cart"
                         className="px-6 py-3 text-sm sm:flex-1 shadow-sm"
+                        shippingFee={businessListing?.shipping_fee || listing?.shipping_fee || 0}
                       />
                       <BuyButton
                         productId={listing?.id || ''}
@@ -352,6 +354,7 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
                         quantity={quantity}
                         mode="buy"
                         className="px-6 py-3 text-sm sm:flex-1 shadow-sm"
+                        shippingFee={businessListing?.shipping_fee || listing?.shipping_fee || 0}
                       />
                     </div>
                   </div>
@@ -420,14 +423,116 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   // If place not found, try to fetch the business listing by ID
   const { data: businessListing, error: businessListingError } = await supabase
     .from('business_listings')
-    .select('*')
+    .select('*, business_profiles!inner(subscription_status, user_id, id)')
     .eq('id', params.id)
     .single();
   
   if (!businessListingError && businessListing) {
+    // Even if the subscription status in business_profiles is not active,
+    // we'll double-check with the subscriptions table which is more reliable
+    if (businessListing.business_profiles?.subscription_status !== 'active') {
+      try {
+        console.log(`Checking subscription status for user ${businessListing.business_profiles.user_id}`);
+        
+        // Check if there's an active subscription in the subscriptions table
+        const { data: subscriptionData } = await supabase
+          .from('subscriptions')
+          .select('status')
+          .eq('user_id', businessListing.business_profiles.user_id)
+          .eq('status', 'active')
+          .maybeSingle();
+          
+        // If we find an active subscription, we should update the business profile
+        if (subscriptionData?.status === 'active') {
+          console.log('Found active subscription in database, updating profile');
+          // Don't await the update since we want to return the listing regardless
+          supabase
+            .from('business_profiles')
+            .update({ subscription_status: 'active' })
+            .eq('user_id', businessListing.business_profiles.user_id)
+            .then(({ error }) => {
+              if (error) {
+                console.error('Error updating business profile subscription status:', error);
+              }
+            });
+        } else {
+          // No active subscription in the database, try checking with Stripe
+          let stripeCustomerId = null;
+          
+          // Try to get the Stripe customer ID from the business profile
+          if (businessListing.business_profiles) {
+            // Fetch the business profile with the stripe_customer_id
+            const { data: profileData } = await supabase
+              .from('business_profiles')
+              .select('stripe_customer_id')
+              .eq('id', businessListing.business_profiles.id)
+              .single();
+              
+            if (profileData?.stripe_customer_id) {
+              stripeCustomerId = profileData.stripe_customer_id;
+            }
+          }
+          
+          // If we couldn't find a customer ID in the business profile, try the users table
+          if (!stripeCustomerId) {
+            const { data: userData } = await supabase
+              .from('users')
+              .select('stripe_customer_id')
+              .eq('id', businessListing.business_profiles.user_id)
+              .single();
+              
+            if (userData?.stripe_customer_id) {
+              stripeCustomerId = userData.stripe_customer_id;
+            }
+          }
+          
+          // If we have a Stripe customer ID, we can check Stripe directly
+          if (stripeCustomerId && process.env.STRIPE_SECRET_KEY) {
+            try {
+              // Initialize Stripe
+              const Stripe = require('stripe');
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+              
+              // Check for active subscriptions
+              const subscriptions = await stripe.subscriptions.list({
+                customer: stripeCustomerId,
+                status: 'active',
+                limit: 1
+              });
+              
+              if (subscriptions.data.length > 0) {
+                console.log('Found active subscription in Stripe, updating profile');
+                // We found an active subscription in Stripe, update the business profile
+                supabase
+                  .from('business_profiles')
+                  .update({ 
+                    subscription_status: 'active',
+                    subscription_id: subscriptions.data[0].id
+                  })
+                  .eq('id', businessListing.business_profiles.id)
+                  .then(({ error }) => {
+                    if (error) {
+                      console.error('Error updating business profile with Stripe data:', error);
+                    }
+                  });
+              }
+            } catch (stripeError) {
+              console.error('Error checking Stripe:', stripeError);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error checking subscription status:', error);
+      }
+    }
+    
+    // Clean up the response to remove the business_profiles data
+    const cleanedListing = { ...businessListing };
+    delete cleanedListing.business_profiles;
+    
     return {
       props: {
-        businessListing,
+        businessListing: cleanedListing,
         type: 'business_listing',
         ...(await serverSideTranslations(locale || 'es', ['common'])),
       },

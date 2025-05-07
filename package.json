@@ -2,20 +2,29 @@
   "name": "slp-directory",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0 <19.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
+    "dev:next": "next dev",
     "build": "next build",
     "netlify-build": "node scripts/netlify-build.js",
     "export": "next export",
     "build-static": "next build && next export",
-    "start": "next start",
+    "start": "node server.js",
+    "start:next": "next start",
     "lint": "next lint",
+    "preinstall": "node -e \"try { require('./scripts/ensure-node-compatibility.js') } catch(e) { console.log('Skipping version check') }\"",
     "postinstall": "node scripts/ensure-translations.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "prebuild": "npm run generate-sitemap"
+    "prebuild": "npm run generate-sitemap",
+    "check-node": "node scripts/ensure-node-compatibility.js"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "semver": "^7.5.4",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.1",
     "@supabase/auth-helpers-nextjs": "^0.7.4",
@@ -36,12 +45,12 @@
     "framer-motion": "^12.6.2",
     "glob": "^10.4.5",
     "googleapis": "^129.0.0",
-    "i18next": "^22.4.10",
+    "i18next": "^25.0.2",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
     "micro": "^10.0.1",
     "next": "^13.4.5",
-    "next-i18next": "^13.1.5",
+    "next-i18next": "^15.4.2",
     "nodemailer": "^6.10.0",
     "npx": "^10.2.2",
     "postcss": "^8.4.14",
@@ -64,11 +73,12 @@
     "@types/google.maps": "^3.58.1",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^18.14.2",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
     "@types/react-google-recaptcha": "^2.1.9",
+    "@types/uuid": "^9.0.7",
     "eslint": "^8.34.0",
     "eslint-config-next": "^13.4.5",
-    "typescript": "^4.9.5"
+    "typescript": "^5.8.3"
   }
 }

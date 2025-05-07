@@ -23,16 +23,6 @@
       "type": "image/png"
     },
     {
-      "src": "/ms-icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "/ms-icon-150x150.png",
-      "sizes": "150x150",
-      "type": "image/png"
-    },
-    {
       "src": "/ms-icon-310x310.png",
       "sizes": "310x310",
       "type": "image/png"

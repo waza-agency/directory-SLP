@@ -19,18 +19,35 @@ export default function SignIn() {
   const onSubmit = async (data: SignInFormValues) => {
     setIsLoading(true);
     setError(null);
+    
+    console.log('SignIn component: submitting with email:', data.email);
 
     try {
-      const { error } = await signIn(data.email, data.password);
+      console.log('SignIn component: calling signIn function');
+      const response = await signIn(data.email, data.password);
+      console.log('SignIn component: received response:', {
+        success: !!response.data?.user,
+        error: response.error ? 'present' : 'none'
+      });
       
-      if (error) {
-        setError(error.message);
-      } else {
-        // Redirect to the intended page or dashboard
-        const redirectUrl = (router.query.redirect as string) || '/account';
-        router.push(redirectUrl);
+      if (response.error) {
+        console.error('SignIn component: authentication error:', response.error);
+        setError(response.error.message);
+        return;
       }
+
+      if (!response.data?.user) {
+        console.error('SignIn component: missing user in response');
+        setError('Failed to authenticate. Please try again.');
+        return;
+      }
+
+      // The signIn function in supabase-auth.tsx now handles redirection
+      // We don't need to do anything here as the page will be redirected
+      console.log('SignIn successful, waiting for redirection...');
+      
     } catch (err: any) {
+      console.error('SignIn component: caught exception:', err);
       setError(err.message || 'An error occurred during sign in');
     } finally {
       setIsLoading(false);

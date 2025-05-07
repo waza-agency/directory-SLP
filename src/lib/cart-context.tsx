@@ -6,8 +6,10 @@ export type CartItem = {
   name: string;
   price: number;
   imageUrl?: string;
+  businessId?: string;
   quantity: number;
   type?: 'product' | 'listing';
+  shipping_fee?: number;
 };
 
 // Define cart context type

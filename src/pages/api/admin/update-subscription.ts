@@ -23,7 +23,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     // Initialize Stripe
     const stripe = new Stripe(stripeKey as string, {
-      apiVersion: '2024-04-10',
+      apiVersion: '2023-10-16',
     });
 
     // Get subscription details from Stripe

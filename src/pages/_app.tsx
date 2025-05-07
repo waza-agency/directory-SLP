@@ -7,6 +7,9 @@ import nextI18nConfig from '../../next-i18next.config.js';
 import Head from 'next/head';
 import { AuthProvider } from '@/lib/supabase-auth';
 import { CartProvider } from '@/lib/cart-context';
+import { supabase } from '@/lib/supabase';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -61,14 +64,21 @@ function MyApp({ Component, pageProps }: AppProps) {
             })
           }}
         />
+        {/* Stripe.js for payments, loaded with Next.js Script for CSP compliance */}
+        <Script src="https://js.stripe.com/v3/" strategy="afterInteractive" />
       </Head>
-      <AuthProvider>
-        <CartProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </CartProvider>
-      </AuthProvider>
+      <SessionContextProvider 
+        supabaseClient={supabase}
+        initialSession={pageProps.initialSession}
+      >
+        <AuthProvider>
+          <CartProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </CartProvider>
+        </AuthProvider>
+      </SessionContextProvider>
     </>
   );
 }

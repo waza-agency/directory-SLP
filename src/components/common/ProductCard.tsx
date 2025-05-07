@@ -10,6 +10,7 @@ type ProductCardProps = {
   price: number;
   imageUrl?: string;
   category?: string;
+  shipping_fee?: number;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -18,7 +19,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   description,
   price,
   imageUrl,
-  category
+  category,
+  shipping_fee
 }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
@@ -71,6 +73,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               imageUrl={imageUrl}
               mode="cart"
               className="text-sm py-1.5 flex-1"
+              shippingFee={shipping_fee || 0}
             />
             <BuyButton
               productId={id}
@@ -79,6 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               imageUrl={imageUrl}
               mode="buy"
               className="text-sm py-1.5 flex-1"
+              shippingFee={shipping_fee || 0}
             />
           </div>
         </div>

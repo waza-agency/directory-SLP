@@ -1,6 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 
+// CORS middleware
+function cors(req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_SITE_URL || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return true;
+  }
+  return false;
+}
+
 async function verifyRecaptcha(token: string) {
   const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
     method: 'POST',
@@ -15,6 +28,8 @@ async function verifyRecaptcha(token: string) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (cors(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }

@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
-import { BuildingStorefrontIcon, CameraIcon } from '@heroicons/react/24/outline';
+import { BuildingStorefrontIcon, CameraIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 
 const businessCategories = [
   { id: 'retail', name: 'Retail' },
@@ -76,6 +76,9 @@ interface BusinessProfile {
   plan_id?: string;
   latitude?: number;
   longitude?: number;
+  stripe_connect_account_id?: string;
+  stripe_connect_status?: string;
+  stripe_connect_onboarded_at?: string;
   created_at: string;
   updated_at: string;
 }
@@ -111,6 +114,9 @@ export default function BusinessProfilePage() {
   
   const logoInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+  
+  // New state for Stripe Connect
+  const [isConnectingStripe, setIsConnectingStripe] = useState(false);
 
   // Expanded form data state to include all fields
   const [formData, setFormData] = useState({
@@ -138,7 +144,8 @@ export default function BusinessProfilePage() {
     number_of_employees: '',
     payment_methods: [] as string[],
     languages_spoken: [] as string[],
-    certifications: [] as string[]
+    certifications: [] as string[],
+    stripe_connect_account_id: ''
   });
 
   useEffect(() => {
@@ -200,7 +207,8 @@ export default function BusinessProfilePage() {
         number_of_employees: data.number_of_employees || '',
         payment_methods: data.payment_methods || [],
         languages_spoken: data.languages_spoken || [],
-        certifications: data.certifications || []
+        certifications: data.certifications || [],
+        stripe_connect_account_id: data.stripe_connect_account_id || ''
       });
       
       // Set image URLs
@@ -394,6 +402,7 @@ export default function BusinessProfilePage() {
         whatsapp: formData.whatsapp,
         logo_url: logoUrl,
         cover_image_url: coverImageUrl,
+        stripe_connect_account_id: formData.stripe_connect_account_id,
         updated_at: new Date().toISOString()
       };
 
@@ -1218,6 +1227,132 @@ export default function BusinessProfilePage() {
                           </button>
                         </div>
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Add Stripe Connect Account Section right before the submit button */}
+                  <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                      <CreditCardIcon className="h-6 w-6 mr-2 text-primary" />
+                      {t('business.payments', 'Payment Settings')}
+                    </h3>
+                    
+                    <div className="mb-6">
+                      <p className="text-gray-700 mb-4">
+                        {t('business.stripeConnectInfo', 'To receive payments for your items sold in the shop, you need to connect your business to our payment processor, Stripe. This allows us to securely transfer funds to your bank account when customers purchase your products.')}
+                      </p>
+                      
+                      {businessProfile?.stripe_connect_account_id ? (
+                        <div>
+                          <div className="bg-green-50 border border-green-200 rounded-md p-4 mb-4">
+                            <div className="flex">
+                              <div className="flex-shrink-0">
+                                <svg className="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                              <div className="ml-3">
+                                <h3 className="text-sm font-medium text-green-800">
+                                  {t('business.stripeConnected', 'Stripe account connected')}
+                                </h3>
+                                <div className="mt-2 text-sm text-green-700">
+                                  <p>
+                                    {t('business.stripeConnectedInfo', 'Your Stripe account is connected and ready to receive payments.')}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="mb-4">
+                            <label htmlFor="stripe_connect_account_id" className="block text-sm font-medium text-gray-700 mb-1">
+                              {t('business.stripeConnectId', 'Stripe Connect Account ID')}
+                            </label>
+                            <input
+                              type="text"
+                              id="stripe_connect_account_id"
+                              name="stripe_connect_account_id"
+                              value={formData.stripe_connect_account_id}
+                              onChange={handleInputChange}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+                            <p className="mt-2 text-sm text-gray-500">
+                              {t('business.stripeConnectIdInfo', 'This is your Stripe Connect account ID. You can find this in your Stripe dashboard.')}
+                            </p>
+                          </div>
+                          
+                          <div className="mb-4">
+                            <Link 
+                              href="https://dashboard.stripe.com/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                              {t('business.stripeManage', 'Manage Stripe Account')}
+                            </Link>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-4">
+                            <div className="flex">
+                              <div className="flex-shrink-0">
+                                <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                              <div className="ml-3">
+                                <h3 className="text-sm font-medium text-yellow-800">
+                                  {t('business.stripeNotConnected', 'Stripe account not connected')}
+                                </h3>
+                                <div className="mt-2 text-sm text-yellow-700">
+                                  <p>
+                                    {t('business.stripeNotConnectedInfo', 'You need to connect a Stripe account to receive payments for your sold items. Without this, you will not be able to receive funds from sales.')}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="mb-4">
+                            <label htmlFor="stripe_connect_account_id" className="block text-sm font-medium text-gray-700 mb-1">
+                              {t('business.stripeConnectId', 'Stripe Connect Account ID')}
+                            </label>
+                            <input
+                              type="text"
+                              id="stripe_connect_account_id"
+                              name="stripe_connect_account_id"
+                              value={formData.stripe_connect_account_id}
+                              onChange={handleInputChange}
+                              placeholder="acct_..."
+                              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+                            <p className="mt-2 text-sm text-gray-500">
+                              {t('business.stripeConnectIdHelp', 'Enter your Stripe Connect account ID. This starts with "acct_" and can be found in your Stripe Dashboard.')}
+                            </p>
+                          </div>
+                          
+                          <div className="mb-4 space-y-4">
+                            <p className="text-sm text-gray-600">
+                              {t('business.stripeConnectSteps', 'To connect your Stripe account:')}
+                            </p>
+                            <ol className="list-decimal list-inside text-sm text-gray-600 pl-4 space-y-2">
+                              <li>{t('business.stripeStep1', 'Create a Stripe account if you don\'t have one')}</li>
+                              <li>{t('business.stripeStep2', 'Find your Connect account ID in the Stripe Dashboard')}</li>
+                              <li>{t('business.stripeStep3', 'Enter the ID above and save your profile')}</li>
+                            </ol>
+                          </div>
+                          
+                          <a 
+                            href="https://dashboard.stripe.com/account"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                          >
+                            {t('business.createStripeAccount', 'Create or Access Stripe Account')}
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
 

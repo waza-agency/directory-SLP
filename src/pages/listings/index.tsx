@@ -17,6 +17,7 @@ type Listing = {
   price?: number;
   inventory?: number;
   is_purchasable?: boolean;
+  shipping_fee?: number;
 };
 
 export default function ListingsPage() {
@@ -196,6 +197,7 @@ export default function ListingsPage() {
                           imageUrl={listing.image_url}
                           mode="cart"
                           className="text-sm py-1.5 flex-1"
+                          shippingFee={listing.shipping_fee || 0}
                         />
                         <BuyButton
                           productId={listing.id}
@@ -204,6 +206,7 @@ export default function ListingsPage() {
                           imageUrl={listing.image_url}
                           mode="buy"
                           className="text-sm py-1.5 flex-1"
+                          shippingFee={listing.shipping_fee || 0}
                         />
                       </div>
                     </div>

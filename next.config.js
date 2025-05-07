@@ -13,6 +13,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -24,7 +25,11 @@ const nextConfig = {
       },
     ],
     domains: ['localhost', 'your-supabase-project.supabase.co'],
-    unoptimized: true,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Enable trailing slash for consistency
   trailingSlash: true,
@@ -42,8 +47,23 @@ const nextConfig = {
         level: 'verbose',
       };
     }
+    if (!isServer) {
+      // Added fallbacks for Node.js API polyfills
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        os: false
+      };
+    }
     return config;
   },
+  // Modern Next.js config optimized for Node.js 18+
+  experimental: {
+    swcMinify: true,
+    scrollRestoration: true
+  },
+  optimizeFonts: true,
   async headers() {
     return [
       {
@@ -51,7 +71,9 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; frame-src https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"
+            value: process.env.NODE_ENV === 'development' 
+              ? "default-src 'self'; script-src 'self' 'unsafe-eval' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https:;"
+              : "default-src 'self'; script-src 'self' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https:;"
           }
         ],
       },
@@ -70,6 +92,30 @@ const nextConfig = {
       },
     ];
   },
+  env: {
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+  },
 };
+
+// Add performance polyfill to fix Node.js compatibility issue (only for older Node.js)
+if (typeof process !== 'undefined' && !process.env.NEXT_RUNTIME) {
+  const nodeVersionMatch = process.version.match(/^v(\d+)\./);
+  const majorNodeVersion = nodeVersionMatch ? parseInt(nodeVersionMatch[1], 10) : 0;
+  
+  // Only add polyfill for Node.js < 16
+  if (majorNodeVersion < 16 && !global.performance) {
+    console.warn(`Warning: Using older Node.js ${process.version}. Adding performance API polyfill.`);
+    // If performance is not available, create a polyfill
+    global.performance = {
+      mark: () => {},
+      measure: () => {},
+      getEntriesByName: () => [],
+      getEntriesByType: () => [],
+      clearMarks: () => {},
+      clearMeasures: () => {},
+      now: () => Date.now(),
+    };
+  }
+}
 
 module.exports = nextConfig; 

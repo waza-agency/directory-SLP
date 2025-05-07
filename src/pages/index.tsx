@@ -18,6 +18,7 @@ import { Event } from '@/types';
 import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import TangamangaBanner from '@/components/TangamangaBanner';
 import SEO from '@/components/common/SEO';
+import { OptimizedImage } from '@/components/common/OptimizedImage';
 
 interface HomeProps {
   events: Event[];
@@ -418,6 +419,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   alt={t('festivalVino.title', 'International Wine Festival 2025')}
                   fill
                   className="object-cover object-center"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 text-white">
@@ -897,6 +899,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
@@ -1710,6 +1713,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 25vw"
+                      priority
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/images/potosinos/placeholder.jpg';
@@ -1778,6 +1782,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 25vw"
+                      priority
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/images/potosinos/placeholder.jpg';
@@ -1942,6 +1947,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent py-4 px-4">
                       <span className="text-white text-sm font-medium">{t('cultural.imageCaption1')}</span>
@@ -1990,6 +1996,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4">
@@ -2105,7 +2112,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/restaurants-and-bars/modern-restaurants.jpg"
+                    src="/images/restaurants-and-bars/modern-restaurants.webp"
                     alt="Modern Restaurants"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -2154,7 +2161,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/restaurants-and-bars/cocktail-bars.jpg"
+                    src="/images/restaurants-and-bars/cocktail-bars.webp"
                     alt="Cocktail Bars"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -2203,7 +2210,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/restaurants-and-bars/terraces.jpg"
+                    src="/images/restaurants-and-bars/terraces.webp"
                     alt="Terraces"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -2350,7 +2357,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
                   <Image
-                    src="/images/restaurants-and-bars/breakfast.jpg"
+                    src="/images/restaurants-and-bars/breakfast.webp"
                     alt="Breakfast Restaurants"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

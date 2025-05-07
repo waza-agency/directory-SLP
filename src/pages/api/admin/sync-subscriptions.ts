@@ -10,7 +10,7 @@ if (!stripeKey) {
 }
 
 const stripe = new Stripe(stripeKey as string, {
-  apiVersion: '2024-04-10',
+  apiVersion: '2023-10-16',
 });
 
 // Check if service role key is available

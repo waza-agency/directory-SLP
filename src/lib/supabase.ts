@@ -1,20 +1,27 @@
-import { createClient } from '@supabase/supabase-js'
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types/supabase'
 
 // Ensure environment variables are loaded or use development fallbacks
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://example.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94a2psemVncWZmcWhuZGhkcGx4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg0NTM3NTIsImV4cCI6MjAwNDAyOTc1Mn0.6UUuIkg2mNQKsOlqEahCN0tgKB64J1p5tK_DZwZyEP8';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables');
+}
 
 // Log environment variables in development
 if (process.env.NODE_ENV !== 'production') {
   console.log('Supabase env vars (development mode):', {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL || 'UNDEFINED (using fallback)',
-    key: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'DEFINED' : 'UNDEFINED (using fallback)'
+    url: supabaseUrl,
+    key: supabaseAnonKey ? 'DEFINED' : 'UNDEFINED'
   });
 }
 
-// Create client with real or development values
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+// Use the Supabase Auth Helpers client for cookie-based session storage
+export const supabase = createBrowserSupabaseClient<Database>();
+
+// Add debug logging to verify supabase client is created correctly
+console.log('Supabase client created successfully:', !!supabase && !!supabase.auth);
 
 // Mock implementations for development mode
 const isDev = process.env.NODE_ENV !== 'production';

@@ -1,23 +1,30 @@
-import { useState } from 'react';
-import type { NextPage } from 'next';
+import { useState, useEffect, FormEvent } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { FaShoppingBag, FaCreditCard } from 'react-icons/fa';
 import { useCart } from '@/lib/cart-context';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
+import { loadStripe } from '@stripe/stripe-js';
 
-const CheckoutPage: NextPage = () => {
+const CheckoutPage = () => {
   const { t } = useTranslation('common');
   const router = useRouter();
   const { cart, removeItem, updateQuantity, clearCart, getCartTotal } = useCart();
-  const { user } = useAuth();
+  const { user, isLoading, supabase: supabaseClientFromContext, session } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+
+  const cartTotal = getCartTotal();
+
+  // Form state
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     address: '',
     city: '',
@@ -26,84 +33,87 @@ const CheckoutPage: NextPage = () => {
     country: 'Mexico',
     paymentMethod: 'card',
   });
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  
-  const cartTotal = getCartTotal();
 
-  // Prefill form with user data if available
-  useState(() => {
-    const fetchUserProfile = async () => {
-      if (!user) return;
-      
-      try {
-        const { data, error } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-          
-        if (error) throw error;
-        
-        if (data) {
-          setFormData(prev => ({
-            ...prev,
-            firstName: data.name?.split(' ')[0] || '',
-            lastName: data.name?.split(' ').slice(1).join(' ') || '',
-            email: data.email || user.email || '',
-            address: data.address || '',
-            city: data.city || '',
-            zipCode: data.zip_code || '',
-            country: data.country || 'Mexico',
-          }));
-        }
-      } catch (err) {
-        console.error('Error fetching user profile:', err);
-      }
-    };
-    
-    fetchUserProfile();
+  // Initialize form with user data if available
+  useEffect(() => {
+    if (user) {
+      fetchUserDetails();
+    }
   }, [user]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user types
+  // Fetch user details for pre-filling the form
+  const fetchUserDetails = async () => {
+    if (!user || typeof user !== 'object' || !('id' in user)) return;
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('name, email, address, city, country, zip_code')
+        .eq('id', (user as any).id)
+        .single();
+      if (error) throw error;
+      if (data) {
+        setFormData(prev => ({
+          ...prev,
+          name: data.name || '',
+          email: data.email || '',
+          address: data.address || '',
+          city: data.city || '',
+          country: data.country || 'Mexico',
+          zipCode: data.zip_code || '',
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+
+    // Clear validation error when field is edited
     if (formErrors[name]) {
-      setFormErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
+      setFormErrors({
+        ...formErrors,
+        [name]: '',
       });
     }
   };
 
-  const validateForm = () => {
-    const errors: Record<string, string> = {};
-    
-    // Required fields
-    const requiredFields = ['firstName', 'lastName', 'email', 'address', 'city', 'state', 'zipCode'];
-    requiredFields.forEach(field => {
-      if (!formData[field as keyof typeof formData]) {
-        errors[field] = 'This field is required';
-      }
-    });
-    
-    // Email validation
-    if (formData.email && !/^\S+@\S+\.\S+$/.test(formData.email)) {
-      errors.email = 'Please enter a valid email';
-    }
-    
-    // ZIP code validation
-    if (formData.zipCode && !/^\d{5}(-\d{4})?$/.test(formData.zipCode)) {
-      errors.zipCode = 'Please enter a valid ZIP code';
-    }
-    
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
+  // Add this above validateForm
+  const validations = {
+    name: (value: string) => value && value.trim().length > 0,
+    email: (value: string) => /\S+@\S+\.\S+/.test(value),
+    address: (value: string) => value && value.trim().length > 0,
+    city: (value: string) => value && value.trim().length > 0,
+    state: (value: string) => value && value.trim().length > 0,
+    zipCode: (value: string) => value && value.trim().length > 0,
+    country: (value: string) => value && value.trim().length > 0,
+    paymentMethod: (value: string) => value === 'card' || value === 'cash',
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Validate the form
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    let isValid = true;
+
+    // Validate each field
+    for (const [field, validator] of Object.entries(validations)) {
+      if (!validator((formData as any)[field])) {
+        errors[field] = t(`checkout.validation.${field}`, `Please enter a valid ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+        isValid = false;
+      }
+    }
+
+    setFormErrors(errors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -113,71 +123,166 @@ const CheckoutPage: NextPage = () => {
     setIsSubmitting(true);
     
     try {
+      if (!user || typeof user !== 'object' || !('id' in user)) throw new Error('User not found');
+      // Use supabase client from context if available
+      const supabaseClient = supabaseClientFromContext || supabase;
+      // Log user and session for debugging
+      console.log('Order creation: user.id', user.id, 'session', session);
       // Create order in database
-      const { data: order, error: orderError } = await supabase
+      const { data: order, error: orderError } = await supabaseClient
         .from('orders')
         .insert([
           {
-            userId: user?.id,
+            user_id: user.id, // Always use the authenticated user's id
             status: 'pending',
             total: cartTotal,
-            shippingAddress: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.zipCode}, ${formData.country}`,
+            shipping_address: `${formData.address}, ${formData.city}, ${formData.state}, ${formData.zipCode}, ${formData.country}`,
           }
         ])
         .select()
         .single();
         
-      if (orderError) throw orderError;
+      if (orderError) {
+        console.error('Order creation error:', orderError, 'user_id:', user.id, 'session:', session);
+        throw orderError;
+      }
       
       // Add order items
       const orderItems = cart.map(item => ({
-        orderId: order.id,
-        productId: item.id,
+        order_id: order.id,
+        listing_id: item.id,
         quantity: item.quantity,
         price: item.price,
-        itemType: item.type || 'listing',
       }));
       
-      const { error: itemsError } = await supabase
+      console.log('Order Items Payload:', orderItems);
+      
+      const { error: itemsError } = await supabaseClient
         .from('order_items')
         .insert(orderItems);
         
       if (itemsError) throw itemsError;
       
-      // Update inventory for listings
+      // Update inventory for listings (only for type 'listing')
       for (const item of cart) {
         if (item.type === 'listing') {
-          const { error: updateError } = await supabase
-            .from('places')
-            .update({ 
-              inventory: supabase.sql`inventory - ${item.quantity}`
-            })
-            .eq('id', item.id)
-            .gt('inventory', 0);
-            
-          if (updateError) {
-            console.error(`Error updating inventory for listing ${item.id}:`, updateError);
-          }
+          // Optionally update inventory if you have such a column
+          // Remove supabase.sql usage if not supported
+          // You may need to update this logic based on your DB setup
         }
       }
       
-      // Clear cart after successful order
-      clearCart();
-      
-      // Set flag to indicate successful checkout
-      sessionStorage.setItem('completed_checkout', 'true');
-      sessionStorage.setItem('order_id', order.id);
-      
-      // Redirect to order confirmation
-      router.push('/order-confirmation');
+      // If card payment is selected, redirect to Stripe checkout
+      if (formData.paymentMethod === 'card') {
+        await processRegularPayment(order.id);
+      } else {
+        // For cash payment, just clear cart and redirect
+        clearCart();
+        sessionStorage.setItem('completed_checkout', 'true');
+        sessionStorage.setItem('order_id', order.id);
+        router.push('/order-confirmation');
+      }
     } catch (error) {
       console.error('Error processing order:', error);
       setIsSubmitting(false);
     }
   };
 
-  // Calculate shipping fee and taxes for display
-  const shippingFee = 5.99;
+  // Wait for Stripe.js to load before using it
+  const waitForStripe = () => {
+    return new Promise((resolve, reject) => {
+      if (window.Stripe) {
+        resolve(window.Stripe);
+      } else {
+        // Check if Stripe.js script is present
+        const stripeScript = document.querySelector('script[src*="stripe.com/v3"]');
+        if (!stripeScript) {
+          // If script is not present, add it dynamically
+          const script = document.createElement('script');
+          script.src = 'https://js.stripe.com/v3/';
+          script.async = true;
+          document.body.appendChild(script);
+        }
+
+        const interval = setInterval(() => {
+          if (window.Stripe) {
+            clearInterval(interval);
+            resolve(window.Stripe);
+          }
+        }, 100);
+
+        // Timeout after 10 seconds
+        setTimeout(() => {
+          clearInterval(interval);
+          reject(new Error('Stripe.js failed to load within 10 seconds.'));
+        }, 10000);
+      }
+    });
+  };
+
+  // Process regular payment for non-marketplace items
+  const processRegularPayment = async (orderId: string) => {
+    setPaymentError(null);
+    try {
+      const items = cart.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        shipping_fee: item.shipping_fee || 0
+      }));
+
+      // Ensure we have the publishable key
+      const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+      if (!stripePublishableKey) {
+        throw new Error('Stripe publishable key is not configured');
+      }
+
+      const response = await fetch('/api/checkout/create-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId,
+          items,
+          customerEmail: formData.email,
+        }),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to create checkout session');
+      }
+
+      const { sessionId } = await response.json();
+      if (!sessionId) {
+        throw new Error('No sessionId returned from server');
+      }
+
+      // Initialize Stripe
+      const stripe = await loadStripe(stripePublishableKey);
+      if (!stripe) {
+        throw new Error('Failed to initialize Stripe');
+      }
+
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      if (error) {
+        throw error;
+      }
+    } catch (err: any) {
+      console.error('Payment processing error:', err);
+      setPaymentError(err.message || 'An unexpected error occurred while processing your payment.');
+      setIsSubmitting(false);
+    }
+  };
+
+  // Calculate shipping fee for physical items only
+  const shippingFee = cart.reduce((sum, item) => {
+    const fee = item.shipping_fee !== undefined && item.shipping_fee !== null ? Number(item.shipping_fee) : 0;
+    return sum + fee * (item.quantity || 1);
+  }, 0);
   const taxRate = 0.16; // 16% tax rate
   const taxAmount = cartTotal * taxRate;
   const orderTotal = cartTotal + shippingFee + taxAmount;
@@ -190,7 +295,7 @@ const CheckoutPage: NextPage = () => {
     <>
       <Head>
         <title>{t('checkout.title', 'Checkout')} | Directory SLP</title>
-        <meta name="description" content={t('checkout.description', 'Complete your purchase from San Luis Potosí vendors.')} />
+        <meta name="description" content={t('checkout.description', 'Complete your purchase from San Luis Potosí vendors.') || 'Complete your purchase from San Luis Potosí vendors.'} />
       </Head>
 
       <div className="bg-gray-50 min-h-screen py-8">
@@ -199,14 +304,10 @@ const CheckoutPage: NextPage = () => {
             {t('checkout.heading', 'Checkout')}
           </h1>
 
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col md:flex-row gap-8">
             {/* Checkout Form */}
-            <div className="lg:w-2/3">
-              <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                  {t('checkout.shippingInformation', 'Shipping Information')}
-                </h2>
-                
+            <div className="md:w-2/3">
+              <div className="bg-white rounded-lg shadow-sm p-6">
                 <form onSubmit={handleSubmit}>
                   {/* Customer Information */}
                   <div className="mb-6">
@@ -214,44 +315,25 @@ const CheckoutPage: NextPage = () => {
                       {t('checkout.customerInformation', 'Customer Information')}
                     </h3>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                       <div>
-                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                          {t('checkout.firstName', 'First Name')} *
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                          {t('checkout.fullName', 'Full Name')}
                         </label>
                         <input
                           type="text"
-                          id="firstName"
-                          name="firstName"
-                          value={formData.firstName}
+                          id="name"
+                          name="name"
+                          value={formData.name}
                           onChange={handleInputChange}
-                          className={`w-full px-3 py-2 border rounded-md ${formErrors.firstName ? 'border-red-500' : 'border-gray-300'}`}
+                          className={`block w-full rounded-md py-2 px-3 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
                         />
-                        {formErrors.firstName && (
-                          <p className="mt-1 text-sm text-red-500">{formErrors.firstName}</p>
-                        )}
+                        {formErrors.name && <p className="mt-1 text-sm text-red-600">{formErrors.name}</p>}
                       </div>
                       
                       <div>
-                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                          {t('checkout.lastName', 'Last Name')} *
-                        </label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          className={`w-full px-3 py-2 border rounded-md ${formErrors.lastName ? 'border-red-500' : 'border-gray-300'}`}
-                        />
-                        {formErrors.lastName && (
-                          <p className="mt-1 text-sm text-red-500">{formErrors.lastName}</p>
-                        )}
-                      </div>
-                      
-                      <div className="md:col-span-2">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                          {t('checkout.email', 'Email Address')} *
+                          {t('checkout.email', 'Email Address')}
                         </label>
                         <input
                           type="email"
@@ -259,25 +341,23 @@ const CheckoutPage: NextPage = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className={`w-full px-3 py-2 border rounded-md ${formErrors.email ? 'border-red-500' : 'border-gray-300'}`}
+                          className={`block w-full rounded-md py-2 px-3 border ${formErrors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
                         />
-                        {formErrors.email && (
-                          <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>
-                        )}
+                        {formErrors.email && <p className="mt-1 text-sm text-red-600">{formErrors.email}</p>}
                       </div>
                     </div>
                   </div>
                   
-                  {/* Shipping Address */}
+                  {/* Shipping Information */}
                   <div className="mb-6">
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
-                      {t('checkout.shippingAddress', 'Shipping Address')}
+                      {t('checkout.shippingInformation', 'Shipping Information')}
                     </h3>
                     
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 gap-4">
                       <div>
                         <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                          {t('checkout.address', 'Street Address')} *
+                          {t('checkout.address', 'Street Address')}
                         </label>
                         <input
                           type="text"
@@ -285,17 +365,15 @@ const CheckoutPage: NextPage = () => {
                           name="address"
                           value={formData.address}
                           onChange={handleInputChange}
-                          className={`w-full px-3 py-2 border rounded-md ${formErrors.address ? 'border-red-500' : 'border-gray-300'}`}
+                          className={`block w-full rounded-md py-2 px-3 border ${formErrors.address ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
                         />
-                        {formErrors.address && (
-                          <p className="mt-1 text-sm text-red-500">{formErrors.address}</p>
-                        )}
+                        {formErrors.address && <p className="mt-1 text-sm text-red-600">{formErrors.address}</p>}
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                            {t('checkout.city', 'City')} *
+                            {t('checkout.city', 'City')}
                           </label>
                           <input
                             type="text"
@@ -303,16 +381,14 @@ const CheckoutPage: NextPage = () => {
                             name="city"
                             value={formData.city}
                             onChange={handleInputChange}
-                            className={`w-full px-3 py-2 border rounded-md ${formErrors.city ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`block w-full rounded-md py-2 px-3 border ${formErrors.city ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
                           />
-                          {formErrors.city && (
-                            <p className="mt-1 text-sm text-red-500">{formErrors.city}</p>
-                          )}
+                          {formErrors.city && <p className="mt-1 text-sm text-red-600">{formErrors.city}</p>}
                         </div>
                         
                         <div>
                           <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
-                            {t('checkout.state', 'State')} *
+                            {t('checkout.state', 'State/Province')}
                           </label>
                           <input
                             type="text"
@@ -320,16 +396,16 @@ const CheckoutPage: NextPage = () => {
                             name="state"
                             value={formData.state}
                             onChange={handleInputChange}
-                            className={`w-full px-3 py-2 border rounded-md ${formErrors.state ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`block w-full rounded-md py-2 px-3 border ${formErrors.state ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
                           />
-                          {formErrors.state && (
-                            <p className="mt-1 text-sm text-red-500">{formErrors.state}</p>
-                          )}
+                          {formErrors.state && <p className="mt-1 text-sm text-red-600">{formErrors.state}</p>}
                         </div>
-                        
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">
-                            {t('checkout.zipCode', 'ZIP / Postal Code')} *
+                            {t('checkout.zipCode', 'ZIP / Postal Code')}
                           </label>
                           <input
                             type="text"
@@ -337,28 +413,24 @@ const CheckoutPage: NextPage = () => {
                             name="zipCode"
                             value={formData.zipCode}
                             onChange={handleInputChange}
-                            className={`w-full px-3 py-2 border rounded-md ${formErrors.zipCode ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`block w-full rounded-md py-2 px-3 border ${formErrors.zipCode ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
                           />
-                          {formErrors.zipCode && (
-                            <p className="mt-1 text-sm text-red-500">{formErrors.zipCode}</p>
-                          )}
+                          {formErrors.zipCode && <p className="mt-1 text-sm text-red-600">{formErrors.zipCode}</p>}
                         </div>
                         
                         <div>
                           <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
                             {t('checkout.country', 'Country')}
                           </label>
-                          <select
+                          <input
+                            type="text"
                             id="country"
                             name="country"
                             value={formData.country}
                             onChange={handleInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                          >
-                            <option value="Mexico">Mexico</option>
-                            <option value="United States">United States</option>
-                            <option value="Canada">Canada</option>
-                          </select>
+                            className={`block w-full rounded-md py-2 px-3 border ${formErrors.country ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-primary focus:border-primary`}
+                          />
+                          {formErrors.country && <p className="mt-1 text-sm text-red-600">{formErrors.country}</p>}
                         </div>
                       </div>
                     </div>
@@ -404,10 +476,7 @@ const CheckoutPage: NextPage = () => {
                     
                     {formData.paymentMethod === 'card' && (
                       <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                        <p className="text-sm text-gray-500">
-                          Payment details would be collected securely by our payment processor.
-                          This is a demo checkout page, so no actual payment will be processed.
-                        </p>
+                        {t('checkout.cardPaymentInfo', 'Payment details will be securely collected by our payment processor Stripe.')}
                       </div>
                     )}
                   </div>
@@ -419,7 +488,7 @@ const CheckoutPage: NextPage = () => {
                       disabled={isSubmitting}
                       className="w-full bg-primary text-white py-3 px-4 rounded-md hover:bg-primary-dark transition-colors disabled:opacity-70"
                     >
-                      {isSubmitting ? 'Processing...' : `Place Order - $${orderTotal.toFixed(2)}`}
+                      {isSubmitting ? t('checkout.processing', 'Processing...') : `${t('checkout.placeOrder', 'Place Order')} - $${orderTotal.toFixed(2)}`}
                     </button>
                   </div>
                 </form>
@@ -427,101 +496,70 @@ const CheckoutPage: NextPage = () => {
             </div>
             
             {/* Order Summary */}
-            <div className="lg:w-1/3">
-              <div className="bg-white rounded-lg shadow-md p-6 sticky top-8">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <div className="md:w-1/3">
+              <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
                   {t('checkout.orderSummary', 'Order Summary')}
-                </h2>
+                </h3>
                 
-                {/* Cart Items */}
-                <div className="mb-6">
-                  <h3 className="text-sm font-medium text-gray-500 mb-3">
-                    {t('checkout.items', 'Items')} ({cart.length})
-                  </h3>
-                  
-                  <div className="space-y-4">
-                    {cart.map((item) => (
-                      <div key={item.id} className="flex items-start">
-                        <div className="relative w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
-                          {item.imageUrl ? (
-                            <Image
-                              src={item.imageUrl}
-                              alt={item.name}
-                              fill
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                              <span className="text-xs text-gray-500">No image</span>
+                <div className="divide-y divide-gray-200">
+                  {/* Cart Items */}
+                  <div className="py-4">
+                    <ul className="space-y-4">
+                      {cart.map((item) => (
+                        <li key={item.id} className="flex items-start">
+                          <div className="h-16 w-16 bg-gray-200 rounded-md flex items-center justify-center mr-4">
+                            {/* No image rendering */}
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="text-sm font-medium text-gray-900">{item.name}</h4>
+                            <div className="flex justify-between mt-1">
+                              <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                              <p className="text-sm font-medium text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
                             </div>
-                          )}
-                        </div>
-                        
-                        <div className="ml-4 flex-1">
-                          <h4 className="text-sm font-medium text-gray-900">{item.name}</h4>
-                          <div className="flex justify-between mt-1">
-                            <p className="text-sm text-gray-500">${item.price.toFixed(2)} × {item.quantity}</p>
-                            <p className="text-sm font-medium text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
                           </div>
-                          <div className="flex items-center mt-2">
-                            <label htmlFor={`qty-${item.id}`} className="sr-only">Quantity</label>
-                            <select
-                              id={`qty-${item.id}`}
-                              value={item.quantity}
-                              onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-                              className="text-xs border-gray-300 rounded-md mr-2"
-                            >
-                              {[...Array(10).keys()].map((num) => (
-                                <option key={num + 1} value={num + 1}>
-                                  {num + 1}
-                                </option>
-                              ))}
-                            </select>
-                            <button
-                              onClick={() => removeItem(item.id)}
-                              className="text-xs text-red-500 hover:text-red-700"
-                            >
-                              {t('checkout.remove', 'Remove')}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Price Breakdown */}
-                <div className="border-t border-gray-200 pt-4">
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-600">{t('checkout.subtotal', 'Subtotal')}</span>
-                    <span className="text-sm font-medium text-gray-900">${cartTotal.toFixed(2)}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-600">{t('checkout.shipping', 'Shipping')}</span>
-                    <span className="text-sm font-medium text-gray-900">${shippingFee.toFixed(2)}</span>
+                  {/* Order Details */}
+                  <div className="py-4">
+                    <div className="flex justify-between mb-2">
+                      <p className="text-sm text-gray-600">{t('checkout.subtotal', 'Subtotal')}</p>
+                      <p className="text-sm font-medium text-gray-900">${cartTotal.toFixed(2)}</p>
+                    </div>
+                    <div className="flex justify-between mb-2">
+                      <p className="text-sm text-gray-600">{t('checkout.shipping', 'Shipping')}</p>
+                      <p className="text-sm font-medium text-gray-900">${shippingFee.toFixed(2)}</p>
+                    </div>
+                    <div className="flex justify-between mb-2">
+                      <p className="text-sm text-gray-600">{t('checkout.tax', 'Tax (16%)')}</p>
+                      <p className="text-sm font-medium text-gray-900">${taxAmount.toFixed(2)}</p>
+                    </div>
                   </div>
                   
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm text-gray-600">{t('checkout.tax', 'Tax')} (16%)</span>
-                    <span className="text-sm font-medium text-gray-900">${taxAmount.toFixed(2)}</span>
-                  </div>
-                  
-                  <div className="flex justify-between border-t border-gray-200 pt-4 mt-4">
-                    <span className="text-base font-medium text-gray-900">{t('checkout.total', 'Total')}</span>
-                    <span className="text-base font-medium text-gray-900">${orderTotal.toFixed(2)}</span>
+                  {/* Total */}
+                  <div className="py-4">
+                    <div className="flex justify-between">
+                      <p className="text-base font-medium text-gray-900">{t('checkout.total', 'Total')}</p>
+                      <p className="text-base font-bold text-gray-900">${orderTotal.toFixed(2)}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {paymentError && (
+            <div className="text-red-600 mt-2 text-center">{paymentError}</div>
+          )}
         </div>
       </div>
     </>
   );
 };
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),

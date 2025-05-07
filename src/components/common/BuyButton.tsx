@@ -9,10 +9,12 @@ type BuyButtonProps = {
   name: string;
   price: number;
   imageUrl?: string;
+  businessId?: string; // Business ID that owns this product
   quantity?: number;
   className?: string;
   mode?: 'buy' | 'cart';
   itemType?: 'product' | 'listing';
+  shippingFee?: number;
 };
 
 export default function BuyButton({
@@ -20,10 +22,12 @@ export default function BuyButton({
   name,
   price,
   imageUrl,
+  businessId,
   quantity = 1,
   className = '',
   mode = 'cart',
-  itemType = 'listing'
+  itemType = 'listing',
+  shippingFee = 0
 }: BuyButtonProps) {
   const { t } = useTranslation('common');
   const [isLoading, setIsLoading] = useState(false);
@@ -37,8 +41,10 @@ export default function BuyButton({
       name,
       price,
       imageUrl,
+      businessId, // Include the business ID
       quantity,
-      type: itemType
+      type: itemType,
+      shipping_fee: shippingFee
     });
   };
 
@@ -47,7 +53,7 @@ export default function BuyButton({
     
     if (!user) {
       // Redirect to login if user is not logged in
-      router.push(`/account/login?redirect=${encodeURIComponent('/checkout')}`);
+      router.push(`/signin?redirect=${encodeURIComponent('/checkout')}`);
       return;
     }
 
@@ -57,8 +63,10 @@ export default function BuyButton({
       name,
       price,
       imageUrl,
+      businessId, // Include the business ID
       quantity,
-      type: itemType
+      type: itemType,
+      shipping_fee: shippingFee
     });
     
     router.push('/checkout');

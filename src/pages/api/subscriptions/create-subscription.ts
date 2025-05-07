@@ -91,8 +91,8 @@ export default async function handler(
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/business/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'}/business/subscription`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/business/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/business/subscription`,
       customer_email: userData.email,
       metadata: {
         userId: user_id,

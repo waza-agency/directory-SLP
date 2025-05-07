@@ -84,4 +84,44 @@ export const getResponsiveSizes = (size: ImageSize = 'card'): string => {
 export const getAspectRatio = (size: ImageSize = 'card'): string => {
   const dimensions = getImageDimensions(size);
   return `${dimensions.width} / ${dimensions.height}`;
+};
+
+import { useState } from 'react';
+
+export const getImageFormats = (basePath: string) => {
+  // Remove any existing extension
+  const basePathWithoutExt = basePath.replace(/\.(jpg|jpeg|png|webp|avif)$/, '');
+  
+  return {
+    webp: `${basePathWithoutExt}.webp`,
+    jpg: `${basePathWithoutExt}.jpg`,
+    png: `${basePathWithoutExt}.png`,
+    avif: `${basePathWithoutExt}.avif`,
+  };
+};
+
+export const getFallbackImage = (currentSrc: string): string => {
+  if (currentSrc.endsWith('.avif')) {
+    return currentSrc.replace('.avif', '.webp');
+  } else if (currentSrc.endsWith('.webp')) {
+    return currentSrc.replace('.webp', '.jpg');
+  } else if (currentSrc.endsWith('.jpg')) {
+    return currentSrc.replace('.jpg', '.png');
+  }
+  return '/images/placeholder.png'; // Final fallback
+};
+
+export const useImageWithFallback = (initialSrc: string) => {
+  const [src, setSrc] = useState(initialSrc);
+  const [error, setError] = useState(false);
+
+  const onError = () => {
+    if (!error) {
+      const nextSrc = getFallbackImage(src);
+      setSrc(nextSrc);
+      setError(true);
+    }
+  };
+
+  return { src, onError };
 }; 
