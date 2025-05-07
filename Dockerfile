@@ -4,8 +4,11 @@ FROM node:18-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# First copy package files and scripts needed for installation
 COPY package.json package-lock.json* ./
+COPY scripts ./scripts
+
+# Install dependencies
 RUN npm ci
 
 # Rebuild the source code only when needed
@@ -47,4 +50,4 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-CMD ["node", "server.js"] 
+CMD ["node", "server.js"]
