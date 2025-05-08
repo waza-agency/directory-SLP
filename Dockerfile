@@ -11,6 +11,7 @@ COPY src ./src
 COPY public ./public
 COPY tsconfig.json ./
 COPY next.config.js ./
+COPY next-i18next.config.js ./  # Add this line
 COPY .env* ./
 
 # Install dependencies
@@ -44,6 +45,7 @@ RUN adduser --system --uid 1001 nextjs
 # Copy necessary files and set permissions
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/next-i18next.config.js ./  # Add this line
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
