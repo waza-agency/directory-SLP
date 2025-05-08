@@ -17,7 +17,6 @@
     "start:next": "next start",
     "lint": "next lint",
     "preinstall": "node -e \"try { require('./scripts/ensure-node-compatibility.js') } catch(e) { console.log('Skipping version check') }\"",
-    "postinstall": "node scripts/ensure-translations.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "prebuild": "npm run generate-sitemap",
     "check-node": "node scripts/ensure-node-compatibility.js"
