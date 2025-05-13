@@ -71,9 +71,9 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: process.env.NODE_ENV === 'development' 
-              ? "default-src 'self'; script-src 'self' 'unsafe-eval' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https:;"
-              : "default-src 'self'; script-src 'self' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https:;"
+            value: process.env.NODE_ENV === 'development'
+              ? "default-src 'self'; script-src 'self' 'unsafe-eval' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com https://pagead2.googlesyndication.com 'unsafe-inline'; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: https://pagead2.googlesyndication.com; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https: https://pagead2.googlesyndication.com;"
+              : "default-src 'self'; script-src 'self' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com https://pagead2.googlesyndication.com 'unsafe-inline'; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: https://pagead2.googlesyndication.com; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https: https://pagead2.googlesyndication.com;"
           }
         ],
       },
@@ -101,7 +101,7 @@ const nextConfig = {
 if (typeof process !== 'undefined' && !process.env.NEXT_RUNTIME) {
   const nodeVersionMatch = process.version.match(/^v(\d+)\./);
   const majorNodeVersion = nodeVersionMatch ? parseInt(nodeVersionMatch[1], 10) : 0;
-  
+
   // Only add polyfill for Node.js < 16
   if (majorNodeVersion < 16 && !global.performance) {
     console.warn(`Warning: Using older Node.js ${process.version}. Adding performance API polyfill.`);
@@ -118,4 +118,4 @@ if (typeof process !== 'undefined' && !process.env.NEXT_RUNTIME) {
   }
 }
 
-module.exports = nextConfig; 
+module.exports = nextConfig;
