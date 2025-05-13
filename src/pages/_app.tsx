@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="google-site-verification" content="s4k5V8dAkvDb3Dv15SNozffS7noII7qQAsUXJfnALOU" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        
+
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
         <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
         <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
-        
+
         {/* Open Graph / Social Media Meta Tags */}
         <meta property="og:site_name" content="San Luis Way" />
         <meta property="og:type" content="website" />
@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="/og-image.jpg" />
-        
+
         {/* JSON-LD for structured data */}
         <script
           type="application/ld+json"
@@ -64,10 +64,30 @@ function MyApp({ Component, pageProps }: AppProps) {
             })
           }}
         />
-        {/* Stripe.js for payments, loaded with Next.js Script for CSP compliance */}
-        <Script src="https://js.stripe.com/v3/" strategy="afterInteractive" />
       </Head>
-      <SessionContextProvider 
+
+      {/* Scripts */}
+      <Script src="https://js.stripe.com/v3/" strategy="afterInteractive" />
+      <Script
+        id="google-adsense"
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+        strategy="lazyOnload"
+        crossOrigin="anonymous"
+        onError={(e) => {
+          console.error('AdSense script failed to load:', e);
+        }}
+        onLoad={() => {
+          console.log('AdSense script loaded successfully');
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          } catch (err) {
+            console.error('Error initializing AdSense:', err);
+          }
+        }}
+      />
+
+      <SessionContextProvider
         supabaseClient={supabase}
         initialSession={pageProps.initialSession}
       >
@@ -83,4 +103,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default appWithTranslation(MyApp, nextI18nConfig); 
+export default appWithTranslation(MyApp, nextI18nConfig);

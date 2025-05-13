@@ -39,8 +39,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Use the helper function to get the safety buffer date
     const safetyDateString = getSafetyDateBuffer();
-    
-    // Fetch upcoming events from Supabase 
+
+    // Fetch upcoming events from Supabase
     const { data: eventsData, error: eventsError } = await supabase
       .from('events')
       .select('*')
@@ -285,7 +285,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
     // Agregar listener para guardar la posición antes de refrescar
     window.addEventListener('beforeunload', saveScrollPosition);
-    
+
     // Restaurar la posición después de que el componente se monta
     restoreScrollPosition();
 
@@ -332,17 +332,17 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
   return (
     <div className="slp-root slp-pattern-bg">
-      <SEO 
+      <SEO
         title="San Luis Way - Your Insider Guide to San Luis Potosí"
         description="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP."
         keywords="San Luis Potosí, SLP, expat guide, local guide, places, events, culture, travel, expatriate community, Mexico"
         ogImage="/og-image.jpg"
       />
-      
+
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <HeroBanner />
-        
+
         {/* City Recognition Announcement */}
         <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-8 border-y border-primary/20">
           <div className="container mx-auto px-4">
@@ -356,19 +356,19 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     San Luis Potosí: Mexico's 2nd Best City to Live In!
                   </h2>
                   <p className="text-gray-600 animate-slide-in [animation-delay:200ms]">
-                    According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico! 
+                    According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico!
                   </p>
                 </div>
               </div>
-              <Link 
-                href="/about#rankings" 
+              <Link
+                href="/about#rankings"
                 className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full font-medium transition-all duration-300 group animate-slide-in [animation-delay:400ms]"
               >
                 Learn More
-                <svg 
-                  className="w-4 h-4 transform transition-transform group-hover:translate-x-1" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-4 h-4 transform transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -456,8 +456,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     </li>
                   </ul>
                 </div>
-                <Link 
-                  href="/events/festival-del-vino-2025" 
+                <Link
+                  href="/events/festival-del-vino-2025"
                   className="bg-red-800 hover:bg-red-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 >
                   {t('festivalVino.learnMore', 'Learn More')}
@@ -473,7 +473,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         {/* Blue Background Section */}
         <section className="py-16 px-4 bg-secondary/5 relative">
           <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-secondary/10 to-transparent"></div>
-          <div className="absolute inset-0" 
+          <div className="absolute inset-0"
                style={{
                  backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(0, 0, 122, 0.03) 100px, rgba(0, 0, 122, 0.03) 200px)`,
                }}>
@@ -488,7 +488,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 {t('localExperiences.description', 'Explore the best of San Luis Potosí with our complete guide to services, events, and places to visit.')}
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="slp-card p-8 text-center">
                 <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
@@ -505,7 +505,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </svg>
                 </Link>
               </div>
-              
+
               <div className="slp-card p-8 text-center">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -521,7 +521,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </svg>
                 </Link>
               </div>
-              
+
               <div className="slp-card p-8 text-center">
                 <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
                   <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -540,7 +540,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
           </div>
         </section>
-        
+
         {/* Welcome/About Section */}
         <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto">
@@ -558,7 +558,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 {t('welcome.intermediary')}
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
@@ -572,7 +572,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   {t('welcome.card1.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
                   <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -585,7 +585,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   {t('expatServices.cultural.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
                   <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -621,7 +621,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </p>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
@@ -631,14 +631,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.experiences.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.experiences.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-experiences" 
+                <Link
+                  href="/san-luis-potosi-experiences"
                   className="block text-center bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.experiences.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -647,14 +647,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.housing.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.housing.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-housing-services" 
+                <Link
+                  href="/san-luis-potosi-housing-services"
                   className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.housing.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -663,14 +663,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.legal.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.legal.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-legal-administrative" 
+                <Link
+                  href="/san-luis-potosi-legal-administrative"
                   className="block text-center bg-secondary hover:bg-secondary-light text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.legal.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -679,8 +679,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.community.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.community.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-community-integration" 
+                <Link
+                  href="/san-luis-potosi-community-integration"
                   className="block text-center bg-rose-600 hover:bg-rose-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.community.cta')}
@@ -695,14 +695,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.family.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.family.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-family-support" 
+                <Link
+                  href="/san-luis-potosi-family-support"
                   className="block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.family.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -711,14 +711,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.petcare.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.petcare.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-pet-care" 
+                <Link
+                  href="/san-luis-potosi-pet-care"
                   className="block text-center bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.petcare.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -727,14 +727,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.wellness.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.wellness.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-wellness-services" 
+                <Link
+                  href="/san-luis-potosi-wellness-services"
                   className="block text-center bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.wellness.cta')}
                 </Link>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -743,18 +743,18 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
                 <h3 className="font-medium text-lg mb-2 group-hover:text-primary transition-colors">{t('expatServices.homeservices.title')}</h3>
                 <p className="text-gray-600 text-sm mb-4">{t('expatServices.homeservices.description')}</p>
-                <Link 
-                  href="/san-luis-potosi-home-services" 
+                <Link
+                  href="/san-luis-potosi-home-services"
                   className="block text-center bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('expatServices.homeservices.cta')}
                 </Link>
               </div>
             </div>
-            
+
             <div className="mt-12 text-center">
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
               >
                 {t('expatServices.contactCta')}
@@ -875,8 +875,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
 
             <div className="text-center mt-12">
-              <Link 
-                href="/outdoors" 
+              <Link
+                href="/outdoors"
                 className="inline-block bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-light transition-colors"
               >
                 Explore All Outdoor Activities
@@ -911,7 +911,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
                   URBAN DISTINCTION
@@ -932,8 +932,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <div className="text-sm text-gray-600">Local Businesses</div>
                   </div>
                 </div>
-                <Link 
-                  href="/attractions/pedestrian-street-guide" 
+                <Link
+                  href="/attractions/pedestrian-street-guide"
                   className="inline-flex items-center text-primary hover:text-primary-dark font-medium group"
                 >
                   Explore the Street
@@ -960,7 +960,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 Discover places in San Luis Potosí that meet your specific needs as a newcomer, family, or expat - details you won't easily find elsewhere.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Practical Category 1 - Restaurants with Playgrounds */}
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100">
@@ -1363,7 +1363,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 Explore authentic brands born in San Luis Potosí, showcasing the creativity and craftsmanship of local artisans and entrepreneurs.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Featured Potosino Brands */}
               {featuredBrands.slice(0, 3).map(brand => (
@@ -1387,7 +1387,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                           {brand.category}
                         </span>
                       </div>
-                      <Link 
+                      <Link
                         href={`/brands/${brand.id}`}
                         className="text-primary hover:text-primary-dark transition-colors"
                       >
@@ -1401,10 +1401,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
               ))}
             </div>
-            
+
             <div className="text-center mt-12">
-              <Link 
-                href="/brands" 
+              <Link
+                href="/brands"
                 className="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md text-white bg-primary shadow-sm hover:bg-primary-dark transition-colors"
               >
                 Explore all brands
@@ -1484,14 +1484,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   {t('cityHacks.description')}
                 </p>
               </div>
-              <Link 
-                href="/city-hacks" 
+              <Link
+                href="/city-hacks"
                 className="mt-6 md:mt-0 inline-block text-secondary hover:text-secondary-light font-medium"
               >
                 {t('cityHacks.viewAll')} →
               </Link>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
                 <div className="relative h-48">
@@ -1516,7 +1516,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
-              
+
               <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
                 <div className="relative h-48">
                   <Image
@@ -1540,7 +1540,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
-              
+
               <div className="bg-white rounded-xl overflow-hidden shadow-elegant hover-lift">
                 <div className="relative h-48">
                   <Image
@@ -1582,10 +1582,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 Explore different types of events and activities happening in San Luis Potosí.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {eventCategories.map((category) => (
-                <div 
+                <div
                   key={category.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
                 >
@@ -1636,10 +1636,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 Don't miss out on these exciting events happening in San Luis Potosí.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {events.map((event) => (
-                <div 
+                <div
                   key={event.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
                 >
@@ -1701,7 +1701,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 <span className="inline-block bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">From yesterday and today, honoring tradition while shaping the future</span>
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Person 1 */}
               <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -1737,7 +1737,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
-              
+
               {/* Person 2 */}
               <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex justify-center pt-8 pb-4 bg-blue-50">
@@ -1771,7 +1771,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
-              
+
               {/* Person 3 */}
               <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex justify-center pt-8 pb-4 bg-blue-50">
@@ -1806,7 +1806,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
-              
+
               {/* Person 4 */}
               <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex justify-center pt-8 pb-4 bg-blue-50">
@@ -1841,7 +1841,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-16 text-center">
               <Link href="/community" className="inline-flex items-center justify-center space-x-3 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
                 <span>Meet More Remarkable Potosinos</span>
@@ -1924,14 +1924,14 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </div>
                 </div>
                 <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                  <Link 
-                    href="/events/cultural" 
+                  <Link
+                    href="/events/cultural"
                     className="btn-primary"
                   >
                     {t('cultural.viewCalendar')}
                   </Link>
-                  <Link 
-                    href="/cultural-tours" 
+                  <Link
+                    href="/cultural-tours"
                     className="bg-white border border-gray-200 text-gray-700 px-6 py-3 rounded-md font-medium hover:border-gray-300 transition-colors text-center"
                   >
                     {t('cultural.bookTour')}
@@ -2008,7 +2008,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
                   URBAN DISTINCTION
@@ -2029,8 +2029,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <div className="text-sm text-gray-600">Local Businesses</div>
                   </div>
                 </div>
-                <Link 
-                  href="/attractions/pedestrian-street-guide" 
+                <Link
+                  href="/attractions/pedestrian-street-guide"
                   className="inline-flex items-center text-primary hover:text-primary-dark font-medium group"
                 >
                   Explore the Street
@@ -2057,7 +2057,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 From traditional Potosino cuisine to modern fusion restaurants and trendy cocktail bars - discover the finest dining and drinking spots in San Luis Potosí.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Traditional Restaurants */}
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
@@ -2352,7 +2352,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </Link>
                 </div>
               </div>
-              
+
               {/* Open For Breakfast */}
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
                 <div className="relative h-52">
@@ -2404,8 +2404,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
 
             <div className="mt-12 text-center">
-              <Link 
-                href="/dining" 
+              <Link
+                href="/dining"
                 className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
               >
                 Explore All Dining Spots
@@ -2431,7 +2431,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 Discover extraordinary locations in San Luis Potosí perfect for memorable meetings, creative sessions, or special occasions that go beyond the conventional office space.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Presa San José */}
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group border border-gray-100">
@@ -2576,8 +2576,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
 
             <div className="mt-12 text-center">
-              <Link 
-                href="/unique-meeting-spots" 
+              <Link
+                href="/unique-meeting-spots"
                 className="inline-block bg-secondary hover:bg-secondary-dark text-white font-medium px-10 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
               >
                 View All Unique Meeting Spots
@@ -2813,22 +2813,22 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
       {/* Floating Contact Button */}
       <div className="fixed bottom-8 right-8 z-50">
-        <Link 
-          href="/contact" 
+        <Link
+          href="/contact"
           className="flex items-center justify-center w-16 h-16 bg-primary text-white rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group"
           aria-label="Contact Us"
         >
-          <svg 
-            className="w-8 h-8 transform group-hover:rotate-12 transition-transform" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className="w-8 h-8 transform group-hover:rotate-12 transition-transform"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={1.5} 
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
             />
           </svg>
         </Link>

@@ -4,10 +4,15 @@ import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 // CORS middleware
 function cors(req: NextApiRequest, res: NextApiResponse) {
-  res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000');
+  // Get the origin from the request headers
+  const origin = req.headers.origin || '';
+
+  // Allow the actual origin in production, or localhost in development
+  res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
+
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return true;
@@ -20,13 +25,20 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (cors(req, res)) return;
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
   try {
+    console.log('API Request received:', {
+      method: req.method,
+      headers: req.headers,
+      body: req.body,
+      url: req.url
+    });
+
+    if (cors(req, res)) return;
+
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method not allowed' });
+    }
+
     // Create authenticated Supabase client
     console.log('Creating Supabase client...');
     const supabase = createPagesServerClient({ req, res });
@@ -47,7 +59,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('Session found:', session.user.id);
 
     const { orderId, items, customerEmail } = req.body;
-    console.log('Request body:', { orderId, items: items.length, customerEmail });
+    console.log('Request body:', {
+      orderId,
+      items: items ? items.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity
+      })) : null,
+      customerEmail
+    });
 
     if (!orderId || !items || items.length === 0) {
       console.log('Invalid request data');
@@ -59,18 +80,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Format line items for Stripe
     console.log('Formatting line items...');
-    const lineItems = items.map((item: any) => ({
-      price_data: {
-        currency: 'mxn',
-        product_data: {
-          name: item.name,
-          images: item.image ? [item.image] : [],
+    const lineItems = items.map((item: any) => {
+      const lineItem = {
+        price_data: {
+          currency: 'mxn',
+          product_data: {
+            name: item.name,
+            images: item.image ? [item.image] : [],
+          },
+          unit_amount: Math.round(item.price * 100),
         },
-        unit_amount: Math.round(item.price * 100),
-      },
-      quantity: item.quantity,
-    }));
-    console.log('Line items formatted:', lineItems);
+        quantity: item.quantity,
+      };
+      console.log('Created line item:', lineItem);
+      return lineItem;
+    });
 
     // Create Stripe customer if they don't already have one
     let customerId: string | undefined;
@@ -117,7 +141,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Create a checkout session
-    console.log('Creating Stripe checkout session...');
+    console.log('Creating Stripe checkout session with data:', {
+      customer: customerId,
+      lineItems,
+      successUrl: `${req.headers.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${req.headers.origin}/checkout?canceled=true`,
+      metadata: {
+        orderId,
+        userId: session.user.id,
+      }
+    });
+
     const checkoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
@@ -151,7 +185,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       type: error.type,
       code: error.code,
       param: error.param,
-      raw: error
+      raw: error,
+      env: {
+        hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
+        hasSupabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+        hasSupabaseKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        nodeEnv: process.env.NODE_ENV,
+        siteUrl: process.env.NEXT_PUBLIC_SITE_URL
+      }
     });
     res.status(500).json({
       error: {
