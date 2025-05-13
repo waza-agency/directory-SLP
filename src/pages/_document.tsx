@@ -5,6 +5,7 @@ export default function Document() {
     <Html>
       <Head>
         <meta name="google-site-verification" content="s4k5V8dAkvDb3Dv15SNozffS7noII7qQAsUXJfnALOU" />
+        <meta name="google-adsense-account" content="ca-pub-7339948154887436" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
