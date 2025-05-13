@@ -223,6 +223,8 @@ const CheckoutPage = () => {
   // Process regular payment for non-marketplace items
   const processRegularPayment = async (orderId: string) => {
     setPaymentError(null);
+    let responseData;
+
     try {
       console.log('Order creation: user.id', user?.id, 'session', session);
 
@@ -258,13 +260,12 @@ const CheckoutPage = () => {
       });
 
       console.log('Response status:', response.status);
-      const responseData = await response.json();
+      responseData = await response.json();
       console.log('Response data:', responseData);
 
       if (!response.ok) {
-        const errorMessage = responseData.error?.message || responseData.message || 'Failed to create checkout session';
         console.error('Error response:', responseData);
-        throw new Error(errorMessage);
+        throw new Error(responseData.error?.message || 'Failed to create checkout session');
       }
 
       const { sessionId } = responseData;

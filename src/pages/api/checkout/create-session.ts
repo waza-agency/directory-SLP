@@ -22,7 +22,7 @@ function cors(req: NextApiRequest, res: NextApiResponse) {
 
 // Initialize Stripe with better error handling
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2025-01-30',
+  apiVersion: '2023-10-16',
   typescript: true,
 });
 
@@ -91,11 +91,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const { orderId, items, customerEmail } = req.body;
 
-    if (!orderId || !items || !Array.isArray(items) || items.length === 0) {
+    // Validate request data
+    if (!orderId) {
       return res.status(400).json({
         error: {
-          message: 'Invalid request data',
-          code: 'invalid_request_data'
+          message: 'Order ID is required',
+          code: 'missing_order_id'
+        }
+      });
+    }
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({
+        error: {
+          message: 'Items array is required and must not be empty',
+          code: 'invalid_items'
+        }
+      });
+    }
+
+    // Validate each item
+    for (const item of items) {
+      if (!item.name || typeof item.price !== 'number' || item.price <= 0 || !item.quantity || item.quantity <= 0) {
+        return res.status(400).json({
+          error: {
+            message: 'Each item must have a name, valid price, and quantity',
+            code: 'invalid_item_data',
+            item
+          }
+        });
+      }
+    }
+
+    if (!customerEmail) {
+      return res.status(400).json({
+        error: {
+          message: 'Customer email is required',
+          code: 'missing_email'
         }
       });
     }
@@ -103,12 +135,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Create Stripe checkout session with error handling
     try {
       console.log('Creating Stripe session with items:', items);
-      const session = await stripe.checkout.sessions.create({
+      console.log('Environment check:', {
+        hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
+        origin: req.headers.origin,
+        host: req.headers.host
+      });
+
+      const stripeSession = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         mode: 'payment',
         customer_email: customerEmail,
-        success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
+        success_url: `${req.headers.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/checkout/cancel`,
         line_items: items.map((item: any) => ({
           price_data: {
             currency: 'mxn',
@@ -125,14 +163,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       });
 
-      console.log('Stripe session created successfully:', session.id);
-      return res.status(200).json({ sessionId: session.id });
+      console.log('Stripe session created successfully:', stripeSession.id);
+      return res.status(200).json({ sessionId: stripeSession.id });
     } catch (stripeError: any) {
-      console.error('Stripe session creation error:', stripeError);
+      console.error('Stripe session creation error:', {
+        error: stripeError,
+        message: stripeError.message,
+        type: stripeError.type,
+        code: stripeError.code,
+        declineCode: stripeError.decline_code,
+        requestParams: {
+          items,
+          customerEmail,
+          origin: req.headers.origin
+        }
+      });
       return res.status(500).json({
         error: {
           message: stripeError.message || 'Failed to create checkout session',
           code: 'stripe_error',
+          type: stripeError.type,
+          decline_code: stripeError.decline_code,
           details: stripeError
         }
       });
