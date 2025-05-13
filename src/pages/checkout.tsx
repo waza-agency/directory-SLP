@@ -224,6 +224,8 @@ const CheckoutPage = () => {
   const processRegularPayment = async (orderId: string) => {
     setPaymentError(null);
     try {
+      console.log('Order creation: user.id', user?.id, 'session', session);
+
       const items = cart.map(item => ({
         id: item.id,
         name: item.name,
@@ -232,13 +234,16 @@ const CheckoutPage = () => {
         shipping_fee: item.shipping_fee || 0
       }));
 
+      console.log('Order Items Payload:', items);
+
       // Ensure we have the publishable key
       const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
       if (!stripePublishableKey) {
         throw new Error('Stripe publishable key is not configured');
       }
 
-      // Ensure the URL ends with a trailing slash to match Next.js config
+      // Make the API request
+      console.log('Making request to create-session endpoint...');
       const response = await fetch('/api/checkout/create-session/', {
         method: 'POST',
         headers: {
@@ -252,24 +257,34 @@ const CheckoutPage = () => {
         credentials: 'include',
       });
 
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error?.message || errorData.message || 'Failed to create checkout session');
+        const errorMessage = responseData.error?.message || responseData.message || 'Failed to create checkout session';
+        console.error('Error response:', responseData);
+        throw new Error(errorMessage);
       }
 
-      const { sessionId } = await response.json();
+      const { sessionId } = responseData;
       if (!sessionId) {
         throw new Error('No sessionId returned from server');
       }
 
+      console.log('Session ID received:', sessionId);
+
       // Initialize Stripe
+      console.log('Initializing Stripe...');
       const stripe = await loadStripe(stripePublishableKey);
       if (!stripe) {
         throw new Error('Failed to initialize Stripe');
       }
 
+      console.log('Redirecting to Stripe checkout...');
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
+        console.error('Stripe redirect error:', error);
         throw error;
       }
     } catch (err: any) {
