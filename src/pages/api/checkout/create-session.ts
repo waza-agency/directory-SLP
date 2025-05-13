@@ -28,15 +28,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     console.log('API Request received:', {
       method: req.method,
-      headers: req.headers,
-      body: req.body,
-      url: req.url
+      url: req.url,
+      headers: {
+        origin: req.headers.origin,
+        host: req.headers.host,
+        referer: req.headers.referer,
+      },
+      body: {
+        orderId: req.body?.orderId,
+        itemsCount: req.body?.items?.length,
+        customerEmail: req.body?.customerEmail,
+      }
     });
 
     if (cors(req, res)) return;
 
     if (req.method !== 'POST') {
-      return res.status(405).json({ error: 'Method not allowed' });
+      return res.status(405).json({ error: { message: 'Method not allowed' } });
     }
 
     // Create authenticated Supabase client
@@ -52,8 +60,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!session) {
       console.log('No session found');
       return res.status(401).json({
-        error: 'not_authenticated',
-        description: 'The user does not have an active session or is not authenticated',
+        error: {
+          message: 'Not authenticated',
+          description: 'The user does not have an active session or is not authenticated',
+        }
       });
     }
     console.log('Session found:', session.user.id);
@@ -73,8 +83,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!orderId || !items || items.length === 0) {
       console.log('Invalid request data');
       return res.status(400).json({
-        error: 'invalid_request',
-        description: 'Order ID and items are required',
+        error: {
+          message: 'Invalid request',
+          description: 'Order ID and items are required',
+        }
       });
     }
 
@@ -109,7 +121,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (userError && userError.code !== 'PGRST116') {
       console.error('Error fetching user data:', userError);
-      throw userError;
+      throw new Error('Failed to fetch user data');
     }
 
     if (userData?.stripe_customer_id) {
@@ -137,6 +149,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (updateError) {
         console.error('Error updating user with Stripe customer ID:', updateError);
+        // Don't throw here, as this is not critical
       }
     }
 
@@ -175,6 +188,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (orderUpdateError) {
       console.error('Error updating order with Stripe session ID:', orderUpdateError);
+      // Don't throw here, as the checkout session is already created
     }
 
     res.status(200).json({ sessionId: checkoutSession.id });

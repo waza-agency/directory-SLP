@@ -115,13 +115,13 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       if (!user || typeof user !== 'object' || !('id' in user)) throw new Error('User not found');
       // Use supabase client from context if available
@@ -141,12 +141,12 @@ const CheckoutPage = () => {
         ])
         .select()
         .single();
-        
+
       if (orderError) {
         console.error('Order creation error:', orderError, 'user_id:', user.id, 'session:', session);
         throw orderError;
       }
-      
+
       // Add order items
       const orderItems = cart.map(item => ({
         order_id: order.id,
@@ -154,15 +154,15 @@ const CheckoutPage = () => {
         quantity: item.quantity,
         price: item.price,
       }));
-      
+
       console.log('Order Items Payload:', orderItems);
-      
+
       const { error: itemsError } = await supabaseClient
         .from('order_items')
         .insert(orderItems);
-        
+
       if (itemsError) throw itemsError;
-      
+
       // Update inventory for listings (only for type 'listing')
       for (const item of cart) {
         if (item.type === 'listing') {
@@ -171,7 +171,7 @@ const CheckoutPage = () => {
           // You may need to update this logic based on your DB setup
         }
       }
-      
+
       // If card payment is selected, redirect to Stripe checkout
       if (formData.paymentMethod === 'card') {
         await processRegularPayment(order.id);
@@ -238,7 +238,8 @@ const CheckoutPage = () => {
         throw new Error('Stripe publishable key is not configured');
       }
 
-      const response = await fetch('/api/checkout/create-session', {
+      // Ensure the URL ends with a trailing slash to match Next.js config
+      const response = await fetch('/api/checkout/create-session/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -253,7 +254,7 @@ const CheckoutPage = () => {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Failed to create checkout session');
+        throw new Error(errorData.error?.message || errorData.message || 'Failed to create checkout session');
       }
 
       const { sessionId } = await response.json();
@@ -314,7 +315,7 @@ const CheckoutPage = () => {
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
                       {t('checkout.customerInformation', 'Customer Information')}
                     </h3>
-                    
+
                     <div className="grid grid-cols-1 gap-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -330,7 +331,7 @@ const CheckoutPage = () => {
                         />
                         {formErrors.name && <p className="mt-1 text-sm text-red-600">{formErrors.name}</p>}
                       </div>
-                      
+
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                           {t('checkout.email', 'Email Address')}
@@ -347,13 +348,13 @@ const CheckoutPage = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Shipping Information */}
                   <div className="mb-6">
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
                       {t('checkout.shippingInformation', 'Shipping Information')}
                     </h3>
-                    
+
                     <div className="grid grid-cols-1 gap-4">
                       <div>
                         <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
@@ -369,7 +370,7 @@ const CheckoutPage = () => {
                         />
                         {formErrors.address && <p className="mt-1 text-sm text-red-600">{formErrors.address}</p>}
                       </div>
-                      
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
@@ -385,7 +386,7 @@ const CheckoutPage = () => {
                           />
                           {formErrors.city && <p className="mt-1 text-sm text-red-600">{formErrors.city}</p>}
                         </div>
-                        
+
                         <div>
                           <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
                             {t('checkout.state', 'State/Province')}
@@ -401,7 +402,7 @@ const CheckoutPage = () => {
                           {formErrors.state && <p className="mt-1 text-sm text-red-600">{formErrors.state}</p>}
                         </div>
                       </div>
-                      
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">
@@ -417,7 +418,7 @@ const CheckoutPage = () => {
                           />
                           {formErrors.zipCode && <p className="mt-1 text-sm text-red-600">{formErrors.zipCode}</p>}
                         </div>
-                        
+
                         <div>
                           <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
                             {t('checkout.country', 'Country')}
@@ -435,13 +436,13 @@ const CheckoutPage = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Payment Method */}
                   <div className="mb-6">
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
                       {t('checkout.paymentMethod', 'Payment Method')}
                     </h3>
-                    
+
                     <div className="space-y-3">
                       <div className="flex items-center">
                         <input
@@ -457,7 +458,7 @@ const CheckoutPage = () => {
                           Credit / Debit Card
                         </label>
                       </div>
-                      
+
                       <div className="flex items-center">
                         <input
                           type="radio"
@@ -473,14 +474,14 @@ const CheckoutPage = () => {
                         </label>
                       </div>
                     </div>
-                    
+
                     {formData.paymentMethod === 'card' && (
                       <div className="mt-4 p-4 bg-gray-50 rounded-md">
                         {t('checkout.cardPaymentInfo', 'Payment details will be securely collected by our payment processor Stripe.')}
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Place Order Button */}
                   <div className="mt-6">
                     <button
@@ -494,14 +495,14 @@ const CheckoutPage = () => {
                 </form>
               </div>
             </div>
-            
+
             {/* Order Summary */}
             <div className="md:w-1/3">
               <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">
                   {t('checkout.orderSummary', 'Order Summary')}
                 </h3>
-                
+
                 <div className="divide-y divide-gray-200">
                   {/* Cart Items */}
                   <div className="py-4">
@@ -522,7 +523,7 @@ const CheckoutPage = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   {/* Order Details */}
                   <div className="py-4">
                     <div className="flex justify-between mb-2">
@@ -538,7 +539,7 @@ const CheckoutPage = () => {
                       <p className="text-sm font-medium text-gray-900">${taxAmount.toFixed(2)}</p>
                     </div>
                   </div>
-                  
+
                   {/* Total */}
                   <div className="py-4">
                     <div className="flex justify-between">
@@ -567,4 +568,4 @@ export async function getServerSideProps({ locale }: { locale: string }) {
   };
 }
 
-export default CheckoutPage; 
+export default CheckoutPage;
