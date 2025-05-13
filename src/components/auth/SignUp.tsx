@@ -180,13 +180,30 @@ export default function SignUp() {
             </svg>
           </div>
           <h2 className="text-3xl font-bold mb-4">Verify Your Email</h2>
-          <p className="mb-4 text-gray-600">
-            We've sent a verification email to your inbox. Please click the link in the email to verify your account.
-          </p>
-          <p className="text-sm text-gray-500 mb-6">
-            If you don't see it within a few minutes, check your spam folder or click the button below to resend the verification email.
-          </p>
-          <div className="space-y-4">
+          <div className="space-y-4 text-left">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="text-blue-800 font-medium mb-2">Important Email Information:</p>
+              <ul className="text-blue-700 text-sm space-y-2">
+                <li>• From: <span className="font-medium">Supabase Auth</span></li>
+                <li>• Subject: <span className="font-medium">SAN LUIS WAY needs you to Confirm Your Signup</span></li>
+              </ul>
+            </div>
+            <p className="text-gray-600">
+              We've sent a verification email to your inbox. Please click the link in the email to verify your account.
+            </p>
+            <div className="bg-yellow-50 p-4 rounded-lg mt-4">
+              <p className="text-yellow-800 text-sm">
+                <span className="font-medium">Can't find the email?</span> Check your:
+              </p>
+              <ul className="text-yellow-700 text-sm mt-2 space-y-1">
+                <li>• Spam/Junk folder</li>
+                <li>• Promotions tab (if using Gmail)</li>
+                <li>• Updates/Social tabs</li>
+                <li>• All Mail folder</li>
+              </ul>
+            </div>
+          </div>
+          <div className="space-y-4 mt-6">
             <button
               onClick={(event) => {
                 if (supabase?.auth.resend) {
