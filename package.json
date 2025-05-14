@@ -20,7 +20,9 @@
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "prebuild": "npm run generate-sitemap",
     "check-node": "node scripts/ensure-node-compatibility.js",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:coverage:report": "open coverage/lcov-report/index.html"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -69,7 +71,48 @@
     "zod": "^3.21.4",
     "zustand": "^4.5.0"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(ts|tsx)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/__tests__/**"
+    ],
+    "coverageReporters": ["text", "html"],
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/.next/",
+      "/__tests__/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
+      }
+    }
+  },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.27.1",
     "@types/google.maps": "^3.58.1",
     "@types/jest": "^29.5.14",
     "@types/js-cookie": "^3.0.6",
