@@ -24,75 +24,136 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 
-async function createOrder(session: Stripe.Checkout.Session) {
+async function handleCheckoutSession(session: Stripe.Checkout.Session) {
   try {
+    // First check if an order already exists
+    const { data: existingOrder } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('stripe_session_id', session.id)
+      .single();
+
     // Get line items from the session
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
 
-    // Generate order number
-    const orderNumber = 'SLP-' + Math.floor(100000 + Math.random() * 900000).toString();
-
-    // Calculate total amount
-    const amount = session.amount_total ? session.amount_total / 100 : 0;
-
-    // Create order items array
-    const items = lineItems.data.map(item => ({
-      title: item.description || 'Unknown Item',
-      quantity: item.quantity || 1,
-      price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0
-    }));
-
-    // Get customer details
-    const customer = session.customer_details;
-    const shippingAddress = session.shipping_details || customer?.address;
-
-    // Create the order in Supabase
-    const { data: order, error: orderError } = await supabase
-      .from('orders')
-      .insert([
-        {
-          user_id: session.metadata?.user_id,
-          order_number: orderNumber,
-          status: 'completed', // Order is created only after successful payment
-          amount: amount,
-          items: items,
-          shipping_address: shippingAddress,
-          payment_intent_id: session.payment_intent as string,
-          payment_status: session.payment_status,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-      ])
-      .select()
-      .single();
-
-    if (orderError) {
-      console.error('Error creating order:', orderError);
-      throw orderError;
+    // Determine order status based on payment status
+    let orderStatus = 'processing';
+    if (session.payment_status === 'paid') {
+      orderStatus = 'completed';
+    } else if (session.status === 'expired' || session.status === 'canceled') {
+      orderStatus = 'cancelled';
     }
 
-    // If you have a separate order_items table, create those records too
-    if (order && lineItems.data.length > 0) {
-      const orderItems = lineItems.data.map(item => ({
-        order_id: order.id,
-        item_id: item.price?.product as string, // Assuming this is your marketplace_items id
+    if (existingOrder) {
+      // Update existing order
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .update({
+          status: orderStatus,
+          payment_status: session.payment_status,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', existingOrder.id)
+        .select()
+        .single();
+
+      if (orderError) {
+        console.error('Error updating order:', orderError);
+        throw orderError;
+      }
+
+      // If order is completed, create order items if they don't exist
+      if (orderStatus === 'completed' && order && lineItems.data.length > 0) {
+        const { data: existingItems } = await supabase
+          .from('order_items')
+          .select('id')
+          .eq('order_id', order.id);
+
+        if (!existingItems || existingItems.length === 0) {
+          const orderItems = lineItems.data.map(item => ({
+            order_id: order.id,
+            item_id: item.price?.product as string,
+            quantity: item.quantity || 1,
+            price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0
+          }));
+
+          const { error: itemsError } = await supabase
+            .from('order_items')
+            .insert(orderItems);
+
+          if (itemsError) {
+            console.error('Error creating order items:', itemsError);
+          }
+        }
+      }
+
+      return order;
+    } else {
+      // Generate order number
+      const orderNumber = 'SLP-' + Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Calculate total amount
+      const amount = session.amount_total ? session.amount_total / 100 : 0;
+
+      // Create order items array
+      const items = lineItems.data.map(item => ({
+        title: item.description || 'Unknown Item',
         quantity: item.quantity || 1,
         price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0
       }));
 
-      const { error: itemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
+      // Get customer details
+      const customer = session.customer_details;
+      const shippingAddress = session.shipping_details || customer?.address;
 
-      if (itemsError) {
-        console.error('Error creating order items:', itemsError);
-        // Don't throw here, as the main order is already created
+      // Create new order in Supabase
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert([
+          {
+            user_id: session.metadata?.user_id,
+            order_number: orderNumber,
+            status: orderStatus,
+            amount: amount,
+            items: items,
+            shipping_address: shippingAddress,
+            payment_intent_id: session.payment_intent as string,
+            payment_status: session.payment_status,
+            stripe_session_id: session.id,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }
+        ])
+        .select()
+        .single();
+
+      if (orderError) {
+        console.error('Error creating order:', orderError);
+        throw orderError;
       }
-    }
 
-    return order;
+      // If order is completed, create order items
+      if (orderStatus === 'completed' && order && lineItems.data.length > 0) {
+        const orderItems = lineItems.data.map(item => ({
+          order_id: order.id,
+          item_id: item.price?.product as string,
+          quantity: item.quantity || 1,
+          price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0
+        }));
+
+        const { error: itemsError } = await supabase
+          .from('order_items')
+          .insert(orderItems);
+
+        if (itemsError) {
+          console.error('Error creating order items:', itemsError);
+        }
+      }
+
+      return order;
+    }
   } catch (error) {
-    console.error('Error in createOrder:', error);
+    console.error('Error in handleCheckoutSession:', error);
     throw error;
   }
 }
@@ -126,24 +187,23 @@ export default async function handler(
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
-
-        // Only create order if payment is successful
-        if (session.payment_status === 'paid') {
-          try {
-            const order = await createOrder(session);
-            console.log('Order created successfully:', order);
-          } catch (error) {
-            console.error('Error creating order:', error);
-            // Don't return error response, as Stripe will retry the webhook
-          }
+        try {
+          const order = await handleCheckoutSession(session);
+          console.log('Order processed successfully:', order);
+        } catch (error) {
+          console.error('Error processing order:', error);
         }
         break;
       }
 
       case 'checkout.session.expired': {
         const session = event.data.object as Stripe.Checkout.Session;
-        // You might want to clean up any pending orders here
-        console.log('Checkout session expired:', session.id);
+        try {
+          const order = await handleCheckoutSession(session);
+          console.log('Order marked as expired:', order);
+        } catch (error) {
+          console.error('Error handling expired session:', error);
+        }
         break;
       }
 

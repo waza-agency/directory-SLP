@@ -57,6 +57,14 @@ export default function OrdersPage() {
       setIsLoadingOrders(true);
       setError(null);
 
+      // First, clean up old pending orders
+      await supabase
+        .from('orders')
+        .delete()
+        .eq('status', 'pending')
+        .lt('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+
+      // Then fetch remaining orders
       const { data, error: supabaseError } = await supabase
         .from('orders')
         .select(`
@@ -76,6 +84,7 @@ export default function OrdersPage() {
           )
         `)
         .eq('user_id', user?.id)
+        .not('status', 'eq', 'pending') // Exclude pending orders from display
         .order('created_at', { ascending: false });
 
       if (supabaseError) {
