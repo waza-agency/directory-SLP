@@ -8,9 +8,10 @@ import { supabase } from '@/lib/supabase';
 
 type Order = {
   id: string;
+  order_number: string;
   created_at: string;
   status: string;
-  total_amount: number;
+  amount: number;
   items: {
     title: string;
     quantity: number;
@@ -49,16 +50,18 @@ export default function OrdersPage() {
         .from('orders')
         .select(`
           id,
+          order_number,
           created_at,
           status,
-          total_amount,
+          amount,
           items
         `)
         .eq('user_id', user?.id)
         .order('created_at', { ascending: false });
 
       if (supabaseError) {
-        throw supabaseError;
+        console.error('Supabase error:', supabaseError);
+        throw new Error(supabaseError.message);
       }
 
       setOrders(data || []);
@@ -102,7 +105,7 @@ export default function OrdersPage() {
       <Head>
         <title>{t('My Orders')} | San Luis Way</title>
         <meta name="description" content={t('View your order history')} />
-        <meta name="robots" content="noindex" /> {/* Prevent indexing of user-specific pages */}
+        <meta name="robots" content="noindex" />
       </Head>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -141,8 +144,8 @@ export default function OrdersPage() {
                         <p className="font-medium">{formatDate(order.created_at)}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">{t('Order')} #{order.id}</p>
-                        <p className="font-medium text-right">{formatCurrency(order.total_amount)}</p>
+                        <p className="text-sm text-gray-500">{t('Order')} #{order.order_number}</p>
+                        <p className="font-medium text-right">{formatCurrency(order.amount)}</p>
                       </div>
                     </div>
                   </div>

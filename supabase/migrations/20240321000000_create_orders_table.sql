@@ -5,11 +5,12 @@ CREATE TABLE IF NOT EXISTS orders (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     status TEXT NOT NULL CHECK (status IN ('pending', 'processing', 'completed', 'cancelled')) DEFAULT 'pending',
-    total_amount DECIMAL(10,2) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
     items JSONB NOT NULL DEFAULT '[]'::jsonb,
     shipping_address JSONB,
     payment_intent_id TEXT,
-    payment_status TEXT
+    payment_status TEXT,
+    order_number TEXT UNIQUE NOT NULL
 );
 
 -- Create index on user_id for faster queries
@@ -17,6 +18,9 @@ CREATE INDEX IF NOT EXISTS idx_orders_user_id ON orders(user_id);
 
 -- Create index on created_at for sorting
 CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at);
+
+-- Create index on order_number for faster lookups
+CREATE INDEX IF NOT EXISTS idx_orders_order_number ON orders(order_number);
 
 -- Enable Row Level Security
 ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
