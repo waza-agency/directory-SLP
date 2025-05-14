@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
 // CORS middleware
 function cors(req: NextApiRequest, res: NextApiResponse) {
@@ -21,12 +21,17 @@ function cors(req: NextApiRequest, res: NextApiResponse) {
 }
 
 // Initialize Stripe with better error handling
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
-  typescript: true,
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
+    return;
+  }
+
   try {
     // Log the full request details
     console.log('API Request received:', {
@@ -47,67 +52,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // CORS handling
     if (cors(req, res)) return;
 
-    if (req.method !== 'POST') {
-      return res.status(405).json({
-        error: {
-          message: 'Method not allowed',
-          code: 'method_not_allowed'
-        }
-      });
+    // Get the user from the session
+    const supabase = createServerSupabaseClient({ req, res });
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session?.user) {
+      return res.status(401).json({ error: 'Not authenticated' });
     }
 
-    // Validate required environment variables
-    if (!process.env.STRIPE_SECRET_KEY) {
-      console.error('Missing STRIPE_SECRET_KEY');
-      return res.status(500).json({
-        error: {
-          message: 'Server configuration error',
-          code: 'missing_stripe_key'
-        }
-      });
-    }
-
-    // Create authenticated Supabase client
-    console.log('Creating Supabase client...');
-    const supabase = createPagesServerClient({ req, res });
-
-    // Check if we have a session
-    console.log('Checking session...');
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      console.log('No session found');
-      return res.status(401).json({
-        error: {
-          message: 'Not authenticated',
-          code: 'not_authenticated'
-        }
-      });
-    }
-
-    console.log('Session found:', session.user.id);
-
-    const { orderId, items, customerEmail } = req.body;
-
-    // Validate request data
-    if (!orderId) {
-      return res.status(400).json({
-        error: {
-          message: 'Order ID is required',
-          code: 'missing_order_id'
-        }
-      });
-    }
+    const { items, success_url, cancel_url } = req.body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({
-        error: {
-          message: 'Items array is required and must not be empty',
-          code: 'invalid_items'
-        }
-      });
+      return res.status(400).json({ error: 'Invalid items' });
     }
 
     // Validate each item
@@ -123,79 +79,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    if (!customerEmail) {
-      return res.status(400).json({
-        error: {
-          message: 'Customer email is required',
-          code: 'missing_email'
-        }
-      });
-    }
-
-    // Create Stripe checkout session with error handling
-    try {
-      console.log('Creating Stripe session with items:', items);
-      console.log('Environment check:', {
-        hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
-        origin: req.headers.origin,
-        host: req.headers.host
-      });
-
-      const stripeSession = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        mode: 'payment',
-        customer_email: customerEmail,
-        success_url: `${req.headers.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/checkout/cancel`,
-        line_items: items.map((item: any) => ({
-          price_data: {
-            currency: 'mxn',
-            product_data: {
-              name: item.name,
-            },
-            unit_amount: Math.round(item.price * 100),
+    // Create Stripe checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: items.map(item => ({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
+            description: item.description,
+            images: item.images,
           },
-          quantity: item.quantity,
-        })),
-        metadata: {
-          orderId,
-          userId: session.user.id,
+          unit_amount: Math.round(item.price * 100), // Convert to cents
         },
-      });
+        quantity: item.quantity,
+      })),
+      success_url: success_url || `${process.env.NEXT_PUBLIC_SITE_URL}/order-confirmation`,
+      cancel_url: cancel_url || `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+      metadata: {
+        user_id: session.user.id, // Add user ID to metadata
+      },
+      customer_email: session.user.email,
+    });
 
-      console.log('Stripe session created successfully:', stripeSession.id);
-      return res.status(200).json({ sessionId: stripeSession.id });
-    } catch (stripeError: any) {
-      console.error('Stripe session creation error:', {
-        error: stripeError,
-        message: stripeError.message,
-        type: stripeError.type,
-        code: stripeError.code,
-        declineCode: stripeError.decline_code,
-        requestParams: {
-          items,
-          customerEmail,
-          origin: req.headers.origin
-        }
-      });
-      return res.status(500).json({
-        error: {
-          message: stripeError.message || 'Failed to create checkout session',
-          code: 'stripe_error',
-          type: stripeError.type,
-          decline_code: stripeError.decline_code,
-          details: stripeError
-        }
-      });
-    }
+    res.status(200).json({ sessionId: session.id });
   } catch (error: any) {
     console.error('API handler error:', error);
-    return res.status(500).json({
-      error: {
-        message: error.message || 'Internal server error',
-        code: 'internal_error',
-        details: error
-      }
-    });
+    res.status(500).json({ error: 'Error creating checkout session' });
   }
 }

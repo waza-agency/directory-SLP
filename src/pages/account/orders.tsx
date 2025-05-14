@@ -6,16 +6,27 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 
+type OrderItem = {
+  id: string;
+  title: string;
+  quantity: number;
+  price: number;
+};
+
 type Order = {
   id: string;
   order_number: string;
   created_at: string;
   status: string;
   amount: number;
-  items: {
-    title: string;
+  items: OrderItem[];
+  order_items?: {
+    id: string;
     quantity: number;
     price: number;
+    item: {
+      title: string;
+    };
   }[];
 };
 
@@ -54,7 +65,15 @@ export default function OrdersPage() {
           created_at,
           status,
           amount,
-          items
+          items,
+          order_items (
+            id,
+            quantity,
+            price,
+            item:marketplace_items (
+              title
+            )
+          )
         `)
         .eq('user_id', user?.id)
         .order('created_at', { ascending: false });
@@ -64,7 +83,27 @@ export default function OrdersPage() {
         throw new Error(supabaseError.message);
       }
 
-      setOrders(data || []);
+      // Process the orders to combine items from both sources
+      const processedOrders = data?.map(order => {
+        const combinedItems = [
+          // Include items from the JSONB field if it exists
+          ...(order.items || []),
+          // Include items from the order_items relationship if it exists
+          ...(order.order_items?.map(item => ({
+            id: item.id,
+            title: item.item?.title || 'Unknown Item',
+            quantity: item.quantity,
+            price: item.price
+          })) || [])
+        ];
+
+        return {
+          ...order,
+          items: combinedItems
+        };
+      }) || [];
+
+      setOrders(processedOrders);
     } catch (error) {
       console.error('Error fetching orders:', error);
       setError('Failed to load orders. Please try again later.');
@@ -152,7 +191,7 @@ export default function OrdersPage() {
                   <div className="px-6 py-4">
                     <div className="space-y-4">
                       {order.items.map((item, index) => (
-                        <div key={index} className="flex justify-between items-center">
+                        <div key={item.id || index} className="flex justify-between items-center">
                           <div>
                             <p className="font-medium">{item.title}</p>
                             <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
