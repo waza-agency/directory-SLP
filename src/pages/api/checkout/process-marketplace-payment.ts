@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // Create authenticated Supabase client
     const supabaseServer = createServerSupabaseClient({ req, res });
-    
+
     // Check if we have a session
     const {
       data: { session },
@@ -53,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Create or retrieve Stripe customer
     let customerId: string | undefined;
-    
+
     // Check if user already has a Stripe customer ID
     const { data: userData, error: userError } = await supabaseServer
       .from('users')
@@ -75,15 +75,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           userId: session.user.id,
         },
       });
-      
+
       customerId = customer.id;
-      
+
       // Save the Stripe customer ID to the user's profile
       const { error: updateError } = await supabaseServer
         .from('users')
         .update({ stripe_customer_id: customer.id })
         .eq('id', session.user.id);
-        
+
       if (updateError) {
         console.error('Error updating user with Stripe customer ID:', updateError);
       }
@@ -91,14 +91,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Group items by business for display purposes
     const groupedItems: Record<string, any[]> = {};
-    
+
     // Format line items for Stripe and find business information
     const lineItems = [];
     const businessTransactions = [];
-    
+
     // Calculate totals for marketplace transactions
     let orderTotal = 0;
-    
+
     for (const item of items) {
       // Add to line items for Stripe checkout (product)
       lineItems.push({
@@ -126,42 +126,42 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           quantity: item.quantity,
         });
       }
-      
+
       // Calculate item total
       const itemTotal = item.price * item.quantity;
       orderTotal += itemTotal;
-      
+
       // Get business information if it's a marketplace listing
       if (item.businessId || item.sellerId) {
         // Use businessId if available, otherwise use sellerId for backward compatibility
         const businessId = item.businessId || item.sellerId;
-        
+
         // Get business details from business_profiles
         const { data: businessData, error: businessError } = await supabaseServer
           .from('business_profiles')
           .select('stripe_connect_account_id, id, business_name, user_id')
           .eq('id', businessId)
           .single();
-        
+
         if (businessError) {
           console.error('Error fetching business data:', businessError);
           continue;
         }
-        
+
         if (!businessData.stripe_connect_account_id) {
           console.error('Business does not have a Stripe Connect account:', businessId);
           continue;
         }
-        
+
         // Calculate fees
         const platformFee = (itemTotal * PLATFORM_FEE_PERCENTAGE) / 100;
-        
+
         // Estimate Stripe fee (2.9% + 30 cents)
         const stripeFee = (itemTotal * 0.029) + 0.30;
-        
+
         // Calculate business payout
         const businessPayout = itemTotal - platformFee - stripeFee;
-        
+
         // Save transaction info for later processing
         businessTransactions.push({
           order_id: orderId,
@@ -176,7 +176,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           stripe_connect_account_id: businessData.stripe_connect_account_id,
           status: 'pending'
         });
-        
+
         // Group items by business for display
         if (!groupedItems[businessId]) {
           groupedItems[businessId] = [];
@@ -205,7 +205,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { error: transactionError } = await supabaseServer
         .from('marketplace_transactions')
         .insert(businessTransactions);
-      
+
       if (transactionError) {
         console.error('Error creating marketplace transactions:', transactionError);
       }
@@ -214,9 +214,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Update the order with the Stripe session ID and status
     const { error: orderUpdateError } = await supabaseServer
       .from('orders')
-      .update({ 
+      .update({
         stripe_session_id: checkoutSession.id,
-        status: 'awaiting_payment' 
+        status: 'completed',
+        payment_status: 'processing'
       })
       .eq('id', orderId);
 
@@ -233,4 +234,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
   }
-} 
+}
