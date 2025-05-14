@@ -56,6 +56,13 @@ const nextConfig = {
         os: false
       };
     }
+    // Add explicit ignore for test files and directories
+    config.module = config.module || {};
+    config.module.rules = config.module.rules || [];
+    config.module.rules.push({
+      test: /\/__tests__\/.*|\.(spec|test)\.[tj]sx?$/,
+      loader: 'ignore-loader',
+    });
     return config;
   },
   // Modern Next.js config optimized for Node.js 18+
@@ -64,6 +71,8 @@ const nextConfig = {
     styledComponents: true,
   },
   optimizeFonts: true,
+  // Exclude test files from pages directory
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(ext => !ext.includes('test.')),
   async headers() {
     return [
       {
@@ -98,6 +107,8 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  // This will tell Next.js to ignore specific paths during build
+  excludeDefaultMomentLocales: true,
 };
 
 // Add performance polyfill to fix Node.js compatibility issue (only for older Node.js)

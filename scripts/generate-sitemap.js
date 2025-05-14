@@ -55,24 +55,26 @@ const DYNAMIC_PAGES = [
 const EXCLUDED_PAGES = [
   '/404',
   '/500',
+  '/__tests__',
+  '/__tests__/auth-test.test'
 ];
 
 // Helper function to format route path to URL
 function formatPath(pagePath) {
   // Remove file extension
   let formattedPath = pagePath.replace(/\.(tsx|jsx)$/, '');
-  
+
   // Handle index pages
   formattedPath = formattedPath.replace(/\/index$/, '/');
-  
+
   // Remove /src/pages prefix
   formattedPath = formattedPath.replace(/^(\.\/)?src\/pages/, '');
-  
+
   // Ensure leading slash
   if (!formattedPath.startsWith('/')) {
     formattedPath = '/' + formattedPath;
   }
-  
+
   return formattedPath;
 }
 
@@ -112,16 +114,16 @@ async function generateSitemap() {
   try {
     // Get all page files
     const files = glob.sync(PAGE_DIRS);
-    
+
     // Extract paths from files
     let urls = files.map(file => formatPath(file));
-    
+
     // Filter out excluded pages
-    urls = urls.filter(url => !EXCLUDED_PAGES.includes(url));
-    
+    urls = urls.filter(url => !EXCLUDED_PAGES.some(excluded => url.includes(excluded)));
+
     // Filter out dynamic page templates (with [] parameters)
     urls = urls.filter(url => !url.includes('[') && !url.includes(']'));
-    
+
     // Add dynamic URLs
     DYNAMIC_PAGES.forEach(({ urls: dynamicUrls }) => {
       dynamicUrls.forEach(url => {
@@ -130,14 +132,14 @@ async function generateSitemap() {
         }
       });
     });
-    
+
     // Sort the URLs
     urls.sort();
-    
+
     // Generate and write the sitemap XML
     const sitemapXml = generateSitemapXml(urls);
     fs.writeFileSync(path.join(process.cwd(), 'public', 'sitemap.xml'), sitemapXml);
-    
+
     console.log(`Sitemap generated with ${urls.length} URLs`);
   } catch (error) {
     console.error('Error generating sitemap:', error);
@@ -145,4 +147,4 @@ async function generateSitemap() {
 }
 
 // Run the generator
-generateSitemap(); 
+generateSitemap();
