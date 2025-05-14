@@ -18,14 +18,16 @@ const supabaseClient = createClient(
 );
 
 // Initialize Stripe with the secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2025-04-30.basil',
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2023-10-16',
 });
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 async function handleCheckoutSession(session: Stripe.Checkout.Session) {
   try {
+    console.log('Processing checkout session:', session.id, 'Payment status:', session.payment_status);
+
     // First check if an order already exists
     const { data: existingOrder } = await supabase
       .from('orders')
@@ -33,18 +35,17 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
       .eq('stripe_session_id', session.id)
       .single();
 
+    console.log('Existing order found:', existingOrder?.id);
+
     // Get line items from the session
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
 
-    // Determine order status based on payment status
-    let orderStatus = 'processing';
-    if (session.payment_status === 'paid') {
-      orderStatus = 'completed';
-    } else if (session.status === 'expired' || session.status === 'canceled') {
-      orderStatus = 'cancelled';
-    }
+    // Simplified status logic: only completed or cancelled
+    const orderStatus = session.payment_status === 'paid' ? 'completed' : 'cancelled';
+    console.log('Setting order status to:', orderStatus);
 
     if (existingOrder) {
+      console.log('Updating existing order:', existingOrder.id);
       // Update existing order
       const { data: order, error: orderError } = await supabase
         .from('orders')
@@ -62,33 +63,10 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
         throw orderError;
       }
 
-      // If order is completed, create order items if they don't exist
-      if (orderStatus === 'completed' && order && lineItems.data.length > 0) {
-        const { data: existingItems } = await supabase
-          .from('order_items')
-          .select('id')
-          .eq('order_id', order.id);
-
-        if (!existingItems || existingItems.length === 0) {
-          const orderItems = lineItems.data.map(item => ({
-            order_id: order.id,
-            item_id: item.price?.product as string,
-            quantity: item.quantity || 1,
-            price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0
-          }));
-
-          const { error: itemsError } = await supabase
-            .from('order_items')
-            .insert(orderItems);
-
-          if (itemsError) {
-            console.error('Error creating order items:', itemsError);
-          }
-        }
-      }
-
+      console.log('Order updated successfully:', order?.id);
       return order;
     } else {
+      console.log('Creating new order for session:', session.id);
       // Generate order number
       const orderNumber = 'SLP-' + Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -106,7 +84,7 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
       const customer = session.customer_details;
       const shippingAddress = session.shipping_details || customer?.address;
 
-      // Create new order in Supabase
+      // Create new order with completed status if payment is successful
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert([
@@ -132,24 +110,7 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
         throw orderError;
       }
 
-      // If order is completed, create order items
-      if (orderStatus === 'completed' && order && lineItems.data.length > 0) {
-        const orderItems = lineItems.data.map(item => ({
-          order_id: order.id,
-          item_id: item.price?.product as string,
-          quantity: item.quantity || 1,
-          price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0
-        }));
-
-        const { error: itemsError } = await supabase
-          .from('order_items')
-          .insert(orderItems);
-
-        if (itemsError) {
-          console.error('Error creating order items:', itemsError);
-        }
-      }
-
+      console.log('New order created successfully:', order?.id, 'with status:', orderStatus);
       return order;
     }
   } catch (error) {
@@ -159,14 +120,10 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
 }
 
 // Webhook handler
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
-    return;
+    return res.status(405).end('Method Not Allowed');
   }
 
   try {
@@ -177,35 +134,39 @@ export default async function handler(
 
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+      console.log('Webhook event received:', event.type);
     } catch (err) {
-      const error = err as Error;
-      console.error('Webhook signature verification failed:', error.message);
-      return res.status(400).send(`Webhook Error: ${error.message}`);
+      console.error('Webhook signature verification failed:', err);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     // Handle the event
     switch (event.type) {
-      case 'checkout.session.completed': {
+      case 'checkout.session.completed':
         const session = event.data.object as Stripe.Checkout.Session;
-        try {
-          const order = await handleCheckoutSession(session);
-          console.log('Order processed successfully:', order);
-        } catch (error) {
-          console.error('Error processing order:', error);
-        }
-        break;
-      }
+        console.log('Processing completed session:', session.id);
 
-      case 'checkout.session.expired': {
-        const session = event.data.object as Stripe.Checkout.Session;
         try {
           const order = await handleCheckoutSession(session);
-          console.log('Order marked as expired:', order);
+          console.log('Successfully processed order:', order?.id);
+          return res.json({ success: true, order: order?.id });
         } catch (error) {
-          console.error('Error handling expired session:', error);
+          console.error('Error processing checkout session:', error);
+          return res.status(500).json({ error: 'Error processing checkout session' });
+        }
+
+      case 'checkout.session.expired':
+        const expiredSession = event.data.object as Stripe.Checkout.Session;
+        console.log('Processing expired session:', expiredSession.id);
+
+        try {
+          const order = await handleCheckoutSession(expiredSession);
+          console.log('Successfully processed expired session:', order?.id);
+        } catch (error) {
+          console.error('Error processing expired session:', error);
+          return res.status(500).json({ error: 'Error processing expired session' });
         }
         break;
-      }
 
       case 'customer.subscription.created':
       case 'customer.subscription.updated': {
@@ -225,12 +186,11 @@ export default async function handler(
       }
       default:
         console.log(`Unhandled event type: ${event.type}`);
+        return res.json({ received: true });
     }
-
-    res.json({ received: true });
-  } catch (error) {
-    console.error('Error in webhook handler:', error);
-    res.status(500).json({ error: 'Webhook handler failed' });
+  } catch (err) {
+    console.error('Error processing webhook:', err);
+    return res.status(500).json({ error: 'Webhook handler failed' });
   }
 }
 

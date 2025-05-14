@@ -46,25 +46,12 @@ export default function OrdersPage() {
     }
   }, [user, isLoading, router]);
 
-  useEffect(() => {
-    if (user) {
-      fetchOrders();
-    }
-  }, [user]);
-
   const fetchOrders = async () => {
     try {
       setIsLoadingOrders(true);
       setError(null);
 
-      // First, clean up old pending orders
-      await supabase
-        .from('orders')
-        .delete()
-        .eq('status', 'pending')
-        .lt('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
-
-      // Then fetch remaining orders
+      // Fetch orders with proper sorting and status handling
       const { data, error: supabaseError } = await supabase
         .from('orders')
         .select(`
@@ -74,6 +61,8 @@ export default function OrdersPage() {
           status,
           amount,
           items,
+          payment_status,
+          stripe_session_id,
           order_items (
             id,
             quantity,
@@ -84,42 +73,59 @@ export default function OrdersPage() {
           )
         `)
         .eq('user_id', user?.id)
-        .not('status', 'eq', 'pending') // Exclude pending orders from display
         .order('created_at', { ascending: false });
 
       if (supabaseError) {
-        console.error('Supabase error:', supabaseError);
-        throw new Error(supabaseError.message);
+        throw supabaseError;
       }
 
-      // Process the orders to combine items from both sources
-      const processedOrders = data?.map(order => {
-        const combinedItems = [
-          // Include items from the JSONB field if it exists
-          ...(order.items || []),
-          // Include items from the order_items relationship if it exists
-          ...(order.order_items?.map(item => ({
-            id: item.id,
-            title: item.item?.title || 'Unknown Item',
-            quantity: item.quantity,
-            price: item.price
-          })) || [])
-        ];
+      // Filter out any invalid orders
+      const validOrders = data?.filter(order =>
+        order.order_number &&
+        (order.items?.length > 0 || order.order_items?.length > 0)
+      ) || [];
 
-        return {
-          ...order,
-          items: combinedItems
-        };
-      }) || [];
-
-      setOrders(processedOrders);
+      setOrders(validOrders);
     } catch (error) {
       console.error('Error fetching orders:', error);
-      setError('Failed to load orders. Please try again later.');
+      setError('Failed to load orders. Please try again.');
     } finally {
       setIsLoadingOrders(false);
     }
   };
+
+  // Set up real-time subscription for order updates
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const subscription = supabase
+      .channel('orders_channel')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'orders',
+          filter: `user_id=eq.${user.id}`
+        },
+        (payload) => {
+          console.log('Order update received:', payload);
+          fetchOrders();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [user?.id]);
+
+  // Initial fetch
+  useEffect(() => {
+    if (user?.id) {
+      fetchOrders();
+    }
+  }, [user?.id]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -134,6 +140,32 @@ export default function OrdersPage() {
       style: 'currency',
       currency: 'USD'
     }).format(amount);
+  };
+
+  // Render order status with proper styling
+  const renderOrderStatus = (status: string, paymentStatus: string) => {
+    // Simplified status display
+    if (paymentStatus === 'paid' || status === 'completed') {
+      return (
+        <span className="font-medium text-green-600">
+          Completed
+        </span>
+      );
+    }
+
+    if (paymentStatus === 'canceled' || status === 'cancelled') {
+      return (
+        <span className="font-medium text-red-600">
+          Cancelled
+        </span>
+      );
+    }
+
+    return (
+      <span className="font-medium text-blue-600">
+        Processing
+      </span>
+    );
   };
 
   if (isLoading) {
@@ -213,14 +245,7 @@ export default function OrdersPage() {
                   <div className="px-6 py-4 bg-gray-50">
                     <div className="flex justify-between items-center">
                       <span className="font-medium">{t('Status')}</span>
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                        order.status === 'processing' ? 'bg-blue-100 text-blue-800' :
-                        order.status === 'cancelled' ? 'bg-red-100 text-red-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                      </span>
+                      {renderOrderStatus(order.status, order.payment_status)}
                     </div>
                   </div>
                 </div>
