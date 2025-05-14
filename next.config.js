@@ -59,9 +59,9 @@ const nextConfig = {
     return config;
   },
   // Modern Next.js config optimized for Node.js 18+
-  experimental: {
-    swcMinify: true,
-    scrollRestoration: true
+  swcMinify: true,
+  compiler: {
+    styledComponents: true,
   },
   optimizeFonts: true,
   async headers() {
@@ -94,6 +94,9 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+  },
+  experimental: {
+    forceSwcTransforms: true,
   },
 };
 

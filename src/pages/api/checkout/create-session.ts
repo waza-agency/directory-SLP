@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Create Stripe checkout session
-    const session = await stripe.checkout.sessions.create({
+    const checkoutSession = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
       line_items: items.map(item => ({
@@ -103,7 +103,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       customer_email: session.user.email,
     });
 
-    res.status(200).json({ sessionId: session.id });
+    res.status(200).json({ sessionId: checkoutSession.id });
   } catch (error: any) {
     console.error('API handler error:', error);
     res.status(500).json({ error: 'Error creating checkout session' });

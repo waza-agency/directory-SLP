@@ -2,9 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 import { withAdminApiAuth } from '@/lib/admin-auth';
 
-// Initialize Stripe with better error handling
-const stripeKey = process.env.STRIPE_SECRET_KEY;
-
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Only allow POST method
   if (req.method !== 'POST') {
@@ -12,9 +9,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    // Check if Stripe key is available
+    // Check if Stripe key is available at execution time
+    const stripeKey = process.env.STRIPE_SECRET_KEY;
     if (!stripeKey) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         message: 'Stripe configuration missing',
         details: {
           STRIPE_SECRET_KEY: stripeKey ? 'defined' : 'undefined'
@@ -55,7 +53,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   } catch (error: any) {
     console.error('Error in test-stripe endpoint:', error);
-    return res.status(500).json({ 
+    return res.status(500).json({
       message: error?.message || 'Error testing Stripe connection',
       stack: process.env.NODE_ENV === 'development' ? error?.stack : undefined
     });
@@ -63,4 +61,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 // Export the handler with admin authentication
-export default withAdminApiAuth(handler); 
+export default withAdminApiAuth(handler);

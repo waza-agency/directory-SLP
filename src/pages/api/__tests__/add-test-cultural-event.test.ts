@@ -2,40 +2,48 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import handler from '../add-test-cultural-event';
 import { supabase } from '@/lib/supabase';
 
-// Mock Supabase client
-jest.mock('@/lib/supabase', () => ({
-  supabase: {
-    from: jest.fn().mockReturnThis(),
-    insert: jest.fn().mockReturnThis(),
-    select: jest.fn().mockResolvedValue({
+// Mock Supabase client with the right structure
+jest.mock('@/lib/supabase', () => {
+  const mockInsertChain = {
+    select: jest.fn().mockReturnValue({
       data: [{ id: 'test-id' }],
       error: null
     })
-  }
-}));
+  };
 
-const mockRequest = {
-  method: 'POST',
+  return {
+    supabase: {
+      from: jest.fn().mockReturnValue({
+        insert: jest.fn().mockReturnValue(mockInsertChain)
+      })
+    }
+  };
+});
+
+// Define reusable request and response mocks
+const mockRequest = (method = 'POST') => ({
+  method,
   body: {}
-} as NextApiRequest;
+}) as NextApiRequest;
 
 const mockResponse = () => {
-  const res = {} as NextApiResponse;
+  const res = {} as Partial<NextApiResponse>;
   res.status = jest.fn().mockReturnValue(res);
   res.json = jest.fn().mockReturnValue(res);
-  return res;
+  return res as NextApiResponse;
 };
 
+// Test implementation
 describe('/api/add-test-cultural-event', () => {
   it('should create cultural event and return 201 status', async () => {
-    const req = mockRequest;
+    const req = mockRequest();
     const res = mockResponse();
 
     await handler(req, res);
 
     // Verify Supabase call
     expect(supabase.from).toHaveBeenCalledWith('events');
-    expect(supabase.insert).toHaveBeenCalledWith([expect.objectContaining({
+    expect(supabase.from().insert).toHaveBeenCalledWith([expect.objectContaining({
       title: 'Cultural Festival of San Luis Potosí',
       category: 'cultural',
       featured: true
@@ -50,7 +58,7 @@ describe('/api/add-test-cultural-event', () => {
   });
 
   it('should reject non-POST methods', async () => {
-    const req = { ...mockRequest, method: 'GET' } as NextApiRequest;
+    const req = mockRequest('GET');
     const res = mockResponse();
 
     await handler(req, res);

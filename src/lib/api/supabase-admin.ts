@@ -16,12 +16,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Initialize Supabase with service role key for admin access, or fallback to anon key
-export const supabase = createClient<Database>(
+export const supabaseAdmin = createClient<Database>(
   supabaseUrl,
-  serviceRoleKey || anonKey
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 // If no service role key, log a warning
-if (!serviceRoleKey) {
+if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
   console.warn('Warning: SUPABASE_SERVICE_ROLE_KEY is not defined. Using NEXT_PUBLIC_SUPABASE_ANON_KEY instead, which may not have sufficient permissions for admin operations.');
-} 
+}
