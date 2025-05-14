@@ -30,6 +30,7 @@ export default function OrdersPage() {
     // Redirect if not authenticated
     if (!user && !isLoading) {
       router.push('/signin?redirect=/account/orders');
+      return;
     }
   }, [user, isLoading, router]);
 
@@ -41,7 +42,10 @@ export default function OrdersPage() {
 
   const fetchOrders = async () => {
     try {
-      const { data, error } = await supabase
+      setIsLoadingOrders(true);
+      setError(null);
+
+      const { data, error: supabaseError } = await supabase
         .from('orders')
         .select(`
           id,
@@ -53,7 +57,9 @@ export default function OrdersPage() {
         .eq('user_id', user?.id)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (supabaseError) {
+        throw supabaseError;
+      }
 
       setOrders(data || []);
     } catch (error) {
@@ -79,11 +85,24 @@ export default function OrdersPage() {
     }).format(amount);
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Will redirect in useEffect
+  }
+
   return (
     <>
       <Head>
         <title>{t('My Orders')} | San Luis Way</title>
         <meta name="description" content={t('View your order history')} />
+        <meta name="robots" content="noindex" /> {/* Prevent indexing of user-specific pages */}
       </Head>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -97,6 +116,12 @@ export default function OrdersPage() {
           ) : error ? (
             <div className="bg-red-50 border border-red-200 rounded-md p-4 text-red-600">
               {error}
+              <button
+                onClick={fetchOrders}
+                className="ml-4 text-sm font-medium text-red-800 hover:text-red-900"
+              >
+                {t('Try Again')}
+              </button>
             </div>
           ) : orders.length === 0 ? (
             <div className="text-center py-12">
@@ -157,7 +182,7 @@ export default function OrdersPage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale, req }: { locale: string, req: any }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
