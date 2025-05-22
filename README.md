@@ -205,4 +205,4 @@ To test the subscription flow:
 3. Select a plan and complete the checkout process
 4. You should be redirected to the success page
 5. Verify that the business profile now has an active subscription
-6. Try creating a business listing 
+6. Try creating a business listing # Test commit
