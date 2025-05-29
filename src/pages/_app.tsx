@@ -9,6 +9,12 @@ import React from 'react';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { AuthProvider } from '@/lib/supabase-auth';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+
+// Create a single instance of the Supabase client
+const supabaseClient = createPagesBrowserClient();
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -67,26 +73,33 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-            {/* MARKETPLACE DISABLED - Removed CartProvider */}
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow">
-              <Component {...pageProps} />
-        </main>
-        <Footer />
-      </div>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <AuthProvider>
+          {/* MARKETPLACE DISABLED - Removed CartProvider */}
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow">
+                  <Component {...pageProps} />
+            </main>
+            <Footer />
+          </div>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+          <ToastContainer
+            position="top-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </AuthProvider>
+      </SessionContextProvider>
     </>
   );
 }

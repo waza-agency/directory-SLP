@@ -202,22 +202,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('Contact API called with body:', JSON.stringify(req.body, null, 2));
 
   const {
-    // reCAPTCHA token
-    recaptchaToken,
-    // Common fields
     name,
     email,
     phone,
+    subject,
     message,
     service,
-    subject,
-    // Cultural experiences fields
+    to, // This might be provided by frontend, but we'll override with database value
+    businessId,
+    businessName,
+    businessTitle,
+    listingCategory,
+    // Experience-specific fields
     experienceType,
     groupSize,
     preferredDates,
     languagePreference,
     specialRequirements,
-    // Relocation support fields
+    // Relocation-specific fields
     nationality,
     currentLocation,
     familySize,
@@ -226,12 +228,76 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     housingPreference,
     schoolingNeeds,
     additionalServices,
-    // Local connections fields
+    // Service-specific fields
     serviceCategory,
     specificService,
     urgencyLevel,
-    to
+    // reCAPTCHA token
+    recaptchaToken
   } = req.body;
+
+  // Initialize Supabase client with service role key
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  // Fetch the actual business email from the database if businessId is provided
+  let businessEmail = to || 'info@sanluisway.com'; // Default fallback
+
+  if (businessId) {
+    try {
+      console.log('Fetching business email for businessId:', businessId);
+
+      // First try to get email from business_listings table
+      const { data: businessListing, error: listingError } = await supabase
+        .from('business_listings')
+        .select(`
+          email,
+          business_profiles!inner (
+            email,
+            business_name
+          )
+        `)
+        .eq('id', businessId)
+        .single();
+
+      if (!listingError && businessListing) {
+        // Prefer listing email, then business profile email
+        businessEmail = businessListing.email ||
+                      businessListing.business_profiles?.email ||
+                      'info@sanluisway.com';
+        console.log('Found business email from listing:', businessEmail);
+      } else {
+        // If not found in business_listings, try business_profiles directly
+        const { data: businessProfile, error: profileError } = await supabase
+          .from('business_profiles')
+          .select('email, business_name')
+          .eq('id', businessId)
+          .single();
+
+        if (!profileError && businessProfile?.email) {
+          businessEmail = businessProfile.email;
+          console.log('Found business email from profile:', businessEmail);
+        } else {
+          console.log('No business email found, using fallback');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching business email:', error);
+      // Continue with fallback email
+    }
+  }
+
+  console.log('Final business email to use:', businessEmail);
+
+  // TEMPORARY: Override email for testing with Resend free plan
+  // This sends all emails to your verified email but keeps the business email in the content
+  const actualEmailTo = process.env.NODE_ENV === 'development' ? 'santiago@waza.baby' : businessEmail;
+
+  if (actualEmailTo !== businessEmail) {
+    console.log(`🔄 TESTING MODE: Redirecting email from ${businessEmail} to ${actualEmailTo}`);
+  }
 
   // Verify reCAPTCHA (skip in development for testing)
   if (process.env.NODE_ENV === 'production') {
@@ -252,12 +318,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('Skipping reCAPTCHA verification in development mode');
   }
 
-  // Initialize Supabase client with service role key
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-
   try {
     // Ensure the contact_inquiries table exists
     await ensureContactInquiriesTable(supabase);
@@ -269,15 +329,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       customer_phone: phone,
       subject: subject || 'General Inquiry',
       message: message || '',
-      business_email: to || 'info@sanluisway.com',
+      business_email: businessEmail,
       service_type: service || experienceType || serviceCategory || 'general',
 
       // Additional data as JSON
       additional_data: {
-        businessId: req.body.businessId,
-        businessName: req.body.businessName,
-        businessTitle: req.body.businessTitle,
-        listingCategory: req.body.listingCategory,
+        businessId,
+        businessName,
+        businessTitle,
+        listingCategory,
         experienceType,
         groupSize,
         preferredDates,
@@ -330,6 +390,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           <div style="background-color: #e8f5e8; border-left: 5px solid #27ae60; padding: 15px; margin-bottom: 25px; border-radius: 5px;">
             <h2 style="color: #27ae60; margin: 0 0 10px 0; font-size: 20px;">🎉 New Customer Lead!</h2>
             <p style="margin: 0; color: #333; font-size: 16px;">You have received a new inquiry through the San Luis Way platform.</p>
+            ${actualEmailTo !== businessEmail ?
+              `<div style="background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin-top: 10px; border-radius: 4px;">
+                <strong>⚠️ TESTING MODE:</strong> This email was originally intended for <strong>${businessEmail}</strong>
+              </div>` : ''
+            }
           </div>
 
           <h3 style="color: #333; border-bottom: 2px solid #e74c3c; padding-bottom: 10px;">Customer Contact Information</h3>
@@ -342,13 +407,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     `;
 
     // Add business-specific information if available
-    if (req.body.businessName || req.body.businessTitle) {
+    if (businessName || businessTitle) {
       htmlContent += `
         <h3 style="color: #333; border-bottom: 2px solid #e74c3c; padding-bottom: 10px;">Inquiry About Your Business</h3>
         <table style="width: 100%; margin-bottom: 25px;">
-          <tr><td style="padding: 8px 0; font-weight: bold; color: #555; width: 120px;">Business:</td><td style="padding: 8px 0; color: #333;">${req.body.businessName || 'Not specified'}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: bold; color: #555;">Listing:</td><td style="padding: 8px 0; color: #333;">${req.body.businessTitle || 'Not specified'}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: bold; color: #555;">Category:</td><td style="padding: 8px 0; color: #333;">${req.body.listingCategory || 'Not specified'}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: bold; color: #555; width: 120px;">Business:</td><td style="padding: 8px 0; color: #333;">${businessName || 'Not specified'}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: bold; color: #555;">Listing:</td><td style="padding: 8px 0; color: #333;">${businessTitle || 'Not specified'}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: bold; color: #555;">Category:</td><td style="padding: 8px 0; color: #333;">${listingCategory || 'Not specified'}</td></tr>
         </table>
       `;
     }
@@ -389,10 +454,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Try to send email
     try {
       const emailSubject = `🔥 New Customer Lead from San Luis Way - ${name}`;
-      const businessEmail = to || 'info@sanluisway.com';
 
       const emailData = {
-        to: businessEmail,
+        to: actualEmailTo,
         from: 'San Luis Way <onboarding@resend.dev>', // Will be updated when you configure your domain
         replyTo: email,
         subject: emailSubject,
@@ -425,7 +489,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           contact_id: contactResult.id,
           customer_name: name,
           customer_email: email,
-          business_email: to || 'info@sanluisway.com',
+          business_email: businessEmail,
           created_at: contactResult.created_at,
           email_sent: false,
           email_error: emailError instanceof Error ? emailError.message : 'Unknown error'
