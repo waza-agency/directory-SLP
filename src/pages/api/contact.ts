@@ -27,78 +27,126 @@ async function verifyRecaptcha(token: string) {
   return data.success;
 }
 
-// Function to send email using Supabase's built-in email service
-async function sendEmailViaSupabase(supabase: any, emailData: any) {
+// Function to send email using Resend
+async function sendEmailViaResend(emailData: any) {
   try {
-    console.log('Attempting to send email via Supabase Auth email service');
+    console.log('Sending email via Resend');
 
-    // Use Supabase's auth.admin.sendEmail if available
-    // This uses the same email service as user verification emails
-    if (supabase.auth.admin?.sendEmail) {
-      const result = await supabase.auth.admin.sendEmail({
-        email: emailData.to,
-        type: 'email',
-        data: {
-          email_action_type: 'email',
-          site_url: process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com',
-          token: 'contact_notification',
-          token_hash: 'contact_notification',
-          redirect_to: process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com'
-        }
-      });
-
-      console.log('Supabase admin email result:', result);
-      return { success: true, method: 'supabase_admin' };
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY not configured');
     }
 
-    // Fallback: Try to call our custom email function (if deployed)
-    const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/send-email`, {
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`
       },
       body: JSON.stringify({
+        from: emailData.from,
         to: emailData.to,
+        reply_to: emailData.replyTo,
         subject: emailData.subject,
         html: emailData.html,
-        from: emailData.from,
-        replyTo: emailData.replyTo
-      })
+      }),
     });
 
-    if (emailResponse.ok) {
-      const result = await emailResponse.json();
-      console.log('Supabase Edge Function email sent:', result);
-      return { success: true, method: 'edge_function' };
-    } else {
-      const error = await emailResponse.text();
-      console.error('Supabase Edge Function error:', error);
-      throw new Error(`Edge Function failed: ${error}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Resend API error: ${response.status} - ${errorText}`);
     }
+
+    const result = await response.json();
+    console.log('Email sent successfully via Resend:', result);
+    return { success: true, method: 'resend', id: result.id };
 
   } catch (error) {
-    console.error('Supabase email error:', error);
-
-    // Final fallback: Log to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log('\n' + '='.repeat(80));
-      console.log('📧 EMAIL THAT WOULD BE SENT VIA SUPABASE:');
-      console.log('='.repeat(80));
-      console.log(`From: ${emailData.from}`);
-      console.log(`To: ${emailData.to}`);
-      console.log(`Reply-To: ${emailData.replyTo}`);
-      console.log(`Subject: ${emailData.subject}`);
-      console.log('-'.repeat(80));
-      console.log('CONTENT:');
-      console.log(emailData.html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 500) + '...');
-      console.log('='.repeat(80) + '\n');
-
-      return { success: true, method: 'console_log' };
-    }
-
+    console.error('Resend email error:', error);
     throw error;
   }
+}
+
+// Function to send email using Gmail/SMTP fallback
+async function sendEmailViaSMTP(emailData: any) {
+  try {
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+      throw new Error('Gmail credentials not configured');
+    }
+
+    // Dynamic import of nodemailer
+    const nodemailer = await import('nodemailer');
+
+    const transporter = nodemailer.default.createTransporter({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
+      }
+    });
+
+    const mailOptions = {
+      from: `"San Luis Way" <${process.env.GMAIL_USER}>`,
+      to: emailData.to,
+      replyTo: emailData.replyTo,
+      subject: emailData.subject,
+      html: emailData.html,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully via Gmail:', info.messageId);
+    return { success: true, method: 'gmail', id: info.messageId };
+
+  } catch (error) {
+    console.error('Gmail email error:', error);
+    throw error;
+  }
+}
+
+// Function to send email with multiple fallbacks
+async function sendEmail(emailData: any) {
+  const errors: string[] = [];
+
+  // Try Resend first (recommended)
+  if (process.env.RESEND_API_KEY) {
+    try {
+      return await sendEmailViaResend(emailData);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown Resend error';
+      errors.push(`Resend: ${errorMsg}`);
+      console.log('Resend failed, trying Gmail fallback...');
+    }
+  }
+
+  // Try Gmail as fallback
+  if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+    try {
+      return await sendEmailViaSMTP(emailData);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown Gmail error';
+      errors.push(`Gmail: ${errorMsg}`);
+      console.log('Gmail failed, using console logging...');
+    }
+  }
+
+  // Final fallback: Log to console in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('\n' + '='.repeat(80));
+    console.log('📧 EMAIL THAT WOULD BE SENT:');
+    console.log('='.repeat(80));
+    console.log(`From: ${emailData.from}`);
+    console.log(`To: ${emailData.to}`);
+    console.log(`Reply-To: ${emailData.replyTo}`);
+    console.log(`Subject: ${emailData.subject}`);
+    console.log('-'.repeat(80));
+    console.log('CONTENT:');
+    console.log(emailData.html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 500) + '...');
+    console.log('='.repeat(80) + '\n');
+
+    return { success: true, method: 'console_log' };
+  }
+
+  // All methods failed
+  throw new Error(`All email methods failed: ${errors.join('; ')}`);
 }
 
 // Function to ensure contact_inquiries table exists
@@ -338,23 +386,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       </div>
     `;
 
-    // Try to send email using Supabase's email service
+    // Try to send email
     try {
       const emailSubject = `🔥 New Customer Lead from San Luis Way - ${name}`;
       const businessEmail = to || 'info@sanluisway.com';
 
       const emailData = {
         to: businessEmail,
-        from: 'San Luis Way <info@sanluisway.com>',
+        from: 'San Luis Way <onboarding@resend.dev>', // Will be updated when you configure your domain
         replyTo: email,
         subject: emailSubject,
         html: htmlContent
       };
 
-      const emailResult = await sendEmailViaSupabase(supabase, emailData);
+      const emailResult = await sendEmail(emailData);
 
       return res.status(200).json({
-        message: 'Contact inquiry received and email sent successfully via Supabase',
+        message: 'Contact inquiry received and email sent successfully',
         data: {
           contact_id: contactResult.id,
           customer_name: name,
@@ -362,12 +410,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           business_email: businessEmail,
           created_at: contactResult.created_at,
           email_sent: true,
-          email_method: emailResult.method
+          email_method: emailResult.method,
+          email_id: emailResult.id
         }
       });
 
     } catch (emailError) {
-      console.error('Error sending email via Supabase:', emailError);
+      console.error('Error sending email:', emailError);
 
       // Still return success since contact was saved
       return res.status(200).json({
@@ -381,7 +430,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           email_sent: false,
           email_error: emailError instanceof Error ? emailError.message : 'Unknown error'
         },
-        note: 'Email will be sent when Supabase email service is properly configured'
+        note: 'Please configure RESEND_API_KEY or GMAIL credentials in environment variables'
       });
     }
 
