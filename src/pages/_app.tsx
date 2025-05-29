@@ -1,64 +1,65 @@
+import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import Layout from '../components/Layout';
-import '../styles/globals.css';
-import '../i18n';
 import { appWithTranslation } from 'next-i18next';
-import nextI18nConfig from '../../next-i18next.config.js';
+import nextI18NextConfig from '../../next-i18next.config.js';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+// import { CartProvider } from '@/lib/cart-context'; // MARKETPLACE DISABLED
+import React from 'react';
 import Head from 'next/head';
-import { AuthProvider } from '@/lib/supabase-auth';
-import { CartProvider } from '@/lib/cart-context';
-import { supabase } from '@/lib/supabase';
-import { SessionContextProvider } from '@supabase/auth-helpers-react';
-import Script from 'next/script';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <meta name="google-site-verification" content="s4k5V8dAkvDb3Dv15SNozffS7noII7qQAsUXJfnALOU" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        {/* Global meta tags */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1F2937" />
 
-        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png" />
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
+
+        {/* Manifest */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
+
+        {/* Microsoft Tiles */}
+        <meta name="msapplication-TileColor" content="#1F2937" />
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
 
-        {/* Open Graph / Social Media Meta Tags */}
-        <meta property="og:site_name" content="San Luis Way" />
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/og-image.jpg" />
+        <meta property="og:locale" content="es_MX" />
 
-        {/* JSON-LD for structured data */}
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+
+        {/* Global Site Verification - Add your verification codes here */}
+        {/* Google Analytics - Add your GA4 tracking code here */}
+        {/* Add other verification meta tags as needed */}
+
+        {/* Structured Data - JSON-LD for local business */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "San Luis Way",
-              "url": "https://www.sanluisway.com/",
-              "description": "Your Insider Guide to San Luis Potosí",
+              "name": "Directory SLP",
+              "url": "https://directory-slp.com",
+              "description": "Directorio completo de San Luis Potosí - lugares, eventos, y guías locales",
+              "inLanguage": ["es-MX", "en-US"],
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://www.sanluisway.com/search?q={search_term_string}",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://directory-slp.com/search?q={search_term_string}"
+                },
                 "query-input": "required name=search_term_string"
               }
             })
@@ -66,41 +67,28 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      {/* Scripts */}
-      <Script src="https://js.stripe.com/v3/" strategy="afterInteractive" />
-      <Script
-        id="google-adsense"
-        async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
-        strategy="lazyOnload"
-        crossOrigin="anonymous"
-        onError={(e) => {
-          console.error('AdSense script failed to load:', e);
-        }}
-        onLoad={() => {
-          console.log('AdSense script loaded successfully');
-          try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-          } catch (err) {
-            console.error('Error initializing AdSense:', err);
-          }
-        }}
-      />
-
-      <SessionContextProvider
-        supabaseClient={supabase}
-        initialSession={pageProps.initialSession}
-      >
-        <AuthProvider>
-          <CartProvider>
-            <Layout>
+            {/* MARKETPLACE DISABLED - Removed CartProvider */}
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-grow">
               <Component {...pageProps} />
-            </Layout>
-          </CartProvider>
-        </AuthProvider>
-      </SessionContextProvider>
+        </main>
+        <Footer />
+      </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }
 
-export default appWithTranslation(MyApp, nextI18nConfig);
+export default appWithTranslation(App, nextI18NextConfig);

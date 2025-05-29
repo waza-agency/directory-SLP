@@ -26,86 +26,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
-    return;
-  }
-
-  try {
-    // Log the full request details
-    console.log('API Request received:', {
-      method: req.method,
-      url: req.url,
-      headers: {
-        origin: req.headers.origin,
-        host: req.headers.host,
-        'content-type': req.headers['content-type'],
-      },
-      body: {
-        orderId: req.body?.orderId,
-        itemsCount: req.body?.items?.length,
-        customerEmail: req.body?.customerEmail,
-      }
-    });
-
-    // CORS handling
-    if (cors(req, res)) return;
-
-    // Get the user from the session
-    const supabase = createServerSupabaseClient({ req, res });
-    const { data: { session } } = await supabase.auth.getSession();
-
-    if (!session?.user) {
-      return res.status(401).json({ error: 'Not authenticated' });
+  // MARKETPLACE DISABLED - Return error message
+  return res.status(503).json({
+    success: false,
+    error: {
+      message: 'El marketplace está temporalmente desactivado. Solo funcionan las suscripciones de perfiles de negocio.',
+      code: 'MARKETPLACE_DISABLED'
     }
-
-    const { items, success_url, cancel_url } = req.body;
-
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ error: 'Invalid items' });
-    }
-
-    // Validate each item
-    for (const item of items) {
-      if (!item.name || typeof item.price !== 'number' || item.price <= 0 || !item.quantity || item.quantity <= 0) {
-        return res.status(400).json({
-          error: {
-            message: 'Each item must have a name, valid price, and quantity',
-            code: 'invalid_item_data',
-            item
-          }
-        });
-      }
-    }
-
-    // Create Stripe checkout session
-    const checkoutSession = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
-      line_items: items.map(item => ({
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: item.name,
-            description: item.description,
-            images: item.images,
-          },
-          unit_amount: Math.round(item.price * 100), // Convert to cents
-        },
-        quantity: item.quantity,
-      })),
-      success_url: success_url || `${process.env.NEXT_PUBLIC_SITE_URL}/order-confirmation`,
-      cancel_url: cancel_url || `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
-      metadata: {
-        user_id: session.user.id, // Add user ID to metadata
-      },
-      customer_email: session.user.email,
-    });
-
-    res.status(200).json({ sessionId: checkoutSession.id });
-  } catch (error: any) {
-    console.error('API handler error:', error);
-    res.status(500).json({ error: 'Error creating checkout session' });
-  }
+  });
 }

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
 import { searchPlaces } from '@/lib/supabase';
-import Cart from './common/Cart';
+// import Cart from './common/Cart'; // MARKETPLACE DISABLED
 import { useAuth } from '@/lib/supabase-auth';
 
 export default function Header() {
@@ -19,7 +19,7 @@ export default function Header() {
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -87,7 +87,7 @@ export default function Header() {
     <header className="sticky top-0 z-50">
       {/* San Luis color accent line */}
       <div className="bg-gradient-to-r from-primary to-secondary h-1"></div>
-      
+
       {/* Main Navigation Bar */}
       <div className="bg-background shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
@@ -100,47 +100,46 @@ export default function Header() {
               className="h-20 w-auto"
             />
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
+            <Link
               href="/"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
               {t('home')}
             </Link>
-            
-            <Link 
+
+            <Link
               href="/places"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
               {t('explore')}
             </Link>
-            
-            <Link 
+
+            <Link
               href="/about"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
               {t('about')}
             </Link>
 
-            <Link 
+            <Link
               href="/faq"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
               FAQ
             </Link>
-            
-            <Link 
+
+            <Link
               href="/contact"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
               {t('contact')}
             </Link>
-            
-            {/* Shopping Cart */}
-            <Cart />
-            
+
+            {/* MARKETPLACE DISABLED - Shopping Cart removed */}
+
             {/* Authentication Buttons or User Menu */}
             {user ? (
               <div className="relative">
@@ -154,25 +153,25 @@ export default function Header() {
                   <span className="text-sm hidden lg:inline">
                     {user.email?.split('@')[0]}
                   </span>
-                  <svg 
-                    className={`ml-1 w-4 h-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    viewBox="0 0 20 20" 
+                  <svg
+                    className={`ml-1 w-4 h-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
                     fill="currentColor"
                   >
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-                
+
                 {isUserMenuOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10">
-                    <Link 
+                    <Link
                       href="/account"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
                       My Account
                     </Link>
-                    <Link 
+                    <Link
                       href="/account/orders"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
@@ -189,21 +188,21 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex items-center space-x-3">
-                <Link 
-                  href="/signin" 
+                <Link
+                  href="/signin"
                   className="text-gray-700 hover:text-primary text-sm font-medium transition-colors"
                 >
                   Sign In
                 </Link>
-                <Link 
-                  href="/signup" 
+                <Link
+                  href="/signup"
                   className="bg-primary hover:bg-primary-dark text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
                 >
                   Sign Up
                 </Link>
               </div>
             )}
-            
+
             {/* Language Selector */}
             <div className="relative">
               <button
@@ -211,16 +210,16 @@ export default function Header() {
                 className="text-gray-700 hover:text-gray-900 transition-colors px-3 py-1 text-sm border border-gray-200 rounded-md hover:border-gray-300 flex items-center"
               >
                 {languages[router.locale as keyof typeof languages] || 'English'}
-                <svg 
-                  className={`ml-2 w-4 h-4 transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`} 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 20 20" 
+                <svg
+                  className={`ml-2 w-4 h-4 transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
                   fill="currentColor"
                 >
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              
+
               {isLanguageMenuOpen && (
                 <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10">
                   {Object.entries(languages).map(([code, name]) => (
@@ -269,10 +268,10 @@ export default function Header() {
               <Link href="/places" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 PLACES
               </Link>
-              <Link href="/shop" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
-                SHOP
-                <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">NEW</span>
+              <Link href="/listings" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+                LISTINGS
               </Link>
+              {/* MARKETPLACE DISABLED - Shop link removed */}
               <Link href="/events" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 EVENTS
               </Link>
@@ -337,23 +336,23 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-white py-4 px-6 mt-2 rounded-md shadow-md animate-fadeIn">
           <div className="flex flex-col space-y-3">
-            <Link 
+            <Link
               href="/"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               {t('home')}
             </Link>
-            
-            <Link 
+
+            <Link
               href="/places"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               {t('explore')}
             </Link>
-            
-            <Link 
+
+            <Link
               href="/about"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
@@ -361,36 +360,36 @@ export default function Header() {
               {t('about')}
             </Link>
 
-            <Link 
+            <Link
               href="/faq"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               FAQ
             </Link>
-            
-            <Link 
+
+            <Link
               href="/contact"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               {t('contact')}
             </Link>
-            
+
             {/* Authentication Links for Mobile */}
             <div className="pt-3 border-t border-gray-200">
               <p className="text-xs text-gray-500 mb-2">Account</p>
               {user ? (
                 <div className="space-y-2">
-                  <Link 
-                    href="/account" 
+                  <Link
+                    href="/account"
                     className="block text-sm text-gray-700 hover:text-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     My Account
                   </Link>
-                  <Link 
-                    href="/account/orders" 
+                  <Link
+                    href="/account/orders"
                     className="block text-sm text-gray-700 hover:text-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -408,15 +407,15 @@ export default function Header() {
                 </div>
               ) : (
                 <div className="space-y-2">
-                  <Link 
-                    href="/signin" 
+                  <Link
+                    href="/signin"
                     className="block text-sm text-gray-700 hover:text-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Sign In
                   </Link>
-                  <Link 
-                    href="/signup" 
+                  <Link
+                    href="/signup"
                     className="block bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1.5 rounded-md transition-colors inline-block"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -427,10 +426,7 @@ export default function Header() {
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-xs text-gray-500">Shopping Cart</p>
-                <Cart />
-              </div>
+              {/* MARKETPLACE DISABLED - Shopping Cart removed */}
 
               <p className="text-xs text-gray-500 mb-2">Categories</p>
               <div className="space-y-2">
@@ -440,10 +436,10 @@ export default function Header() {
                 <Link href="/places" className="block text-sm text-gray-700 hover:text-primary">
                   Places
                 </Link>
-                <Link href="/shop" className="block text-sm text-gray-700 hover:text-primary">
-                  Shop
-                  <span className="ml-1 px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">NEW</span>
+                <Link href="/listings" className="block text-sm text-gray-700 hover:text-primary">
+                  Listings
                 </Link>
+                {/* MARKETPLACE DISABLED - Shop link removed */}
                 <Link href="/events" className="block text-sm text-gray-700 hover:text-primary">
                   Events
                 </Link>
@@ -455,7 +451,7 @@ export default function Header() {
                 </Link>
               </div>
             </div>
-            
+
             <div className="pt-3 border-t border-gray-200">
               <p className="text-xs text-gray-500 mb-2">Language</p>
               <div className="grid grid-cols-2 gap-2">
@@ -482,4 +478,4 @@ export default function Header() {
       )}
     </header>
   );
-} 
+}

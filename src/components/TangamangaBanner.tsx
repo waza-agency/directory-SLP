@@ -14,10 +14,10 @@ export default function TangamangaBanner() {
               Parque Tangamanga
             </h2>
             <p className="text-lg mb-6">
-              El pulmón verde más importante de San Luis Potosí, con más de 420 hectáreas de áreas verdes, 
+              El pulmón verde más importante de San Luis Potosí, con más de 420 hectáreas de áreas verdes,
               lagos artificiales, canchas deportivas y senderos para disfrutar de la naturaleza.
             </p>
-            <Link 
+            <Link
               href="/parque-tangamanga"
               className="inline-block bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors"
             >
@@ -31,10 +31,11 @@ export default function TangamangaBanner() {
               fill
               className="object-cover rounded-lg shadow-xl"
               priority
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>
       </div>
     </section>
   );
-} 
+}

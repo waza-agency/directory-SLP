@@ -1,4 +1,4 @@
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types/supabase'
 
 // Ensure environment variables are loaded or use development fallbacks
@@ -17,8 +17,8 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Use the Supabase Auth Helpers client for cookie-based session storage
-export const supabase = createBrowserSupabaseClient<Database>();
+// Use the updated Pages Browser client for cookie-based session storage
+export const supabase = createPagesBrowserClient<Database>();
 
 // Add debug logging to verify supabase client is created correctly
 console.log('Supabase client created successfully:', !!supabase && !!supabase.auth);
@@ -39,7 +39,7 @@ export const getPlaces = async () => {
     .order('created_at', { ascending: false })
 
   if (error) throw error
-  
+
   // Map the database results to the expected Place interface
   return data.map(place => {
     return {
@@ -74,7 +74,7 @@ export const getFeaturedPlaces = async () => {
     .order('created_at', { ascending: false })
 
   if (error) throw error
-  
+
   // Map the database results to the expected Place interface
   return data.map(place => {
     return {
@@ -104,15 +104,15 @@ export const getFeaturedPlaces = async () => {
 // Helper function to filter events by date consistently across all pages
 export const filterUpcomingEvents = (events: any[] | null) => {
   if (!events || !Array.isArray(events)) return [];
-  
+
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0); // Set to start of day
-  
+
   return events.filter(event => {
     // Parse the start date to properly compare regardless of format
     const eventStartDate = new Date(event.start_date);
     eventStartDate.setHours(0, 0, 0, 0); // Set to start of day
-    
+
     // If end_date is missing, create a default end date 2 hours after start
     let eventEndDate: Date;
     if (!event.end_date) {
@@ -122,7 +122,7 @@ export const filterUpcomingEvents = (events: any[] | null) => {
     } else {
       eventEndDate = new Date(event.end_date);
     }
-    
+
     // Include events that:
     // 1. Start today or in the future, OR
     // 2. Are currently ongoing (end date is today or in the future)
@@ -140,7 +140,7 @@ export const getSafetyDateBuffer = (daysBack = 7) => {
 export const getEvents = async () => {
   // Calculate the safety buffer date - 7 days in the past
   const safetyDateString = getSafetyDateBuffer();
-  
+
   const { data, error } = await supabase
     .from('events')
     .select('*')
@@ -148,7 +148,7 @@ export const getEvents = async () => {
     .order('start_date', { ascending: true });
 
   if (error) throw error;
-  
+
   // Apply the consistent filtering logic
   return filterUpcomingEvents(data);
 }
@@ -156,7 +156,7 @@ export const getEvents = async () => {
 export const getFeaturedEvents = async () => {
   // Use safety buffer for initial query to get more recent events
   const safetyDateString = getSafetyDateBuffer();
-  
+
   const { data: eventsData, error } = await supabase
     .from('events')
     .select('*')
@@ -165,7 +165,7 @@ export const getFeaturedEvents = async () => {
     .order('start_date', { ascending: true });
 
   if (error) throw error;
-  
+
   // Now use the filterUpcomingEvents function to properly filter with our date logic
   return filterUpcomingEvents(eventsData);
 }
@@ -184,14 +184,14 @@ export const getFeaturedPhotos = async () => {
 export const getPlaceById = async (id: string) => {
   try {
     console.log('Supabase: Fetching place with ID:', id);
-    
+
     // First check if the ID exists in the database
     const { data: placeExists, error: checkError } = await supabase
       .from('places')
       .select('id')
       .eq('id', id)
       .single();
-      
+
     if (checkError) {
       console.error('Supabase error checking place existence:', checkError);
       if (checkError.code === 'PGRST116') {  // No rows returned
@@ -200,12 +200,12 @@ export const getPlaceById = async (id: string) => {
       }
       throw checkError;
     }
-    
+
     if (!placeExists) {
       console.log('No place found with ID:', id);
       return null;
     }
-    
+
     // Now fetch the full place data
     const { data, error } = await supabase
       .from('places')
@@ -281,7 +281,7 @@ export const getPotosinoBrands = async () => {
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  
+
   // Map the database results to the expected Place interface
   return data.map(place => ({
     id: place.id,
@@ -308,7 +308,7 @@ export const getPotosinoBrands = async () => {
 
 export const searchPlaces = async (searchTerm: string, category?: string) => {
   console.log('Search request with:', { searchTerm, category });
-  
+
   let query = supabase
     .from('places')
     .select('*')
@@ -330,12 +330,12 @@ export const searchPlaces = async (searchTerm: string, category?: string) => {
     console.error('Error fetching places:', error);
     throw error;
   }
-  
+
   console.log(`Found ${data.length} places in database`);
   // Log all unique categories in the database results
   const uniqueCategories = Array.from(new Set(data.map(place => place.category)));
   console.log('Unique categories in database results:', uniqueCategories);
-  
+
   // Map the database results to the expected Place interface
   const mappedData = data.map(place => {
     return {
@@ -360,7 +360,7 @@ export const searchPlaces = async (searchTerm: string, category?: string) => {
       tags: place.tags || []
     };
   });
-  
+
   console.log(`Returning ${mappedData.length} mapped places`);
   return mappedData;
 }
@@ -372,35 +372,35 @@ export const getRandomPlaces = async (limit: number = 16) => {
     const { count, error: countError } = await supabase
       .from('places')
       .select('*', { count: 'exact', head: true });
-      
+
     if (countError) throw countError;
-    
+
     if (!count || count === 0) {
       console.log('No places found in database');
       return [];
     }
-    
+
     console.log(`Total places in database: ${count}`);
-    
+
     // Get all places and randomize client-side
     // This is more efficient for small to medium datasets than the SQL randomization
     const { data, error } = await supabase
       .from('places')
       .select('*');
-      
+
     if (error) throw error;
-    
+
     // Shuffle the array using Fisher-Yates algorithm
     const shuffled = [...data];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    
+
     // Return the first 'limit' items
     const randomPlaces = shuffled.slice(0, limit);
     console.log(`Returning ${randomPlaces.length} random places`);
-    
+
     // Map the places to our interface
     return randomPlaces.map(place => ({
       id: place.id,

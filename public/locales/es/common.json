@@ -171,5 +171,41 @@
   "clearFilters": "Limpiar Filtros",
   "searchEvents": "Buscar eventos...",
   "upcomingEvents": "Próximos Eventos",
-  "pastEvents": "Eventos Pasados"
+  "pastEvents": "Eventos Pasados",
+  "listings": {
+    "title": "Negocios Locales",
+    "description": "Descubre productos y servicios de negocios locales en San Luis Potosí",
+    "viewDetailsAndContact": "Ver Detalles y Contactar",
+    "filterBy": "Filtrar por Categoría",
+    "allCategories": "Todas las Categorías",
+    "loading": "Cargando anuncios...",
+    "noListings": "No hay anuncios disponibles en este momento. Por favor revisa más tarde.",
+    "noCategoryListings": "No hay anuncios disponibles en esta categoría.",
+    "backToListings": "Volver a Negocios",
+    "callBusiness": "Llamar",
+    "emailBusiness": "Email",
+    "visitWebsite": "Visitar Sitio Web",
+    "contactInformation": "Información de Contacto",
+    "services": "Servicios",
+    "noImageAvailable": "Sin imagen disponible",
+    "service": "Servicio",
+    "product": "Producto",
+    "contactBusiness": "Contactar Negocio",
+    "sendMessage": "Enviar Mensaje",
+    "contactForm": {
+      "title": "Contactar {{businessName}}",
+      "description": "Envía un mensaje directamente a {{businessName}}. Recibirán tu consulta por email y te responderán directamente.",
+      "name": "Tu Nombre",
+      "email": "Tu Email",
+      "phone": "Tu Teléfono (opcional)",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "send": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "¡Tu mensaje ha sido enviado exitosamente!",
+      "successDetail": "Tu mensaje ha sido enviado a {{businessName}}. Te contactarán directamente por email.",
+      "error": "Hubo un error enviando tu mensaje. Por favor intenta de nuevo.",
+      "recaptchaError": "Por favor verifica que no eres un robot"
+    }
+  }
 }

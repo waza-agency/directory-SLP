@@ -25,21 +25,17 @@ export interface Place {
     rating: number;
     text: string;
   }[];
-  price?: number;
-  inventory?: number;
-  isPurchasable?: boolean;
-  sku?: string;
 }
 
-export type PlaceCategory = 
-  | 'restaurant' 
-  | 'cafe' 
-  | 'bar' 
-  | 'hotel' 
-  | 'museum' 
-  | 'park' 
-  | 'shop' 
-  | 'service' 
+export type PlaceCategory =
+  | 'restaurant'
+  | 'cafe'
+  | 'bar'
+  | 'hotel'
+  | 'museum'
+  | 'park'
+  | 'shop'
+  | 'service'
   | 'live-music'
   | 'other';
 
@@ -62,4 +58,4 @@ export interface Event {
   created_at?: string;
   updated_at?: string;
   show_in_cultural_calendar?: boolean;
-} 
+}

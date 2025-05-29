@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -7,30 +7,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { supabase } from '@/lib/supabase';
-import BuyButton from '@/components/common/BuyButton';
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon, ClockIcon, GlobeAltIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-
-// Place type definition
-type Place = {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  address: string; 
-  city?: string;
-  phone?: string;
-  website?: string;
-  instagram?: string;
-  image_url?: string;
-  images?: string[];  // Adding images array for places too
-  hours?: string;
-  // Purchase-related fields
-  price?: number;
-  inventory?: number;
-  is_purchasable?: boolean;
-  sku?: string;
-  created_at: string;
-};
 
 // Business Listing type definition
 type BusinessListing = {
@@ -38,7 +15,8 @@ type BusinessListing = {
   title: string;
   description: string;
   category: string;
-  address?: string; 
+  type: string;
+  address?: string;
   city?: string;
   phone?: string;
   website?: string;
@@ -46,100 +24,63 @@ type BusinessListing = {
   hours?: {[key: string]: {open: string, close: string}};
   images?: string[];
   services?: string[];
-  price?: number | string;
+  price?: string;
   status: string;
   created_at: string;
   updated_at: string;
   business_id: string;
-  shipping_fee?: number;
+  business_profiles?: {
+    business_name: string;
+    phone?: string;
+    website?: string;
+    instagram?: string;
+    facebook?: string;
+    address?: string;
+    city?: string;
+  };
 };
 
 type ListingDetailProps = {
-  place?: Place | null;
-  businessListing?: BusinessListing | null;
-  type: 'place' | 'business_listing';
+  businessListing: BusinessListing | null;
 };
 
-export default function ListingDetail({ place, businessListing, type }: ListingDetailProps) {
+export default function BusinessListingDetail({ businessListing }: ListingDetailProps) {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Handle loading state and fallback
-  if (router.isFallback || (!place && !businessListing)) {
+  if (router.isFallback || !businessListing) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
-        <p className="ml-4 text-gray-600">{t('listing.loading', 'Loading listing...')}</p>
+        <p className="ml-4 text-gray-600">Cargando negocio...</p>
       </div>
     );
   }
 
-  const listing = type === 'place' ? place : businessListing;
-  const name = type === 'place' ? place?.name : businessListing?.title;
-  const description = listing?.description;
-  
   // Get all images
-  let images: string[] = [];
-  if (type === 'place') {
-    // For places, use image_url as first image if it exists, or use images array if available
-    if (place?.image_url) {
-      images = place.images ? [place.image_url, ...place.images] : [place.image_url];
-    } else {
-      images = place?.images || [];
-    }
-  } else {
-    // For business listings, use the images array
-    images = businessListing?.images || [];
-  }
-
-  // Ensure we have at least one image or placeholder
-  if (images.length === 0) {
-    images = [''];  // Empty string will trigger the placeholder display
-  }
-
+  const images = businessListing.images || [''];
   const currentImage = images[currentImageIndex];
-  const category = listing?.category;
-  const price = type === 'place' 
-    ? place?.price 
-    : businessListing?.price 
-      ? parseFloat(businessListing.price.toString()) 
-      : undefined;
 
   const formatHours = (hours: any) => {
-    if (type === 'place') return hours;
-    
-    if (typeof hours === 'object') {
+    if (typeof hours === 'object' && hours) {
       return Object.entries(hours)
-        .filter(([_, time]) => time.open && time.close)
-        .map(([day, time]) => `${day.charAt(0).toUpperCase() + day.slice(1)}: ${time.open} - ${time.close}`)
+        .filter(([_, time]: [string, any]) => time?.open && time?.close)
+        .map(([day, time]: [string, any]) => `${day.charAt(0).toUpperCase() + day.slice(1)}: ${time.open} - ${time.close}`)
         .join(', ');
     }
-    
     return '';
   };
 
-  const handleIncreaseQuantity = () => {
-    if (quantity < 10) {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   const goToNextImage = () => {
-    setCurrentImageIndex((prevIndex) => 
+    setCurrentImageIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const goToPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => 
+    setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
@@ -147,53 +88,53 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
   return (
     <>
       <Head>
-        <title>{name} | Directory SLP</title>
-        <meta name="description" content={description} />
+        <title>{businessListing.title} | Directory SLP</title>
+        <meta name="description" content={businessListing.description} />
         {currentImage && <meta property="og:image" content={currentImage} />}
       </Head>
 
       <div className="bg-gray-50 min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Back Button */}
-          <Link href="/shop" className="inline-flex items-center text-primary hover:text-primary-dark mb-8 transition duration-200">
+          <Link href="/listings" className="inline-flex items-center text-primary hover:text-primary-dark mb-8 transition duration-200">
             <ArrowLeftIcon className="h-4 w-4 mr-1" />
-            {t('listing.backToListings', 'Back to Shop')}
+            {t('listings.backToListings', 'Volver a Negocios')}
           </Link>
 
           {/* Main Content */}
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="flex flex-col lg:flex-row">
-              {/* Product Image Gallery with 16:9 Aspect Ratio */}
+              {/* Image Gallery */}
               <div className="lg:w-1/2">
-                <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 Aspect Ratio */}
-                  {currentImage ? (
+                <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+                  {currentImage && currentImage !== '' ? (
                     <Image
                       src={currentImage}
-                      alt={`${name || ''} - Image ${currentImageIndex + 1}`}
+                      alt={`${businessListing.title} - Image ${currentImageIndex + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                       priority
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-                      <span className="text-gray-400">No image available</span>
+                      <span className="text-gray-400">{t('listings.noImageAvailable', 'Sin imagen disponible')}</span>
                     </div>
                   )}
-                  
+
                   {/* Navigation arrows - only show if there are multiple images */}
-                  {images.length > 1 && (
+                  {images.length > 1 && images[0] !== '' && (
                     <>
-                      <button 
+                      <button
                         onClick={goToPreviousImage}
                         className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md z-10 transition-all duration-200"
-                        aria-label="Previous image"
+                        aria-label="Imagen anterior"
                       >
                         <ChevronLeftIcon className="h-6 w-6 text-gray-700" />
                       </button>
-                      <button 
+                      <button
                         onClick={goToNextImage}
                         className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-md z-10 transition-all duration-200"
-                        aria-label="Next image"
+                        aria-label="Siguiente imagen"
                       >
                         <ChevronRightIcon className="h-6 w-6 text-gray-700" />
                       </button>
@@ -201,7 +142,7 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
                   )}
 
                   {/* Image counter */}
-                  {images.length > 1 && (
+                  {images.length > 1 && images[0] !== '' && (
                     <div className="absolute bottom-3 right-3 bg-black/60 text-white text-sm px-2 py-1 rounded-md">
                       {currentImageIndex + 1} / {images.length}
                     </div>
@@ -209,7 +150,7 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
                 </div>
 
                 {/* Thumbnail Gallery */}
-                {images.length > 1 && (
+                {images.length > 1 && images[0] !== '' && (
                   <div className="flex overflow-x-auto py-3 gap-2 px-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     {images.map((img, index) => (
                       <button
@@ -228,7 +169,7 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                            <span className="text-xs text-gray-400">No image</span>
+                            <span className="text-xs text-gray-400">Sin imagen</span>
                           </div>
                         )}
                       </button>
@@ -237,125 +178,194 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
                 )}
               </div>
 
-              {/* Product Information */}
+              {/* Business Information */}
               <div className="lg:w-1/2 p-6 lg:p-8">
-                <div className="flex flex-col h-full justify-between">
-                  <div>
-                    {/* Category Badge */}
-                    <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full mb-3">
-                      {category}
+                <div className="flex flex-col h-full">
+                  {/* Category and Type Badges */}
+                  <div className="flex gap-2 mb-3">
+                    <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                      {businessListing.category}
                     </span>
-                    
-                    {/* Title and Description */}
-                    <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">{name}</h1>
-                    <p className="text-gray-600 mb-6">{description}</p>
-                    
-                    {/* Price and Stock */}
+                    {businessListing.type && (
+                      <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                        {businessListing.type === 'service' ? t('listings.service', 'Servicio') : t('listings.product', 'Producto')}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title and Business Name */}
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">{businessListing.title}</h1>
+                  {businessListing.business_profiles?.business_name && (
+                    <p className="text-lg text-gray-600 mb-4">{businessListing.business_profiles.business_name}</p>
+                  )}
+
+                  {/* Description */}
+                  <p className="text-gray-600 mb-6">{businessListing.description}</p>
+
+                  {/* Price */}
+                  {businessListing.price && (
                     <div className="mb-6">
-                      <div className="flex items-center">
-                        <span className="text-3xl font-bold text-gray-900">${(price || 100).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})} <span className="text-lg font-medium">MXN</span></span>
-                        <span className="ml-3 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          {t('listing.inStock', 'In Stock')}
-                        </span>
-                      </div>
+                      <span className="text-2xl font-bold text-green-600">{businessListing.price}</span>
                     </div>
-                    
-                    {/* Contact Info */}
-                    <div className="bg-gray-50 rounded-lg p-4 mb-6 space-y-2">
-                      {listing?.address && (
+                  )}
+
+                  {/* Contact Information */}
+                  <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('listings.contactInformation', 'Información de Contacto')}</h3>
+                    <div className="space-y-3">
+                      {/* Address */}
+                      {(businessListing.address || businessListing.business_profiles?.address) && (
                         <div className="flex items-start">
-                          <MapPinIcon className="h-5 w-5 text-gray-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>
-                            <p className="text-gray-800">{listing.address}</p>
-                            {listing.city && <p className="text-gray-600">{listing.city}</p>}
-                          </span>
+                          <MapPinIcon className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-gray-800">{businessListing.address || businessListing.business_profiles?.address}</p>
+                            {(businessListing.city || businessListing.business_profiles?.city) && (
+                              <p className="text-gray-600">{businessListing.city || businessListing.business_profiles?.city}</p>
+                            )}
+                          </div>
                         </div>
                       )}
-                      
-                      {(type === 'place' ? place?.phone : businessListing?.phone) && (
+
+                      {/* Phone */}
+                      {(businessListing.phone || businessListing.business_profiles?.phone) && (
                         <div className="flex items-center">
-                          <PhoneIcon className="h-5 w-5 text-gray-500 mr-2 flex-shrink-0" />
-                          <span className="text-gray-800">{type === 'place' ? place?.phone : businessListing?.phone}</span>
-                        </div>
-                      )}
-                      
-                      {listing?.website && (
-                        <div className="flex items-center">
-                          <GlobeAltIcon className="h-5 w-5 text-gray-500 mr-2 flex-shrink-0" />
-                          <a href={listing.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                            {listing.website.replace(/^https?:\/\//, '')}
+                          <PhoneIcon className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
+                          <a
+                            href={`tel:${businessListing.phone || businessListing.business_profiles?.phone}`}
+                            className="text-primary hover:underline font-medium"
+                          >
+                            {businessListing.phone || businessListing.business_profiles?.phone}
                           </a>
                         </div>
                       )}
-                      
-                      {(type === 'place' ? place?.hours : businessListing?.hours) && (
+
+                      {/* Email */}
+                      {businessListing.email && (
+                        <div className="flex items-center">
+                          <svg className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          <a
+                            href={`mailto:${businessListing.email}`}
+                            className="text-primary hover:underline font-medium"
+                          >
+                            {businessListing.email}
+                          </a>
+                        </div>
+                      )}
+
+                      {/* Website */}
+                      {(businessListing.website || businessListing.business_profiles?.website) && (
+                        <div className="flex items-center">
+                          <GlobeAltIcon className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" />
+                          <a
+                            href={businessListing.website || businessListing.business_profiles?.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline font-medium"
+                          >
+                            {(businessListing.website || businessListing.business_profiles?.website)?.replace(/^https?:\/\//, '')}
+                          </a>
+                        </div>
+                      )}
+
+                      {/* Instagram */}
+                      {businessListing.business_profiles?.instagram && (
+                        <div className="flex items-center">
+                          <svg className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988s11.988-5.367 11.988-11.988C24.005 5.367 18.638.001 12.017.001zM8.449 16.988c-1.297 0-2.343-1.046-2.343-2.343s1.046-2.343 2.343-2.343 2.343 1.046 2.343 2.343-1.046 2.343-2.343 2.343zm7.136 0c-1.297 0-2.343-1.046-2.343-2.343s1.046-2.343 2.343-2.343 2.343 1.046 2.343 2.343-1.046 2.343-2.343 2.343z"/>
+                          </svg>
+                          <a
+                            href={`https://instagram.com/${businessListing.business_profiles.instagram.replace('@', '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline font-medium"
+                          >
+                            @{businessListing.business_profiles.instagram.replace('@', '')}
+                          </a>
+                        </div>
+                      )}
+
+                      {/* Facebook */}
+                      {businessListing.business_profiles?.facebook && (
+                        <div className="flex items-center">
+                          <svg className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                          </svg>
+                          <a
+                            href={businessListing.business_profiles.facebook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline font-medium"
+                          >
+                            Facebook
+                          </a>
+                        </div>
+                      )}
+
+                      {/* Hours */}
+                      {businessListing.hours && (
                         <div className="flex items-start">
-                          <ClockIcon className="h-5 w-5 text-gray-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-gray-800">{formatHours(type === 'place' ? place?.hours : businessListing?.hours)}</span>
+                          <ClockIcon className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <span className="text-gray-800">{formatHours(businessListing.hours)}</span>
                         </div>
                       )}
                     </div>
-                    
-                    {/* Services List */}
-                    {type === 'business_listing' && businessListing?.services && businessListing.services.length > 0 && (
-                      <div className="mb-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('listing.services', 'Services')}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {businessListing.services.map((service, index) => (
-                            <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
-                              {service}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
-                  
-                  <div>
-                    {/* Quantity Selector */}
-                    <div className="flex items-center mb-6">
-                      <span className="text-gray-700 mr-4">{t('listing.quantity', 'Quantity')}:</span>
-                      <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                        <button
-                          onClick={handleDecreaseQuantity}
-                          disabled={quantity <= 1}
-                          className="px-3 py-2 border-r border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:bg-white transition"
-                        >
-                          -
-                        </button>
-                        <span className="px-4 py-2 font-medium">{quantity}</span>
-                        <button
-                          onClick={handleIncreaseQuantity}
-                          disabled={quantity >= 10}
-                          className="px-3 py-2 border-l border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:bg-white transition"
-                        >
-                          +
-                        </button>
+
+                  {/* Services List */}
+                  {businessListing.services && businessListing.services.length > 0 && (
+                    <div className="mb-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('listings.services', 'Servicios')}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {businessListing.services.map((service, index) => (
+                          <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                            {service}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                    
-                    {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <BuyButton
-                        productId={listing?.id || ''}
-                        name={name || ''}
-                        price={price || 100}
-                        imageUrl={currentImage || undefined}
-                        quantity={quantity}
-                        mode="cart"
-                        className="px-6 py-3 text-sm sm:flex-1 shadow-sm"
-                        shippingFee={businessListing?.shipping_fee || listing?.shipping_fee || 0}
-                      />
-                      <BuyButton
-                        productId={listing?.id || ''}
-                        name={name || ''}
-                        price={price || 100}
-                        imageUrl={currentImage || undefined}
-                        quantity={quantity}
-                        mode="buy"
-                        className="px-6 py-3 text-sm sm:flex-1 shadow-sm"
-                        shippingFee={businessListing?.shipping_fee || listing?.shipping_fee || 0}
-                      />
+                  )}
+
+                  {/* Contact Action Buttons */}
+                  <div className="mt-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* Call Button */}
+                      {(businessListing.phone || businessListing.business_profiles?.phone) && (
+                        <a
+                          href={`tel:${businessListing.phone || businessListing.business_profiles?.phone}`}
+                          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center"
+                        >
+                          <PhoneIcon className="h-5 w-5 mr-2" />
+                          {t('listings.callBusiness', 'Llamar')}
+                        </a>
+                      )}
+
+                      {/* Email Button */}
+                      {businessListing.email && (
+                        <a
+                          href={`mailto:${businessListing.email}`}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center"
+                        >
+                          <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          Email
+                        </a>
+                      )}
+
+                      {/* Website Button */}
+                      {(businessListing.website || businessListing.business_profiles?.website) && (
+                        <a
+                          href={businessListing.website || businessListing.business_profiles?.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center sm:col-span-2"
+                        >
+                          <GlobeAltIcon className="h-5 w-5 mr-2" />
+                          {t('listings.visitWebsite', 'Visitar Sitio Web')}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -369,29 +379,19 @@ export default function ListingDetail({ place, businessListing, type }: ListingD
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch the IDs of all places and business_listings
-  const { data: places } = await supabase
-    .from('places')
-    .select('id');
-  
+  // Fetch only business_listings IDs
   const { data: businessListings } = await supabase
     .from('business_listings')
     .select('id')
     .eq('status', 'active');
-  
-  // Create paths from place IDs
-  const placePaths = places?.map((place) => ({
-    params: { id: place.id },
-  })) || [];
-  
-  // Create paths from business listing IDs
+
   const businessListingPaths = businessListings?.map((listing) => ({
     params: { id: listing.id },
   })) || [];
-  
+
   return {
-    paths: [...placePaths, ...businessListingPaths],
-    fallback: true, // Show fallback UI for paths not generated at build time
+    paths: businessListingPaths,
+    fallback: true,
   };
 };
 
@@ -401,146 +401,75 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       notFound: true,
     };
   }
-  
-  // Try to fetch the place by ID
-  const { data: place, error: placeError } = await supabase
-    .from('places')
-    .select('*')
-    .eq('id', params.id)
-    .single();
-  
-  if (!placeError && place) {
-    return {
-      props: {
-        place,
-        type: 'place',
-        ...(await serverSideTranslations(locale || 'es', ['common'])),
-      },
-      revalidate: 60, // Revalidate every minute
-    };
-  }
-  
-  // If place not found, try to fetch the business listing by ID
+
+  // Fetch only business listing by ID with business profile info
   const { data: businessListing, error: businessListingError } = await supabase
     .from('business_listings')
-    .select('*, business_profiles!inner(subscription_status, user_id, id)')
+    .select(`
+      *,
+      business_profiles!inner (
+        business_name,
+        phone,
+        website,
+        instagram,
+        facebook,
+        address,
+        city,
+        subscription_status,
+        user_id,
+        id
+      )
+    `)
     .eq('id', params.id)
     .single();
-  
-  if (!businessListingError && businessListing) {
-    // Even if the subscription status in business_profiles is not active,
-    // we'll double-check with the subscriptions table which is more reliable
-    if (businessListing.business_profiles?.subscription_status !== 'active') {
-      try {
-        console.log(`Checking subscription status for user ${businessListing.business_profiles.user_id}`);
-        
-        // Check if there's an active subscription in the subscriptions table
-        const { data: subscriptionData } = await supabase
-          .from('subscriptions')
-          .select('status')
-          .eq('user_id', businessListing.business_profiles.user_id)
-          .eq('status', 'active')
-          .maybeSingle();
-          
-        // If we find an active subscription, we should update the business profile
-        if (subscriptionData?.status === 'active') {
-          console.log('Found active subscription in database, updating profile');
-          // Don't await the update since we want to return the listing regardless
-          supabase
-            .from('business_profiles')
-            .update({ subscription_status: 'active' })
-            .eq('user_id', businessListing.business_profiles.user_id)
-            .then(({ error }) => {
-              if (error) {
-                console.error('Error updating business profile subscription status:', error);
-              }
-            });
-        } else {
-          // No active subscription in the database, try checking with Stripe
-          let stripeCustomerId = null;
-          
-          // Try to get the Stripe customer ID from the business profile
-          if (businessListing.business_profiles) {
-            // Fetch the business profile with the stripe_customer_id
-            const { data: profileData } = await supabase
-              .from('business_profiles')
-              .select('stripe_customer_id')
-              .eq('id', businessListing.business_profiles.id)
-              .single();
-              
-            if (profileData?.stripe_customer_id) {
-              stripeCustomerId = profileData.stripe_customer_id;
-            }
-          }
-          
-          // If we couldn't find a customer ID in the business profile, try the users table
-          if (!stripeCustomerId) {
-            const { data: userData } = await supabase
-              .from('users')
-              .select('stripe_customer_id')
-              .eq('id', businessListing.business_profiles.user_id)
-              .single();
-              
-            if (userData?.stripe_customer_id) {
-              stripeCustomerId = userData.stripe_customer_id;
-            }
-          }
-          
-          // If we have a Stripe customer ID, we can check Stripe directly
-          if (stripeCustomerId && process.env.STRIPE_SECRET_KEY) {
-            try {
-              // Initialize Stripe
-              const Stripe = require('stripe');
-              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-              
-              // Check for active subscriptions
-              const subscriptions = await stripe.subscriptions.list({
-                customer: stripeCustomerId,
-                status: 'active',
-                limit: 1
-              });
-              
-              if (subscriptions.data.length > 0) {
-                console.log('Found active subscription in Stripe, updating profile');
-                // We found an active subscription in Stripe, update the business profile
-                supabase
-                  .from('business_profiles')
-                  .update({ 
-                    subscription_status: 'active',
-                    subscription_id: subscriptions.data[0].id
-                  })
-                  .eq('id', businessListing.business_profiles.id)
-                  .then(({ error }) => {
-                    if (error) {
-                      console.error('Error updating business profile with Stripe data:', error);
-                    }
-                  });
-              }
-            } catch (stripeError) {
-              console.error('Error checking Stripe:', stripeError);
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error checking subscription status:', error);
-      }
-    }
-    
-    // Clean up the response to remove the business_profiles data
-    const cleanedListing = { ...businessListing };
-    delete cleanedListing.business_profiles;
-    
+
+  if (businessListingError || !businessListing) {
     return {
-      props: {
-        businessListing: cleanedListing,
-        type: 'business_listing',
-        ...(await serverSideTranslations(locale || 'es', ['common'])),
-      },
-      revalidate: 60, // Revalidate every minute
+      notFound: true,
     };
   }
-  
+
+  // Check subscription status
+  if (businessListing.business_profiles?.subscription_status !== 'active') {
+    try {
+      // Double-check with the subscriptions table
+      const { data: subscriptionData } = await supabase
+        .from('subscriptions')
+        .select('status')
+        .eq('user_id', businessListing.business_profiles.user_id)
+        .eq('status', 'active')
+        .maybeSingle();
+
+      if (subscriptionData?.status === 'active') {
+        // Update the business profile in the background
+        supabase
+          .from('business_profiles')
+          .update({ subscription_status: 'active' })
+          .eq('user_id', businessListing.business_profiles.user_id)
+          .then(({ error }) => {
+            if (error) {
+              console.error('Error updating business profile subscription status:', error);
+            }
+          });
+      } else {
+        // No active subscription found, return not found
+        return {
+          notFound: true,
+        };
+      }
+    } catch (error) {
+      console.error('Error checking subscription status:', error);
+      return {
+        notFound: true,
+      };
+    }
+  }
+
   return {
-    notFound: true,
+    props: {
+      businessListing,
+      ...(await serverSideTranslations(locale || 'es', ['common'])),
+    },
+    revalidate: 60,
   };
-}; 
+};

@@ -463,5 +463,41 @@
   "create_first_listing": "Create your first listing",
   "confirm_delete_listing": "Are you sure you want to delete this listing?",
   "error_deleting_listing": "There was an error deleting this listing. Please try again.",
-  "edit_profile": "Edit Profile"
+  "edit_profile": "Edit Profile",
+  "listings": {
+    "title": "Business Listings",
+    "description": "Browse and discover businesses in San Luis Potosí",
+    "viewDetailsAndContact": "View Details & Contact",
+    "filterBy": "Filter by Category",
+    "allCategories": "All Categories",
+    "loading": "Loading listings...",
+    "noListings": "No listings available at the moment. Please check back later.",
+    "noCategoryListings": "No listings available in this category.",
+    "backToListings": "Back to Listings",
+    "callBusiness": "Call",
+    "emailBusiness": "Email",
+    "visitWebsite": "Visit Website",
+    "contactInformation": "Contact Information",
+    "services": "Services",
+    "noImageAvailable": "No image available",
+    "service": "Service",
+    "product": "Product",
+    "contactBusiness": "Contact Business",
+    "sendMessage": "Send Message",
+    "contactForm": {
+      "title": "Contact {{businessName}}",
+      "description": "Send a message directly to {{businessName}}. They will receive your inquiry via email and can respond to you directly.",
+      "name": "Your Name",
+      "email": "Your Email",
+      "phone": "Your Phone (optional)",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully!",
+      "successDetail": "Your message has been sent to {{businessName}}. They will contact you directly via email.",
+      "error": "There was an error sending your message. Please try again.",
+      "recaptchaError": "Please verify that you are not a robot"
+    }
+  }
 }

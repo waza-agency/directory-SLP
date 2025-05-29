@@ -420,6 +420,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   fill
                   className="object-cover object-center"
                   priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 text-white">
