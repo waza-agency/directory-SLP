@@ -7,7 +7,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "dev:next": "next dev",
     "build": "next build",
     "netlify-build": "node scripts/netlify-build.js",
@@ -43,6 +43,7 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.4.7",
     "emailjs-com": "^3.2.0",
+    "express": "^5.1.0",
     "framer-motion": "^12.6.2",
     "glob": "^10.4.5",
     "googleapis": "^129.0.0",

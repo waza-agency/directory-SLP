@@ -1,104 +1,133 @@
-import { NextPage } from 'next';
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import AdUnit from '@/components/common/AdUnit';
+import { BlogPost, getBlogPosts } from '@/lib/blog';
 
-const BlogIndex: NextPage = () => {
+interface BlogIndexProps {
+  posts: BlogPost[];
+}
+
+export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 'en' }) => {
+  try {
+    const posts = await getBlogPosts();
+
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+        posts
+      },
+      revalidate: 60 // Revalidate every 60 seconds
+    };
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+        posts: []
+      }
+    };
+  }
+};
+
+export default function BlogIndex({ posts }: BlogIndexProps) {
   const { t } = useTranslation('common');
-
-  const blogPosts = [
-    {
-      slug: 'san-luis-rey-tranvia',
-      title: 'San Luis Rey: Discover the City by Historic Trolley',
-      description: "Experience San Luis Potosí's rich heritage through San Luis Rey's tourist trolley tours. Journey through the historic center with daily departures and expert guides, making it the perfect way to explore our UNESCO World Heritage city.",
-      imageUrl: '/images/tours/tranvia-san-luis-rey.jpg',
-      category: 'Tours',
-      publishDate: '2024-03-20'
-    },
-    {
-      slug: 'corazon-de-xoconostle',
-      title: 'Corazón de Xoconostle: Adventure Travel Experts in San Luis Potosí',
-      description: "Discover San Luis Potosí's premier adventure travel company offering guided tours, outdoor experiences, and unforgettable journeys through Mexico's most stunning landscapes.",
-      imageUrl: '/images/outdoors/adventure-tours.jpg',
-      category: 'Adventure Travel',
-      publishDate: '2024-03-20'
-    },
-    {
-      slug: 'la-gran-via',
-      title: 'La Gran Vía: A Legacy of Spanish Cuisine in San Luis Potosí',
-      description: "Experience over 36 years of Spanish culinary tradition at La Gran Vía, one of Mexico's 100 must-visit restaurants. Discover authentic Spanish cuisine with a local twist in the heart of San Luis Potosí.",
-      imageUrl: '/images/restaurants-and-bars/la-gran-via.jpg',
-      category: 'Restaurants',
-      publishDate: '2024-03-20'
-    }
-  ];
 
   return (
     <>
       <Head>
-        <title>Blog | Directory SLP - Discover San Luis Potosí</title>
-        <meta name="description" content="Explore stories, guides, and features about San Luis Potosí's best places, cultural experiences, and local businesses." />
-        <meta property="og:title" content="Blog | Directory SLP - Discover San Luis Potosí" />
-        <meta property="og:description" content="Explore stories, guides, and features about San Luis Potosí's best places, cultural experiences, and local businesses." />
-        <meta property="og:type" content="website" />
+        <title>{t('navigation.blog')} - San Luis Way</title>
+        <meta
+          name="description"
+          content={t('navigation.blog_description')}
+        />
       </Head>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8">Directory SLP Blog</h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post) => (
-              <article key={post.slug} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <Link href={`/blog/${post.slug}`} className="block">
-                  <div className="relative h-48">
-                    <Image
-                      src={post.imageUrl}
-                      alt={post.title}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center mb-2">
-                      <span className="text-sm text-gray-500">{post.category}</span>
-                      <span className="mx-2 text-gray-300">•</span>
-                      <time className="text-sm text-gray-500">{new Date(post.publishDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}</time>
-                    </div>
-                    <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 transition-colors">
-                      {post.title}
-                    </h2>
-                    <p className="text-gray-600 line-clamp-3">
-                      {post.description}
-                    </p>
-                    <div className="mt-4">
-                      <span className="text-blue-600 hover:text-blue-800 transition-colors">
-                        Read more →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
+      <main className="bg-gray-50 min-h-screen py-12">
+        {/* Hero Section */}
+        <section className="bg-white border-b">
+          <div className="container mx-auto px-4 py-16">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              {t('navigation.blog')}
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl">
+              {t('navigation.blog_description')}
+            </p>
           </div>
-        </div>
+        </section>
+
+        {/* Ad Unit after hero */}
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '728px' }} />
+          </div>
+        </section>
+
+        {/* Blog Posts Grid */}
+        <section className="container mx-auto px-4 py-12">
+          {posts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post) => (
+                <article key={post.slug} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                  <Link href={`/blog/${post.slug}`}>
+                    {post.imageUrl && (
+                      <div className="relative h-48">
+                        <Image
+                          src={post.imageUrl}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      {post.category && (
+                        <span className="text-sm text-primary font-medium">
+                          {post.category}
+                        </span>
+                      )}
+                      <h2 className="text-xl font-semibold text-gray-900 mt-2 mb-3">
+                        {post.title}
+                      </h2>
+                      <p className="text-gray-600 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                      <div className="mt-4 flex items-center justify-between">
+                        <time className="text-sm text-gray-500">
+                          {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
+                        </time>
+                        <span className="text-primary font-medium">Read more →</span>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                Coming Soon!
+              </h2>
+              <p className="text-gray-600">
+                We're working on creating amazing content for you. Check back soon!
+              </p>
+            </div>
+          )}
+        </section>
+
+        {/* Bottom Ad Unit */}
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <AdUnit
+              isRelaxed={true}
+              style={{ display: 'block', margin: '0 auto', maxWidth: '728px' }}
+            />
+          </div>
+        </section>
       </main>
     </>
   );
-};
-
-export const getStaticProps = async ({ locale }: { locale: string }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-};
-
-export default BlogIndex;
+}

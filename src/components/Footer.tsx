@@ -90,6 +90,11 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-4">
               <li>
+                <Link href="/blog" className="text-base text-gray-400 hover:text-primary transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
                 <Link href="/expat-guide" className="text-base text-gray-400 hover:text-primary transition-colors">
                   Expat Guide
                 </Link>

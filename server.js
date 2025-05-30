@@ -4,7 +4,7 @@ if (!global.performance) {
   console.log('Adding performance API polyfill for older Node.js version...');
   const startTime = Date.now();
   const marks = {};
-  
+
   global.performance = {
     mark: (name) => {
       marks[name] = Date.now() - startTime;
@@ -33,34 +33,32 @@ console.log('Node.js version:', process.version);
 console.log('Using performance API polyfill:', !process.version.startsWith('v16') && !process.version.startsWith('v18'));
 
 // Import and run Next.js
-const { createServer } = require('http');
-const { parse } = require('url');
+const express = require('express');
 const next = require('next');
+const { parse } = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+// Get port from command line arguments or use default 3000
+const args = process.argv.slice(2);
+let port = 3000;
+const portIndex = args.indexOf('-p');
+if (portIndex !== -1 && args[portIndex + 1]) {
+  port = parseInt(args[portIndex + 1], 10);
+}
+
 app.prepare().then(() => {
-  createServer((req, res) => {
+  const server = express();
+
+  server.all('*', (req, res) => {
     const parsedUrl = parse(req.url, true);
-    handle(req, res, parsedUrl);
-  }).listen(3000, (err) => {
-    if (err) {
-      if (err.code === 'EADDRINUSE') {
-        console.log('Port 3000 is in use, trying port 3001');
-        createServer((req, res) => {
-          const parsedUrl = parse(req.url, true);
-          handle(req, res, parsedUrl);
-        }).listen(3001, (err2) => {
-          if (err2) throw err2;
-          console.log('> Ready on http://localhost:3001');
-        });
-      } else {
-        throw err;
-      }
-    } else {
-      console.log('> Ready on http://localhost:3000');
-    }
+    return handle(req, res, parsedUrl);
   });
-}); 
+
+  server.listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});

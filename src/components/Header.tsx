@@ -118,6 +118,13 @@ export default function Header() {
             </Link>
 
             <Link
+              href="/blog"
+              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+            >
+              Blog
+            </Link>
+
+            <Link
               href="/about"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
@@ -350,6 +357,14 @@ export default function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               {t('explore')}
+            </Link>
+
+            <Link
+              href="/blog"
+              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
             </Link>
 
             <Link

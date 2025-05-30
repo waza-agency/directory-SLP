@@ -233,5 +233,9 @@
       "error": "Hubo un error enviando tu mensaje. Por favor intenta de nuevo.",
       "recaptchaError": "Por favor verifica que no eres un robot"
     }
+  },
+  "navigation": {
+    "blog": "Blog",
+    "blog_description": "Descubre historias, guías y conocimientos sobre San Luis Potosí"
   }
 }

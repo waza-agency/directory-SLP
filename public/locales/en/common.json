@@ -500,5 +500,9 @@
       "error": "There was an error sending your message. Please try again.",
       "recaptchaError": "Please verify that you are not a robot"
     }
+  },
+  "navigation": {
+    "blog": "Blog",
+    "blog_description": "Discover stories, guides, and insights about San Luis Potosí"
   }
 }
