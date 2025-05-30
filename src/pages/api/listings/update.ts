@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Solo aceptar solicitudes PUT
@@ -9,8 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Crear cliente Supabase autenticado
-    const supabase = createServerSupabaseClient({ req, res });
-    
+    const supabase = createPagesServerClient({ req, res });
+
     // Verificar si tenemos una sesión
     const {
       data: { session },
@@ -25,11 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const userId = session.user.id;
     const { id } = req.query;
-    
+
     if (!id || typeof id !== 'string') {
       return res.status(400).json({ error: 'ID de producto requerido' });
     }
-    
+
     // Obtener el perfil de negocio con estado de suscripción
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Verificar si el usuario tiene una suscripción activa
     let hasActiveSubscription = businessProfile.subscription_status === 'active';
-    
+
     if (!hasActiveSubscription) {
       // Verificar también en la tabla de suscripciones
       const { data: subscription } = await supabase
@@ -53,14 +53,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('user_id', userId)
         .eq('status', 'active')
         .maybeSingle();
-      
+
       hasActiveSubscription = !!subscription;
     }
 
     if (!hasActiveSubscription) {
-      return res.status(403).json({ 
-        error: 'subscription_required', 
-        message: 'Se requiere una suscripción activa para actualizar productos' 
+      return res.status(403).json({
+        error: 'subscription_required',
+        message: 'Se requiere una suscripción activa para actualizar productos'
       });
     }
 
@@ -77,9 +77,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Extraer datos del cuerpo de la solicitud
-    const { 
-      title, 
-      description, 
+    const {
+      title,
+      description,
       category,
       price,
       images,
@@ -129,11 +129,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Si el status ha cambiado, actualizar el contador de productos activos
     if (status !== undefined && status !== existingListing.status) {
       const increment = status === 'active' ? 1 : -1;
-      
+
       const { error: counterError } = await supabase
         .from('business_profiles')
-        .update({ 
-          active_listings_count: businessProfile.active_listings_count + increment 
+        .update({
+          active_listings_count: businessProfile.active_listings_count + increment
         })
         .eq('id', businessProfile.id);
 
@@ -143,12 +143,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    return res.status(200).json({ 
-      success: true, 
+    return res.status(200).json({
+      success: true,
       message: 'Producto actualizado exitosamente',
-      data: updatedListing 
+      data: updatedListing
     });
-    
+
   } catch (error: any) {
     console.error('Error en la actualización de producto:', error);
     return res.status(500).json({
@@ -157,4 +157,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
   }
-} 
+}

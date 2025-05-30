@@ -13,8 +13,8 @@ RUN npm ci
 COPY . .
 
 # Remove test files from pages directory to avoid Next.js build errors
-RUN if [ -d "./src/pages" ]; then find ./src/pages -name "*.test.*" -delete 2>/dev/null || true; fi && \
-    if [ -d "./src/pages/__tests__" ]; then find ./src/pages/__tests__ -type f -delete 2>/dev/null || true; fi
+RUN find ./src/pages -name "*.test.*" -delete 2>/dev/null || true && \
+    find ./src/pages/__tests__ -type f -delete 2>/dev/null || true
 
 # Build the application
 RUN npm run build

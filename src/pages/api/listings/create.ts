@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Solo aceptar solicitudes POST
@@ -9,8 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Crear cliente Supabase autenticado
-    const supabase = createServerSupabaseClient({ req, res });
-    
+    const supabase = createPagesServerClient({ req, res });
+
     // Verificar si tenemos una sesión
     const {
       data: { session },
@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const userId = session.user.id;
-    
+
     // Obtener el perfil de negocio con estado de suscripción
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Verificar si el usuario tiene una suscripción activa
     let hasActiveSubscription = businessProfile.subscription_status === 'active';
-    
+
     if (!hasActiveSubscription) {
       // Verificar también en la tabla de suscripciones
       const { data: subscription } = await supabase
@@ -48,14 +48,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('user_id', userId)
         .eq('status', 'active')
         .maybeSingle();
-      
+
       hasActiveSubscription = !!subscription;
     }
 
     if (!hasActiveSubscription) {
-      return res.status(403).json({ 
-        error: 'subscription_required', 
-        message: 'Se requiere una suscripción activa para crear productos' 
+      return res.status(403).json({
+        error: 'subscription_required',
+        message: 'Se requiere una suscripción activa para crear productos'
       });
     }
 
@@ -73,16 +73,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Verificar límite de productos (máximo 10)
     const MAX_LISTINGS = 10;
     if (count !== null && count >= MAX_LISTINGS) {
-      return res.status(403).json({ 
-        error: 'listings_limit_reached', 
-        message: 'Has alcanzado el límite máximo de 10 productos' 
+      return res.status(403).json({
+        error: 'listings_limit_reached',
+        message: 'Has alcanzado el límite máximo de 10 productos'
       });
     }
 
     // Extraer datos del cuerpo de la solicitud
-    const { 
-      title, 
-      description, 
+    const {
+      title,
+      description,
       category,
       price,
       images,
@@ -133,8 +133,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Actualizar el contador de productos activos en el perfil de negocio
     const { error: updateError } = await supabase
       .from('business_profiles')
-      .update({ 
-        active_listings_count: count !== null ? count + 1 : 1 
+      .update({
+        active_listings_count: count !== null ? count + 1 : 1
       })
       .eq('id', businessProfile.id);
 
@@ -143,12 +143,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // No detener la respuesta por este error
     }
 
-    return res.status(201).json({ 
-      success: true, 
+    return res.status(201).json({
+      success: true,
       message: 'Producto creado exitosamente',
-      data: listing 
+      data: listing
     });
-    
+
   } catch (error: any) {
     console.error('Error en la creación de producto:', error);
     return res.status(500).json({
@@ -157,4 +157,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
   }
-} 
+}

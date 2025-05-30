@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -8,11 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Create Supabase client
-    const supabase = createServerSupabaseClient({ req, res });
-    
+    const supabase = createPagesServerClient({ req, res });
+
     // Check user_id
     const userId = 'd6e52249-d9a5-40c1-a0db-555f861345f6';
-    
+
     // Get the business profile data
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
@@ -47,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.error('Error fetching user data:', userError);
     }
 
-    // Get business listings 
+    // Get business listings
     const { data: listings, error: listingsError } = await supabase
       .from('business_listings')
       .select('*')
@@ -73,4 +73,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
   }
-} 
+}

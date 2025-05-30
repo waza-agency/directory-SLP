@@ -424,32 +424,70 @@ export default function BusinessDashboardPage() {
   };
 
   const handleDeleteListing = async (listingId: string) => {
+    console.log('Delete listing called with ID:', listingId);
+
     if (confirm(t('confirm_delete_listing', 'Are you sure you want to delete this listing?'))) {
       try {
-        const response = await axios.delete(`/api/listings/delete?id=${listingId}`);
+        console.log('User confirmed deletion, making API request...');
+        console.log('Current user:', user);
+        console.log('Business profile:', businessProfile);
+        console.log('Subscription:', subscription);
+
+        const response = await axios.delete(`/api/listings/delete?id=${listingId}`, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log('API response:', response);
 
         if (response.data.success) {
+          console.log('Deletion successful, refreshing data...');
+          alert('Listing deleted successfully!');
           // Refresh listings
           fetchBusinessData();
         } else {
           console.error('Error deleting listing:', response.data.error);
-          alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+          alert(`Error: ${response.data.error || 'There was an error deleting this listing. Please try again.'}`);
         }
       } catch (error: any) {
         console.error('Error deleting listing:', error);
+        console.error('Error response:', error.response);
+
+        let errorMessage = 'There was an error deleting this listing. Please try again.';
 
         // Handle specific error messages from the API
         if (error.response?.data?.error) {
           const apiError = error.response.data.error;
+          console.log('API error type:', apiError);
+
           if (apiError === 'subscription_required') {
-            alert(t('subscription_required_to_delete', 'An active subscription is required to manage listings.'));
+            errorMessage = 'An active subscription is required to manage listings.';
+          } else if (apiError === 'not_authenticated') {
+            errorMessage = 'You are not authenticated. Please sign in again.';
+          } else if (error.response.data.message) {
+            errorMessage = error.response.data.message;
           } else {
-            alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+            errorMessage = `API Error: ${apiError}`;
           }
-        } else {
-          alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+        } else if (error.response?.status) {
+          errorMessage = `HTTP Error ${error.response.status}: ${error.response.statusText}`;
+        } else if (error.message) {
+          errorMessage = `Network Error: ${error.message}`;
         }
+
+        alert(`Deletion failed: ${errorMessage}`);
+
+        // Show detailed error info in console
+        console.log('=== DETAILED ERROR INFORMATION ===');
+        console.log('Error object:', error);
+        console.log('Response status:', error.response?.status);
+        console.log('Response data:', error.response?.data);
+        console.log('Request config:', error.config);
+        console.log('==================================');
       }
+    } else {
+      console.log('User cancelled deletion');
     }
   };
 
