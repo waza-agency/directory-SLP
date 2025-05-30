@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -8,8 +8,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Create authenticated Supabase client
-    const supabase = createServerSupabaseClient({ req, res });
-    
+    const supabase = createPagesServerClient({ req, res });
+
     // Get user session
     const { data: { session } } = await supabase.auth.getSession();
 
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Get user_id from query params or use the authenticated user's ID
     const userId = req.query.user_id || session.user.id;
-    
+
     // Verify the user has permission to access this profile
     if (userId !== session.user.id) {
       // For security, check if the authenticated user has admin privileges
@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .select('account_type')
         .eq('id', session.user.id)
         .single();
-      
+
       if (!userData || userData.account_type !== 'admin') {
         return res.status(403).json({
           error: 'forbidden',
@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           description: 'Business profile not found',
         });
       }
-      
+
       console.error('Error fetching business profile:', profileError);
       return res.status(500).json({ error: 'Error fetching business profile' });
     }
@@ -68,4 +68,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       error: error.message || 'An error occurred while fetching the business profile',
     });
   }
-} 
+}

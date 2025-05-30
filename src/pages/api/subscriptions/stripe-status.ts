@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('STRIPE_SECRET_KEY is not set');
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2024-11-20.acacia',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -12,10 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  try {
-    // Create authenticated Supabase client
-    const supabase = createServerSupabaseClient({ req, res });
+  const supabase = createPagesServerClient({ req, res });
 
+  try {
     // Get user session
     const { data: { session } } = await supabase.auth.getSession();
 
@@ -128,4 +130,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       error: error.message || 'An error occurred while checking the Stripe subscription status'
     });
   }
-} 
+}
