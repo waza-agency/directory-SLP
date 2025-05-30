@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import { Place } from '@/types';
 import { searchPlaces, getRandomPlaces, getPlaces } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
+import Link from 'next/link';
+import AdUnit from '../components/common/AdUnit';
 
 export default function PlacesPage() {
   const { t } = useTranslation('common');
@@ -45,39 +47,39 @@ export default function PlacesPage() {
   // Handle load more button click
   const handleLoadMore = async () => {
     if (isSearching || loadingMore) return;
-    
+
     try {
       setLoadingMore(true);
       const nextPage = page + 1;
       console.log(`Loading more places, page ${nextPage}`);
-      
+
       // Get all places and paginate
       const allPlaces = await getPlaces();
-      
+
       // Load the next set of random places without repeating any
       // We'll get IDs of current places to exclude them
       const currentIds = new Set(places.map(place => place.id));
-      
+
       // Filter out places already shown
       const remainingPlaces = allPlaces.filter(place => !currentIds.has(place.id));
-      
+
       // Shuffle the remaining places
       const shuffled = [...remainingPlaces];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
-      
+
       // Get the next batch
       const nextBatch = shuffled.slice(0, PLACES_PER_PAGE);
-      
+
       // Check if we have more places to load after this batch
       setHasMore(remainingPlaces.length > PLACES_PER_PAGE);
-      
+
       // Add new places to the existing ones
       setPlaces(prevPlaces => [...prevPlaces, ...nextBatch]);
       setPage(nextPage);
-      
+
       console.log(`Added ${nextBatch.length} more random places`);
     } catch (err) {
       setError(t('error.fetching_places'));
@@ -106,11 +108,11 @@ export default function PlacesPage() {
 
         setLoading(true);
         setIsSearching(true);
-        
+
         console.log(`Searching for: "${searchQuery}"`);
         const results = await searchPlaces(searchQuery);
         console.log(`Found ${results.length} search results`);
-        
+
         setPlaces(results);
         setHasMore(false); // No "load more" for search results
       } catch (err) {
@@ -142,7 +144,7 @@ export default function PlacesPage() {
         <meta property="og:image" content="/images/attraction.jpg" />
       </Head>
 
-      <div className="min-h-screen bg-white">
+      <main className="bg-background min-h-screen">
         {/* Hero Section with Search */}
         <section className="relative h-[50vh] min-h-[400px] bg-secondary">
           <div className="absolute inset-0">
@@ -161,7 +163,7 @@ export default function PlacesPage() {
             <p className="text-white text-lg mb-8 text-center max-w-2xl">
               {t('hero.description')}
             </p>
-            
+
             {/* Search Bar */}
             <form onSubmit={handleSearch} className="w-full max-w-2xl">
               <div className="relative">
@@ -172,7 +174,7 @@ export default function PlacesPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <button 
+                <button
                   type="submit"
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-secondary text-white px-6 py-2 rounded-full hover:bg-secondary-dark transition-colors"
                 >
@@ -183,8 +185,18 @@ export default function PlacesPage() {
           </div>
         </section>
 
-        {/* Results Section */}
-        <section className="py-16">
+        {/* Ad after hero */}
+        <section className="py-4 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <AdUnit
+              adSlot="1234567896"
+              style={{ display: 'block', textAlign: 'center', margin: '20px 0' }}
+            />
+          </div>
+        </section>
+
+        {/* Places Grid */}
+        <section className="py-12">
           <div className="container mx-auto px-4">
             {loading && places.length === 0 ? (
               <div className="text-center py-12">
@@ -206,7 +218,21 @@ export default function PlacesPage() {
                     <PlaceCard key={place.id} place={place} />
                   ))}
                 </div>
-                
+
+                {/* Ad in between place listings */}
+                <div className="my-12">
+                  <AdUnit
+                    adSlot="1234567897"
+                    adFormat="rectangle"
+                    style={{
+                      display: 'block',
+                      textAlign: 'center',
+                      margin: '30px auto',
+                      maxWidth: '750px'
+                    }}
+                  />
+                </div>
+
                 {/* Load More Button */}
                 {!isSearching && hasMore && (
                   <div className="text-center mt-12">
@@ -233,7 +259,17 @@ export default function PlacesPage() {
             )}
           </div>
         </section>
-      </div>
+
+        {/* Bottom ad before footer */}
+        <section className="py-6 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <AdUnit
+              adSlot="1234567898"
+              style={{ display: 'block', textAlign: 'center', margin: '20px 0' }}
+            />
+          </div>
+        </section>
+      </main>
     </>
   );
 }
@@ -244,4 +280,4 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-}; 
+};

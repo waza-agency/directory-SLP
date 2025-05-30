@@ -3,6 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Important Files -->
+  <url>
+    <loc>https://www.sanluisway.com/ads.txt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <!-- Home Page -->
   <url>
     <loc>https://www.sanluisway.com/</loc>
@@ -60,7 +67,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <!-- Cultural Pages -->
   <url>
     <loc>https://www.sanluisway.com/cultural/history</loc>
@@ -88,7 +95,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- Expat Services -->
   <url>
     <loc>https://www.sanluisway.com/san-luis-potosi-housing-services</loc>
@@ -140,7 +147,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- City Insights -->
   <url>
     <loc>https://www.sanluisway.com/city-hacks</loc>
@@ -204,14 +211,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- Brands -->
   <url>
     <loc>https://www.sanluisway.com/brands</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <!-- Events -->
   <url>
     <loc>https://www.sanluisway.com/events/arts-culture</loc>
@@ -253,7 +260,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- Unique Meeting Spots -->
   <url>
     <loc>https://www.sanluisway.com/unique-meeting-spots</loc>
@@ -265,7 +272,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- Guides -->
   <url>
     <loc>https://www.sanluisway.com/guides/real-de-catorce</loc>
@@ -282,7 +289,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- Business Related -->
   <url>
     <loc>https://www.sanluisway.com/advertise</loc>
@@ -314,7 +321,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
+
   <!-- Additional Resources -->
   <url>
     <loc>https://www.sanluisway.com/expat-guide</loc>
@@ -331,7 +338,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
+
   <!-- Legal Pages -->
   <url>
     <loc>https://www.sanluisway.com/privacy</loc>
@@ -353,7 +360,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <!-- Special Featured Page -->
   <url>
     <loc>https://www.sanluisway.com/attractions/pedestrian-street-guide</loc>
@@ -365,4 +372,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-</urlset> 
+</urlset>

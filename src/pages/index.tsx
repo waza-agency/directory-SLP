@@ -19,6 +19,7 @@ import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supab
 import TangamangaBanner from '@/components/TangamangaBanner';
 import SEO from '@/components/common/SEO';
 import { OptimizedImage } from '@/components/common/OptimizedImage';
+import AdUnit from '../components/common/AdUnit';
 
 interface HomeProps {
   events: Event[];
@@ -339,9 +340,32 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         ogImage="/og-image.jpg"
       />
 
+      <Head>
+        <title>San Luis Potosí - Your Insider Guide</title>
+        <meta name="description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <meta name="keywords" content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture, travel, expatriate community, Mexico" />
+        <meta property="og:title" content="San Luis Potosí - Your Insider Guide" />
+        <meta property="og:description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:url" content="https://sanluisway.com" />
+        <meta name="twitter:title" content="San Luis Potosí - Your Insider Guide" />
+        <meta name="twitter:description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <meta name="twitter:image" content="/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <HeroBanner />
+
+        {/* Ad after hero section */}
+        <section className="py-6">
+          <div className="container mx-auto px-4">
+            <AdUnit
+              style={{ display: 'block', textAlign: 'center', margin: '20px 0' }}
+            />
+          </div>
+        </section>
 
         {/* City Recognition Announcement */}
         <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-8 border-y border-primary/20">
@@ -2811,6 +2835,24 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         {/* Local Insights for Expats Section */}
         {/* ... existing code ... */}
       </main>
+
+      {/* Bottom Advertisement */}
+      <section className="py-8 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <AdUnit
+            adSlot="YOUR_SECOND_AD_SLOT_ID_HERE"
+            adFormat="rectangle"
+            style={{
+              display: 'block',
+              textAlign: 'center',
+              minHeight: '250px',
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              padding: '1rem'
+            }}
+          />
+        </div>
+      </section>
 
       {/* Floating Contact Button */}
       <div className="fixed bottom-8 right-8 z-50">

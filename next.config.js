@@ -98,11 +98,7 @@ const nextConfig = {
       {
         source: '/robots.txt',
         destination: '/api/robots',
-      },
-      {
-        source: '/ads.txt',
-        destination: '/public/ads.txt',
-      },
+      }
     ];
   },
   env: {

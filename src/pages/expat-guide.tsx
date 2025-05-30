@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
+import Link from 'next/link';
+import AdUnit from '../components/common/AdUnit';
 
 export default function ExpatGuidePage() {
   const { t } = useTranslation('common');
@@ -139,12 +141,12 @@ export default function ExpatGuidePage() {
   return (
     <>
       <Head>
-        <title>Expat Guide - SLP Descubre</title>
-        <meta name="description" content="Complete guide for expatriates living in San Luis Potosí. Find essential information about healthcare, housing, transportation, and more." />
+        <title>{t('expatGuide.meta.title')}</title>
+        <meta name="description" content={t('expatGuide.meta.description')} />
         <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, healthcare, housing, transportation, banking" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
+      <main className="bg-background min-h-screen">
         {/* Hero Section */}
         <section className="relative h-[40vh] min-h-[300px] bg-secondary">
           <div className="absolute inset-0">
@@ -165,6 +167,16 @@ export default function ExpatGuidePage() {
                 Your comprehensive resource for living and thriving in SLP
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Ad after hero */}
+        <section className="py-4">
+          <div className="container mx-auto px-4">
+            <AdUnit
+              adSlot="1234567893"
+              style={{ display: 'block', textAlign: 'center', margin: '20px 0' }}
+            />
           </div>
         </section>
 
@@ -399,9 +411,34 @@ export default function ExpatGuidePage() {
                 </div>
               </div>
             </section>
+
+            {/* Ad in the middle of content */}
+            <section className="my-8">
+              <AdUnit
+                adSlot="1234567894"
+                adFormat="rectangle"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  margin: '30px auto',
+                  maxWidth: '750px',
+                  backgroundColor: '#f8fafc',
+                  padding: '20px',
+                  borderRadius: '8px'
+                }}
+              />
+            </section>
           </div>
+
+          {/* Bottom ad */}
+          <section className="mt-12 mb-8">
+            <AdUnit
+              adSlot="1234567895"
+              style={{ display: 'block', textAlign: 'center', margin: '20px 0' }}
+            />
+          </section>
         </div>
-      </div>
+      </main>
     </>
   );
 }
@@ -412,4 +449,4 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-}; 
+};
