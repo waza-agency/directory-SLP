@@ -5,8 +5,8 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { 
-  ChevronLeftIcon, 
+import {
+  ChevronLeftIcon,
   ChevronRightIcon,
   BuildingLibraryIcon,
   MapPinIcon,
@@ -104,20 +104,20 @@ export default function History() {
     <>
       <Head>
         <title>History of San Luis Potosí | San Luis Way</title>
-        <meta 
-          name="description" 
-          content="Discover the rich history of San Luis Potosí, from its founding to modern times. Learn about the city's colonial past, cultural heritage, and historical significance." 
+        <meta
+          name="description"
+          content="Discover the rich history of San Luis Potosí, from its founding to modern times. Learn about the city's colonial past, cultural heritage, and historical significance."
         />
-        <meta 
-          name="keywords" 
-          content="San Luis Potosí history, colonial history, Mexican history, historical landmarks, cultural heritage" 
+        <meta
+          name="keywords"
+          content="San Luis Potosí history, colonial history, Mexican history, historical landmarks, cultural heritage"
         />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
         <div ref={heroRef} className="relative h-[80vh] min-h-[600px] overflow-hidden">
-          <motion.div 
+          <motion.div
             className="absolute inset-0"
             style={{ y }}
           >
@@ -134,9 +134,9 @@ export default function History() {
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             }} />
           </motion.div>
-          
+
           <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
-            <motion.div 
+            <motion.div
               className="max-w-4xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -151,13 +151,13 @@ export default function History() {
                 <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mr-4">
                   <BuildingLibraryIcon className="w-8 h-8 text-white" />
                 </div>
-                <motion.h1 
+                <motion.h1
                   className="text-6xl md:text-7xl font-bold text-white leading-tight"
                 >
                   History of San Luis Potosí
                 </motion.h1>
               </motion.div>
-              <motion.p 
+              <motion.p
                 className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -165,31 +165,10 @@ export default function History() {
               >
                 Journey through time and discover the rich historical tapestry of San Luis Potosí, from its indigenous roots to its colonial grandeur and modern significance.
               </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex space-x-4"
-              >
-                <a 
-                  href="#founding" 
-                  className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center"
-                >
-                  <MapPinIcon className="w-5 h-5 mr-2" />
-                  Explore History
-                </a>
-                <a 
-                  href="#timeline" 
-                  className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center"
-                >
-                  <ClockIcon className="w-5 h-5 mr-2" />
-                  View Timeline
-                </a>
-              </motion.div>
             </motion.div>
           </div>
 
-          <motion.div 
+          <motion.div
             className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 to-transparent"
             style={{ opacity }}
           />
@@ -284,7 +263,7 @@ export default function History() {
                   <div className="absolute top-0 right-0 w-24 h-24 opacity-10 transform rotate-45 translate-x-12 -translate-y-12">
                     <div className="w-full h-full border-4 border-current rounded-full" />
                   </div>
-                  
+
                   {/* Content */}
                   <div className="relative z-10">
                     <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-gray-900 transition-colors">
@@ -370,7 +349,7 @@ export default function History() {
                 >
                   <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
                 </button>
-                
+
                 <motion.div
                   key={currentTimelineIndex}
                   initial={{ opacity: 0, x: 100 }}
@@ -547,4 +526,4 @@ export default function History() {
       </div>
     </>
   );
-} 
+}

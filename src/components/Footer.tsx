@@ -6,16 +6,16 @@ export default function Footer() {
     <footer className="bg-gray-900 text-white">
       {/* San Luis Colors Accent Bar */}
       <div className="h-2 bg-gradient-to-r from-secondary via-primary to-secondary"></div>
-      
+
       {/* Decorative Pattern */}
       <div className="h-8 bg-secondary/90 overflow-hidden relative">
-        <div className="absolute inset-0" 
+        <div className="absolute inset-0"
              style={{
                backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 203, 5, 0.1) 10px, rgba(255, 203, 5, 0.1) 20px)`,
              }}>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -100,11 +100,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/community" className="text-base text-gray-400 hover:text-primary transition-colors">
-                  Expat Community
-                </Link>
-              </li>
-              <li>
                 <Link href="/newsletter" className="text-base text-gray-400 hover:text-primary transition-colors">
                   Newsletter
                 </Link>
@@ -161,7 +156,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          
+
           {/* Waza Studio Credit */}
           <div className="mt-6 text-center">
             <p className="text-gray-500 text-sm">
@@ -175,4 +170,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-} 
+}

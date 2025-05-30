@@ -3,7 +3,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
-import Footer from '@/components/Footer';
 
 export default function LanguagePage() {
   const { t } = useTranslation('common');
@@ -57,7 +56,7 @@ export default function LanguagePage() {
               <p className="text-gray-600 mb-6">
                 Whether you're just starting or looking to improve your Spanish, we provide comprehensive language resources and programs to help you communicate effectively in San Luis Potosí.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -149,7 +148,6 @@ export default function LanguagePage() {
           </div>
         </div>
       </main>
-      <Footer currentPage="language" />
     </>
   );
 }
@@ -160,4 +158,4 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-}; 
+};

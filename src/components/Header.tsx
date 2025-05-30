@@ -278,9 +278,9 @@ export default function Header() {
               <Link href="/services" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 SERVICES
               </Link>
-              <Link href="/community" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+              {/* <Link href="/community" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 COMMUNITY
-              </Link>
+              </Link> */}
             </div>
 
             {/* Search Bar */}
@@ -446,9 +446,9 @@ export default function Header() {
                 <Link href="/services" className="block text-sm text-gray-700 hover:text-primary">
                   Services
                 </Link>
-                <Link href="/community" className="block text-sm text-gray-700 hover:text-primary">
+                {/* <Link href="/community" className="block text-sm text-gray-700 hover:text-primary">
                   Community
-                </Link>
+                </Link> */}
               </div>
             </div>
 
