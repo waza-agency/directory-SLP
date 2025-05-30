@@ -1,42 +1,45 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import AdUnit from '../../components/common/AdUnit';
-import { BlogPost, getBlogPostBySlug, getBlogPostSlugs } from '../../lib/blog';
+import Link from 'next/link';
+import AdUnit from '@/components/common/AdUnit';
+import { BlogPost, getBlogPosts, getBlogPostBySlug } from '@/lib/blog';
 
 interface BlogPostPageProps {
-  post: BlogPost;
+  post: BlogPost | null;
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['en'] }) => {
-  const slugs = await getBlogPostSlugs();
+export const getStaticPaths: GetStaticPaths = async () => {
+  try {
+    const posts = await getBlogPosts();
+    const paths = posts.map((post) => ({
+      params: { slug: post.slug }
+    }));
 
-  // Create paths for each slug and locale
-  const paths = locales.flatMap(locale =>
-    slugs.map(slug => ({
-      params: { slug },
-      locale
-    }))
-  );
-
-  return {
-    paths,
-    fallback: 'blocking'
-  };
+    return {
+      paths,
+      fallback: 'blocking' // Show a loading state for new paths that aren't pre-rendered
+    };
+  } catch (error) {
+    console.error('Error getting static paths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking'
+    };
+  }
 };
 
-export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({
-  params,
-  locale = 'en'
-}) => {
+export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params, locale = 'en' }) => {
   try {
     const slug = params?.slug as string;
     const post = await getBlogPostBySlug(slug);
 
     if (!post) {
-      return { notFound: true };
+      return {
+        notFound: true // This will show the 404 page
+      };
     }
 
     return {
@@ -47,8 +50,10 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({
       revalidate: 60 // Revalidate every 60 seconds
     };
   } catch (error) {
-    console.error('Error fetching blog post:', error);
-    return { notFound: true };
+    console.error('Error getting blog post:', error);
+    return {
+      notFound: true
+    };
   }
 };
 
@@ -56,109 +61,86 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   const { t } = useTranslation('common');
 
   if (!post) {
-    return <div>Loading...</div>;
+    return null; // This shouldn't happen because of notFound: true above, but TypeScript needs it
   }
 
   return (
     <>
       <Head>
-        <title>{post.metaTitle || post.title}</title>
+        <title>{post.title} - San Luis Way</title>
         <meta
           name="description"
-          content={post.metaDescription || post.excerpt}
+          content={post.excerpt || post.title}
         />
-        {/* Open Graph tags */}
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
         {post.imageUrl && (
           <meta property="og:image" content={post.imageUrl} />
         )}
       </Head>
 
-      <main className="bg-white min-h-screen py-12">
-        {/* Hero Section */}
-        <section className="container mx-auto px-4">
-          {post.imageUrl && (
-            <div className="relative w-full h-[400px] mb-8 rounded-lg overflow-hidden">
-              <Image
-                src={post.imageUrl}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
+      <main className="bg-gray-50 min-h-screen">
+        {/* Hero Section with Image */}
+        {post.imageUrl && (
+          <div className="relative h-96 w-full">
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="container mx-auto px-4">
+                <h1 className="text-4xl md:text-5xl font-bold text-white text-center max-w-4xl mx-auto">
+                  {post.title}
+                </h1>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Content */}
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-3xl mx-auto">
+            {/* Post Meta */}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                {post.category && (
+                  <span className="text-primary font-medium">
+                    {post.category}
+                  </span>
+                )}
+                <time className="text-gray-500 ml-4">
+                  {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
+                </time>
+              </div>
+              <Link
+                href="/blog"
+                className="text-primary hover:text-primary-dark transition-colors"
+              >
+                ← Back to Blog
+              </Link>
+            </div>
+
+            {/* Ad Unit */}
+            <div className="mb-8">
+              <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '728px' }} />
+            </div>
+
+            {/* Post Content */}
+            <div className="prose prose-lg max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            </div>
+
+            {/* Bottom Ad Unit */}
+            <div className="mt-12">
+              <AdUnit
+                isRelaxed={true}
+                style={{ display: 'block', margin: '0 auto', maxWidth: '728px' }}
               />
             </div>
-          )}
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          <div className="flex items-center text-gray-600 mb-8">
-            <time dateTime={post.publishedAt || post.createdAt}>
-              {new Date(post.publishedAt || post.createdAt).toLocaleDateString(undefined, {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-            {post.category && (
-              <>
-                <span className="mx-2">•</span>
-                <span>{post.category}</span>
-              </>
-            )}
           </div>
-          <p className="text-xl text-gray-600 mb-8">{post.excerpt}</p>
-        </section>
-
-        {/* First ad unit after the hero */}
-        <section className="py-6">
-          <div className="container mx-auto px-4">
-            <AdUnit style={{ display: 'block', margin: '20px 0' }} />
-          </div>
-        </section>
-
-        {/* Post content */}
-        <article className="container mx-auto px-4 prose prose-lg max-w-none">
-          {/* First half of content */}
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post.content.substring(0, Math.floor(post.content.length / 2))
-            }}
-          />
-
-          {/* Relaxed ad unit in the middle of the content */}
-          <div className="my-8 not-prose">
-            <AdUnit isRelaxed={true} style={{ display: 'block', margin: '40px 0' }} />
-          </div>
-
-          {/* Second half of content */}
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post.content.substring(Math.floor(post.content.length / 2))
-            }}
-          />
-        </article>
-
-        {/* Bottom ad unit */}
-        <section className="py-6">
-          <div className="container mx-auto px-4">
-            <AdUnit style={{ display: 'block', margin: '20px 0' }} />
-          </div>
-        </section>
-
-        {/* Tags */}
-        {post.tags && post.tags.length > 0 && (
-          <section className="container mx-auto px-4 mt-8">
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map(tag => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
+        </div>
       </main>
     </>
   );

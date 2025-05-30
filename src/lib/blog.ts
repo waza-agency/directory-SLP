@@ -1,77 +1,106 @@
-import { supabase } from './supabase';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export interface BlogPost {
   id: string;
-  title: string;
   slug: string;
-  excerpt: string;
+  title: string;
   content: string;
+  excerpt: string;
   imageUrl?: string;
-  authorId?: string;
-  category: string;
-  status: 'draft' | 'published' | 'archived';
+  category?: string;
   publishedAt?: string;
   createdAt: string;
-  updatedAt: string;
-  metaTitle?: string;
-  metaDescription?: string;
+  updatedAt?: string;
+  author?: {
+    name: string;
+    avatar?: string;
+  };
   tags?: string[];
 }
 
-export async function getBlogPosts() {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false });
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('publishedAt', { ascending: false })
+      .order('createdAt', { ascending: false });
 
-  if (error) throw error;
+    if (error) {
+      console.error('Error fetching blog posts:', error);
+      return [];
+    }
 
-  return data.map(transformBlogPost);
+    return data || [];
+  } catch (error) {
+    console.error('Error in getBlogPosts:', error);
+    return [];
+  }
 }
 
-export async function getBlogPostBySlug(slug: string) {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single();
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
 
-  if (error) throw error;
-  if (!data) return null;
+    if (error) {
+      console.error('Error fetching blog post:', error);
+      return null;
+    }
 
-  return transformBlogPost(data);
+    return data;
+  } catch (error) {
+    console.error('Error in getBlogPostBySlug:', error);
+    return null;
+  }
 }
 
-export async function getBlogPostSlugs() {
-  const { data, error } = await supabase
-    .from('blog_posts')
-    .select('slug')
-    .eq('status', 'published');
+export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .order('publishedAt', { ascending: false })
+      .order('createdAt', { ascending: false })
+      .limit(limit);
 
-  if (error) throw error;
+    if (error) {
+      console.error('Error fetching recent blog posts:', error);
+      return [];
+    }
 
-  return data.map(post => post.slug);
+    return data || [];
+  } catch (error) {
+    console.error('Error in getRecentBlogPosts:', error);
+    return [];
+  }
 }
 
-// Helper function to transform database record to BlogPost interface
-function transformBlogPost(post: any): BlogPost {
-  return {
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    content: post.content,
-    imageUrl: post.image_url,
-    authorId: post.author_id,
-    category: post.category,
-    status: post.status,
-    publishedAt: post.published_at,
-    createdAt: post.created_at,
-    updatedAt: post.updated_at,
-    metaTitle: post.meta_title,
-    metaDescription: post.meta_description,
-    tags: post.tags
-  };
+export async function getBlogPostsByCategory(category: string): Promise<BlogPost[]> {
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('category', category)
+      .order('publishedAt', { ascending: false })
+      .order('createdAt', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching blog posts by category:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error in getBlogPostsByCategory:', error);
+    return [];
+  }
 }
