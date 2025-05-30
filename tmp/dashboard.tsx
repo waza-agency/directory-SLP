@@ -102,7 +102,7 @@ export default function BusinessDashboardPage() {
           const { data: stripeStatusData } = await axios.post('/api/subscriptions/stripe-status', {
             userId: user?.id
           });
-          
+
           if (stripeStatusData.active && stripeStatusData.subscriptionDetails) {
             // Use the subscription details directly from Stripe
             const { data: planData } = await supabase
@@ -110,7 +110,7 @@ export default function BusinessDashboardPage() {
               .select('*')
               .eq('id', stripeStatusData.subscriptionDetails.plan_id || profileData.plan_id)
               .single();
-              
+
             if (planData) {
               // Create subscription object using real-time Stripe data
               const stripeSubscription = {
@@ -120,9 +120,9 @@ export default function BusinessDashboardPage() {
                 current_period_end: stripeStatusData.subscriptionDetails.current_period_end,
                 subscription_plans: planData
               };
-              
+
               setSubscription(stripeSubscription);
-              
+
               // Log for debugging
               console.log('Using real-time Stripe subscription data', stripeSubscription);
             }
@@ -148,7 +148,7 @@ export default function BusinessDashboardPage() {
                 .from('subscription_plans')
                 .select('*')
                 .single();
-                
+
               if (planData) {
                 // Create a fallback subscription object using business_profile data
                 const fallbackSubscription = {
@@ -158,9 +158,9 @@ export default function BusinessDashboardPage() {
                   current_period_end: profileData.subscription_end_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
                   subscription_plans: planData
                 };
-                
+
                 setSubscription(fallbackSubscription);
-                
+
                 // Log this situation for debugging
                 console.log('Using fallback subscription data from business_profile', fallbackSubscription);
               }
@@ -168,7 +168,7 @@ export default function BusinessDashboardPage() {
           }
         } catch (stripeError) {
           console.error('Error checking Stripe subscription status:', stripeError);
-          
+
           // Fallback to original subscription checking logic
           const { data: subscriptionData, error: subscriptionError } = await supabase
             .from('subscriptions')
@@ -189,7 +189,7 @@ export default function BusinessDashboardPage() {
               .from('subscription_plans')
               .select('*')
               .single();
-              
+
             if (planData) {
               const fallbackSubscription = {
                 id: profileData.subscription_id || 'fallback-id',
@@ -198,7 +198,7 @@ export default function BusinessDashboardPage() {
                 current_period_end: profileData.subscription_end_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
                 subscription_plans: planData
               };
-              
+
               setSubscription(fallbackSubscription);
               console.log('Using fallback subscription data after Stripe API error', fallbackSubscription);
             }
@@ -253,14 +253,14 @@ export default function BusinessDashboardPage() {
       // Get business listings for test user
       let listingsData = null;
       let listingsError = null;
-      
+
       if (profileData) {
         const result = await supabase
           .from('business_listings')
           .select('*')
           .eq('business_id', profileData.id)
           .order('created_at', { ascending: false });
-          
+
         listingsData = result.data;
         listingsError = result.error;
       }
@@ -301,21 +301,29 @@ export default function BusinessDashboardPage() {
   const handleDeleteListing = async (listingId: string) => {
     if (confirm(t('confirm_delete_listing'))) {
       try {
-        const { error } = await supabase
-          .from('business_listings')
-          .delete()
-          .eq('id', listingId);
-          
-        if (error) {
-          console.error('Error deleting listing:', error);
-          alert(t('error_deleting_listing'));
-        } else {
+        const response = await axios.delete(`/api/listings/delete?id=${listingId}`);
+
+        if (response.data.success) {
           // Refresh listings
           fetchBusinessData();
+        } else {
+          console.error('Error deleting listing:', response.data.error);
+          alert(t('error_deleting_listing'));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error deleting listing:', error);
-        alert(t('error_deleting_listing'));
+
+        // Handle specific error messages from the API
+        if (error.response?.data?.error) {
+          const apiError = error.response.data.error;
+          if (apiError === 'subscription_required') {
+            alert(t('subscription_required_to_delete', 'An active subscription is required to manage listings.'));
+          } else {
+            alert(t('error_deleting_listing'));
+          }
+        } else {
+          alert(t('error_deleting_listing'));
+        }
       }
     }
   };
@@ -332,8 +340,8 @@ export default function BusinessDashboardPage() {
     return null; // Will redirect in useEffect
   }
 
-  const canCreateListing = businessProfile && subscription && 
-    (listings.length < subscription.subscription_plans.max_listings || 
+  const canCreateListing = businessProfile && subscription &&
+    (listings.length < subscription.subscription_plans.max_listings ||
     subscription.subscription_plans.max_listings === -1);
 
   return (
@@ -361,8 +369,8 @@ export default function BusinessDashboardPage() {
                   <div className="flex items-center">
                     {businessProfile.logo_url ? (
                       <div className="h-16 w-16 rounded-full overflow-hidden mr-4">
-                        <Image 
-                          src={businessProfile.logo_url} 
+                        <Image
+                          src={businessProfile.logo_url}
                           alt={businessProfile.business_name}
                           width={64}
                           height={64}
@@ -381,26 +389,26 @@ export default function BusinessDashboardPage() {
                       <p className="text-gray-600">{businessProfile.business_category}</p>
                     </div>
                   </div>
-                  
-                  <Link 
-                    href="/business/profile" 
+
+                  <Link
+                    href="/business/profile"
                     className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     <PencilIcon className="h-4 w-4 mr-2" />
                     {t('edit_profile')}
                   </Link>
                 </div>
-                
+
                 {businessProfile.business_description && (
                   <div className="mb-6">
                     <h3 className="text-sm font-medium text-gray-500 mb-2">{t('business_description')}</h3>
                     <p className="text-gray-900">{businessProfile.business_description}</p>
                   </div>
                 )}
-                
+
                 <div className="border-t border-gray-200 pt-4">
                   <h3 className="text-sm font-medium text-gray-500 mb-2">{t('subscription_details')}</h3>
-                  
+
                   {subscription ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
@@ -420,8 +428,8 @@ export default function BusinessDashboardPage() {
                       <div>
                         <div className="text-sm text-gray-500">{t('renewal_date')}</div>
                         <div className="font-medium">
-                          {subscription.current_period_end 
-                            ? formatDate(subscription.current_period_end) 
+                          {subscription.current_period_end
+                            ? formatDate(subscription.current_period_end)
                             : t('not_available')}
                         </div>
                       </div>
@@ -430,8 +438,8 @@ export default function BusinessDashboardPage() {
                     <div className="flex items-center space-x-2 text-yellow-600">
                       <ExclamationCircleIcon className="h-5 w-5" />
                       <span>{t('no_active_subscription')}</span>
-                      <Link 
-                        href="/business/subscription" 
+                      <Link
+                        href="/business/subscription"
                         className="text-indigo-600 font-medium hover:text-indigo-900"
                       >
                         {t('get_subscription')}
@@ -448,20 +456,20 @@ export default function BusinessDashboardPage() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold">{t('your_listings')}</h2>
-                
+
                 <div className="flex items-center space-x-2">
                   {subscription && (
                     <p className="text-sm text-gray-600">
-                      {subscription.subscription_plans.max_listings === -1 
+                      {subscription.subscription_plans.max_listings === -1
                         ? t('unlimited_listings_available')
-                        : t('listings_count', { 
-                            current: listings.length, 
-                            max: subscription.subscription_plans.max_listings 
+                        : t('listings_count', {
+                            current: listings.length,
+                            max: subscription.subscription_plans.max_listings
                           })
                       }
                     </p>
                   )}
-                  
+
                   <Link
                     href="/business/listings/create"
                     className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
@@ -481,7 +489,7 @@ export default function BusinessDashboardPage() {
                 </div>
               </div>
             </div>
-            
+
             {listings.length > 0 ? (
               <ul className="divide-y divide-gray-200">
                 {listings.map(listing => (
@@ -527,7 +535,7 @@ export default function BusinessDashboardPage() {
                           </Link>
                         </div>
                       </div>
-                      
+
                       <div className="mt-4 md:mt-0 flex-shrink-0">
                         {listing.images && listing.images.length > 0 ? (
                           <div className="h-24 w-24 sm:h-32 sm:w-32 rounded-md overflow-hidden">
@@ -575,7 +583,7 @@ export default function BusinessDashboardPage() {
               </div>
             )}
           </div>
-          
+
           {/* Debug Data (only shown in debug mode) */}
           {isDebugMode && debugData && (
             <div className="mt-8 bg-gray-100 rounded-lg shadow overflow-hidden">
@@ -600,4 +608,4 @@ export async function getStaticProps({ locale }: { locale: string }) {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-} 
+}

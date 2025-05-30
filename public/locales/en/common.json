@@ -464,6 +464,7 @@
   "confirm_delete_listing": "Are you sure you want to delete this listing?",
   "error_deleting_listing": "There was an error deleting this listing. Please try again.",
   "edit_profile": "Edit Profile",
+  "subscription_required_to_delete": "An active subscription is required to manage listings.",
   "listings": {
     "title": "Business Listings",
     "description": "Browse and discover businesses in San Luis Potosí",

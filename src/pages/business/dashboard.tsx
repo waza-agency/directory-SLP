@@ -96,18 +96,18 @@ export default function BusinessDashboardPage() {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       // For the first dropdown
-      if (dropdownRef1.current && buttonRef1.current && 
-          !dropdownRef1.current.contains(event.target as Node) && 
+      if (dropdownRef1.current && buttonRef1.current &&
+          !dropdownRef1.current.contains(event.target as Node) &&
           !buttonRef1.current.contains(event.target as Node)) {
         const menu = document.getElementById('create-listing-dropdown');
         if (menu && !menu.classList.contains('hidden')) {
           menu.classList.add('hidden');
         }
       }
-      
+
       // For the second dropdown
-      if (dropdownRef2.current && buttonRef2.current && 
-          !dropdownRef2.current.contains(event.target as Node) && 
+      if (dropdownRef2.current && buttonRef2.current &&
+          !dropdownRef2.current.contains(event.target as Node) &&
           !buttonRef2.current.contains(event.target as Node)) {
         const menu = document.getElementById('create-first-listing-dropdown');
         if (menu && !menu.classList.contains('hidden')) {
@@ -115,7 +115,7 @@ export default function BusinessDashboardPage() {
         }
       }
     }
-    
+
     // Add event listener
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -127,14 +127,14 @@ export default function BusinessDashboardPage() {
   const fetchBusinessData = async () => {
     try {
       setIsLoadingData(true);
-      
+
       // Fetch business profile
       const { data: profileData, error: profileError } = await supabase
         .from('business_profiles')
         .select('*')
         .eq('user_id', user?.id)
         .single();
-      
+
       if (profileError) {
         if (profileError.code === 'PGRST116') {
           // No profile found, likely need to create one
@@ -142,29 +142,29 @@ export default function BusinessDashboardPage() {
           setIsLoadingData(false);
           return;
         }
-        
+
         throw profileError;
       }
-      
+
       setBusinessProfile(profileData);
       console.log('Business profile:', profileData);
-      
+
       let subscriptionFound = false;
-      
+
       // Check if there's subscription data in the business profile
       if (profileData.subscription_status && profileData.subscription_id) {
         console.log('Found subscription info in business profile');
-        
+
         // Get the plan ID from the business profile
         const planId = profileData.plan_id;
-        
+
         if (planId) {
           const { data: planData } = await supabase
             .from('subscription_plans')
             .select('*')
             .eq('id', planId)
             .single();
-          
+
           if (planData) {
             // Create subscription object from business profile data
             const subscriptionObj = {
@@ -174,15 +174,15 @@ export default function BusinessDashboardPage() {
               current_period_end: profileData.subscription_end_date || '',
               subscription_plans: planData
             };
-            
+
             setSubscription(subscriptionObj);
             subscriptionFound = true;
-            
+
             console.log('Using business profile subscription data', subscriptionObj);
           }
         }
       }
-      
+
       // First try to check Stripe directly
       if (!subscriptionFound) {
         try {
@@ -197,7 +197,7 @@ export default function BusinessDashboardPage() {
           if (response.ok) {
             const stripeStatusData = await response.json();
             console.log('Stripe subscription check:', stripeStatusData);
-            
+
             if (stripeStatusData.active && stripeStatusData.subscriptionDetails) {
               // Get the plan data
               const { data: planData } = await supabase
@@ -205,7 +205,7 @@ export default function BusinessDashboardPage() {
                 .select('*')
                 .eq('id', stripeStatusData.subscriptionDetails.plan_id || profileData.plan_id)
                 .single();
-                
+
               if (planData) {
                 // Create subscription object using real-time Stripe data
                 const stripeSubscription = {
@@ -215,11 +215,11 @@ export default function BusinessDashboardPage() {
                   current_period_end: stripeStatusData.subscriptionDetails.current_period_end,
                   subscription_plans: planData
                 };
-                
+
                 setSubscription(stripeSubscription);
                 subscriptionFound = true;
                 console.log('Using real-time Stripe subscription data', stripeSubscription);
-                
+
                 // Update the business profile with the correct status
                 const { error: updateError } = await supabase
                   .from('business_profiles')
@@ -231,7 +231,7 @@ export default function BusinessDashboardPage() {
                     plan_id: stripeStatusData.subscriptionDetails.plan_id || profileData.plan_id
                   })
                   .eq('id', profileData.id);
-                
+
                 if (updateError) {
                   console.error('Error updating business profile with Stripe data:', updateError);
                 } else {
@@ -244,7 +244,7 @@ export default function BusinessDashboardPage() {
           console.error('Error checking Stripe subscription status:', err);
         }
       }
-      
+
       // If we couldn't build subscription from business profile or Stripe, try the regular subscription table
       if (!subscriptionFound) {
         // Check subscription status directly
@@ -255,16 +255,16 @@ export default function BusinessDashboardPage() {
             .eq('user_id', user?.id)
             .eq('status', 'active')
             .maybeSingle();
-          
+
           if (!subscriptionError && subscriptionData) {
             setSubscription(subscriptionData);
             console.log('Using subscription table data', subscriptionData);
-            
+
             // If we found an active subscription in the subscriptions table
             // but the business profile status is not active, let's fix it
             if (profileData.subscription_status !== 'active') {
               console.log('Found mismatch in subscription status - updating business profile');
-              
+
               // Update the business profile with the correct status
               const { error: updateError } = await supabase
                 .from('business_profiles')
@@ -276,14 +276,14 @@ export default function BusinessDashboardPage() {
                   plan_id: subscriptionData.plan_id
                 })
                 .eq('id', profileData.id);
-              
+
               if (updateError) {
                 console.error('Error updating business profile subscription status:', updateError);
               } else {
                 console.log('Successfully updated business profile subscription status');
               }
             }
-            
+
             subscriptionFound = true;
           }
         } catch (err) {
@@ -304,18 +304,18 @@ export default function BusinessDashboardPage() {
       if (listingsData && listingsData.length > 0) {
         console.log(`Found ${listingsData.length} listings for business profile ${profileData.id}`);
         setListings(listingsData);
-        
+
         // If we found listings but no subscription, create a fallback subscription
         // This ensures the listings will be displayed in the UI
         if (!subscriptionFound) {
           console.log('Creating fallback subscription from listings data');
-          
+
           // Get default subscription plan
           const { data: defaultPlan } = await supabase
             .from('subscription_plans')
             .select('*')
             .single();
-            
+
           if (defaultPlan) {
             const fallbackSubscription = {
               id: 'fallback-' + Date.now(),
@@ -324,10 +324,10 @@ export default function BusinessDashboardPage() {
               current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
               subscription_plans: defaultPlan
             };
-            
+
             setSubscription(fallbackSubscription);
             console.log('Using fallback subscription to display listings', fallbackSubscription);
-            
+
             // Also update the profile to avoid this issue in the future
             const { error: updateError } = await supabase
               .from('business_profiles')
@@ -336,7 +336,7 @@ export default function BusinessDashboardPage() {
                 plan_id: defaultPlan.id
               })
               .eq('id', profileData.id);
-              
+
             if (updateError) {
               console.error('Error updating profile with fallback subscription:', updateError);
             }
@@ -378,14 +378,14 @@ export default function BusinessDashboardPage() {
       // Get business listings for test user
       let listingsData = null;
       let listingsError = null;
-      
+
       if (profileData) {
         const result = await supabase
           .from('business_listings')
           .select('*')
           .eq('business_id', profileData.id)
           .order('created_at', { ascending: false });
-          
+
         listingsData = result.data;
         listingsError = result.error;
       }
@@ -426,21 +426,29 @@ export default function BusinessDashboardPage() {
   const handleDeleteListing = async (listingId: string) => {
     if (confirm(t('confirm_delete_listing', 'Are you sure you want to delete this listing?'))) {
       try {
-        const { error } = await supabase
-          .from('business_listings')
-          .delete()
-          .eq('id', listingId);
-          
-        if (error) {
-          console.error('Error deleting listing:', error);
-          alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
-        } else {
+        const response = await axios.delete(`/api/listings/delete?id=${listingId}`);
+
+        if (response.data.success) {
           // Refresh listings
           fetchBusinessData();
+        } else {
+          console.error('Error deleting listing:', response.data.error);
+          alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error deleting listing:', error);
-        alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+
+        // Handle specific error messages from the API
+        if (error.response?.data?.error) {
+          const apiError = error.response.data.error;
+          if (apiError === 'subscription_required') {
+            alert(t('subscription_required_to_delete', 'An active subscription is required to manage listings.'));
+          } else {
+            alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+          }
+        } else {
+          alert(t('error_deleting_listing', 'There was an error deleting this listing. Please try again.'));
+        }
       }
     }
   };
@@ -458,8 +466,8 @@ export default function BusinessDashboardPage() {
   }
 
   // Determine if the user can create listings based on their subscription
-  const canCreateListing = businessProfile && subscription && 
-    (subscription.subscription_plans.max_listings === -1 || 
+  const canCreateListing = businessProfile && subscription &&
+    (subscription.subscription_plans.max_listings === -1 ||
      (listings.length < subscription.subscription_plans.max_listings));
 
   return (
@@ -491,7 +499,7 @@ export default function BusinessDashboardPage() {
                   <p className="font-medium text-gray-900">{businessProfile?.business_name || 'Your Business'}</p>
                   <p className="text-sm text-gray-500">{user.email}</p>
                 </div>
-                
+
                 <div className="mt-6 space-y-2">
                   <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
                     {t('business.dashboard', 'Dashboard')}
@@ -517,7 +525,7 @@ export default function BusinessDashboardPage() {
                     {t('manage_business_description', 'Manage your business listings and subscription')}
                   </p>
                 </div>
-                
+
                 <div className="flex flex-col xs:flex-row gap-2">
                   {/* Create Listing dropdown */}
                   <div className="relative inline-block text-left">
@@ -563,8 +571,8 @@ export default function BusinessDashboardPage() {
                       <div className="flex items-center">
                         {businessProfile.logo_url ? (
                           <div className="h-16 w-16 rounded-full overflow-hidden mr-4">
-                            <Image 
-                              src={businessProfile.logo_url} 
+                            <Image
+                              src={businessProfile.logo_url}
                               alt={businessProfile.business_name}
                               width={64}
                               height={64}
@@ -584,15 +592,15 @@ export default function BusinessDashboardPage() {
                         </div>
                       </div>
                     </div>
-                    
-                    <Link 
-                      href="/business/profile" 
+
+                    <Link
+                      href="/business/profile"
                       className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       <PencilIcon className="h-4 w-4 mr-2" />
                       {t('edit_profile', 'Edit Profile')}
                     </Link>
-                    
+
                     {/* Business Description */}
                     {businessProfile.description && (
                       <div className="mb-8">
@@ -600,10 +608,10 @@ export default function BusinessDashboardPage() {
                         <p className="text-gray-900">{businessProfile.description}</p>
                       </div>
                     )}
-                    
+
                     <div className="border-t border-gray-200 pt-4">
                       <h3 className="text-sm font-medium text-gray-500 mb-2">{t('subscription_details', 'Subscription Details')}</h3>
-                      
+
                       {subscription ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
@@ -623,8 +631,8 @@ export default function BusinessDashboardPage() {
                           <div>
                             <div className="text-sm text-gray-500">{t('renewal_date', 'Renewal Date')}</div>
                             <div className="font-medium">
-                              {subscription.current_period_end 
-                                ? formatDate(subscription.current_period_end) 
+                              {subscription.current_period_end
+                                ? formatDate(subscription.current_period_end)
                                 : t('not_available', 'Not available')}
                             </div>
                           </div>
@@ -633,8 +641,8 @@ export default function BusinessDashboardPage() {
                         <div className="flex items-center space-x-2 text-yellow-600">
                           <ExclamationCircleIcon className="h-5 w-5" />
                           <span>{t('no_active_subscription', 'No active subscription')}</span>
-                          <Link 
-                            href="/business/subscription" 
+                          <Link
+                            href="/business/subscription"
                             className="text-indigo-600 font-medium hover:text-indigo-900"
                           >
                             {t('get_subscription', 'Get Subscription')}
@@ -651,15 +659,15 @@ export default function BusinessDashboardPage() {
                 <div className="p-6 border-b border-gray-200">
                   <div className="flex justify-between items-center">
                     <h2 className="text-xl font-semibold">{t('your_listings', 'Your Listings')}</h2>
-                    
+
                     <div className="flex items-center space-x-2">
                       {subscription && (
                         <p className="text-sm text-gray-600">
-                          {subscription.subscription_plans.max_listings === -1 
+                          {subscription.subscription_plans.max_listings === -1
                             ? t('unlimited_listings_available', 'Unlimited listings available')
-                            : t('listings_count', '{{current}}/{{max}} listings', { 
-                                current: listings.length, 
-                                max: subscription.subscription_plans.max_listings 
+                            : t('listings_count', '{{current}}/{{max}} listings', {
+                                current: listings.length,
+                                max: subscription.subscription_plans.max_listings
                               })
                           }
                         </p>
@@ -667,7 +675,7 @@ export default function BusinessDashboardPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 {!subscription && (
                   <div className="p-8 text-center">
                     <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100">
@@ -687,7 +695,7 @@ export default function BusinessDashboardPage() {
                     </div>
                   </div>
                 )}
-                
+
                 {subscription && listings.length === 0 && (
                   <div className="p-8 text-center">
                     <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
@@ -710,7 +718,7 @@ export default function BusinessDashboardPage() {
                     )}
                   </div>
                 )}
-                
+
                 {subscription && listings.length > 0 ? (
                   <ul className="divide-y divide-gray-200">
                     {listings.map(listing => (
@@ -759,7 +767,7 @@ export default function BusinessDashboardPage() {
                               </Link>
                             </div>
                           </div>
-                          
+
                           <div className="mt-4 md:mt-0 flex-shrink-0">
                             {listing.images && listing.images.length > 0 ? (
                               <div className="h-24 w-24 sm:h-32 sm:w-32 rounded-md overflow-hidden">
@@ -823,7 +831,7 @@ export default function BusinessDashboardPage() {
                   </div>
                 )}
               </div>
-              
+
               {/* Debug Data (only shown in debug mode) */}
               {isDebugMode && debugData && (
                 <div className="mt-8 bg-gray-100 rounded-lg shadow overflow-hidden">
@@ -841,24 +849,24 @@ export default function BusinessDashboardPage() {
         </div>
       </div>
 
-      {/* Portal-like dropdowns attached at the root level of the document 
+      {/* Portal-like dropdowns attached at the root level of the document
            to prevent them from being cut off by parent containers */}
-      <div 
+      <div
         ref={dropdownRef1}
         id="create-listing-dropdown"
         className="hidden fixed origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
-        role="menu" 
-        aria-orientation="vertical" 
-        aria-labelledby="create-listing-menu-button" 
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="create-listing-menu-button"
         tabIndex={-1}
         style={{ width: '12rem' }} // Match w-48
       >
         <div className="py-1" role="none">
-          <Link 
-            href="/business/listings/create" 
-            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
-            role="menuitem" 
-            tabIndex={-1} 
+          <Link
+            href="/business/listings/create"
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabIndex={-1}
             id="create-listing-menu-item-0"
             onClick={(e) => {
               const menu = document.getElementById('create-listing-dropdown');
@@ -867,11 +875,11 @@ export default function BusinessDashboardPage() {
           >
             {t('create_product', 'Create Product')}
           </Link>
-          <Link 
-            href="/business/listings/create-service" 
-            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
-            role="menuitem" 
-            tabIndex={-1} 
+          <Link
+            href="/business/listings/create-service"
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabIndex={-1}
             id="create-listing-menu-item-1"
             onClick={(e) => {
               const menu = document.getElementById('create-listing-dropdown');
@@ -883,22 +891,22 @@ export default function BusinessDashboardPage() {
         </div>
       </div>
 
-      <div 
+      <div
         ref={dropdownRef2}
         id="create-first-listing-dropdown"
         className="hidden fixed origin-top-center rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
-        role="menu" 
-        aria-orientation="vertical" 
-        aria-labelledby="create-first-listing-menu-button" 
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="create-first-listing-menu-button"
         tabIndex={-1}
         style={{ width: '12rem' }} // Match w-48
       >
         <div className="py-1" role="none">
-          <Link 
-            href="/business/listings/create" 
-            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
-            role="menuitem" 
-            tabIndex={-1} 
+          <Link
+            href="/business/listings/create"
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabIndex={-1}
             id="create-first-listing-menu-item-0"
             onClick={(e) => {
               const menu = document.getElementById('create-first-listing-dropdown');
@@ -907,11 +915,11 @@ export default function BusinessDashboardPage() {
           >
             {t('create_product', 'Create Product')}
           </Link>
-          <Link 
-            href="/business/listings/create-service" 
-            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" 
-            role="menuitem" 
-            tabIndex={-1} 
+          <Link
+            href="/business/listings/create-service"
+            className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabIndex={-1}
             id="create-first-listing-menu-item-1"
             onClick={(e) => {
               const menu = document.getElementById('create-first-listing-dropdown');
@@ -932,4 +940,4 @@ export async function getStaticProps({ locale }: { locale: string }) {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-} 
+}
