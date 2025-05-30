@@ -60,24 +60,24 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     const featuredAdvertisers = [
       {
         id: '1',
-        name: 'Hotel Real de Minas',
-        description: 'Luxury accommodations in the heart of San Luis Potosí',
-        imageUrl: '/images/advertisers/hotel-real.jpg',
-        ctaUrl: '/places/hotel-real-de-minas'
+        name: 'San Luis Rey Tranvía',
+        description: 'Experience the historic center of San Luis Potosí through guided trolley tours, departing daily from Jardín de San Juan de Dios.',
+        imageUrl: '/images/tours/tranvia-san-luis-rey.jpg',
+        ctaUrl: '/blog/san-luis-rey-tranvia'
       },
       {
         id: '2',
-        name: 'Restaurante La Antigua',
-        description: 'Traditional Mexican cuisine with a modern twist',
-        imageUrl: '/images/advertisers/la-antigua.jpg',
-        ctaUrl: '/places/la-antigua'
+        name: 'Corazón de Xoconostle',
+        description: 'Discover artisanal products and cultural experiences that celebrate Potosino heritage.',
+        imageUrl: '/images/brands/corazon-de-xoconostle-logo.png',
+        ctaUrl: '/blog/corazon-de-xoconostle'
       },
       {
         id: '3',
-        name: 'Centro Comercial Plaza San Luis',
-        description: 'Your premier shopping destination in SLP',
-        imageUrl: '/images/advertisers/plaza-san-luis.jpg',
-        ctaUrl: '/places/plaza-san-luis'
+        name: 'La Gran Vía',
+        description: 'Historic Spanish bakery serving artisanal pastries and bread since 1930.',
+        imageUrl: '/images/food/bakery-traditional.jpg',
+        ctaUrl: '/blog/la-gran-via'
       }
     ];
 
