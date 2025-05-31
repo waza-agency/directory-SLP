@@ -346,23 +346,26 @@ export default function CulturalPage({ events }: CulturalPageProps) {
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
-    // Try to include specific cultural categories since the column might not exist yet
+    // Simplified query to only fetch arts-culture events
     const { data: events, error } = await supabase
       .from('events')
       .select('*')
-      .or('category.eq.cultural,category.eq.arts-culture,category.eq.music')
+      .eq('category', 'arts-culture')
       .gte('end_date', new Date().toISOString())
       .order('start_date', { ascending: true })
       .limit(6);
 
-    if (error) throw error;
-
-    console.log('Cultural events found using category filtering:', events?.length || 0);
-
-    // Log individual events for debugging
-    events?.forEach((event, index) => {
-      console.log(`Event ${index + 1}: ${event.title} (${event.category})`);
-    });
+    if (error) {
+      console.error('Supabase error:', error);
+      // Return empty events array instead of throwing
+      return {
+        props: {
+          ...(await serverSideTranslations(locale, ['common'])),
+          events: [],
+        },
+        revalidate: 60,
+      };
+    }
 
     return {
       props: {
@@ -372,7 +375,8 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       revalidate: 60,
     };
   } catch (error) {
-    console.error('Error fetching cultural events:', error);
+    console.error('Error in getStaticProps:', error);
+    // Return empty events array on any error
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),

@@ -1,6 +1,9 @@
 -- Enable necessary extensions
 create extension if not exists "uuid-ossp";
 
+-- First, update any existing events with 'cultural' category to 'arts-culture'
+UPDATE public.events SET category = 'arts-culture' WHERE category = 'cultural';
+
 -- Create enum for place categories
 create type place_category as enum (
     'service',
@@ -19,7 +22,6 @@ create type place_category as enum (
 -- Create enum for event categories
 create type event_category as enum (
     'arts-culture',
-    'cultural',
     'culinary',
     'music',
     'sports',

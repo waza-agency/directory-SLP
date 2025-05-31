@@ -24,12 +24,10 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    domains: ['localhost', 'your-supabase-project.supabase.co'],
+    domains: ['localhost'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Enable trailing slash for consistency
   trailingSlash: true,
@@ -80,9 +78,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: process.env.NODE_ENV === 'development'
-              ? "default-src 'self'; script-src 'self' 'unsafe-eval' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com https://pagead2.googlesyndication.com 'unsafe-inline'; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: https://pagead2.googlesyndication.com; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https: https://pagead2.googlesyndication.com;"
-              : "default-src 'self'; script-src 'self' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com https://pagead2.googlesyndication.com 'unsafe-inline'; frame-src https://js.stripe.com https://www.google.com/recaptcha/ https://www.youtube.com https://www.youtube-nocookie.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: https://pagead2.googlesyndication.com; connect-src 'self' http://localhost:3000 https://your-supabase-project.supabase.co https: https://pagead2.googlesyndication.com;"
+            value: "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval';"
           }
         ],
       },
