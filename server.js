@@ -38,20 +38,30 @@ const next = require('next');
 const { parse } = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
-const handle = app.getRequestHandler();
+const hostname = process.env.HOSTNAME || 'localhost';
+const port = parseInt(process.env.PORT || '3000', 10);
 
-// Get port from command line arguments or use default 3000
-const args = process.argv.slice(2);
-let port = 3000;
-const portIndex = args.indexOf('-p');
-if (portIndex !== -1 && args[portIndex + 1]) {
-  port = parseInt(args[portIndex + 1], 10);
-}
+const app = next({ dev, hostname, port });
+const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
 
+  // Add health check endpoint
+  server.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+  });
+
+  // Add error handling middleware
+  server.use((err, req, res, next) => {
+    console.error('Server error:', err);
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: dev ? err.message : 'Something went wrong'
+    });
+  });
+
+  // Handle all other routes with Next.js
   server.all('*', (req, res) => {
     const parsedUrl = parse(req.url, true);
     return handle(req, res, parsedUrl);
@@ -59,6 +69,10 @@ app.prepare().then(() => {
 
   server.listen(port, (err) => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+    console.log(`> Ready on http://${hostname}:${port}`);
+    console.log('Environment:', process.env.NODE_ENV);
   });
+}).catch(err => {
+  console.error('Error starting server:', err);
+  process.exit(1);
 });

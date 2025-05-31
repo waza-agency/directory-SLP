@@ -13,21 +13,19 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    domains: ['localhost'],
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
-      {
-        protocol: 'http',
-        hostname: '**',
-      },
     ],
-    domains: ['localhost'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
   },
   // Enable trailing slash for consistency
   trailingSlash: true,
@@ -105,6 +103,7 @@ const nextConfig = {
   },
   // This will tell Next.js to ignore specific paths during build
   excludeDefaultMomentLocales: true,
+  output: 'standalone',
 };
 
 // Add performance polyfill to fix Node.js compatibility issue (only for older Node.js)
