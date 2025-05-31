@@ -46,13 +46,12 @@ export default function CulturalPage({ events }: CulturalPageProps) {
               alt="San Luis Potosí Cathedral"
               fill
               className="object-cover mix-blend-overlay opacity-60"
-              priority
-              quality={75}
-              sizes="100vw"
+              unoptimized
+              loading="eager"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = '/images/cultural/cultural-default.jpg';
-                target.onerror = null; // Prevent infinite loop if cultural-default.jpg also fails
+                target.onerror = null;
               }}
             />
           </div>

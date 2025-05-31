@@ -25,7 +25,7 @@ const SEO: React.FC<SEOProps> = ({
   const router = useRouter();
   const canonicalUrl = `https://www.sanluisway.com${router.asPath}`;
   const siteName = "San Luis Way";
-  
+
   // Make title specific but also include site name
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 
@@ -36,7 +36,13 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
-      
+
+      {/* Favicon Tags */}
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <meta name="theme-color" content="#ffffff" />
+
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
@@ -46,13 +52,13 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteName} />
-      
+
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      
+
       {/* Article Specific Meta Tags */}
       {ogType === 'article' && article && (
         <>
@@ -72,4 +78,4 @@ const SEO: React.FC<SEOProps> = ({
   );
 };
 
-export default SEO; 
+export default SEO;
