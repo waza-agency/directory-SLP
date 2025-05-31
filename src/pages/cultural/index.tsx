@@ -29,7 +29,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Cultural Heritage of San Luis Potosí"
         description="Discover the rich cultural heritage, traditions, arts, and customs of San Luis Potosí - a comprehensive guide for expatriates and visitors."
         keywords="San Luis Potosí culture, traditions, museums, arts, cultural events, Mexican heritage, festivals, historical sites, colonial architecture, local customs"
@@ -47,6 +47,10 @@ export default function CulturalPage({ events }: CulturalPageProps) {
               fill
               className="object-cover mix-blend-overlay opacity-60"
               priority
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/images/cultural/cultural-default.jpg';
+              }}
             />
           </div>
           <div className="relative container mx-auto px-4 h-full flex items-center">
@@ -79,8 +83,8 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                   <p className="text-gray-600">
                     Explore colonial architecture, UNESCO World Heritage sites, and museums showcasing the region's rich history.
                   </p>
-                  <Link 
-                    href="/cultural/history" 
+                  <Link
+                    href="/cultural/history"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
                     Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />
@@ -96,8 +100,8 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                   <p className="text-gray-600">
                     Experience vibrant local festivities, from traditional religious celebrations to contemporary cultural events.
                   </p>
-                  <Link 
-                    href="/cultural/festivals" 
+                  <Link
+                    href="/cultural/festivals"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
                     Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />
@@ -113,8 +117,8 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                   <p className="text-gray-600">
                     Discover local artistic expressions, language resources, and opportunities to engage with the local culture.
                   </p>
-                  <Link 
-                    href="/cultural/language" 
+                  <Link
+                    href="/cultural/language"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
                     Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />
@@ -155,8 +159,8 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     <MapPinIcon className="w-5 h-5 mr-2" />
                     <span>Centro Histórico, San Luis Potosí</span>
                   </div>
-                  <Link 
-                    href="/places/teatro-de-la-paz" 
+                  <Link
+                    href="/places/teatro-de-la-paz"
                     className="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                   >
                     View Details
@@ -185,8 +189,8 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     <MapPinIcon className="w-5 h-5 mr-2" />
                     <span>Álvaro Obregón 80, Centro Histórico</span>
                   </div>
-                  <Link 
-                    href="/places/museo-federico-silva" 
+                  <Link
+                    href="/places/museo-federico-silva"
                     className="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                   >
                     View Details
@@ -377,4 +381,4 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       revalidate: 60,
     };
   }
-}; 
+};

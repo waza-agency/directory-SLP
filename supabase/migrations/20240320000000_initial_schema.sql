@@ -19,6 +19,7 @@ create type place_category as enum (
 -- Create enum for event categories
 create type event_category as enum (
     'arts-culture',
+    'cultural',
     'culinary',
     'music',
     'sports',
@@ -116,4 +117,4 @@ create policy "Public read access" on public.events
     for select using (true);
 
 create policy "Public read access" on public.featured_photos
-    for select using (true); 
+    for select using (true);
