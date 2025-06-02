@@ -49,28 +49,35 @@ pipeline {
                     sh "docker stop \${CONTAINER_NAME} || true"
                     sh "docker rm \${CONTAINER_NAME} || true"
 
-                    // Run the new container
+                    // Run the new container with environment variables
                     sh """
                         docker run -d \\
                             --name \${CONTAINER_NAME} \\
                             -p \${PORT}:\${PORT} \\
                             -e NODE_ENV=production \\
                             -e PORT=\${PORT} \\
+                            -e NEXT_PUBLIC_SITE_URL=https://sanluisway.com \\
+                            --env-file .env \\
                             --restart unless-stopped \\
                             \${DOCKER_IMAGE}:latest
                     """
 
-                    // Wait for health check
+                    // Wait for health check with better error handling
                     sh """
+                        echo 'Waiting for container to start...'
+                        sleep 5
+
                         for i in {1..30}; do
-                            if curl -f http://localhost:\${PORT}/health; then
+                            if docker exec \${CONTAINER_NAME} wget --no-verbose --tries=1 --spider http://localhost:\${PORT}/health 2>/dev/null; then
                                 echo 'Service is up!'
                                 exit 0
                             fi
-                            echo 'Waiting for service to start...'
-                            sleep 2
+                            echo "Attempt \$i: Waiting for service to start..."
+                            sleep 3
                         done
-                        echo 'Service failed to start'
+
+                        echo 'Service failed to start. Checking logs:'
+                        docker logs \${CONTAINER_NAME}
                         exit 1
                     """
                 }

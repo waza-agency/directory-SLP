@@ -23,6 +23,9 @@ RUN npm run build
 # Production image
 FROM node:18-alpine AS runner
 
+# Install wget for health checks
+RUN apk add --no-cache wget
+
 WORKDIR /app
 
 # Copy necessary files from builder
@@ -36,11 +39,16 @@ COPY --from=builder /app/server.js ./server.js
 ENV NODE_ENV=production
 ENV PORT=3007
 
+# Create a non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
+
 # Expose port
 EXPOSE 3007
 
 # Add healthcheck
-HEALTHCHECK --interval=30s --timeout=3s --start-period=30s \
+HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3007/health || exit 1
 
 # Start the application
