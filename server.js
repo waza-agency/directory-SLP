@@ -30,49 +30,56 @@ if (!global.performance) {
 }
 
 console.log('Node.js version:', process.version);
-console.log('Using performance API polyfill:', !process.version.startsWith('v16') && !process.version.startsWith('v18'));
+console.log('Environment:', process.env.NODE_ENV);
 
-// Import and run Next.js
-const express = require('express');
-const next = require('next');
+// For standalone mode, we need to use the built-in Next.js server
+const { createServer } = require('http');
 const { parse } = require('url');
+const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
-const hostname = process.env.HOSTNAME || 'localhost';
+const hostname = '0.0.0.0'; // Changed from localhost to 0.0.0.0 for Docker
 const port = parseInt(process.env.PORT || '3007', 10);
 
-const app = next({ dev, hostname, port });
+console.log(`Starting server on ${hostname}:${port} (development: ${dev})`);
+
+const app = next({ dev, hostname, port, dir: './' });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const server = express();
+  createServer(async (req, res) => {
+    try {
+      const parsedUrl = parse(req.url, true);
 
-  // Add health check endpoint
-  server.get('/health', (req, res) => {
-    res.status(200).json({ status: 'ok' });
-  });
+      // Add health check endpoint
+      if (parsedUrl.pathname === '/health') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          status: 'ok',
+          timestamp: new Date().toISOString(),
+          environment: process.env.NODE_ENV,
+          version: process.env.npm_package_version || '1.0.0'
+        }));
+        return;
+      }
 
-  // Add error handling middleware
-  server.use((err, req, res, next) => {
+      // Handle all other routes with Next.js
+      await handle(req, res, parsedUrl);
+    } catch (err) {
+      console.error('Error occurred handling', req.url, err);
+      res.statusCode = 500;
+      res.end('Internal Server Error');
+    }
+  })
+  .once('error', (err) => {
     console.error('Server error:', err);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: dev ? err.message : 'Something went wrong'
-    });
-  });
-
-  // Handle all other routes with Next.js
-  server.all('*', (req, res) => {
-    const parsedUrl = parse(req.url, true);
-    return handle(req, res, parsedUrl);
-  });
-
-  server.listen(port, (err) => {
-    if (err) throw err;
+    process.exit(1);
+  })
+  .listen(port, hostname, () => {
     console.log(`> Ready on http://${hostname}:${port}`);
-    console.log('Environment:', process.env.NODE_ENV);
+    console.log('> Press Ctrl+C to stop');
   });
-}).catch(err => {
+}).catch((err) => {
   console.error('Error starting server:', err);
   process.exit(1);
 });

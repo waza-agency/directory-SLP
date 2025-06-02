@@ -3,6 +3,9 @@ FROM node:18-alpine AS builder
 # Set working directory
 WORKDIR /app
 
+# Install dependencies needed for building
+RUN apk add --no-cache libc6-compat
+
 # Copy package files
 COPY package*.json ./
 COPY scripts ./scripts
@@ -13,7 +16,7 @@ RUN npm ci
 # Copy the rest of the application
 COPY . .
 
-# Remove test files
+# Remove test files before building
 RUN find ./src/pages -name "*.test.*" -delete 2>/dev/null || true && \
     find ./src/pages/__tests__ -type f -delete 2>/dev/null || true
 
@@ -28,20 +31,23 @@ RUN apk add --no-cache wget
 
 WORKDIR /app
 
-# Copy necessary files from builder
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/server.js ./server.js
-
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3007
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Create a non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy necessary files from builder with proper ownership
+COPY --from=builder --chown=nextjs:nodejs /app/package*.json ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/server.js ./server.js
+
+# Switch to non-root user
 USER nextjs
 
 # Expose port
