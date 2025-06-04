@@ -52,7 +52,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/next-i18next.config.js ./
 USER nextjs
 
 # Expose port
-EXPOSE 3007
+EXPOSE 3000
 
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
