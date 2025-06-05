@@ -21,7 +21,6 @@ function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {/* Global meta tags */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#1F2937" />
 
         {/* Favicon */}

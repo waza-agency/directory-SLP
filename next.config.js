@@ -13,21 +13,20 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    domains: ['localhost', 'sanluisway.com', '*.supabase.co'],
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: blob:;",
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
-      {
-        protocol: 'http',
-        hostname: '**',
-      },
     ],
-    domains: ['localhost'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    unoptimized: process.env.NODE_ENV === 'development'
   },
   // Enable trailing slash for consistency
   trailingSlash: true,
@@ -78,7 +77,19 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval';"
+            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:;"
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
           }
         ],
       },
@@ -105,6 +116,8 @@ const nextConfig = {
   },
   // This will tell Next.js to ignore specific paths during build
   excludeDefaultMomentLocales: true,
+  // Removed standalone output mode that was causing issues
+  poweredByHeader: false,
 };
 
 // Add performance polyfill to fix Node.js compatibility issue (only for older Node.js)
