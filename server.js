@@ -49,10 +49,13 @@ if (portIndex !== -1 && args[portIndex + 1]) {
   port = parseInt(args[portIndex + 1], 10);
 }
 
+// Add error handling to catch routing preparation errors
 app.prepare().then(() => {
+  console.log('Next.js app prepared successfully');
   const server = express();
 
-  server.all('*', (req, res) => {
+  // Use a middleware function instead of server.all('*', ...) to avoid path-to-regexp issues
+  server.use((req, res) => {
     const parsedUrl = parse(req.url, true);
     return handle(req, res, parsedUrl);
   });
@@ -61,4 +64,8 @@ app.prepare().then(() => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });
+}).catch((error) => {
+  console.error('Error preparing Next.js app:', error);
+  console.error('Error stack:', error.stack);
+  process.exit(1);
 });

@@ -22,8 +22,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const safetyDateBuffer = new Date();
     safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
     const safetyDateString = safetyDateBuffer.toISOString();
-    
-    // Obtener eventos 
+
+    // Obtener eventos
     const { data: eventsData, error } = await supabase
       .from('events')
       .select('*')
@@ -41,16 +41,16 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const categoryCounts: Record<string, number> = {
       all: events?.length || 0,
       sports: events?.filter(event => event.category === 'sports').length || 0,
-      cultural: events?.filter(event => 
-        event.category === 'cultural' || 
-        event.category === 'arts-culture' || 
+      cultural: events?.filter(event =>
+        event.category === 'cultural' ||
+        event.category === 'arts-culture' ||
         event.category === 'music'
       ).length || 0,
       culinary: events?.filter(event => event.category === 'culinary').length || 0,
-      other: events?.filter(event => 
-        event.category !== 'sports' && 
-        event.category !== 'cultural' && 
-        event.category !== 'arts-culture' && 
+      other: events?.filter(event =>
+        event.category !== 'sports' &&
+        event.category !== 'cultural' &&
+        event.category !== 'arts-culture' &&
         event.category !== 'music' &&
         event.category !== 'culinary'
       ).length || 0,
@@ -70,12 +70,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       props: {
         ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: [],
-        categoryCounts: { 
-          all: 0, 
-          sports: 0, 
-          cultural: 0, 
-          culinary: 0, 
-          other: 0 
+        categoryCounts: {
+          all: 0,
+          sports: 0,
+          cultural: 0,
+          culinary: 0,
+          other: 0
         },
       },
       revalidate: 600, // Revalidar cada 10 minutos
@@ -92,34 +92,34 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
   // Filtrar eventos cuando cambia la categoría o el término de búsqueda
   useEffect(() => {
     let result = events;
-    
+
     // Ensure cultural events are marked for cultural calendar for consistent filtering
     // This doesn't change the database, just the client-side state
     result = result.map(event => {
-      if (event.category === 'cultural' || 
-          event.category === 'arts-culture' || 
+      if (event.category === 'cultural' ||
+          event.category === 'arts-culture' ||
           event.category === 'music') {
         return { ...event, show_in_cultural_calendar: true };
       }
       return event;
     });
-    
+
     // Filtrar por categoría
     if (selectedCategory !== 'all') {
       if (selectedCategory === 'cultural') {
         // For cultural category, include arts-culture and music events too
         // as well as any marked for cultural calendar
-        result = result.filter(event => 
-          event.category === 'cultural' || 
-          event.category === 'arts-culture' || 
-          event.category === 'arts culture' || 
+        result = result.filter(event =>
+          event.category === 'cultural' ||
+          event.category === 'arts-culture' ||
+          event.category === 'arts culture' ||
           event.category === 'music' ||
           event.show_in_cultural_calendar === true
         );
       } else if (selectedCategory === 'arts-culture') {
         // Arts-culture filter should also work (direct URL navigation)
-        result = result.filter(event => 
-          event.category === 'arts-culture' || 
+        result = result.filter(event =>
+          event.category === 'arts-culture' ||
           event.category === 'arts culture'
         );
       } else {
@@ -127,17 +127,17 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
         result = result.filter(event => event.category === selectedCategory);
       }
     }
-    
+
     // Filtrar por término de búsqueda
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      result = result.filter(event => 
-        event.title.toLowerCase().includes(term) || 
+      result = result.filter(event =>
+        event.title.toLowerCase().includes(term) ||
         (event.description?.toLowerCase() || '').includes(term) ||
         event.location.toLowerCase().includes(term)
       );
     }
-    
+
     setFilteredEvents(result);
   }, [selectedCategory, searchTerm, events]);
 
@@ -159,8 +159,8 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
     <>
       <Head>
         <title>{t('events')} - SLP Descubre</title>
-        <meta 
-          name="description" 
+        <meta
+          name="description"
           content="Descubre los mejores eventos en San Luis Potosí: deportes, cultura, conciertos y más."
         />
       </Head>
@@ -205,8 +205,8 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
       <div className="container mx-auto px-4 py-8">
         {/* Category Filter */}
         <div className="mb-8">
-          <EventCategoryFilter 
-            selectedCategory={selectedCategory} 
+          <EventCategoryFilter
+            selectedCategory={selectedCategory}
             onChange={setSelectedCategory}
             showCounts={true}
             counts={categoryCounts}
@@ -242,8 +242,8 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-bold text-gray-900">{t('featuredEvents')}</h2>
               {regularEvents.length > 0 && (
-                <a 
-                  href="#all-events" 
+                <a
+                  href="#all-events"
                   className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2"
                 >
                   {t('viewAllEvents')}
@@ -251,76 +251,20 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
                 </a>
               )}
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredEvents.map((event) => (
-                <Link
-                  key={event.id}
-                  href={`/events/${event.category}/${event.id}`}
-                  className="group"
-                >
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    {event.image_url && (
-                      <div className="relative h-56">
-                        <Image
-                          src={event.image_url}
-                          alt={event.title}
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span className="bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full">
-                            {t('featured')}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`inline-block w-3 h-3 rounded-full ${
-                          event.category === 'sports' ? 'bg-blue-500' : 
-                          (event.category === 'cultural' || event.category === 'arts-culture' || event.category === 'music') ? 'bg-purple-500' : 
-                          event.category === 'culinary' ? 'bg-amber-500' :
-                          'bg-gray-500'
-                        }`}></span>
-                        <span className="text-sm text-gray-600 capitalize">
-                          {(event.category === 'arts-culture' || event.category === 'arts culture' || event.category === 'music') 
-                            ? 'cultural' 
-                            : event.category}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
-                        {event.title}
-                      </h3>
-                      <div className="space-y-2 text-gray-600 text-sm">
-                        <p className="flex items-center gap-2">
-                          <CalendarIcon className="w-4 h-4" />
-                          {formatDate(event.start_date)}
-                          {event.end_date && event.end_date !== event.start_date && (
-                            <> - {formatDate(event.end_date)}</>
-                          )}
-                        </p>
-                        <p className="flex items-center gap-2">
-                          <MapPinIcon className="w-4 h-4" />
-                          {event.location}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <EventList events={featuredEvents} />
           </section>
         )}
 
-        {/* Todos los Eventos */}
+        {/* Eventos Regulares */}
         {regularEvents.length > 0 && (
-          <section id="all-events" className="pb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">{t('allEvents')}</h2>
+          <section className="mb-16">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-bold text-gray-900">{t('regularEvents')}</h2>
+            </div>
             <EventList events={regularEvents} />
           </section>
         )}
       </div>
     </>
   );
-} 
+}
