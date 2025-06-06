@@ -28,8 +28,8 @@ const nextConfig = {
     ],
     unoptimized: process.env.NODE_ENV === 'development'
   },
-  // Enable trailing slash for consistency
-  trailingSlash: true,
+  // Temporarily disable trailing slash
+  // trailingSlash: true,
   // Enable more detailed output during builds
   onDemandEntries: {
     // Keep pages in memory for longer during development
@@ -95,25 +95,26 @@ const nextConfig = {
       },
     ];
   },
-  // Add rewrites for SEO-related files
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-      {
-        source: '/robots.txt',
-        destination: '/api/robots',
-      }
-    ];
-  },
+  // Temporarily disable rewrites
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/sitemap.xml',
+  //       destination: '/api/sitemap',
+  //     },
+  //     {
+  //       source: '/robots.txt',
+  //       destination: '/api/robots',
+  //     }
+  //   ];
+  // },
   env: {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
-  experimental: {
-    forceSwcTransforms: true,
-  },
+  // Temporarily disable experimental features
+  // experimental: {
+  //   forceSwcTransforms: true,
+  // },
   // This will tell Next.js to ignore specific paths during build
   excludeDefaultMomentLocales: true,
   // Removed standalone output mode that was causing issues

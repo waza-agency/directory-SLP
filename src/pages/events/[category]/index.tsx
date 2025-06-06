@@ -1,8 +1,9 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
 import EventList from '@/components/EventList';
@@ -14,40 +15,77 @@ import { CalendarIcon, MapPinIcon, ArrowLongRightIcon } from '@heroicons/react/2
 interface EventsPageProps {
   events: Event[];
   categoryCounts: Record<string, number>;
+  category: string;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Define the possible category paths
+  const categories = ['all', 'sports', 'cultural', 'arts-culture', 'culinary', 'other'];
+
+  const paths = categories.map((category) => ({
+    params: { category },
+  }));
+
+  return {
+    paths,
+    fallback: false, // Return 404 for unknown categories
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
-    // Calculate the safety buffer date - 7 days in the past
-    const safetyDateBuffer = new Date();
-    safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
-    const safetyDateString = safetyDateBuffer.toISOString();
+    const category = params?.category as string;
 
     // Obtener eventos
     const { data: eventsData, error } = await supabase
       .from('events')
       .select('*')
-      // Removed date filter temporarily
       .order('start_date', { ascending: true });
 
     if (error) throw error;
 
-    console.log('All events found:', eventsData?.length || 0); // Log for debugging
+    console.log('All events found:', eventsData?.length || 0);
 
-    // Skip the date filtering temporarily
-    const events = eventsData || [];
+    const allEvents = eventsData || [];
+
+    // Filter events based on category
+    let filteredEvents = allEvents;
+    if (category !== 'all') {
+      if (category === 'cultural') {
+        filteredEvents = allEvents.filter(event =>
+          event.category === 'cultural' ||
+          event.category === 'arts-culture' ||
+          event.category === 'music'
+        );
+      } else if (category === 'arts-culture') {
+        filteredEvents = allEvents.filter(event =>
+          event.category === 'arts-culture' ||
+          event.category === 'arts culture'
+        );
+      } else if (category === 'other') {
+        filteredEvents = allEvents.filter(event =>
+          event.category !== 'sports' &&
+          event.category !== 'cultural' &&
+          event.category !== 'arts-culture' &&
+          event.category !== 'music' &&
+          event.category !== 'culinary'
+        );
+      } else {
+        filteredEvents = allEvents.filter(event => event.category === category);
+      }
+    }
 
     // Calcular conteo de categorías
     const categoryCounts: Record<string, number> = {
-      all: events?.length || 0,
-      sports: events?.filter(event => event.category === 'sports').length || 0,
-      cultural: events?.filter(event =>
+      all: allEvents?.length || 0,
+      sports: allEvents?.filter(event => event.category === 'sports').length || 0,
+      cultural: allEvents?.filter(event =>
         event.category === 'cultural' ||
         event.category === 'arts-culture' ||
         event.category === 'music'
       ).length || 0,
-      culinary: events?.filter(event => event.category === 'culinary').length || 0,
-      other: events?.filter(event =>
+      culinary: allEvents?.filter(event => event.category === 'culinary').length || 0,
+      other: allEvents?.filter(event =>
         event.category !== 'sports' &&
         event.category !== 'cultural' &&
         event.category !== 'arts-culture' &&
@@ -59,10 +97,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     return {
       props: {
         ...(await serverSideTranslations(locale ?? 'es', ['common'])),
-        events: events || [],
+        events: filteredEvents || [],
         categoryCounts,
+        category,
       },
-      revalidate: 600, // Revalidar cada 10 minutos
+      revalidate: 600,
     };
   } catch (error) {
     console.error('Error al obtener eventos:', error);
@@ -77,56 +116,33 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
           culinary: 0,
           other: 0
         },
+        category: params?.category as string || 'all',
       },
-      revalidate: 600, // Revalidar cada 10 minutos
+      revalidate: 600,
     };
   }
 };
 
-export default function EventsPage({ events, categoryCounts }: EventsPageProps) {
+export default function EventsPage({ events, categoryCounts, category }: EventsPageProps) {
   const { t } = useTranslation('common');
-  const [selectedCategory, setSelectedCategory] = useState<EventCategory>('all');
+  const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState<EventCategory>(category as EventCategory);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>(events);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Filtrar eventos cuando cambia la categoría o el término de búsqueda
+  // Update selected category when route changes
+  useEffect(() => {
+    setSelectedCategory(category as EventCategory);
+  }, [category]);
+
+  // Handle category filter changes by navigating to the appropriate route
+  const handleCategoryChange = (newCategory: EventCategory) => {
+    router.push(`/events/${newCategory}`);
+  };
+
+  // Filter events based on search term only (category filtering is done server-side)
   useEffect(() => {
     let result = events;
-
-    // Ensure cultural events are marked for cultural calendar for consistent filtering
-    // This doesn't change the database, just the client-side state
-    result = result.map(event => {
-      if (event.category === 'cultural' ||
-          event.category === 'arts-culture' ||
-          event.category === 'music') {
-        return { ...event, show_in_cultural_calendar: true };
-      }
-      return event;
-    });
-
-    // Filtrar por categoría
-    if (selectedCategory !== 'all') {
-      if (selectedCategory === 'cultural') {
-        // For cultural category, include arts-culture and music events too
-        // as well as any marked for cultural calendar
-        result = result.filter(event =>
-          event.category === 'cultural' ||
-          event.category === 'arts-culture' ||
-          event.category === 'arts culture' ||
-          event.category === 'music' ||
-          event.show_in_cultural_calendar === true
-        );
-      } else if (selectedCategory === 'arts-culture') {
-        // Arts-culture filter should also work (direct URL navigation)
-        result = result.filter(event =>
-          event.category === 'arts-culture' ||
-          event.category === 'arts culture'
-        );
-      } else {
-        // For other categories, filter exactly
-        result = result.filter(event => event.category === selectedCategory);
-      }
-    }
 
     // Filtrar por término de búsqueda
     if (searchTerm) {
@@ -139,7 +155,7 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
     }
 
     setFilteredEvents(result);
-  }, [selectedCategory, searchTerm, events]);
+  }, [searchTerm, events]);
 
   // Separar eventos destacados de los regulares
   const featuredEvents = filteredEvents.filter(event => event.featured);
@@ -155,13 +171,26 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
     });
   };
 
+  // Get category title
+  const getCategoryTitle = (cat: string) => {
+    const titles: Record<string, string> = {
+      all: t('allEvents') || 'Todos los Eventos',
+      sports: t('sportsEvents') || 'Eventos Deportivos',
+      cultural: t('culturalEvents') || 'Eventos Culturales',
+      'arts-culture': t('artsCultureEvents') || 'Arte y Cultura',
+      culinary: t('culinaryEvents') || 'Eventos Culinarios',
+      other: t('otherEvents') || 'Otros Eventos',
+    };
+    return titles[cat] || titles.all;
+  };
+
   return (
     <>
       <Head>
-        <title>{t('events')} - SLP Descubre</title>
+        <title>{getCategoryTitle(category)} - SLP Descubre</title>
         <meta
           name="description"
-          content="Descubre los mejores eventos en San Luis Potosí: deportes, cultura, conciertos y más."
+          content={`Descubre los mejores ${getCategoryTitle(category).toLowerCase()} en San Luis Potosí.`}
         />
       </Head>
 
@@ -178,7 +207,7 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
         </div>
         <div className="container mx-auto px-4 py-16 relative">
           <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">{t('events')}</h1>
+            <h1 className="text-5xl font-bold mb-6">{getCategoryTitle(category)}</h1>
             <p className="text-xl mb-8">
               {t('eventsDescription')}
             </p>
@@ -207,7 +236,7 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
         <div className="mb-8">
           <EventCategoryFilter
             selectedCategory={selectedCategory}
-            onChange={setSelectedCategory}
+            onChange={handleCategoryChange}
             showCounts={true}
             counts={categoryCounts}
           />
@@ -227,7 +256,7 @@ export default function EventsPage({ events, categoryCounts }: EventsPageProps) 
                 {t('noEventsFoundDescription')}
               </p>
               <button
-                onClick={() => { setSelectedCategory('all'); setSearchTerm(''); }}
+                onClick={() => { setSearchTerm(''); router.push('/events/all'); }}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary hover:bg-primary-dark transition-colors"
               >
                 {t('clearFilters')}

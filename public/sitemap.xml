@@ -99,11 +99,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/brands</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/business/dashboard</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -242,16 +237,6 @@
     <loc>https://sanluisway.com/contact</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/cultural-experiences</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/cultural-experiences/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/cultural-tours/</loc>
@@ -427,11 +412,6 @@
     <loc>https://sanluisway.com/parque-tangamanga</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/places</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/places/corazon-de-xoconostle</loc>
