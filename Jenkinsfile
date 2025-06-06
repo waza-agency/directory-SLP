@@ -60,68 +60,41 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker build -t \${DOCKER_IMAGE}:\${BUILD_NUMBER} ."
-                    sh "docker tag \${DOCKER_IMAGE}:\${BUILD_NUMBER} \${DOCKER_IMAGE}:latest"
-                }
-            }
-        }
-
         stage('Deploy') {
             steps {
                 script {
-                    // Stop and remove existing container if it exists
-                    sh "docker stop \${CONTAINER_NAME} || true"
-                    sh "docker rm \${CONTAINER_NAME} || true"
+                    // Make the deployment script executable
+                    sh "chmod +x deploy-production.sh"
 
-                    // Run the new container with environment variables
-                    sh """
-                        docker run -d \\
-                            --name \${CONTAINER_NAME} \\
-                            -p \${PORT}:\${PORT} \\
-                            -e NODE_ENV=production \\
-                            -e PORT=\${PORT} \\
-                            -e NEXT_PUBLIC_SITE_URL=https://sanluisway.com \\
-                            --env-file .env \\
-                            --restart unless-stopped \\
-                            \${DOCKER_IMAGE}:latest
-                    """
-
-                    // Wait for health check with better error handling
-                    sh """
-                        echo 'Waiting for container to start...'
-                        sleep 10
-
-                        for i in {1..30}; do
-                            if docker exec \${CONTAINER_NAME} wget --no-verbose --tries=1 --spider http://localhost:\${PORT}/health 2>/dev/null; then
-                                echo 'Service is up! Checking production mode...'
-                                HEALTH_RESPONSE=\$(docker exec \${CONTAINER_NAME} wget -qO- http://localhost:\${PORT}/health 2>/dev/null || echo 'failed')
-                                echo "Health response: \$HEALTH_RESPONSE"
-
-                                if echo "\$HEALTH_RESPONSE" | grep -q '"environment":"production"'; then
-                                    echo '✅ Service is running in production mode!'
-                                    exit 0
-                                else
-                                    echo '⚠️  Service is up but not in production mode'
-                                    echo "Response: \$HEALTH_RESPONSE"
-                                fi
-                                exit 0
-                            fi
-                            echo "Attempt \$i: Waiting for service to start..."
-                            sleep 5
-                        done
-
-                        echo '❌ Service failed to start. Checking logs:'
-                        docker logs --tail=50 \${CONTAINER_NAME}
-
-                        echo '🔍 Checking file system in container:'
-                        docker exec \${CONTAINER_NAME} ls -la /.next/ 2>/dev/null || echo 'Cannot access .next directory'
-                        docker exec \${CONTAINER_NAME} ls -la /app/.next/ 2>/dev/null || echo 'Cannot access /app/.next directory'
-
-                        exit 1
-                    """
+                    // Use Jenkins credentials for sensitive data
+                    withCredentials([
+                        string(credentialsId: 'SUPABASE_URL', variable: 'NEXT_PUBLIC_SUPABASE_URL'),
+                        string(credentialsId: 'SUPABASE_ANON_KEY', variable: 'NEXT_PUBLIC_SUPABASE_ANON_KEY'),
+                        string(credentialsId: 'SUPABASE_SERVICE_ROLE_KEY', variable: 'SUPABASE_SERVICE_ROLE_KEY'),
+                        string(credentialsId: 'STRIPE_SECRET_KEY', variable: 'STRIPE_SECRET_KEY'),
+                        string(credentialsId: 'STRIPE_PUBLISHABLE_KEY', variable: 'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY'),
+                        string(credentialsId: 'STRIPE_WEBHOOK_SECRET', variable: 'STRIPE_WEBHOOK_SECRET'),
+                        string(credentialsId: 'RECAPTCHA_SECRET_KEY', variable: 'RECAPTCHA_SECRET_KEY'),
+                        string(credentialsId: 'SMTP_PASSWORD', variable: 'SMTP_PASSWORD')
+                    ]) {
+                        // Set non-sensitive environment variables
+                        withEnv([
+                            "NEXT_PUBLIC_ADSENSE_CLIENT_ID=2759148102",
+                            "NEXT_PUBLIC_ADSENSE_PUBLISHER_ID=pub-7339948154887436",
+                            "STRIPE_MONTHLY_PRICE_ID=price_1RIgQNIg6TQpITo34AVnco2v",
+                            "STRIPE_YEARLY_PRICE_ID=price_1RIgTuIg6TQpITo3lX3tScvi",
+                            "NODE_ENV=production",
+                            "NEXT_PUBLIC_SITE_URL=https://sanluisway.com",
+                            "PORT=3007",
+                            "NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6Lfe7QArAAAAAN6MoUXr4amBh4t33Epkv0LAox9L",
+                            "SMTP_HOST=sanluisway.com",
+                            "SMTP_PORT=465",
+                            "SMTP_USER=info@sanluisway.com"
+                        ]) {
+                            // Run the deployment script
+                            sh "./deploy-production.sh"
+                        }
+                    }
                 }
             }
         }
