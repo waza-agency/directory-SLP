@@ -23,12 +23,14 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
       revalidate: 60 // Revalidate every 60 seconds
     };
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    console.warn('Error in blog getStaticProps:', error instanceof Error ? error.message : 'Unknown error');
+    // Always return valid props to prevent build failure
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
         posts: []
-      }
+      },
+      revalidate: 60
     };
   }
 };

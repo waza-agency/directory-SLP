@@ -20,13 +20,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      fallback: 'blocking' // Show a loading state for new paths that aren't pre-rendered
+      fallback: false // Change to false to prevent build issues
     };
   } catch (error) {
-    console.error('Error getting static paths:', error);
+    console.warn('Error getting static paths for blog:', error instanceof Error ? error.message : 'Unknown error');
     return {
       paths: [],
-      fallback: 'blocking'
+      fallback: false
     };
   }
 };
@@ -34,6 +34,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params, locale = 'en' }) => {
   try {
     const slug = params?.slug as string;
+    if (!slug) {
+      return {
+        notFound: true
+      };
+    }
+
     const post = await getBlogPostBySlug(slug);
 
     if (!post) {
@@ -50,7 +56,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
       revalidate: 60 // Revalidate every 60 seconds
     };
   } catch (error) {
-    console.error('Error getting blog post:', error);
+    console.warn('Error getting blog post:', error instanceof Error ? error.message : 'Unknown error');
     return {
       notFound: true
     };

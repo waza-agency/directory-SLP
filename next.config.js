@@ -28,8 +28,7 @@ const nextConfig = {
     ],
     unoptimized: process.env.NODE_ENV === 'development'
   },
-  // Temporarily disable trailing slash
-  // trailingSlash: true,
+  trailingSlash: true,
   // Enable more detailed output during builds
   onDemandEntries: {
     // Keep pages in memory for longer during development
@@ -119,6 +118,8 @@ const nextConfig = {
   excludeDefaultMomentLocales: true,
   // Removed standalone output mode that was causing issues
   poweredByHeader: false,
+  // Add configuration to handle build tracing issues
+  outputFileTracing: false,
 };
 
 // Add performance polyfill to fix Node.js compatibility issue (only for older Node.js)
