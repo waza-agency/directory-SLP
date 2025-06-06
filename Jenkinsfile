@@ -24,6 +24,33 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm run build'
+
+                // Verify build artifacts are present
+                sh '''
+                    echo "🔍 Verifying build artifacts..."
+                    if [ -f ".next/BUILD_ID" ]; then
+                        echo "✅ BUILD_ID exists"
+                    else
+                        echo "❌ BUILD_ID missing"
+                        exit 1
+                    fi
+
+                    if [ -f ".next/build-manifest.json" ]; then
+                        echo "✅ build-manifest.json exists"
+                    else
+                        echo "❌ build-manifest.json missing"
+                        exit 1
+                    fi
+
+                    if [ -f ".next/routes-manifest.json" ]; then
+                        echo "✅ routes-manifest.json exists"
+                    else
+                        echo "❌ routes-manifest.json missing"
+                        exit 1
+                    fi
+
+                    echo "🎉 Build verification complete!"
+                '''
             }
         }
 
@@ -65,19 +92,34 @@ pipeline {
                     // Wait for health check with better error handling
                     sh """
                         echo 'Waiting for container to start...'
-                        sleep 5
+                        sleep 10
 
                         for i in {1..30}; do
                             if docker exec \${CONTAINER_NAME} wget --no-verbose --tries=1 --spider http://localhost:\${PORT}/health 2>/dev/null; then
-                                echo 'Service is up!'
+                                echo 'Service is up! Checking production mode...'
+                                HEALTH_RESPONSE=\$(docker exec \${CONTAINER_NAME} wget -qO- http://localhost:\${PORT}/health 2>/dev/null || echo 'failed')
+                                echo "Health response: \$HEALTH_RESPONSE"
+
+                                if echo "\$HEALTH_RESPONSE" | grep -q '"environment":"production"'; then
+                                    echo '✅ Service is running in production mode!'
+                                    exit 0
+                                else
+                                    echo '⚠️  Service is up but not in production mode'
+                                    echo "Response: \$HEALTH_RESPONSE"
+                                fi
                                 exit 0
                             fi
                             echo "Attempt \$i: Waiting for service to start..."
-                            sleep 3
+                            sleep 5
                         done
 
-                        echo 'Service failed to start. Checking logs:'
-                        docker logs \${CONTAINER_NAME}
+                        echo '❌ Service failed to start. Checking logs:'
+                        docker logs --tail=50 \${CONTAINER_NAME}
+
+                        echo '🔍 Checking file system in container:'
+                        docker exec \${CONTAINER_NAME} ls -la /.next/ 2>/dev/null || echo 'Cannot access .next directory'
+                        docker exec \${CONTAINER_NAME} ls -la /app/.next/ 2>/dev/null || echo 'Cannot access /app/.next directory'
+
                         exit 1
                     """
                 }

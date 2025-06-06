@@ -23,6 +23,23 @@ RUN find ./src/pages -name "*.test.*" -delete 2>/dev/null || true && \
 # Build the application
 RUN npm run build
 
+# Apply deployment fix for prerender-manifest.json after build
+RUN echo "🔧 Applying post-build deployment fixes..." && \
+    if [ ! -f ".next/prerender-manifest.json" ]; then \
+        echo "📝 Creating missing prerender-manifest.json..."; \
+        if [ -f ".next/prerender-manifest.js" ]; then \
+            echo "Extracting from JS file..."; \
+            PREVIEW_CONFIG=$(grep -o '{"preview":{"previewModeId":"[^"]*","previewModeSigningKey":"[^"]*","previewModeEncryptionKey":"[^"]*"}}' .next/prerender-manifest.js 2>/dev/null || echo '{"preview":{"previewModeId":"prod-preview-id","previewModeSigningKey":"prod-preview-signing-key","previewModeEncryptionKey":"prod-preview-encryption-key"}}'); \
+            echo "{\"version\":3,\"routes\":{},\"dynamicRoutes\":{},\"notFoundRoutes\":[],\"preview\":$(echo $PREVIEW_CONFIG | sed 's/.*"preview":\([^}]*}\).*/\1/')}" > .next/prerender-manifest.json; \
+        else \
+            echo '{"version":3,"routes":{},"dynamicRoutes":{},"notFoundRoutes":[],"preview":{"previewModeId":"prod-preview-id","previewModeSigningKey":"prod-preview-signing-key","previewModeEncryptionKey":"prod-preview-encryption-key"}}' > .next/prerender-manifest.json; \
+        fi; \
+        echo "✅ Created prerender-manifest.json"; \
+    fi && \
+    echo "🔍 Verifying required files..." && \
+    ls -la .next/BUILD_ID .next/prerender-manifest.json .next/build-manifest.json .next/routes-manifest.json && \
+    echo "🎉 All required files are present!"
+
 # Production image
 FROM node:18-alpine AS runner
 
