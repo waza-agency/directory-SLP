@@ -36,10 +36,21 @@ console.log('Environment:', process.env.NODE_ENV);
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
+const fs = require('fs');
+const path = require('path');
 
-const dev = process.env.NODE_ENV !== 'production';
+// Check if BUILD_ID exists, if not, we need to run in development mode
+const buildIdPath = path.join(__dirname, '.next', 'BUILD_ID');
+const hasBuildId = fs.existsSync(buildIdPath);
+
+// Force development mode if BUILD_ID is missing (due to build issues)
+const dev = process.env.NODE_ENV !== 'production' || !hasBuildId;
+if (!hasBuildId && process.env.NODE_ENV === 'production') {
+  console.log('Warning: BUILD_ID missing, running in development mode despite NODE_ENV=production');
+}
+
 const hostname = '0.0.0.0'; // Changed from localhost to 0.0.0.0 for Docker
-const port = parseInt(process.env.PORT || '3007', 10);
+const port = parseInt(process.env.PORT || '3000', 10); // Changed default to 3000
 
 console.log(`Starting server on ${hostname}:${port} (development: ${dev})`);
 
@@ -58,6 +69,8 @@ app.prepare().then(() => {
           status: 'ok',
           timestamp: new Date().toISOString(),
           environment: process.env.NODE_ENV,
+          developmentMode: dev,
+          hasBuildId: hasBuildId,
           version: process.env.npm_package_version || '1.0.0'
         }));
         return;
@@ -77,6 +90,8 @@ app.prepare().then(() => {
   })
   .listen(port, hostname, () => {
     console.log(`> Ready on http://${hostname}:${port}`);
+    console.log(`> Mode: ${dev ? 'development' : 'production'}`);
+    console.log(`> Build ID present: ${hasBuildId}`);
     console.log('> Press Ctrl+C to stop');
   });
 }).catch((err) => {
