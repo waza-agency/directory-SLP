@@ -1703,183 +1703,22 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* Featured Potosinos Section */}
-        <section className="py-24 px-4 bg-white border-t border-gray-100 relative overflow-hidden">
-          <div className="absolute inset-0 z-0" style={{
-            backgroundImage: `url('/images/backgrounds/blue-pattern.jpg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.2
-          }}></div>
-          <div className="container mx-auto relative z-10">
-            <div className="text-center mb-16">
-              <span className="text-secondary text-sm font-medium uppercase tracking-wider bg-white px-6 py-2 rounded-full shadow-md">
-                COMMUNITY SPOTLIGHT
-              </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
-                Featured Potosinos
-              </h2>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-                Meet the remarkable individuals who contribute to San Luis Potosí's vibrant culture, entrepreneurial spirit, and rich heritage.
-              </p>
-              <p className="text-sm text-gray-600 mt-3 max-w-xl mx-auto">
-                <span className="inline-block bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">From yesterday and today, honoring tradition while shaping the future</span>
-              </p>
-            </div>
+        {/*
+        ============================================================
+        FEATURED POTOSINOS SECTION - TEMPORARILY DISABLED
+        ============================================================
+        This section showcases remarkable individuals from San Luis Potosí.
+        To re-enable: Remove this comment block and restore the section below.
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {/* Person 1 */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
-                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                    <Image
-                      src="/images/potosinos/maria-gonzalez.jpg"
-                      alt="María González"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      priority
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/potosinos/placeholder.jpg';
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="font-medium text-xl text-gray-900 mb-1">María González</h3>
-                  <p className="text-primary font-medium text-sm mb-4">Chef & Cultural Ambassador</p>
-                  <div className="h-24 overflow-hidden">
-                    <p className="text-gray-600 text-sm">
-                      Preserving traditional Potosino cuisine while innovating the local gastronomy scene through her award-winning restaurant.
-                    </p>
-                  </div>
-                  <Link href="/community/maria-gonzalez" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
-                    Read her story
-                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
+        Section included:
+        - Featured Potosinos header with community spotlight
+        - 4 profile cards (María González, Carlos Ramírez, Alejandra Vega, Miguel Ortiz)
+        - "Meet More Remarkable Potosinos" CTA button
+        - Community nomination link
 
-              {/* Person 2 */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
-                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                    <Image
-                      src="/images/potosinos/carlos-ramirez.jpeg"
-                      alt="Carlos Ramírez"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/potosinos/placeholder.jpg';
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="font-medium text-xl text-gray-900 mb-1">Carlos Ramírez</h3>
-                  <p className="text-primary font-medium text-sm mb-4">Artisan & Master Craftsman</p>
-                  <div className="h-24 overflow-hidden">
-                    <p className="text-gray-600 text-sm">
-                      Creating stunning traditional pottery that honors the region's artistic legacy while mentoring the next generation of artisans.
-                    </p>
-                  </div>
-                  <Link href="/community/carlos-ramirez" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
-                    Read his story
-                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Person 3 */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
-                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                    <Image
-                      src="/images/potosinos/alejandra-vega.jpeg"
-                      alt="Alejandra Vega"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      priority
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/potosinos/placeholder.jpg';
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="font-medium text-xl text-gray-900 mb-1">Alejandra Vega</h3>
-                  <p className="text-primary font-medium text-sm mb-4">Entrepreneur & Innovator</p>
-                  <div className="h-24 overflow-hidden">
-                    <p className="text-gray-600 text-sm">
-                      Transforming the local tech scene through her startup incubator while creating opportunities for young Potosinos in technology.
-                    </p>
-                  </div>
-                  <Link href="/community/alejandra-vega" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
-                    Read her story
-                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Person 4 */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="flex justify-center pt-8 pb-4 bg-blue-50">
-                  <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                    <Image
-                      src="/images/potosinos/miguel-ortiz.jpeg"
-                      alt="Miguel Ortiz"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/potosinos/placeholder.jpg';
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="font-medium text-xl text-gray-900 mb-1">Miguel Ortiz</h3>
-                  <p className="text-primary font-medium text-sm mb-4">Historian & Cultural Guide</p>
-                  <div className="h-24 overflow-hidden">
-                    <p className="text-gray-600 text-sm">
-                      Sharing the rich history of San Luis Potosí through immersive tours and educational programs that bring the past to life.
-                    </p>
-                  </div>
-                  <Link href="/community/miguel-ortiz" className="inline-flex items-center text-primary hover:text-primary-dark text-sm font-medium mt-4 group">
-                    Read his story
-                    <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-16 text-center">
-              <Link href="/community" className="inline-flex items-center justify-center space-x-3 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-medium text-lg">
-                <span>Meet More Remarkable Potosinos</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-              <p className="text-sm text-gray-600 mt-8 max-w-xl mx-auto">
-                Know someone who deserves to be featured? <Link href="/contact?subject=Community Nomination" className="text-primary hover:text-primary-dark font-medium">Nominate them here</Link>
-              </p>
-            </div>
-          </div>
-        </section>
+        Location: Between Event Categories and Cultural Heritage sections
+        ============================================================
+        */}
 
         {/* Cultural Heritage Section - Updated for Expats */}
         <section className="py-24 px-4 bg-gray-50 border-t-4 border-secondary">
