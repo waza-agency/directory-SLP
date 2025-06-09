@@ -45,7 +45,7 @@ const LaGranViaBlog: NextPage = () => {
         <meta name="description" content="Experience over 36 years of Spanish culinary tradition at La Gran Vía, one of Mexico's 100 must-visit restaurants. Discover authentic Spanish cuisine with a local twist in San Luis Potosí." />
         <meta property="og:title" content="La Gran Vía - Premier Spanish Restaurant in San Luis Potosí" />
         <meta property="og:description" content="Experience over 36 years of Spanish culinary tradition at La Gran Vía, one of Mexico's 100 must-visit restaurants. Discover authentic Spanish cuisine with a local twist in San Luis Potosí." />
-        <meta property="og:image" content="/images/restaurants-and-bars/la-gran-via.jpg" />
+        <meta property="og:image" content="https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg" />
         <meta property="og:type" content="article" />
       </Head>
 
@@ -58,8 +58,8 @@ const LaGranViaBlog: NextPage = () => {
           <article>
             <div className="relative w-full h-96 mb-8">
               <Image
-                src="/images/restaurants-and-bars/la-gran-via.jpg"
-                alt="La Gran Vía Restaurant"
+                src="https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg"
+                alt="La Gran Vía Restaurant - Traditional Spanish Cuisine in San Luis Potosí"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-lg"

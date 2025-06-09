@@ -30,8 +30,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       supabase
         .from('blog_posts')
         .select('*')
-        .order('publishedAt', { ascending: false })
-        .order('createdAt', { ascending: false }),
+        .eq('status', 'published')
+        .order('published_at', { ascending: false })
+        .order('created_at', { ascending: false }),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Timeout')), 10000)
       )
@@ -42,7 +43,22 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       return [];
     }
 
-    return data || [];
+    // Map database fields to interface fields
+    const mappedData = data?.map((post: any) => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      content: post.content,
+      excerpt: post.excerpt,
+      imageUrl: post.image_url,
+      category: post.category,
+      publishedAt: post.published_at,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at,
+      tags: post.tags
+    })) || [];
+
+    return mappedData;
   } catch (error) {
     console.warn('Error in getBlogPosts:', error instanceof Error ? error.message : 'Unknown error');
     return [];
@@ -56,6 +72,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
         .from('blog_posts')
         .select('*')
         .eq('slug', slug)
+        .eq('status', 'published')
         .single(),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Timeout')), 10000)
@@ -67,7 +84,22 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       return null;
     }
 
-    return data;
+    // Map database fields to interface fields
+    const mappedPost = data ? {
+      id: data.id,
+      slug: data.slug,
+      title: data.title,
+      content: data.content,
+      excerpt: data.excerpt,
+      imageUrl: data.image_url,
+      category: data.category,
+      publishedAt: data.published_at,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+      tags: data.tags
+    } : null;
+
+    return mappedPost;
   } catch (error) {
     console.warn('Error in getBlogPostBySlug:', error instanceof Error ? error.message : 'Unknown error');
     return null;
@@ -80,8 +112,9 @@ export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
       supabase
         .from('blog_posts')
         .select('*')
-        .order('publishedAt', { ascending: false })
-        .order('createdAt', { ascending: false })
+        .eq('status', 'published')
+        .order('published_at', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(limit),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Timeout')), 10000)
@@ -93,7 +126,22 @@ export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
       return [];
     }
 
-    return data || [];
+    // Map database fields to interface fields
+    const mappedData = data?.map((post: any) => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      content: post.content,
+      excerpt: post.excerpt,
+      imageUrl: post.image_url,
+      category: post.category,
+      publishedAt: post.published_at,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at,
+      tags: post.tags
+    })) || [];
+
+    return mappedData;
   } catch (error) {
     console.warn('Error in getRecentBlogPosts:', error instanceof Error ? error.message : 'Unknown error');
     return [];
@@ -107,8 +155,9 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
         .from('blog_posts')
         .select('*')
         .eq('category', category)
-        .order('publishedAt', { ascending: false })
-        .order('createdAt', { ascending: false }),
+        .eq('status', 'published')
+        .order('published_at', { ascending: false })
+        .order('created_at', { ascending: false }),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Timeout')), 10000)
       )
@@ -119,7 +168,22 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
       return [];
     }
 
-    return data || [];
+    // Map database fields to interface fields
+    const mappedData = data?.map((post: any) => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      content: post.content,
+      excerpt: post.excerpt,
+      imageUrl: post.image_url,
+      category: post.category,
+      publishedAt: post.published_at,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at,
+      tags: post.tags
+    })) || [];
+
+    return mappedData;
   } catch (error) {
     console.warn('Error in getBlogPostsByCategory:', error instanceof Error ? error.message : 'Unknown error');
     return [];

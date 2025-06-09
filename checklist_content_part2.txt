@@ -1,0 +1,165 @@
+  <div class="mb-8">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-900">📊 Crea tu Presupuesto y Cronograma de Mudanza</h3>
+    <p class="mb-4">Tener un presupuesto bien definido es esencial para evitar problemas financieros durante tu mudanza. En 2022, quienes contrataron servicios completos de mudanza pagaron un promedio de <strong>$157,950 MXN</strong> ($8,100 USD) <a href="https://www.thisoldhouse.com/moving/moving-budget" target="_blank" class="text-blue-600 hover:text-blue-800 underline"><sup>[4]</sup></a>.</p>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-6">
+      <h4 class="font-semibold mb-3 text-gray-900">💰 Costos Promedio de Mudanza</h4>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Mudanza completa con servicios:</strong> $157,950 MXN ($8,100 USD)</li>
+        <li><strong>Mudanza por cuenta propia:</strong> Menos de $9,750 MXN ($500 USD)</li>
+      </ul>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+      <h4 class="font-semibold text-yellow-800 mb-2">🎯 Consejos para tu presupuesto:</h4>
+      <ul class="list-disc pl-6 text-yellow-800 space-y-1">
+        <li>Haz un inventario de tus pertenencias</li>
+        <li>Solicita cotizaciones de varias empresas</li>
+        <li>Destina entre 5% y 10% para imprevistos</li>
+        <li>Evita temporadas altas para ahorrar hasta 30%</li>
+      </ul>
+    </div>
+
+    <blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-6">
+      "La última semana de cada mes siempre está ocupada porque es cuando terminan los contratos de arrendamiento." - Pam Stanley, Directora Ejecutiva de la Asociación de Mudanzas de Carolina del Norte <a href="https://www.thisoldhouse.com/moving/moving-budget" target="_blank" class="text-blue-600 hover:text-blue-800 underline"><sup>[4]</sup></a>
+    </blockquote>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-900">📦 Empaca y Organiza tus Artículos</h3>
+    <p class="mb-4">Una buena organización al empacar hará que la transición a San Luis Potosí sea mucho más sencilla. Aquí tienes algunos consejos prácticos:</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-800 mb-2">✅ Qué hacer</h4>
+        <ul class="list-disc pl-6 text-green-700 space-y-1">
+          <li>Deshazte de lo innecesario</li>
+          <li>Empaca por categorías</li>
+          <li>Etiqueta claramente las cajas</li>
+          <li>Prepara una caja de esenciales</li>
+        </ul>
+      </div>
+      <div class="bg-blue-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-blue-800 mb-2">💡 Consejos profesionales</h4>
+        <ul class="list-disc pl-6 text-blue-700 space-y-1">
+          <li>Usa maletas para ropa</li>
+          <li>Objetos pesados abajo</li>
+          <li>Códigos de color por habitación</li>
+          <li>Empieza con lo de temporada</li>
+        </ul>
+      </div>
+    </div>
+
+    <blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-6">
+      "Recomiendo deshacerte de cualquier cosa que no uses, no ames, o que ya no te quede en estilo." - Elsie Larson, Autora, A Beautiful Mess <a href="https://abeautifulmess.com/moving-packing-tips" target="_blank" class="text-blue-600 hover:text-blue-800 underline"><sup>[6]</sup></a>
+    </blockquote>
+  </div>
+</section>
+
+<section id="documentos-legales" class="mb-12">
+  <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">�� Documentos Legales y Requisitos Gubernamentales</h2>
+  <p class="text-gray-700 mb-6">Cumplir con los requisitos legales es esencial para vivir y trabajar en San Luis Potosí. Saltarte alguno de estos pasos puede generar retrasos o problemas legales que complicarían tu mudanza.</p>
+
+  <div class="mb-8">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-900">🛂 Obtén tu Visa y Documentos de Residencia</h3>
+    <p class="mb-4">Si planeas trabajar y residir en San Luis Potosí, necesitarás una visa o permiso de residencia. El <strong><a href="https://www.gob.mx/inm" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Instituto Nacional de Migración (INM)</a></strong> es la entidad encargada de gestionar todos los asuntos migratorios.</p>
+
+    <div class="bg-blue-50 p-6 rounded-lg mb-6">
+      <h4 class="font-semibold mb-3 text-blue-900">📄 Tipos de Visas en México</h4>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Visa de Turista:</strong> Para estancias cortas</li>
+        <li><strong>Visa de Residente Temporal:</strong> Para estancias laborales mayores a 180 días</li>
+        <li><strong>Visa de Residente Permanente:</strong> Para residencia definitiva</li>
+      </ul>
+    </div>
+
+    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+      <h4 class="font-semibold text-green-800 mb-2">🚀 Proceso Digitalizado en SLP</h4>
+      <p class="text-green-700">En San Luis Potosí, el trámite se ha agilizado gracias a un sistema digital que permite obtener la tarjeta de residencia en aproximadamente <strong>una hora</strong> desde abril de 2023.</p>
+    </div>
+
+    <div class="bg-yellow-50 p-6 rounded-lg mb-6">
+      <h4 class="font-semibold mb-3 text-yellow-800">📋 Documentos necesarios para visa temporal</h4>
+      <ul class="list-disc pl-6 text-yellow-700 space-y-1">
+        <li>Formulario de solicitud</li>
+        <li>Pasaporte vigente</li>
+        <li>Fotografías recientes</li>
+        <li>Comprobante de pago ($990 MXN)</li>
+        <li>Permiso de trabajo mexicano</li>
+        <li>Copia del contrato laboral</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-900">🏦 Configura una Cuenta Bancaria Mexicana</h3>
+    <p class="mb-4">Abrir una cuenta bancaria en México es clave para gestionar tus finanzas en San Luis Potosí. Aunque es posible para extranjeros, el trámite debe hacerse en persona.</p>
+
+    <div class="bg-gray-50 p-6 rounded-lg mb-6">
+      <h4 class="font-semibold mb-3 text-gray-900">📋 Documentos necesarios</h4>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Pasaporte vigente</li>
+        <li>Tarjeta de residencia mexicana (temporal o permanente)</li>
+        <li>Comprobante de domicilio en México</li>
+        <li>Depósito mínimo (varía según el banco)</li>
+      </ul>
+    </div>
+
+    <div class="overflow-x-auto mb-6">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Banco</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Depósito Mínimo</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Requisitos Especiales</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr>
+            <td class="px-4 py-3 text-sm font-medium"><a href="https://www.scotiabank.com.mx/" target="_blank" class="text-blue-600 hover:text-blue-800">Scotiabank</a></td>
+            <td class="px-4 py-3 text-sm text-gray-500">Varía</td>
+            <td class="px-4 py-3 text-sm text-gray-500">Acepta visa de turista</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-sm font-medium"><a href="https://www.bbva.mx/" target="_blank" class="text-blue-600 hover:text-blue-800">BBVA</a></td>
+            <td class="px-4 py-3 text-sm text-gray-500">$2,000 MXN</td>
+            <td class="px-4 py-3 text-sm text-gray-500">Requiere CURP</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 text-sm font-medium"><a href="https://www.hsbc.com.mx/" target="_blank" class="text-blue-600 hover:text-blue-800">HSBC</a></td>
+            <td class="px-4 py-3 text-sm text-gray-500">$20,000 MXN</td>
+            <td class="px-4 py-3 text-sm text-gray-500">Cuenta Advance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h3 class="text-2xl font-semibold mb-4 text-blue-900">🏥 Organiza tu Seguro de Salud</h3>
+    <p class="mb-4">Tener un seguro de salud es indispensable para una mudanza sin complicaciones a San Luis Potosí.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-blue-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-blue-800 mb-2">🏥 IMSS (Público)</h4>
+        <ul class="list-disc pl-6 text-blue-700 space-y-1">
+          <li>Buenas instalaciones en SLP</li>
+          <li>Períodos de espera de 3 meses a 3 años</li>
+          <li>Exclusiones para enfermedades preexistentes</li>
+        </ul>
+      </div>
+      <div class="bg-green-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-green-800 mb-2">🏥 Seguros Privados</h4>
+        <ul class="list-disc pl-6 text-green-700 space-y-1">
+          <li>Atención más rápida y especializada</li>
+          <li>Personal que habla inglés</li>
+          <li>Hospitales mejor equipados</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+      <p class="text-yellow-800"><strong>💡 Recomendación:</strong> <a href="https://www.mexicoinsuranceadvisors.com/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Mexico Insurance Advisors</a> trabaja con más de 17 compañías de seguros y ofrece asistencia personalizada en San Luis Potosí.</p>
+    </div>
+  </div>
+</section>

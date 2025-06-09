@@ -54,7 +54,7 @@ const CorazonDeXoconostleBlog: NextPage = () => {
         <meta name="description" content="Discover San Luis Potosí's premier adventure travel company offering guided tours, outdoor experiences, and unforgettable journeys through Mexico's most stunning landscapes." />
         <meta property="og:title" content="Corazón de Xoconostle: Adventure Travel Experts in San Luis Potosí" />
         <meta property="og:description" content="Discover San Luis Potosí's premier adventure travel company offering guided tours, outdoor experiences, and unforgettable journeys through Mexico's most stunning landscapes." />
-        <meta property="og:image" content="/images/outdoors/adventure-tours.jpg" />
+        <meta property="og:image" content="https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg" />
         <meta property="og:type" content="article" />
       </Head>
 
@@ -67,8 +67,8 @@ const CorazonDeXoconostleBlog: NextPage = () => {
           <article>
             <div className="relative w-full h-96 mb-8">
               <Image
-                src="/images/outdoors/adventure-tours.jpg"
-                alt="Corazón de Xoconostle Adventures"
+                src="https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg"
+                alt="Corazón de Xoconostle Adventures - Hiking in San Luis Potosí"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
