@@ -28,7 +28,7 @@ const nextConfig = {
     ],
     unoptimized: process.env.NODE_ENV === 'development'
   },
-  trailingSlash: true,
+  trailingSlash: false,
   // Enable more detailed output during builds
   onDemandEntries: {
     // Keep pages in memory for longer during development
