@@ -34,9 +34,9 @@ export default function ProfilePage() {
   const [userInterests, setUserInterests] = useState<string[]>([]);
   const [newInterest, setNewInterest] = useState('');
   const [hasBusinessProfile, setHasBusinessProfile] = useState(false);
-  
+
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ProfileFormValues>();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function ProfilePage() {
   const fetchUserProfile = async () => {
     try {
       console.log('Fetching profile for user ID:', user?.id);
-      
+
       // Query user profile from Supabase
       const { data, error } = await supabase
         .from('users')
@@ -75,7 +75,7 @@ export default function ProfilePage() {
       if (data.profile_picture_url) {
         setProfileImageUrl(data.profile_picture_url);
       }
-      
+
       // Set interests array
       if (data.interests && Array.isArray(data.interests)) {
         setUserInterests(data.interests);
@@ -95,17 +95,17 @@ export default function ProfilePage() {
       });
     } catch (error) {
       console.error('Error fetching user profile:', error);
-      
+
       // If no user found, create a new user record
       if (user && error.code === 'PGRST116') {
         try {
           console.log('Creating new user profile for:', user.id);
-          
+
           // Create a new user record
           const { data: newUser, error: createError } = await supabase
             .from('users')
             .insert([
-              { 
+              {
                 id: user.id,
                 email: user.email,
                 created_at: new Date().toISOString(),
@@ -114,14 +114,14 @@ export default function ProfilePage() {
             ])
             .select()
             .single();
-            
+
           if (createError) {
             console.error('Error creating user profile:', createError);
             throw createError;
           }
-          
+
           console.log('Created new user profile:', newUser);
-          
+
           // Reset form with empty data
           reset({
             name: '',
@@ -143,7 +143,7 @@ export default function ProfilePage() {
 
   const checkBusinessProfile = async () => {
     if (!user) return;
-    
+
     try {
       const { data, error } = await supabase
         .from('business_profiles')
@@ -276,7 +276,7 @@ export default function ProfilePage() {
 
       console.log('Profile updated successfully');
       setSubmitSuccess(true);
-      
+
       // Refresh user profile data
       fetchUserProfile();
     } catch (error: any) {
@@ -316,7 +316,7 @@ export default function ProfilePage() {
                 &larr; {t('profile.backToAccount', 'Back to Account')}
               </Link>
               <h1 className="text-3xl font-bold text-gray-900">{t('profile.editProfile', 'Edit Profile')}</h1>
-              
+
               {hasBusinessProfile && (
                 <Link href="/business/profile" className="ml-auto text-primary hover:text-primary-dark">
                   {t('profile.editBusinessProfile', 'Edit Business Profile')} &rarr;
@@ -330,7 +330,7 @@ export default function ProfilePage() {
                   {submitError}
                 </div>
               )}
-              
+
               {submitSuccess && (
                 <div className="bg-green-50 text-green-700 p-4 border-b border-green-100">
                   {t('profile.updateSuccess', 'Profile updated successfully!')}
@@ -338,12 +338,12 @@ export default function ProfilePage() {
               )}
 
               <div className="flex justify-center mb-8">
-                <div 
+                <div
                   className="relative h-32 w-32 cursor-pointer group"
                   onClick={handleProfileImageClick}
                 >
                   {profileImageUrl ? (
-                    <Image 
+                    <Image
                       src={profileImageUrl}
                       alt="Profile"
                       width={128}
@@ -355,18 +355,18 @@ export default function ProfilePage() {
                       <UserCircleIcon className="h-20 w-20 text-gray-400" />
                     </div>
                   )}
-                  
+
                   <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <CameraIcon className="h-8 w-8 text-white" />
                   </div>
-                  
+
                   {uploadingImage && (
                     <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black bg-opacity-50">
                       <div className="animate-spin h-8 w-8 border-4 border-white border-t-transparent rounded-full"></div>
                     </div>
                   )}
-                  
-                  <input 
+
+                  <input
                     type="file"
                     ref={fileInputRef}
                     className="hidden"
@@ -485,13 +485,13 @@ export default function ProfilePage() {
                   </label>
                   <div className="flex flex-wrap gap-2 mb-2">
                     {userInterests.map((interest, index) => (
-                      <div 
-                        key={index} 
+                      <div
+                        key={index}
                         className="bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm flex items-center"
                       >
                         {interest}
-                        <button 
-                          type="button" 
+                        <button
+                          type="button"
                           className="ml-2 text-primary hover:text-primary-dark"
                           onClick={() => handleRemoveInterest(interest)}
                         >
@@ -514,7 +514,7 @@ export default function ProfilePage() {
                         }
                       }}
                     />
-                    <button 
+                    <button
                       type="button"
                       onClick={handleAddInterest}
                       className="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark transition-colors"
@@ -542,10 +542,10 @@ export default function ProfilePage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-} 
+}

@@ -179,7 +179,7 @@ export default function AccountPage() {
                     <p className="font-medium text-gray-900">{profile?.name || user.email}</p>
                     <p className="text-sm text-gray-500">{user.email}</p>
                   </div>
-                  
+
                   <div className="mt-6 space-y-2">
                     <Link href="/account" className="block w-full py-2 px-3 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
                       {t('account.dashboard', 'Dashboard')}
@@ -187,32 +187,32 @@ export default function AccountPage() {
                     <Link href="/account/orders" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                       {t('account.orders', 'Orders')}
                     </Link>
-                    
+
                     {/* Only show the User Profile link if the user doesn't have a business profile */}
                     {!hasBusinessProfile && (
                       <Link href="/account/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                         {t('account.profile', 'Profile')}
                       </Link>
                     )}
-                    
+
                     {/* Business Profile Link - Only shown if user has a business profile */}
                     {hasBusinessProfile && (
                       <Link href="/business/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                         {t('account.businessProfile', 'Business Profile')}
                       </Link>
                     )}
-                    
+
                     {/* Business Dashboard Link - Only shown if user has a business profile */}
                     {hasBusinessProfile && (
                       <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                         {t('account.businessDashboard', 'Business Dashboard')}
                       </Link>
                     )}
-                    
+
                     {/* Business Subscription Link - Show for all users */}
                     <Link href="/business/subscription" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                      {hasBusinessProfile 
-                        ? t('account.manageBusiness', 'Manage Business') 
+                      {hasBusinessProfile
+                        ? t('account.manageBusiness', 'Manage Business')
                         : t('account.createBusiness', 'Create Business')}
                     </Link>
 
@@ -231,7 +231,7 @@ export default function AccountPage() {
                 {/* Account overview */}
                 <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
                   <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('account.accountOverview', 'Account Overview')}</h2>
-                  
+
                   {isLoadingProfile ? (
                     <p>Loading profile information...</p>
                   ) : (
@@ -270,7 +270,7 @@ export default function AccountPage() {
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-gray-900">
-                      {profile?.account_type === 'business' 
+                      {profile?.account_type === 'business'
                         ? 'Recent Received Orders'
                         : t('account.recentOrders', 'Recent Orders')}
                     </h2>
@@ -278,11 +278,11 @@ export default function AccountPage() {
                       {t('account.viewAll', 'View All')}
                     </Link>
                   </div>
-                  
+
                   {orders.length === 0 ? (
                     <div className="text-center py-8">
                       <p className="text-gray-600 mb-4">
-                        {profile?.account_type === 'business' 
+                        {profile?.account_type === 'business'
                           ? "You haven't received any orders yet."
                           : t('account.noOrders', 'You haven\'t placed any orders yet.')}
                       </p>
@@ -361,10 +361,10 @@ export default function AccountPage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-} 
+}
