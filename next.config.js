@@ -12,7 +12,9 @@ const nextConfig = {
     // Disable TypeScript checks during builds
     ignoreBuildErrors: true,
   },
-  images: {
+    images: {
+    // Use unoptimized for now to bypass image optimization issues
+    unoptimized: true,
     domains: [
       'localhost',
       'sanluisway.com',
@@ -20,40 +22,30 @@ const nextConfig = {
       'static.wixstatic.com',
       'assets.seobotai.com'
     ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'omxporaecrqsqhzjzvnx.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static.wixstatic.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.seobotai.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      }
+    ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: blob: https:;",
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'omxporaecrqsqhzjzvnx.supabase.co',
-        port: '',
-        pathname: '/storage/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'static.wixstatic.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'assets.seobotai.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.supabase.co',
-        port: '',
-        pathname: '/**',
-      }
-    ],
-    // Only unoptimize in development
-    unoptimized: false
+    contentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; img-src 'self' data: blob: https:;"
   },
   trailingSlash: false,
   // Enable more detailed output during builds
