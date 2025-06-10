@@ -52,8 +52,12 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
       }
     ];
 
-    // Combine dynamic and static posts, sort by published date
-    const allPosts = [...dynamicPosts, ...staticPosts].sort((a, b) => {
+    // Check for duplicates and only add static posts if they don't exist in dynamic posts
+    const dynamicSlugs = new Set(dynamicPosts.map(post => post.slug));
+    const uniqueStaticPosts = staticPosts.filter(post => !dynamicSlugs.has(post.slug));
+
+    // Combine dynamic and unique static posts, sort by published date
+    const allPosts = [...dynamicPosts, ...uniqueStaticPosts].sort((a, b) => {
       const dateA = new Date(a.publishedAt || a.createdAt);
       const dateB = new Date(b.publishedAt || b.createdAt);
       return dateB.getTime() - dateA.getTime();
@@ -66,9 +70,9 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
       },
       revalidate: 60 // Revalidate every 60 seconds
     };
-  } catch (error) {
+    } catch (error) {
     console.warn('Error in blog getStaticProps:', error instanceof Error ? error.message : 'Unknown error');
-    // Return static posts as fallback
+    // Return static posts as fallback only - no duplicates possible here since dynamicPosts failed
     const staticPosts: BlogPost[] = [
       {
         id: 'static-corazon',
