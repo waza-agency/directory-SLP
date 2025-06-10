@@ -102,19 +102,19 @@ export default function BusinessProfilePage() {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  
+
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
-  
+
   const [newCertification, setNewCertification] = useState('');
   const [newLanguage, setNewLanguage] = useState('');
   const [newPaymentMethod, setNewPaymentMethod] = useState('');
-  
+
   const logoInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
-  
+
   // New state for Stripe Connect
   const [isConnectingStripe, setIsConnectingStripe] = useState(false);
 
@@ -160,7 +160,7 @@ export default function BusinessProfilePage() {
   const fetchBusinessProfile = async () => {
     try {
       setIsLoadingProfile(true);
-      
+
       // Fetch business profile
       const { data, error } = await supabase
         .from('business_profiles')
@@ -180,7 +180,7 @@ export default function BusinessProfilePage() {
 
       // Set the business profile data
       setBusinessProfile(data);
-      
+
       // Set form data with all available fields
       setFormData({
         business_name: data.business_name || '',
@@ -210,12 +210,12 @@ export default function BusinessProfilePage() {
         certifications: data.certifications || [],
         stripe_connect_account_id: data.stripe_connect_account_id || ''
       });
-      
+
       // Set image URLs
       if (data.logo_url) {
         setLogoUrl(data.logo_url);
       }
-      
+
       if (data.cover_image_url) {
         setCoverImageUrl(data.cover_image_url);
       }
@@ -365,9 +365,9 @@ export default function BusinessProfilePage() {
 
     try {
       // Process year_established to ensure it's a number if provided
-      const yearEstablished = formData.year_established ? 
+      const yearEstablished = formData.year_established ?
         parseInt(formData.year_established, 10) : null;
-      
+
       // Validate year if provided
       if (yearEstablished && (isNaN(yearEstablished) || yearEstablished < 1800 || yearEstablished > new Date().getFullYear())) {
         throw new Error('Please enter a valid year established');
@@ -558,7 +558,7 @@ export default function BusinessProfilePage() {
                   <p className="font-medium text-gray-900">{businessProfile?.business_name || 'Your Business'}</p>
                   <p className="text-sm text-gray-500">{user.email}</p>
                 </div>
-                
+
                 <div className="mt-6 space-y-2">
                   <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                     {t('business.dashboard', 'Dashboard')}
@@ -592,12 +592,12 @@ export default function BusinessProfilePage() {
 
               <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                 {/* Cover Image */}
-                <div 
+                <div
                   className="relative h-64 w-full cursor-pointer group bg-gray-200"
                   onClick={handleCoverClick}
                 >
                   {coverImageUrl ? (
-                    <Image 
+                    <Image
                       src={coverImageUrl}
                       alt="Cover"
                       fill
@@ -608,21 +608,21 @@ export default function BusinessProfilePage() {
                       <CameraIcon className="h-20 w-20 text-gray-400" />
                     </div>
                   )}
-                  
+
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="text-white">
                       <CameraIcon className="h-8 w-8 mx-auto" />
                       <p className="mt-2 text-center">Change Cover Image</p>
                     </div>
                   </div>
-                  
+
                   {uploadingCover && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
                       <div className="animate-spin h-8 w-8 border-4 border-white border-t-transparent rounded-full"></div>
                     </div>
                   )}
-                  
-                  <input 
+
+                  <input
                     type="file"
                     ref={coverInputRef}
                     className="hidden"
@@ -633,12 +633,12 @@ export default function BusinessProfilePage() {
 
                 {/* Logo */}
                 <div className="relative -mt-16 ml-8">
-                  <div 
+                  <div
                     className="h-32 w-32 rounded-full border-4 border-white bg-white overflow-hidden cursor-pointer group"
                     onClick={handleLogoClick}
                   >
                     {logoUrl ? (
-                      <Image 
+                      <Image
                         src={logoUrl}
                         alt="Logo"
                         width={128}
@@ -650,18 +650,18 @@ export default function BusinessProfilePage() {
                         <BuildingStorefrontIcon className="h-16 w-16 text-gray-400" />
                       </div>
                     )}
-                    
+
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
                       <CameraIcon className="h-8 w-8 text-white" />
                     </div>
-                    
+
                     {uploadingLogo && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full">
                         <div className="animate-spin h-8 w-8 border-4 border-white border-t-transparent rounded-full"></div>
                       </div>
                     )}
-                    
-                    <input 
+
+                    <input
                       type="file"
                       ref={logoInputRef}
                       className="hidden"
@@ -675,7 +675,7 @@ export default function BusinessProfilePage() {
                   {/* Business Information */}
                   <div className="space-y-6">
                     <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Basic Information</h2>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="md:col-span-2">
                         <label htmlFor="business_name" className="block text-sm font-medium text-gray-700">
@@ -785,7 +785,7 @@ export default function BusinessProfilePage() {
                   {/* Address Information */}
                   <div className="space-y-6">
                     <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Location & Address</h2>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="md:col-span-2">
                         <label htmlFor="address" className="block text-sm font-medium text-gray-700">
@@ -863,7 +863,7 @@ export default function BusinessProfilePage() {
                   {/* Contact Information */}
                   <div className="space-y-6">
                     <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Contact Information</h2>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
@@ -928,7 +928,7 @@ export default function BusinessProfilePage() {
                   {/* Social Media */}
                   <div className="space-y-6">
                     <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Social Media</h2>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">
@@ -1055,7 +1055,7 @@ export default function BusinessProfilePage() {
                   {/* Business Hours */}
                   <div className="space-y-6">
                     <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Business Hours</h2>
-                    
+
                     <div className="space-y-4">
                       {daysOfWeek.map(day => (
                         <div key={day.id} className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
@@ -1088,7 +1088,7 @@ export default function BusinessProfilePage() {
                   {/* Additional Business Details */}
                   <div className="space-y-6">
                     <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Additional Business Details</h2>
-                    
+
                     <div className="space-y-6">
                       {/* Payment Methods */}
                       <div>
@@ -1097,13 +1097,13 @@ export default function BusinessProfilePage() {
                         </label>
                         <div className="flex flex-wrap gap-2 mb-2">
                           {formData.payment_methods.map((method, index) => (
-                            <div 
-                              key={index} 
+                            <div
+                              key={index}
                               className="bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm flex items-center"
                             >
                               {method}
-                              <button 
-                                type="button" 
+                              <button
+                                type="button"
                                 className="ml-2 text-primary hover:text-primary-dark"
                                 onClick={() => handleRemovePaymentMethod(method)}
                               >
@@ -1126,7 +1126,7 @@ export default function BusinessProfilePage() {
                               }
                             }}
                           />
-                          <button 
+                          <button
                             type="button"
                             onClick={handleAddPaymentMethod}
                             className="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark transition-colors"
@@ -1143,13 +1143,13 @@ export default function BusinessProfilePage() {
                         </label>
                         <div className="flex flex-wrap gap-2 mb-2">
                           {formData.languages_spoken.map((language, index) => (
-                            <div 
-                              key={index} 
+                            <div
+                              key={index}
                               className="bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm flex items-center"
                             >
                               {language}
-                              <button 
-                                type="button" 
+                              <button
+                                type="button"
                                 className="ml-2 text-primary hover:text-primary-dark"
                                 onClick={() => handleRemoveLanguage(language)}
                               >
@@ -1172,7 +1172,7 @@ export default function BusinessProfilePage() {
                               }
                             }}
                           />
-                          <button 
+                          <button
                             type="button"
                             onClick={handleAddLanguage}
                             className="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark transition-colors"
@@ -1189,13 +1189,13 @@ export default function BusinessProfilePage() {
                         </label>
                         <div className="flex flex-wrap gap-2 mb-2">
                           {formData.certifications.map((cert, index) => (
-                            <div 
-                              key={index} 
+                            <div
+                              key={index}
                               className="bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm flex items-center"
                             >
                               {cert}
-                              <button 
-                                type="button" 
+                              <button
+                                type="button"
                                 className="ml-2 text-primary hover:text-primary-dark"
                                 onClick={() => handleRemoveCertification(cert)}
                               >
@@ -1218,7 +1218,7 @@ export default function BusinessProfilePage() {
                               }
                             }}
                           />
-                          <button 
+                          <button
                             type="button"
                             onClick={handleAddCertification}
                             className="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark transition-colors"
@@ -1236,12 +1236,12 @@ export default function BusinessProfilePage() {
                       <CreditCardIcon className="h-6 w-6 mr-2 text-primary" />
                       {t('business.payments', 'Payment Settings')}
                     </h3>
-                    
+
                     <div className="mb-6">
                       <p className="text-gray-700 mb-4">
                         {t('business.stripeConnectInfo', 'To receive payments for your items sold in the shop, you need to connect your business to our payment processor, Stripe. This allows us to securely transfer funds to your bank account when customers purchase your products.')}
                       </p>
-                      
+
                       {businessProfile?.stripe_connect_account_id ? (
                         <div>
                           <div className="bg-green-50 border border-green-200 rounded-md p-4 mb-4">
@@ -1263,7 +1263,7 @@ export default function BusinessProfilePage() {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="mb-4">
                             <label htmlFor="stripe_connect_account_id" className="block text-sm font-medium text-gray-700 mb-1">
                               {t('business.stripeConnectId', 'Stripe Connect Account ID')}
@@ -1280,9 +1280,9 @@ export default function BusinessProfilePage() {
                               {t('business.stripeConnectIdInfo', 'This is your Stripe Connect account ID. You can find this in your Stripe dashboard.')}
                             </p>
                           </div>
-                          
+
                           <div className="mb-4">
-                            <Link 
+                            <Link
                               href="https://dashboard.stripe.com/"
                               target="_blank"
                               rel="noopener noreferrer"
@@ -1313,7 +1313,7 @@ export default function BusinessProfilePage() {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="mb-4">
                             <label htmlFor="stripe_connect_account_id" className="block text-sm font-medium text-gray-700 mb-1">
                               {t('business.stripeConnectId', 'Stripe Connect Account ID')}
@@ -1331,7 +1331,7 @@ export default function BusinessProfilePage() {
                               {t('business.stripeConnectIdHelp', 'Enter your Stripe Connect account ID. This starts with "acct_" and can be found in your Stripe Dashboard.')}
                             </p>
                           </div>
-                          
+
                           <div className="mb-4 space-y-4">
                             <p className="text-sm text-gray-600">
                               {t('business.stripeConnectSteps', 'To connect your Stripe account:')}
@@ -1342,8 +1342,8 @@ export default function BusinessProfilePage() {
                               <li>{t('business.stripeStep3', 'Enter the ID above and save your profile')}</li>
                             </ol>
                           </div>
-                          
-                          <a 
+
+                          <a
                             href="https://dashboard.stripe.com/account"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -1375,10 +1375,10 @@ export default function BusinessProfilePage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
-} 
+}

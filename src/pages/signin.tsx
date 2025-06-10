@@ -96,7 +96,7 @@ const SignInPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   try {
     return {
       props: {
@@ -104,7 +104,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
       },
     };
   } catch (error) {
-    console.error('Error in getStaticProps for signin page:', error);
+    console.error('Error in getServerSideProps for signin page:', error);
     return {
       props: {},
     };
