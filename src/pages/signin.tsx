@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SignIn from '@/components/auth/SignIn';
 import { useAuth } from '@/lib/supabase-auth';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const SignInPage = () => {
   const { t } = useTranslation('common');
-  const router = useRouter();
   const { user, session, isLoading } = useAuth();
-  const supabaseClient = useSupabaseClient();
   const [hasInitialized, setHasInitialized] = useState(false);
 
   // Only check auth status once on mount
@@ -20,30 +16,22 @@ const SignInPage = () => {
       console.log('SignIn page: Initial auth check');
       console.log('Auth state:', {
         user: user ? { id: user.id, email: user.email } : 'not authenticated',
-        session: session ? { 
+        session: session ? {
           access_token: session.access_token ? 'present' : 'missing',
           expires_at: session.expires_at
         } : 'no session',
         isLoading
       });
-      
+
       // Check both user and session
       if (session?.access_token) {
-        // We have a session, verify it's valid
-        supabaseClient.auth.getUser().then(({ data: { user: currentUser }, error }) => {
-          if (currentUser && !error) {
-            console.log('Valid session detected, redirecting to account');
-            window.location.href = '/account';
-          } else {
-            console.log('Invalid session detected, clearing');
-            supabaseClient.auth.signOut();
-          }
-        });
+        console.log('Valid session detected, redirecting to account');
+        window.location.href = '/account';
       }
-      
+
       setHasInitialized(true);
     }
-  }, [user, session, isLoading, hasInitialized, supabaseClient.auth]);
+  }, [user, session, isLoading, hasInitialized]);
 
   // Show loading state while checking auth
   if (isLoading || !hasInitialized) {
@@ -82,11 +70,10 @@ const SignInPage = () => {
             <pre>
               {JSON.stringify({
                 user: user ? { id: user.id, email: user.email } : null,
-                session: session ? { 
+                session: session ? {
                   access_token: session.access_token ? 'present' : 'missing',
                   expires_at: session.expires_at
                 } : null,
-                supabaseAuth: !!supabaseClient?.auth,
                 isLoading,
                 hasInitialized
               }, null, 2)}
@@ -109,4 +96,4 @@ export async function getStaticProps({ locale }: { locale: string }) {
   };
 }
 
-export default SignInPage; 
+export default SignInPage;
