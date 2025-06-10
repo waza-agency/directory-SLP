@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,8 +33,8 @@ type BusinessListing = {
     business_name: string;
     phone?: string;
     website?: string;
-    instagram?: string;
-    facebook?: string;
+    instagram_handle?: string;
+    facebook_url?: string;
     address?: string;
     city?: string;
   };
@@ -270,30 +270,30 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                       )}
 
                       {/* Instagram */}
-                      {businessListing.business_profiles?.instagram && (
+                      {businessListing.business_profiles?.instagram_handle && (
                         <div className="flex items-center">
                           <svg className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988s11.988-5.367 11.988-11.988C24.005 5.367 18.638.001 12.017.001zM8.449 16.988c-1.297 0-2.343-1.046-2.343-2.343s1.046-2.343 2.343-2.343 2.343 1.046 2.343 2.343-1.046 2.343-2.343 2.343zm7.136 0c-1.297 0-2.343-1.046-2.343-2.343s1.046-2.343 2.343-2.343 2.343 1.046 2.343 2.343-1.046 2.343-2.343 2.343z"/>
                           </svg>
                           <a
-                            href={`https://instagram.com/${businessListing.business_profiles.instagram.replace('@', '')}`}
+                            href={`https://instagram.com/${businessListing.business_profiles.instagram_handle.replace('@', '')}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary hover:underline font-medium"
                           >
-                            @{businessListing.business_profiles.instagram.replace('@', '')}
+                            @{businessListing.business_profiles.instagram_handle.replace('@', '')}
                           </a>
                         </div>
                       )}
 
                       {/* Facebook */}
-                      {businessListing.business_profiles?.facebook && (
+                      {businessListing.business_profiles?.facebook_url && (
                         <div className="flex items-center">
                           <svg className="h-5 w-5 text-gray-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                           </svg>
                           <a
-                            href={businessListing.business_profiles.facebook}
+                            href={businessListing.business_profiles.facebook_url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary hover:underline font-medium"
@@ -378,41 +378,24 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch only business_listings IDs
-  const { data: businessListings } = await supabase
-    .from('business_listings')
-    .select('id')
-    .eq('status', 'active');
-
-  const businessListingPaths = businessListings?.map((listing) => ({
-    params: { id: listing.id },
-  })) || [];
-
-  return {
-    paths: businessListingPaths,
-    fallback: true,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   if (!params?.id) {
     return {
       notFound: true,
     };
   }
 
-  // Fetch only business listing by ID with business profile info
+  // Fetch business listing by ID with business profile info
   const { data: businessListing, error: businessListingError } = await supabase
     .from('business_listings')
     .select(`
       *,
-      business_profiles!inner (
+      business_profiles (
         business_name,
         phone,
         website,
-        instagram,
-        facebook,
+        instagram_handle,
+        facebook_url,
         address,
         city,
         subscription_status,
@@ -421,6 +404,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       )
     `)
     .eq('id', params.id)
+    .eq('status', 'active')
     .single();
 
   if (businessListingError || !businessListing) {
@@ -470,6 +454,5 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       businessListing,
       ...(await serverSideTranslations(locale || 'es', ['common'])),
     },
-    revalidate: 60,
   };
 };

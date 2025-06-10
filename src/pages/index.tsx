@@ -2675,23 +2675,23 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         {/* ... existing code ... */}
       </main>
 
-      {/* Bottom Advertisement */}
-      <section className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <AdUnit
-            adSlot="YOUR_SECOND_AD_SLOT_ID_HERE"
-            adFormat="rectangle"
-            style={{
-              display: 'block',
-              textAlign: 'center',
-              minHeight: '250px',
-              backgroundColor: '#fff',
-              borderRadius: '8px',
-              padding: '1rem'
-            }}
-          />
-        </div>
-      </section>
+              {/* Bottom Advertisement */}
+        <section className="py-8 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <AdUnit
+              adSlot="9795283286"
+              adFormat="rectangle"
+              style={{
+                display: 'block',
+                textAlign: 'center',
+                minHeight: '250px',
+                backgroundColor: '#fff',
+                borderRadius: '8px',
+                padding: '1rem'
+              }}
+            />
+          </div>
+        </section>
 
       {/* Floating Contact Button */}
       <div className="fixed bottom-8 right-8 z-50">
