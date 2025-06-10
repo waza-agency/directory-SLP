@@ -75,8 +75,8 @@ const SanLuisReyTranviaBlog: NextPage = () => {
               <Image
                 src="/images/tours/tranvia-san-luis-rey.jpg"
                 alt="San Luis Rey Tourist Trolley"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: 'cover' }}
                 className="rounded-lg"
               />
             </div>

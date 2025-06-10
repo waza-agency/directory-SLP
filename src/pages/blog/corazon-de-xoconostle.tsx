@@ -69,8 +69,8 @@ const CorazonDeXoconostleBlog: NextPage = () => {
               <Image
                 src="https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg"
                 alt="Corazón de Xoconostle Adventures - Hiking in San Luis Potosí"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: 'cover' }}
                 className="rounded-lg"
               />
             </div>

@@ -60,8 +60,8 @@ const LaGranViaBlog: NextPage = () => {
               <Image
                 src="https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg"
                 alt="La Gran Vía Restaurant - Traditional Spanish Cuisine in San Luis Potosí"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: 'cover' }}
                 className="rounded-lg"
               />
             </div>
