@@ -77,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(404).json({ error: 'Producto no encontrado o no pertenece a este negocio' });
     }
 
-        // First, delete any related records that might prevent deletion due to foreign key constraints
+            // First, delete any related records that might prevent deletion due to foreign key constraints
     console.log('Checking for related records before deletion...');
 
     // Delete from shopping_cart first
@@ -88,6 +88,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (cartDeleteError) {
       console.warn('Error deleting shopping cart items (non-critical):', cartDeleteError);
+    }
+
+    // Delete from order_items (this was the missing piece!)
+    const { error: orderItemsDeleteError } = await supabaseAdmin
+      .from('order_items')
+      .delete()
+      .eq('listing_id', id);
+
+    if (orderItemsDeleteError) {
+      console.warn('Error deleting order items (non-critical):', orderItemsDeleteError);
     }
 
         // Check for marketplace transactions that might prevent deletion
