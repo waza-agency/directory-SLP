@@ -141,33 +141,74 @@ export const getEvents = async () => {
   // Calculate the safety buffer date - 7 days in the past
   const safetyDateString = getSafetyDateBuffer();
 
-  const { data, error } = await supabase
-    .from('events')
-    .select('*')
-    .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
-    .order('start_date', { ascending: true });
+  try {
+    const { data, error } = await supabase
+      .from('events')
+      .select('*')
+      .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
+      .order('start_date', { ascending: true });
 
-  if (error) throw error;
+    if (error && error.code === '42703') {
+      // Column doesn't exist - try without category
+      const { data: fallbackData, error: fallbackError } = await supabase
+        .from('events')
+        .select('id, title, description, start_date, end_date, location, image_url, featured, created_at, updated_at')
+        .or(`end_date.gte.${safetyDateString},end_date.is.null`)
+        .order('start_date', { ascending: true });
 
-  // Apply the consistent filtering logic
-  return filterUpcomingEvents(data);
+      if (fallbackError) throw fallbackError;
+
+      // Add default category
+      const dataWithCategory = fallbackData?.map(event => ({ ...event, category: 'other' })) || [];
+      return filterUpcomingEvents(dataWithCategory);
+    }
+
+    if (error) throw error;
+
+    // Apply the consistent filtering logic
+    return filterUpcomingEvents(data);
+  } catch (error) {
+    console.error('Error in getEvents:', error);
+    return [];
+  }
 }
 
 export const getFeaturedEvents = async () => {
   // Use safety buffer for initial query to get more recent events
   const safetyDateString = getSafetyDateBuffer();
 
-  const { data: eventsData, error } = await supabase
-    .from('events')
-    .select('*')
-    .eq('featured', true)
-    .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
-    .order('start_date', { ascending: true });
+  try {
+    const { data: eventsData, error } = await supabase
+      .from('events')
+      .select('*')
+      .eq('featured', true)
+      .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
+      .order('start_date', { ascending: true });
 
-  if (error) throw error;
+    if (error && error.code === '42703') {
+      // Column doesn't exist - try without category
+      const { data: fallbackData, error: fallbackError } = await supabase
+        .from('events')
+        .select('id, title, description, start_date, end_date, location, image_url, featured, created_at, updated_at')
+        .eq('featured', true)
+        .or(`end_date.gte.${safetyDateString},end_date.is.null`)
+        .order('start_date', { ascending: true });
 
-  // Now use the filterUpcomingEvents function to properly filter with our date logic
-  return filterUpcomingEvents(eventsData);
+      if (fallbackError) throw fallbackError;
+
+      // Add default category
+      const dataWithCategory = fallbackData?.map(event => ({ ...event, category: 'other' })) || [];
+      return filterUpcomingEvents(dataWithCategory);
+    }
+
+    if (error) throw error;
+
+    // Now use the filterUpcomingEvents function to properly filter with our date logic
+    return filterUpcomingEvents(eventsData);
+  } catch (error) {
+    console.error('Error in getFeaturedEvents:', error);
+    return [];
+  }
 }
 
 export const getFeaturedPhotos = async () => {

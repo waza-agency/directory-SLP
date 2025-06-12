@@ -22,19 +22,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Define the possible category paths
   const categories = ['all', 'sports', 'cultural', 'arts-culture', 'culinary', 'other'];
 
-  const paths = categories.map((category) => ({
-    params: { category },
-  }));
+  const paths = categories.flatMap((category) => [
+    { params: { category }, locale: 'es' },
+    { params: { category }, locale: 'en' },
+  ]);
 
   return {
     paths,
-    fallback: false, // Return 404 for unknown categories
+    fallback: 'blocking', // Changed from false to blocking for better handling
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const category = params?.category as string;
+
+    // Validate category
+    const validCategories = ['all', 'sports', 'cultural', 'arts-culture', 'culinary', 'other'];
+    if (!validCategories.includes(category)) {
+      return {
+        notFound: true,
+      };
+    }
 
     // Obtener eventos
     const { data: eventsData, error } = await supabase
