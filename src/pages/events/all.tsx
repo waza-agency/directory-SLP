@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
@@ -17,7 +17,7 @@ interface EventsPageProps {
   categoryCounts: Record<string, number>;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     console.log('=== DEBUG: Getting events for /events/all ===');
     console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? 'DEFINED' : 'UNDEFINED');
@@ -93,23 +93,25 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
         events: allEvents || [],
         categoryCounts,
       },
+      revalidate: 600,
     };
   } catch (error) {
     console.error('Error al obtener eventos:', error);
     console.error('Error details:', JSON.stringify(error, null, 2));
-    return {
-      props: {
-        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
-        events: [],
-        categoryCounts: {
-          all: 0,
-          sports: 0,
-          cultural: 0,
-          culinary: 0,
-          other: 0
+          return {
+        props: {
+          ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+          events: [],
+          categoryCounts: {
+            all: 0,
+            sports: 0,
+            cultural: 0,
+            culinary: 0,
+            other: 0
+          },
         },
-      },
-    };
+        revalidate: 600,
+      };
   }
 };
 
