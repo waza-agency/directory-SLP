@@ -18,63 +18,88 @@ interface EventsPageProps {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  // Default fallback values
+  const fallbackProps = {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+      events: [],
+      categoryCounts: {
+        all: 0,
+        sports: 0,
+        cultural: 0,
+        culinary: 0,
+        other: 0
+      },
+    },
+    revalidate: 600,
+  };
+
   try {
     console.log('=== DEBUG: Getting events for /events/all ===');
     console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? 'DEFINED' : 'UNDEFINED');
     console.log('Supabase Key:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'DEFINED' : 'UNDEFINED');
 
-    // Obtener eventos - primero intentar con todas las columnas
-    let eventsData, error;
+    // Ensure supabase client exists
+    if (!supabase) {
+      console.error('Supabase client not available');
+      return fallbackProps;
+    }
+
+    // Obtener eventos con manejo robusto de errores
+    let eventsData = [];
+    let error = null;
 
     try {
+      // First try with all columns
       const result = await supabase
         .from('events')
         .select('*')
         .order('start_date', { ascending: true });
-      eventsData = result.data;
-      error = result.error;
-    } catch (err) {
-      console.error('Error querying events table:', err);
-      // Si falla, intentar sin la columna category
-      try {
-        const result = await supabase
+
+      if (result.error && result.error.code === '42703') {
+        // Column doesn't exist, try without category
+        console.log('Category column missing, trying alternative query...');
+        const fallbackResult = await supabase
           .from('events')
           .select('id, title, description, start_date, end_date, location, image_url, featured, created_at, updated_at')
           .order('start_date', { ascending: true });
-        eventsData = result.data;
-        error = result.error;
-        // Agregar categoria por defecto si no existe
-        if (eventsData) {
-          eventsData = eventsData.map(event => ({ ...event, category: 'other' }));
+
+        if (fallbackResult.data) {
+          eventsData = fallbackResult.data.map(event => ({ ...event, category: 'other' }));
         }
-      } catch (finalErr) {
-        console.error('Final error querying events:', finalErr);
-        eventsData = [];
-        error = finalErr;
+        error = fallbackResult.error;
+      } else {
+        eventsData = result.data || [];
+        error = result.error;
       }
+    } catch (err) {
+      console.error('Error querying events table:', err);
+      // Return fallback but don't fail the build
+      return fallbackProps;
     }
 
     console.log('Supabase query error:', error);
     console.log('Events data:', eventsData?.length || 0, 'events found');
 
-    if (error && error.code !== '42703') { // 42703 is column does not exist
+    // If there's a non-recoverable error, use fallback
+    if (error && error.code !== '42703') {
       console.error('Supabase error details:', error);
-      // Don't throw for column not exists errors, just continue with empty data
+      return fallbackProps;
     }
 
     const allEvents = eventsData || [];
 
-    // Calcular conteo de categorías (con manejo de undefined category)
+    // Calcular conteo de categorías (con manejo seguro de undefined category)
     const categoryCounts: Record<string, number> = {
-      all: allEvents?.length || 0,
-      sports: allEvents?.filter(event => event.category === 'sports').length || 0,
-      cultural: allEvents?.filter(event =>
+      all: allEvents.length,
+      sports: allEvents.filter(event => event.category === 'sports').length,
+      cultural: allEvents.filter(event =>
         event.category === 'cultural' ||
         event.category === 'arts-culture' ||
         event.category === 'music'
-      ).length || 0,
-      culinary: allEvents?.filter(event => event.category === 'culinary').length || 0,
-      other: allEvents?.filter(event =>
+      ).length,
+      culinary: allEvents.filter(event => event.category === 'culinary').length,
+      other: allEvents.filter(event =>
         !event.category || (
           event.category !== 'sports' &&
           event.category !== 'cultural' &&
@@ -82,7 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
           event.category !== 'music' &&
           event.category !== 'culinary'
         )
-      ).length || 0,
+      ).length,
     };
 
     console.log('Category counts:', categoryCounts);
@@ -90,7 +115,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     return {
       props: {
         ...(await serverSideTranslations(locale ?? 'es', ['common'])),
-        events: allEvents || [],
+        events: allEvents,
         categoryCounts,
       },
       revalidate: 600,
@@ -98,20 +123,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   } catch (error) {
     console.error('Error al obtener eventos:', error);
     console.error('Error details:', JSON.stringify(error, null, 2));
-          return {
-        props: {
-          ...(await serverSideTranslations(locale ?? 'es', ['common'])),
-          events: [],
-          categoryCounts: {
-            all: 0,
-            sports: 0,
-            cultural: 0,
-            culinary: 0,
-            other: 0
-          },
-        },
-        revalidate: 600,
-      };
+    // Always return fallback to prevent build failure
+    return fallbackProps;
   }
 };
 
