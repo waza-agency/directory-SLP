@@ -18,25 +18,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
       params: { slug: post.slug }
     }));
 
-    // Add static paths for hardcoded blog posts
-    const staticPaths = [
-      { params: { slug: 'corazon-de-xoconostle' } },
-      { params: { slug: 'la-gran-via' } },
-      { params: { slug: 'san-luis-rey-tranvia' } }
-    ];
-
     return {
-      paths: [...paths, ...staticPaths],
+      paths,
       fallback: 'blocking' // Enable ISR with blocking fallback
     };
   } catch (error) {
     console.warn('Error getting static paths for blog:', error instanceof Error ? error.message : 'Unknown error');
     return {
-      paths: [
-        { params: { slug: 'corazon-de-xoconostle' } },
-        { params: { slug: 'la-gran-via' } },
-        { params: { slug: 'san-luis-rey-tranvia' } }
-      ],
+      paths: [],
       fallback: 'blocking'
     };
   }
@@ -46,15 +35,6 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
   try {
     const slug = params?.slug as string;
     if (!slug) {
-      return {
-        notFound: true
-      };
-    }
-
-    // Check for hardcoded blog posts first - these should fallback to their individual pages
-    const hardcodedPosts = ['corazon-de-xoconostle', 'la-gran-via', 'san-luis-rey-tranvia'];
-    if (hardcodedPosts.includes(slug)) {
-      // Let these fall through to 404, they have their own dedicated pages
       return {
         notFound: true
       };

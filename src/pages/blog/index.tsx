@@ -13,106 +13,21 @@ interface BlogIndexProps {
 
 export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 'en' }) => {
   try {
-    const dynamicPosts = await getBlogPosts();
-
-    // Add hardcoded blog posts that exist as static pages
-    const staticPosts: BlogPost[] = [
-      {
-        id: 'static-corazon',
-        slug: 'corazon-de-xoconostle',
-        title: 'Corazón de Xoconostle: Your Gateway to Adventure in San Luis Potosí',
-        excerpt: 'Discover San Luis Potosí\'s premier adventure travel company offering guided tours, outdoor experiences, and unforgettable journeys through Mexico\'s most stunning landscapes.',
-        content: '',
-        imageUrl: 'https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg',
-        category: 'Adventure Travel',
-        publishedAt: '2024-03-20T00:00:00Z',
-        createdAt: '2024-03-20T00:00:00Z'
-      },
-      {
-        id: 'static-lagranvia',
-        slug: 'la-gran-via',
-        title: 'La Gran Vía: A Legacy of Spanish Cuisine in San Luis Potosí',
-        excerpt: 'Experience over 36 years of Spanish culinary tradition at La Gran Vía, one of Mexico\'s 100 must-visit restaurants. Discover authentic Spanish cuisine with a local twist.',
-        content: '',
-        imageUrl: 'https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg',
-        category: 'Restaurants',
-        publishedAt: '2024-03-20T00:00:00Z',
-        createdAt: '2024-03-20T00:00:00Z'
-      },
-      {
-        id: 'static-tranvia',
-        slug: 'san-luis-rey-tranvia',
-        title: 'San Luis Rey: The Perfect Way to Discover Our Historic City',
-        excerpt: 'Join the San Luis Rey tourist trolley for a charming journey through the historic center of San Luis Potosí, discovering centuries of history, architecture, and culture.',
-        content: '',
-        imageUrl: '/images/tours/tranvia-san-luis-rey.jpg',
-        category: 'Tours',
-        publishedAt: '2024-03-20T00:00:00Z',
-        createdAt: '2024-03-20T00:00:00Z'
-      }
-    ];
-
-    // Check for duplicates and only add static posts if they don't exist in dynamic posts
-    const dynamicSlugs = new Set(dynamicPosts.map(post => post.slug));
-    const uniqueStaticPosts = staticPosts.filter(post => !dynamicSlugs.has(post.slug));
-
-    // Combine dynamic and unique static posts, sort by published date
-    const allPosts = [...dynamicPosts, ...uniqueStaticPosts].sort((a, b) => {
-      const dateA = new Date(a.publishedAt || a.createdAt);
-      const dateB = new Date(b.publishedAt || b.createdAt);
-      return dateB.getTime() - dateA.getTime();
-    });
+    const posts = await getBlogPosts();
 
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
-        posts: allPosts
+        posts
       },
       revalidate: 60 // Revalidate every 60 seconds
     };
     } catch (error) {
     console.warn('Error in blog getStaticProps:', error instanceof Error ? error.message : 'Unknown error');
-    // Return static posts as fallback only - no duplicates possible here since dynamicPosts failed
-    const staticPosts: BlogPost[] = [
-      {
-        id: 'static-corazon',
-        slug: 'corazon-de-xoconostle',
-        title: 'Corazón de Xoconostle: Your Gateway to Adventure in San Luis Potosí',
-        excerpt: 'Discover San Luis Potosí\'s premier adventure travel company offering guided tours, outdoor experiences, and unforgettable journeys through Mexico\'s most stunning landscapes.',
-        content: '',
-        imageUrl: 'https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg',
-        category: 'Adventure Travel',
-        publishedAt: '2024-03-20T00:00:00Z',
-        createdAt: '2024-03-20T00:00:00Z'
-      },
-      {
-        id: 'static-lagranvia',
-        slug: 'la-gran-via',
-        title: 'La Gran Vía: A Legacy of Spanish Cuisine in San Luis Potosí',
-        excerpt: 'Experience over 36 years of Spanish culinary tradition at La Gran Vía, one of Mexico\'s 100 must-visit restaurants. Discover authentic Spanish cuisine with a local twist.',
-        content: '',
-        imageUrl: 'https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg',
-        category: 'Restaurants',
-        publishedAt: '2024-03-20T00:00:00Z',
-        createdAt: '2024-03-20T00:00:00Z'
-      },
-      {
-        id: 'static-tranvia',
-        slug: 'san-luis-rey-tranvia',
-        title: 'San Luis Rey: The Perfect Way to Discover Our Historic City',
-        excerpt: 'Join the San Luis Rey tourist trolley for a charming journey through the historic center of San Luis Potosí, discovering centuries of history, architecture, and culture.',
-        content: '',
-        imageUrl: '/images/tours/tranvia-san-luis-rey.jpg',
-        category: 'Tours',
-        publishedAt: '2024-03-20T00:00:00Z',
-        createdAt: '2024-03-20T00:00:00Z'
-      }
-    ];
-
     return {
       props: {
         ...(await serverSideTranslations(locale, ['common'])),
-        posts: staticPosts
+        posts: []
       },
       revalidate: 60
     };
