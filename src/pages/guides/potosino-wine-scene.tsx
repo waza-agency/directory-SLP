@@ -63,9 +63,9 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
     <>
       <Head>
         <title>Discover the Potosino Wine Scene | Sponsored by La Gran Vía</title>
-        <meta 
-          name="description" 
-          content="Explore the emerging wine regions of San Luis Potosí, from boutique vineyards to stunning wineries, and discover the unique terroir that's putting Potosino wines on the map." 
+        <meta
+          name="description"
+          content="Explore the emerging wine regions of San Luis Potosí, from boutique vineyards to stunning wineries, and discover the unique terroir that's putting Potosino wines on the map."
         />
         <meta name="keywords" content="San Luis Potosí wine, Potosino vineyards, Mexican wine regions, wine tourism Mexico, San Miguelito wines, Catorce wine region, wine tasting in SLP, La Gran Vía restaurant" />
       </Head>
@@ -90,11 +90,11 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
               The region is home to a variety of wineries, each offering a distinct taste of the land. From the high-altitude vineyards of the Catorce Highlands, known for their intense minerality and complex flavor profiles, to the fertile Río Verde Valley, where elegant white wines and sparkling varieties flourish, San Luis Potosí is a haven for wine enthusiasts.
             </p>
             <p className="text-lg text-gray-700 mb-4">
-              One of the highlights of the region is the annual International Wine Festival, which brings together over 180 wineries, showcasing the diversity and quality of Potosino wines. This festival is a testament to the region's growing reputation in the world of viticulture, drawing wine lovers from near and far to experience the vibrant flavors and rich cultural heritage of San Luis Potosí.
+              San Luis Potosí hosts various wine events throughout the year, showcasing the diversity and quality of regional wines. These events are a testament to the region's growing reputation in the world of viticulture, drawing wine lovers from near and far to experience the vibrant flavors and rich cultural heritage of San Luis Potosí.
             </p>
             <div className="flex justify-center mt-6">
-              <a 
-                href="https://lagranviaslp.com/" 
+              <a
+                href="https://lagranviaslp.com/"
                 className="bg-red-800 text-white py-2 px-6 rounded-lg shadow hover:bg-red-900 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -111,9 +111,9 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-full md:w-1/3 relative h-64">
-              <Image 
-                src="/images/brands/la-gran-via-logo.jpg" 
-                alt="La Gran Vía Logo" 
+              <Image
+                src="/images/brands/la-gran-via-logo.jpg"
+                alt="La Gran Vía Logo"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 style={{ objectFit: 'contain' }}
@@ -160,22 +160,22 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
               <div className="w-full md:w-1/2">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{region.name}</h3>
                 <p className="text-gray-700 mb-6">{region.description}</p>
-                
+
                 <div className="mb-6">
                   <h4 className="font-medium text-gray-900 mb-2">A Taste of the Region</h4>
                   <p className="text-gray-600">As you wander through the {region.name}, the air carries hints of {region.id === "san-miguelito" ? "wild herbs and sun-warmed earth" : region.id === "catorce-highlands" ? "mountain minerals and alpine flowers" : "riverside vegetation and orchard fruits"}. The wines here reflect their surroundings, with {region.bestVarietals} expressing the soul of this unique landscape.</p>
                 </div>
-                
+
                 <div className="mb-6">
                   <h4 className="font-medium text-gray-900 mb-2">Best Varietals</h4>
                   <p className="text-gray-600">{region.bestVarietals}</p>
                 </div>
-                
+
                 <div className="mb-6">
                   <h4 className="font-medium text-gray-900 mb-2">Known For</h4>
                   <p className="text-gray-600">{region.bestFor}</p>
                 </div>
-                
+
                 <div className="mb-6">
                   <h4 className="font-medium text-gray-900 mb-2">Wineries to Visit</h4>
                   <ul className="list-disc pl-5 text-gray-600">
@@ -218,7 +218,7 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
                     )}
                   </ul>
                 </div>
-                
+
                 <div className="bg-red-50 p-4 rounded-lg">
                   <h4 className="font-medium text-red-800 mb-2">Cultural Notes</h4>
                   <p className="text-gray-700">{region.culturalNotes}</p>
@@ -237,7 +237,7 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
             <p className="text-gray-700 mb-8 text-center">
               The sun is setting as you stand among the vines, glass in hand, listening to the passionate winemaker describe how this very slope catches the morning light just right. This is wine tourism in San Luis Potosí—intimate, authentic, and far from the crowds of more established regions. Here's how to craft your own viticultural adventure:
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Guided Wine Tours</h3>
@@ -250,20 +250,20 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
                   <li>Enoturismo Central</li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Wine Festivals</h3>
                 <p className="text-gray-700 mb-4">
                   Throughout the year, San Luis Potosí hosts several wine festivals where you can sample local vintages and meet the winemakers.
                 </p>
                 <ul className="list-disc pl-5 text-gray-600">
-                  <li>Festival del Vino SLP (June)</li>
                   <li>Vendimia San Miguelito (August)</li>
                   <li>Expo Vino Potosino (November)</li>
+                  <li>Various seasonal wine tastings throughout the year</li>
                 </ul>
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Planning Your Visit</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -272,19 +272,19 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
                   <p className="text-gray-600 mb-4">
                     October to May offers the most pleasant weather. August-September is harvest season - exciting but busy.
                   </p>
-                  
+
                   <h4 className="font-medium text-gray-900 mb-2">Getting Around</h4>
                   <p className="text-gray-600">
                     Most wineries are located 30-90 minutes from San Luis Potosí city. Consider hiring a driver or joining an organized tour.
                   </p>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">Reservations</h4>
                   <p className="text-gray-600 mb-4">
                     Most wineries require advance reservations for tastings and tours. Book at least one week ahead.
                   </p>
-                  
+
                   <h4 className="font-medium text-gray-900 mb-2">What to Bring</h4>
                   <p className="text-gray-600">
                     Sun protection, comfortable shoes, and a designated driver or tour reservation.
@@ -304,16 +304,16 @@ const WineScenePage: NextPage<WineScenePageProps> = () => {
             From boutique vineyards to innovative winemaking techniques, the Potosino wine scene offers a fresh perspective on Mexican viticulture. Sample a selection at La Gran Vía restaurant or plan your own wine tour to discover why enthusiasts are taking notice of this emerging region.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a 
-              href="https://lagranviaslp.com/" 
+            <a
+              href="https://lagranviaslp.com/"
               className="inline-block bg-white text-red-800 font-medium py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
               Reserve at La Gran Vía
             </a>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="inline-block bg-transparent border border-white text-white font-medium py-3 px-8 rounded-lg shadow-lg hover:bg-white/10 transition-colors"
             >
               Plan Your Wine Tour
@@ -333,4 +333,4 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   };
 };
 
-export default WineScenePage; 
+export default WineScenePage;

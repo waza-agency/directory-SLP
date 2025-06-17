@@ -431,7 +431,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* Festival del Vino 2025 Highlight */}
+        {/* FENAPO 2025 Highlight */}
         <section className="py-16 px-4 slp-gradient-bg relative">
           <div className="absolute top-0 left-0 right-0 h-1 bg-secondary opacity-10"></div>
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-secondary opacity-10"></div>
@@ -439,8 +439,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src="/images/events/festival-del-vino.jpg"
-                  alt={t('festivalVino.title', 'International Wine Festival 2025')}
+                  src="/images/events/fenapo-fair.jpg"
+                  alt={t('fenapo.title', 'FENAPO 2025')}
                   fill
                   className="object-cover object-center"
                   priority
@@ -450,42 +450,45 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 <div className="absolute bottom-0 left-0 p-6 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <CalendarIcon className="w-5 h-5" />
-                    <span className="font-medium">{t('festivalVino.date', 'June 6 & 7, 2025')}</span>
+                    <span className="font-medium">{t('fenapo.date', 'August 8 - 31, 2025')}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <div className="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full font-medium text-sm mb-4">
+                <div className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-medium text-sm mb-4">
                   Featured Event
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-serif">
-                  {t('festivalVino.title', 'International Wine Festival of San Luis Potosí')}
+                  {t('fenapo.title', 'FENAPO 2025')}
                 </h2>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-blue-800">
+                  {t('fenapo.subtitle', 'Feria Nacional Potosina')}
+                </h3>
                 <div className="prose prose-lg mb-8 text-gray-600 slp-accent-border">
                   <p>
-                    {t('festivalVino.description', 'The Arts Center, a historic venue in our state, serves as the setting for one of the most important weekends for wine and gastronomy in our country. Enjoy a unique sensory experience with more than 500 wines from around the world.')}
+                    {t('fenapo.description', 'The most traditional fair in Mexico returns to San Luis Potosí with 24 days of cultural events, sports, gastronomy, concerts and entertainment for the whole family.')}
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>{t('festivalVino.feature1', 'More than 500 wines from around the world')}</span>
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span>{t('fenapo.feature1', 'Teatro del Pueblo with national and international artists')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>{t('festivalVino.feature2', 'National and international wineries')}</span>
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span>{t('fenapo.feature2', 'Traditional Mexican palenque shows')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>{t('festivalVino.feature3', 'Gastronomic experiences and premium tastings')}</span>
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span>{t('fenapo.feature3', 'Regional and international gastronomy')}</span>
                     </li>
                   </ul>
                 </div>
                 <Link
-                  href="/events/festival-del-vino-2025"
-                  className="bg-red-800 hover:bg-red-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
+                  href="/events/fenapo-2025"
+                  className="bg-blue-800 hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 >
-                  {t('festivalVino.learnMore', 'Learn More')}
+                  {t('fenapo.learnMore', 'Learn More')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>

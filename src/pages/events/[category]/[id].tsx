@@ -5,14 +5,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { 
-  CalendarIcon, 
-  MapPinIcon, 
-  ClockIcon, 
-  TicketIcon, 
-  ShareIcon, 
+import {
+  CalendarIcon,
+  MapPinIcon,
+  ClockIcon,
+  TicketIcon,
+  ShareIcon,
   ArrowTopRightOnSquareIcon,
-  ArrowLeftIcon 
+  ArrowLeftIcon
 } from '@heroicons/react/24/outline';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
@@ -273,17 +273,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                 Compartir
                 <ShareIcon className="w-5 h-5" />
               </button>
-              {event.title.includes('Festival del Vino') && (
-                <a
-                  href="https://festivaldelvino.mx/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-red-700 hover:bg-red-800 text-white font-bold px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
-                >
-                  Comprar Boletos
-                  <TicketIcon className="w-5 h-5" />
-                </a>
-              )}
+
             </div>
           </div>
         </div>
@@ -299,51 +289,13 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                 <p>{event.description}</p>
               </div>
 
-              {event.title.includes('Festival del Vino') && (
-                <div className="bg-red-50 border border-red-100 rounded-xl p-6 mb-8">
-                  <h3 className="text-xl font-bold mb-3 text-red-900">Lo que encontrarás en el festival:</h3>
-                  <ul className="grid grid-cols-2 gap-2">
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Más de 500 vinos de todo el mundo</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Bodegas nacionales e internacionales</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Cerveza artesanal</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Mezcales</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Experiencias gastronómicas</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Catas premium</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Productos gourmet</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-red-600 font-bold">•</span>
-                      <span>Música en vivo</span>
-                    </li>
-                  </ul>
-                </div>
-              )}
+
             </div>
 
             <div>
               <div className="bg-gray-50 rounded-xl p-6 sticky top-24">
                 <h3 className="text-xl font-bold mb-4">Información del evento</h3>
-                
+
                 <div className="space-y-4 mb-6">
                   <div className="flex items-start gap-3">
                     <CalendarIcon className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
@@ -355,7 +307,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <ClockIcon className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
                     <div>
@@ -365,7 +317,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <MapPinIcon className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" />
                     <div>
@@ -374,7 +326,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <a
                     href={`https://maps.google.com/maps?q=${encodeURIComponent(event.location)}`}
@@ -384,16 +336,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                   >
                     Ver en Google Maps
                   </a>
-                  {event.title.includes('Festival del Vino') && (
-                    <a
-                      href="https://festivaldelvino.mx/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-red-800 hover:bg-red-900 text-white font-medium px-4 py-3 rounded-lg text-center transition-colors"
-                    >
-                      Visitar Sitio Oficial
-                    </a>
-                  )}
+
                 </div>
               </div>
             </div>
@@ -465,4 +408,4 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
       </section>
     </>
   );
-} 
+}
