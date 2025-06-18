@@ -96,7 +96,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
         body: JSON.stringify({
           ...data,
           service: `Business Contact: ${businessName}`,
-          to: businessListing.email || businessListing.business_profiles?.email || 'info@sanluisway.com',
+          to: 'info@sanluisway.com',
           businessId: businessListing.id,
           businessName: businessName,
           businessTitle: businessListing.title,

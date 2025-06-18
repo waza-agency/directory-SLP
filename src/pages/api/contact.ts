@@ -242,62 +242,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
-  // Fetch the actual business email from the database if businessId is provided
-  let businessEmail = to || 'info@sanluisway.com'; // Default fallback
-
-  if (businessId) {
-    try {
-      console.log('Fetching business email for businessId:', businessId);
-
-      // First try to get email from business_listings table
-      const { data: businessListing, error: listingError } = await supabase
-        .from('business_listings')
-        .select(`
-          email,
-          business_profiles!inner (
-            email,
-            business_name
-          )
-        `)
-        .eq('id', businessId)
-        .single();
-
-      if (!listingError && businessListing) {
-        // Prefer listing email, then business profile email
-        businessEmail = businessListing.email ||
-                      businessListing.business_profiles?.email ||
-                      'info@sanluisway.com';
-        console.log('Found business email from listing:', businessEmail);
-      } else {
-        // If not found in business_listings, try business_profiles directly
-        const { data: businessProfile, error: profileError } = await supabase
-          .from('business_profiles')
-          .select('email, business_name')
-          .eq('id', businessId)
-          .single();
-
-        if (!profileError && businessProfile?.email) {
-          businessEmail = businessProfile.email;
-          console.log('Found business email from profile:', businessEmail);
-        } else {
-          console.log('No business email found, using fallback');
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching business email:', error);
-      // Continue with fallback email
-    }
-  }
-
-  console.log('Final business email to use:', businessEmail);
-
-  // TEMPORARY: Override email for testing with Resend free plan
-  // This sends all emails to your verified email but keeps the business email in the content
-  const actualEmailTo = process.env.NODE_ENV === 'development' ? 'santiago@waza.baby' : businessEmail;
-
-  if (actualEmailTo !== businessEmail) {
-    console.log(`🔄 TESTING MODE: Redirecting email from ${businessEmail} to ${actualEmailTo}`);
-  }
+  // Always use info@sanluisway.com for all outgoing emails
+  const businessEmail = 'info@sanluisway.com';
+  const actualEmailTo = businessEmail;
 
   // Verify reCAPTCHA (skip in development for testing)
   if (process.env.NODE_ENV === 'production') {

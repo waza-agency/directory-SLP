@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -29,13 +29,35 @@ export default function Contact() {
   const [submitError, setSubmitError] = useState('');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  
+  const [stats, setStats] = useState<{ placesCount: number | null; servicesCount: number | null }>({ placesCount: null, servicesCount: null });
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [statsError, setStatsError] = useState(false);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors }
   } = useForm<ContactFormData>();
+
+  useEffect(() => {
+    async function fetchStats() {
+      setStatsLoading(true);
+      setStatsError(false);
+      try {
+        const res = await fetch('/api/stats');
+        if (!res.ok) throw new Error('Failed to fetch stats');
+        const data = await res.json();
+        setStats({ placesCount: data.placesCount, servicesCount: data.servicesCount });
+      } catch (e) {
+        setStatsError(true);
+        setStats({ placesCount: null, servicesCount: null });
+      } finally {
+        setStatsLoading(false);
+      }
+    }
+    fetchStats();
+  }, []);
 
   const onSubmit = async (data: ContactFormData) => {
     if (!recaptchaValue) {
@@ -45,7 +67,7 @@ export default function Contact() {
 
     setIsSubmitting(true);
     setSubmitError('');
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -64,7 +86,7 @@ export default function Contact() {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to send message');
       }
-      
+
       setSubmitSuccess(true);
       reset();
       setRecaptchaValue(null);
@@ -89,9 +111,9 @@ export default function Contact() {
     <>
       <Head>
         <title>Contact Us | SLP Descubre</title>
-        <meta 
-          name="description" 
-          content="Get in touch with SLP Descubre. We're here to help you discover and make the most of San Luis Potosí." 
+        <meta
+          name="description"
+          content="Get in touch with SLP Descubre. We're here to help you discover and make the most of San Luis Potosí."
         />
       </Head>
 
@@ -104,24 +126,13 @@ export default function Contact() {
                 Let's Connect
               </h1>
               <p className="text-lg text-gray-600 mb-8">
-                We're passionate about helping newcomers and locals alike discover the beauty, culture, 
-                and opportunities in San Luis Potosí. Whether you're planning to visit, relocate, or 
+                We're passionate about helping newcomers and locals alike discover the beauty, culture,
+                and opportunities in San Luis Potosí. Whether you're planning to visit, relocate, or
                 already call SLP home, we're here to make your experience exceptional.
               </p>
-              <div className="flex flex-wrap justify-center gap-8 text-center">
-                <div>
-                  <p className="text-2xl font-bold text-primary">1000+</p>
-                  <p className="text-gray-600">Places Listed</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-primary">500+</p>
-                  <p className="text-gray-600">Happy Users</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-primary">100%</p>
-                  <p className="text-gray-600">Local Knowledge</p>
-                </div>
-              </div>
+              <p className="text-xl text-primary font-semibold mt-8">
+                If you have questions, need assistance, or have a cool project we can collaborate on, just say hi and reach out!
+              </p>
             </div>
           </div>
         </section>
@@ -131,7 +142,7 @@ export default function Contact() {
           <div className="container mx-auto max-w-2xl">
             <div className="bg-white rounded-2xl shadow-elegant p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
-              
+
               {submitSuccess ? (
                 <div className="bg-green-50 text-green-800 p-4 rounded-lg mb-6">
                   Thank you for your message! We'll get back to you soon.
@@ -245,4 +256,4 @@ export default function Contact() {
       </div>
     </>
   );
-} 
+}

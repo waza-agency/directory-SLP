@@ -160,7 +160,7 @@ export default function CulturalTours() {
         },
         body: JSON.stringify({
           ...formData,
-          to: 'tours@sanluisway.com',
+          to: 'info@sanluisway.com',
           subject: 'Cultural Tour Inquiry',
           recaptchaToken: recaptchaValue
         }),
@@ -198,17 +198,32 @@ export default function CulturalTours() {
     }));
   };
 
+  // TEST: Ensure the contact form sends to the correct email
+  if (process.env.NODE_ENV === 'test') {
+    if (typeof window !== 'undefined') {
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          const data = new FormData(form);
+          if (data.get('to') !== 'info@sanluisway.com') {
+            throw new Error('Contact form does not send to info@sanluisway.com');
+          }
+        });
+      }
+    }
+  }
+
   return (
     <>
       <Head>
         <title>Cultural Tours in San Luis Potosí | San Luis Way</title>
-        <meta 
-          name="description" 
-          content="Discover the rich cultural heritage of San Luis Potosí through our curated tours. From historic bars to religious architecture and art museums." 
+        <meta
+          name="description"
+          content="Discover the rich cultural heritage of San Luis Potosí through our curated tours. From historic bars to religious architecture and art museums."
         />
-        <meta 
-          name="keywords" 
-          content="San Luis Potosí tours, cultural tours, 7 bares tour, church tours, art museums, guided tours" 
+        <meta
+          name="keywords"
+          content="San Luis Potosí tours, cultural tours, 7 bares tour, church tours, art museums, guided tours"
         />
       </Head>
 
@@ -226,13 +241,13 @@ export default function CulturalTours() {
             />
             {/* Golden Overlay - Pure gold layers */}
             <div className="absolute inset-0 bg-gradient-to-b from-yellow-300/70 via-amber-400/40 to-yellow-500/50"></div>
-            
+
             {/* Golden Shine Effect - Enhanced */}
             <div className="absolute inset-0">
               <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-yellow-200/20 blur-3xl"></div>
               <div className="absolute top-2/3 left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-amber-200/10 blur-3xl"></div>
             </div>
-            
+
             {/* Golden Particles */}
             <div className="absolute inset-0 bg-repeat opacity-5"
                  style={{
@@ -242,9 +257,9 @@ export default function CulturalTours() {
 
             {/* Gold dust particles */}
             <div className="absolute inset-0 overflow-hidden mix-blend-soft-light">
-              <div className="absolute h-full w-full bg-fixed opacity-40" 
+              <div className="absolute h-full w-full bg-fixed opacity-40"
                    style={{
-                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f59e0b' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f59e0b' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-10 0v-9h-9v9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
                      backgroundColor: `transparent`,
                    }}
               ></div>
@@ -253,7 +268,7 @@ export default function CulturalTours() {
 
           {/* Decorative Top Border - Blue */}
           <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 opacity-90" />
-          
+
           {/* Decorative Bottom Border - Golden */}
           <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-300 opacity-75" />
 
@@ -262,7 +277,7 @@ export default function CulturalTours() {
             <div className="max-w-4xl mx-auto text-center">
               {/* Decorative Line */}
               <div className="w-28 h-1 bg-blue-500 mx-auto mb-8 shadow-lg" />
-              
+
               {/* Subtitle */}
               <p className="text-blue-100 text-lg font-medium tracking-wider uppercase mb-6 drop-shadow-lg">
                 Experience the Rich Heritage
@@ -281,7 +296,7 @@ export default function CulturalTours() {
 
               {/* CTA Buttons - Enhanced */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button 
+                <button
                   onClick={() => {
                     const element = document.getElementById('booking-form');
                     element?.scrollIntoView({ behavior: 'smooth' });
@@ -290,7 +305,7 @@ export default function CulturalTours() {
                 >
                   Book Your Tour Now
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     const element = document.getElementById('tour-packages');
                     element?.scrollIntoView({ behavior: 'smooth' });
@@ -307,7 +322,7 @@ export default function CulturalTours() {
               <div onClick={() => {
                 const element = document.getElementById('tour-packages');
                 element?.scrollIntoView({ behavior: 'smooth' });
-              }} 
+              }}
               className="group cursor-pointer transition-all">
                 <p className="mb-3 font-semibold text-white drop-shadow-lg text-lg group-hover:text-blue-200 transition-colors">
                   View Our Tours
@@ -328,7 +343,7 @@ export default function CulturalTours() {
           {/* Visual separator elements */}
           <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-amber-100/80 to-transparent"></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-16 bg-amber-500/30"></div>
-          
+
           <div className="container mx-auto">
             <div className="text-center mb-16">
               <div className="w-20 h-1 bg-amber-500 mx-auto mb-6"></div>
@@ -341,7 +356,7 @@ export default function CulturalTours() {
             {/* Tour cards with enhanced visual appearance */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               {tourPackages.map((tour) => (
-                <div 
+                <div
                   key={tour.id}
                   className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
                 >
@@ -364,7 +379,7 @@ export default function CulturalTours() {
                   </div>
                   <div className="p-6">
                     <p className="text-gray-600 mb-6">{tour.description}</p>
-                    
+
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="flex items-center text-gray-600">
                         <ClockIcon className="w-5 h-5 mr-2 text-amber-600" />
@@ -398,7 +413,7 @@ export default function CulturalTours() {
                         <LanguageIcon className="w-5 h-5 mr-2 text-amber-600" />
                         <span>{tour.languages.join(', ')}</span>
                       </div>
-                      <button 
+                      <button
                         onClick={() => {
                           const element = document.getElementById('booking-form');
                           element?.scrollIntoView({ behavior: 'smooth' });
@@ -600,4 +615,4 @@ export default function CulturalTours() {
       `}</style>
     </>
   );
-} 
+}

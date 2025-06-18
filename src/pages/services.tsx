@@ -38,7 +38,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
   return (
     <>
       <Head>
-        <title>{t('expatServices.title')} | SLP Descubre</title>
+        <title>{t('expatServices.title')} | San Luis Way</title>
         <meta name="description" content={t('expatServices.description')} />
       </Head>
 
@@ -86,19 +86,19 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
                     <svg className="w-5 h-5 text-green-300 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>We match you with the best local service providers</span>
+                    <span>We connect you with local service providers who have a good reputation and are considered reliable by our community.</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-green-300 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>We handle all the arrangements and introductions</span>
+                    <span>All hiring arrangements and service experiences are handled directly between you and the provider.</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-green-300 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span>We provide ongoing support throughout your journey</span>
+                    <span>San Luis Way does not manage the hiring process or guarantee the outcome of any service.</span>
                   </li>
                 </ul>
               </div>
@@ -312,7 +312,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link href="/contact" className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors">
-                  Get Personalized Help
+                  Get Personalized Help from San Luis Way
                 </Link>
                 <Link href="/submit-listing/service" className="inline-flex items-center px-6 py-3 border border-primary text-base font-medium rounded-md text-primary bg-transparent hover:bg-primary/10 transition-colors">
                   List Your Service
@@ -339,7 +339,6 @@ export async function getStaticProps({ locale = 'en' }: { locale?: string }) {
     const { data: services, error: servicesError } = await supabase
       .from('services')
       .select('*')
-      .eq('status', 'active')
       .order('created_at', { ascending: false });
 
     if (servicesError) {
@@ -350,7 +349,6 @@ export async function getStaticProps({ locale = 'en' }: { locale?: string }) {
     const { data: featuredServices, error: featuredError } = await supabase
       .from('services')
       .select('*')
-      .eq('status', 'active')
       .eq('featured', true)
       .order('created_at', { ascending: false })
       .limit(6);
