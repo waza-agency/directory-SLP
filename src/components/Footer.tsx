@@ -170,6 +170,39 @@ export default function Footer() {
             <p className="text-gray-500 text-sm mt-1">
               We are <span className="text-pink-500 font-bold">WAZA</span>. And we're coding a cooler world.
             </p>
+
+            {/* Other Waza Projects */}
+            <div className="mt-4 pt-4 border-t border-gray-700">
+              <p className="text-gray-500 text-base mb-3">Other projects by Waza:</p>
+              <div className="flex flex-wrap justify-center gap-4 text-base">
+                <a
+                  href="https://vibecodingprd.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-pink-400 transition-colors"
+                >
+                  ProductPulse - AI Meeting Intelligence
+                </a>
+                <span className="text-gray-600">•</span>
+                <a
+                  href="https://tacosnearme.net"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-pink-400 transition-colors"
+                >
+                  TacosNearMe - Find Great Tacos Fast
+                </a>
+                <span className="text-gray-600">•</span>
+                <a
+                  href="https://sobrecitos.net"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-pink-400 transition-colors"
+                >
+                  Sobrecitos - Family Budget Tracker
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

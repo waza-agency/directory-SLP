@@ -57,7 +57,7 @@ export default function CulinaryTraditionsPage() {
               <p className="text-gray-600 mb-6">
                 San Luis Potosí's cuisine is characterized by its geographical diversity, with distinct culinary traditions from the altiplano, media, and huasteca regions. Each area brings unique ingredients, techniques, and flavors to the table.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -144,7 +144,7 @@ export default function CulinaryTraditionsPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
               Regional Culinary Traditions
             </h2>
-            
+
             {/* Altiplano Region */}
             <div className="mb-16">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -311,7 +311,7 @@ export default function CulinaryTraditionsPage() {
                       <span className="font-semibold">Indigenous Sweets:</span> Candy made from cactus fruits, honey, and native nuts
                     </p>
                     <p className="text-gray-600 mt-4">
-                      Don't miss <Link href="/brands/chocolates-costanzo" className="text-secondary hover:underline">Chocolates Costanzo</Link>, a renowned local chocolatier producing artisanal chocolates and traditional sweets using authentic Potosino recipes.
+                      Don't miss <Link href="/brands/chocolates-costanzo-food-san-luis-potosi" className="text-secondary hover:underline">Chocolates Costanzo</Link>, a renowned local chocolatier producing artisanal chocolates and traditional sweets using authentic Potosino recipes.
                     </p>
                   </div>
                 </div>
@@ -435,4 +435,4 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       ...(await serverSideTranslations(locale, ['common'])),
     },
   };
-}; 
+};

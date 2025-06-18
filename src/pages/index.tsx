@@ -1416,7 +1416,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                         </span>
                       </div>
                       <Link
-                        href={`/brands/${brand.id}`}
+                        href={`/brands/${brand.slug}`}
                         className="text-primary hover:text-primary-dark transition-colors"
                       >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

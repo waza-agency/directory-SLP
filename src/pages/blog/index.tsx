@@ -47,17 +47,44 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
         />
       </Head>
 
-      <main className="bg-gray-50 min-h-screen py-12">
-        {/* Hero Section */}
-        <section className="bg-white border-b">
-          <div className="container mx-auto px-4 py-16">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              {t('navigation.blog')}
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl">
-              {t('navigation.blog_description')}
-            </p>
+      <main className="bg-gray-50 min-h-screen">
+        {/* Hero Section with Background */}
+        <section className="relative h-96 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src="/images/cultural/san-luis-potosi-cathedral.jpg"
+              alt="San Luis Potosí Cathedral"
+              fill
+              className="object-cover opacity-30"
+              priority
+            />
           </div>
+
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-purple-900/60 to-indigo-900/70"></div>
+
+          {/* Content */}
+          <div className="relative container mx-auto px-4 h-full flex items-center">
+            <div className="max-w-3xl">
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                {t('navigation.blog')}
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100 leading-relaxed">
+                {t('navigation.blog_description')}
+              </p>
+              <div className="mt-8">
+                <div className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                  <span className="text-white font-medium">
+                    Discover San Luis Potosí through our stories
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 to-transparent"></div>
         </section>
 
         {/* Ad Unit after hero */}

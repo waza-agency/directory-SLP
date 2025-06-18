@@ -3,6 +3,7 @@ import { supabase } from './supabase';
 export interface Brand {
   id: string;
   name: string;
+  slug: string;
   category: string;
   year_founded?: string;
   address?: string;
@@ -18,6 +19,24 @@ export interface Brand {
   created_at: string;
   updated_at: string;
 }
+
+/**
+ * Generate SEO-friendly slug from brand data
+ */
+export const generateBrandSlug = (name: string, category: string, city?: string): string => {
+  const slugParts = [
+    name,
+    category,
+    city || 'san-luis-potosi'
+  ];
+
+  return slugParts
+    .join('-')
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+};
 
 /**
  * Get all brands from Supabase
@@ -78,7 +97,7 @@ export const getRandomPotosinoBrands = async (limit = 3): Promise<Brand[]> => {
 
     // Shuffle the array to get random selection
     const shuffled = [...data].sort(() => 0.5 - Math.random());
-    
+
     // Return the first 'limit' items
     return shuffled.slice(0, limit);
   } catch (error) {
@@ -106,6 +125,24 @@ export const getBrandById = async (id: string): Promise<Brand | null> => {
 };
 
 /**
+ * Get a brand by slug (SEO-friendly URL)
+ */
+export const getBrandBySlug = async (slug: string): Promise<Brand | null> => {
+  const { data, error } = await supabase
+    .from('brands')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (error) {
+    console.error(`Error fetching brand by slug ${slug}:`, error);
+    return null;
+  }
+
+  return data || null;
+};
+
+/**
  * Get brands by category
  */
 export const getBrandsByCategory = async (category: string): Promise<Brand[]> => {
@@ -122,4 +159,4 @@ export const getBrandsByCategory = async (category: string): Promise<Brand[]> =>
   }
 
   return data || [];
-}; 
+};
