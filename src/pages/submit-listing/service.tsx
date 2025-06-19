@@ -111,90 +111,87 @@ export default function SubmitServiceListing() {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
+    setSuccess(false);
 
     try {
-      // Upload profile image if selected
-      let profileImageUrl = null;
+      // Construir el mensaje HTML con todos los campos del formulario
+      let html = `<h2>Nuevo servicio enviado para revisión</h2><ul>`;
+      html += `<li><b>Nombre del proveedor:</b> ${formData.name}</li>`;
+      html += `<li><b>Categoría:</b> ${formData.category}</li>`;
+      html += `<li><b>Descripción:</b> ${formData.description}</li>`;
+      html += `<li><b>Dirección:</b> ${formData.address}</li>`;
+      html += `<li><b>Ciudad:</b> ${formData.city}</li>`;
+      html += `<li><b>Área de servicio:</b> ${formData.serviceArea}</li>`;
+      html += `<li><b>Teléfono:</b> ${formData.phone}</li>`;
+      html += `<li><b>Email de contacto:</b> ${formData.contactEmail}</li>`;
+      html += `<li><b>Website:</b> ${formData.website}</li>`;
+      html += `<li><b>Instagram:</b> ${formData.instagram}</li>`;
+      html += `<li><b>Disponibilidad:</b> ${formData.hours}</li>`;
+      html += `<li><b>Idiomas:</b> ${formData.languages.join(', ')}</li>`;
+      html += `<li><b>Calificaciones:</b> ${formData.qualifications}</li>`;
+      html += `<li><b>Experiencia:</b> ${formData.experience}</li>`;
+      html += `<li><b>Precios:</b> ${formData.pricing}</li>`;
+      html += `<li><b>Métodos de pago:</b> ${formData.paymentMethods.join(', ')}</li>`;
+      html += `<li><b>Seguro:</b> ${formData.insurance}</li>`;
+      html += `<li><b>Certificaciones:</b> ${formData.certifications.join(', ')}</li>`;
+      html += `<li><b>Aceptó términos:</b> ${formData.acceptedTerms ? 'Sí' : 'No'}</li>`;
       if (formData.profileImage) {
-        const fileExt = formData.profileImage.name.split('.').pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const filePath = `service-images/${fileName}`;
+        html += `<li><b>Imagen de perfil:</b> ${formData.profileImage.name} (No adjunta, solicitar por email si es necesario)</li>`;
+      }
+      if (formData.documents && formData.documents.length > 0) {
+        html += `<li><b>Documentos:</b> ${formData.documents.map(f => f.name).join(', ')} (No adjuntos, solicitar por email si es necesario)</li>`;
+      }
+      html += `</ul>`;
 
-        const { error: uploadError } = await supabase.storage
-          .from('service-images')
-          .upload(filePath, formData.profileImage);
+      // Enviar los datos a /api/contact
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.contactEmail,
+          phone: formData.phone,
+          subject: 'Solicitud de alta de servicio en San Luis Way',
+          message: html,
+          to: 'info@sanluisway.com',
+        }),
+      });
 
-        if (uploadError) throw uploadError;
-
-        const { data: { publicUrl } } = supabase.storage
-          .from('service-images')
-          .getPublicUrl(filePath);
-
-        profileImageUrl = publicUrl;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al enviar el formulario');
       }
 
-      // Upload documents if any
-      const documentUrls = await Promise.all(
-        formData.documents.map(async (file) => {
-          const fileExt = file.name.split('.').pop();
-          const fileName = `${Math.random()}.${fileExt}`;
-          const filePath = `service-documents/${fileName}`;
-
-          const { error: uploadError } = await supabase.storage
-            .from('service-documents')
-            .upload(filePath, file);
-
-          if (uploadError) throw uploadError;
-
-          const { data: { publicUrl } } = supabase.storage
-            .from('service-documents')
-            .getPublicUrl(filePath);
-
-          return publicUrl;
-        })
-      );
-
-      // Insert place data
-      const { data, error: insertError } = await supabase
-        .from('places')
-        .insert([
-          {
-            name: formData.name,
-            category: 'service',
-            description: formData.description,
-            address: formData.address,
-            city: formData.city,
-            phone: formData.phone,
-            website: formData.website,
-            instagram: formData.instagram,
-            hours: formData.hours,
-            image_url: profileImageUrl,
-            service_info: {
-              category: formData.category,
-              serviceArea: formData.serviceArea,
-              languages: formData.languages,
-              qualifications: formData.qualifications,
-              experience: formData.experience,
-              pricing: formData.pricing,
-              paymentMethods: formData.paymentMethods,
-              insurance: formData.insurance,
-              certifications: formData.certifications,
-              documents: documentUrls
-            },
-            contact_info: {
-              name: formData.contactName,
-              phone: formData.contactPhone,
-              email: formData.contactEmail
-            }
-          }
-        ]);
-
-      if (insertError) throw insertError;
-
       setSuccess(true);
-      router.push('/submit-listing/success');
-    } catch (err) {
-      setError('Error submitting listing. Please try again.');
+      setFormData({
+        name: '',
+        category: '',
+        description: '',
+        address: '',
+        city: 'San Luis Potosí',
+        phone: '',
+        website: '',
+        instagram: '',
+        hours: '',
+        contactName: '',
+        contactPhone: '',
+        contactEmail: '',
+        serviceArea: '',
+        languages: [],
+        qualifications: '',
+        experience: '',
+        pricing: '',
+        paymentMethods: [],
+        insurance: '',
+        certifications: [],
+        profileImage: null,
+        documents: [],
+        acceptedTerms: false
+      });
+    } catch (err: any) {
+      setError(err.message || 'Error submitting listing. Please try again.');
       console.error('Error:', err);
     } finally {
       setIsSubmitting(false);
@@ -221,7 +218,7 @@ export default function SubmitServiceListing() {
             {/* Basic Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Basic Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -279,7 +276,7 @@ export default function SubmitServiceListing() {
             {/* Location Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Location Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="address" className="block text-sm font-medium text-gray-700">
@@ -332,7 +329,7 @@ export default function SubmitServiceListing() {
             {/* Contact Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Contact Information</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
@@ -350,13 +347,13 @@ export default function SubmitServiceListing() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700">
                     Email *
                   </label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
+                    id="contactEmail"
+                    name="contactEmail"
                     required
                     value={formData.contactEmail}
                     onChange={handleInputChange}
@@ -413,7 +410,7 @@ export default function SubmitServiceListing() {
             {/* Professional Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Professional Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="qualifications" className="block text-sm font-medium text-gray-700">
@@ -479,7 +476,7 @@ export default function SubmitServiceListing() {
             {/* Documents */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Documents</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="profileImage" className="block text-sm font-medium text-gray-700">
@@ -546,6 +543,12 @@ export default function SubmitServiceListing() {
               </div>
             )}
 
+            {success && (
+              <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-md">
+                ¡Tu solicitud fue enviada! Revisaremos la información y te contactaremos si es necesario antes de publicar el servicio.
+              </div>
+            )}
+
             <div className="flex justify-end">
               <button
                 type="submit"
@@ -560,4 +563,4 @@ export default function SubmitServiceListing() {
       </main>
     </>
   );
-} 
+}

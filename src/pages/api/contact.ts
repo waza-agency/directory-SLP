@@ -244,7 +244,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // Always use info@sanluisway.com for all outgoing emails
   const businessEmail = 'info@sanluisway.com';
-  const actualEmailTo = businessEmail;
+  // In development, use the verified email for Resend
+  const actualEmailTo = process.env.NODE_ENV === 'development' ? 'santiago@waza.baby' : businessEmail;
 
   // Verify reCAPTCHA (skip in development for testing)
   if (process.env.NODE_ENV === 'production') {
@@ -262,7 +263,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ message: 'Failed to verify reCAPTCHA' });
     }
   } else {
-    console.log('Skipping reCAPTCHA verification in development mode');
+    console.log('Skipping reCAPTCHA verification in development mode - recaptchaToken:', recaptchaToken);
   }
 
   try {
