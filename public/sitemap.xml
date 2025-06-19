@@ -94,6 +94,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/brands/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/business/dashboard</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -234,6 +239,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/cultural-attractions</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/cultural-tours/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -242,11 +252,6 @@
     <loc>https://sanluisway.com/cultural/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/cultural-attractions</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/cultural/culinary-traditions</loc>

@@ -494,5 +494,75 @@
   "navigation": {
     "blog": "Blog",
     "blog_description": "Discover stories, guides, and insights about San Luis Potosí"
+  },
+  "community": {
+    "seo": {
+      "title": "Community - Connect with Fellow Expats in San Luis Potosí",
+      "description": "Join our vibrant expat community in San Luis Potosí. Connect through wine tastings, book clubs, language exchanges, and cultural activities designed to help you build meaningful connections.",
+      "keywords": "expat community San Luis Potosí, wine tastings, book clubs, language exchange, cultural activities, international community Mexico, expatriate social events"
+    },
+    "hero": {
+      "title": "Building Bridges, Creating Bonds",
+      "subtitle": "Your Community Awaits",
+      "description": "Moving to a new country can feel overwhelming, but you don't have to navigate it alone. We're creating a warm, welcoming community where every expat can find their place, make meaningful connections, and truly feel at home in San Luis Potosí."
+    },
+    "comingSoon": {
+      "badge": "Coming Soon",
+      "title": "Something Special is Brewing",
+      "description": "We're putting the finishing touches on an incredible community experience that will bring expatriates together through carefully curated activities designed to foster genuine connections and help you discover the true heart of Potosino culture.",
+      "stayTuned": "Stay Tuned for More",
+      "notification": "Be the first to know when our community activities launch.",
+      "notify": "Notify Me"
+    },
+    "activities": {
+      "title": "Upcoming Community Activities",
+      "description": "From intimate wine tastings to lively conversational exchanges, each activity is designed to help you connect with like-minded people while discovering the rich culture of San Luis Potosí.",
+      "wine": {
+        "title": "Potosino Wine Tastings",
+        "description": "Discover the emerging wine scene of San Luis Potosí while connecting with fellow wine enthusiasts. Learn about local varietals and share stories over carefully selected pairings.",
+        "date": "Every Third Friday",
+        "badge": "Cultural & Social"
+      },
+      "books": {
+        "title": "International Book Club",
+        "description": "Dive into literature that bridges cultures while building friendships. We explore both international bestsellers and Mexican authors, creating rich discussions that span continents.",
+        "date": "Bi-weekly Sundays",
+        "badge": "Intellectual & Social"
+      },
+      "language": {
+        "title": "Language Exchange Circles",
+        "description": "Practice your Spanish while helping others with English in a relaxed, supportive environment. These sessions combine learning with authentic cultural exchange.",
+        "date": "Weekly Wednesdays",
+        "badge": "Educational & Social"
+      },
+      "cultural": {
+        "title": "Cultural Discovery Tours",
+        "description": "Explore hidden gems of San Luis Potosí with fellow expats and knowledgeable local guides. From historic neighborhoods to artisan workshops, discover stories behind the places.",
+        "date": "Monthly Saturdays",
+        "badge": "Cultural & Adventure"
+      }
+    },
+    "benefits": {
+      "title": "Why Community Matters",
+      "description": "Building connections in your new home isn't just about social activities—it's about creating a support network that makes your expatriate journey richer, easier, and more fulfilling.",
+      "connections": {
+        "title": "Lasting Friendships",
+        "description": "Form genuine bonds with people who understand the unique experience of living abroad. These connections often become lifelong friendships that extend far beyond shared activities."
+      },
+      "cultural": {
+        "title": "Cultural Bridge",
+        "description": "Learn about Mexican culture through shared experiences and local insights from both fellow expats and Potosino friends. Understanding deepens through community discussion and exploration."
+      },
+      "support": {
+        "title": "Mutual Support",
+        "description": "Navigate the challenges of expat life with people who've been there. From practical advice to emotional support, community members help each other thrive in their new home."
+      }
+    },
+    "contact": {
+      "title": "Ready to Connect?",
+      "description": "Whether you're new to San Luis Potosí or have been here for years, our community activities are designed to help you build meaningful connections and discover new aspects of this beautiful city.",
+      "email": "Email Community Team",
+      "general": "General Contact"
+    }
   }
 }

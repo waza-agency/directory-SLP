@@ -33,22 +33,18 @@ const categories = [
   {
     name: 'Gyms',
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-    count: 15,
   },
   {
     name: 'Yoga Studios',
     icon: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-    count: 8,
   },
   {
     name: 'Sports Clubs',
     icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
-    count: 12,
   },
   {
     name: 'Swimming Pools',
     icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9',
-    count: 6,
   },
 ];
 
@@ -59,8 +55,8 @@ export default function SportsFitness() {
     <>
       <Head>
         <title>Sports & Fitness in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
+        <meta
+          name="description"
           content="Find gyms, sports clubs, and fitness centers with international standards and English-speaking trainers in San Luis Potosí."
         />
       </Head>
@@ -93,17 +89,16 @@ export default function SportsFitness() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {categories.map((category) => (
-                <div 
+                <div
                   key={category.name}
                   className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-center mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={category.icon} />
                       </svg>
                     </div>
-                    <span className="text-sm text-gray-500">{category.count} locations</span>
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
                 </div>
@@ -117,7 +112,7 @@ export default function SportsFitness() {
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {facilities.map((facility) => (
-                <div 
+                <div
                   key={facility.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -156,7 +151,7 @@ export default function SportsFitness() {
                     <div className="mt-4 space-y-3">
                       <div className="flex flex-wrap gap-2">
                         {facility.features.map((feature) => (
-                          <span 
+                          <span
                             key={feature}
                             className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -166,7 +161,7 @@ export default function SportsFitness() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {facility.amenities.map((amenity) => (
-                          <span 
+                          <span
                             key={amenity}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -176,7 +171,7 @@ export default function SportsFitness() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {facility.classes.map((className) => (
-                          <span 
+                          <span
                             key={className}
                             className="bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -328,8 +323,8 @@ export default function SportsFitness() {
             <p className="text-lg text-gray-600 mb-8">
               Get a free consultation with our fitness experts and find the perfect program for you.
             </p>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
             >
               Schedule a Consultation
@@ -339,4 +334,4 @@ export default function SportsFitness() {
       </main>
     </>
   );
-} 
+}

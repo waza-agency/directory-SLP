@@ -37,22 +37,18 @@ const categories = [
   {
     name: 'Farmers Markets',
     icon: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z',
-    count: 4,
   },
   {
     name: 'Organic Stores',
     icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
-    count: 8,
   },
   {
     name: 'Local Producers',
     icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-    count: 15,
   },
   {
     name: 'Specialty Shops',
     icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
-    count: 6,
   },
 ];
 
@@ -86,8 +82,8 @@ export default function LocalOrganicProducts() {
     <>
       <Head>
         <title>Local & Organic Products in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
+        <meta
+          name="description"
           content="Discover local farmers markets, organic stores, and sustainable products in San Luis Potosí."
         />
       </Head>
@@ -120,17 +116,16 @@ export default function LocalOrganicProducts() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {categories.map((category) => (
-                <div 
+                <div
                   key={category.name}
                   className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-center mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={category.icon} />
                       </svg>
                     </div>
-                    <span className="text-sm text-gray-500">{category.count} locations</span>
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
                 </div>
@@ -145,7 +140,7 @@ export default function LocalOrganicProducts() {
             <h2 className="text-3xl font-bold text-center mb-12">Popular Local Products</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {popularProducts.map((product) => (
-                <div 
+                <div
                   key={product.name}
                   className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300"
                 >
@@ -168,7 +163,7 @@ export default function LocalOrganicProducts() {
             <h2 className="text-3xl font-bold text-center mb-12">Featured Vendors</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {vendors.map((vendor) => (
-                <div 
+                <div
                   key={vendor.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -212,7 +207,7 @@ export default function LocalOrganicProducts() {
                     <div className="mt-4">
                       <div className="flex flex-wrap gap-2">
                         {vendor.products.map((product) => (
-                          <span 
+                          <span
                             key={product}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -224,7 +219,7 @@ export default function LocalOrganicProducts() {
                     <div className="mt-4">
                       <div className="flex flex-wrap gap-2">
                         {vendor.features.map((feature) => (
-                          <span 
+                          <span
                             key={feature}
                             className="bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -289,8 +284,8 @@ export default function LocalOrganicProducts() {
             <p className="text-lg text-gray-600 mb-8">
               Get updates about seasonal products, special markets, and local producer events.
             </p>
-            <Link 
-              href="/newsletter" 
+            <Link
+              href="/newsletter"
               className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
             >
               Subscribe to Newsletter
@@ -300,4 +295,4 @@ export default function LocalOrganicProducts() {
       </main>
     </>
   );
-} 
+}

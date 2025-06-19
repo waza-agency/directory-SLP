@@ -14,22 +14,18 @@ const categories = [
   {
     name: 'Rooftop Terraces',
     icon: 'M3 21h18M3 18h18M3 15h18M19 9V3H5v6m7-3v6m0 0l-3-3m3 3l3-3',
-    count: 0,
   },
   {
     name: 'Garden Terraces',
     icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
-    count: 0,
   },
   {
     name: 'Poolside Terraces',
     icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
-    count: 0,
   },
   {
     name: 'City View Terraces',
     icon: 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z',
-    count: 0,
   }
 ];
 
@@ -46,21 +42,15 @@ const TerracesPage: NextPage<TerracesPageProps> = ({ places }) => {
   const featuredPlaces = places?.filter(place => place.featured) || [];
   const regularPlaces = places?.filter(place => !place.featured) || [];
 
-  // Update category counts
-  categories.forEach(category => {
-    category.count = places.filter(place => 
-      place.category === 'terraces' && 
-      place.description?.toLowerCase().includes(category.name.toLowerCase())
-    ).length;
-  });
+
 
   return (
     <>
       <Head>
         <title>Beautiful Terraces in San Luis Potosí - SLP Descubre</title>
-        <meta 
-          name="description" 
-          content="Discover the most stunning terraces in San Luis Potosí. From rooftop bars to garden terraces, find the perfect outdoor dining and entertainment spots." 
+        <meta
+          name="description"
+          content="Discover the most stunning terraces in San Luis Potosí. From rooftop bars to garden terraces, find the perfect outdoor dining and entertainment spots."
         />
       </Head>
 
@@ -75,7 +65,7 @@ const TerracesPage: NextPage<TerracesPageProps> = ({ places }) => {
               Beautiful Terraces
             </h1>
             <p className="text-lg text-gray-600">
-              Experience the best outdoor dining and entertainment in San Luis Potosí. 
+              Experience the best outdoor dining and entertainment in San Luis Potosí.
               From rooftop bars with city views to peaceful garden terraces, find your perfect spot.
             </p>
           </div>
@@ -84,7 +74,7 @@ const TerracesPage: NextPage<TerracesPageProps> = ({ places }) => {
 
       {/* Featured Places Section */}
       {featuredPlaces.length > 0 && (
-        <FeaturedPlaces 
+        <FeaturedPlaces
           places={featuredPlaces}
           onPlaceSelect={(place) => setSelectedPlace(place)}
         />
@@ -147,7 +137,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   // Log the places data to debug image URLs
   console.log('Fetched places:', JSON.stringify(mappedPlaces, null, 2));
-  
+
   // Log each place's image URL
   mappedPlaces?.forEach(place => {
     console.log(`Place: ${place.name}`);
@@ -164,4 +154,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default TerracesPage; 
+export default TerracesPage;

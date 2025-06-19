@@ -19,7 +19,6 @@ const categories = [
     name: 'Museos y centros culturales',
     displayName: 'Museums & Cultural Centers',
     icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
-    count: 0,
     description: 'Art galleries, historical museums, science centers, and cultural exhibitions',
     dbCategory: 'Museos y centros culturales'
   },
@@ -27,7 +26,6 @@ const categories = [
     name: 'Monumentos históricos y arquitectura',
     displayName: 'Historic Monuments & Architecture',
     icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-    count: 0,
     description: 'Colonial buildings, historic plazas, and architectural heritage monuments',
     dbCategory: 'Monumentos históricos y arquitectura'
   },
@@ -35,7 +33,6 @@ const categories = [
     name: 'churches',
     displayName: 'Churches & Temples',
     icon: 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-    count: 0,
     description: 'Historic churches, cathedrals, temples, and religious monuments',
     dbCategory: 'churches'
   },
@@ -43,7 +40,6 @@ const categories = [
     name: 'Experiencias culturales y recorridos',
     displayName: 'Cultural Experiences & Tours',
     icon: 'M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z',
-    count: 0,
     description: 'Cultural centers, folklore groups, tourist trains, and guided cultural experiences',
     dbCategory: 'Experiencias culturales y recorridos'
   },
@@ -51,7 +47,6 @@ const categories = [
     name: 'other-cultural',
     displayName: 'Historic Theaters & Cultural Sites',
     icon: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2V5a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 00-2 2',
-    count: 0,
     description: 'Historic theaters, cultural centers, and other significant cultural sites',
     dbCategory: 'other'
   }
@@ -145,18 +140,8 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
   const featuredPlaces = culturalPlaces?.filter(place => place.featured) || [];
   const regularPlaces = culturalPlaces?.filter(place => !place.featured) || [];
 
-  // Update category counts based on actual database categories
-  const updatedCategories = categories.map(category => ({
-    ...category,
-    count: culturalPlaces.filter(place => {
-      if (category.dbCategory === 'other') {
-        // For 'other' category, filter cultural places specifically
-        const searchText = `${place.name} ${place.description || ''}`.toLowerCase();
-        return place.category === 'other' && culturalKeywords.some(keyword => searchText.includes(keyword));
-      }
-      return place.category === category.dbCategory;
-    }).length
-  }));
+  // Categories without counts
+  const updatedCategories = categories;
 
   // Filter places by selected category
   const filteredPlaces = selectedCategory === 'all'
@@ -362,7 +347,6 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">{category.displayName}</h3>
-                    <span className="text-primary font-medium">{category.count} locations</span>
                   </div>
                 </div>
                 <p className="text-gray-600">{category.description}</p>

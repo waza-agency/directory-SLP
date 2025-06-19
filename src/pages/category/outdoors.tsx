@@ -34,22 +34,18 @@ const categories = [
   {
     name: 'Natural Wonders',
     icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
-    count: 12,
   },
   {
     name: 'Adventure Sports',
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-    count: 8,
   },
   {
     name: 'Hiking Trails',
     icon: 'M13.752 3.751l-3.75 3.75L6 3.75m4.002 13.501l3.75-3.75L18 17.251',
-    count: 15,
   },
   {
     name: 'Camping Sites',
     icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
-    count: 6,
   },
 ];
 
@@ -142,7 +138,7 @@ export default function Outdoors() {
               <div className="flex items-center justify-center mt-6">
                 <p className="text-sm font-medium mr-3">In collaboration with</p>
                 <div className="relative w-40 h-16">
-                  <Image 
+                  <Image
                     src="/images/brands/corazon-de-xoconostle-logo.png"
                     alt="Corazón de Xoconostle Logo"
                     fill
@@ -159,17 +155,16 @@ export default function Outdoors() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {categories.map((category) => (
-                <div 
+                <div
                   key={category.name}
                   className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-center mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={category.icon} />
                       </svg>
                     </div>
-                    <span className="text-sm text-gray-500">{category.count} locations</span>
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
                 </div>
@@ -184,7 +179,7 @@ export default function Outdoors() {
             <h2 className="text-3xl font-bold text-center mb-12">Featured Attractions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {attractions.map((attraction) => (
-                <div 
+                <div
                   key={attraction.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -228,7 +223,7 @@ export default function Outdoors() {
                     <div className="mt-4">
                       <div className="flex flex-wrap gap-2">
                         {attraction.activities.map((activity) => (
-                          <span 
+                          <span
                             key={activity}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -255,7 +250,7 @@ export default function Outdoors() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {featuredExperiences.map((experience, index) => (
-                <div 
+                <div
                   key={index}
                   className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300"
                 >
@@ -287,9 +282,9 @@ export default function Outdoors() {
               ))}
             </div>
             <div className="text-center mt-10">
-              <a 
-                href="https://www.corazondexoconostle.com/index.php/en/" 
-                target="_blank" 
+              <a
+                href="https://www.corazondexoconostle.com/index.php/en/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-primary font-medium hover:underline"
               >
@@ -308,7 +303,7 @@ export default function Outdoors() {
             <h2 className="text-3xl font-bold text-center mb-12">Seasonal Guide</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {seasonalTips.map((season) => (
-                <div 
+                <div
                   key={season.season}
                   className="bg-gray-50 rounded-xl p-6"
                 >
@@ -419,14 +414,14 @@ export default function Outdoors() {
               Get personalized recommendations and expert advice from our team and trusted local partners like Corazón de Xoconostle, who specialize in authentic outdoor experiences across San Luis Potosí.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
               >
                 Contact Us
               </Link>
-              <a 
-                href="https://www.corazondexoconostle.com/index.php/en/" 
+              <a
+                href="https://www.corazondexoconostle.com/index.php/en/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-white border border-primary text-primary hover:bg-primary/5 font-medium px-8 py-3 rounded-md transition-colors"
@@ -439,4 +434,4 @@ export default function Outdoors() {
       </main>
     </>
   );
-} 
+}

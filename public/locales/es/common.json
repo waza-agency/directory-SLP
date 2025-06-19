@@ -321,5 +321,75 @@
   "navigation": {
     "blog": "Blog",
     "blog_description": "Descubre historias, guías y conocimientos sobre San Luis Potosí"
+  },
+  "community": {
+    "seo": {
+      "title": "Comunidad - Conecta con Otros Expatriados en San Luis Potosí",
+      "description": "Únete a nuestra vibrante comunidad de expatriados en San Luis Potosí. Conecta a través de catas de vino, clubes de lectura, intercambios de idiomas y actividades culturales diseñadas para ayudarte a crear conexiones significativas.",
+      "keywords": "comunidad expatriados San Luis Potosí, catas de vino, clubes de lectura, intercambio de idiomas, actividades culturales, comunidad internacional México, eventos sociales expatriados"
+    },
+    "hero": {
+      "title": "Construyendo Puentes, Creando Vínculos",
+      "subtitle": "Tu Comunidad Te Espera",
+      "description": "Mudarse a un nuevo país puede sentirse abrumador, pero no tienes que navegarlo solo. Estamos creando una comunidad cálida y acogedora donde cada expatriado pueda encontrar su lugar, hacer conexiones significativas y sentirse realmente en casa en San Luis Potosí."
+    },
+    "comingSoon": {
+      "badge": "Próximamente",
+      "title": "Algo Especial Está en Preparación",
+      "description": "Estamos dando los toques finales a una experiencia comunitaria increíble que reunirá a los expatriados a través de actividades cuidadosamente curadas diseñadas para fomentar conexiones genuinas y ayudarte a descubrir el verdadero corazón de la cultura potosina.",
+      "stayTuned": "Mantente Atento",
+      "notification": "Sé el primero en saber cuándo lancemos nuestras actividades comunitarias.",
+      "notify": "Notificarme"
+    },
+    "activities": {
+      "title": "Próximas Actividades Comunitarias",
+      "description": "Desde catas íntimas de vino hasta intercambios conversacionales animados, cada actividad está diseñada para ayudarte a conectar con personas afines mientras descubres la rica cultura de San Luis Potosí.",
+      "wine": {
+        "title": "Catas de Vino Potosino",
+        "description": "Descubre la emergente escena vinícola de San Luis Potosí mientras conectas con otros entusiastas del vino. Aprende sobre varietales locales y comparte historias sobre maridajes cuidadosamente seleccionados.",
+        "date": "Cada Tercer Viernes",
+        "badge": "Cultural y Social"
+      },
+      "books": {
+        "title": "Club de Lectura Internacional",
+        "description": "Sumérgete en literatura que une culturas mientras construyes amistades. Exploramos tanto bestsellers internacionales como autores mexicanos, creando discusiones ricas que abarcan continentes.",
+        "date": "Domingos Quincenales",
+        "badge": "Intelectual y Social"
+      },
+      "language": {
+        "title": "Círculos de Intercambio de Idiomas",
+        "description": "Practica tu español mientras ayudas a otros con inglés en un ambiente relajado y de apoyo. Estas sesiones combinan aprendizaje con intercambio cultural auténtico.",
+        "date": "Miércoles Semanales",
+        "badge": "Educativo y Social"
+      },
+      "cultural": {
+        "title": "Tours de Descubrimiento Cultural",
+        "description": "Explora gemas ocultas de San Luis Potosí con otros expatriados y guías locales conocedores. Desde barrios históricos hasta talleres artesanales, descubre las historias detrás de los lugares.",
+        "date": "Sábados Mensuales",
+        "badge": "Cultural y Aventura"
+      }
+    },
+    "benefits": {
+      "title": "Por Qué Importa la Comunidad",
+      "description": "Construir conexiones en tu nuevo hogar no se trata solo de actividades sociales—se trata de crear una red de apoyo que haga tu viaje de expatriado más rico, fácil y satisfactorio.",
+      "connections": {
+        "title": "Amistades Duraderas",
+        "description": "Forma vínculos genuinos con personas que entienden la experiencia única de vivir en el extranjero. Estas conexiones a menudo se convierten en amistades de por vida que se extienden mucho más allá de las actividades compartidas."
+      },
+      "cultural": {
+        "title": "Puente Cultural",
+        "description": "Aprende sobre la cultura mexicana a través de experiencias compartidas y perspectivas locales tanto de otros expatriados como de amigos potosinos. El entendimiento se profundiza a través de la discusión y exploración comunitaria."
+      },
+      "support": {
+        "title": "Apoyo Mutuo",
+        "description": "Navega los desafíos de la vida expatriada con personas que han estado ahí. Desde consejos prácticos hasta apoyo emocional, los miembros de la comunidad se ayudan mutuamente a prosperar en su nuevo hogar."
+      }
+    },
+    "contact": {
+      "title": "¿Listo para Conectar?",
+      "description": "Ya seas nuevo en San Luis Potosí o hayas estado aquí por años, nuestras actividades comunitarias están diseñadas para ayudarte a construir conexiones significativas y descubrir nuevos aspectos de esta hermosa ciudad.",
+      "email": "Contactar Equipo Comunitario",
+      "general": "Contacto General"
+    }
   }
 }

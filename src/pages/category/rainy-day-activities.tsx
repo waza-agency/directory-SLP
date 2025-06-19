@@ -34,22 +34,18 @@ const categories = [
   {
     name: 'Museums & Galleries',
     icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
-    count: 8,
   },
   {
     name: 'Entertainment',
     icon: 'M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z',
-    count: 12,
   },
   {
     name: 'Shopping',
     icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
-    count: 6,
   },
   {
     name: 'Indoor Sports',
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-    count: 5,
   },
 ];
 
@@ -83,8 +79,8 @@ export default function RainyDayActivities() {
     <>
       <Head>
         <title>Rainy Day Activities in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
+        <meta
+          name="description"
           content="Discover the best indoor activities and attractions for rainy days in San Luis Potosí."
         />
       </Head>
@@ -117,17 +113,16 @@ export default function RainyDayActivities() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {categories.map((category) => (
-                <div 
+                <div
                   key={category.name}
                   className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors cursor-pointer"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-center mb-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={category.icon} />
                       </svg>
                     </div>
-                    <span className="text-sm text-gray-500">{category.count} venues</span>
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">{category.name}</h3>
                 </div>
@@ -142,7 +137,7 @@ export default function RainyDayActivities() {
             <h2 className="text-3xl font-bold text-center mb-12">Popular Indoor Activities</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {popularActivities.map((activity) => (
-                <div 
+                <div
                   key={activity.title}
                   className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300"
                 >
@@ -165,7 +160,7 @@ export default function RainyDayActivities() {
             <h2 className="text-3xl font-bold text-center mb-12">Featured Venues</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {activities.map((activity) => (
-                <div 
+                <div
                   key={activity.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -209,7 +204,7 @@ export default function RainyDayActivities() {
                     <div className="mt-4">
                       <div className="flex flex-wrap gap-2">
                         {activity.features.map((feature) => (
-                          <span 
+                          <span
                             key={feature}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -221,7 +216,7 @@ export default function RainyDayActivities() {
                     <div className="mt-4">
                       <div className="flex flex-wrap gap-2">
                         {activity.suitable.map((group) => (
-                          <span 
+                          <span
                             key={group}
                             className="bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -286,8 +281,8 @@ export default function RainyDayActivities() {
             <p className="text-lg text-gray-600 mb-8">
               Get weekly updates about indoor activities, special events, and rainy day offers.
             </p>
-            <Link 
-              href="/newsletter" 
+            <Link
+              href="/newsletter"
               className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
             >
               Subscribe to Newsletter
@@ -297,4 +292,4 @@ export default function RainyDayActivities() {
       </main>
     </>
   );
-} 
+}

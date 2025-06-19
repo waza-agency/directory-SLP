@@ -14,22 +14,18 @@ const categories = [
   {
     name: 'Live Music Bars',
     icon: 'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3',
-    count: 0,
   },
   {
     name: 'Music Restaurants',
     icon: 'M3 3h18v18H3V3zm15 3h-3v12h3V6zM6 6h3v12H6V6z',
-    count: 0,
   },
   {
     name: 'Concert Venues',
     icon: 'M19 10v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6M12 19v3M8 22h8M12 15a2 2 0 100-4 2 2 0 000 4z',
-    count: 0,
   },
   {
     name: 'Jazz Clubs',
     icon: 'M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7',
-    count: 0,
   }
 ];
 
@@ -46,21 +42,15 @@ const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
   const featuredPlaces = places?.filter(place => place.featured) || [];
   const regularPlaces = places?.filter(place => !place.featured) || [];
 
-  // Update category counts
-  categories.forEach(category => {
-    category.count = places.filter(place => 
-      place.category === 'live-music' && 
-      place.description?.toLowerCase().includes(category.name.toLowerCase())
-    ).length;
-  });
+
 
   return (
     <>
       <Head>
         <title>Live Music Venues in San Luis Potosí - SLP Descubre</title>
-        <meta 
-          name="description" 
-          content="Discover the best live music venues in San Luis Potosí. From cozy bars to restaurants with live performances, find the perfect spot for live music." 
+        <meta
+          name="description"
+          content="Discover the best live music venues in San Luis Potosí. From cozy bars to restaurants with live performances, find the perfect spot for live music."
         />
       </Head>
 
@@ -75,7 +65,7 @@ const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
               Live Music Venues
             </h1>
             <p className="text-lg text-gray-600">
-              Experience the vibrant music scene of San Luis Potosí. From intimate jazz clubs to 
+              Experience the vibrant music scene of San Luis Potosí. From intimate jazz clubs to
               lively bars and restaurants with live performances, discover venues where music comes alive.
             </p>
           </div>
@@ -84,7 +74,7 @@ const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
 
       {/* Featured Places Section */}
       {featuredPlaces.length > 0 && (
-        <FeaturedPlaces 
+        <FeaturedPlaces
           places={featuredPlaces}
           onPlaceSelect={(place) => setSelectedPlace(place)}
         />
@@ -147,7 +137,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   // Log the places data to debug image URLs
   console.log('Fetched places:', JSON.stringify(mappedPlaces, null, 2));
-  
+
   // Log each place's image URL
   mappedPlaces?.forEach(place => {
     console.log(`Place: ${place.name}`);
@@ -164,4 +154,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default LiveMusicPage; 
+export default LiveMusicPage;

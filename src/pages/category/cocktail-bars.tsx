@@ -14,22 +14,18 @@ const categories = [
   {
     name: 'Craft Cocktail Bars',
     icon: 'M12 5v14M5 5h14M5 19h14M8 9h.01M16 9h.01M8 13h.01M16 13h.01M12 9v4',
-    count: 0,
   },
   {
     name: 'Rooftop Bars',
     icon: 'M3 21h18M3 18h18M3 15h18M19 9V3H5v6m7-3v6m0 0l-3-3m3 3l3-3',
-    count: 0,
   },
   {
     name: 'Speakeasy Bars',
     icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
-    count: 0,
   },
   {
     name: 'Wine Bars',
     icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
-    count: 0,
   }
 ];
 
@@ -46,21 +42,15 @@ const CocktailBarsPage: NextPage<CocktailBarsPageProps> = ({ places }) => {
   const featuredPlaces = places?.filter(place => place.featured) || [];
   const regularPlaces = places?.filter(place => !place.featured) || [];
 
-  // Update category counts
-  categories.forEach(category => {
-    category.count = places.filter(place => 
-      place.category === 'cocktail-bars' && 
-      place.description?.toLowerCase().includes(category.name.toLowerCase())
-    ).length;
-  });
+
 
   return (
     <>
       <Head>
         <title>Cocktail Bars in San Luis Potosí - SLP Descubre</title>
-        <meta 
-          name="description" 
-          content="Discover the best cocktail bars in San Luis Potosí. From craft cocktails to rooftop bars, find the perfect spot for sophisticated drinks." 
+        <meta
+          name="description"
+          content="Discover the best cocktail bars in San Luis Potosí. From craft cocktails to rooftop bars, find the perfect spot for sophisticated drinks."
         />
       </Head>
 
@@ -75,7 +65,7 @@ const CocktailBarsPage: NextPage<CocktailBarsPageProps> = ({ places }) => {
               Cocktail Bars
             </h1>
             <p className="text-lg text-gray-600">
-              Experience the sophisticated nightlife of San Luis Potosí. From intimate speakeasies to 
+              Experience the sophisticated nightlife of San Luis Potosí. From intimate speakeasies to
               stunning rooftop bars, discover the city's finest cocktail destinations.
             </p>
           </div>
@@ -84,7 +74,7 @@ const CocktailBarsPage: NextPage<CocktailBarsPageProps> = ({ places }) => {
 
       {/* Featured Places Section */}
       {featuredPlaces.length > 0 && (
-        <FeaturedPlaces 
+        <FeaturedPlaces
           places={featuredPlaces}
           onPlaceSelect={(place) => setSelectedPlace(place)}
         />
@@ -147,7 +137,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   // Log the places data to debug image URLs
   console.log('Fetched places:', JSON.stringify(mappedPlaces, null, 2));
-  
+
   // Log each place's image URL
   mappedPlaces?.forEach(place => {
     console.log(`Place: ${place.name}`);
@@ -164,4 +154,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default CocktailBarsPage; 
+export default CocktailBarsPage;
