@@ -23,6 +23,7 @@ export default function AccountPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [hasBusinessProfile, setHasBusinessProfile] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Redirect if not authenticated
@@ -33,33 +34,79 @@ export default function AccountPage() {
 
   useEffect(() => {
     if (user) {
-      fetchUserProfile();
-      fetchUserOrders();
-      checkBusinessProfile();
+      initializeAccountData();
     }
   }, [user]);
 
+  const initializeAccountData = async () => {
+    try {
+      setError(null);
+      await Promise.allSettled([
+        fetchUserProfile(),
+        fetchUserOrders(),
+        checkBusinessProfile()
+      ]);
+    } catch (error) {
+      console.error('Error initializing account data:', error);
+      setError('Some account information could not be loaded. Please refresh the page.');
+    }
+  };
+
   const fetchUserProfile = async () => {
+    if (!user?.id) {
+      console.error('No user ID available for profile fetch');
+      setIsLoadingProfile(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('users')
         .select('*')
-        .eq('id', user?.id)
+        .eq('id', user.id)
         .single();
 
       if (error) {
-        throw error;
+        if (error.code === 'PGRST116') {
+          // User not found in users table, this is okay for some auth providers
+          console.log('User profile not found in users table, using auth data');
+          setProfile({
+            id: user.id,
+            email: user.email,
+            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+          });
+        } else {
+          console.error('Error fetching user profile:', error);
+          // Don't throw here, just use minimal profile data
+          setProfile({
+            id: user.id,
+            email: user.email,
+            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+          });
+        }
+      } else {
+        setProfile(data);
       }
-
-      setProfile(data);
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error('Exception fetching user profile:', error);
+      // Fallback to basic auth data
+      setProfile({
+        id: user.id,
+        email: user.email,
+        name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+      });
     } finally {
       setIsLoadingProfile(false);
     }
   };
 
   const fetchUserOrders = async () => {
+    if (!user?.id) {
+      console.error('No user ID available for orders fetch');
+      setOrders([]);
+      return;
+    }
+
     try {
       // Check if the user is a business account
       if (profile?.account_type === 'business') {
@@ -69,12 +116,13 @@ export default function AccountPage() {
         return;
       }
 
-      // First get all orders
+      // First check if orders table exists by trying a simple query
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .select('*')
-        .eq('user_id', user?.id)
-        .order('created_at', { ascending: false });
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(5); // Limit to reduce potential issues
 
       if (orderError) {
         // If the error is related to the table not existing, just set empty orders
@@ -83,7 +131,11 @@ export default function AccountPage() {
           setOrders([]);
           return;
         }
-        throw orderError;
+
+        // For other errors, log but don't fail
+        console.error('Error fetching orders:', orderError);
+        setOrders([]);
+        return;
       }
 
       if (!orderData || orderData.length === 0) {
@@ -92,7 +144,7 @@ export default function AccountPage() {
       }
 
       // Then get the count of items in each order
-      const ordersWithItemCount = await Promise.all(
+      const ordersWithItemCount = await Promise.allSettled(
         orderData.map(async (order) => {
           try {
             const { count, error: countError } = await supabase
@@ -101,55 +153,82 @@ export default function AccountPage() {
               .eq('order_id', order.id);
 
             if (countError) {
-              console.error('Error counting order items:', countError);
+              console.error('Error counting order items for order', order.id, ':', countError);
               return { ...order, items: 0 };
             }
 
             return { ...order, items: count || 0 };
           } catch (err) {
-            console.error('Error processing order item count:', err);
+            console.error('Error processing order item count for order', order.id, ':', err);
             return { ...order, items: 0 };
           }
         })
       );
 
-      setOrders(ordersWithItemCount);
+      // Extract successful results
+      const validOrders = ordersWithItemCount
+        .filter(result => result.status === 'fulfilled')
+        .map(result => (result as PromiseFulfilledResult<any>).value);
+
+      setOrders(validOrders);
     } catch (error) {
-      console.error('Error fetching user orders:', error);
+      console.error('Exception fetching user orders:', error);
       // Set orders to empty array to avoid display issues
       setOrders([]);
     }
   };
 
   const checkBusinessProfile = async () => {
+    if (!user?.id) {
+      console.error('No user ID available for business profile check');
+      setHasBusinessProfile(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('business_profiles')
         .select('id')
-        .eq('user_id', user?.id)
+        .eq('user_id', user.id)
         .maybeSingle();
 
       if (error) {
+        if (error.code === '42P01') {
+          // business_profiles table doesn't exist
+          console.log('Business profiles table does not exist yet');
+          setHasBusinessProfile(false);
+          return;
+        }
         console.error('Error checking business profile:', error);
+        setHasBusinessProfile(false);
         return;
       }
 
       setHasBusinessProfile(!!data);
     } catch (error) {
-      console.error('Error checking business profile:', error);
+      console.error('Exception checking business profile:', error);
+      setHasBusinessProfile(false);
     }
   };
 
   const handleSignOut = async () => {
-    await signOut();
-    router.push('/');
+    try {
+      await signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Force redirect even if signOut fails
+      window.location.href = '/';
+    }
   };
 
   // Don't render anything while checking auth status
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
+        <div className="animate-pulse">
+          <p>Loading...</p>
+        </div>
       </div>
     );
   }
@@ -170,6 +249,21 @@ export default function AccountPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold text-gray-900 mb-6">{t('account.myAccount', 'My Account')}</h1>
+
+            {error && (
+              <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm text-yellow-700">{error}</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Sidebar */}

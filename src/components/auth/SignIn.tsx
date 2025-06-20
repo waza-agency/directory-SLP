@@ -68,9 +68,17 @@ export default function SignIn() {
         return;
       }
 
-      // The signIn function in supabase-auth.tsx now handles redirection
-      // We don't need to do anything here as the page will be redirected
-      console.log('SignIn successful, waiting for redirection...');
+      // Successful sign in - redirect using Next.js router instead of window.location
+      console.log('SignIn successful, redirecting to account...');
+
+      try {
+        // Use router.push for client-side navigation to avoid SSR issues
+        await router.push('/account');
+      } catch (routerError) {
+        console.error('Router navigation failed, falling back to window.location:', routerError);
+        // Fallback to window.location if router fails
+        window.location.href = '/account';
+      }
 
     } catch (err: any) {
       console.error('SignIn component: caught exception:', err);

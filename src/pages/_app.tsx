@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { AuthProvider } from '@/lib/supabase-auth';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 
 // Create a single instance of the Supabase client
 const supabaseClient = createPagesBrowserClient();
@@ -72,33 +73,37 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <SessionContextProvider
-        supabaseClient={supabaseClient}
-        initialSession={pageProps.initialSession}
-      >
-        <AuthProvider>
-          {/* MARKETPLACE DISABLED - Removed CartProvider */}
-          <div className="min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-grow">
+      <ErrorBoundary>
+        <SessionContextProvider
+          supabaseClient={supabaseClient}
+          initialSession={pageProps.initialSession}
+        >
+          <AuthProvider>
+            {/* MARKETPLACE DISABLED - Removed CartProvider */}
+            <div className="min-h-screen flex flex-col">
+              <Header />
+              <main className="flex-grow">
+                <ErrorBoundary>
                   <Component {...pageProps} />
-            </main>
-            <Footer />
-          </div>
+                </ErrorBoundary>
+              </main>
+              <Footer />
+            </div>
 
-          <ToastContainer
-            position="top-right"
-            autoClose={4000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </AuthProvider>
-      </SessionContextProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={4000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </AuthProvider>
+        </SessionContextProvider>
+      </ErrorBoundary>
     </>
   );
 }

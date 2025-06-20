@@ -191,14 +191,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           return { data: null, error: sessionError || new Error('Failed to establish session') as AuthError };
         }
 
-        console.log('Session established successfully, redirecting to account...');
+        console.log('Session established successfully');
 
-        // Use a small delay to ensure the session is properly set before redirect
-        setTimeout(() => {
-          window.location.href = '/account';
-        }, 100);
-
+        // Instead of using window.location.href, return success and let the component handle redirect
+        // This prevents server-side rendering issues
         return { data, error: null };
+
       } catch (sessionErr: any) {
         console.error('Exception checking session:', sessionErr);
         return { data: null, error: sessionErr as AuthError };
