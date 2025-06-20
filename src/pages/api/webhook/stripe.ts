@@ -148,6 +148,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         try {
           const order = await handleCheckoutSession(session);
+
+          // Handle coupon usage tracking for subscriptions
+          if (session.mode === 'subscription' && session.metadata?.couponCode) {
+            await handleCouponUsage(session);
+          }
+
           console.log('Successfully processed order:', order?.id);
           return res.json({ success: true, order: order?.id });
         } catch (error) {
@@ -191,6 +197,113 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (err) {
     console.error('Error processing webhook:', err);
     return res.status(500).json({ error: 'Webhook handler failed' });
+  }
+}
+
+// Handle coupon usage tracking
+async function handleCouponUsage(session: Stripe.Checkout.Session) {
+  try {
+    const couponCode = session.metadata?.couponCode;
+    const userId = session.metadata?.userId;
+    const businessId = session.metadata?.businessId;
+
+    if (!couponCode || !userId) {
+      console.log('No coupon code or user ID in session metadata');
+      return;
+    }
+
+    console.log('Recording coupon usage:', couponCode, 'for user:', userId);
+
+    // Get coupon details from database
+    const { data: coupon, error: couponError } = await supabaseClient
+      .from('admin_coupons')
+      .select('*')
+      .eq('coupon_code', couponCode.toUpperCase())
+      .single();
+
+    if (couponError || !coupon) {
+      console.error('Error finding coupon for usage tracking:', couponError);
+      return;
+    }
+
+    // Check if usage already recorded (prevent duplicates)
+    const { data: existingUsage } = await supabaseClient
+      .from('coupon_usage')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('coupon_code', couponCode.toUpperCase())
+      .single();
+
+    if (existingUsage) {
+      console.log('Coupon usage already recorded');
+      return;
+    }
+
+    // Get subscription ID from the session
+    let subscriptionId = null;
+    if (session.subscription) {
+      const { data: subscription } = await supabaseClient
+        .from('subscriptions')
+        .select('id')
+        .eq('stripe_subscription_id', session.subscription)
+        .single();
+
+      subscriptionId = subscription?.id;
+    }
+
+    // Record coupon usage
+    const { error: usageError } = await supabaseClient
+      .from('coupon_usage')
+      .insert({
+        user_id: userId,
+        business_profile_id: businessId || null,
+        coupon_code: couponCode.toUpperCase(),
+        stripe_coupon_id: coupon.stripe_coupon_id,
+        discount_type: coupon.discount_type,
+        discount_value: coupon.discount_value,
+        subscription_id: subscriptionId,
+        stripe_subscription_id: session.subscription as string || null
+      });
+
+    if (usageError) {
+      console.error('Error recording coupon usage:', usageError);
+      return;
+    }
+
+    // Update business profile with coupon info
+    if (businessId) {
+      const { error: profileError } = await supabaseClient
+        .from('business_profiles')
+        .update({
+          coupon_used: couponCode.toUpperCase(),
+          coupon_applied_at: new Date().toISOString(),
+          coupon_discount_amount: coupon.discount_type === 'amount' ? coupon.discount_value : null,
+          coupon_discount_percent: coupon.discount_type === 'percent' ? coupon.discount_value : null
+        })
+        .eq('id', businessId);
+
+      if (profileError) {
+        console.error('Error updating business profile with coupon info:', profileError);
+      }
+    }
+
+    // Update coupon usage count
+    const { error: updateError } = await supabaseClient
+      .from('admin_coupons')
+      .update({
+        times_redeemed: coupon.times_redeemed + 1,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', coupon.id);
+
+    if (updateError) {
+      console.error('Error updating coupon usage count:', updateError);
+    }
+
+    console.log('Successfully recorded coupon usage for:', couponCode);
+
+  } catch (error) {
+    console.error('Error in handleCouponUsage:', error);
   }
 }
 

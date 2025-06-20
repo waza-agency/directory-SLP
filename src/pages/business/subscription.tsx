@@ -12,7 +12,7 @@ import Link from 'next/link';
  * 1. The subscription page used an incorrect import path for useAuth
  * 2. When a user selected "business" account type during signup, no record was being created in the business_profiles table
  * 3. The subscription page wasn't properly checking for/creating a business profile before redirecting to Stripe
- * 
+ *
  * These issues have been fixed by:
  * 1. Correcting the useAuth import path in the subscription and subscription-success pages
  * 2. Adding code to create a business_profiles record during business signup
@@ -35,6 +35,10 @@ const SubscriptionPage = () => {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('monthly');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [couponCode, setCouponCode] = useState('');
+  const [validatingCoupon, setValidatingCoupon] = useState(false);
+  const [validatedCoupon, setValidatedCoupon] = useState<any>(null);
+  const [couponError, setCouponError] = useState('');
 
   useEffect(() => {
     // Redirect if not authenticated
@@ -47,26 +51,69 @@ const SubscriptionPage = () => {
     setSelectedPlan(plan);
   };
 
+  const validateCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponError('Please enter a coupon code');
+      return;
+    }
+
+    setValidatingCoupon(true);
+    setCouponError('');
+    setValidatedCoupon(null);
+
+    try {
+      const response = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coupon_code: couponCode.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setValidatedCoupon(data.coupon);
+        setCouponError('');
+      } else {
+        setCouponError(data.message || 'Invalid coupon code');
+        setValidatedCoupon(null);
+      }
+    } catch (error) {
+      console.error('Error validating coupon:', error);
+      setCouponError('Error validating coupon');
+      setValidatedCoupon(null);
+    } finally {
+      setValidatingCoupon(false);
+    }
+  };
+
+  const removeCoupon = () => {
+    setCouponCode('');
+    setValidatedCoupon(null);
+    setCouponError('');
+  };
+
   const handleSubscribe = async () => {
     if (isSubmitting) return;
-    
+
     setIsSubmitting(true);
     setErrorMessage('');
-    
+
     try {
       console.log('Starting subscription process');
-      
+
       // Make sure user is defined
       if (!user) {
         throw new Error('You must be logged in to subscribe');
       }
-      
+
       // TypeScript ignore user type issues
       // @ts-ignore
       const userId = user.id;
       // @ts-ignore
       const userEmail = user.email || '';
-      
+
       // Check if user has a business profile first
       console.log('Checking for business profile');
       const { data: businessProfile, error: profileError } = await supabase
@@ -74,17 +121,17 @@ const SubscriptionPage = () => {
         .select('*')
         .eq('user_id', userId)
         .single();
-      
+
       console.log('Business profile check result:', { businessProfile, profileError });
-      
+
       if (profileError && profileError.code !== 'PGRST116') { // PGRST116 is "no rows returned"
         console.error('Error checking business profile:', profileError);
         throw new Error('Error retrieving your business profile. Please try again.');
       }
-      
+
       // If no business profile exists, create one
       let businessId = businessProfile?.id;
-      
+
       if (!businessProfile) {
         console.log('No business profile found, creating one');
         const { data: newProfile, error: insertError } = await supabase
@@ -99,20 +146,20 @@ const SubscriptionPage = () => {
           ])
           .select('id')
           .single();
-        
+
         console.log('Business profile creation result:', { newProfile, insertError });
-        
+
         if (insertError) {
           console.error('Error creating business profile:', insertError);
           throw new Error('Error creating your business profile. Please try again.');
         }
-        
+
         // @ts-ignore
         businessId = newProfile?.id;
       }
-      
+
       console.log('Proceeding with subscription, business ID:', businessId);
-      
+
       const response = await fetch('/api/subscriptions/create-subscription', {
         method: 'POST',
         headers: {
@@ -123,18 +170,19 @@ const SubscriptionPage = () => {
           plan: selectedPlan,
           business_id: businessId,
           user_id: userId,
+          coupon_code: validatedCoupon ? couponCode.trim() : null,
         }),
       });
-      
+
       console.log('Subscription API response status:', response.status);
-      
+
       const data = await response.json();
       console.log('Subscription API response data:', data);
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Error creating subscription');
       }
-      
+
       // Redirect to Stripe Checkout
       if (data.checkoutUrl) {
         console.log('Redirecting to checkout URL:', data.checkoutUrl);
@@ -145,8 +193,8 @@ const SubscriptionPage = () => {
     } catch (error) {
       console.error('Subscription error:', error);
       setErrorMessage(
-        error instanceof Error 
-          ? error.message 
+        error instanceof Error
+          ? error.message
           : 'Hubo un error al procesar tu suscripción. Intenta de nuevo más tarde.'
       );
     } finally {
@@ -190,7 +238,7 @@ const SubscriptionPage = () => {
                     <p className="font-medium text-gray-900">Tu Negocio</p>
                     <p className="text-sm text-gray-500">{user?.email}</p>
                   </div>
-                  
+
                   <div className="mt-6 space-y-2">
                     <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                       Dashboard
@@ -212,7 +260,7 @@ const SubscriptionPage = () => {
               <div className="md:col-span-3">
                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                   {/* Monthly Plan */}
-                  <div 
+                  <div
                     className={`bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all ${
                       selectedPlan === 'monthly' ? 'border-primary' : 'border-transparent'
                     }`}
@@ -253,7 +301,7 @@ const SubscriptionPage = () => {
                   </div>
 
                   {/* Yearly Plan */}
-                  <div 
+                  <div
                     className={`bg-white rounded-xl shadow-md overflow-hidden border-2 transition-all relative ${
                       selectedPlan === 'yearly' ? 'border-primary' : 'border-transparent'
                     }`}
@@ -297,6 +345,65 @@ const SubscriptionPage = () => {
                   </div>
                 </div>
 
+                {/* Coupon Section */}
+                <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">¿Tienes un código de descuento?</h3>
+
+                  {!validatedCoupon ? (
+                    <div className="flex gap-3">
+                      <div className="flex-1">
+                        <input
+                          type="text"
+                          value={couponCode}
+                          onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                          placeholder="Ingresa tu código"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                          disabled={validatingCoupon}
+                        />
+                        {couponError && (
+                          <p className="text-red-600 text-sm mt-1">{couponError}</p>
+                        )}
+                      </div>
+                      <button
+                        onClick={validateCoupon}
+                        disabled={validatingCoupon || !couponCode.trim()}
+                        className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {validatingCoupon ? 'Validando...' : 'Aplicar'}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="bg-green-50 border border-green-200 rounded-md p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-medium text-green-800">{validatedCoupon.name}</h4>
+                          <p className="text-green-700 text-sm">
+                            {validatedCoupon.discount_type === 'percent'
+                              ? `${validatedCoupon.discount_value}% de descuento`
+                              : `$${validatedCoupon.discount_value} MXN de descuento`
+                            }
+                            {validatedCoupon.duration === 'repeating' && validatedCoupon.duration_in_months
+                              ? ` por ${validatedCoupon.duration_in_months} meses`
+                              : validatedCoupon.duration === 'forever'
+                                ? ' permanente'
+                                : ''
+                            }
+                          </p>
+                          {validatedCoupon.description && (
+                            <p className="text-green-600 text-sm mt-1">{validatedCoupon.description}</p>
+                          )}
+                        </div>
+                        <button
+                          onClick={removeCoupon}
+                          className="text-green-600 hover:text-green-800 text-sm font-medium"
+                        >
+                          Remover
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 {errorMessage && (
                   <div className="bg-red-50 text-red-800 p-4 rounded-lg mb-6">
                     {errorMessage}
@@ -320,7 +427,7 @@ const SubscriptionPage = () => {
 
                 <div className="mt-12 text-center text-gray-600 text-sm">
                   <p>
-                    Al suscribirte, aceptas nuestros <a href="/terms" className="text-primary hover:underline">Términos y Condiciones</a> y 
+                    Al suscribirte, aceptas nuestros <a href="/terms" className="text-primary hover:underline">Términos y Condiciones</a> y
                     nuestras <a href="/privacy" className="text-primary hover:underline">Políticas de Privacidad</a>.
                   </p>
                 </div>
@@ -333,4 +440,4 @@ const SubscriptionPage = () => {
   );
 };
 
-export default SubscriptionPage; 
+export default SubscriptionPage;
