@@ -64,21 +64,21 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
         name: 'San Luis Rey Tranvía',
         description: 'Experience the historic center of San Luis Potosí through guided trolley tours, departing daily from Jardín de San Juan de Dios.',
         imageUrl: '/images/tours/tranvia-san-luis-rey.jpg',
-        ctaUrl: '/blog/san-luis-rey-tranvia'
+        ctaUrl: '/contact?subject=San%20Luis%20Rey%20Tranvía%20Information'
       },
       {
         id: '2',
         name: 'Corazón de Xoconostle',
         description: 'Discover artisanal products and cultural experiences that celebrate Potosino heritage.',
         imageUrl: '/images/brands/corazon-de-xoconostle-logo.png',
-        ctaUrl: '/blog/corazon-de-xoconostle'
+        ctaUrl: '/places/corazon-de-xoconostle'
       },
       {
         id: '3',
         name: 'La Gran Vía',
         description: 'Historic Spanish bakery serving artisanal pastries and bread since 1930.',
         imageUrl: '/images/food/bakery-traditional.jpg',
-        ctaUrl: '/blog/la-gran-via'
+        ctaUrl: '/places/la-gran-via'
       }
     ];
 
@@ -419,12 +419,25 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {featuredAdvertisers?.map((advertiser) => (
-                <div key={advertiser.id} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-                  <h3 className="font-semibold text-lg mb-2">{advertiser.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{advertiser.description}</p>
-                  <Link href={advertiser.ctaUrl} className="text-primary hover:text-primary-dark text-sm font-medium">
-                    Learn More →
-                  </Link>
+                <div key={advertiser.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                  {advertiser.imageUrl && (
+                    <div className="relative h-48 w-full">
+                      <Image
+                        src={advertiser.imageUrl}
+                        alt={advertiser.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
+                  )}
+                  <div className="p-4">
+                    <h3 className="font-semibold text-lg mb-2">{advertiser.name}</h3>
+                    <p className="text-gray-600 text-sm mb-4">{advertiser.description}</p>
+                    <Link href={advertiser.ctaUrl} className="text-primary hover:text-primary-dark text-sm font-medium">
+                      Learn More →
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
