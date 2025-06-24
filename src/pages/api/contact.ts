@@ -251,16 +251,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (process.env.NODE_ENV === 'production') {
     try {
       if (!recaptchaToken) {
+        console.error('Production error: reCAPTCHA token missing');
         return res.status(400).json({ message: 'reCAPTCHA token is required' });
       }
 
+      console.log('Verifying reCAPTCHA in production...');
       const isHuman = await verifyRecaptcha(recaptchaToken);
       if (!isHuman) {
+        console.error('Production error: reCAPTCHA verification failed');
         return res.status(400).json({ message: 'reCAPTCHA verification failed' });
       }
+      console.log('reCAPTCHA verified successfully');
     } catch (error) {
       console.error('reCAPTCHA verification error:', error);
-      return res.status(500).json({ message: 'Failed to verify reCAPTCHA' });
+      return res.status(500).json({
+        message: 'Failed to verify reCAPTCHA',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   } else {
     console.log('Skipping reCAPTCHA verification in development mode - recaptchaToken:', recaptchaToken);
@@ -405,7 +412,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const emailData = {
         to: actualEmailTo,
-        from: 'San Luis Way <onboarding@resend.dev>', // Will be updated when you configure your domain
+        from: 'San Luis Way <onboarding@resend.dev>', // Temporary: using verified domain until sanluisway.com is verified
         replyTo: email,
         subject: emailSubject,
         html: htmlContent
@@ -429,6 +436,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     } catch (emailError) {
       console.error('Error sending email:', emailError);
+      console.error('Environment check:', {
+        NODE_ENV: process.env.NODE_ENV,
+        RESEND_API_KEY: process.env.RESEND_API_KEY ? 'SET' : 'NOT SET',
+        GMAIL_USER: process.env.GMAIL_USER ? 'SET' : 'NOT SET',
+        GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT SET'
+      });
 
       // Still return success since contact was saved
       return res.status(200).json({
@@ -442,7 +455,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           email_sent: false,
           email_error: emailError instanceof Error ? emailError.message : 'Unknown error'
         },
-        note: 'Please configure RESEND_API_KEY or GMAIL credentials in environment variables'
+        note: 'Please configure RESEND_API_KEY or GMAIL credentials in environment variables',
+        debug: {
+          NODE_ENV: process.env.NODE_ENV,
+          email_config_available: {
+            resend: process.env.RESEND_API_KEY ? true : false,
+            gmail: (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) ? true : false
+          }
+        }
       });
     }
 

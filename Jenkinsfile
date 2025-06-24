@@ -75,7 +75,11 @@ pipeline {
                         string(credentialsId: 'STRIPE_PUBLISHABLE_KEY', variable: 'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY'),
                         string(credentialsId: 'STRIPE_WEBHOOK_SECRET', variable: 'STRIPE_WEBHOOK_SECRET'),
                         string(credentialsId: 'RECAPTCHA_SECRET_KEY', variable: 'RECAPTCHA_SECRET_KEY'),
-                        string(credentialsId: 'SMTP_PASSWORD', variable: 'SMTP_PASSWORD')
+                        string(credentialsId: 'SMTP_PASSWORD', variable: 'SMTP_PASSWORD'),
+                        // Email Configuration
+                        string(credentialsId: 'RESEND_API_KEY', variable: 'RESEND_API_KEY'),
+                        string(credentialsId: 'GMAIL_USER', variable: 'GMAIL_USER'),
+                        string(credentialsId: 'GMAIL_APP_PASSWORD', variable: 'GMAIL_APP_PASSWORD')
                     ]) {
                         // Set non-sensitive environment variables
                         withEnv([

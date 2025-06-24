@@ -2592,50 +2592,15 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* Event Sponsorship Section */}
+        {/* Digital Advertising Section */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Sponsor Local Events</h2>
-              <p className="text-lg text-gray-600 mb-8">Connect with our engaged community through event sponsorship opportunities</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Advertise with San Luis Way</h2>
+              <p className="text-lg text-gray-600 mb-8">Reach your target audience and grow your business in San Luis Potosí</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-xl p-8 shadow-md">
-                <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
-                    <CalendarIcon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Event Sponsorship</h3>
-                </div>
-                <p className="text-gray-600 mb-6">Get your brand in front of thousands of engaged locals and visitors at our featured events.</p>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center text-gray-600">
-                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Logo placement on event materials
-                  </li>
-                  <li className="flex items-center text-gray-600">
-                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Social media promotion
-                  </li>
-                  <li className="flex items-center text-gray-600">
-                    <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    VIP event access
-                  </li>
-                </ul>
-                <Link
-                  href="/event-sponsorship"
-                  className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors"
-                >
-                  Learn More
-                </Link>
-              </div>
-              <div className="bg-white rounded-xl p-8 shadow-md">
+            <div className="flex justify-center">
+              <div className="bg-white rounded-xl p-8 shadow-md max-w-md">
                 <div className="flex items-center mb-6">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
                     <MegaphoneIcon className="w-6 h-6 text-primary" />
@@ -2664,10 +2629,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   </li>
                 </ul>
                 <Link
-                  href="/digital-advertising"
+                  href="/advertise"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors"
                 >
-                  Get Started
+                  Learn More
                 </Link>
               </div>
             </div>
