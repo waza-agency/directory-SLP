@@ -11,23 +11,31 @@ export default function SignUpPage() {
   const router = useRouter();
   const { user, isLoading } = useAuth();
 
-  // Redirect if already authenticated
+  // Redirect if already authenticated - only on client side
   useEffect(() => {
-    if (user && !isLoading) {
+    if (typeof window !== 'undefined' && user && !isLoading) {
       router.push('/account');
     }
   }, [user, isLoading, router]);
 
-  // Don't render anything while checking auth status
+  // Show loading during auth check
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
-  // If user is not logged in, show sign up form
+  // Only show signup if user is not authenticated
+  if (user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Redirecting...</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -44,7 +52,7 @@ export default function SignUpPage() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
