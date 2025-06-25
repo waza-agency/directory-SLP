@@ -82,13 +82,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           if (error) {
             console.error('Error refreshing session:', error);
             await supabaseClient.auth.signOut();
-            if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+            // Only redirect to signin if we're not already on an auth page
+            if (typeof window !== 'undefined' && !window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
               window.location.href = '/signin';
             }
           } else if (!currentUser) {
             console.error('No user found after refresh');
             await supabaseClient.auth.signOut();
-            if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+            // Only redirect to signin if we're not already on an auth page
+            if (typeof window !== 'undefined' && !window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
               window.location.href = '/signin';
             }
           } else {
@@ -97,7 +99,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         } catch (err) {
           console.error('Exception refreshing session:', err);
           await supabaseClient.auth.signOut();
-          if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+          // Only redirect to signin if we're not already on an auth page
+          if (typeof window !== 'undefined' && !window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
             window.location.href = '/signin';
           }
         }
@@ -219,7 +222,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (supabaseClient && supabaseClient.auth) {
       await supabaseClient.auth.signOut();
       // Only redirect to signin if we're not already on an auth page
-      if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+      if (typeof window !== 'undefined' && !window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
         window.location.href = '/signin';
       }
     } else {
@@ -237,8 +240,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return { data: null, error: new Error('Supabase client is not available') as AuthError };
     }
 
+    const redirectTo = typeof window !== 'undefined'
+      ? `${window.location.origin}/reset-password`
+      : 'https://sanluisway.com/reset-password'; // fallback for SSR
+
     const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo,
     });
 
     return { data, error };
