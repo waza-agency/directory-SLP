@@ -564,5 +564,31 @@
       "email": "Email Community Team",
       "general": "General Contact"
     }
+  },
+  "listingsBanner": {
+    "badge": "Local Business Directory",
+    "title": "Find Trusted Local Businesses",
+    "description": "Connect with verified businesses and service providers in San Luis Potosí. From restaurants to professional services, discover everything you need in one place.",
+    "feature1": {
+      "title": "Verified Businesses",
+      "description": "All listings are verified and actively maintained"
+    },
+    "feature2": {
+      "title": "Easy Search",
+      "description": "Filter by category and location"
+    },
+    "feature3": {
+      "title": "Local Focus",
+      "description": "Exclusively San Luis Potosí businesses"
+    },
+    "feature4": {
+      "title": "Direct Contact",
+      "description": "Phone, address, and website info"
+    },
+    "browseCTA": "Browse Businesses",
+    "listCTA": "List Your Business",
+    "stat1": "Businesses",
+    "stat2": "Verified",
+    "stat3": "Available"
   }
 }

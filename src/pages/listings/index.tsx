@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { supabase } from '@/lib/supabase';
 import { GetServerSideProps } from 'next';
+import { formatMXNPrice } from '@/utils/currency';
 
 interface BusinessListing {
   id: string;
@@ -236,8 +237,8 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
                             {listing.title}
                           </h2>
                           {listing.price && (
-                            <span className="text-lg font-bold text-indigo-600 ml-2">
-                              {listing.price}
+                            <span className="text-lg font-bold text-indigo-600 ml-2 whitespace-nowrap">
+                              {formatMXNPrice(listing.price)}
                             </span>
                           )}
                         </div>

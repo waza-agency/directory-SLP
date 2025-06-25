@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import ReCAPTCHA from "react-google-recaptcha";
 import { supabase } from '@/lib/supabase';
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
+import { formatMXNPrice } from '@/utils/currency';
 
 // Business Listing type definition
 type BusinessListing = {
@@ -197,7 +198,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
                 {businessListing.price && (
                   <div className="mb-6">
-                    <span className="text-xl font-bold text-green-600">{businessListing.price}</span>
+                    <span className="text-xl font-bold text-green-600">{formatMXNPrice(businessListing.price)}</span>
                   </div>
                 )}
 

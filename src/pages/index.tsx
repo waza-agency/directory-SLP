@@ -20,6 +20,7 @@ import TangamangaBanner from '@/components/TangamangaBanner';
 import SEO from '@/components/common/SEO';
 import { OptimizedImage } from '@/components/common/OptimizedImage';
 import AdUnit from '../components/common/AdUnit';
+import ListingsBanner from '@/components/ListingsBanner';
 
 interface HomeProps {
   events: Event[];
@@ -581,6 +582,9 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
             </div>
           </div>
         </section>
+
+        {/* Listings Banner */}
+        <ListingsBanner />
 
         {/* Welcome/About Section */}
         <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">

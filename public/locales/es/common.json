@@ -391,5 +391,31 @@
       "email": "Contactar Equipo Comunitario",
       "general": "Contacto General"
     }
+  },
+  "listingsBanner": {
+    "badge": "Directorio de Negocios Locales",
+    "title": "Encuentra Negocios Locales de Confianza",
+    "description": "Conecta con negocios verificados y proveedores de servicios en San Luis Potosí. Desde restaurantes hasta servicios profesionales, descubre todo lo que necesitas en un solo lugar.",
+    "feature1": {
+      "title": "Negocios Verificados",
+      "description": "Todos los anuncios están verificados y mantenidos activamente"
+    },
+    "feature2": {
+      "title": "Búsqueda Fácil",
+      "description": "Filtra por categoría y ubicación"
+    },
+    "feature3": {
+      "title": "Enfoque Local",
+      "description": "Exclusivamente negocios de San Luis Potosí"
+    },
+    "feature4": {
+      "title": "Contacto Directo",
+      "description": "Teléfono, dirección e información web"
+    },
+    "browseCTA": "Explorar Negocios",
+    "listCTA": "Registra Tu Negocio",
+    "stat1": "Negocios",
+    "stat2": "Verificados",
+    "stat3": "Disponible"
   }
 }

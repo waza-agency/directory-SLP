@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import BuyButton from './BuyButton';
+import { formatMXNPriceCompact } from '@/utils/currency';
 
 type ProductCardProps = {
   id: string;
@@ -39,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <span className="text-gray-400">No image</span>
             </div>
           )}
-          
+
           {category && (
             <span className="absolute top-2 right-2 bg-primary/80 text-white text-xs px-2 py-1 rounded">
               {category}
@@ -47,24 +48,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
       </Link>
-      
+
       <div className="p-4">
         <Link href={`/shop/${id}`} className="block">
           <h3 className="text-lg font-semibold mb-1 hover:text-primary">{name}</h3>
           <p className="text-gray-600 text-sm mb-3 line-clamp-2">{description}</p>
         </Link>
-        
+
         <div className="flex flex-col space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xl font-bold">${price.toFixed(2)}</span>
-            <Link 
+                    <div className="flex items-center justify-between">
+            <span className="text-xl font-bold">{formatMXNPriceCompact(price)}</span>
+            <Link
               href={`/shop/${id}`}
               className="text-primary text-sm hover:underline"
             >
               View Details
             </Link>
           </div>
-          
+
           <div className="flex items-center justify-between space-x-2">
             <BuyButton
               productId={id}
@@ -91,4 +92,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-export default ProductCard; 
+export default ProductCard;

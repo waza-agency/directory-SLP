@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { supabase } from '@/lib/supabase';
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon, ClockIcon, GlobeAltIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { formatMXNPrice } from '@/utils/currency';
 
 // Business Listing type definition
 type BusinessListing = {
@@ -205,7 +206,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                   {/* Price */}
                   {businessListing.price && (
                     <div className="mb-6">
-                      <span className="text-2xl font-bold text-green-600">{businessListing.price}</span>
+                      <span className="text-2xl font-bold text-green-600">{formatMXNPrice(businessListing.price)}</span>
                     </div>
                   )}
 
