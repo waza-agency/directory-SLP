@@ -19,6 +19,7 @@ type Order = {
   created_at: string;
   status: string;
   amount: number;
+  payment_status?: string;
   items: OrderItem[];
   order_items?: {
     id: string;
@@ -51,6 +52,16 @@ export default function OrdersPage() {
       setIsLoadingOrders(true);
       setError(null);
 
+      // Check if supabase is available
+      if (!supabase) {
+        throw new Error('Supabase client not available');
+      }
+
+      // Check if user exists
+      if (!user?.id) {
+        throw new Error('User not authenticated');
+      }
+
       // Fetch orders with proper sorting and status handling
       const { data, error: supabaseError } = await supabase
         .from('orders')
@@ -76,19 +87,48 @@ export default function OrdersPage() {
         .order('created_at', { ascending: false });
 
       if (supabaseError) {
+        // Handle table not existing
+        if (supabaseError.code === '42P01') {
+          console.log('Orders table does not exist yet');
+          setOrders([]);
+          return;
+        }
         throw supabaseError;
       }
 
-      // Filter out any invalid orders
-      const validOrders = data?.filter(order =>
+      // Filter out any invalid orders and handle different data structures
+      const validOrders = (data || []).map(order => {
+        // Handle both old and new order structures
+        let orderItems: OrderItem[] = [];
+
+        if (order.items && Array.isArray(order.items)) {
+          orderItems = order.items;
+        } else if (order.order_items && Array.isArray(order.order_items)) {
+          orderItems = order.order_items.map(item => ({
+            id: item.id,
+            title: item.item?.title || 'Unknown Item',
+            quantity: item.quantity || 1,
+            price: item.price || 0
+          }));
+        }
+
+        return {
+          ...order,
+          items: orderItems,
+          order_number: order.order_number || order.id.substring(0, 8),
+          amount: order.amount || 0,
+          payment_status: order.payment_status || 'pending'
+        };
+      }).filter(order =>
         order.order_number &&
         (order.items?.length > 0 || order.order_items?.length > 0)
-      ) || [];
+      );
 
       setOrders(validOrders);
     } catch (error) {
       console.error('Error fetching orders:', error);
       setError('Failed to load orders. Please try again.');
+      setOrders([]);
     } finally {
       setIsLoadingOrders(false);
     }
@@ -96,27 +136,35 @@ export default function OrdersPage() {
 
   // Set up real-time subscription for order updates
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id || !supabase) return;
 
-    const subscription = supabase
-      .channel('orders_channel')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'orders',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          console.log('Order update received:', payload);
-          fetchOrders();
-        }
-      )
-      .subscribe();
+    let subscription: any = null;
+
+    try {
+      subscription = supabase
+        .channel('orders_channel')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'orders',
+            filter: `user_id=eq.${user.id}`
+          },
+          (payload) => {
+            console.log('Order update received:', payload);
+            fetchOrders();
+          }
+        )
+        .subscribe();
+    } catch (error) {
+      console.error('Error setting up real-time subscription:', error);
+    }
 
     return () => {
-      subscription.unsubscribe();
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     };
   }, [user?.id]);
 
@@ -128,22 +176,32 @@ export default function OrdersPage() {
   }, [user?.id]);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Invalid Date';
+    }
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
+    try {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(amount || 0);
+    } catch (error) {
+      console.error('Error formatting currency:', error);
+      return `$${(amount || 0).toFixed(2)}`;
+    }
   };
 
   // Render order status with proper styling
-  const renderOrderStatus = (status: string, paymentStatus: string) => {
+  const renderOrderStatus = (status: string, paymentStatus?: string) => {
     // Simplified status display
     if (paymentStatus === 'paid' || status === 'completed') {
       return (
@@ -177,7 +235,20 @@ export default function OrdersPage() {
   }
 
   if (!user) {
-    return null; // Will redirect in useEffect
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Please Sign In</h1>
+          <p className="text-gray-600 mb-6">You need to be signed in to view your orders.</p>
+          <button
+            onClick={() => router.push('/signin?redirect=/account/orders')}
+            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark"
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -231,15 +302,21 @@ export default function OrdersPage() {
                   </div>
                   <div className="px-6 py-4">
                     <div className="space-y-4">
-                      {order.items.map((item, index) => (
-                        <div key={item.id || index} className="flex justify-between items-center">
-                          <div>
-                            <p className="font-medium">{item.title}</p>
-                            <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                      {order.items && order.items.length > 0 ? (
+                        order.items.map((item, index) => (
+                          <div key={item.id || index} className="flex justify-between items-center">
+                            <div>
+                              <p className="font-medium">{item.title || 'Unknown Item'}</p>
+                              <p className="text-sm text-gray-500">Quantity: {item.quantity || 1}</p>
+                            </div>
+                            <p className="font-medium">{formatCurrency((item.price || 0) * (item.quantity || 1))}</p>
                           </div>
-                          <p className="font-medium">{formatCurrency(item.price * item.quantity)}</p>
+                        ))
+                      ) : (
+                        <div className="text-center py-4">
+                          <p className="text-gray-500">No items found for this order</p>
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
                   <div className="px-6 py-4 bg-gray-50">
@@ -259,9 +336,22 @@ export default function OrdersPage() {
 }
 
 export async function getServerSideProps({ locale, req }: { locale: string, req: any }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
+  try {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps for orders page:', error);
+    return {
+      props: {
+        // Return empty translations object as fallback
+        _nextI18Next: {
+          initialI18nStore: {},
+          initialLocale: locale,
+        },
+      },
+    };
+  }
 }

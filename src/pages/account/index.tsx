@@ -60,6 +60,11 @@ export default function AccountPage() {
     }
 
     try {
+      // Check if supabase is available
+      if (!supabase) {
+        throw new Error('Supabase client not available');
+      }
+
       const { data, error } = await supabase
         .from('users')
         .select('*')
@@ -67,8 +72,8 @@ export default function AccountPage() {
         .single();
 
       if (error) {
-        if (error.code === 'PGRST116') {
-          // User not found in users table, this is okay for some auth providers
+        if (error.code === 'PGRST116' || error.code === '42P01') {
+          // User not found in users table or table doesn't exist, this is okay for some auth providers
           console.log('User profile not found in users table, using auth data');
           setProfile({
             id: user.id,
@@ -108,6 +113,13 @@ export default function AccountPage() {
     }
 
     try {
+      // Check if supabase is available
+      if (!supabase) {
+        console.log('Supabase client not available, skipping orders fetch');
+        setOrders([]);
+        return;
+      }
+
       // Check if the user is a business account
       if (profile?.account_type === 'business') {
         // For business accounts, we might handle received orders differently
@@ -143,7 +155,7 @@ export default function AccountPage() {
         return;
       }
 
-      // Then get the count of items in each order
+      // Then get the count of items in each order safely
       const ordersWithItemCount = await Promise.allSettled(
         orderData.map(async (order) => {
           try {
@@ -186,6 +198,13 @@ export default function AccountPage() {
     }
 
     try {
+      // Check if supabase is available
+      if (!supabase) {
+        console.log('Supabase client not available, skipping business profile check');
+        setHasBusinessProfile(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from('business_profiles')
         .select('id')
@@ -199,6 +218,7 @@ export default function AccountPage() {
           setHasBusinessProfile(false);
           return;
         }
+
         console.error('Error checking business profile:', error);
         setHasBusinessProfile(false);
         return;
@@ -218,48 +238,64 @@ export default function AccountPage() {
     } catch (error) {
       console.error('Error signing out:', error);
       // Force redirect even if signOut fails
-      window.location.href = '/';
+      router.push('/');
     }
   };
 
-  // Don't render anything while checking auth status
-  if (isLoading) {
+  // Show loading state
+  if (isLoading || (!user && isLoading)) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse">
-          <p>Loading...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  // Show sign-in prompt if no user
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Please Sign In</h1>
+          <p className="text-gray-600 mb-6">You need to be signed in to view your account.</p>
+          <Link
+            href="/signin?redirect=/account"
+            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark"
+          >
+            Sign In
+          </Link>
         </div>
       </div>
     );
   }
 
-  // If user is not logged in, don't render anything (redirect will happen)
-  if (!user) {
-    return null;
-  }
-
   return (
     <>
       <Head>
-        <title>{t('account.title', 'My Account')} | Directory SLP</title>
-        <meta name="description" content={t('account.description', 'Manage your account settings and view your order history.')} />
+        <title>{t('account.title', 'My Account')} | San Luis Way</title>
+        <meta name="description" content={t('account.description', 'Manage your account, orders, and preferences')} />
+        <meta name="robots" content="noindex" />
       </Head>
 
-      <div className="min-h-screen py-12 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">{t('account.myAccount', 'My Account')}</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">
+              {t('account.welcome', 'Welcome back')}, {profile?.name || user.email?.split('@')[0] || 'User'}!
+            </h1>
+            <p className="text-gray-600 mt-2">{t('account.subtitle', 'Manage your account and view your activity')}</p>
 
             {error && (
-              <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-md p-4">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 mt-4">
                 <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                  </div>
                   <div className="ml-3">
                     <p className="text-sm text-yellow-700">{error}</p>
+                    <button
+                      onClick={() => window.location.reload()}
+                      className="text-sm font-medium text-yellow-800 hover:text-yellow-900 mt-2"
+                    >
+                      Refresh Page
+                    </button>
                   </div>
                 </div>
               </div>
@@ -456,9 +492,22 @@ export default function AccountPage() {
 }
 
 export async function getServerSideProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
+  try {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps for account page:', error);
+    return {
+      props: {
+        // Return empty translations object as fallback
+        _nextI18Next: {
+          initialI18nStore: {},
+          initialLocale: locale,
+        },
+      },
+    };
+  }
 }

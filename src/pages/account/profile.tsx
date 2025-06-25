@@ -543,9 +543,22 @@ export default function ProfilePage() {
 }
 
 export async function getServerSideProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
+  try {
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps for profile page:', error);
+    return {
+      props: {
+        // Return empty translations object as fallback
+        _nextI18Next: {
+          initialI18nStore: {},
+          initialLocale: locale,
+        },
+      },
+    };
+  }
 }

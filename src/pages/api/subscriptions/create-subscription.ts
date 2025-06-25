@@ -140,7 +140,6 @@ export default async function handler(
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/business/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/business/subscription`,
       customer_email: userData.email,
-      allow_promotion_codes: true, // Allow users to enter promotion codes
       metadata: {
         userId: user_id,
         businessId: business_id || null,
@@ -149,12 +148,15 @@ export default async function handler(
       }
     };
 
-    // Add coupon discount if valid coupon provided
+    // Add coupon discount if valid coupon provided, otherwise allow promotion codes
     if (validatedCoupon) {
       checkoutSessionData.discounts = [{
         coupon: validatedCoupon.stripe_coupon_id
       }];
       console.log('Applied coupon:', validatedCoupon.coupon_code);
+    } else {
+      // Only allow promotion codes if no coupon is already applied
+      checkoutSessionData.allow_promotion_codes = true;
     }
 
     // Create checkout session
