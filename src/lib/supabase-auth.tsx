@@ -135,12 +135,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
           if (insertError) {
             console.error('Error creating user record:', insertError);
+            // Don't fail signup if user record creation fails - user is still created in auth
           } else {
             console.log('User record created successfully');
-            window.location.href = '/account';
           }
         } catch (insertErr) {
           console.error('Exception when creating user record:', insertErr);
+          // Don't fail signup if user record creation fails - user is still created in auth
         }
       }
 

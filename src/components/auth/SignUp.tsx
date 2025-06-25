@@ -101,10 +101,11 @@ export default function SignUp() {
 
       if (result.data?.user) {
         console.log('User created:', result.data.user);
-        // Update the account type in the users table
-        console.log('Updating account type to:', data.accountType);
 
+        // Handle account type and business profile creation
         try {
+          // Update the account type in the users table
+          console.log('Updating account type to:', data.accountType);
           const updateResult = await supabase
             .from('users')
             .update({ account_type: data.accountType })
@@ -114,9 +115,8 @@ export default function SignUp() {
 
           if (updateResult.error) {
             console.error('Error updating account type:', updateResult.error);
-            setError(updateResult.error.message);
-            toast.error(updateResult.error.message);
-            return;
+            // Don't fail signup for this - user can update account type later
+            console.log('Account type update failed, but signup successful. User can update this later.');
           }
 
           // Create a business profile if account type is business
@@ -137,24 +137,25 @@ export default function SignUp() {
 
               if (businessResult.error) {
                 console.error('Error creating business profile:', businessResult.error);
-                setError(businessResult.error.message);
-                toast.error(businessResult.error.message);
-                return;
+                // Don't fail signup for this - user can create business profile later
+                console.log('Business profile creation failed, but signup successful. User can create profile later.');
               }
             } catch (err: any) {
               console.error('Exception creating business profile:', err);
-              setError(err.message || 'Failed to create business profile');
-              toast.error(err.message || 'Failed to create business profile');
-              return;
+              // Don't fail signup for this - user can create business profile later
+              console.log('Business profile creation failed with exception, but signup successful.');
             }
           }
 
+          // Show success regardless of profile creation issues
           toast.success(t('signup_success'));
           setSuccess(true);
+
         } catch (err: any) {
-          console.error('Exception updating account type:', err);
-          setError(err.message || 'Failed to update account type');
-          toast.error(err.message || 'Failed to update account type');
+          console.error('Exception during post-signup setup:', err);
+          // Still show success since the core signup worked
+          toast.success(t('signup_success'));
+          setSuccess(true);
         }
       } else {
         console.log('No user data returned from signUp');
