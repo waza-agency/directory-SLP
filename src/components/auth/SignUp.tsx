@@ -151,11 +151,31 @@ export default function SignUp() {
           toast.success(t('signup_success'));
           setSuccess(true);
 
+          // Navigate to account page after a brief delay to show success message
+          setTimeout(() => {
+            try {
+              router.push('/account');
+            } catch (routerError) {
+              console.error('Router navigation failed, falling back to window.location:', routerError);
+              window.location.href = '/account';
+            }
+          }, 2000);
+
         } catch (err: any) {
           console.error('Exception during post-signup setup:', err);
           // Still show success since the core signup worked
           toast.success(t('signup_success'));
           setSuccess(true);
+
+          // Navigate to account page even if secondary operations failed
+          setTimeout(() => {
+            try {
+              router.push('/account');
+            } catch (routerError) {
+              console.error('Router navigation failed, falling back to window.location:', routerError);
+              window.location.href = '/account';
+            }
+          }, 2000);
         }
       } else {
         console.log('No user data returned from signUp');
@@ -236,10 +256,10 @@ export default function SignUp() {
               Resend Verification Email
             </button>
             <Link
-              href="/signin"
+              href="/account"
               className="block w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
             >
-              Go to Sign In
+              Go to Account
             </Link>
           </div>
         </div>

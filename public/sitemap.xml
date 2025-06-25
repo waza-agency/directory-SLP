@@ -324,7 +324,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/events/community-social/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/events/culinary</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/events/culinary/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -344,7 +354,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/events/kids-family/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/events/music</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/events/music/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -369,7 +389,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/events/traditional/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/events/wellness</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/events/wellness/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

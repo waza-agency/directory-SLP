@@ -82,23 +82,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           if (error) {
             console.error('Error refreshing session:', error);
             await supabaseClient.auth.signOut();
-            window.location.href = '/signin';
+            if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+              window.location.href = '/signin';
+            }
           } else if (!currentUser) {
             console.error('No user found after refresh');
             await supabaseClient.auth.signOut();
-            window.location.href = '/signin';
+            if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+              window.location.href = '/signin';
+            }
           } else {
             console.log('Session verified successfully:', currentUser.id);
           }
         } catch (err) {
           console.error('Exception refreshing session:', err);
           await supabaseClient.auth.signOut();
-          window.location.href = '/signin';
+          if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+            window.location.href = '/signin';
+          }
         }
       }
     };
 
-    if (!authError) {
+    if (!authError && session?.access_token) {
       checkAndRefreshSession();
     }
   }, [session, supabaseClient, authError]);
@@ -212,7 +218,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOut = async () => {
     if (supabaseClient && supabaseClient.auth) {
       await supabaseClient.auth.signOut();
-      window.location.href = '/signin';
+      // Only redirect to signin if we're not already on an auth page
+      if (!window.location.pathname.includes('/signin') && !window.location.pathname.includes('/signup')) {
+        window.location.href = '/signin';
+      }
     } else {
       console.error('Cannot sign out: Supabase auth is not available');
     }
