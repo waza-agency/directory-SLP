@@ -3,38 +3,30 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import SignUp from '@/components/auth/SignUp';
-import { useAuth } from '@/lib/supabase-auth';
+import MinimalSignUp from '@/components/auth/MinimalSignUp';
 
 export default function SignUpPage() {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const { user, isLoading } = useAuth();
 
-  // Redirect if already authenticated - only on client side
+  // Simple auth check without complex hooks that crash in production
   useEffect(() => {
-    if (typeof window !== 'undefined' && user && !isLoading) {
-      router.push('/account');
+    try {
+      // Simple check for existing auth without complex dependencies
+      const checkAuth = () => {
+        if (typeof window !== 'undefined') {
+          const token = localStorage.getItem('sb-access-token');
+          if (token) {
+            router.push('/account');
+          }
+        }
+      };
+      checkAuth();
+    } catch (error) {
+      // If auth check fails, just continue to show signup
+      console.log('Auth check skipped:', error);
     }
-  }, [user, isLoading, router]);
-
-  // Show loading during auth check
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  // Only show signup if user is not authenticated
-  if (user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Redirecting...</p>
-      </div>
-    );
-  }
+  }, [router]);
 
   return (
     <>
@@ -45,7 +37,7 @@ export default function SignUpPage() {
 
       <div className="min-h-screen py-12 bg-gray-100">
         <div className="container max-w-lg mx-auto px-4">
-          <SignUp />
+          <MinimalSignUp />
         </div>
       </div>
     </>

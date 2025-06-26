@@ -79,15 +79,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       }
     });
 
+    // Clean and validate email before sending to Supabase
+    const cleanEmail = email.trim().toLowerCase();
+
     // ONLY DO AUTH SIGNUP - NO DATABASE OPERATIONS
-    console.log('🔐 Attempting MINIMAL auth signup for:', email);
+    console.log('🔐 Attempting MINIMAL auth signup for:', cleanEmail);
     const { data, error } = await supabase.auth.signUp({
-      email: email.trim().toLowerCase(),
+      email: cleanEmail,
       password: password,
       options: {
-        // Don't do any additional operations
+        // Minimal options to avoid production issues
         emailRedirectTo: undefined,
-        data: {} // No metadata
+        data: {},
+        captchaToken: undefined
       }
     });
 
@@ -114,7 +118,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       success: true,
       user: {
         id: data.user.id,
-        email: data.user.email || email
+        email: data.user.email || cleanEmail
       }
     });
 
