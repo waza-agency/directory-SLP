@@ -1,37 +1,35 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SimpleSignUp from '@/components/auth/SimpleSignUp';
-import { supabase } from '@/lib/supabase';
 
 export default function SimpleSignUpPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
 
-  // Check if user is already authenticated (client-side only)
+  // Simple auth check without complex dependencies
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
-          router.push('/account');
+    try {
+      // Simple check for existing auth without complex dependencies
+      const checkAuth = () => {
+        if (typeof window !== 'undefined') {
+          const token = localStorage.getItem('sb-access-token');
+          if (token) {
+            router.push('/account');
+          }
         }
-      } catch (error) {
-        console.error('Error checking auth status:', error);
-        // Continue to show signup form if auth check fails
-      }
-    };
-
-    checkAuth();
+      };
+      checkAuth();
+    } catch (error) {
+      // If auth check fails, just continue to show signup
+      console.log('Auth check skipped:', error);
+    }
   }, [router]);
 
   return (
     <>
       <Head>
-        <title>{t('signup.title', 'Create Account')} | Directory SLP</title>
-        <meta name="description" content={t('signup.description', 'Sign up for an account to access all features.')} />
+        <title>Create Account | Directory SLP</title>
+        <meta name="description" content="Sign up for an account to access all features." />
       </Head>
 
       <div className="min-h-screen py-12 bg-gray-100">
@@ -41,12 +39,4 @@ export default function SimpleSignUpPage() {
       </div>
     </>
   );
-}
-
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
 }
