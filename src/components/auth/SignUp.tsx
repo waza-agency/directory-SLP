@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { useAuth } from '@/lib/supabase-auth';
 import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 
@@ -28,7 +27,7 @@ export default function SignUp() {
   const [success, setSuccess] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const router = useRouter();
-  const { signUp, supabase } = useAuth();
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpFormValues>({
     defaultValues: {
       accountType: 'user'
@@ -40,23 +39,67 @@ export default function SignUp() {
 
   const attemptSignUp = async (email: string, password: string, retryNumber = 0): Promise<any> => {
     try {
-      const result = await signUp(email, password);
+      console.log(`🚀 Attempt ${retryNumber + 1}: Calling robust signup API for ${email}`);
 
-      if (result.error) {
+      const response = await fetch('/api/robust-signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      console.log(`📡 API Response status: ${response.status}`);
+
+      const result = await response.json();
+      console.log('✅ Signup API result:', result);
+
+      if (!response.ok) {
         // If it's a timeout or network error, and we haven't exceeded retries, try again
-        if ((result.error.message?.includes('timeout') ||
-             result.error.message?.includes('network') ||
-             result.error instanceof Error && result.error.name === 'AuthRetryableFetchError') &&
+        if ((result.error?.includes('timeout') ||
+             result.error?.includes('network') ||
+             response.status >= 500) &&
             retryNumber < MAX_RETRIES) {
           console.log(`Signup attempt ${retryNumber + 1} failed, retrying...`);
           await sleep(RETRY_DELAY);
           return attemptSignUp(email, password, retryNumber + 1);
         }
+
+        throw new Error(result.error || `HTTP ${response.status}`);
       }
 
-      return result;
-    } catch (error) {
-      if (retryNumber < MAX_RETRIES) {
+      if (result.error) {
+        // If it's a timeout or network error, and we haven't exceeded retries, try again
+        if ((result.error.includes('timeout') ||
+             result.error.includes('network')) &&
+            retryNumber < MAX_RETRIES) {
+          console.log(`Signup attempt ${retryNumber + 1} failed, retrying...`);
+          await sleep(RETRY_DELAY);
+          return attemptSignUp(email, password, retryNumber + 1);
+        }
+
+        throw new Error(result.error);
+      }
+
+      if (!result.success || !result.user) {
+        throw new Error('Failed to create user account');
+      }
+
+      return {
+        data: {
+          user: result.user
+        },
+        error: null
+      };
+
+    } catch (error: any) {
+      if (retryNumber < MAX_RETRIES &&
+          (error.message?.includes('timeout') ||
+           error.message?.includes('network') ||
+           error.name === 'AuthRetryableFetchError')) {
         console.log(`Signup attempt ${retryNumber + 1} failed with error, retrying...`, error);
         await sleep(RETRY_DELAY);
         return attemptSignUp(email, password, retryNumber + 1);
@@ -73,12 +116,7 @@ export default function SignUp() {
     setRetryCount(0);
 
     try {
-      if (!supabase) {
-        console.error('Supabase client is not available in SignUp component');
-        throw new Error('Database connection unavailable. Please try again later.');
-      }
-
-      console.log('Calling signUp function with:', data.email);
+      console.log('Calling robust signup API with:', data.email);
       const result = await attemptSignUp(data.email, data.password);
       console.log('SignUp result:', result);
 
@@ -102,89 +140,29 @@ export default function SignUp() {
       if (result.data?.user) {
         console.log('User created:', result.data.user);
 
-        // Handle account type and business profile creation
-        try {
-          // Update the account type in the users table
-          console.log('Updating account type to:', data.accountType);
-          const updateResult = await supabase
-            .from('users')
-            .update({ account_type: data.accountType })
-            .eq('id', result.data.user.id);
+        // Note: Business profile creation is moved to a separate flow
+        // since the robust-signup API only handles basic user creation
+        console.log('Basic user signup successful. Business profile setup can be done later.');
 
-          console.log('Update result:', updateResult);
+        // Show success
+        toast.success(t('signup_success'));
+        setSuccess(true);
 
-          if (updateResult.error) {
-            console.error('Error updating account type:', updateResult.error);
-            // Don't fail signup for this - user can update account type later
-            console.log('Account type update failed, but signup successful. User can update this later.');
-          }
-
-          // Create a business profile if account type is business
-          if (data.accountType === 'business') {
-            console.log('Creating business profile for user:', result.data.user.id);
-            try {
-              const businessResult = await supabase
-                .from('business_profiles')
-                .insert([
-                  {
-                    user_id: result.data.user.id,
-                    business_name: data.name,
-                    business_category: data.businessCategory,
-                  }
-                ]);
-
-              console.log('Business profile creation result:', businessResult);
-
-              if (businessResult.error) {
-                console.error('Error creating business profile:', businessResult.error);
-                // Don't fail signup for this - user can create business profile later
-                console.log('Business profile creation failed, but signup successful. User can create profile later.');
-              }
-            } catch (err: any) {
-              console.error('Exception creating business profile:', err);
-              // Don't fail signup for this - user can create business profile later
-              console.log('Business profile creation failed with exception, but signup successful.');
-            }
-          }
-
-          // Show success regardless of profile creation issues
-          toast.success(t('signup_success'));
-          setSuccess(true);
-
-          // Navigate to account page after a brief delay to show success message
-          setTimeout(() => {
-            try {
+        // Navigate to account page after a brief delay to show success message
+        setTimeout(() => {
+          try {
+            if (data.accountType === 'business') {
+              // Redirect to business profile setup
+              router.push('/business/profile?setup=true');
+            } else {
               router.push('/account');
-            } catch (routerError) {
-              console.error('Router navigation failed, falling back to window.location:', routerError);
-              window.location.href = '/account';
             }
-          }, 2000);
+          } catch (routerError) {
+            console.error('Router navigation failed, falling back to window.location:', routerError);
+            window.location.href = '/account';
+          }
+        }, 2000);
 
-        } catch (err: any) {
-          console.error('Exception during post-signup setup:', err);
-          console.error('Error details:', {
-            message: err.message,
-            code: err.code,
-            details: err.details,
-            hint: err.hint,
-            stack: err.stack
-          });
-
-          // Still show success since the core signup worked
-          toast.success(t('signup_success'));
-          setSuccess(true);
-
-          // Navigate to account page even if secondary operations failed
-          setTimeout(() => {
-            try {
-              router.push('/account');
-            } catch (routerError) {
-              console.error('Router navigation failed, falling back to window.location:', routerError);
-              window.location.href = '/account';
-            }
-          }, 2000);
-        }
       } else {
         console.log('No user data returned from signUp');
         setError('User registration failed.');
@@ -234,41 +212,20 @@ export default function SignUp() {
           </div>
           <div className="space-y-4 mt-6">
             <button
-              onClick={(event) => {
-                if (supabase?.auth.resend) {
-                  // Add loading state for resend button
-                  const btn = event?.target as HTMLButtonElement;
-                  const originalText = btn.innerText;
-                  btn.disabled = true;
-                  btn.innerText = 'Sending...';
-
-                  supabase.auth.resend({
-                    type: 'signup',
-                    email: watch('email')
-                  }).then((response) => {
-                    if (response.error?.message.includes('rate limit')) {
-                      toast.error('Please wait a few minutes before requesting another email.');
-                    } else if (response.error) {
-                      toast.error(response.error.message);
-                    } else {
-                      toast.success('Verification email resent!');
-                    }
-                  }).finally(() => {
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                  });
-                }
+              onClick={() => {
+                // For now, just show a message since we'd need to implement resend in the robust API
+                toast.info('To resend verification email, please try signing up again.');
               }}
-              className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:bg-gray-200 disabled:text-gray-500"
+              className="w-full bg-blue-50 text-blue-600 border border-blue-200 py-2 px-4 rounded-md hover:bg-blue-100 transition-colors"
             >
               Resend Verification Email
             </button>
-            <Link
-              href="/account"
-              className="block w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+            <button
+              onClick={() => router.push('/signin')}
+              className="w-full bg-gray-100 text-gray-600 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors"
             >
-              Go to Account
-            </Link>
+              Back to Sign In
+            </button>
           </div>
         </div>
       </div>
@@ -277,7 +234,7 @@ export default function SignUp() {
 
   return (
     <div className="max-w-md w-full mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-6">Create an Account</h2>
+      <h2 className="text-3xl font-bold text-center mb-6">{t('create_account')}</h2>
 
       {error && (
         <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md">
@@ -298,169 +255,148 @@ export default function SignUp() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Account Type Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {t('account_type')}
+          <label className="block text-sm font-medium text-gray-700 mb-3">
+            Account Type
           </label>
-          <div className="grid grid-cols-2 gap-4">
-            <label className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-colors ${watch('accountType') === 'user' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-300 hover:border-primary/50'}`}>
+          <div className="space-y-3">
+            <label className="flex items-center">
               <input
+                {...register("accountType")}
                 type="radio"
                 value="user"
-                {...register('accountType')}
-                className="sr-only"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
               />
-              <div className="text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="font-medium">{t('individual')}</span>
-              </div>
+              <span className="ml-2 text-sm">Personal Account</span>
             </label>
-
-            <label className={`flex items-center justify-center p-4 border rounded-lg cursor-pointer transition-colors ${watch('accountType') === 'business' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-300 hover:border-primary/50'}`}>
+            <label className="flex items-center">
               <input
+                {...register("accountType")}
                 type="radio"
                 value="business"
-                {...register('accountType')}
-                className="sr-only"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
               />
-              <div className="text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                <span className="font-medium">{t('business')}</span>
-              </div>
+              <span className="ml-2 text-sm">Business Account</span>
             </label>
           </div>
         </div>
 
+        {/* Name Field */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-            {watch('accountType') === 'business' ? 'Business Name' : 'Full Name'}
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            {accountType === 'business' ? 'Business Name' : 'Full Name'}
           </label>
           <input
-            id="name"
+            {...register("name", { required: "Name is required" })}
             type="text"
-            {...register('name', { required: 'Name is required' })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder={accountType === 'business' ? 'Your business name' : 'Your full name'}
           />
-          {errors.name && (
-            <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
         </div>
 
-        {/* Business Category (only shown for business accounts) */}
+        {/* Business Category (conditional) */}
         {accountType === 'business' && (
           <div>
-            <label htmlFor="businessCategory" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="businessCategory" className="block text-sm font-medium text-gray-700">
               Business Category
             </label>
             <select
-              id="businessCategory"
-              {...register('businessCategory', {
-                required: accountType === 'business' ? 'Business category is required' : false
-              })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              {...register("businessCategory", { required: accountType === 'business' ? "Business category is required" : false })}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Select a category</option>
-              <option value="Food & Beverage">Food & Beverage</option>
-              <option value="Retail">Retail</option>
-              <option value="Services">Services</option>
-              <option value="Health & Wellness">Health & Wellness</option>
-              <option value="Education">Education</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Travel & Tourism">Travel & Tourism</option>
-              <option value="Technology">Technology</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Real Estate">Real Estate</option>
-              <option value="Other">Other</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="retail">Retail</option>
+              <option value="service">Service</option>
+              <option value="technology">Technology</option>
+              <option value="other">Other</option>
             </select>
-            {errors.businessCategory && (
-              <p className="mt-1 text-sm text-red-600">{errors.businessCategory.message}</p>
-            )}
+            {errors.businessCategory && <p className="mt-1 text-sm text-red-600">{errors.businessCategory.message}</p>}
           </div>
         )}
 
+        {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            {t('email')}
           </label>
           <input
-            id="email"
-            type="email"
-            {...register('email', {
-              required: 'Email is required',
+            {...register("email", {
+              required: "Email is required",
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address'
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format"
               }
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            type="email"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="your.email@example.com"
           />
-          {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
         </div>
 
+        {/* Password Field */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-            Password
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            {t('password')}
           </label>
           <input
-            id="password"
-            type="password"
-            {...register('password', {
-              required: 'Password is required',
+            {...register("password", {
+              required: "Password is required",
               minLength: {
-                value: 8,
-                message: 'Password must be at least 8 characters'
+                value: 6,
+                message: "Password must be at least 6 characters"
               }
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            type="password"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Choose a strong password"
           />
-          {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-          )}
+          {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
         </div>
 
+        {/* Confirm Password Field */}
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-            Confirm Password
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+            {t('confirm_password')}
           </label>
           <input
-            id="confirmPassword"
-            type="password"
-            {...register('confirmPassword', {
-              required: 'Please confirm your password',
-              validate: value => value === password || 'Passwords do not match'
+            {...register("confirmPassword", {
+              required: "Please confirm your password",
+              validate: value => value === password || "Passwords do not match"
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            type="password"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Confirm your password"
           />
-          {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
-          )}
+          {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>}
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLoading ? t('signing_up') : t('sign_up')}
+          {isLoading ? (
+            <div className="flex items-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              Creating Account...
+            </div>
+          ) : (
+            t('sign_up')
+          )}
         </button>
-      </form>
 
-      <div className="mt-6 text-center">
-        <p className="text-sm text-gray-600">
-          Already have an account?{' '}
-          <Link
-            href="/signin"
-            className="text-primary hover:text-primary-dark"
-          >
-            Sign in
-          </Link>
-        </p>
-      </div>
+        <div className="text-center">
+          <span className="text-sm text-gray-600">
+            {t('already_have_account')} {' '}
+            <Link href="/signin" className="font-medium text-blue-600 hover:text-blue-500">
+              {t('sign_in')}
+            </Link>
+          </span>
+        </div>
+      </form>
     </div>
   );
 }
