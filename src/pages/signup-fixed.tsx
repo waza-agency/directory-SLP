@@ -1,128 +1,204 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import FixedSignUp from '@/components/auth/FixedSignUp';
 
 export default function FixedSignUpPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [debugInfo, setDebugInfo] = useState<any>(null);
 
-  // Simple auth check without complex dependencies
-  useEffect(() => {
-    const checkSimpleAuth = () => {
-      try {
-        // Check if there's an existing session token
-        const token = localStorage.getItem('sb-access-token');
-        if (token) {
-          // User might be already logged in, redirect them
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage('⚠️ Passwords do not match');
+      return;
+    }
+
+    if (password.length < 6) {
+      setMessage('⚠️ Password must be at least 6 characters');
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage('🔄 Creating your account...');
+
+    try {
+      const response = await fetch('/api/robust-signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+      setDebugInfo(data);
+
+      if (data.success) {
+        setMessage('✅ Account created successfully! Check your email for confirmation.');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+
+        // Redirect to account page after 3 seconds
+        setTimeout(() => {
           router.push('/account');
-        }
-      } catch (error) {
-        // If localStorage is not available or any error occurs, continue to show signup
-        console.log('Auth check skipped:', error);
+        }, 3000);
+      } else {
+        setMessage(`❌ Signup failed: ${data.error}`);
       }
-    };
-
-    checkSimpleAuth();
-  }, [router]);
+    } catch (error: any) {
+      setMessage(`❌ Network error: ${error.message}`);
+      console.error('Signup error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
       <Head>
-        <title>Fixed Signup | Directory SLP</title>
-        <meta name="description" content="Production-ready signup with robust error handling and comprehensive debugging." />
-        <meta name="robots" content="index, follow" />
+        <title>Fixed Signup - SLP Directory</title>
+        <meta name="description" content="Test the fixed signup functionality" />
       </Head>
 
-      <div className="min-h-screen py-12 bg-gray-100">
-        <div className="container max-w-lg mx-auto px-4">
-          <FixedSignUp />
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            🔧 Fixed Signup Test
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Testing the production signup fix
+          </p>
+        </div>
 
-          {/* Environment Indicator */}
-          <div className="mt-4 text-center">
-            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-              process.env.NODE_ENV === 'production'
-                ? 'bg-green-100 text-green-800'
-                : 'bg-yellow-100 text-yellow-800'
-            }`}>
-              {process.env.NODE_ENV === 'production' ? 'Production' : 'Development'} - Fixed Signup
-            </span>
-          </div>
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  Email address
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Enter your email"
+                  />
+                </div>
+              </div>
 
-          {/* Info Box */}
-          <div className="mt-4 p-4 bg-blue-50 rounded-md">
-            <h3 className="text-sm font-medium text-blue-800 mb-2">🔧 Fixed Signup Features:</h3>
-            <ul className="text-xs text-blue-700 space-y-1">
-              <li>✅ Robust error handling for production environments</li>
-              <li>✅ Comprehensive environment variable validation</li>
-              <li>✅ Retry logic for network timeouts</li>
-              <li>✅ User-friendly error messages</li>
-              <li>✅ Detailed debug information (development only)</li>
-              <li>✅ Production-optimized Supabase client configuration</li>
-            </ul>
-          </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Enter your password"
+                    minLength={6}
+                  />
+                </div>
+              </div>
 
-          {/* Debug Links (Development Only) */}
-          {process.env.NODE_ENV !== 'production' && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-md">
-              <h3 className="text-sm font-medium text-gray-800 mb-2">🔍 Debug Tools:</h3>
-              <div className="space-y-2">
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                  Confirm Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Confirm your password"
+                    minLength={6}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                    isLoading
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                  }`}
+                >
+                  {isLoading ? 'Creating Account...' : 'Create Account'}
+                </button>
+              </div>
+            </form>
+
+            {message && (
+              <div className="mt-4 p-3 rounded-md bg-gray-100 border">
+                <p className="text-sm text-gray-800">{message}</p>
+              </div>
+            )}
+
+            {debugInfo && (
+              <div className="mt-4 p-3 rounded-md bg-gray-50 border">
+                <h4 className="text-sm font-medium text-gray-900 mb-2">Debug Info:</h4>
+                <pre className="text-xs text-gray-600 overflow-auto">
+                  {JSON.stringify(debugInfo, null, 2)}
+                </pre>
+              </div>
+            )}
+
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">Test Options</span>
+                </div>
+              </div>
+
+              <div className="mt-6 grid grid-cols-2 gap-3">
                 <a
                   href="/api/debug-production-issue"
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-xs text-blue-600 hover:text-blue-800"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
-                  → Test Production Debug Endpoint
+                  🔍 Debug API
                 </a>
-                <a
-                  href="/api/robust-signup"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-xs text-blue-600 hover:text-blue-800"
-                >
-                  → Test Robust Signup API (GET)
-                </a>
+
                 <button
-                  onClick={() => {
-                    // Test the robust signup API with a test user
-                    fetch('/api/robust-signup', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        email: `test-${Date.now()}@example.com`,
-                        password: 'TestPassword123!'
-                      })
-                    }).then(r => r.json()).then(data => {
-                      console.log('Test signup result:', data);
-                      alert(`Test signup: ${data.success ? 'SUCCESS' : 'FAILED'}\nSee console for details.`);
-                    });
-                  }}
-                  className="block text-xs text-purple-600 hover:text-purple-800 underline"
+                  type="button"
+                  onClick={() => window.location.href = '/signup'}
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
-                  → Run Test Signup (Check Console)
+                  🔙 Original Signup
                 </button>
               </div>
-            </div>
-          )}
-
-          {/* Navigation */}
-          <div className="mt-6 text-center space-y-2">
-            <p className="text-sm text-gray-600">
-              Compare with other signup pages:
-            </p>
-            <div className="space-x-4">
-              <a href="/signup" className="text-xs text-blue-600 hover:text-blue-800">
-                Original Signup
-              </a>
-              <a href="/signup-minimal" className="text-xs text-blue-600 hover:text-blue-800">
-                Minimal Signup
-              </a>
-              <a href="/signup-production" className="text-xs text-blue-600 hover:text-blue-800">
-                Production Signup
-              </a>
             </div>
           </div>
         </div>
@@ -131,10 +207,9 @@ export default function FixedSignUpPage() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+// Remove the getServerSideProps to avoid i18n issues
+export async function getServerSideProps() {
   return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
+    props: {},
   };
 }
