@@ -163,6 +163,14 @@ export default function SignUp() {
 
         } catch (err: any) {
           console.error('Exception during post-signup setup:', err);
+          console.error('Error details:', {
+            message: err.message,
+            code: err.code,
+            details: err.details,
+            hint: err.hint,
+            stack: err.stack
+          });
+
           // Still show success since the core signup worked
           toast.success(t('signup_success'));
           setSuccess(true);

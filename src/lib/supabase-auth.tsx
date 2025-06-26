@@ -153,27 +153,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
 
       if (!error && data?.user) {
-        try {
-          const { error: insertError } = await supabaseClient.from('users').insert([
-            {
-              id: data.user.id,
-              email: data.user.email,
-              account_type: 'user',
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            }
-          ]);
-
-          if (insertError) {
-            console.error('Error creating user record:', insertError);
-            // Don't fail signup if user record creation fails - user is still created in auth
-          } else {
-            console.log('User record created successfully');
-          }
-        } catch (insertErr) {
-          console.error('Exception when creating user record:', insertErr);
-          // Don't fail signup if user record creation fails - user is still created in auth
-        }
+        console.log('Auth signup successful, user record will be created automatically by trigger');
+        // User record is now created automatically by database trigger
+        // No need to manually insert user record here
       }
 
       return { data, error };
