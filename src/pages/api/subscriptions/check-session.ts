@@ -20,24 +20,69 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // Create authenticated Supabase client
     const supabase = createServerSupabaseClient({ req, res });
-    
+
     // Check if we have a session
     const {
       data: { session },
     } = await supabase.auth.getSession();
 
-    if (!session) {
-      return res.status(401).json({
-        error: 'not_authenticated',
-        description: 'The user does not have an active session or is not authenticated',
-      });
-    }
-
-    // Retrieve the session from Stripe
+    // First retrieve the Stripe session to get the metadata
     const checkoutSession = await stripe.checkout.sessions.retrieve(session_id as string);
 
     if (!checkoutSession) {
       return res.status(404).json({ error: 'Session not found' });
+    }
+
+    // If no active user session, but we have a valid Stripe session with metadata,
+    // we can still provide subscription status (payment might be processing)
+    if (!session) {
+      console.log('No active user session, but checking subscription status from Stripe session');
+
+      // Get user ID from Stripe session metadata
+      const userId = checkoutSession.metadata?.userId;
+
+      if (!userId) {
+        return res.status(401).json({
+          error: 'not_authenticated',
+          description: 'No user session and no user ID in Stripe metadata',
+        });
+      }
+
+      // Use service role to check subscription status without requiring user session
+      const serviceSupabase = require('@supabase/supabase-js').createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.SUPABASE_SERVICE_ROLE_KEY
+      );
+
+      const { data: businessProfile } = await serviceSupabase
+        .from('business_profiles')
+        .select('subscription_status')
+        .eq('user_id', userId)
+        .single();
+
+      let status = 'pending';
+
+      if (businessProfile?.subscription_status === 'active') {
+        status = 'active';
+      } else if (checkoutSession.payment_status === 'paid') {
+        // Payment is complete but our webhook might not have processed yet
+        status = 'active';
+
+        // Update the business profile status
+        await serviceSupabase
+          .from('business_profiles')
+          .update({
+            subscription_status: 'active',
+          })
+          .eq('user_id', userId);
+      }
+
+      return res.status(200).json({
+        status,
+        payment_status: checkoutSession.payment_status,
+        subscription_id: checkoutSession.subscription,
+        note: 'Status checked without user session'
+      });
     }
 
     // Check if the session belongs to the authenticated user
@@ -54,18 +99,56 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (profileError) {
       console.error('Error fetching business profile:', profileError);
+
+      // If business profile doesn't exist but payment was successful, create it
+      if (profileError.code === 'PGRST116' && checkoutSession.payment_status === 'paid') {
+        console.log('Creating business profile for successful payment');
+
+        const { data: userData } = await supabase
+          .from('users')
+          .select('email')
+          .eq('id', session.user.id)
+          .single();
+
+        const businessName = userData?.email ?
+          userData.email.split('@')[0] + ' Business' :
+          'New Business';
+
+        const { data: newProfile, error: insertError } = await supabase
+          .from('business_profiles')
+          .insert([
+            {
+              user_id: session.user.id,
+              business_name: businessName,
+              subscription_status: 'active',
+              business_category: 'Other'
+            }
+          ])
+          .select('subscription_status')
+          .single();
+
+        if (!insertError) {
+          return res.status(200).json({
+            status: 'active',
+            payment_status: checkoutSession.payment_status,
+            subscription_id: checkoutSession.subscription,
+            note: 'Business profile created'
+          });
+        }
+      }
+
       return res.status(500).json({ error: 'Error fetching subscription status' });
     }
 
     // If the checkout session has a payment status, use it to determine the overall status
     let status = 'pending';
-    
+
     if (businessProfile?.subscription_status === 'active') {
       status = 'active';
     } else if (checkoutSession.payment_status === 'paid') {
       // If the payment is paid but our DB doesn't reflect it yet (webhook might be delayed)
       status = 'active';
-      
+
       // Update the business profile status
       const { error: updateError } = await supabase
         .from('business_profiles')
@@ -73,7 +156,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           subscription_status: 'active',
         })
         .eq('user_id', session.user.id);
-        
+
       if (updateError) {
         console.error('Error updating business profile status:', updateError);
       }
@@ -92,4 +175,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
   }
-} 
+}

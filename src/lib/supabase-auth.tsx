@@ -97,17 +97,77 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const { data: { user: currentUser }, error } = await supabaseClient.auth.getUser();
         if (error) {
           console.error('Error refreshing session:', error);
+
+          // Check if we're in a payment flow - if so, be less aggressive
+          const pathname = window.location.pathname;
+          const isInPaymentFlow = pathname.includes('/subscription-success') ||
+                                  pathname.includes('/checkout') ||
+                                  pathname.includes('/payment') ||
+                                  window.location.search.includes('session_id');
+
+          if (isInPaymentFlow) {
+            console.log('In payment flow, not immediately signing out - will retry session');
+            // Give some time for the session to potentially recover
+            setTimeout(async () => {
+              try {
+                const { data: { user: retryUser }, error: retryError } = await supabaseClient.auth.getUser();
+                if (retryError || !retryUser) {
+                  console.log('Session retry failed, proceeding with sign out');
+                  await supabaseClient.auth.signOut();
+                  if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
+                    window.location.href = '/signin';
+                  }
+                }
+              } catch (retryErr) {
+                console.error('Retry session check failed:', retryErr);
+                await supabaseClient.auth.signOut();
+                if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
+                  window.location.href = '/signin';
+                }
+              }
+            }, 5000); // Wait 5 seconds before retrying
+            return; // Don't immediately sign out
+          }
+
           await supabaseClient.auth.signOut();
           // Only redirect to signin if we're not already on an auth page
-          const pathname = window.location.pathname;
           if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
             window.location.href = '/signin';
           }
         } else if (!currentUser) {
           console.error('No user found after refresh');
+
+          // Check if we're in a payment flow
+          const pathname = window.location.pathname;
+          const isInPaymentFlow = pathname.includes('/subscription-success') ||
+                                  pathname.includes('/checkout') ||
+                                  pathname.includes('/payment') ||
+                                  window.location.search.includes('session_id');
+
+          if (isInPaymentFlow) {
+            console.log('In payment flow with no user, delaying sign out');
+            setTimeout(async () => {
+              try {
+                const { data: { user: retryUser } } = await supabaseClient.auth.getUser();
+                if (!retryUser) {
+                  await supabaseClient.auth.signOut();
+                  if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
+                    window.location.href = '/signin';
+                  }
+                }
+              } catch (retryErr) {
+                console.error('Retry session check failed:', retryErr);
+                await supabaseClient.auth.signOut();
+                if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
+                  window.location.href = '/signin';
+                }
+              }
+            }, 5000);
+            return;
+          }
+
           await supabaseClient.auth.signOut();
           // Only redirect to signin if we're not already on an auth page
-          const pathname = window.location.pathname;
           if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
             window.location.href = '/signin';
           }
@@ -116,13 +176,46 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       } catch (err) {
         console.error('Exception refreshing session:', err);
+
+        // Check if we're in a payment flow
+        const pathname = window.location.pathname;
+        const isInPaymentFlow = pathname.includes('/subscription-success') ||
+                                pathname.includes('/checkout') ||
+                                pathname.includes('/payment') ||
+                                window.location.search.includes('session_id');
+
+        if (isInPaymentFlow) {
+          console.log('Exception during payment flow, will retry before signing out');
+          setTimeout(async () => {
+            try {
+              const { data: { user: retryUser } } = await supabaseClient.auth.getUser();
+              if (!retryUser) {
+                await supabaseClient.auth.signOut();
+                if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
+                  window.location.href = '/signin';
+                }
+              }
+            } catch (retryErr) {
+              console.error('Final retry failed:', retryErr);
+              try {
+                await supabaseClient.auth.signOut();
+              } catch (signOutError) {
+                console.error('Error signing out after final retry failure:', signOutError);
+              }
+              if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
+                window.location.href = '/signin';
+              }
+            }
+          }, 5000);
+          return;
+        }
+
         try {
           await supabaseClient.auth.signOut();
         } catch (signOutError) {
           console.error('Error signing out after session refresh failure:', signOutError);
         }
         // Only redirect to signin if we're not already on an auth page
-        const pathname = window.location.pathname;
         if (!pathname.includes('/signin') && !pathname.includes('/signup')) {
           window.location.href = '/signin';
         }

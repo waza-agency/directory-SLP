@@ -11,85 +11,144 @@ const SubscriptionSuccessPage = () => {
   const [isChecking, setIsChecking] = useState(true);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'active' | 'pending' | 'error'>('pending');
   const [businessName, setBusinessName] = useState<string>('');
+  const [hasCheckedSession, setHasCheckedSession] = useState(false);
 
+  // Remove aggressive redirect - only redirect after reasonable wait and multiple failures
   useEffect(() => {
-    // Redirect if not authenticated
-    if (!user && !isLoading) {
-      router.push('/signin?redirect=/business/subscription');
+    // Only redirect if user is clearly not authenticated after loading completes
+    // and we've had time to check the session
+    if (!isLoading && !user && hasCheckedSession) {
+      // Add a delay to prevent immediate redirects during payment flow
+      const redirectTimer = setTimeout(() => {
+        console.log('No user found after session check, redirecting to signin');
+        router.push('/signin?redirect=/business/subscription');
+      }, 3000); // Wait 3 seconds before redirecting
+
+      return () => clearTimeout(redirectTimer);
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, router, hasCheckedSession]);
 
   useEffect(() => {
     const checkSubscription = async () => {
-      if (!user) return;
+      if (!user && isLoading) {
+        // Still loading auth, wait
+        return;
+      }
 
       try {
-        // Even if there's no session_id in the URL, try to fetch the business profile
-        // to see if they have an active subscription
+        setIsChecking(true);
         console.log('Checking user subscription status');
-        const { data: userData } = await fetch('/api/user/me').then(res => res.json());
-        
-        // Try to get the business profile to show the business name
-        if (userData?.id) {
-          const response = await fetch(`/api/user/business-profile?user_id=${userData.id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data?.business_name) {
-              setBusinessName(data.business_name);
-            }
-            if (data?.subscription_status === 'active') {
-              setSubscriptionStatus('active');
+
+        // Try to check subscription even without user (in case auth is delayed)
+        if (user?.id) {
+          const { data: userData } = await fetch('/api/user/me').then(res => res.json());
+
+          // Try to get the business profile to show the business name
+          if (userData?.id) {
+            const response = await fetch(`/api/user/business-profile?user_id=${userData.id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data?.business_name) {
+                setBusinessName(data.business_name);
+              }
+              if (data?.subscription_status === 'active') {
+                setSubscriptionStatus('active');
+              }
             }
           }
         }
 
-        // If there's a session_id, check it
+        // If there's a session_id, check it - this is the primary success indicator
         if (router.query.session_id) {
           console.log('Checking session ID:', router.query.session_id);
-          const response = await fetch(`/api/subscriptions/check-session?session_id=${router.query.session_id}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
 
-          const data = await response.json();
-          console.log('Session check response:', data);
-          
-          if (response.ok && data.status === 'active') {
-            setSubscriptionStatus('active');
-          } else if (response.ok && data.status === 'pending') {
-            setSubscriptionStatus('pending');
-          } else {
-            console.error('Error in session check response:', data);
+          // Retry logic for session check
+          const maxRetries = 3;
+          let retryCount = 0;
+          let sessionCheckSuccess = false;
+
+          while (retryCount < maxRetries && !sessionCheckSuccess) {
+            try {
+              const response = await fetch(`/api/subscriptions/check-session?session_id=${router.query.session_id}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+
+              const data = await response.json();
+              console.log('Session check response:', data);
+
+              if (response.ok) {
+                sessionCheckSuccess = true;
+                if (data.status === 'active') {
+                  setSubscriptionStatus('active');
+                } else if (data.status === 'pending') {
+                  setSubscriptionStatus('pending');
+                } else {
+                  setSubscriptionStatus('error');
+                }
+              } else if (response.status === 401) {
+                // Auth issue, but don't immediately redirect - payment might still be processing
+                console.log('Auth issue during session check, will retry');
+                retryCount++;
+                if (retryCount < maxRetries) {
+                  await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds before retry
+                }
+              } else {
+                console.error('Error in session check response:', data);
+                retryCount++;
+                if (retryCount < maxRetries) {
+                  await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+              }
+            } catch (error) {
+              console.error('Error during session check retry:', error);
+              retryCount++;
+              if (retryCount < maxRetries) {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+              }
+            }
+          }
+
+          if (!sessionCheckSuccess) {
+            console.error('Failed to check session after retries');
             setSubscriptionStatus('error');
           }
+        } else {
+          // No session ID in URL, but user might still have an active subscription
+          console.log('No session ID found, but user might have existing subscription');
+          // The business profile check above should handle this case
         }
+
       } catch (err) {
         console.error('Error checking subscription:', err);
         setSubscriptionStatus('error');
       } finally {
         setIsChecking(false);
+        setHasCheckedSession(true);
       }
     };
 
-    if (user) {
-      checkSubscription();
-    } else if (!isLoading) {
-      setIsChecking(false);
-    }
+    // Always try to check subscription, even if user is not immediately available
+    // This handles cases where payment completed but auth is still loading
+    checkSubscription();
   }, [router.query.session_id, user, isLoading]);
 
-  if (isLoading || isChecking) {
+  // Show loading state while checking
+  if (isChecking) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-primary">Cargando...</div>
+        <div className="text-center">
+          <div className="animate-pulse text-primary text-lg mb-2">Verificando tu suscripción...</div>
+          <div className="text-sm text-gray-600">Esto puede tomar unos momentos</div>
+        </div>
       </div>
     );
   }
@@ -108,30 +167,40 @@ const SubscriptionSuccessPage = () => {
             <div className="bg-primary/10 p-6 text-center">
               <CheckCircleIcon className="h-20 w-20 mx-auto text-green-500 mb-4" />
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {subscriptionStatus === 'active' 
-                  ? '¡Suscripción Confirmada!' 
-                  : subscriptionStatus === 'pending' 
-                    ? 'Procesando Tu Suscripción' 
+                {subscriptionStatus === 'active'
+                  ? '¡Suscripción Confirmada!'
+                  : subscriptionStatus === 'pending'
+                    ? 'Procesando Tu Suscripción'
                     : 'Estado de Suscripción'}
               </h1>
               <p className="text-xl text-gray-700">
                 {businessName ? `¡Bienvenido ${businessName}!` : '¡Bienvenido a Directory SLP!'}
               </p>
             </div>
-            
+
             <div className="p-8">
               <div className="mb-8 text-center">
                 <p className="text-lg text-gray-700 mb-4">
-                  {subscriptionStatus === 'active' 
-                    ? 'Gracias por subscribirte a Directory SLP. Tu negocio ahora es parte de nuestra comunidad. ¡Tu perfil ya está activo y puedes comenzar a crear listados!' 
-                    : subscriptionStatus === 'pending' 
-                      ? 'Tu pago está siendo procesado. Pronto recibirás una confirmación por correo electrónico cuando tu suscripción esté activa.' 
+                  {subscriptionStatus === 'active'
+                    ? 'Gracias por subscribirte a Directory SLP. Tu negocio ahora es parte de nuestra comunidad. ¡Tu perfil ya está activo y puedes comenzar a crear listados!'
+                    : subscriptionStatus === 'pending'
+                      ? 'Tu pago está siendo procesado. Pronto recibirás una confirmación por correo electrónico cuando tu suscripción esté activa.'
                       : 'No pudimos confirmar el estado de tu suscripción. Si acabas de completar el pago, por favor espera unos minutos mientras procesamos tu información.'}
                 </p>
                 {subscriptionStatus === 'error' && (
-                  <p className="text-orange-600">
-                    Si continúas viendo este mensaje después de 10 minutos, por favor contacta a nuestro equipo de soporte.
-                  </p>
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
+                    <p className="text-orange-600">
+                      Si acabas de completar el pago, tu suscripción puede estar siendo procesada.
+                      Esto puede tomar hasta 10 minutos. Si continúas viendo este mensaje después de ese tiempo,
+                      por favor contacta a nuestro equipo de soporte.
+                    </p>
+                    <button
+                      onClick={() => window.location.reload()}
+                      className="mt-3 text-primary hover:underline text-sm font-medium"
+                    >
+                      Actualizar Estado
+                    </button>
+                  </div>
                 )}
               </div>
 
@@ -193,7 +262,7 @@ const SubscriptionSuccessPage = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                 <Link
-                  href="/account/profile"
+                  href="/business/profile"
                   className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors text-center"
                 >
                   Completar mi Perfil
@@ -219,4 +288,4 @@ const SubscriptionSuccessPage = () => {
   );
 };
 
-export default SubscriptionSuccessPage; 
+export default SubscriptionSuccessPage;

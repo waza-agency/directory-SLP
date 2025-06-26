@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/lib/supabase-auth';
 
 const businessCategories = [
   { id: 'food', name: 'Food & Dining' },
@@ -36,6 +37,9 @@ interface FormData {
 
 export default function SubmitBusinessListing() {
   const router = useRouter();
+  const { user, isLoading } = useAuth();
+  const [businessProfile, setBusinessProfile] = useState<any>(null);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -58,6 +62,34 @@ export default function SubmitBusinessListing() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    // Redirect if not authenticated
+    if (!user && !isLoading) {
+      router.push('/signin?redirect=/submit-listing/business');
+    } else if (user) {
+      fetchBusinessProfile();
+    }
+  }, [user, isLoading, router]);
+
+  const fetchBusinessProfile = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('business_profiles')
+        .select('*')
+        .eq('user_id', user?.id)
+        .single();
+
+      if (error) throw error;
+
+      setBusinessProfile(data);
+    } catch (err) {
+      console.error('Error fetching business profile:', err);
+      setError('You need to create a business profile before adding listings. Please go to the business dashboard first.');
+    } finally {
+      setIsLoadingProfile(false);
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -75,10 +107,16 @@ export default function SubmitBusinessListing() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
+
+    if (!businessProfile) {
+      setError('Business profile not found. Please create a business profile first.');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Upload images
@@ -102,29 +140,29 @@ export default function SubmitBusinessListing() {
         })
       );
 
-      // Insert place data
+      // Convert price to proper format
+      const priceValue = formData.priceRange === '$' ? '100-300' :
+                        formData.priceRange === '$$' ? '300-600' :
+                        formData.priceRange === '$$$' ? '600-1000' : '1000+';
+
+      // Insert business listing data (NOT places)
       const { data, error: insertError } = await supabase
-        .from('places')
+        .from('business_listings')
         .insert([
           {
-            name: formData.name,
-            category: formData.category,
+            business_id: businessProfile.id,
+            title: formData.name,
             description: formData.description,
+            category: formData.category,
+            price: priceValue,
+            images: imageUrls,
             address: formData.address,
             city: formData.city,
             phone: formData.phone,
             website: formData.website,
-            instagram: formData.instagram,
-            hours: formData.hours,
-            image_url: imageUrls[0], // Use first image as main image
-            price_level: formData.priceRange === '$' ? 1 : 
-                        formData.priceRange === '$$' ? 2 :
-                        formData.priceRange === '$$$' ? 3 : 4,
-            contact_info: {
-              name: formData.contactName,
-              phone: formData.contactPhone,
-              email: formData.contactEmail
-            }
+            email: formData.contactEmail,
+            hours: formData.hours ? { hours: formData.hours } : null,
+            status: 'active'
           }
         ]);
 
@@ -139,6 +177,21 @@ export default function SubmitBusinessListing() {
       setIsSubmitting(false);
     }
   };
+
+  // Show loading state while checking authentication
+  if (isLoading || isLoadingProfile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+        <p className="ml-4 text-gray-600">Loading...</p>
+      </div>
+    );
+  }
+
+  // If user is not logged in, don't render anything (redirect will happen)
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
@@ -160,7 +213,7 @@ export default function SubmitBusinessListing() {
             {/* Basic Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Basic Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -218,7 +271,7 @@ export default function SubmitBusinessListing() {
             {/* Location Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Location Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="address" className="block text-sm font-medium text-gray-700">
@@ -255,7 +308,7 @@ export default function SubmitBusinessListing() {
             {/* Contact Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Contact Information</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
@@ -321,7 +374,7 @@ export default function SubmitBusinessListing() {
             {/* Contact Person */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Contact Person</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="contactName" className="block text-sm font-medium text-gray-700">
@@ -373,7 +426,7 @@ export default function SubmitBusinessListing() {
             {/* Additional Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Additional Information</h2>
-              
+
               <div>
                 <label htmlFor="priceRange" className="block text-sm font-medium text-gray-700">
                   Price Range
@@ -397,7 +450,7 @@ export default function SubmitBusinessListing() {
             {/* Images */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Business Images</h2>
-              
+
               <div>
                 <label htmlFor="images" className="block text-sm font-medium text-gray-700">
                   Upload Images *
@@ -459,4 +512,4 @@ export default function SubmitBusinessListing() {
       </main>
     </>
   );
-} 
+}
