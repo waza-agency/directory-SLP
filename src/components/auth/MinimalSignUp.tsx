@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 
 type MinimalSignUpFormValues = {
@@ -12,7 +11,6 @@ type MinimalSignUpFormValues = {
 };
 
 export default function MinimalSignUp() {
-  const { t } = useTranslation('common');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
@@ -63,7 +61,7 @@ export default function MinimalSignUp() {
 
       // Redirect after success
       setTimeout(() => {
-        router.push('/signin-simple?message=verify-email');
+        router.push('/signin?message=verify-email');
       }, 2000);
 
     } catch (error: any) {
@@ -76,7 +74,7 @@ export default function MinimalSignUp() {
 
   return (
     <div className="max-w-md w-full mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-6">{t('create_account')}</h2>
+      <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
 
       {success ? (
         <div className="bg-green-50 p-4 rounded-md mb-6">
@@ -89,7 +87,7 @@ export default function MinimalSignUp() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t('email')}
+              Email
             </label>
             <input
               {...register("email", {
@@ -108,7 +106,7 @@ export default function MinimalSignUp() {
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              {t('password')}
+              Password
             </label>
             <input
               {...register("password", {
@@ -127,7 +125,7 @@ export default function MinimalSignUp() {
 
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              {t('confirm_password')}
+              Confirm Password
             </label>
             <input
               {...register("confirmPassword", {
@@ -152,15 +150,15 @@ export default function MinimalSignUp() {
                 Creating Account...
               </div>
             ) : (
-              t('sign_up')
+              'Sign Up'
             )}
           </button>
 
           <div className="text-center">
             <span className="text-sm text-gray-600">
-              {t('already_have_account')} {' '}
+              Already have an account? {' '}
               <Link href="/signin" className="font-medium text-blue-600 hover:text-blue-500">
-                {t('sign_in')}
+                Sign In
               </Link>
             </span>
           </div>

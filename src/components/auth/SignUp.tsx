@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 
 // Add retry configuration
@@ -21,7 +20,6 @@ type SignUpFormValues = {
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export default function SignUp() {
-  const { t } = useTranslation('common');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -145,7 +143,7 @@ export default function SignUp() {
         console.log('Basic user signup successful. Business profile setup can be done later.');
 
         // Show success
-        toast.success(t('signup_success'));
+        toast.success('Account created successfully!');
         setSuccess(true);
 
         // Navigate to account page after a brief delay to show success message
@@ -170,8 +168,8 @@ export default function SignUp() {
       }
     } catch (err: any) {
       console.error('Uncaught error during signup:', err);
-      setError(err.message || t('signup_error'));
-      toast.error(err.message || t('signup_error'));
+      setError(err.message || 'An error occurred during signup');
+      toast.error(err.message || 'An error occurred during signup');
     } finally {
       setIsLoading(false);
     }
@@ -234,7 +232,7 @@ export default function SignUp() {
 
   return (
     <div className="max-w-md w-full mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-6">{t('create_account')}</h2>
+      <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
 
       {error && (
         <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md">
@@ -318,7 +316,7 @@ export default function SignUp() {
         {/* Email Field */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            {t('email')}
+            Email
           </label>
           <input
             {...register("email", {
@@ -338,7 +336,7 @@ export default function SignUp() {
         {/* Password Field */}
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            {t('password')}
+            Password
           </label>
           <input
             {...register("password", {
@@ -358,7 +356,7 @@ export default function SignUp() {
         {/* Confirm Password Field */}
         <div>
           <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-            {t('confirm_password')}
+            Confirm Password
           </label>
           <input
             {...register("confirmPassword", {
@@ -384,15 +382,15 @@ export default function SignUp() {
               Creating Account...
             </div>
           ) : (
-            t('sign_up')
+            'Sign Up'
           )}
         </button>
 
         <div className="text-center">
           <span className="text-sm text-gray-600">
-            {t('already_have_account')} {' '}
+            Already have an account? {' '}
             <Link href="/signin" className="font-medium text-blue-600 hover:text-blue-500">
-              {t('sign_in')}
+              Sign In
             </Link>
           </span>
         </div>

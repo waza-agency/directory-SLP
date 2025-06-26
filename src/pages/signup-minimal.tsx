@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import MinimalSignUp from '@/components/auth/MinimalSignUp';
 
 export default function MinimalSignUpPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
 
   return (
@@ -44,12 +41,4 @@ export default function MinimalSignUpPage() {
       </div>
     </>
   );
-}
-
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
 }

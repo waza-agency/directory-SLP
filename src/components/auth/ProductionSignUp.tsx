@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 
 type ProductionSignUpFormValues = {
@@ -12,7 +11,6 @@ type ProductionSignUpFormValues = {
 };
 
 export default function ProductionSignUp() {
-  const { t } = useTranslation('common');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [debugInfo, setDebugInfo] = useState<any[]>([]);
@@ -103,7 +101,7 @@ export default function ProductionSignUp() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t('email')}
+              Email
             </label>
             <input
               {...register("email", {
@@ -122,7 +120,7 @@ export default function ProductionSignUp() {
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              {t('password')}
+              Password
             </label>
             <input
               {...register("password", {
@@ -141,7 +139,7 @@ export default function ProductionSignUp() {
 
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              {t('confirm_password')}
+              Confirm Password
             </label>
             <input
               {...register("confirmPassword", {
@@ -166,15 +164,15 @@ export default function ProductionSignUp() {
                 Creating Account...
               </div>
             ) : (
-              t('sign_up')
+              'Sign Up'
             )}
           </button>
 
           <div className="text-center">
             <span className="text-sm text-gray-600">
-              {t('already_have_account')} {' '}
+              Already have an account? {' '}
               <Link href="/signin" className="font-medium text-blue-600 hover:text-blue-500">
-                {t('sign_in')}
+                Sign In
               </Link>
             </span>
           </div>

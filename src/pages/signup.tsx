@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import MinimalSignUp from '@/components/auth/MinimalSignUp';
 
 export default function SignUpPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
 
   // Simple auth check without complex hooks that crash in production
@@ -31,8 +28,8 @@ export default function SignUpPage() {
   return (
     <>
       <Head>
-        <title>{t('signup.title', 'Create Account')} | Directory SLP</title>
-        <meta name="description" content={t('signup.description', 'Sign up for an account to access all features and make purchases.')} />
+        <title>Create Account | Directory SLP</title>
+        <meta name="description" content="Sign up for an account to access all features and make purchases." />
       </Head>
 
       <div className="min-h-screen py-12 bg-gray-100">
@@ -42,12 +39,4 @@ export default function SignUpPage() {
       </div>
     </>
   );
-}
-
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
 }
