@@ -109,7 +109,7 @@ export default function EditProductListing() {
         .single();
 
       if (error) throw error;
-      
+
       setBusinessProfile(data);
     } catch (err) {
       console.error('Error fetching business profile:', err);
@@ -121,10 +121,10 @@ export default function EditProductListing() {
 
   const fetchListing = async () => {
     if (!id) return;
-    
+
     try {
       setIsLoadingListing(true);
-      
+
       const { data, error } = await supabase
         .from('business_listings')
         .select('*')
@@ -132,14 +132,14 @@ export default function EditProductListing() {
         .single();
 
       if (error) throw error;
-      
+
       if (!data) {
         throw new Error('Listing not found');
       }
-      
+
       setListing(data);
       setExistingImages(data.images || []);
-      
+
       // Set form data from listing
       setFormData({
         title: data.title || '',
@@ -206,7 +206,7 @@ export default function EditProductListing() {
     try {
       // Upload new images if any
       let allImageUrls = [...existingImages];
-      
+
       if (formData.images.length > 0) {
         const newImageUrls = await Promise.all(
           formData.images.map(async (file) => {
@@ -227,13 +227,13 @@ export default function EditProductListing() {
             return publicUrl;
           })
         );
-        
+
         allImageUrls = [...allImageUrls, ...newImageUrls];
       }
 
       // Convert price to number
       const priceValue = parseFloat(formData.price);
-      
+
       if (isNaN(priceValue)) {
         throw new Error('Invalid price value');
       }
@@ -265,10 +265,10 @@ export default function EditProductListing() {
       if (updateError) throw updateError;
 
       setSuccess(true);
-      
+
       // Refresh listing data
       fetchListing();
-      
+
       // Redirect after a brief delay to show success message
       setTimeout(() => {
         router.push('/business/dashboard');
@@ -317,7 +317,7 @@ export default function EditProductListing() {
       </div>
     );
   }
-  
+
   // If no listing found, show error message
   if (!isLoadingListing && !listing) {
     return (
@@ -380,7 +380,7 @@ export default function EditProductListing() {
             {/* Basic Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Product Information</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="md:col-span-2">
                   <label htmlFor="title" className="block text-sm font-medium text-gray-700">
@@ -456,7 +456,7 @@ export default function EditProductListing() {
             {/* Pricing */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Pricing</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700">
@@ -502,7 +502,7 @@ export default function EditProductListing() {
             {/* Images */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Product Images</h2>
-              
+
               {/* Existing images */}
               {existingImages.length > 0 && (
                 <div className="mb-4">
@@ -512,9 +512,9 @@ export default function EditProductListing() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {existingImages.map((imageUrl, index) => (
                       <div key={index} className="relative group">
-                        <img 
-                          src={imageUrl} 
-                          alt={`Product image ${index + 1}`} 
+                        <img
+                          src={imageUrl}
+                          alt={`Product image ${index + 1}`}
                           className="h-32 w-full object-cover rounded-md"
                         />
                         <button
@@ -529,7 +529,7 @@ export default function EditProductListing() {
                   </div>
                 </div>
               )}
-              
+
               {/* Upload new images */}
               <div>
                 <label htmlFor="images" className="block text-sm font-medium text-gray-700">
@@ -553,7 +553,7 @@ export default function EditProductListing() {
             {/* Additional Information */}
             <div className="space-y-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Additional Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label htmlFor="specifications" className="block text-sm font-medium text-gray-700">
@@ -689,10 +689,10 @@ export default function EditProductListing() {
   );
 }
 
-export async function getServerSideProps({ locale, params }) {
+export async function getServerSideProps({ locale, params }: { locale: string, params: any }) {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
-} 
+}

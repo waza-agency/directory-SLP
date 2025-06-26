@@ -67,9 +67,9 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
     <>
       <Head>
         <title>The Ultimate Foodie Guide to SLP | Sponsored by La Legendaria</title>
-        <meta 
-          name="description" 
-          content="Explore San Luis Potosí's vibrant culinary scene from street tacos to fine dining, paired with local craft beers from La Legendaria Microbrewery." 
+        <meta
+          name="description"
+          content="Explore San Luis Potosí's vibrant culinary scene from street tacos to fine dining, paired with local craft beers from La Legendaria Microbrewery."
         />
         <meta name="keywords" content="San Luis Potosí food, SLP cuisine, Mexican gastronomy, La Legendaria beer pairings, enchiladas potosinas, restaurants in SLP, street food, craft beer, food tourism Mexico" />
       </Head>
@@ -88,8 +88,8 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
               As the aromas of slow-simmered moles and freshly made corn tortillas drift through the historic streets of San Luis Potosí, the city reveals itself as one of Mexico's hidden culinary treasures. Join us on a gastronomic journey curated by <Link href="https://lalegendaria.com/nuestras-cervezas/" className="text-amber-700 hover:underline font-medium" target="_blank" rel="noopener noreferrer">La Legendaria Microcervecería</Link>, where every traditional dish and innovative creation finds its perfect craft beer companion.
             </p>
             <div className="flex justify-center mt-6">
-              <a 
-                href="https://lalegendaria.com/nuestras-cervezas/" 
+              <a
+                href="https://lalegendaria.com/nuestras-cervezas/"
                 className="bg-amber-700 text-white py-2 px-6 rounded-lg shadow hover:bg-amber-800 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -106,9 +106,9 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-full md:w-1/3 relative h-64">
-              <Image 
-                src="/images/brands/la-legendaria-logo.png" 
-                alt="La Legendaria Microcervecería Logo" 
+              <Image
+                src="/images/brands/la-legendaria-logo.png"
+                alt="La Legendaria Microcervecería Logo"
                 layout="fill"
                 objectFit="contain"
                 className="rounded-lg"
@@ -174,7 +174,7 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                     className="hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                
+
                 {/* Secondary Images & Video */}
                 {experience.id === "traditional-potosino" && (
                   <>
@@ -197,18 +197,18 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                       />
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
-                      <iframe 
-                        src="https://www.youtube-nocookie.com/embed/cyhvB9HbmKg" 
-                        title="Discover Traditional Potosino Cuisine" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/cyhvB9HbmKg"
+                        title="Discover Traditional Potosino Cuisine"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
                       ></iframe>
                     </div>
                   </>
                 )}
-                
+
                 {experience.id === "modern-fusion" && (
                   <>
                     <div className="relative h-48 rounded-lg overflow-hidden shadow-md">
@@ -230,18 +230,18 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                       />
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
-                      <iframe 
-                        src="https://www.youtube-nocookie.com/embed/N3hPoQ1v_Gg" 
-                        title="Experience Modern Fusion Cuisine in SLP" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/N3hPoQ1v_Gg"
+                        title="Experience Modern Fusion Cuisine in SLP"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
                       ></iframe>
                     </div>
                   </>
                 )}
-                
+
                 {experience.id === "street-food" && (
                   <>
                     <div className="relative h-48 rounded-lg overflow-hidden shadow-md">
@@ -263,11 +263,11 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                       />
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
-                      <iframe 
-                        src="https://www.youtube-nocookie.com/embed/zgz5iamCjSE" 
-                        title="Street Food Tour of San Luis Potosí" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/zgz5iamCjSE"
+                        title="Street Food Tour of San Luis Potosí"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
                       ></iframe>
@@ -280,19 +280,19 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
               <div className="w-full md:w-1/2">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{experience.name}</h3>
                 <p className="text-amber-700 font-semibold mb-4">Perfect with: {experience.pairings}</p>
-                
+
                 {experience.id === "traditional-potosino" && (
                   <p className="text-gray-700 mb-6">
                     The first bite of a properly made enchilada potosina is a revelation. As the fragrant corn masa, tinged red with chile ancho and filled with queso fresco, meets your palate, you understand why these iconic creations have become the culinary ambassadors of San Luis Potosí. In the kitchens of traditional restaurants like La Oruga y La Cebada, these recipes aren't just food—they're cultural heritage preserved through generations, each dish carrying stories of family gatherings and ancient techniques passed from mother to daughter.
                   </p>
                 )}
-                
+
                 {experience.id === "modern-fusion" && (
                   <p className="text-gray-700 mb-6">
                     Within the elegant interior of Hidalgo 26, where contemporary design meets colonial architecture, a culinary revolution quietly unfolds. Here, chefs trained in international kitchens return to their Potosino roots, reimagining traditional ingredients through modern techniques. Watch as a humble nopal cactus becomes a sophisticated carpaccio, or as the smoky essence of mezcal elevates a sauce to sublime heights. These dining experiences represent San Luis Potosí's evolving identity—respectful of tradition yet boldly innovative, just like the craft beers of La Legendaria that accompany them.
                   </p>
                 )}
-                
+
                 {experience.id === "street-food" && (
                   <p className="text-gray-700 mb-6">
                     The true soul of Potosino cuisine isn't confined to white-tablecloth establishments but thrives in the bustling corridors of Mercado República, the famous street dedicated to Gorditas de Morales, and the steam rising from street carts as the sun sets. Here, gorditas stuffed with diverse guisados simmer on ancient comals, tacos al pastor are expertly carved from the trompo at spots like Tacos La Esquinita, and legendary tortas like those from Tortas Oscar's are assembled with generations of expertise. Each vendor specializes in their signature creation, often using recipes unchanged for decades. The flavors are bold and honest, the portions generous, and the experience immersive—a symphony of aromas, calls from vendors, and the satisfying crunch of freshly made tortillas or the warm embrace of a perfect torta, best enjoyed with a refreshing La Legendaria Weiss or Clara.
@@ -302,25 +302,25 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 <h4 className="font-bold text-gray-800 mb-2">Your Culinary Adventure:</h4>
                 <div className="mb-4">
                   <h5 className="font-semibold text-gray-800">What to Expect</h5>
-                  
+
                   {experience.id === "traditional-potosino" && (
                     <p className="text-gray-700 mb-2">
                       Traditional Potosino restaurants embrace you with warm hospitality and family-style service. Many establishments have been operated by the same families for generations, with recipes closely guarded and passed down through time. The atmosphere is often relaxed and conversational, with meals meant to be enjoyed slowly and savored.
                     </p>
                   )}
-                  
+
                   {experience.id === "modern-fusion" && (
                     <p className="text-gray-700 mb-2">
                       San Luis Potosí's modern dining establishments offer sophisticated atmospheres where culinary artistry takes center stage. Expect thoughtful presentations, innovative flavor combinations, and menus that change with the seasons. Chefs often emerge from the kitchen to explain their creations, sharing the inspiration and techniques behind each dish.
                     </p>
                   )}
-                  
+
                   {experience.id === "street-food" && (
                     <p className="text-gray-700 mb-2">
                       Street food vendors and small eateries are essential cultural ambassadors in San Luis Potosí. Many stalls, especially in areas like the renowned 'Gorditas de Morales', represent family legacies spanning decades, with specialties that draw regulars from across the city. The vendor-customer relationship is often personal—regulars are greeted by name, and their usual orders remembered. Joining this vibrant community, even temporarily as a visitor, offers insight into everyday Potosino life that few tourist experiences can match.
                     </p>
                   )}
-                  
+
                   <ul className="list-disc list-inside text-gray-700 ml-2 mb-2">
                     <li>Best time to visit: {experience.id === "street-food" ? "Lunchtime (Gorditas), Early evening & late night (Tacos, Tortas)" : "Lunch (1-3pm) or Dinner (7-9pm)"}</li>
                     <li>Average cost: {experience.id === "modern-fusion" ? "$$$" : experience.id === "traditional-potosino" ? "$$" : "$"}</li>
@@ -331,25 +331,25 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
 
                 <div className="mb-4">
                   <h5 className="font-semibold text-gray-800">Must-Try Dishes & Pairings</h5>
-                  
+
                   {experience.id === "traditional-potosino" && (
                     <p className="text-gray-700 mb-2">
                       The enchiladas potosinas, with their distinctive red-tinged masa and queso fresco filling, are a must—especially when paired with La Legendaria's crisp Dorada, whose subtle malt sweetness balances the chile heat. For heartier appetites, the asado de boda potosino (wedding stew) offers rich, complex flavors from dried chiles and pork that find their perfect companion in the caramel notes of La Legendaria's amber Rubia.
                     </p>
                   )}
-                  
+
                   {experience.id === "modern-fusion" && (
                     <p className="text-gray-700 mb-2">
                       Look for dishes that showcase local ingredients in surprising ways, like cactus gazpacho or guajillo-glazed duck breast. These bold flavors stand up beautifully to La Legendaria's hop-forward IPA, creating a dancing interplay between bitterness and spice. For dessert courses featuring chocolate (often sourced from southern Mexico), La Legendaria's dark and roasty La Noche creates an indulgent experience.
                     </p>
                   )}
-                  
+
                   {experience.id === "street-food" && (
                     <p className="text-gray-700 mb-2">
                       Seek out the legendary Gorditas de Morales – try fillings like chicharrón prensado (pressed pork rinds in chile sauce) or rajas con queso (poblano strips with cheese); their richness is perfectly cut by the light, citrusy notes of La Legendaria's Weiss beer. Don't miss the Tacos al Pastor from Tacos La Esquinita, paired with a crisp La Legendaria Clara. For a substantial meal, grab a Torta de Lomo or Choriqueso from Tortas Oscar's, complemented by the balanced hops of a La Legendaria Session IPA. Explore unique regional flavors with a Torta de Cochito Horneado (Chiapanecan baked pork) from El Chiapaneco.
                     </p>
                   )}
-                  
+
                   <ul className="list-disc list-inside text-gray-700 ml-2 mb-2">
                     <li>{experience.id === "traditional-potosino" ? "Enchiladas potosinas + La Legendaria Dorada" : experience.id === "modern-fusion" ? "Duck with guajillo glaze + La Legendaria IPA" : "Gorditas de Morales (Chicharrón/Rajas) + La Legendaria Weiss"}</li>
                     <li>{experience.id === "traditional-potosino" ? "Asado de boda + La Legendaria Rubia" : experience.id === "modern-fusion" ? "Chocolate desserts + La Legendaria La Noche" : "Tacos al Pastor (La Esquinita) + La Legendaria Clara"}</li>
@@ -368,19 +368,19 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 <div className="p-4 bg-amber-50 rounded-lg mb-6">
                   <h4 className="font-bold text-gray-800 mb-2">Cultural Insight:</h4>
                   <p className="text-gray-700">{experience.culturalNotes}</p>
-                  
+
                   {experience.id === "traditional-potosino" && (
                     <p className="text-gray-700 mt-2">
                       Many traditional restaurants in San Luis Potosí are located in historic buildings that tell their own stories. As you dine, take note of the architecture—from colonial-era courtyards to hacienda-style kitchens where you can sometimes peek at the comal (griddle) where tortillas are made by hand, just as they have been for centuries. These dining experiences offer not just a meal, but a connection to Potosino history.
                     </p>
                   )}
-                  
+
                   {experience.id === "modern-fusion" && (
                     <p className="text-gray-700 mt-2">
                       The modern culinary movement in San Luis Potosí parallels the craft beer revolution championed by breweries like La Legendaria. Both represent a new generation of Potosinos who have traveled the world, bringing back techniques and ideas while maintaining deep respect for local ingredients and traditions. This balance between innovation and heritage defines the city's emerging identity as a gastronomic destination.
                     </p>
                   )}
-                  
+
                   {experience.id === "street-food" && (
                     <p className="text-gray-700 mt-2">
                       Street food vendors and small eateries are essential cultural ambassadors in San Luis Potosí. Many stalls, especially in areas like the renowned 'Gorditas de Morales', represent family legacies spanning decades, with specialties that draw regulars from across the city. The vendor-customer relationship is often personal—regulars are greeted by name, and their usual orders remembered. Joining this vibrant community, even temporarily as a visitor, offers insight into everyday Potosino life that few tourist experiences can match. Asking locals for their favorite 'puesto' (stall) often leads to the best hidden gems.
@@ -389,7 +389,7 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 </div>
 
                 <div>
-                  <a 
+                  <a
                     href="https://lalegendaria.com/brewpub/"
                     className="inline-flex items-center bg-amber-700 text-white py-2 px-6 rounded-lg shadow hover:bg-amber-800 transition-colors"
                     target="_blank"
@@ -412,11 +412,11 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Why San Luis Potosí is Mexico's Hidden Culinary Gem</h2>
-            
+
             <p className="text-gray-700 mb-8 text-center italic">
               "To understand San Luis Potosí is to taste it—each dish tells a story of history, geography, and the blending of cultures that makes this region unique."
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Geographical Diversity</h3>
@@ -424,21 +424,21 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                   The state's remarkable geography—from the highlands of the Altiplano to the lush Huasteca region—has created distinct culinary microclimates. This diversity brings together desert ingredients like cactus and chilies with tropical fruits and herbs from the eastern slopes, creating a unique pantry unlike any other in Mexico. The result is a cuisine of striking contrasts and harmonious combinations that surprises even the most experienced food travelers.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Historical Influences</h3>
                 <p className="text-gray-700">
                   As a crossroads of pre-Hispanic trade routes and later as a colonial mining center, San Luis Potosí absorbed culinary influences from across Mexico and Spain. The wealthy silver barons imported ingredients and techniques from Europe, while indigenous traditions remained strong in local communities. This culinary conversation across centuries has created dishes that reflect both sophisticated colonial tastes and the profound wisdom of native cooking methods.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Culinary Conservation</h3>
                 <p className="text-gray-700">
                   Unlike some regions where traditional recipes are fading, San Luis Potosí has maintained its culinary heritage with remarkable fidelity. Family recipes are treated as treasured heirlooms, passed down with precise instructions and cultural context. Local institutions regularly document these traditions, while cooking schools ensure that young chefs master traditional techniques before exploring innovation. This dedication to preservation means you can taste dishes today that would be recognized by Potosinos from centuries past.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">The Perfect Pairing Culture</h3>
                 <p className="text-gray-700">
@@ -446,7 +446,7 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 </p>
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-bold text-xl mb-2">The La Legendaria Connection</h3>
               <p className="text-gray-700 mb-4">
@@ -467,13 +467,13 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Explore More San Luis Potosí</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <div className="relative h-48">
-                <Image 
-                  src="/images/cultural/museum.jpg" 
-                  alt="Cultural Experiences" 
+                <Image
+                  src="/images/cultural/museum.jpg"
+                  alt="Cultural Experiences"
                   layout="fill"
                   objectFit="cover"
                 />
@@ -489,12 +489,12 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 </Link>
               </div>
             </div>
-            
+
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <div className="relative h-48">
-                <Image 
-                  src="/images/outdoors/hiking.jpg" 
-                  alt="Weekend Getaways" 
+                <Image
+                  src="/images/outdoors/hiking.jpg"
+                  alt="Weekend Getaways"
                   layout="fill"
                   objectFit="cover"
                 />
@@ -510,12 +510,12 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
                 </Link>
               </div>
             </div>
-            
+
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <div className="relative h-48">
-                <Image 
-                  src="/images/events/festival.jpg" 
-                  alt="Upcoming Events" 
+                <Image
+                  src="/images/events/festival.jpg"
+                  alt="Upcoming Events"
                   layout="fill"
                   objectFit="cover"
                 />
@@ -547,16 +547,16 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
               La Legendaria's BrewPub in the heart of the city offers the perfect introduction to these pairings—a place where culinary tradition meets brewing innovation, and where every sip and bite reveals another facet of Potosino culture. Come taste the legend for yourself.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="https://lalegendaria.com/brewpub/" 
+              <a
+                href="https://lalegendaria.com/brewpub/"
                 className="bg-amber-700 text-white py-3 px-8 rounded-lg shadow hover:bg-amber-800 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Visit Our BrewPub
               </a>
-              <a 
-                href="https://lalegendaria.com/nuestras-cervezas/" 
+              <a
+                href="https://lalegendaria.com/nuestras-cervezas/"
                 className="bg-white text-amber-700 border border-amber-700 py-3 px-8 rounded-lg shadow hover:bg-gray-50 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -571,7 +571,7 @@ const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'en', ['common'])),
@@ -580,4 +580,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default FoodieGuidePage; 
+export default FoodieGuidePage;

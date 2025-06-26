@@ -26,9 +26,9 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
     <>
       <Head>
         <title>Modern Dining - SLP Descubre</title>
-        <meta 
-          name="description" 
-          content="Discover contemporary restaurants and modern dining experiences in San Luis Potosí" 
+        <meta
+          name="description"
+          content="Discover contemporary restaurants and modern dining experiences in San Luis Potosí"
         />
       </Head>
 
@@ -43,8 +43,8 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
               Modern Dining
             </h1>
             <p className="text-lg text-gray-600">
-              Experience the cutting-edge culinary scene of San Luis Potosí through our curated selection 
-              of modern restaurants. From innovative fusion cuisine to contemporary dining experiences, 
+              Experience the cutting-edge culinary scene of San Luis Potosí through our curated selection
+              of modern restaurants. From innovative fusion cuisine to contemporary dining experiences,
               discover the city's most exciting culinary destinations.
             </p>
           </div>
@@ -53,7 +53,7 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
 
       {/* Featured Places Section */}
       {featuredPlaces.length > 0 && (
-        <FeaturedPlaces 
+        <FeaturedPlaces
           places={featuredPlaces}
           onPlaceSelect={(place) => setSelectedPlace(place)}
         />
@@ -88,7 +88,7 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Fetch modern dining places from Supabase
   const { data: places, error } = await supabase
     .from('places')
@@ -116,7 +116,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   // Log the places data to debug image URLs
   console.log('Fetched places:', JSON.stringify(mappedPlaces, null, 2));
-  
+
   // Log each place's image URL
   mappedPlaces?.forEach(place => {
     console.log(`Place: ${place.name}`);
@@ -133,4 +133,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default ModernDiningPage; 
+export default ModernDiningPage;

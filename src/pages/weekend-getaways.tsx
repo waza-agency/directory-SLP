@@ -81,9 +81,9 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
     <>
       <Head>
         <title>Weekend Getaways in San Luis Potosí | Sponsored by Corazón de Xoconostle</title>
-        <meta 
-          name="description" 
-          content="Discover the perfect weekend escapes in San Luis Potosí with expert-crafted itineraries by Corazón de Xoconostle. Explore majestic waterfalls, magical towns, and natural wonders." 
+        <meta
+          name="description"
+          content="Discover the perfect weekend escapes in San Luis Potosí with expert-crafted itineraries by Corazón de Xoconostle. Explore majestic waterfalls, magical towns, and natural wonders."
         />
         <meta name="keywords" content="weekend getaways, San Luis Potosí, Corazón de Xoconostle, Huasteca Potosina, Real de Catorce, Media Luna, travel, adventure, tourism, Mexico" />
       </Head>
@@ -102,8 +102,8 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
               As the week comes to an end, there's a whisper among the cobblestone streets of San Luis Potosí—a call to adventure just a short drive away. Escape the routine with these carefully curated weekend adventures by <Link href="https://www.corazondexoconostle.com/index.php/en/" className="text-primary hover:underline font-medium" target="_blank" rel="noopener noreferrer">Corazón de Xoconostle</Link>, the premier adventure guides who have spent over a decade discovering the hidden gems and secret paths of this magnificent region.
             </p>
             <div className="flex justify-center mt-6">
-              <a 
-                href="https://www.corazondexoconostle.com/index.php/en/" 
+              <a
+                href="https://www.corazondexoconostle.com/index.php/en/"
                 className="bg-primary text-white py-2 px-6 rounded-lg shadow hover:bg-primary-dark transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -120,9 +120,9 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-full md:w-1/3 relative h-64">
-              <Image 
-                src="/images/brands/corazon-de-xoconostle-logo.png" 
-                alt="Corazón de Xoconostle Logo" 
+              <Image
+                src="/images/brands/corazon-de-xoconostle-logo.png"
+                alt="Corazón de Xoconostle Logo"
                 layout="fill"
                 objectFit="contain"
                 className="rounded-lg"
@@ -189,7 +189,7 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                     className="hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                
+
                 {/* Secondary Images */}
                 {getaway.id === "real-de-catorce" && (
                   <>
@@ -212,18 +212,18 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                       />
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
-                      <iframe 
-                        src="https://www.youtube-nocookie.com/embed/8upHqJYzTko" 
-                        title="Discover Real de Catorce" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/8upHqJYzTko"
+                        title="Discover Real de Catorce"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
                       ></iframe>
                     </div>
                   </>
                 )}
-                
+
                 {getaway.id === "huasteca-potosina" && (
                   <>
                     <div className="relative h-48 rounded-lg overflow-hidden shadow-md">
@@ -245,18 +245,18 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                       />
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
-                      <iframe 
-                        src="https://www.youtube-nocookie.com/embed/B0W00hc_G1s" 
-                        title="Explore Huasteca Potosina" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/B0W00hc_G1s"
+                        title="Explore Huasteca Potosina"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
                       ></iframe>
                     </div>
                   </>
                 )}
-                
+
                 {getaway.id === "media-luna" && (
                   <>
                     <div className="relative h-48 rounded-lg overflow-hidden shadow-md">
@@ -278,11 +278,11 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                       />
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
-                      <iframe 
-                        src="https://www.youtube-nocookie.com/embed/-Nf7OZlIsAA" 
-                        title="Discover Media Luna" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      <iframe
+                        src="https://www.youtube-nocookie.com/embed/-Nf7OZlIsAA"
+                        title="Discover Media Luna"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
                       ></iframe>
@@ -295,19 +295,19 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
               <div className="w-full md:w-1/2">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{getaway.name}</h3>
                 <p className="text-primary font-semibold mb-4">{getaway.price} | {getaway.days}-day adventure</p>
-                
+
                 {getaway.id === "real-de-catorce" && (
                   <p className="text-gray-700 mb-6">
                     The moment you emerge from the Ogarrio Tunnel, it feels like stepping through a portal in time. Real de Catorce greets you with whispers of its silver mining past, where fortunes were made and lost. The ghosts of Spanish colonials, revolutionary soldiers, and silver barons seem to linger in the mist that often envelops this magical town perched at 9,000 feet above sea level. As you walk the uneven cobblestone streets worn smooth by centuries of footsteps, you'll discover a place where time moves differently—a town that died when the silver ran out and was mysteriously reborn as a spiritual haven and artistic refuge.
                   </p>
                 )}
-                
+
                 {getaway.id === "huasteca-potosina" && (
                   <p className="text-gray-700 mb-6">
                     The first time you glimpse the otherworldly turquoise waters of the Huasteca Potosina, you might wonder if you're still in Mexico or have somehow been transported to a secret corner of paradise. This lush region feels like nature's finest watercolor painting brought to life—cascades of crystal-clear water plunge from limestone cliffs into pools so perfectly blue they seem illuminated from within. Here, the ancient Teenek people have lived in harmony with these sacred waters for centuries, and their traditions continue to infuse the region with mystical energy. The rhythmic sounds of the jungle and the cooling mist from the waterfalls create a symphony for the senses that stays with you long after you've returned to city life.
                   </p>
                 )}
-                
+
                 {getaway.id === "media-luna" && (
                   <p className="text-gray-700 mb-6">
                     Beneath the surface of Media Luna's crystalline waters lies a mysterious underwater world that has captivated divers and scientists alike for generations. This half-moon shaped lagoon, formed by thermal springs that maintain a perfect 27°C year-round, reveals its secrets slowly. As you float in its transparent blue waters, you're suspended above an archaeological treasure trove where pre-Hispanic offerings rest alongside modern legends. Local stories tell of underwater passageways leading to distant lagoons and caves—some explored, others still waiting for brave souls to discover their wonders. The surrounding landscape, with its desert vegetation contrasting dramatically with the oasis-like water, creates a surreal setting that feels both ancient and timeless.
@@ -317,25 +317,25 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                 <h4 className="font-bold text-gray-800 mb-2">Perfect Weekend Itinerary:</h4>
                 <div className="mb-4">
                   <h5 className="font-semibold text-gray-800">Day 1</h5>
-                  
+
                   {getaway.id === "real-de-catorce" && (
                     <p className="text-gray-700 mb-2">
                       Your journey begins as morning light bathes the desert in gold. After an early departure from San Luis Potosí, you'll travel through the changing landscapes of the altiplano until reaching the famous Ogarrio Tunnel—the only entrance to this mystical town. As you check into your historic accommodation, you can already feel the unique energy that has drawn seekers and adventurers here for generations.
                     </p>
                   )}
-                  
+
                   {getaway.id === "huasteca-potosina" && (
                     <p className="text-gray-700 mb-2">
                       Dawn breaks with the chorus of tropical birds as you begin your journey into the emerald heart of San Luis Potosí. Leaving the city behind, the landscape transforms dramatically from semi-desert to lush jungle as you descend into the Huasteca region. By mid-morning, you'll be settling into your eco-friendly accommodation nestled among the verdant hills, where the air is perfumed with tropical flowers and the distant sound of rushing water hints at adventures to come.
                     </p>
                   )}
-                  
+
                   {getaway.id === "media-luna" && (
                     <p className="text-gray-700 mb-2">
                       The journey to Media Luna takes you through the changing landscapes of central San Luis Potosí, where cacti and desert scrub gradually give way to the surprising oasis that contains one of Mexico's most extraordinary natural springs. As you arrive and catch your first glimpse of the luminous blue waters forming their perfect half-moon shape, you'll understand why this place has drawn visitors for thousands of years—from ancient indigenous peoples to modern-day underwater explorers.
                     </p>
                   )}
-                  
+
                   <ul className="list-disc list-inside text-gray-700 ml-2 mb-2">
                     <li>Early departure from San Luis Potosí city</li>
                     <li>Arrival and check-in at accommodation</li>
@@ -348,25 +348,25 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
 
                 <div className="mb-4">
                   <h5 className="font-semibold text-gray-800">Day 2</h5>
-                  
+
                   {getaway.id === "real-de-catorce" && (
                     <p className="text-gray-700 mb-2">
                       Wake to the sound of distant church bells in a town where centuries overlap. After breakfast at a local café where the aroma of fresh pan dulce fills the air, you'll set out to experience Real de Catorce's dual nature—both historical treasure and spiritual sanctuary. Your Corazón de Xoconostle guide will reveal stories behind the weathered facades and introduce you to local artisans whose crafts continue traditions that have survived the town's many transformations.
                     </p>
                   )}
-                  
+
                   {getaway.id === "huasteca-potosina" && (
                     <p className="text-gray-700 mb-2">
                       Your second day in paradise begins with the soft morning light filtering through the jungle canopy. After a breakfast featuring tropical fruits and local specialties, you'll venture deeper into the Huasteca's water world. Each waterfall and natural pool you visit has its own character and legend, shared by guides who grew up swimming in these sacred waters and learned their secrets from generations past.
                     </p>
                   )}
-                  
+
                   {getaway.id === "media-luna" && (
                     <p className="text-gray-700 mb-2">
                       The morning light creates ever-changing patterns on Media Luna's surface as you prepare for a day of aquatic exploration. After breakfast overlooking the lagoon, you'll have the opportunity to see this underwater wonderland from different perspectives—whether snorkeling above the mesmerizing springs where you can watch water bubble up from the depths, or hiking the surrounding trails for panoramic views of this geological marvel.
                     </p>
                   )}
-                  
+
                   <ul className="list-disc list-inside text-gray-700 ml-2 mb-2">
                     <li>Breakfast at local eatery</li>
                     <li>Morning adventure: {getaway.activities[1]}</li>
@@ -387,19 +387,19 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                 <div className="p-4 bg-gray-50 rounded-lg mb-6">
                   <h4 className="font-bold text-gray-800 mb-2">Cultural Highlights:</h4>
                   <p className="text-gray-700">{getaway.culturalNotes}</p>
-                  
+
                   {getaway.id === "real-de-catorce" && (
                     <p className="text-gray-700 mt-2">
                       During your visit, you might witness Wixárika pilgrims completing their 450 km journey to collect peyote and leave offerings at sacred sites. Their colorful beadwork and profound spiritual traditions offer a glimpse into pre-Columbian beliefs that have survived against all odds. Meanwhile, the crumbling grandeur of colonial buildings tells the story of European influence and the boom-and-bust cycle of mining towns throughout Mexican history.
                     </p>
                   )}
-                  
+
                   {getaway.id === "huasteca-potosina" && (
                     <p className="text-gray-700 mt-2">
                       The Huasteca is not just a natural wonder but a cultural crossroads where indigenous traditions blend with colonial influences. You'll see evidence of this in everything from the bright embroidery of local textiles to the fusion cuisine that combines native ingredients with Spanish techniques. If you visit during Xantolo (Day of the Dead), you'll witness one of Mexico's most authentic celebrations, with unique costumes, dances, and customs found nowhere else.
                     </p>
                   )}
-                  
+
                   {getaway.id === "media-luna" && (
                     <p className="text-gray-700 mt-2">
                       Beyond its natural beauty, Media Luna holds archaeological significance as a site where ancient civilizations conducted rituals and left offerings. Underwater archaeological expeditions have recovered artifacts dating back thousands of years, including evidence of some of the earliest human presence in central Mexico. The contrast between the arid surroundings and this life-giving water source has made it a place of spiritual importance throughout human history in the region.
@@ -408,7 +408,7 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                 </div>
 
                 <div>
-                  <a 
+                  <a
                     href={`https://www.corazondexoconostle.com/index.php/en/`}
                     className="inline-flex items-center bg-primary text-white py-2 px-6 rounded-lg shadow hover:bg-primary-dark transition-colors"
                     target="_blank"
@@ -419,15 +419,15 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                       <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </a>
-                  
+
                   <div className="flex items-center mt-4">
                     <p className="text-gray-600 text-sm mr-2">Powered by:</p>
-                    <Image 
-                      src="/images/brands/corazon-de-xoconostle-logo.png" 
-                      alt="Corazon de Xoconostle" 
-                      width={120} 
-                      height={40} 
-                      className="object-contain" 
+                    <Image
+                      src="/images/brands/corazon-de-xoconostle-logo.png"
+                      alt="Corazon de Xoconostle"
+                      width={120}
+                      height={40}
+                      className="object-contain"
                     />
                   </div>
                 </div>
@@ -442,62 +442,62 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Why Choose a Weekend Getaway in San Luis Potosí</h2>
-            
+
             <p className="text-gray-700 mb-8 text-center italic">
-              "Sometimes the most profound journeys are those that don't take you far in distance, 
+              "Sometimes the most profound journeys are those that don't take you far in distance,
               but transport you worlds away in experience."
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Accessibility</h3>
                 <p className="text-gray-700">
-                  Imagine leaving your home after breakfast and by lunchtime, standing in a 
-                  completely different world. San Luis Potosí's treasure troves of adventure 
-                  lie just 2-3 hours from the city center—close enough for a weekend escape, 
-                  yet far enough to disconnect completely from urban routines. While others plan 
-                  elaborate vacations waiting for "someday," you can be swimming beneath a waterfall 
+                  Imagine leaving your home after breakfast and by lunchtime, standing in a
+                  completely different world. San Luis Potosí's treasure troves of adventure
+                  lie just 2-3 hours from the city center—close enough for a weekend escape,
+                  yet far enough to disconnect completely from urban routines. While others plan
+                  elaborate vacations waiting for "someday," you can be swimming beneath a waterfall
                   or wandering a ghost town by this afternoon.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Natural Diversity</h3>
                 <p className="text-gray-700">
-                  Few places on earth offer the environmental contrasts you'll find within 
-                  this single state. In a single weekend, you could wake up in the mystical fog 
-                  of a high-altitude desert where silver miners once sought fortune, then the 
-                  next morning dive into turquoise waters surrounded by lush jungle. Each landscape 
-                  tells a different story, hosts unique wildlife, and presents its own rhythms—a 
+                  Few places on earth offer the environmental contrasts you'll find within
+                  this single state. In a single weekend, you could wake up in the mystical fog
+                  of a high-altitude desert where silver miners once sought fortune, then the
+                  next morning dive into turquoise waters surrounded by lush jungle. Each landscape
+                  tells a different story, hosts unique wildlife, and presents its own rhythms—a
                   lifetime of exploration waiting just beyond the city limits.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Cultural Richness</h3>
                 <p className="text-gray-700">
-                  Every cobblestone in San Luis Potosí's towns holds centuries of stories—tales of 
-                  indigenous wisdom, Spanish conquest, revolutionary heroes, and modern artistic 
-                  revival. A weekend getaway here isn't just about seeing beautiful places; it's about 
-                  walking through living history where ancient traditions continue alongside contemporary 
-                  life. You might share a meal with a family whose cooking techniques haven't changed in 
+                  Every cobblestone in San Luis Potosí's towns holds centuries of stories—tales of
+                  indigenous wisdom, Spanish conquest, revolutionary heroes, and modern artistic
+                  revival. A weekend getaway here isn't just about seeing beautiful places; it's about
+                  walking through living history where ancient traditions continue alongside contemporary
+                  life. You might share a meal with a family whose cooking techniques haven't changed in
                   500 years, or watch artisans create crafts using methods passed down through generations.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-bold text-xl mb-2">Expert Guidance</h3>
                 <p className="text-gray-700">
-                  Anyone can visit a destination, but truly experiencing it requires a key that unlocks 
-                  its secrets. With <Link href="https://www.corazondexoconostle.com/index.php/en/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Corazón de Xoconostle</Link>'s 
-                  certified guides, places that might seem like beautiful but silent landscapes come alive 
-                  with stories, hidden pathways reveal themselves, and chance encounters become meaningful 
-                  connections. Their intimate knowledge transforms tourist stops into personal discoveries, 
+                  Anyone can visit a destination, but truly experiencing it requires a key that unlocks
+                  its secrets. With <Link href="https://www.corazondexoconostle.com/index.php/en/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Corazón de Xoconostle</Link>'s
+                  certified guides, places that might seem like beautiful but silent landscapes come alive
+                  with stories, hidden pathways reveal themselves, and chance encounters become meaningful
+                  connections. Their intimate knowledge transforms tourist stops into personal discoveries,
                   offering perspectives that no guidebook or self-directed tour could provide.
                 </p>
               </div>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-bold text-xl mb-2">The Corazón de Xoconostle Difference</h3>
               <p className="text-gray-700 mb-4">
@@ -518,13 +518,13 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Explore More Adventures</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <div className="relative h-48">
-                <Image 
-                  src="/images/outdoors/hiking.jpg" 
-                  alt="Outdoor Activities" 
+                <Image
+                  src="/images/outdoors/hiking.jpg"
+                  alt="Outdoor Activities"
                   layout="fill"
                   objectFit="cover"
                 />
@@ -540,12 +540,12 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                 </Link>
               </div>
             </div>
-            
+
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <div className="relative h-48">
-                <Image 
-                  src="/images/cultural/museum.jpg" 
-                  alt="Cultural Experiences" 
+                <Image
+                  src="/images/cultural/museum.jpg"
+                  alt="Cultural Experiences"
                   layout="fill"
                   objectFit="cover"
                 />
@@ -561,12 +561,12 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
                 </Link>
               </div>
             </div>
-            
+
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <div className="relative h-48">
-                <Image 
-                  src="/images/events/festival.jpg" 
-                  alt="Upcoming Events" 
+                <Image
+                  src="/images/events/festival.jpg"
+                  alt="Upcoming Events"
                   layout="fill"
                   objectFit="cover"
                 />
@@ -592,28 +592,28 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready for Your Weekend Escape?</h2>
             <p className="text-lg text-gray-700 mb-6">
-              The morning commute. The endless meetings. The routine that blends one day into the next until weeks blur together. 
-              Somewhere, just a few hours from your doorstep, waterfalls are cascading into turquoise pools. Ancient 
-              stories are waiting to be heard on cobblestone streets. Adventures are unfolding that could become 
+              The morning commute. The endless meetings. The routine that blends one day into the next until weeks blur together.
+              Somewhere, just a few hours from your doorstep, waterfalls are cascading into turquoise pools. Ancient
+              stories are waiting to be heard on cobblestone streets. Adventures are unfolding that could become
               your most treasured memories.
             </p>
             <p className="text-lg text-gray-700 mb-8">
-              This weekend could be different. The team at Corazón de Xoconostle is ready to transform your 
-              Saturday and Sunday from ordinary to extraordinary—to help you discover that sometimes the most 
-              meaningful journeys don't require plane tickets or vacation days, just the decision to see what 
+              This weekend could be different. The team at Corazón de Xoconostle is ready to transform your
+              Saturday and Sunday from ordinary to extraordinary—to help you discover that sometimes the most
+              meaningful journeys don't require plane tickets or vacation days, just the decision to see what
               wonders lie beyond the familiar.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="https://www.corazondexoconostle.com/index.php/en/" 
+              <a
+                href="https://www.corazondexoconostle.com/index.php/en/"
                 className="bg-primary text-white py-3 px-8 rounded-lg shadow hover:bg-primary-dark transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Begin Your Story
               </a>
-              <a 
-                href="https://wa.me/5214446571872" 
+              <a
+                href="https://wa.me/5214446571872"
                 className="bg-white text-primary border border-primary py-3 px-8 rounded-lg shadow hover:bg-gray-50 transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -628,7 +628,7 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'en', ['common'])),
@@ -637,4 +637,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default WeekendGetawaysPage; 
+export default WeekendGetawaysPage;

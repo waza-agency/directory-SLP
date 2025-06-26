@@ -109,7 +109,7 @@ const CocktailBarsPage: NextPage<CocktailBarsPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Fetch cocktail bars from Supabase
   const { data: places, error } = await supabase
     .from('places')

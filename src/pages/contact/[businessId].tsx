@@ -421,7 +421,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale = 'en' }) => {
   if (!params?.businessId) {
     return {
       notFound: true,

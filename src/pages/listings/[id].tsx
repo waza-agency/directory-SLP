@@ -379,7 +379,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale = 'en' }) => {
   if (!params?.id) {
     return {
       notFound: true,

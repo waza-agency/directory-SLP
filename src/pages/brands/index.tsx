@@ -336,7 +336,7 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Fetch all brands from Supabase
     const fetchedBrands = await getAllBrands();

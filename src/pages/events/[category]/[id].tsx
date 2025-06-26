@@ -51,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) => {
   try {
     const category = params?.category as string;
     const id = params?.id as string;

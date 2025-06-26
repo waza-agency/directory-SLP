@@ -26,9 +26,9 @@ const TraditionalCuisinePage: NextPage<TraditionalCuisinePageProps> = ({ places 
     <>
       <Head>
         <title>Traditional Cuisine - SLP Descubre</title>
-        <meta 
-          name="description" 
-          content="Discover authentic Potosino restaurants serving traditional dishes in San Luis Potosí" 
+        <meta
+          name="description"
+          content="Discover authentic Potosino restaurants serving traditional dishes in San Luis Potosí"
         />
       </Head>
 
@@ -43,8 +43,8 @@ const TraditionalCuisinePage: NextPage<TraditionalCuisinePageProps> = ({ places 
               Traditional Cuisine
             </h1>
             <p className="text-lg text-gray-600">
-              Experience the authentic flavors of San Luis Potosí through our carefully curated selection 
-              of traditional restaurants. From enchiladas potosinas to regional specialties, discover the 
+              Experience the authentic flavors of San Luis Potosí through our carefully curated selection
+              of traditional restaurants. From enchiladas potosinas to regional specialties, discover the
               rich culinary heritage of our city.
             </p>
           </div>
@@ -53,7 +53,7 @@ const TraditionalCuisinePage: NextPage<TraditionalCuisinePageProps> = ({ places 
 
       {/* Featured Places Section */}
       {featuredPlaces.length > 0 && (
-        <FeaturedPlaces 
+        <FeaturedPlaces
           places={featuredPlaces}
           onPlaceSelect={(place) => setSelectedPlace(place)}
         />
@@ -88,7 +88,7 @@ const TraditionalCuisinePage: NextPage<TraditionalCuisinePageProps> = ({ places 
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Fetch traditional cuisine places from Supabase
   const { data: places, error } = await supabase
     .from('places')
@@ -116,7 +116,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   // Log the places data to debug image URLs
   console.log('Fetched places:', JSON.stringify(mappedPlaces, null, 2));
-  
+
   // Log each place's image URL
   mappedPlaces?.forEach(place => {
     console.log(`Place: ${place.name}`);
@@ -133,4 +133,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
-export default TraditionalCuisinePage; 
+export default TraditionalCuisinePage;

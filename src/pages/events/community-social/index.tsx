@@ -22,7 +22,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Calculate the safety buffer date - 7 days in the past
     const safetyDateBuffer = new Date();

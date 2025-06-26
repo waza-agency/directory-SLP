@@ -109,7 +109,7 @@ const CantinasPage: NextPage<CantinasPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Fetch cantinas from Supabase
   const { data: places, error } = await supabase
     .from('places')

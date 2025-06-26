@@ -109,7 +109,7 @@ const TerracesPage: NextPage<TerracesPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Fetch terraces from Supabase
   const { data: places, error } = await supabase
     .from('places')

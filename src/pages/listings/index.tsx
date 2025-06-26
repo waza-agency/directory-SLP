@@ -342,7 +342,7 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) => {
   try {
     // First get business listings with their profiles
     const { data: listings, error } = await supabase

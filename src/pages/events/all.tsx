@@ -17,7 +17,7 @@ interface EventsPageProps {
   categoryCounts: Record<string, number>;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Default fallback values
   const fallbackProps = {
     props: {

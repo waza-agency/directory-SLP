@@ -109,7 +109,7 @@ const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   // Fetch live music places from Supabase
   const { data: places, error } = await supabase
     .from('places')

@@ -22,7 +22,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Calculate the safety buffer date - 7 days in the past
     const safetyDateBuffer = new Date();
@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+        ...(await serverSideTranslations(locale, ['common'])),
         events,
       },
       revalidate: 600,
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     console.error('Error fetching events:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+        ...(await serverSideTranslations(locale, ['common'])),
         events: [],
       },
       revalidate: 600,

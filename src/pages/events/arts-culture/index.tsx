@@ -22,13 +22,13 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Calculate the safety buffer date - 7 days in the past
     const safetyDateBuffer = new Date();
     safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
     const safetyDateString = safetyDateBuffer.toISOString();
-    
+
     // Get arts-culture and music events
     const { data: eventsData, error } = await supabase
       .from('events')
@@ -49,12 +49,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     // Apply additional client-side filtering to ensure we only show upcoming or current events
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // Set to start of day
-    
+
     const events = eventsData ? eventsData.filter(event => {
       // Parse the start date to properly compare regardless of format
       const eventStartDate = new Date(event.start_date);
       eventStartDate.setHours(0, 0, 0, 0); // Set to start of day
-      
+
       // Keep events that start today or in the future, or ongoing events
       return eventStartDate >= currentDate || new Date(event.end_date) >= currentDate;
     }) : [];
@@ -247,4 +247,4 @@ export default function ArtsEvents({ events }: ArtsEventsProps) {
       </div>
     </div>
   );
-} 
+}

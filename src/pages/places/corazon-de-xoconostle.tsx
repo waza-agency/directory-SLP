@@ -79,7 +79,7 @@ const CorazonDeXoconostle: NextPage = () => {
   );
 };
 
-export const getStaticProps = async ({ locale }: { locale: string }) => {
+export const getStaticProps = async ({ locale = 'en' }: { locale?: string }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),

@@ -22,13 +22,13 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   try {
     // Calculate the safety buffer date - 7 days in the past
     const safetyDateBuffer = new Date();
     safetyDateBuffer.setDate(safetyDateBuffer.getDate() - 7);
     const safetyDateString = safetyDateBuffer.toISOString();
-    
+
     // Get all events regardless of category to maximize what we show in the cultural section
     const { data: eventsData, error } = await supabase
       .from('events')
@@ -42,10 +42,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
     // Filter on the client side for cultural events (including arts-culture and music)
     // Or any event with show_in_cultural_calendar flag
-    const culturalEvents = eventsData ? eventsData.filter(event => 
+    const culturalEvents = eventsData ? eventsData.filter(event =>
       // Include events with cultural categories
-      event.category === 'cultural' || 
-      event.category === 'arts-culture' || 
+      event.category === 'cultural' ||
+      event.category === 'arts-culture' ||
       event.category === 'music' ||
       // Or events marked for the cultural calendar
       event.show_in_cultural_calendar === true
@@ -56,12 +56,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     // Apply additional client-side filtering to ensure we only show upcoming or current events
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // Set to start of day
-    
+
     const events = culturalEvents.filter(event => {
       // Parse the start date to properly compare regardless of format
       const eventStartDate = new Date(event.start_date);
       eventStartDate.setHours(0, 0, 0, 0); // Set to start of day
-      
+
       // Keep events that start today or in the future, or ongoing events
       return eventStartDate >= currentDate || new Date(event.end_date) >= currentDate;
     });
@@ -101,12 +101,12 @@ export default function CulturalEvents({ events }: CulturalEventsProps) {
     // Determine category display based on the event category OR if it's marked for cultural calendar
     let category = event.category;
     let bgColor = 'bg-gray-500';
-    
+
     // Override category display if explicitly marked for cultural calendar
     if (event.show_in_cultural_calendar) {
       category = 'cultural';
     }
-    
+
     // Set color based on category or cultural calendar flag
     if (category === 'sports') {
       bgColor = 'bg-blue-500';
@@ -115,10 +115,10 @@ export default function CulturalEvents({ events }: CulturalEventsProps) {
     } else if (category === 'culinary') {
       bgColor = 'bg-amber-500';
     }
-    
-    return { 
+
+    return {
       displayCategory: category === 'arts-culture' ? 'cultural' : category,
-      bgColor 
+      bgColor
     };
   };
 
@@ -286,4 +286,4 @@ export default function CulturalEvents({ events }: CulturalEventsProps) {
       </div>
     </div>
   );
-} 
+}
