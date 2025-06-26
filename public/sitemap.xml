@@ -549,7 +549,37 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/signin-simple</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/signup</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/signup-fixed</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/signup-minimal</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/signup-production</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/signup-simple</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/simple-test</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -567,6 +597,11 @@
     <loc>https://sanluisway.com/submit-listing/success</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/test-minimal-signup</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/traditional-cuisine</loc>

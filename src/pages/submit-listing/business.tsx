@@ -5,16 +5,21 @@ import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/supabase-auth';
 
 const businessCategories = [
-  { id: 'food', name: 'Food & Dining' },
-  { id: 'beverages', name: 'Beverages' },
-  { id: 'sports-fitness', name: 'Sports & Fitness' },
-  { id: 'outdoor-activities', name: 'Outdoor Activities' },
-  { id: 'private-dining-rooms', name: 'Private Dining Rooms' },
-  { id: 'language-exchange-cafes', name: 'Language Exchange Cafes' },
-  { id: 'family-activities', name: 'Family Activities' },
-  { id: 'terraces', name: 'Terraces' },
-  { id: 'live-music', name: 'Live Music Venues' },
-  { id: 'other', name: 'Other' }
+  { id: 'alimentos-bebidas', name: 'Alimentos y Bebidas' },
+  { id: 'artesanias', name: 'Artesanías y Arte Local' },
+  { id: 'ropa-accesorios', name: 'Ropa y Accesorios' },
+  { id: 'servicios-profesionales', name: 'Servicios Profesionales' },
+  { id: 'belleza-bienestar', name: 'Belleza y Bienestar' },
+  { id: 'hogar-decoracion', name: 'Hogar y Decoración' },
+  { id: 'tecnologia', name: 'Tecnología y Electrónicos' },
+  { id: 'educacion-cursos', name: 'Educación y Cursos' },
+  { id: 'turismo-hospedaje', name: 'Turismo y Hospedaje' },
+  { id: 'construccion-reparaciones', name: 'Construcción y Reparaciones' },
+  { id: 'transporte', name: 'Transporte y Logística' },
+  { id: 'salud-medicos', name: 'Salud y Servicios Médicos' },
+  { id: 'eventos-entretenimiento', name: 'Eventos y Entretenimiento' },
+  { id: 'productos-locales', name: 'Productos Típicos de SLP' },
+  { id: 'otro', name: 'Otro' }
 ];
 
 interface FormData {
@@ -30,7 +35,7 @@ interface FormData {
   contactName: string;
   contactPhone: string;
   contactEmail: string;
-  priceRange: string;
+  price: string;
   images: File[];
   acceptedTerms: boolean;
 }
@@ -54,7 +59,7 @@ export default function SubmitBusinessListing() {
     contactName: '',
     contactPhone: '',
     contactEmail: '',
-    priceRange: '',
+    price: '',
     images: [],
     acceptedTerms: false
   });
@@ -140,10 +145,12 @@ export default function SubmitBusinessListing() {
         })
       );
 
-      // Convert price to proper format
-      const priceValue = formData.priceRange === '$' ? '100-300' :
-                        formData.priceRange === '$$' ? '300-600' :
-                        formData.priceRange === '$$$' ? '600-1000' : '1000+';
+      // Convert price to number
+      const priceValue = parseFloat(formData.price);
+
+      if (isNaN(priceValue)) {
+        throw new Error('Invalid price value');
+      }
 
       // Insert business listing data (NOT places)
       const { data, error: insertError } = await supabase
@@ -242,7 +249,7 @@ export default function SubmitBusinessListing() {
                     onChange={handleInputChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                   >
-                    <option value="">Select a category</option>
+                    <option value="">Selecciona una categoría</option>
                     {businessCategories.map(category => (
                       <option key={category.id} value={category.id}>
                         {category.name}
@@ -428,22 +435,26 @@ export default function SubmitBusinessListing() {
               <h2 className="text-xl font-semibold text-gray-900 border-b pb-2">Additional Information</h2>
 
               <div>
-                <label htmlFor="priceRange" className="block text-sm font-medium text-gray-700">
-                  Price Range
+                <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+                  Price (MXN) *
                 </label>
-                <select
-                  id="priceRange"
-                  name="priceRange"
-                  value={formData.priceRange}
-                  onChange={handleInputChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                >
-                  <option value="">Select price range</option>
-                  <option value="$">$ (Budget-friendly)</option>
-                  <option value="$$">$$ (Moderate)</option>
-                  <option value="$$$">$$$ (High-end)</option>
-                  <option value="$$$$">$$$$ (Luxury)</option>
-                </select>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-gray-500 sm:text-sm">$</span>
+                  </div>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    id="price"
+                    name="price"
+                    required
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    className="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                    placeholder="0.00"
+                  />
+                </div>
               </div>
             </div>
 
