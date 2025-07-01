@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('🔍 Testing getBlogPostBySlug...');
     const startTime2 = Date.now();
     try {
-      const post = await getBlogPostBySlug('bienvenido-san-luis-way');
+      const post = await getBlogPostBySlug('san-luis-rey-tranvia');
       results.tests.push({
         test: 'getBlogPostBySlug',
         success: true,

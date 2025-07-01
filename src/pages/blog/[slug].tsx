@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+// Temporarily disable i18n
+// import { useTranslation } from 'next-i18next';
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -72,7 +73,8 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
     console.log('✅ [getStaticProps] Returning post:', post.title);
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
+        // Temporarily disable i18n
+        // ...(await serverSideTranslations(locale, ['common'])),
         post
       },
       revalidate: 60 // Revalidate every 60 seconds
@@ -86,7 +88,8 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
 };
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
-  const { t } = useTranslation('common');
+  // Temporarily disable i18n
+  // const { t } = useTranslation('common');
 
   if (!post) {
     return null; // This shouldn't happen because of notFound: true above, but TypeScript needs it

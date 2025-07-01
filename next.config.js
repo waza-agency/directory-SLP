@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require('./next-i18next.config.js');
+// i18n disabled for simpler blog routing
+// const { i18n } = require('./next-i18next.config.js');
 
 const nextConfig = {
-  i18n,
+  // i18n disabled to fix blog routes - using simple routing instead
   reactStrictMode: true,
   eslint: {
     // Disable ESLint during builds

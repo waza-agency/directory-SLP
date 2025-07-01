@@ -137,11 +137,14 @@ export default function BlogDebugPage() {
             <Link href="/blog" className="block text-blue-600 hover:underline">
               → Go to Blog Index
             </Link>
-            <Link href="/blog/welcome-to-san-luis-way" className="block text-blue-600 hover:underline">
-              → Test Direct Blog Post Link
+            <Link href="/blog/san-luis-rey-tranvia" className="block text-blue-600 hover:underline">
+              → Test Real Blog Post: San Luis Rey
             </Link>
-            <Link href="/blog/bienvenido-san-luis-way" className="block text-blue-600 hover:underline">
-              → Test Spanish Blog Post Link
+            <Link href="/blog/la-gran-via" className="block text-blue-600 hover:underline">
+              → Test Real Blog Post: La Gran Vía
+            </Link>
+            <Link href="/blog/corazon-de-xoconostle" className="block text-blue-600 hover:underline">
+              → Test Real Blog Post: Corazón de Xoconostle
             </Link>
           </div>
         </div>
@@ -181,13 +184,13 @@ export default function BlogDebugPage() {
             >
               → API: Get All Posts
             </a>
-            <a
-              href="/api/blog/bienvenido-san-luis-way"
+                        <a
+              href="/api/blog/san-luis-rey-tranvia"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-green-600 hover:underline"
             >
-              → API: Get Specific Post
+              → API: Get Specific Post (San Luis Rey)
             </a>
           </div>
         </div>

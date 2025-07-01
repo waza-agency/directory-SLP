@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+// Temporarily disable i18n
+// import { useTranslation } from 'next-i18next';
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,7 +18,8 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
+        // Temporarily disable i18n
+        // ...(await serverSideTranslations(locale, ['common'])),
         posts
       },
       revalidate: 60 // Revalidate every 60 seconds
@@ -26,7 +28,8 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
     console.warn('Error in blog getStaticProps:', error instanceof Error ? error.message : 'Unknown error');
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
+        // Temporarily disable i18n
+        // ...(await serverSideTranslations(locale, ['common'])),
         posts: []
       },
       revalidate: 60
@@ -35,15 +38,16 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
 };
 
 export default function BlogIndex({ posts }: BlogIndexProps) {
-  const { t } = useTranslation('common');
+  // Temporarily disable i18n
+  // const { t } = useTranslation('common');
 
   return (
     <>
       <Head>
-        <title>{t('navigation.blog')} - San Luis Way</title>
+        <title>Blog - San Luis Way</title>
         <meta
           name="description"
-          content={t('navigation.blog_description')}
+          content="Discover San Luis Potosí through our stories and guides"
         />
       </Head>
 
@@ -68,10 +72,10 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
           <div className="relative container mx-auto px-4 h-full flex items-center">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                {t('navigation.blog')}
+                Blog
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 leading-relaxed">
-                {t('navigation.blog_description')}
+                Discover San Luis Potosí through our stories and guides
               </p>
               <div className="mt-8">
                 <div className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
