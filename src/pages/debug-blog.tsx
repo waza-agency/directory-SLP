@@ -69,6 +69,21 @@ export default function BlogDebugPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-2xl font-bold mb-4">Blog Debug Information</h1>
 
+        {/* Production Issue Alert */}
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-semibold text-red-800 mb-3">
+            🚨 Solucionando Error 404 en Producción
+          </h2>
+          <div className="text-red-700 space-y-2">
+            <p><strong>Paso 1:</strong> Haz clic en "🧪 API: Complete Blog Route Tests" abajo</p>
+            <p><strong>Paso 2:</strong> Si ves errores, haz clic en "🔍 API: Production Environment Check"</p>
+            <p><strong>Paso 3:</strong> Verifica que supabase.hasUrl y supabase.hasAnonKey sean true</p>
+            <p><strong>Paso 4:</strong> Si publishedPostsCount es 0, haz clic en "Initialize Blog Data"</p>
+            <p><strong>Paso 5:</strong> Revisa la consola del navegador (F12) por errores CSP/CORS</p>
+            <p><strong>Paso 6:</strong> Comparte los resultados conmigo para ayuda adicional</p>
+          </div>
+        </div>
+
         <div className="bg-white p-6 rounded-lg shadow mb-6">
           <h2 className="text-lg font-semibold mb-4">Debug Results</h2>
           <div className="mb-4">
@@ -131,9 +146,33 @@ export default function BlogDebugPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow">
+                <div className="bg-white p-6 rounded-lg shadow">
           <h2 className="text-lg font-semibold mb-4">API Endpoints (Direct Test)</h2>
           <div className="space-y-2">
+            <a
+              href="/api/production-debug"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-red-600 hover:underline font-bold"
+            >
+              🔍 API: Production Environment Check
+            </a>
+                        <a
+              href="/api/blog-debug"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-orange-600 hover:underline font-bold"
+            >
+              🔍 API: Blog Connection Debug
+            </a>
+            <a
+              href="/api/test-blog-routes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-purple-600 hover:underline font-bold"
+            >
+              🧪 API: Complete Blog Route Tests
+            </a>
             <a
               href="/api/blog"
               target="_blank"
@@ -149,14 +188,6 @@ export default function BlogDebugPage() {
               className="block text-green-600 hover:underline"
             >
               → API: Get Specific Post
-            </a>
-            <a
-              href="/api/blog-debug"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-green-600 hover:underline"
-            >
-              → API: Debug Information
             </a>
           </div>
         </div>
