@@ -25,6 +25,10 @@ export interface BlogPost {
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
+    console.log('🔍 [getBlogPosts] Starting to fetch blog posts...');
+    console.log('🔍 [getBlogPosts] Supabase URL:', supabaseUrl);
+    console.log('🔍 [getBlogPosts] Has Anon Key:', !!supabaseAnonKey);
+
     // Add timeout and retry logic
     const { data, error } = await Promise.race([
       supabase
@@ -38,8 +42,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       )
     ]) as any;
 
+    console.log('🔍 [getBlogPosts] Query result:', { dataLength: data?.length, error: error?.message });
+
     if (error) {
-      console.warn('Error fetching blog posts:', error.message);
+      console.error('❌ [getBlogPosts] Error fetching blog posts:', error.message, error);
       return [];
     }
 
@@ -58,15 +64,18 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       tags: post.tags
     })) || [];
 
+    console.log('✅ [getBlogPosts] Returning posts:', mappedData.length);
     return mappedData;
   } catch (error) {
-    console.warn('Error in getBlogPosts:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('❌ [getBlogPosts] Error in getBlogPosts:', error instanceof Error ? error.message : 'Unknown error', error);
     return [];
   }
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
+    console.log('🔍 [getBlogPostBySlug] Looking for slug:', slug);
+
     const { data, error } = await Promise.race([
       supabase
         .from('blog_posts')
@@ -79,8 +88,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       )
     ]) as any;
 
+    console.log('🔍 [getBlogPostBySlug] Query result:', { hasData: !!data, error: error?.message });
+
     if (error) {
-      console.warn('Error fetching blog post:', error.message);
+      console.error('❌ [getBlogPostBySlug] Error fetching blog post:', error.message, error);
       return null;
     }
 
@@ -99,9 +110,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       tags: data.tags
     } : null;
 
+    console.log('✅ [getBlogPostBySlug] Returning post:', mappedPost ? mappedPost.title : 'null');
     return mappedPost;
   } catch (error) {
-    console.warn('Error in getBlogPostBySlug:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('❌ [getBlogPostBySlug] Error in getBlogPostBySlug:', error instanceof Error ? error.message : 'Unknown error', error);
     return null;
   }
 }
