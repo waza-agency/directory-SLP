@@ -10,13 +10,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Count places
     const { count: placesCount, error: placesError } = await supabaseAdmin
       .from('places')
-      .select('*', { count: 'exact', head: true });
+      .select;
     if (placesError) throw placesError;
 
     // Count business_listings (services)
     const { count: servicesCount, error: servicesError } = await supabaseAdmin
       .from('business_listings')
-      .select('*', { count: 'exact', head: true });
+      .select;
     if (servicesError) throw servicesError;
 
     return res.status(200).json({ placesCount, servicesCount });

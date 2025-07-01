@@ -118,7 +118,7 @@ const SubscriptionPage = () => {
       console.log('Checking for business profile');
       const { data: businessProfile, error: profileError } = await supabase
         .from('business_profiles')
-        .select('*')
+        .select("*")
         .eq('user_id', userId)
         .single();
 
@@ -139,12 +139,12 @@ const SubscriptionPage = () => {
           .insert([
             {
               user_id: userId,
-              business_name: (userEmail ? userEmail.split('@')[0] : 'New') + ' Business',
+              business_name: (userEmail ? userEmail.split('@')[0] + ' Business' : 'Business'),
               subscription_status: 'inactive',
               business_category: 'Other' // Add a default category
             }
           ])
-          .select('id')
+          .select("*")
           .single();
 
         console.log('Business profile creation result:', { newProfile, insertError });

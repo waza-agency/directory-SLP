@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Test 1: Basic connection
     const { data: connectionTest, error: connectionError } = await supabase
       .from('blog_posts')
-      .select('count')
+      .select("*")
       .limit(1);
 
     if (connectionError) {
@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Test 2: Check blog_posts table structure
     const { data: tableTest, error: tableError } = await supabase
       .from('blog_posts')
-      .select('id, slug, title, status')
+      .select("*")
       .limit(3);
 
     if (tableError) {
@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Test 3: Count published posts
     const { count, error: countError } = await supabase
       .from('blog_posts')
-      .select('*', { count: 'exact', head: true })
+      .select("*")
       .eq('status', 'published');
 
     if (countError) {

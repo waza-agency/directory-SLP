@@ -64,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('🔍 Testing Supabase connection...');
     const startTime3 = Date.now();
     try {
-      const { createClient } = await import('@supabase/supabase-js');
+      const { createClient } = await import('nodemailer');
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
       const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
@@ -75,7 +75,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const supabase = createClient(supabaseUrl, supabaseAnonKey);
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('count')
+        .select("*")
         .limit(1);
 
       results.tests.push({

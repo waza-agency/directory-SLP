@@ -306,7 +306,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Fetch all places
     const { data: places, error: placesError } = await supabase
       .from('places')
-      .select('*')
+      .select("*")
       .order('created_at', { ascending: false });
 
     if (placesError) {
@@ -316,7 +316,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Fetch featured places
     const { data: featuredPlaces, error: featuredError } = await supabase
       .from('places')
-      .select('*')
+      .select("*")
       .eq('featured', true)
       .order('created_at', { ascending: false })
       .limit(6);
@@ -330,7 +330,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
         places: places || [],
         featuredPlaces: featuredPlaces || [],
       },
-      revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -339,7 +338,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
         places: [],
         featuredPlaces: [],
       },
-      revalidate: 3600,
     };
   }
 };

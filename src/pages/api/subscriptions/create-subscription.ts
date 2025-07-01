@@ -63,7 +63,7 @@ export default async function handler(
     // Get user details for checkout
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('email')
+      .select("*")
       .eq('id', user_id)
       .single();
 
@@ -82,7 +82,7 @@ export default async function handler(
       // Check if coupon exists and is valid
       const { data: dbCoupon, error: couponError } = await supabase
         .from('admin_coupons')
-        .select('*')
+        .select("*")
         .eq('coupon_code', coupon_code.toUpperCase())
         .eq('is_active', true)
         .single();
@@ -94,7 +94,7 @@ export default async function handler(
       // Check if user has already used this coupon
       const { data: existingUsage } = await supabase
         .from('coupon_usage')
-        .select('id')
+        .select("*")
         .eq('user_id', user_id)
         .eq('coupon_code', coupon_code.toUpperCase())
         .single();

@@ -161,7 +161,7 @@ export default function BusinessProfilePage() {
       // Fetch business profile
       const { data, error } = await supabase
         .from('business_profiles')
-        .select('*')
+        .select("*")
         .eq('user_id', user?.id)
         .single();
 
@@ -254,7 +254,7 @@ export default function BusinessProfilePage() {
     setError('');
 
     try {
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file.name.split.pop();
       const fileName = `${businessProfile?.id}-logo-${Date.now()}.${fileExt}`;
       const filePath = `${fileName}`;
 
@@ -309,7 +309,7 @@ export default function BusinessProfilePage() {
     setError('');
 
     try {
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file.name.split.pop();
       const fileName = `${businessProfile?.id}-cover-${Date.now()}.${fileExt}`;
       const filePath = `${fileName}`;
 

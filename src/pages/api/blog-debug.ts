@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Test 1: Check table existence
     const { data: tableData, error: tableError } = await supabase
       .from('blog_posts')
-      .select('count')
+      .select("*")
       .limit(1);
 
     console.log('Table check result:', { tableData, tableError });
@@ -26,14 +26,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Test 2: Get all posts (including drafts for debugging)
     const { data: allPosts, error: allError } = await supabase
       .from('blog_posts')
-      .select('*');
+      .select;
 
     console.log('All posts result:', { count: allPosts?.length, allError });
 
     // Test 3: Get published posts only
     const { data: publishedPosts, error: publishedError } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select("*")
       .eq('status', 'published');
 
     console.log('Published posts result:', { count: publishedPosts?.length, publishedError });
@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Test 4: Test one specific slug
     const { data: singlePost, error: singleError } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select("*")
       .eq('slug', 'welcome-to-san-luis-way')
       .eq('status', 'published')
       .single();

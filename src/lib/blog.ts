@@ -33,7 +33,7 @@ async function validateConnection() {
   try {
     const { data, error } = await supabase
       .from('blog_posts')
-      .select('count')
+      .select('*')
       .limit(1);
 
     if (error) {
@@ -62,7 +62,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
     const { data, error } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select("*")
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .order('created_at', { ascending: false });
@@ -118,7 +118,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 
     const { data, error } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select("*")
       .eq('slug', slug)
       .eq('status', 'published')
       .single();
@@ -164,7 +164,7 @@ export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
   try {
     const { data, error } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select("*")
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .order('created_at', { ascending: false })
@@ -200,7 +200,7 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
   try {
     const { data, error } = await supabase
       .from('blog_posts')
-      .select('*')
+      .select("*")
       .eq('category', category)
       .eq('status', 'published')
       .order('published_at', { ascending: false })

@@ -24,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const { data: events, error } = await supabase
       .from('events')
-      .select('id, category')
+      .select("*")
       .order('start_date', { ascending: true });
 
     if (error) throw error;
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
     // Fetch the specific event
     const { data: event, error } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .eq('id', id)
       .single();
 
@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
     // Fetch related events from the same category
     const { data: relatedEvents, error: relatedError } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .eq('category', category)
       .neq('id', id)
       .gte('end_date', new Date().toISOString())
@@ -150,9 +150,9 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
   // Get category label and color
   const getCategoryInfo = (category: string) => {
     const categoryMap: Record<string, { label: string; color: string }> = {
-      sports: { label: 'Deportes', color: 'bg-blue-500' },
-      cultural: { label: 'Cultural', color: 'bg-purple-500' },
-      other: { label: 'Otros', color: 'bg-amber-500' },
+      sports: { label: "DEFAULT", color: 'bg-blue-500' },
+      cultural: { label: "DEFAULT", color: 'bg-purple-500' },
+      other: { label: "DEFAULT", color: 'bg-amber-500' },
     };
     return categoryMap[category] || { label: category, color: 'bg-gray-500' };
   };
@@ -215,7 +215,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                   <p className="text-sm text-white/70">Fecha</p>
                   <p className="font-medium">
                     {formatDate(event.start_date)}
-                    {event.end_date && event.start_date.split('T')[0] !== event.end_date.split('T')[0] && (
+                    {event.end_date && event.start_date.split[0] && (
                       <> - {formatDate(event.end_date)}</>
                     )}
                   </p>
@@ -297,7 +297,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                     <div>
                       <p className="font-medium">Fecha</p>
                       <p className="text-gray-600">{formatDate(event.start_date)}</p>
-                      {event.end_date && event.start_date.split('T')[0] !== event.end_date.split('T')[0] && (
+                      {event.end_date && event.start_date.split[0] && (
                         <p className="text-gray-600">{formatDate(event.end_date)}</p>
                       )}
                     </div>

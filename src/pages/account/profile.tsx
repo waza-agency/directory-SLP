@@ -57,7 +57,7 @@ export default function ProfilePage() {
       // Query user profile from Supabase
       const { data, error } = await supabase
         .from('users')
-        .select('*')
+        .select("*")
         .eq('id', user?.id)
         .single();
 
@@ -144,7 +144,7 @@ export default function ProfilePage() {
     try {
       const { data, error } = await supabase
         .from('business_profiles')
-        .select('id')
+        .select("*")
         .eq('user_id', user.id)
         .maybeSingle();
 
@@ -176,7 +176,7 @@ export default function ProfilePage() {
     setSubmitError(null);
 
     try {
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file.name.split.pop();
       const fileName = `${user?.id}-profile-${Date.now()}.${fileExt}`;
       const filePath = fileName;
 

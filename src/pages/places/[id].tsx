@@ -172,7 +172,6 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
         place: null,
         error: 'Missing place ID'
       },
-      revalidate: 3600,
     };
   }
 
@@ -188,7 +187,6 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
           place: null,
           error: 'Place not found'
         },
-        revalidate: 3600,
       };
     }
 
@@ -199,9 +197,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     return {
       props: {
         place: serializablePlace,
-        error: null
       },
-      revalidate: 3600,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -218,7 +214,6 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
         place: null,
         error: errorMessage
       },
-      revalidate: 3600,
     };
   }
 }

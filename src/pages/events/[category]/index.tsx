@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // Obtener eventos
     const { data: eventsData, error } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .order('start_date', { ascending: true });
 
     if (error) throw error;
@@ -106,7 +106,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         categoryCounts,
         category,
       },
-      revalidate: 600,
     };
   } catch (error) {
     console.error('Error al obtener eventos:', error);
@@ -122,7 +121,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         },
         category: params?.category as string || 'all',
       },
-      revalidate: 600,
     };
   }
 };

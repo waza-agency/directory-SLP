@@ -16,8 +16,8 @@ export default function BrandPage({ brand }: BrandPageProps) {
   return (
     <>
       <Head>
-        <title>{brand.name} | {t('brands.title')} | SLP Tundra</title>
-        <meta name="description" content={brand.description || t('brands.description')} />
+        <title>{brand.name} | "TEXT" | SLP Tundra</title>
+        <meta name="description" content={brand.description || "DEFAULT"} />
       </Head>
 
       {/* Hero Image */}
@@ -334,7 +334,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
       props: {
         brand,
       },
-      revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Unexpected error in getStaticProps:', error);

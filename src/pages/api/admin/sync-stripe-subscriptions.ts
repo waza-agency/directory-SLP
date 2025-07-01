@@ -49,7 +49,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Step 2: Get or create default subscription plan
     let { data: subscriptionPlan, error: planError } = await supabase
       .from('subscription_plans')
-      .select('*')
+      .select("*")
       .eq('is_active', true)
       .single();
 
@@ -109,7 +109,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         // Find user by email
         const { data: userData, error: userError } = await supabase
           .from('users')
-          .select('id, email, stripe_customer_id')
+          .select("*")
           .eq('email', customer.email)
           .single();
 
@@ -117,7 +117,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           // Try to find by Stripe customer ID
           const { data: userByCustomerId } = await supabase
             .from('users')
-            .select('id, email')
+            .select("*")
             .eq('stripe_customer_id', customer.id)
             .single();
 
@@ -148,7 +148,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         // Check if subscription already exists
         const { data: existingSubscription } = await supabase
           .from('subscriptions')
-          .select('id')
+          .select("*")
           .eq('stripe_subscription_id', stripeSubscription.id)
           .single();
 
@@ -205,7 +205,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         // Update or create business profile
         const { data: existingProfile } = await supabase
           .from('business_profiles')
-          .select('id')
+          .select("*")
           .eq('user_id', userData.id)
           .single();
 
@@ -228,7 +228,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             .from('business_profiles')
             .insert({
               user_id: userData.id,
-              business_name: (customer as any).name || customer.email.split('@')[0],
+              business_name: (customer as any).name || customer.email.split[0],
               business_description: 'Business profile created from subscription sync',
               business_category: 'General',
               ...profileData

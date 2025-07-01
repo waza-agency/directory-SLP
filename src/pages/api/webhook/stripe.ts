@@ -31,7 +31,7 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
     // First check if an order already exists
     const { data: existingOrder } = await supabase
       .from('orders')
-      .select('*')
+      .select("*")
       .eq('stripe_session_id', session.id)
       .single();
 
@@ -217,7 +217,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
     // Get coupon details from database
     const { data: coupon, error: couponError } = await supabaseClient
       .from('admin_coupons')
-      .select('*')
+      .select("*")
       .eq('coupon_code', couponCode.toUpperCase())
       .single();
 
@@ -229,7 +229,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
     // Check if usage already recorded (prevent duplicates)
     const { data: existingUsage } = await supabaseClient
       .from('coupon_usage')
-      .select('id')
+      .select("*")
       .eq('user_id', userId)
       .eq('coupon_code', couponCode.toUpperCase())
       .single();
@@ -244,7 +244,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
     if (session.subscription) {
       const { data: subscription } = await supabaseClient
         .from('subscriptions')
-        .select('id')
+        .select("*")
         .eq('stripe_subscription_id', session.subscription)
         .single();
 
@@ -315,7 +315,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   // Find user with this Stripe customer ID
   const { data: userData, error: userError } = await supabaseClient
     .from('users')
-    .select('id')
+    .select("*")
     .eq('stripe_customer_id', customerId)
     .single();
 
@@ -334,7 +334,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   // Update business profile with subscription status
   const { data: businessProfile, error: profileError } = await supabaseClient
     .from('business_profiles')
-    .select('id')
+    .select("*")
     .eq('user_id', userId)
     .single();
 
@@ -406,7 +406,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   // Find user with this subscription
   const { data: userSubscription, error: subError } = await supabaseClient
     .from('subscriptions')
-    .select('user_id')
+    .select("*")
     .eq('stripe_subscription_id', subscription.id)
     .single();
 
@@ -417,7 +417,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     const customerId = subscription.customer as string;
     const { data: userData, error: userError } = await supabaseClient
       .from('users')
-      .select('id')
+      .select("*")
       .eq('stripe_customer_id', customerId)
       .single();
 
@@ -481,7 +481,7 @@ async function handleAccountUpdated(account: Stripe.Account) {
   // Find user with this Stripe account ID
   const { data: userData, error: userError } = await supabaseClient
     .from('users')
-    .select('id')
+    .select("*")
     .eq('stripe_account_id', account.id)
     .single();
 

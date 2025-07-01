@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get current user
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('stripe_account_id, is_seller')
+      .select("*")
       .eq('id', session.user.id)
       .single();
 

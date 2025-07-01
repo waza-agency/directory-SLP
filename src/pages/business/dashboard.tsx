@@ -128,7 +128,7 @@ export default function BusinessDashboardPage() {
       // Fetch business profile
       const { data: profileData, error: profileError } = await supabase
         .from('business_profiles')
-        .select('*')
+        .select("*")
         .eq('user_id', user?.id)
         .single();
 
@@ -158,7 +158,7 @@ export default function BusinessDashboardPage() {
         if (planId) {
           const { data: planData } = await supabase
             .from('subscription_plans')
-            .select('*')
+            .select("*")
             .eq('id', planId)
             .single();
 
@@ -199,7 +199,7 @@ export default function BusinessDashboardPage() {
               // Get the plan data
               const { data: planData } = await supabase
                 .from('subscription_plans')
-                .select('*')
+                .select("*")
                 .eq('id', stripeStatusData.subscriptionDetails.plan_id || profileData.plan_id)
                 .single();
 
@@ -248,7 +248,7 @@ export default function BusinessDashboardPage() {
         try {
           const { data: subscriptionData, error: subscriptionError } = await supabase
             .from('subscriptions')
-            .select('*, subscription_plans(*)')
+            .select("*")
             .eq('user_id', user?.id)
             .eq('status', 'active')
             .maybeSingle();
@@ -291,7 +291,7 @@ export default function BusinessDashboardPage() {
       // Always fetch business listings regardless of subscription status
       const { data: listingsData, error: listingsError } = await supabase
         .from('business_listings')
-        .select('*')
+        .select("*")
         .eq('business_id', profileData.id);
 
       if (listingsError) {
@@ -310,7 +310,7 @@ export default function BusinessDashboardPage() {
           // Get default subscription plan
           const { data: defaultPlan } = await supabase
             .from('subscription_plans')
-            .select('*')
+            .select("*")
             .single();
 
           if (defaultPlan) {
@@ -354,21 +354,21 @@ export default function BusinessDashboardPage() {
       // Fetch business profile for test user
       const { data: profileData, error: profileError } = await supabase
         .from('business_profiles')
-        .select('*')
+        .select("*")
         .eq('user_id', testUserId)
         .single();
 
       // Get subscription data for test user
       const { data: subscriptionData, error: subscriptionError } = await supabase
         .from('subscriptions')
-        .select('*, subscription_plans(*)')
+        .select("*")
         .eq('user_id', testUserId)
         .maybeSingle();
 
       // Get user data
       const { data: userData, error: userError } = await supabase
         .from('users')
-        .select('*')
+        .select("*")
         .eq('id', testUserId)
         .single();
 
@@ -379,7 +379,7 @@ export default function BusinessDashboardPage() {
       if (profileData) {
         const result = await supabase
           .from('business_listings')
-          .select('*')
+          .select("*")
           .eq('business_id', profileData.id)
           .order('created_at', { ascending: false });
 
@@ -440,7 +440,7 @@ export default function BusinessDashboardPage() {
 
         if (response.data.success) {
           console.log('Deletion successful, refreshing data...');
-          alert('Listing deleted successfully!');
+          alert;
           // Refresh listings
           fetchBusinessData();
         } else {
@@ -519,7 +519,7 @@ export default function BusinessDashboardPage() {
               <h1 className="text-3xl font-bold text-gray-900">{'Business Dashboard'}</h1>
               {businessProfile && (
                 <p className="mt-2 text-lg text-gray-600">
-                  {t('welcome_business', 'Welcome, {{business}}', { business: businessProfile.business_name })}
+                  "TEXT"
                 </p>
               )}
             </div>
@@ -577,7 +577,7 @@ export default function BusinessDashboardPage() {
                         onClick={(e) => {
                           if (!canCreateListing) {
                             e.preventDefault();
-                            alert('You have reached the maximum number of listings for your subscription plan.');
+                            alert;
                           } else {
                             const menu = document.getElementById('create-listing-dropdown');
                             if (menu && buttonRef1.current) {
@@ -700,10 +700,7 @@ export default function BusinessDashboardPage() {
                         <p className="text-sm text-gray-600">
                           {subscription.subscription_plans.max_listings === -1
                             ? 'Unlimited listings available'
-                            : t('listings_count', '{{current}}/{{max}} listings', {
-                                current: listings.length,
-                                max: subscription.subscription_plans.max_listings
-                              })
+                            : `${listings.length}/${subscription.subscription_plans.max_listings} listings`
                           }
                         </p>
                       )}
@@ -845,7 +842,7 @@ export default function BusinessDashboardPage() {
                           onClick={(e) => {
                             if (!canCreateListing) {
                               e.preventDefault();
-                              alert('You have reached the maximum number of listings for your subscription plan.');
+                              alert;
                             } else {
                               const menu = document.getElementById('create-first-listing-dropdown');
                               if (menu && buttonRef2.current) {

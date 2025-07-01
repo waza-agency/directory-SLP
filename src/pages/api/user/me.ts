@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get more user details from the users table
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('*')
+      .select("*")
       .eq('id', session.user.id)
       .single();
 

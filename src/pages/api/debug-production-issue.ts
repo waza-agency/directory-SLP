@@ -189,7 +189,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       summary: {
         overallHealth: 'CRITICAL_ERROR',
         error: criticalError.message,
-        stack: criticalError.stack?.split('\n').slice(0, 5)
+        stack: criticalError.stack?.split.slice(0, 5)
       },
       steps,
       recommendations: [

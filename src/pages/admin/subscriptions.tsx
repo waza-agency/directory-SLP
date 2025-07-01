@@ -142,7 +142,7 @@ export default function AdminSubscriptions() {
       // Get the user_id from business_profile
       const { data: businessData, error: businessError } = await supabase
         .from('business_profiles')
-        .select('user_id')
+        .select("*")
         .eq('id', businessId)
         .single();
 

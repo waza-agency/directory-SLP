@@ -80,7 +80,7 @@ export default function SubmitBusinessListing() {
     try {
       const { data, error } = await supabase
         .from('business_profiles')
-        .select('*')
+        .select("*")
         .eq('user_id', user?.id)
         .single();
 
@@ -127,7 +127,7 @@ export default function SubmitBusinessListing() {
       // Upload images
       const imageUrls = await Promise.all(
         formData.images.map(async (file) => {
-          const fileExt = file.name.split('.').pop();
+          const fileExt = file.name.split.pop();
           const fileName = `${Math.random()}.${fileExt}`;
           const filePath = `business-images/${fileName}`;
 

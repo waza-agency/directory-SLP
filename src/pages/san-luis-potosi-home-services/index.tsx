@@ -198,7 +198,7 @@ ${formData.additionalInformation || 'None provided'}
         [name]: selectedOptions
       }));
     } else if (name.includes('.')) {
-      const [parent, child] = name.split('.');
+      const [parent, child] = name.split;
       if (parent === 'propertyDetails') {
         setFormData(prev => ({
           ...prev,

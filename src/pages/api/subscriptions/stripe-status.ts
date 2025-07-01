@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (userId !== session.user.id) {
       const { data: userData } = await supabase
         .from('users')
-        .select('account_type')
+        .select("*")
         .eq('id', session.user.id)
         .single();
 
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get the user to check for customer_id
     const { data: user, error: userError } = await supabase
       .from('users')
-      .select('stripe_customer_id')
+      .select("*")
       .eq('id', userId)
       .single();
 
@@ -62,7 +62,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get business profile to check for customer ID
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
-      .select('stripe_customer_id, plan_id')
+      .select("*")
       .eq('user_id', userId)
       .single();
 
@@ -101,7 +101,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const { data: subscriptionData } = await supabase
         .from('subscriptions')
-        .select('plan_id')
+        .select("*")
         .eq('stripe_subscription_id', subscription.id)
         .single();
 

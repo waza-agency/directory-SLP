@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Try a simple query to test the connection
         const { data, error } = await supabase
           .from('places')
-          .select('id')
+          .select("*")
           .limit(1);
 
         if (error) {

@@ -29,7 +29,7 @@ export default async function handler(
     // Get the current subscription that is set to cancel
     const { data: subscription, error: subscriptionError } = await supabase
       .from('business_subscriptions')
-      .select('*')
+      .select("*")
       .eq('user_id', session.user.id)
       .eq('status', 'cancelling')
       .order('created_at', { ascending: false })

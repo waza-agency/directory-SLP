@@ -135,7 +135,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
   return (
     <>
       <Head>
-        <title>{t('listings.contactForm.title', { businessName })} | Directory SLP</title>
+        <title>Contact {businessName} | Directory SLP</title>
         <meta name="description" content={`Contact ${businessName} - ${businessListing.description}`} />
         {currentImage && <meta property="og:image" content={currentImage} />}
       </Head>
@@ -292,17 +292,17 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
             <div className="bg-white rounded-xl shadow-md p-8">
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('listings.contactForm.title', { businessName })}
+                  Contact {businessName}
                 </h2>
                 <p className="text-gray-600">
-                  {t('listings.contactForm.description', { businessName })}
+                  Get in touch with {businessName} directly
                 </p>
               </div>
 
               {submitSuccess ? (
                                   <div className="bg-green-50 text-green-800 p-4 rounded-lg mb-6">
                     <div className="font-medium mb-1">{'¡Tu mensaje ha sido enviado exitosamente!'}</div>
-                    <div className="text-sm">{t('listings.contactForm.successDetail', { businessName })}</div>
+                    <div className="text-sm">Your message has been sent to {businessName}. They will contact you soon.</div>
                   </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

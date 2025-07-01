@@ -109,7 +109,7 @@ export default function AddProduct() {
 
       // Upload image if provided
       if (formData.image) {
-        const fileExt = formData.image.name.split('.').pop();
+        const fileExt = formData.image.name.split.pop();
         const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
         const filePath = `products/${user.id}/${fileName}`;
 

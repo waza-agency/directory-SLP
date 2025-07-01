@@ -35,8 +35,8 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
   return (
     <>
       <Head>
-        <title>{t('expatServices.title')} | San Luis Way</title>
-        <meta name="description" content={t('expatServices.description')} />
+        <title>"TEXT" | San Luis Way</title>
+        <meta name="description" content="TEXT" />
       </Head>
 
       <main className="bg-background min-h-screen">
@@ -61,7 +61,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
             <div className="max-w-4xl">
               <div className="mb-4">
                 <span className="text-green-200 text-sm font-medium uppercase tracking-wider">
-                  {t('expatServices.subtitle')}
+                  "TEXT"
                 </span>
               </div>
               <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
@@ -335,7 +335,7 @@ export async function getStaticProps({ }: { locale?: string }) {
     // Fetch all services
     const { data: services, error: servicesError } = await supabase
       .from('services')
-      .select('*')
+      .select("*")
       .order('created_at', { ascending: false });
 
     if (servicesError) {
@@ -345,7 +345,7 @@ export async function getStaticProps({ }: { locale?: string }) {
     // Fetch featured services
     const { data: featuredServices, error: featuredError } = await supabase
       .from('services')
-      .select('*')
+      .select("*")
       .eq('featured', true)
       .order('created_at', { ascending: false })
       .limit(6);
@@ -359,7 +359,6 @@ export async function getStaticProps({ }: { locale?: string }) {
         services: services || [],
         featuredServices: featuredServices || [],
       },
-      revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -368,7 +367,6 @@ export async function getStaticProps({ }: { locale?: string }) {
         services: [],
         featuredServices: [],
       },
-      revalidate: 3600,
     };
   }
 }

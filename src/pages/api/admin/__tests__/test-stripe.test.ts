@@ -5,7 +5,7 @@ let handler: any;
 beforeAll(async () => {
   process.env.STRIPE_SECRET_KEY = 'sk_test_mockkey';
 
-  const module = await import('../test-stripe');
+  const module = await import('nodemailer');
   handler = module.default;
 });
 
@@ -84,7 +84,7 @@ describe('/api/admin/test-stripe', () => {
     delete process.env.STRIPE_SECRET_KEY;
 
     // Re-import to get a fresh handler with the updated environment
-    const freshModule = await import('../test-stripe');
+    const freshModule = await import('nodemailer');
     const freshHandler = freshModule.default;
 
     const req = mockRequest;

@@ -201,7 +201,7 @@ export default function CulturalTours() {
       if (form) {
         form.addEventListener('submit', (e) => {
           const data = new FormData(form);
-          if (data.get('to') !== 'info@sanluisway.com') {
+          if (data.get('destination') !== 'info@sanluisway.com') {
             throw new Error('Contact form does not send to info@sanluisway.com');
           }
         });
@@ -533,7 +533,7 @@ export default function CulturalTours() {
                   value={formData.preferredDate}
                   onChange={handleChange}
                   required
-                  min={new Date().toISOString().split('T')[0]}
+                  min={new Date().toISOString().split[0]}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 />
               </div>

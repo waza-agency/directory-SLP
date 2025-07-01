@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Check if coupon exists in our database
     const { data: dbCoupon, error: dbError } = await supabase
       .from('admin_coupons')
-      .select('*')
+      .select("*")
       .eq('coupon_code', coupon_code.toUpperCase())
       .eq('is_active', true)
       .single();
@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Check if user has already used this coupon
     const { data: existingUsage } = await supabase
       .from('coupon_usage')
-      .select('id')
+      .select("*")
       .eq('user_id', session.user.id)
       .eq('coupon_code', coupon_code.toUpperCase())
       .single();

@@ -161,7 +161,7 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
                     <div>
                       <h3 className="text-lg font-semibold text-gray-800 mb-3">Hours</h3>
                       <div className="bg-gray-50 p-3 rounded-lg">
-                        {place.hours.split('|').map((day, index) => (
+                        {place.hours.split.map((day, index) => (
                           <div key={index} className="mb-1 last:mb-0">
                             <p className="text-gray-600 text-sm">{day.trim()}</p>
                           </div>

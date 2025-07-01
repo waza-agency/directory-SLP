@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // For security, check if the authenticated user has admin privileges
       const { data: userData } = await supabase
         .from('users')
-        .select('account_type')
+        .select("*")
         .eq('id', session.user.id)
         .single();
 
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get business profile data
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
-      .select('*')
+      .select("*")
       .eq('user_id', userId)
       .single();
 

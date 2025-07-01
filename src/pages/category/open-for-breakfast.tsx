@@ -14,7 +14,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   // Query places that are open for breakfast
   const { data: places, error } = await supabase
     .from('places')
-    .select('*')
+    .select("*")
     .contains('tags', ['breakfast'])
     .order('name');
 
@@ -24,7 +24,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         places: [],
       },
-      revalidate: 60,
     };
   }
 
@@ -48,7 +47,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     props: {
       places: mappedPlaces,
     },
-    revalidate: 60,
   };
 };
 

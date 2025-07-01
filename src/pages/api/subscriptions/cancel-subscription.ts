@@ -32,7 +32,7 @@ export default async function handler(
     // Fetch the subscription from our database
     const { data: subscription, error } = await supabase
       .from('business_subscriptions')
-      .select('*')
+      .select("*")
       .eq('id', subscription_id)
       .eq('user_id', session.user.id)
       .single();

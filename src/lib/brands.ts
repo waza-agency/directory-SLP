@@ -44,7 +44,7 @@ export const generateBrandSlug = (name: string, category: string, city?: string)
 export const getAllBrands = async (): Promise<Brand[]> => {
   const { data, error } = await supabase
     .from('brands')
-    .select('*')
+    .select("*")
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 
@@ -62,7 +62,7 @@ export const getAllBrands = async (): Promise<Brand[]> => {
 export const getFeaturedBrands = async (limit = 3): Promise<Brand[]> => {
   const { data, error } = await supabase
     .from('brands')
-    .select('*')
+    .select("*")
     .eq('featured', true)
     .order('name', { ascending: true })
     .limit(limit);
@@ -84,7 +84,7 @@ export const getRandomPotosinoBrands = async (limit = 3): Promise<Brand[]> => {
     // First, get all brands
     const { data, error } = await supabase
       .from('brands')
-      .select('*');
+      .select;
 
     if (error) {
       console.error('Error fetching brands for random selection:', error);
@@ -112,7 +112,7 @@ export const getRandomPotosinoBrands = async (limit = 3): Promise<Brand[]> => {
 export const getBrandById = async (id: string): Promise<Brand | null> => {
   const { data, error } = await supabase
     .from('brands')
-    .select('*')
+    .select("*")
     .eq('id', id)
     .single();
 
@@ -130,7 +130,7 @@ export const getBrandById = async (id: string): Promise<Brand | null> => {
 export const getBrandBySlug = async (slug: string): Promise<Brand | null> => {
   const { data, error } = await supabase
     .from('brands')
-    .select('*')
+    .select("*")
     .eq('slug', slug)
     .single();
 
@@ -148,7 +148,7 @@ export const getBrandBySlug = async (slug: string): Promise<Brand | null> => {
 export const getBrandsByCategory = async (category: string): Promise<Brand[]> => {
   const { data, error } = await supabase
     .from('brands')
-    .select('*')
+    .select("*")
     .eq('category', category)
     .order('featured', { ascending: false })
     .order('name', { ascending: true });

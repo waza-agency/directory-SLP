@@ -14,7 +14,7 @@ export default async function handler(
     // Get all events
     const { data: events, error: fetchError } = await supabase
       .from('events')
-      .select('*');
+      .select;
 
     if (fetchError) throw fetchError;
     

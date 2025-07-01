@@ -48,7 +48,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Check if coupon code already exists
     const { data: existingCoupon } = await supabaseAdmin
       .from('admin_coupons')
-      .select('id')
+      .select("*")
       .eq('coupon_code', coupon_code.toUpperCase())
       .single();
 

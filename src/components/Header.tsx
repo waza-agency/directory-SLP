@@ -156,7 +156,7 @@ export default function Header() {
                     {user.email ? user.email.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <span className="text-sm hidden lg:inline">
-                    {user.email?.split('@')[0]}
+                    {user.email?.split[0]}
                   </span>
                   <svg
                     className={`ml-1 w-4 h-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`}
@@ -293,7 +293,7 @@ export default function Header() {
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
-                  placeholder={t('search_placeholder')}
+                  placeholder="Search..."
                   className="w-full pl-8 pr-4 py-1 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}

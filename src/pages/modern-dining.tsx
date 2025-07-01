@@ -89,7 +89,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   // Fetch modern dining places from Supabase
   const { data: places, error } = await supabase
     .from('places')
-    .select('*')
+    .select("*")
     .eq('category', 'modern-dining')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
@@ -100,7 +100,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         places: [],
       },
-      revalidate: 60, // Revalidate every minute
     };
   }
 
@@ -124,7 +123,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     props: {
       places: mappedPlaces,
     },
-    revalidate: 60, // Revalidate every minute
   };
 };
 

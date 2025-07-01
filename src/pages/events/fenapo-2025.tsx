@@ -322,7 +322,7 @@ export default function Fenapo2025() {
       {/* CTA Section */}
       <section className="py-16 px-4 bg-gradient-to-r from-blue-800 to-purple-900 text-white">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6 font-serif">{t('fenapo.dontMissOut', "Don't Miss FENAPO 2025!")}</h2>
+          <h2 className="text-3xl font-bold mb-6 font-serif">Don't Miss FENAPO 2025!</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             {'Experience the most traditional fair in Mexico. 24 days of culture, entertainment, gastronomy and fun for the whole family.'}
           </p>

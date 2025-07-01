@@ -417,7 +417,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale = 
       // Double-check with the subscriptions table
       const { data: subscriptionData } = await supabase
         .from('subscriptions')
-        .select('status')
+        .select("*")
         .eq('user_id', businessListing.business_profiles.user_id)
         .eq('status', 'active')
         .maybeSingle();

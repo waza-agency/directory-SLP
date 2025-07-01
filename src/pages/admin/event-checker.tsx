@@ -19,7 +19,7 @@ export default function EventChecker() {
         // Fetch all events
         const { data, error } = await supabase
           .from('events')
-          .select('*')
+          .select("*")
           .order('start_date', { ascending: true });
 
         if (error) throw error;

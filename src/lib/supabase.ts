@@ -35,7 +35,7 @@ export const getPlaces = async () => {
 
   const { data, error } = await supabase
     .from('places')
-    .select('*')
+    .select("*")
     .order('created_at', { ascending: false })
 
   if (error) throw error
@@ -69,7 +69,7 @@ export const getPlaces = async () => {
 export const getFeaturedPlaces = async () => {
   const { data, error } = await supabase
     .from('places')
-    .select('*')
+    .select("*")
     .eq('featured', true)
     .order('created_at', { ascending: false })
 
@@ -144,7 +144,7 @@ export const getEvents = async () => {
   try {
     const { data, error } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
       .order('start_date', { ascending: true });
 
@@ -152,7 +152,7 @@ export const getEvents = async () => {
       // Column doesn't exist - try without category
       const { data: fallbackData, error: fallbackError } = await supabase
         .from('events')
-        .select('id, title, description, start_date, end_date, location, image_url, featured, created_at, updated_at')
+        .select("*")
         .or(`end_date.gte.${safetyDateString},end_date.is.null`)
         .order('start_date', { ascending: true });
 
@@ -180,7 +180,7 @@ export const getFeaturedEvents = async () => {
   try {
     const { data: eventsData, error } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .eq('featured', true)
       .or(`end_date.gte.${safetyDateString},end_date.is.null`) // Get events with future end dates OR null end dates
       .order('start_date', { ascending: true });
@@ -189,7 +189,7 @@ export const getFeaturedEvents = async () => {
       // Column doesn't exist - try without category
       const { data: fallbackData, error: fallbackError } = await supabase
         .from('events')
-        .select('id, title, description, start_date, end_date, location, image_url, featured, created_at, updated_at')
+        .select("*")
         .eq('featured', true)
         .or(`end_date.gte.${safetyDateString},end_date.is.null`)
         .order('start_date', { ascending: true });
@@ -214,7 +214,7 @@ export const getFeaturedEvents = async () => {
 export const getFeaturedPhotos = async () => {
   const { data, error } = await supabase
     .from('featured_photos')
-    .select('*')
+    .select("*")
     .eq('active', true)
     .order('created_at', { ascending: false })
 
@@ -229,7 +229,7 @@ export const getPlaceById = async (id: string) => {
     // First check if the ID exists in the database
     const { data: placeExists, error: checkError } = await supabase
       .from('places')
-      .select('id')
+      .select("*")
       .eq('id', id)
       .single();
 
@@ -315,7 +315,7 @@ export const getEventById = async (id: string) => {
 export const getPotosinoBrands = async () => {
   const { data, error } = await supabase
     .from('places')
-    .select('*')
+    .select("*")
     .eq('category', 'shop')
     .eq('tags', ['potosino'])
     .order('featured', { ascending: false })
@@ -352,7 +352,7 @@ export const searchPlaces = async (searchTerm: string, category?: string) => {
 
   let query = supabase
     .from('places')
-    .select('*')
+    .select("*")
     .order('featured', { ascending: false })
     .order('created_at', { ascending: false });
 
@@ -412,7 +412,7 @@ export const getRandomPlaces = async (limit: number = 16) => {
     // First, get the total count of places
     const { count, error: countError } = await supabase
       .from('places')
-      .select('*', { count: 'exact', head: true });
+      .select;
 
     if (countError) throw countError;
 
@@ -427,7 +427,7 @@ export const getRandomPlaces = async (limit: number = 16) => {
     // This is more efficient for small to medium datasets than the SQL randomization
     const { data, error } = await supabase
       .from('places')
-      .select('*');
+      .select;
 
     if (error) throw error;
 

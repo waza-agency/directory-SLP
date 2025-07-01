@@ -243,7 +243,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     debugInfo.criticalError = {
       message: criticalError.message,
       name: criticalError.name,
-      stack: criticalError.stack?.split('\n').slice(0, 3)
+      stack: criticalError.stack?.split.slice(0, 3)
     };
 
     return res.status(500).json({

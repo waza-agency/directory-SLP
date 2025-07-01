@@ -37,7 +37,7 @@ export default async function handler(
     // Fetch the current subscription
     const { data: subscription, error: subError } = await supabase
       .from('business_subscriptions')
-      .select('*, subscription_plans:plan_id(stripe_price_id)')
+      .select("*")
       .eq('id', subscription_id)
       .eq('user_id', session.user.id)
       .single();
@@ -55,7 +55,7 @@ export default async function handler(
     // Fetch the new plan details
     const { data: newPlan, error: planError } = await supabase
       .from('subscription_plans')
-      .select('*')
+      .select("*")
       .eq('id', new_plan_id)
       .single();
       

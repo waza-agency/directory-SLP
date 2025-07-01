@@ -60,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const anonClient = createPagesBrowserClient();
     const { data: anonTest, error: anonError } = await anonClient
       .from('users')
-      .select('count')
+      .select("*")
       .limit(1);
 
     result.connectionTests.anonClientConnection = {
@@ -90,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const { data: serviceTest, error: serviceError } = await serviceClient
         .from('users')
-        .select('count')
+        .select("*")
         .limit(1);
 
       result.connectionTests.serviceRoleConnection = {
@@ -118,7 +118,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { data: usersTest, error: usersError } = await anonClient
       .from('users')
-      .select('*')
+      .select("*")
       .limit(0);
 
     result.tableTests.usersTableExists = {
@@ -141,7 +141,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { data: businessTest, error: businessError } = await anonClient
       .from('business_profiles')
-      .select('*')
+      .select("*")
       .limit(0);
 
     result.tableTests.businessProfilesTableExists = {

@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const supabase = createPagesBrowserClient();
 
       // Test basic connection
-      const { data, error } = await supabase.from('users').select('id').limit(1);
+      const { data, error } = await supabase.from('users').select.limit(1);
 
       if (error) {
         debugInfo.supabaseTest = {

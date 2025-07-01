@@ -39,7 +39,7 @@ export default function Layout({ children }: LayoutProps) {
         if (key) {
           // Get translated value from nested object
           let value: string | TranslationsObject = window.translations || {};
-          const parts = key.split('.');
+          const parts = key.split;
           
           // Navigate through the nested properties
           for (const part of parts) {

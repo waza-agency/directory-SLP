@@ -98,7 +98,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${categoryColors[place.category] || categoryColors.other}`}>
               {t(`categories.${place.category}`, {
                 defaultValue: place.category
-                  .split('-')
+                  .split
                   .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(' ')
               })}
@@ -109,7 +109,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
           {place.featured && (
             <div className={`absolute top-4 right-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 rotate-3' : 'scale-100 rotate-0'}`}>
               <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-primary text-white">
-                {t('featured')}
+                Featured
               </span>
             </div>
           )}
@@ -191,7 +191,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
         <div className="px-6 py-4 border-t border-gray-100 bg-background-alt">
           <div className="flex justify-between items-center">
             <span className="text-sm font-medium text-secondary hover:text-secondary-light transition-colors">
-              {t('placeCard.viewDetails')}
+              View Details
             </span>
             <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

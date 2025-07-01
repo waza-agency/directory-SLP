@@ -138,8 +138,8 @@ export default function ExpatGuidePage() {
   return (
     <>
       <Head>
-        <title>{t('expatGuide.meta.title')}</title>
-        <meta name="description" content={t('expatGuide.meta.description')} />
+        <title>"TEXT"</title>
+        <meta name="description" content="TEXT" />
         <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, healthcare, housing, transportation, banking" />
       </Head>
 

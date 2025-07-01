@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get the business profile data
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
-      .select('*')
+      .select("*")
       .eq('user_id', userId)
       .single();
 
@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get subscription data
     const { data: subscription, error: subscriptionError } = await supabase
       .from('subscriptions')
-      .select('*, subscription_plans(*)')
+      .select("*")
       .eq('user_id', userId)
       .maybeSingle();
 
@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get user data
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('*')
+      .select("*")
       .eq('id', userId)
       .single();
 
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get business listings
     const { data: listings, error: listingsError } = await supabase
       .from('business_listings')
-      .select('*')
+      .select("*")
       .eq('business_id', businessProfile?.id || '')
       .order('created_at', { ascending: false });
 

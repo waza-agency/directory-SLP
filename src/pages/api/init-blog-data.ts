@@ -79,7 +79,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Check if posts already exist
     const { data: existingPosts, error: checkError } = await supabase
       .from('blog_posts')
-      .select('slug')
+      .select("*")
       .eq('status', 'published');
 
     if (checkError) {

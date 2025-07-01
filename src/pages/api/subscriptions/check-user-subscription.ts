@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (isAdmin) {
       const { data: adminRoleData } = await supabase
         .from('users')
-        .select('role')
+        .select("*")
         .eq('id', session.user.id)
         .single();
         
@@ -57,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get the business profile along with subscription status
     const { data: businessProfile, error: profileError } = await client
       .from('business_profiles')
-      .select('*')
+      .select("*")
       .eq('user_id', targetUserId)
       .maybeSingle();
 
@@ -69,7 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get the subscription details if exists
     const { data: subscription, error: subscriptionError } = await client
       .from('subscriptions')
-      .select('*, subscription_plans(*)')
+      .select("*")
       .eq('user_id', targetUserId)
       .eq('status', 'active')
       .maybeSingle();
@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (businessProfile) {
       const { data: listingsData, error: listingsError } = await client
         .from('business_listings')
-        .select('id', { count: 'exact' })
+        .select("*")
         .eq('business_id', businessProfile.id);
 
       if (listingsError) {

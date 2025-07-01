@@ -14,7 +14,7 @@
     "netlify-build": "node scripts/netlify-build.js",
     "export": "next export",
     "build-static": "next build && next export",
-    "start": "NODE_ENV=${NODE_ENV:-production} PORT=${PORT:-3000} node server.js",
+    "start": "next start -p ${PORT:-3000}",
     "start:next": "next start",
     "lint": "next lint",
     "preinstall": "node -e \"try { require('./scripts/ensure-node-compatibility.js') } catch(e) { console.log('Skipping version check') }\"",

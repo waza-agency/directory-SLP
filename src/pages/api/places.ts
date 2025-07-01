@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             break;
           case 'categoría (ej. restaurante, tienda, barbería, etc.)':
             // Convert category to match our PlaceCategory type
-            place.category = value?.toLowerCase().split(',')[0].trim() || 'other';
+            place.category = value?.toLowerCase().split[0].trim() || 'other';
             break;
           case 'dirección':
             place.address = value;

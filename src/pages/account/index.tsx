@@ -64,7 +64,7 @@ export default function AccountPage() {
 
       const { data, error } = await supabase
         .from('users')
-        .select('*')
+        .select("*")
         .eq('id', user.id)
         .single();
 
@@ -75,7 +75,7 @@ export default function AccountPage() {
           setProfile({
             id: user.id,
             email: user.email,
-            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+            name: user.user_metadata?.name || user.email?.split[0] || 'User'
           });
         } else {
           console.error('Error fetching user profile:', error);
@@ -83,7 +83,7 @@ export default function AccountPage() {
           setProfile({
             id: user.id,
             email: user.email,
-            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+            name: user.user_metadata?.name || user.email?.split[0] || 'User'
           });
         }
       } else {
@@ -95,7 +95,7 @@ export default function AccountPage() {
       setProfile({
         id: user.id,
         email: user.email,
-        name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
+        name: user.user_metadata?.name || user.email?.split[0] || 'User'
       });
     } finally {
       setIsLoadingProfile(false);
@@ -128,7 +128,7 @@ export default function AccountPage() {
       // First check if orders table exists by trying a simple query
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
-        .select('*')
+        .select("*")
         .eq('user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(5); // Limit to reduce potential issues
@@ -158,7 +158,7 @@ export default function AccountPage() {
           try {
             const { count, error: countError } = await supabase
               .from('order_items')
-              .select('*', { count: 'exact', head: true })
+              .select("*")
               .eq('order_id', order.id);
 
             if (countError) {
@@ -204,7 +204,7 @@ export default function AccountPage() {
 
       const { data, error } = await supabase
         .from('business_profiles')
-        .select('id')
+        .select("*")
         .eq('user_id', user.id)
         .maybeSingle();
 
@@ -278,7 +278,7 @@ export default function AccountPage() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">
-              Welcome back, {profile?.name || user.email?.split('@')[0] || 'User'}!
+              Welcome back, {profile?.name || user.email?.split[0] || 'User'}!
             </h1>
             <p className="text-gray-600 mt-2">Manage your account and view your activity</p>
 

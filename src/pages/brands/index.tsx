@@ -348,7 +348,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         brands,
       },
-      revalidate: 3600, // Revalidate every hour
     };
   } catch (error) {
     console.error('Error fetching brands:', error);
@@ -483,7 +482,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         brands: fallbackBrands,
       },
-      revalidate: 3600,
     };
   }
 };

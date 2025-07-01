@@ -480,7 +480,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     const { data: places, error } = await supabase
       .from('places')
-      .select('*')
+      .select("*")
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false });
 
@@ -490,7 +490,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
         props: {
           places: [],
         },
-        revalidate: 300,
       };
     }
 
@@ -521,7 +520,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         places: transformedPlaces,
       },
-      revalidate: 300,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -529,7 +527,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         places: [],
       },
-      revalidate: 300,
     };
   }
 };

@@ -101,7 +101,7 @@ export default function EditProductListing() {
     try {
       const { data, error } = await supabase
         .from('business_profiles')
-        .select('*')
+        .select("*")
         .eq('user_id', user?.id)
         .single();
 
@@ -124,7 +124,7 @@ export default function EditProductListing() {
 
       const { data, error } = await supabase
         .from('business_listings')
-        .select('*')
+        .select("*")
         .eq('id', id)
         .single();
 
@@ -207,7 +207,7 @@ export default function EditProductListing() {
       if (formData.images.length > 0) {
         const newImageUrls = await Promise.all(
           formData.images.map(async (file) => {
-            const fileExt = file.name.split('.').pop();
+            const fileExt = file.name.split.pop();
             const fileName = `${Math.random()}.${fileExt}`;
             const filePath = `${fileName}`;
 

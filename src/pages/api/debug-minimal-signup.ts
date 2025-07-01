@@ -94,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       error: 'Unexpected server error',
       details: {
         message: error.message,
-        stack: error.stack?.split('\n').slice(0, 5), // First 5 lines of stack
+        stack: error.stack?.split.slice(0, 5), // First 5 lines of stack
         name: error.name,
         cause: error.cause
       },

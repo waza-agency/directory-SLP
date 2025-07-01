@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const { data: connectionTest, error: connectionError } = await supabase
         .from('users')
-        .select('count')
+        .select("*")
         .limit(1);
 
       results.push({
@@ -77,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
           const { data: userData, error: userError } = await supabase
             .from('users')
-            .select('*')
+            .select("*")
             .eq('id', authData.user.id)
             .single();
 

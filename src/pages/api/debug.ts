@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Fetch data from Supabase
     const { data, error } = await supabase
       .from(table as string)
-      .select('*')
+      .select("*")
       .limit(10);
     
     if (error) {

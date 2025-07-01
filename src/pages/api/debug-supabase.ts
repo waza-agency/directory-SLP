@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('Testing anon client connection...');
     const { data: anonTest, error: anonError } = await supabaseAnon
       .from('users')
-      .select('count')
+      .select("*")
       .limit(1);
 
     console.log('Anon test result:', { data: anonTest, error: anonError });
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const result = await supabaseService
         .from('users')
-        .select('count')
+        .select("*")
         .limit(1);
 
       serviceTest = result.data;

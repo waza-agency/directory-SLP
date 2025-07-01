@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Fetch places from Supabase
     const { data: supabasePlaces, error } = await supabase
       .from('places')
-      .select('*')
+      .select("*")
       .eq('category', 'shop')
       .order('featured', { ascending: false });
     

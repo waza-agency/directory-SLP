@@ -12,7 +12,7 @@ export default async function handler(
   try {
     const { data, error } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .order('start_date', { ascending: true });
 
     if (error) {

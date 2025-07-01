@@ -251,14 +251,14 @@ export default function OrdersPage() {
   return (
     <>
       <Head>
-        <title>{t('My Orders')} | San Luis Way</title>
-        <meta name="description" content={t('View your order history')} />
+        <title>"TEXT" | San Luis Way</title>
+        <meta name="description" content="TEXT" />
         <meta name="robots" content="noindex" />
       </Head>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">{t('My Orders')}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-8">"TEXT"</h1>
 
           {isLoadingOrders ? (
             <div className="text-center py-12">
@@ -271,14 +271,14 @@ export default function OrdersPage() {
                 onClick={fetchOrders}
                 className="ml-4 text-sm font-medium text-red-800 hover:text-red-900"
               >
-                {t('Try Again')}
+                "TEXT"
               </button>
             </div>
           ) : orders.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg mb-4">{t('You haven\'t placed any orders yet.')}</p>
+              <p className="text-gray-500 text-lg mb-4">"TEXT"</p>
               <a href="/" className="text-blue-600 hover:text-blue-800 font-medium">
-                {t('Start Shopping')}
+                "TEXT"
               </a>
             </div>
           ) : (
@@ -288,11 +288,11 @@ export default function OrdersPage() {
                   <div className="px-6 py-4 border-b border-gray-200">
                     <div className="flex justify-between items-center">
                       <div>
-                        <p className="text-sm text-gray-500">{t('Order placed')}</p>
+                        <p className="text-sm text-gray-500">"TEXT"</p>
                         <p className="font-medium">{formatDate(order.created_at)}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">{t('Order')} #{order.order_number}</p>
+                        <p className="text-sm text-gray-500">"TEXT" #{order.order_number}</p>
                         <p className="font-medium text-right">{formatCurrency(order.amount)}</p>
                       </div>
                     </div>
@@ -318,7 +318,7 @@ export default function OrdersPage() {
                   </div>
                   <div className="px-6 py-4 bg-gray-50">
                     <div className="flex justify-between items-center">
-                      <span className="font-medium">{t('Status')}</span>
+                      <span className="font-medium">"TEXT"</span>
                       {renderOrderStatus(order.status, order.payment_status)}
                     </div>
                   </div>

@@ -172,9 +172,7 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
             {/* Listings Count */}
             <div className="mb-6">
               <p className="text-gray-600 text-center">
-                {t('showing_listings', 'Showing {{count}} business listings', {
-                  count: filteredListings.length
-                })}
+                                Showing {filteredListings.length} business listings
               </p>
             </div>
 
@@ -409,7 +407,6 @@ export const getServerSideProps: GetServerSideProps = async ({ }) => {
       props: {
         initialListings: [],
       },
-      revalidate: 300,
     };
   }
 };

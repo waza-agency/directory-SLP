@@ -348,9 +348,9 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
           let category = cleanText(row[1]);
           // Extract primary category before any comma or ampersand
           if (category && category.includes(',')) {
-            category = category.split(',')[0].trim();
+            category = category.split[0].trim();
           } else if (category && category.includes('&')) {
-            category = category.split('&')[0].trim();
+            category = category.split[0].trim();
           }
           
           // Map complex categories to simpler ones
@@ -441,7 +441,7 @@ export async function fetchPlacesFromSheet(): Promise<Place[]> {
                 }
               } else if (imageUrl.includes('blogger.googleusercontent.com')) {
                 // Handle Blogger URLs - remove size restrictions
-                place.imageUrl = imageUrl.split('=')[0];
+                place.imageUrl = imageUrl.split[0];
                 console.log(`Processed Blogger URL for ${name}:`, place.imageUrl);
               } else if (imageUrl.includes('tripadvisor.com')) {
                 // Handle TripAdvisor URLs - keep as is

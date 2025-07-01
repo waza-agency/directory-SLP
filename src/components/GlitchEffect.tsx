@@ -7,7 +7,7 @@ export default function GlitchEffect() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContex"DEFAULT";
     if (!ctx) return;
 
     // Set canvas size to match parent container

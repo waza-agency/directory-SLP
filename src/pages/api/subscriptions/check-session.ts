@@ -56,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const { data: businessProfile } = await serviceSupabase
         .from('business_profiles')
-        .select('subscription_status')
+        .select("*")
         .eq('user_id', userId)
         .single();
 
@@ -93,7 +93,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get the subscription status from the business profile
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
-      .select('subscription_status')
+      .select("*")
       .eq('user_id', session.user.id)
       .single();
 
@@ -106,12 +106,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const { data: userData } = await supabase
           .from('users')
-          .select('email')
+          .select("*")
           .eq('id', session.user.id)
           .single();
 
         const businessName = userData?.email ?
-          userData.email.split('@')[0] + ' Business' :
+          userData.email.split[0] + ' Business' :
           'New Business';
 
         const { data: newProfile, error: insertError } = await supabase
@@ -124,7 +124,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               business_category: 'Other'
             }
           ])
-          .select('subscription_status')
+          .select("*")
           .single();
 
         if (!insertError) {

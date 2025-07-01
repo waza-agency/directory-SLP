@@ -348,7 +348,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Simplified query to only fetch arts-culture events
     const { data: events, error } = await supabase
       .from('events')
-      .select('*')
+      .select("*")
       .eq('category', 'arts-culture')
       .gte('end_date', new Date().toISOString())
       .order('start_date', { ascending: true })
@@ -361,7 +361,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
         props: {
           events: [],
         },
-        revalidate: 60,
       };
     }
 
@@ -369,7 +368,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         events: events || [],
       },
-      revalidate: 60,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -378,7 +376,6 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         events: [],
       },
-      revalidate: 60,
     };
   }
 };

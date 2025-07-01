@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Obtener el perfil de negocio con estado de suscripción
     const { data: businessProfile, error: profileError } = await supabase
       .from('business_profiles')
-      .select('*')
+      .select("*")
       .eq('user_id', userId)
       .single();
 
@@ -49,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Verificar también en la tabla de suscripciones
       const { data: subscription } = await supabase
         .from('subscriptions')
-        .select('status')
+        .select("*")
         .eq('user_id', userId)
         .eq('status', 'active')
         .maybeSingle();
@@ -67,7 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Verificar que el producto existe y pertenece al usuario
     const { data: existingListing, error: findError } = await supabase
       .from('business_listings')
-      .select('*')
+      .select("*")
       .eq('id', id)
       .eq('business_id', businessProfile.id)
       .single();

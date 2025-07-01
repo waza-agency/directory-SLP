@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Get the order by Stripe session ID
     const { data: orderData, error: orderError } = await supabase
       .from('orders')
-      .select('*, order_items(*)')
+      .select("*")
       .eq('stripe_session_id', session_id)
       .eq('user_id', session.user.id)
       .single();
