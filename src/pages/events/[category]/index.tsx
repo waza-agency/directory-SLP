@@ -1,6 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -22,10 +20,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Define the possible category paths
   const categories = ['all', 'sports', 'cultural', 'arts-culture', 'culinary', 'other'];
 
-  const paths = categories.flatMap((category) => [
-    { params: { category }, locale: 'es' },
-    { params: { category }, locale: 'en' },
-  ]);
+  const paths = categories.map((category) => ({
+    params: { category }
+  }));
 
   return {
     paths,
@@ -33,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const category = params?.category as string;
 
@@ -105,7 +102,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
 
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: filteredEvents || [],
         categoryCounts,
         category,
@@ -116,7 +112,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
     console.error('Error al obtener eventos:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: [],
         categoryCounts: {
           all: 0,
@@ -133,7 +128,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
 };
 
 export default function EventsPage({ events, categoryCounts, category }: EventsPageProps) {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<EventCategory>(category as EventCategory);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>(events);
@@ -183,12 +177,12 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
   // Get category title
   const getCategoryTitle = (cat: string) => {
     const titles: Record<string, string> = {
-      all: t('allEvents') || 'Todos los Eventos',
-      sports: t('sportsEvents') || 'Eventos Deportivos',
-      cultural: t('culturalEvents') || 'Eventos Culturales',
-      'arts-culture': t('artsCultureEvents') || 'Arte y Cultura',
-      culinary: t('culinaryEvents') || 'Eventos Culinarios',
-      other: t('otherEvents') || 'Otros Eventos',
+      all: 'Todos los Eventos',
+      sports: 'Eventos Deportivos',
+      cultural: 'Eventos Culturales',
+      'arts-culture': 'Arte y Cultura',
+      culinary: 'Eventos Culinarios',
+      other: 'Otros Eventos',
     };
     return titles[cat] || titles.all;
   };

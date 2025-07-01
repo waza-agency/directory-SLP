@@ -1,0 +1,121 @@
+
+> slp-directory@0.1.0 prebuild
+> npm run generate-sitemap
+
+
+> slp-directory@0.1.0 generate-sitemap
+> node scripts/generate-sitemap.js
+
+Sitemap generated with 123 URLs
+
+> slp-directory@0.1.0 build
+> next build || (echo 'Build completed with warnings - checking if pages were generated...' && ls -la .next/server/pages && echo 'Pages generated successfully despite error')
+
+   Skipping validation of types
+   Skipping linting
+   Creating an optimized production build ...
+   Disabled SWC as replacement for Babel because of custom Babel configuration "babel.config.js" https://nextjs.org/docs/messages/swc-disabled
+   `compiler` options in `next.config.js` will be ignored while using Babel https://nextjs.org/docs/messages/ignored-compiler-options
+   Using external babel configuration from /Users/santiagogonzalez/BOTS y SCRIPTS/directory-SLP/babel.config.js
+ ✓ Compiled successfully
+   Collecting page data ...
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Supabase client created successfully: true
+Error: Invalid locale returned from getStaticPaths for /places/[id], the locale en is not specified in next.config.js
+    at /Users/santiagogonzalez/BOTS y SCRIPTS/directory-SLP/node_modules/next/dist/build/utils.js:813:23
+    at Array.forEach (<anonymous>)
+    at buildStaticPaths (/Users/santiagogonzalez/BOTS y SCRIPTS/directory-SLP/node_modules/next/dist/build/utils.js:756:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /Users/santiagogonzalez/BOTS y SCRIPTS/directory-SLP/node_modules/next/dist/build/utils.js:1140:110
+    at async Span.traceAsyncFn (/Users/santiagogonzalez/BOTS y SCRIPTS/directory-SLP/node_modules/next/dist/trace/trace.js:105:20)
+
+> Build error occurred
+Error: Failed to collect page data for /places/[id]
+    at /Users/santiagogonzalez/BOTS y SCRIPTS/directory-SLP/node_modules/next/dist/build/utils.js:1171:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  type: 'Error'
+}
+Build completed with warnings - checking if pages were generated...
+total 1584
+-rw-r--r--@  1 santiagogonzalez  staff     797 Jun 30 21:17 _app.js
+-rw-r--r--@  1 santiagogonzalez  staff     425 Jun 30 21:17 _document.js
+-rw-r--r--@  1 santiagogonzalez  staff    1882 Jun 30 21:17 _error.js
+drwxr-xr-x@ 72 santiagogonzalez  staff    2304 Jun 30 21:17 .
+drwxr-xr-x@ 13 santiagogonzalez  staff     416 Jun 30 21:18 ..
+-rw-r--r--@  1 santiagogonzalez  staff   13505 Jun 30 21:17 about.js
+drwxr-xr-x@  5 santiagogonzalez  staff     160 Jun 30 21:17 account
+-rw-r--r--@  1 santiagogonzalez  staff   13903 Jun 30 21:17 account.js
+drwxr-xr-x@  9 santiagogonzalez  staff     288 Jun 30 21:17 admin
+-rw-r--r--@  1 santiagogonzalez  staff    5123 Jun 30 21:17 adsense-test.js
+-rw-r--r--@  1 santiagogonzalez  staff   24332 Jun 30 21:17 advertise.js
+drwxr-xr-x@ 50 santiagogonzalez  staff    1600 Jun 30 21:17 api
+-rw-r--r--@  1 santiagogonzalez  staff    5227 Jun 30 21:17 auth-test.js
+drwxr-xr-x@  3 santiagogonzalez  staff      96 Jun 30 21:17 blog
+-rw-r--r--@  1 santiagogonzalez  staff    5632 Jun 30 21:17 blog.js
+drwxr-xr-x@  3 santiagogonzalez  staff      96 Jun 30 21:17 brands
+-rw-r--r--@  1 santiagogonzalez  staff   18343 Jun 30 21:17 brands.js
+drwxr-xr-x@  7 santiagogonzalez  staff     224 Jun 30 21:17 business
+drwxr-xr-x@ 19 santiagogonzalez  staff     608 Jun 30 21:17 category
+drwxr-xr-x@  3 santiagogonzalez  staff      96 Jun 30 21:17 checkout
+-rw-r--r--@  1 santiagogonzalez  staff    3713 Jun 30 21:17 checkout.js
+-rw-r--r--@  1 santiagogonzalez  staff   14560 Jun 30 21:17 community.js
+drwxr-xr-x@  3 santiagogonzalez  staff      96 Jun 30 21:17 contact
+-rw-r--r--@  1 santiagogonzalez  staff    7959 Jun 30 21:17 contact.js
+drwxr-xr-x@  8 santiagogonzalez  staff     256 Jun 30 21:17 cultural
+-rw-r--r--@  1 santiagogonzalez  staff   19549 Jun 30 21:17 cultural-attractions.js
+-rw-r--r--@  1 santiagogonzalez  staff   21971 Jun 30 21:17 cultural-tours.js
+-rw-r--r--@  1 santiagogonzalez  staff   16198 Jun 30 21:17 cultural.js
+-rw-r--r--@  1 santiagogonzalez  staff    7554 Jun 30 21:17 debug-blog.js
+-rw-r--r--@  1 santiagogonzalez  staff    3880 Jun 30 21:17 debug.js
+-rw-r--r--@  1 santiagogonzalez  staff   10065 Jun 30 21:17 design-showcase.js
+drwxr-xr-x@ 16 santiagogonzalez  staff     512 Jun 30 21:17 events
+-rw-r--r--@  1 santiagogonzalez  staff    2107 Jun 30 21:17 events.js
+-rw-r--r--@  1 santiagogonzalez  staff   15205 Jun 30 21:17 expat-guide.js
+-rw-r--r--@  1 santiagogonzalez  staff    9404 Jun 30 21:17 faq.js
+drwxr-xr-x@  4 santiagogonzalez  staff     128 Jun 30 21:17 guides
+-rw-r--r--@  1 santiagogonzalez  staff  104871 Jun 30 21:17 index.js
+-rw-r--r--@  1 santiagogonzalez  staff   10625 Jun 30 21:17 join-directory.js
+drwxr-xr-x@  3 santiagogonzalez  staff      96 Jun 30 21:17 listings
+-rw-r--r--@  1 santiagogonzalez  staff   13988 Jun 30 21:17 listings.js
+-rw-r--r--@  1 santiagogonzalez  staff   18465 Jun 30 21:17 living-guide.js
+-rw-r--r--@  1 santiagogonzalez  staff   12908 Jun 30 21:17 local-connections.js
+-rw-r--r--@  1 santiagogonzalez  staff    4554 Jun 30 21:17 modern-dining.js
+-rw-r--r--@  1 santiagogonzalez  staff    3717 Jun 30 21:17 order-confirmation.js
+-rw-r--r--@  1 santiagogonzalez  staff   20850 Jun 30 21:17 outdoors.js
+-rw-r--r--@  1 santiagogonzalez  staff   18392 Jun 30 21:17 parque-tangamanga.js
+drwxr-xr-x@  6 santiagogonzalez  staff     192 Jun 30 21:17 places
+-rw-r--r--@  1 santiagogonzalez  staff   15029 Jun 30 21:17 places.js
+-rw-r--r--@  1 santiagogonzalez  staff   12998 Jun 30 21:17 san-luis-potosi-community-integration.js
+-rw-r--r--@  1 santiagogonzalez  staff   14557 Jun 30 21:17 san-luis-potosi-cultural-services.js
+-rw-r--r--@  1 santiagogonzalez  staff   12657 Jun 30 21:17 san-luis-potosi-experiences.js
+-rw-r--r--@  1 santiagogonzalez  staff   15603 Jun 30 21:17 san-luis-potosi-family-support.js
+-rw-r--r--@  1 santiagogonzalez  staff   15501 Jun 30 21:17 san-luis-potosi-home-services.js
+-rw-r--r--@  1 santiagogonzalez  staff   14321 Jun 30 21:17 san-luis-potosi-housing-services.js
+-rw-r--r--@  1 santiagogonzalez  staff   10519 Jun 30 21:17 san-luis-potosi-legal-administrative.js
+-rw-r--r--@  1 santiagogonzalez  staff   15873 Jun 30 21:17 san-luis-potosi-pet-care.js
+-rw-r--r--@  1 santiagogonzalez  staff   16466 Jun 30 21:17 san-luis-potosi-relocation-support.js
+-rw-r--r--@  1 santiagogonzalez  staff   13507 Jun 30 21:17 san-luis-potosi-wellness-services.js
+-rw-r--r--@  1 santiagogonzalez  staff   15996 Jun 30 21:17 services.js
+-rw-r--r--@  1 santiagogonzalez  staff    4580 Jun 30 21:17 shop.js
+-rw-r--r--@  1 santiagogonzalez  staff    8510 Jun 30 21:17 signin-simple.js
+-rw-r--r--@  1 santiagogonzalez  staff    9882 Jun 30 21:17 signin.js
+-rw-r--r--@  1 santiagogonzalez  staff    7257 Jun 30 21:17 signup-fixed.js
+-rw-r--r--@  1 santiagogonzalez  staff    2860 Jun 30 21:17 signup-minimal.js
+-rw-r--r--@  1 santiagogonzalez  staff    7777 Jun 30 21:17 signup-production.js
+-rw-r--r--@  1 santiagogonzalez  staff    7126 Jun 30 21:17 signup-simple.js
+-rw-r--r--@  1 santiagogonzalez  staff    2599 Jun 30 21:17 signup.js
+-rw-r--r--@  1 santiagogonzalez  staff    3439 Jun 30 21:17 simple-test.js
+drwxr-xr-x@  5 santiagogonzalez  staff     160 Jun 30 21:17 submit-listing
+-rw-r--r--@  1 santiagogonzalez  staff    6492 Jun 30 21:17 test-minimal-signup.js
+-rw-r--r--@  1 santiagogonzalez  staff    4572 Jun 30 21:17 traditional-cuisine.js
+-rw-r--r--@  1 santiagogonzalez  staff   34813 Jun 30 21:17 weekend-getaways.js
+Pages generated successfully despite error

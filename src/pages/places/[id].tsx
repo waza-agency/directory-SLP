@@ -1,20 +1,17 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getPlaceById, getPlaces } from '@/lib/supabase';
 import type { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
-  const { t } = useTranslation('common');
   const router = useRouter();
 
   // Add debug logging
   useEffect(() => {
     console.log('PlacePage rendered with:', { place, error, path: router.asPath });
-    
+
     if (error) {
       console.error('Place page error:', error);
     }
@@ -35,11 +32,11 @@ export default function PlacePage({ place, error }: { place: Place | null; error
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">{error}</h1>
-        <Link 
-          href="/places" 
+        <Link
+          href="/places"
           className="text-primary hover:text-primary-dark"
         >
-          {t('back_to_places')}
+          Regresar a lugares
         </Link>
       </div>
     );
@@ -65,10 +62,10 @@ export default function PlacePage({ place, error }: { place: Place | null; error
               className="object-cover"
             />
           </div>
-          
+
           <div className="p-6">
             <h1 className="text-3xl font-bold text-gray-900 mb-4">{place.name}</h1>
-            
+
             <div className="flex items-center mb-4">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
@@ -85,39 +82,39 @@ export default function PlacePage({ place, error }: { place: Place | null; error
                 ))}
               </div>
               <span className="ml-2 text-sm text-gray-600">
-                {place.rating ? `${place.rating.toFixed(1)}/5` : t('no_rating')}
+                {place.rating ? `${place.rating.toFixed(1)}/5` : 'Sin calificación'}
               </span>
             </div>
 
             <div className="mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('description')}</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Descripción</h2>
               <p className="text-gray-600">{place.description}</p>
             </div>
 
             {place.address && (
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('address')}</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">Dirección</h2>
                 <p className="text-gray-600">{place.address}</p>
               </div>
             )}
 
             {place.website && (
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('website')}</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">Sitio Web</h2>
                 <a
                   href={place.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:text-primary-dark"
                 >
-                  {t('visit_website')}
+                  Visitar sitio web
                 </a>
               </div>
             )}
 
             {place.phone && (
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('phone')}</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">Teléfono</h2>
                 <a href={`tel:${place.phone}`} className="text-primary hover:text-primary-dark">
                   {place.phone}
                 </a>
@@ -129,7 +126,7 @@ export default function PlacePage({ place, error }: { place: Place | null; error
                 href="/places"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
               >
-                {t('back_to_places')}
+                Regresar a lugares
               </Link>
             </div>
           </div>
@@ -144,18 +141,11 @@ export async function getStaticPaths() {
   try {
     // Get all places
     const places = await getPlaces();
-    
+
     // Get the paths we want to pre-render based on places
-    const paths = places.flatMap((place) => [
-      {
-        params: { id: place.id },
-        locale: 'en'
-      },
-      {
-        params: { id: place.id },
-        locale: 'es'
-      }
-    ]);
+    const paths = places.map((place) => ({
+      params: { id: place.id }
+    }));
 
     // We'll pre-render only these paths at build time.
     // { fallback: false } means other routes should 404.
@@ -172,14 +162,13 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ locale = 'en', params }: { locale?: string; params: { id: string } }) {
-  console.log('getStaticProps called with:', { locale, params });
+export async function getStaticProps({ params }: { params: { id: string } }) {
+  console.log('getStaticProps called with:', { params });
 
   if (!params?.id) {
     console.error('No ID provided in params');
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         place: null,
         error: 'Missing place ID'
       },
@@ -191,12 +180,11 @@ export async function getStaticProps({ locale = 'en', params }: { locale?: strin
     console.log('Fetching place with ID:', params.id);
     const place = await getPlaceById(params.id);
     console.log('Place fetch result type:', typeof place);
-    
+
     if (!place) {
       console.error('Place not found:', params.id);
       return {
         props: {
-          ...(await serverSideTranslations(locale, ['common'])),
           place: null,
           error: 'Place not found'
         },
@@ -210,7 +198,6 @@ export async function getStaticProps({ locale = 'en', params }: { locale?: strin
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         place: serializablePlace,
         error: null
       },
@@ -218,21 +205,20 @@ export async function getStaticProps({ locale = 'en', params }: { locale?: strin
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
-    
+
     // Add more specific error information
     let errorMessage = 'Error fetching place details';
     if (error instanceof Error) {
       errorMessage += `: ${error.message}`;
       console.error('Error stack:', error.stack);
     }
-    
+
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         place: null,
         error: errorMessage
       },
       revalidate: 3600,
     };
   }
-} 
+}
