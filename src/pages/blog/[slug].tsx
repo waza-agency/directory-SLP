@@ -1,7 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-// Temporarily disable i18n
-// import { useTranslation } from 'next-i18next';
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,12 +11,9 @@ interface BlogPostPageProps {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    console.log('🔍 [getStaticPaths] Starting to get blog posts...');
-
     // In production, don't pre-generate paths to avoid build issues
     // Use fallback: 'blocking' to generate on-demand
     if (process.env.NODE_ENV === 'production') {
-      console.log('🔍 [getStaticPaths] Production mode: using empty paths with blocking fallback');
       return {
         paths: [],
         fallback: 'blocking'
@@ -27,20 +21,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
 
     const posts = await getBlogPosts();
-    console.log('🔍 [getStaticPaths] Got posts:', posts.length);
 
     const paths = posts.map((post) => ({
       params: { slug: post.slug }
     }));
-
-    console.log('🔍 [getStaticPaths] Generated paths:', paths);
 
     return {
       paths,
       fallback: 'blocking' // Enable ISR with blocking fallback
     };
   } catch (error) {
-    console.error('❌ [getStaticPaths] Error getting static paths for blog:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('Error getting static paths for blog:', error instanceof Error ? error.message : 'Unknown error');
     return {
       paths: [],
       fallback: 'blocking'
@@ -48,39 +39,31 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params, locale = 'en' }) => {
+export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params }) => {
   try {
-    console.log('🔍 [getStaticProps] Starting with params:', params);
     const slug = params?.slug as string;
     if (!slug) {
-      console.log('❌ [getStaticProps] No slug provided');
       return {
         notFound: true
       };
     }
 
-    console.log('🔍 [getStaticProps] Looking for slug:', slug);
     const post = await getBlogPostBySlug(slug);
-    console.log('🔍 [getStaticProps] Found post:', !!post);
 
     if (!post) {
-      console.log('❌ [getStaticProps] Post not found, returning 404');
       return {
         notFound: true // This will show the 404 page
       };
     }
 
-    console.log('✅ [getStaticProps] Returning post:', post.title);
     return {
       props: {
-        // Temporarily disable i18n
-        // ...(await serverSideTranslations(locale, ['common'])),
         post
       },
       revalidate: 60 // Revalidate every 60 seconds
     };
   } catch (error) {
-    console.error('❌ [getStaticProps] Error getting blog post:', error instanceof Error ? error.message : 'Unknown error', error);
+    console.error('Error getting blog post:', error instanceof Error ? error.message : 'Unknown error', error);
     return {
       notFound: true
     };
@@ -88,9 +71,6 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
 };
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
-  // Temporarily disable i18n
-  // const { t } = useTranslation('common');
-
   if (!post) {
     return null; // This shouldn't happen because of notFound: true above, but TypeScript needs it
   }

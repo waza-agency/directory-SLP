@@ -1,7 +1,4 @@
 import { GetStaticProps } from 'next';
-// Temporarily disable i18n
-// import { useTranslation } from 'next-i18next';
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,14 +9,12 @@ interface BlogIndexProps {
   posts: BlogPost[];
 }
 
-export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps<BlogIndexProps> = async () => {
   try {
     const posts = await getBlogPosts();
 
     return {
       props: {
-        // Temporarily disable i18n
-        // ...(await serverSideTranslations(locale, ['common'])),
         posts
       },
       revalidate: 60 // Revalidate every 60 seconds
@@ -28,8 +23,6 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
     console.warn('Error in blog getStaticProps:', error instanceof Error ? error.message : 'Unknown error');
     return {
       props: {
-        // Temporarily disable i18n
-        // ...(await serverSideTranslations(locale, ['common'])),
         posts: []
       },
       revalidate: 60
@@ -38,9 +31,6 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale = 
 };
 
 export default function BlogIndex({ posts }: BlogIndexProps) {
-  // Temporarily disable i18n
-  // const { t } = useTranslation('common');
-
   return (
     <>
       <Head>
