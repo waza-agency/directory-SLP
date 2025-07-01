@@ -11,27 +11,26 @@ interface BlogPostPageProps {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    // In production, don't pre-generate paths to avoid build issues
-    // Use fallback: 'blocking' to generate on-demand
-    if (process.env.NODE_ENV === 'production') {
-      return {
-        paths: [],
-        fallback: 'blocking'
-      };
-    }
+    console.log('getStaticPaths: Fetching blog posts for path generation...');
 
+    // Always try to get blog posts, even in production
     const posts = await getBlogPosts();
+    console.log(`getStaticPaths: Found ${posts.length} blog posts`);
 
+    // Generate paths for all published blog posts
     const paths = posts.map((post) => ({
       params: { slug: post.slug }
     }));
 
+    console.log('getStaticPaths: Generated paths:', paths.map(p => p.params.slug));
+
     return {
       paths,
-      fallback: 'blocking' // Enable ISR with blocking fallback
+      fallback: 'blocking' // Generate pages on-demand for new posts
     };
   } catch (error) {
-    console.error('Error getting static paths for blog:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('getStaticPaths: Error fetching blog posts:', error);
+    // Return empty paths with fallback as backup
     return {
       paths: [],
       fallback: 'blocking'
@@ -42,17 +41,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params }) => {
   try {
     const slug = params?.slug as string;
+    console.log(`getStaticProps: Fetching blog post for slug: ${slug}`);
+
     if (!slug) {
+      console.error('getStaticProps: No slug provided');
       return {
         notFound: true
       };
     }
 
     const post = await getBlogPostBySlug(slug);
+    console.log(`getStaticProps: Blog post result for ${slug}:`, post ? 'Found' : 'Not found');
 
     if (!post) {
+      console.error(`getStaticProps: Blog post not found for slug: ${slug}`);
       return {
-        notFound: true // This will show the 404 page
+        notFound: true
       };
     }
 
@@ -60,10 +64,10 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
       props: {
         post
       },
-      revalidate: 60 // Revalidate every 60 seconds
+      revalidate: 300 // Revalidate every 5 minutes
     };
   } catch (error) {
-    console.error('Error getting blog post:', error instanceof Error ? error.message : 'Unknown error', error);
+    console.error('getStaticProps: Error fetching blog post:', error);
     return {
       notFound: true
     };
@@ -72,7 +76,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
   if (!post) {
-    return null; // This shouldn't happen because of notFound: true above, but TypeScript needs it
+    return null;
   }
 
   return (

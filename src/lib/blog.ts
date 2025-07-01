@@ -1,8 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Initialize Supabase client with better error handling
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables');
+}
+
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export interface BlogPost {
@@ -23,28 +28,57 @@ export interface BlogPost {
   tags?: string[];
 }
 
-export async function getBlogPosts(): Promise<BlogPost[]> {
+// Helper function to validate Supabase connection
+async function validateConnection() {
   try {
-    // Add timeout and retry logic
-    const { data, error } = await Promise.race([
-      supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
-        .order('created_at', { ascending: false }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Timeout')), 10000)
-      )
-    ]) as any;
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('count')
+      .limit(1);
 
     if (error) {
-      console.error('Error fetching blog posts:', error.message, error);
+      console.error('Supabase connection validation failed:', error);
+      return false;
+    }
+
+    console.log('Supabase connection validated successfully');
+    return true;
+  } catch (error) {
+    console.error('Supabase connection validation error:', error);
+    return false;
+  }
+}
+
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  try {
+    console.log('getBlogPosts: Starting fetch...');
+
+    // Validate connection first
+    const isConnected = await validateConnection();
+    if (!isConnected) {
+      console.error('getBlogPosts: Supabase connection failed');
+      return [];
+    }
+
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('getBlogPosts: Database error:', error);
+      return [];
+    }
+
+    if (!data || data.length === 0) {
+      console.warn('getBlogPosts: No blog posts found');
       return [];
     }
 
     // Map database fields to interface fields
-    const mappedData = data?.map((post: any) => ({
+    const mappedData = data.map((post: any) => ({
       id: post.id,
       slug: post.slug,
       title: post.title,
@@ -56,36 +90,55 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       createdAt: post.created_at,
       updatedAt: post.updated_at,
       tags: post.tags
-    })) || [];
+    }));
 
+    console.log(`getBlogPosts: Successfully fetched ${mappedData.length} posts`);
     return mappedData;
   } catch (error) {
-    console.error('Error in getBlogPosts:', error instanceof Error ? error.message : 'Unknown error', error);
+    console.error('getBlogPosts: Unexpected error:', error);
     return [];
   }
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    const { data, error } = await Promise.race([
-      supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('slug', slug)
-        .eq('status', 'published')
-        .single(),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Timeout')), 10000)
-      )
-    ]) as any;
+    console.log(`getBlogPostBySlug: Fetching post with slug: ${slug}`);
+
+    if (!slug) {
+      console.error('getBlogPostBySlug: No slug provided');
+      return null;
+    }
+
+    // Validate connection first
+    const isConnected = await validateConnection();
+    if (!isConnected) {
+      console.error('getBlogPostBySlug: Supabase connection failed');
+      return null;
+    }
+
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('status', 'published')
+      .single();
 
     if (error) {
-      console.error('Error fetching blog post:', error.message, error);
+      if (error.code === 'PGRST116') {
+        console.log(`getBlogPostBySlug: No post found with slug: ${slug}`);
+        return null;
+      }
+      console.error('getBlogPostBySlug: Database error:', error);
+      return null;
+    }
+
+    if (!data) {
+      console.log(`getBlogPostBySlug: No data returned for slug: ${slug}`);
       return null;
     }
 
     // Map database fields to interface fields
-    const mappedPost = data ? {
+    const mappedPost = {
       id: data.id,
       slug: data.slug,
       title: data.title,
@@ -97,36 +150,31 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       createdAt: data.created_at,
       updatedAt: data.updated_at,
       tags: data.tags
-    } : null;
+    };
 
+    console.log(`getBlogPostBySlug: Successfully fetched post: ${mappedPost.title}`);
     return mappedPost;
   } catch (error) {
-    console.error('Error in getBlogPostBySlug:', error instanceof Error ? error.message : 'Unknown error', error);
+    console.error('getBlogPostBySlug: Unexpected error:', error);
     return null;
   }
 }
 
 export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
   try {
-    const { data, error } = await Promise.race([
-      supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
-        .order('created_at', { ascending: false })
-        .limit(limit),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Timeout')), 10000)
-      )
-    ]) as any;
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(limit);
 
     if (error) {
-      console.warn('Error fetching recent blog posts:', error.message);
+      console.warn('getRecentBlogPosts: Database error:', error);
       return [];
     }
 
-    // Map database fields to interface fields
     const mappedData = data?.map((post: any) => ({
       id: post.id,
       slug: post.slug,
@@ -143,32 +191,26 @@ export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
 
     return mappedData;
   } catch (error) {
-    console.warn('Error in getRecentBlogPosts:', error instanceof Error ? error.message : 'Unknown error');
+    console.warn('getRecentBlogPosts: Unexpected error:', error);
     return [];
   }
 }
 
 export async function getBlogPostsByCategory(category: string): Promise<BlogPost[]> {
   try {
-    const { data, error } = await Promise.race([
-      supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('category', category)
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
-        .order('created_at', { ascending: false }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Timeout')), 10000)
-      )
-    ]) as any;
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('*')
+      .eq('category', category)
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false });
 
     if (error) {
-      console.warn('Error fetching blog posts by category:', error.message);
+      console.warn('getBlogPostsByCategory: Database error:', error);
       return [];
     }
 
-    // Map database fields to interface fields
     const mappedData = data?.map((post: any) => ({
       id: post.id,
       slug: post.slug,
@@ -185,7 +227,7 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
 
     return mappedData;
   } catch (error) {
-    console.warn('Error in getBlogPostsByCategory:', error instanceof Error ? error.message : 'Unknown error');
+    console.warn('getBlogPostsByCategory: Unexpected error:', error);
     return [];
   }
 }

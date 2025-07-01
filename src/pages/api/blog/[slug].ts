@@ -13,29 +13,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Invalid slug parameter' });
     }
 
-    console.log('🔍 [API] Looking for blog post with slug:', slug);
+    console.log(`API: Fetching blog post for slug: ${slug}`);
 
     const post = await getBlogPostBySlug(slug);
 
     if (!post) {
-      console.log('❌ [API] Blog post not found:', slug);
+      console.log(`API: Blog post not found for slug: ${slug}`);
       return res.status(404).json({ error: 'Blog post not found' });
     }
 
-    console.log('✅ [API] Blog post found:', post.title);
+    console.log(`API: Successfully fetched blog post: ${post.title}`);
 
-    // Set cache headers for better performance
-    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+    // Set cache headers
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
 
-    return res.status(200).json({
-      success: true,
-      post
-    });
+    return res.status(200).json(post);
   } catch (error) {
-    console.error('❌ [API] Error fetching blog post:', error);
-    return res.status(500).json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
-    });
+    console.error('API: Error fetching blog post:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }
