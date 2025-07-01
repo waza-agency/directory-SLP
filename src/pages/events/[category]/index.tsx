@@ -212,12 +212,12 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
           <div className="max-w-3xl">
             <h1 className="text-5xl font-bold mb-6">{getCategoryTitle(category)}</h1>
             <p className="text-xl mb-8">
-              {t('eventsDescription')}
+              Descubre los mejores eventos en San Luis Potosí
             </p>
             <div className="relative">
               <input
                 type="text"
-                placeholder={t('searchEvents')}
+                placeholder="Buscar eventos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full bg-white/90 backdrop-blur-sm text-gray-800 px-6 py-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-white"
@@ -254,15 +254,15 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('noEventsFound')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No se encontraron eventos</h3>
               <p className="text-gray-600 mb-6">
-                {t('noEventsFoundDescription')}
+                No hay eventos que coincidan con tus criterios de búsqueda.
               </p>
               <button
                 onClick={() => { setSearchTerm(''); router.push('/events/all'); }}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary hover:bg-primary-dark transition-colors"
               >
-                {t('clearFilters')}
+                Limpiar filtros
               </button>
             </div>
           </div>
@@ -272,13 +272,13 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
         {featuredEvents.length > 0 && (
           <section className="mb-16">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">{t('featuredEvents')}</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Eventos Destacados</h2>
               {regularEvents.length > 0 && (
                 <a
                   href="#all-events"
                   className="text-primary hover:text-primary-dark font-semibold flex items-center gap-2"
                 >
-                  {t('viewAllEvents')}
+                  Ver todos los eventos
                   <ArrowLongRightIcon className="w-5 h-5" />
                 </a>
               )}
@@ -291,7 +291,7 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
         {regularEvents.length > 0 && (
           <section className="mb-16">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">{t('regularEvents')}</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Eventos Regulares</h2>
             </div>
             <EventList events={regularEvents} />
           </section>

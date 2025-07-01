@@ -76,8 +76,8 @@ export default function Header() {
     setIsUserMenuOpen(false);
   };
 
-  // Don't render anything until translations are ready and component is mounted
-  if (!ready || !mounted) {
+  // Don't render anything until component is mounted
+  if (!mounted) {
     return null;
   }
 

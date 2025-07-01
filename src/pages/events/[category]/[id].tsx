@@ -150,9 +150,9 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
   // Get category label and color
   const getCategoryInfo = (category: string) => {
     const categoryMap: Record<string, { label: string; color: string }> = {
-      sports: { label: t('sportsEvents'), color: 'bg-blue-500' },
-      cultural: { label: t('culturalEvents'), color: 'bg-purple-500' },
-      other: { label: t('otherEvents'), color: 'bg-amber-500' },
+      sports: { label: 'Deportes', color: 'bg-blue-500' },
+      cultural: { label: 'Cultural', color: 'bg-purple-500' },
+      other: { label: 'Otros', color: 'bg-amber-500' },
     };
     return categoryMap[category] || { label: category, color: 'bg-gray-500' };
   };
