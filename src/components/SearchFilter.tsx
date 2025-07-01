@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { FilterOptions } from '@/types';
 
@@ -8,7 +7,6 @@ interface SearchFilterProps {
 }
 
 export default function SearchFilter({ filters, setFilters }: SearchFilterProps) {
-  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState(filters.searchTerm || '');
   
   const handleSearch = (e: React.FormEvent) => {
@@ -29,7 +27,7 @@ export default function SearchFilter({ filters, setFilters }: SearchFilterProps)
             <input
               type="text"
               className="block w-full pl-10 pr-3 py-2 border-0 text-sm text-gray-900 focus:ring-0 focus:border-0 placeholder-gray-500"
-              placeholder={t('search_placeholder')}
+              placeholder="Search..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -41,7 +39,7 @@ export default function SearchFilter({ filters, setFilters }: SearchFilterProps)
             type="submit"
             className="px-6 py-3 bg-primary text-white text-sm font-medium rounded-r-md hover:bg-primary-dark transition-colors"
           >
-            {t('search')}
+            Search
           </button>
         </div>
       </form>

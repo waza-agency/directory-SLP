@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SimpleSignIn from '@/components/auth/SimpleSignIn';
 import { supabase } from '@/lib/supabase';
 
 export default function SimpleSignInPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
 
   // Check if user is already authenticated (client-side only)
@@ -30,8 +27,8 @@ export default function SimpleSignInPage() {
   return (
     <>
       <Head>
-        <title>{t('signin.title', 'Sign In')} | Directory SLP</title>
-        <meta name="description" content={t('signin.description', 'Sign in to your account to access all features.')} />
+        <title>{'Sign In'} | Directory SLP</title>
+        <meta name="description" content={'Sign in to your account to access all features.'} />
       </Head>
 
       <div className="min-h-screen py-12 bg-gray-100">
@@ -43,10 +40,9 @@ export default function SimpleSignInPage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getStaticProps({ }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }

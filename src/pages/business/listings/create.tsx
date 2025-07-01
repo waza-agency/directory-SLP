@@ -3,8 +3,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/supabase-auth';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 
 const productCategories = [
   { id: 'clothing', name: 'Clothing & Apparel' },
@@ -39,7 +37,6 @@ interface FormData {
 }
 
 export default function CreateProductListing() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading } = useAuth();
   const [businessProfile, setBusinessProfile] = useState<any>(null);
@@ -549,10 +546,9 @@ export default function CreateProductListing() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getStaticProps({ }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
 } 

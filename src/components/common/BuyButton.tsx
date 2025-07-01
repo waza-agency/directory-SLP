@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 
 type BuyButtonProps = {
   productId: string;
@@ -16,7 +15,6 @@ type BuyButtonProps = {
 export default function BuyButton({
   className = '',
 }: BuyButtonProps) {
-  const { t } = useTranslation('common');
 
   return (
     <button
@@ -24,7 +22,7 @@ export default function BuyButton({
       className={`px-4 py-2 rounded-md font-medium bg-gray-300 text-gray-500 cursor-not-allowed ${className}`}
       title="Marketplace temporalmente desactivado"
     >
-      {t('marketplace.disabled', 'Marketplace Desactivado')}
+      {'Marketplace Desactivado'}
     </button>
   );
 }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 
 type FixedSignUpFormValues = {
@@ -12,7 +11,6 @@ type FixedSignUpFormValues = {
 };
 
 export default function FixedSignUp() {
-  const { t } = useTranslation('common');
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [debugInfo, setDebugInfo] = useState<any>(null);

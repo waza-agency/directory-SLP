@@ -1,10 +1,7 @@
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 
 export default function ShopPage() {
-  const { t } = useTranslation('common');
 
   return (
     <>
@@ -82,10 +79,9 @@ export default function ShopPage() {
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export async function getStaticProps({ }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }

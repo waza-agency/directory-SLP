@@ -1,6 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import EventList from '@/components/EventList';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
@@ -22,7 +20,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     // Calculate the safety buffer date - 7 days in the past
     const safetyDateBuffer = new Date();
@@ -74,7 +72,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'en', ['common'])),
         events,
       },
       revalidate: 60, // Revalidate every minute for testing
@@ -83,7 +80,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     console.error('Error fetching events:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'en', ['common'])),
         events: [],
       },
       revalidate: 60,
@@ -92,7 +88,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 };
 
 export default function CulturalEvents({ events }: CulturalEventsProps) {
-  const { t } = useTranslation('common');
 
   const featuredEvents = events.filter(event => event.featured);
   const regularEvents = events.filter(event => !event.featured);

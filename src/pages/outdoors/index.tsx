@@ -1,5 +1,3 @@
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +5,6 @@ import { GetStaticProps } from 'next';
 import SEO from '@/components/common/SEO';
 
 export default function OutdoorsPage() {
-  const { t } = useTranslation('common');
 
   return (
     <>
@@ -471,10 +468,9 @@ export default function OutdoorsPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }; 

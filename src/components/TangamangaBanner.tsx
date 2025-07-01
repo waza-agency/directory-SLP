@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
 
 export default function TangamangaBanner() {
-  const { t } = useTranslation('common');
 
   return (
     <section className="relative w-full py-16 bg-gradient-to-r from-green-600 to-green-800">

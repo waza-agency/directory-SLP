@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 
 export type EventCategory = 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'other' | 'all';
@@ -18,16 +17,15 @@ export default function EventCategoryFilter({
   showCounts = false,
   counts = {}
 }: EventCategoryFilterProps) {
-  const { t } = useTranslation('common');
-  
+
   // Definición de categorías con iconos y textos
   const categories: { id: EventCategory; icon: string; label: string; href?: string }[] = [
-    { id: 'all', icon: '🗓️', label: t('allEvents') },
-    { id: 'sports', icon: '🏆', label: t('sportsEvents'), href: '/events/sports' },
-    { id: 'cultural', icon: '🎭', label: t('culturalEvents'), href: '/events/cultural' },
-    { id: 'music', icon: '🎵', label: t('musicEvents') || 'Music', href: '/events/music' },
-    { id: 'culinary', icon: '🍽️', label: t('culinaryEvents') || 'Food & Drinks', href: '/events/culinary' },
-    { id: 'other', icon: '✨', label: t('otherEvents'), href: '/events/other' },
+    { id: 'all', icon: '🗓️', label: 'All Events' },
+    { id: 'sports', icon: '🏆', label: 'Sports', href: '/events/sports' },
+    { id: 'cultural', icon: '🎭', label: 'Cultural', href: '/events/cultural' },
+    { id: 'music', icon: '🎵', label: 'Music', href: '/events/music' },
+    { id: 'culinary', icon: '🍽️', label: 'Food & Drinks', href: '/events/culinary' },
+    { id: 'other', icon: '✨', label: 'Other', href: '/events/other' },
   ];
 
   return (
@@ -36,7 +34,7 @@ export default function EventCategoryFilter({
         {categories.map((category) => {
           const isSelected = selectedCategory === category.id;
           const count = showCounts && counts[category.id] ? counts[category.id] : null;
-          
+
           // Si hay un onChange, usamos botones; si no, usamos enlaces
           if (onChange) {
             return (
@@ -89,4 +87,4 @@ export default function EventCategoryFilter({
       </div>
     </div>
   );
-} 
+}

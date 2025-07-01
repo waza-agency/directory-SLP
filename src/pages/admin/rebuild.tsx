@@ -1,13 +1,11 @@
 import { GetServerSideProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['common']))
     }
   };
 };

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 
@@ -32,7 +30,6 @@ type Order = {
 };
 
 export default function OrdersPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
@@ -339,7 +336,6 @@ export async function getServerSideProps({ locale, req }: { locale: string, req:
   try {
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   } catch (error) {

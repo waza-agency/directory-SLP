@@ -3,8 +3,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
@@ -56,7 +54,6 @@ type BusinessListing = {
 };
 
 export default function BusinessDashboardPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading } = useAuth();
   const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
@@ -426,7 +423,7 @@ export default function BusinessDashboardPage() {
   const handleDeleteListing = async (listingId: string) => {
     console.log('Delete listing called with ID:', listingId);
 
-    if (confirm(t('confirm_delete_listing', 'Are you sure you want to delete this listing?'))) {
+    if (confirm('Are you sure you want to delete this listing?')) {
       try {
         console.log('User confirmed deletion, making API request...');
         console.log('Current user:', user);
@@ -519,7 +516,7 @@ export default function BusinessDashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="mb-8 flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{t('business_dashboard', 'Business Dashboard')}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{'Business Dashboard'}</h1>
               {businessProfile && (
                 <p className="mt-2 text-lg text-gray-600">
                   {t('welcome_business', 'Welcome, {{business}}', { business: businessProfile.business_name })}
@@ -540,16 +537,16 @@ export default function BusinessDashboardPage() {
 
                 <div className="mt-6 space-y-2">
                   <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
-                    {t('business.dashboard', 'Dashboard')}
+                    {'Dashboard'}
                   </Link>
                   <Link href="/business/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                    {t('business.profile', 'Business Profile')}
+                    {'Business Profile'}
                   </Link>
                   <Link href="/business/subscription" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                    {t('business.subscription', 'Subscription')}
+                    {'Subscription'}
                   </Link>
                   <Link href="/account" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                    {t('business.backToAccount', 'Back to Account')}
+                    {'Back to Account'}
                   </Link>
                 </div>
               </div>
@@ -560,7 +557,7 @@ export default function BusinessDashboardPage() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
                 <div className="mb-4 md:mb-0">
                   <p className="text-gray-600">
-                    {t('manage_business_description', 'Manage your business listings and subscription')}
+                    {'Manage your business listings and subscription'}
                   </p>
                 </div>
 
@@ -580,7 +577,7 @@ export default function BusinessDashboardPage() {
                         onClick={(e) => {
                           if (!canCreateListing) {
                             e.preventDefault();
-                            alert(t('max_listings_reached', 'You have reached the maximum number of listings for your subscription plan.'));
+                            alert('You have reached the maximum number of listings for your subscription plan.');
                           } else {
                             const menu = document.getElementById('create-listing-dropdown');
                             if (menu && buttonRef1.current) {
@@ -594,7 +591,7 @@ export default function BusinessDashboardPage() {
                         }}
                       >
                         <PlusIcon className="h-4 w-4 mr-2" />
-                        {t('create_listing', 'Create Listing')}
+                        {'Create Listing'}
                       </button>
                     </div>
                   </div>
@@ -636,54 +633,54 @@ export default function BusinessDashboardPage() {
                       className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       <PencilIcon className="h-4 w-4 mr-2" />
-                      {t('edit_profile', 'Edit Profile')}
+                      {'Edit Profile'}
                     </Link>
 
                     {/* Business Description */}
                     {businessProfile.description && (
                       <div className="mb-8">
-                        <h3 className="text-sm font-medium text-gray-500 mb-2">{t('business_description', 'Business Description')}</h3>
+                        <h3 className="text-sm font-medium text-gray-500 mb-2">{'Business Description'}</h3>
                         <p className="text-gray-900">{businessProfile.description}</p>
                       </div>
                     )}
 
                     <div className="border-t border-gray-200 pt-4">
-                      <h3 className="text-sm font-medium text-gray-500 mb-2">{t('subscription_details', 'Subscription Details')}</h3>
+                      <h3 className="text-sm font-medium text-gray-500 mb-2">{'Subscription Details'}</h3>
 
                       {subscription ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
-                            <div className="text-sm text-gray-500">{t('plan', 'Plan')}</div>
+                            <div className="text-sm text-gray-500">{'Plan'}</div>
                             <div className="font-medium">{subscription.subscription_plans.name}</div>
                           </div>
                           <div>
-                            <div className="text-sm text-gray-500">{t('status', 'Status')}</div>
+                            <div className="text-sm text-gray-500">{'Status'}</div>
                             <div className="font-medium">
                               <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                                 subscription.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                               }`}>
-                                {subscription.status === 'active' ? t('active', 'Active') : t('inactive', 'Inactive')}
+                                {subscription.status === 'active' ? 'Active' : 'Inactive'}
                               </span>
                             </div>
                           </div>
                           <div>
-                            <div className="text-sm text-gray-500">{t('renewal_date', 'Renewal Date')}</div>
+                            <div className="text-sm text-gray-500">{'Renewal Date'}</div>
                             <div className="font-medium">
                               {subscription.current_period_end
                                 ? formatDate(subscription.current_period_end)
-                                : t('not_available', 'Not available')}
+                                : 'Not available'}
                             </div>
                           </div>
                         </div>
                       ) : (
                         <div className="flex items-center space-x-2 text-yellow-600">
                           <ExclamationCircleIcon className="h-5 w-5" />
-                          <span>{t('no_active_subscription', 'No active subscription')}</span>
+                          <span>{'No active subscription'}</span>
                           <Link
                             href="/business/subscription"
                             className="text-indigo-600 font-medium hover:text-indigo-900"
                           >
-                            {t('get_subscription', 'Get Subscription')}
+                            {'Get Subscription'}
                           </Link>
                         </div>
                       )}
@@ -696,13 +693,13 @@ export default function BusinessDashboardPage() {
               <div className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="p-6 border-b border-gray-200">
                   <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-semibold">{t('your_listings', 'Your Listings')}</h2>
+                    <h2 className="text-xl font-semibold">{'Your Listings'}</h2>
 
                     <div className="flex items-center space-x-2">
                       {subscription && (
                         <p className="text-sm text-gray-600">
                           {subscription.subscription_plans.max_listings === -1
-                            ? t('unlimited_listings_available', 'Unlimited listings available')
+                            ? 'Unlimited listings available'
                             : t('listings_count', '{{current}}/{{max}} listings', {
                                 current: listings.length,
                                 max: subscription.subscription_plans.max_listings
@@ -719,16 +716,16 @@ export default function BusinessDashboardPage() {
                     <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100">
                       <ExclamationCircleIcon className="h-6 w-6 text-yellow-600" aria-hidden="true" />
                     </div>
-                    <h3 className="mt-2 text-sm font-medium text-gray-900">{t('no_subscription', 'No Active Subscription')}</h3>
+                    <h3 className="mt-2 text-sm font-medium text-gray-900">{'No Active Subscription'}</h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      {t('subscription_required', 'You need an active subscription to create business listings.')}
+                      {'You need an active subscription to create business listings.'}
                     </p>
                     <div className="mt-6">
                       <Link
                         href="/business/subscription"
                         className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       >
-                        {t('get_subscription', 'Get Subscription')}
+                        {'Get Subscription'}
                       </Link>
                     </div>
                   </div>
@@ -739,9 +736,9 @@ export default function BusinessDashboardPage() {
                     <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
                       <PlusIcon className="h-6 w-6 text-indigo-600" aria-hidden="true" />
                     </div>
-                    <h3 className="mt-2 text-sm font-medium text-gray-900">{t('no_listings', 'No listings yet')}</h3>
+                    <h3 className="mt-2 text-sm font-medium text-gray-900">{'No listings yet'}</h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      {t('get_started_creating', 'Get started by creating your first listing.')}
+                      {'Get started by creating your first listing.'}
                     </p>
                     {canCreateListing && (
                       <div className="mt-6">
@@ -750,7 +747,7 @@ export default function BusinessDashboardPage() {
                           className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                          {t('new_listing', 'New Listing')}
+                          {'New Listing'}
                         </Link>
                       </div>
                     )}
@@ -771,7 +768,7 @@ export default function BusinessDashboardPage() {
                                 {listing.category}
                               </span>
                               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mr-2">
-                                {listing.type === 'service' ? t('service', 'Service') : t('product', 'Product')}
+                                {listing.type === 'service' ? 'Service' : 'Product'}
                               </span>
                               <span className="text-xs text-gray-500">
                                 {formatDate(listing.created_at)}
@@ -786,14 +783,14 @@ export default function BusinessDashboardPage() {
                                 className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                               >
                                 <PencilIcon className="h-4 w-4 mr-1" />
-                                {t('edit', 'Edit')}
+                                {'Edit'}
                               </Link>
                               <button
                                 onClick={() => handleDeleteListing(listing.id)}
                                 className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-1 focus:ring-red-500"
                               >
                                 <TrashIcon className="h-4 w-4 mr-1" />
-                                {t('delete', 'Delete')}
+                                {'Delete'}
                               </button>
                               <Link
                                 href={`/listings/${listing.id}`}
@@ -801,7 +798,7 @@ export default function BusinessDashboardPage() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                {t('view_public', 'View Public')}
+                                {'View Public'}
                               </Link>
                             </div>
                           </div>
@@ -820,7 +817,7 @@ export default function BusinessDashboardPage() {
                             ) : (
                               <div className="h-24 w-24 sm:h-32 sm:w-32 bg-gray-100 rounded-md flex items-center justify-center">
                                 <span className="text-gray-400">
-                                  {t('no_image', 'No image')}
+                                  {'No image'}
                                 </span>
                               </div>
                             )}
@@ -832,7 +829,7 @@ export default function BusinessDashboardPage() {
                 ) : (
                   <div className="p-10 text-center">
                     <p className="text-gray-600 mb-6">
-                      {t('no_listings_yet', 'You haven\'t created any listings yet.')}
+                      {'You haven\'t created any listings yet.'}
                     </p>
                     <div className="relative inline-block text-left">
                       <div>
@@ -848,7 +845,7 @@ export default function BusinessDashboardPage() {
                           onClick={(e) => {
                             if (!canCreateListing) {
                               e.preventDefault();
-                              alert(t('max_listings_reached', 'You have reached the maximum number of listings for your subscription plan.'));
+                              alert('You have reached the maximum number of listings for your subscription plan.');
                             } else {
                               const menu = document.getElementById('create-first-listing-dropdown');
                               if (menu && buttonRef2.current) {
@@ -862,7 +859,7 @@ export default function BusinessDashboardPage() {
                           }}
                         >
                           <PlusIcon className="h-4 w-4 mr-2" />
-                          {t('create_first_listing', 'Create your first listing')}
+                          {'Create your first listing'}
                         </button>
                       </div>
                     </div>
@@ -911,7 +908,7 @@ export default function BusinessDashboardPage() {
               if (menu) menu.classList.add('hidden');
             }}
           >
-            {t('create_product', 'Create Product')}
+            {'Create Product'}
           </Link>
           <Link
             href="/business/listings/create-service"
@@ -924,7 +921,7 @@ export default function BusinessDashboardPage() {
               if (menu) menu.classList.add('hidden');
             }}
           >
-            {t('create_service', 'Create Service')}
+            {'Create Service'}
           </Link>
         </div>
       </div>
@@ -951,7 +948,7 @@ export default function BusinessDashboardPage() {
               if (menu) menu.classList.add('hidden');
             }}
           >
-            {t('create_product', 'Create Product')}
+            {'Create Product'}
           </Link>
           <Link
             href="/business/listings/create-service"
@@ -964,7 +961,7 @@ export default function BusinessDashboardPage() {
               if (menu) menu.classList.add('hidden');
             }}
           >
-            {t('create_service', 'Create Service')}
+            {'Create Service'}
           </Link>
         </div>
       </div>
@@ -972,10 +969,9 @@ export default function BusinessDashboardPage() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 }

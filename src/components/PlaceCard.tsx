@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +11,6 @@ interface PlaceCardProps {
 }
 
 export default function PlaceCard({ place, featured, onClick, isSelected }: PlaceCardProps) {
-  const { t } = useTranslation('common');
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   

@@ -2,14 +2,12 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
 import { searchPlaces } from '@/lib/supabase';
 // import Cart from './common/Cart'; // MARKETPLACE DISABLED
 import { useAuth } from '@/lib/supabase-auth';
 
 export default function Header() {
   const router = useRouter();
-  const { t, ready } = useTranslation('common');
   const { user, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
@@ -25,7 +23,7 @@ export default function Header() {
   }, []);
 
   const changeLanguage = (locale: string) => {
-    router.push(router.pathname, router.asPath, { locale });
+    router.push(router.pathname, router.asPath, { });
   };
 
   // Map of language codes to display names
@@ -107,14 +105,14 @@ export default function Header() {
               href="/"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              {t('home')}
+              Home
             </Link>
 
             <Link
               href="/places"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              {t('explore')}
+              Explore
             </Link>
 
             <Link
@@ -128,7 +126,7 @@ export default function Header() {
               href="/about"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              {t('about')}
+              About
             </Link>
 
             <Link
@@ -142,7 +140,7 @@ export default function Header() {
               href="/contact"
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
             >
-              {t('contact')}
+              Contact
             </Link>
 
             {/* MARKETPLACE DISABLED - Shopping Cart removed */}
@@ -329,7 +327,7 @@ export default function Header() {
                     </div>
                   ) : (
                     <div className="p-4 text-sm text-gray-500 text-center">
-                      {t('no_places_found')}
+                      No places found
                     </div>
                   )}
                 </div>
@@ -348,7 +346,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('home')}
+              Home
             </Link>
 
             <Link
@@ -356,7 +354,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('explore')}
+              Explore
             </Link>
 
             <Link
@@ -372,7 +370,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('about')}
+              About
             </Link>
 
             <Link
@@ -388,7 +386,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              {t('contact')}
+              Contact
             </Link>
 
             {/* Authentication Links for Mobile */}

@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { Place } from '@/types';
 import PlaceCard from '@/components/PlaceCard';
@@ -37,7 +35,7 @@ interface HomeProps {
   }[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     // Use the helper function to get the safety buffer date
     const safetyDateString = getSafetyDateBuffer();
@@ -116,7 +114,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         events: events || [],
         featuredBrands: brands || [],
         featuredAdvertisers,
@@ -128,7 +125,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     console.error('Error fetching data:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         events: [],
         featuredBrands: [],
         featuredAdvertisers: [],
@@ -266,7 +262,6 @@ const eventCategories = [
 ];
 
 export default function Home({ events = [], featuredBrands = [], featuredAdvertisers = [], sponsoredContent = [] }: HomeProps) {
-  const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 
@@ -413,9 +408,9 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           }}></div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">{t('featuredAdvertisers.title', 'Featured Advertisers')}</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{'Featured Advertisers'}</h2>
               <Link href="/advertise" className="text-sm text-primary hover:text-primary-dark">
-                {t('featuredAdvertisers.advertise', 'Advertise with us')} →
+                {'Advertise with us'} →
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -454,7 +449,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
                 <Image
                   src="/images/events/fenapo-fair.jpg"
-                  alt={t('fenapo.title', 'FENAPO 2025')}
+                  alt={'FENAPO 2025'}
                   fill
                   className="object-cover object-center"
                   priority
@@ -464,7 +459,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 <div className="absolute bottom-0 left-0 p-6 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <CalendarIcon className="w-5 h-5" />
-                    <span className="font-medium">{t('fenapo.date', 'August 8 - 31, 2025')}</span>
+                    <span className="font-medium">{'August 8 - 31, 2025'}</span>
                   </div>
                 </div>
               </div>
@@ -474,27 +469,27 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   Featured Event
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-serif">
-                  {t('fenapo.title', 'FENAPO 2025')}
+                  {'FENAPO 2025'}
                 </h2>
                 <h3 className="text-xl md:text-2xl font-semibold mb-4 text-blue-800">
-                  {t('fenapo.subtitle', 'Feria Nacional Potosina')}
+                  {'Feria Nacional Potosina'}
                 </h3>
                 <div className="prose prose-lg mb-8 text-gray-600 slp-accent-border">
                   <p>
-                    {t('fenapo.description', 'The most traditional fair in Mexico returns to San Luis Potosí with 24 days of cultural events, sports, gastronomy, concerts and entertainment for the whole family.')}
+                    {'The most traditional fair in Mexico returns to San Luis Potosí with 24 days of cultural events, sports, gastronomy, concerts and entertainment for the whole family.'}
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 font-bold">•</span>
-                      <span>{t('fenapo.feature1', 'Teatro del Pueblo with national and international artists')}</span>
+                      <span>{'Teatro del Pueblo with national and international artists'}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 font-bold">•</span>
-                      <span>{t('fenapo.feature2', 'Traditional Mexican palenque shows')}</span>
+                      <span>{'Traditional Mexican palenque shows'}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-blue-600 font-bold">•</span>
-                      <span>{t('fenapo.feature3', 'Regional and international gastronomy')}</span>
+                      <span>{'Regional and international gastronomy'}</span>
                     </li>
                   </ul>
                 </div>
@@ -502,7 +497,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                   href="/events/fenapo-2025"
                   className="bg-blue-800 hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 >
-                  {t('fenapo.learnMore', 'Learn More')}
+                  {'Learn More'}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -523,11 +518,11 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           <div className="container mx-auto relative">
             <div className="max-w-3xl mx-auto text-center mb-16">
               <span className="inline-block bg-secondary text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-                {t('localExperiences.connect', 'Connect with San Luis Potosí')}
+                {'Connect with San Luis Potosí'}
               </span>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('localExperiences.title', 'Discover unique local experiences')}</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">{'Discover unique local experiences'}</h2>
               <p className="text-lg text-gray-600">
-                {t('localExperiences.description', 'Explore the best of San Luis Potosí with our complete guide to services, events, and places to visit.')}
+                {'Explore the best of San Luis Potosí with our complete guide to services, events, and places to visit.'}
               </p>
             </div>
 
@@ -538,10 +533,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{t('localExperiences.expatCommunity.title', 'Expat Community')}</h3>
-                <p className="text-gray-600 mb-6">{t('localExperiences.expatCommunity.description', 'Connect with other expatriates and share experiences in San Luis Potosí.')}</p>
+                <h3 className="text-xl font-semibold mb-4">{'Expat Community'}</h3>
+                <p className="text-gray-600 mb-6">{'Connect with other expatriates and share experiences in San Luis Potosí.'}</p>
                 <Link href="/community" className="inline-flex items-center text-secondary font-medium">
-                  {t('localExperiences.expatCommunity.cta', 'Learn more')}
+                  {'Learn more'}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -554,10 +549,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{t('localExperiences.discoverPlaces.title', 'Discover Places')}</h3>
-                <p className="text-gray-600 mb-6">{t('localExperiences.discoverPlaces.description', 'Find the best restaurants, shops, and leisure spaces in the city.')}</p>
+                <h3 className="text-xl font-semibold mb-4">{'Discover Places'}</h3>
+                <p className="text-gray-600 mb-6">{'Find the best restaurants, shops, and leisure spaces in the city.'}</p>
                 <Link href="/places" className="inline-flex items-center text-primary font-medium">
-                  {t('localExperiences.discoverPlaces.cta', 'Explore')}
+                  {'Explore'}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -570,10 +565,10 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{t('localExperiences.culturalEvents.title', 'Cultural Events')}</h3>
-                <p className="text-gray-600 mb-6">{t('localExperiences.culturalEvents.description', 'Stay up to date with festivals, concerts, and exhibitions in San Luis.')}</p>
+                <h3 className="text-xl font-semibold mb-4">{'Cultural Events'}</h3>
+                <p className="text-gray-600 mb-6">{'Stay up to date with festivals, concerts, and exhibitions in San Luis.'}</p>
                 <Link href="/events" className="inline-flex items-center text-secondary font-medium">
-                  {t('localExperiences.culturalEvents.cta', 'View calendar')}
+                  {'View calendar'}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

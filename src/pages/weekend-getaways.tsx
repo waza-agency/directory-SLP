@@ -1,6 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -75,7 +73,6 @@ interface WeekendGetawaysPageProps {
 }
 
 const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
-  const { t } = useTranslation('common');
 
   return (
     <>
@@ -628,10 +625,9 @@ const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
     revalidate: 60, // Revalidate every minute
   };

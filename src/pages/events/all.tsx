@@ -1,6 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -17,11 +15,10 @@ interface EventsPageProps {
   categoryCounts: Record<string, number>;
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   // Default fallback values
   const fallbackProps = {
     props: {
-      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       events: [],
       categoryCounts: {
         all: 0,
@@ -114,7 +111,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: allEvents,
         categoryCounts,
       },
@@ -129,7 +125,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 };
 
 export default function EventsAllPage({ events, categoryCounts }: EventsPageProps) {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<EventCategory>('all');
   const [filteredEvents, setFilteredEvents] = useState<Event[]>(events);

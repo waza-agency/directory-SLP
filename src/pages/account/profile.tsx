@@ -4,8 +4,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 import { UserCircleIcon, CameraIcon } from '@heroicons/react/24/outline';
@@ -23,7 +21,6 @@ type ProfileFormValues = {
 };
 
 export default function ProfilePage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -304,8 +301,8 @@ export default function ProfilePage() {
   return (
     <>
       <Head>
-        <title>{t('profile.title', 'Edit Profile')} | Directory SLP</title>
-        <meta name="description" content={t('profile.description', 'Update your profile information and address.')} />
+        <title>{'Edit Profile'} | Directory SLP</title>
+        <meta name="description" content={'Update your profile information and address.'} />
       </Head>
 
       <div className="min-h-screen py-12 bg-gray-100">
@@ -313,13 +310,13 @@ export default function ProfilePage() {
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center mb-6">
               <Link href="/account" className="text-primary hover:text-primary-dark mr-2">
-                &larr; {t('profile.backToAccount', 'Back to Account')}
+                &larr; {'Back to Account'}
               </Link>
-              <h1 className="text-3xl font-bold text-gray-900">{t('profile.editProfile', 'Edit Profile')}</h1>
+              <h1 className="text-3xl font-bold text-gray-900">{'Edit Profile'}</h1>
 
               {hasBusinessProfile && (
                 <Link href="/business/profile" className="ml-auto text-primary hover:text-primary-dark">
-                  {t('profile.editBusinessProfile', 'Edit Business Profile')} &rarr;
+                  {'Edit Business Profile'} &rarr;
                 </Link>
               )}
             </div>
@@ -333,7 +330,7 @@ export default function ProfilePage() {
 
               {submitSuccess && (
                 <div className="bg-green-50 text-green-700 p-4 border-b border-green-100">
-                  {t('profile.updateSuccess', 'Profile updated successfully!')}
+                  {'Profile updated successfully!'}
                 </div>
               )}
 
@@ -380,7 +377,7 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('profile.name', 'Full Name')}
+                      {'Full Name'}
                     </label>
                     <input
                       id="name"
@@ -392,7 +389,7 @@ export default function ProfilePage() {
 
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('profile.phone', 'Phone Number')}
+                      {'Phone Number'}
                     </label>
                     <input
                       id="phone"
@@ -405,7 +402,7 @@ export default function ProfilePage() {
 
                 <div>
                   <label htmlFor="occupation" className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('profile.occupation', 'Occupation')}
+                    {'Occupation'}
                   </label>
                   <input
                     id="occupation"
@@ -418,7 +415,7 @@ export default function ProfilePage() {
 
                 <div>
                   <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('profile.bio', 'Biography')}
+                    {'Biography'}
                   </label>
                   <textarea
                     id="bio"
@@ -431,7 +428,7 @@ export default function ProfilePage() {
 
                 <div>
                   <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('profile.address', 'Address')}
+                    {'Address'}
                   </label>
                   <input
                     id="address"
@@ -444,7 +441,7 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('profile.city', 'City')}
+                      {'City'}
                     </label>
                     <input
                       id="city"
@@ -456,7 +453,7 @@ export default function ProfilePage() {
 
                   <div>
                     <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('profile.zipCode', 'Zip/Postal Code')}
+                      {'Zip/Postal Code'}
                     </label>
                     <input
                       id="zipCode"
@@ -468,7 +465,7 @@ export default function ProfilePage() {
 
                   <div>
                     <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('profile.country', 'Country')}
+                      {'Country'}
                     </label>
                     <input
                       id="country"
@@ -481,7 +478,7 @@ export default function ProfilePage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('profile.interests', 'Interests')}
+                    {'Interests'}
                   </label>
                   <div className="flex flex-wrap gap-2 mb-2">
                     {userInterests.map((interest, index) => (
@@ -530,7 +527,7 @@ export default function ProfilePage() {
                     disabled={isSubmitting}
                     className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? t('profile.saving', 'Saving...') : t('profile.saveChanges', 'Save Changes')}
+                    {isSubmitting ? 'Saving...' : 'Save Changes'}
                   </button>
                 </div>
               </form>
@@ -542,11 +539,10 @@ export default function ProfilePage() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ }: { locale: string }) {
   try {
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   } catch (error) {

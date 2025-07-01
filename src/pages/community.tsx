@@ -1,5 +1,3 @@
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
@@ -7,7 +5,6 @@ import { useState } from 'react';
 import SEO from '@/components/common/SEO';
 
 export default function CommunityPage() {
-  const { t } = useTranslation('common');
 
   const upcomingActivities = [
     {
@@ -260,10 +257,9 @@ export default function CommunityPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };

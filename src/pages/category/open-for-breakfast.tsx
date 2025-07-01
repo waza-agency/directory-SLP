@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
@@ -12,7 +10,7 @@ interface OpenForBreakfastPageProps {
   places: Place[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   // Query places that are open for breakfast
   const { data: places, error } = await supabase
     .from('places')
@@ -25,7 +23,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         places: [],
-        ...(await serverSideTranslations(locale, ['common', 'navigation'])),
       },
       revalidate: 60,
     };
@@ -50,14 +47,12 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
       places: mappedPlaces,
-      ...(await serverSideTranslations(locale, ['common', 'navigation'])),
     },
     revalidate: 60,
   };
 };
 
 const OpenForBreakfastPage: React.FC<OpenForBreakfastPageProps> = ({ places }) => {
-  const { t } = useTranslation();
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 

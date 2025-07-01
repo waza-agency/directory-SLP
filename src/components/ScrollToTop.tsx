@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'next-i18next';
 
 export default function ScrollToTop() {
-  const { t } = useTranslation('common');
   const [isVisible, setIsVisible] = useState(false);
 
   // Show button when page is scrolled down
@@ -31,7 +29,7 @@ export default function ScrollToTop() {
   return (
     <button
       onClick={scrollToTop}
-      aria-label={t('common.scrollToTop', 'Scroll to top')}
+      aria-label={'Scroll to top'}
       className={`fixed bottom-8 right-8 bg-primary hover:bg-primary-dark text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center transition-all duration-300 animate-pulse
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
     >

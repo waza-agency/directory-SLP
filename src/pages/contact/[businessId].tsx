@@ -4,8 +4,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from "react-google-recaptcha";
 import { supabase } from '@/lib/supabase';
@@ -52,7 +50,6 @@ type ContactPageProps = {
 };
 
 export default function BusinessContactPage({ businessListing }: ContactPageProps) {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -72,7 +69,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
-        <p className="ml-4 text-gray-600">{t('listings.loading', 'Cargando...')}</p>
+        <p className="ml-4 text-gray-600">{'Cargando...'}</p>
       </div>
     );
   }
@@ -81,7 +78,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
   const onSubmit = async (data: ContactFormData) => {
     if (!recaptchaValue) {
-      setSubmitError(t('listings.contactForm.error', 'Please verify that you are not a robot'));
+      setSubmitError('Please verify that you are not a robot');
       return;
     }
 
@@ -116,7 +113,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
       setRecaptchaValue(null);
       recaptchaRef.current?.reset();
     } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : t('listings.contactForm.error', 'Failed to send message. Please try again.'));
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -125,7 +122,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
     if (!token) {
-      setSubmitError(t('listings.contactForm.recaptchaError', 'Please verify that you are not a robot'));
+      setSubmitError('Please verify that you are not a robot');
     } else {
       setSubmitError('');
     }
@@ -149,10 +146,10 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
           <div className="flex gap-4 mb-8">
             <Link href="/listings" className="inline-flex items-center text-primary hover:text-primary-dark transition duration-200">
               <ArrowLeftIcon className="h-4 w-4 mr-1" />
-              {t('listings.backToListings', 'Volver a Negocios')}
+              {'Volver a Negocios'}
             </Link>
             <Link href={`/listings/${businessListing.id}`} className="inline-flex items-center text-primary hover:text-primary-dark transition duration-200">
-              {t('featuredPlaces.viewDetails', 'Ver Detalles')}
+              {'Ver Detalles'}
             </Link>
           </div>
 
@@ -171,7 +168,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                    <span className="text-gray-400">{t('listings.noImageAvailable', 'Sin imagen disponible')}</span>
+                    <span className="text-gray-400">{'Sin imagen disponible'}</span>
                   </div>
                 )}
               </div>
@@ -184,7 +181,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
                   </span>
                   {businessListing.type && (
                     <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                      {businessListing.type === 'service' ? t('listings.service', 'Servicio') : t('listings.product', 'Producto')}
+                      {businessListing.type === 'service' ? 'Service' : 'Product'}
                     </span>
                   )}
                 </div>
@@ -204,7 +201,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
                 {/* Contact Information */}
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('listings.contactInformation', 'Información de Contacto')}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">{'Información de Contacto'}</h3>
                   <div className="space-y-3">
                     {/* Address */}
                     {(businessListing.address || businessListing.business_profiles?.address) && (
@@ -271,7 +268,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-center font-medium transition-colors flex items-center justify-center"
                       >
                         <PhoneIcon className="h-4 w-4 mr-2" />
-                        {t('listings.callBusiness', 'Llamar')}
+                        {'Llamar'}
                       </a>
                     )}
 
@@ -283,7 +280,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
                         className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-center font-medium transition-colors flex items-center justify-center"
                       >
                         <GlobeAltIcon className="h-4 w-4 mr-2" />
-                        {t('listings.visitWebsite', 'Visitar Sitio Web')}
+                        {'Visitar Sitio Web'}
                       </a>
                     )}
                   </div>
@@ -304,14 +301,14 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
               {submitSuccess ? (
                                   <div className="bg-green-50 text-green-800 p-4 rounded-lg mb-6">
-                    <div className="font-medium mb-1">{t('listings.contactForm.success', '¡Tu mensaje ha sido enviado exitosamente!')}</div>
+                    <div className="font-medium mb-1">{'¡Tu mensaje ha sido enviado exitosamente!'}</div>
                     <div className="text-sm">{t('listings.contactForm.successDetail', { businessName })}</div>
                   </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('listings.contactForm.name', 'Tu Nombre')}
+                      {'Tu Nombre'}
                     </label>
                     <input
                       type="text"
@@ -326,7 +323,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('listings.contactForm.email', 'Tu Email')}
+                      {'Tu Email'}
                     </label>
                     <input
                       type="email"
@@ -347,7 +344,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('listings.contactForm.phone', 'Tu Teléfono (opcional)')}
+                      {'Tu Teléfono (opcional)'}
                     </label>
                     <input
                       type="tel"
@@ -359,7 +356,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('listings.contactForm.subject', 'Asunto')}
+                      {'Asunto'}
                     </label>
                     <input
                       type="text"
@@ -374,7 +371,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      {t('listings.contactForm.message', 'Mensaje')}
+                      {'Mensaje'}
                     </label>
                     <textarea
                       id="message"
@@ -409,7 +406,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
                     disabled={isSubmitting || !recaptchaValue}
                     className="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? t('listings.contactForm.sending', 'Enviando...') : t('listings.contactForm.send', 'Enviar Mensaje')}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               )}
@@ -455,7 +452,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale = 
     return {
       props: {
         businessListing,
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
       }
     };
   } catch (error) {

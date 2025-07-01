@@ -3,8 +3,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/supabase-auth';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 
 const productCategories = [
   { id: 'clothing', name: 'Clothing & Apparel' },
@@ -60,7 +58,6 @@ interface BusinessListing {
 }
 
 export default function EditProductListing() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { id } = router.query;
   const { user, isLoading } = useAuth();
@@ -692,7 +689,6 @@ export default function EditProductListing() {
 export async function getServerSideProps({ locale, params }: { locale: string, params: any }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
 }

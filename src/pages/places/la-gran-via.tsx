@@ -1,11 +1,8 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const LaGranVia: NextPage = () => {
-  const { t } = useTranslation('common');
 
   return (
     <>
@@ -79,10 +76,9 @@ const LaGranVia: NextPage = () => {
   );
 };
 
-export const getStaticProps = async ({ locale = 'en' }: { locale?: string }) => {
+export const getStaticProps = async ({ }: { locale?: string }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };

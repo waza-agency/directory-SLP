@@ -1,6 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useState, useRef } from 'react';
@@ -33,16 +31,14 @@ import {
   MusicalNoteIcon as FestivalIcon
 } from '@heroicons/react/24/outline';
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
 
 export default function History() {
-  const { t } = useTranslation('common');
   const [selectedBarrio, setSelectedBarrio] = useState<string | null>(null);
   const [currentTimelineIndex, setCurrentTimelineIndex] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);

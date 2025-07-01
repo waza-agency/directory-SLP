@@ -1,6 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -109,7 +107,6 @@ interface CulturalAttractionsPageProps {
 }
 
 const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ places }) => {
-  const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -479,7 +476,7 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     const { data: places, error } = await supabase
       .from('places')
@@ -492,7 +489,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       return {
         props: {
           places: [],
-          ...(await serverSideTranslations(locale, ['common'])),
         },
         revalidate: 300,
       };
@@ -524,7 +520,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         places: transformedPlaces,
-        ...(await serverSideTranslations(locale, ['common'])),
       },
       revalidate: 300,
     };
@@ -533,7 +528,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         places: [],
-        ...(await serverSideTranslations(locale, ['common'])),
       },
       revalidate: 300,
     };

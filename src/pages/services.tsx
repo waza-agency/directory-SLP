@@ -1,6 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +13,6 @@ interface ServicesPageProps {
 }
 
 const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices }) => {
-  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -333,7 +330,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
   );
 };
 
-export async function getStaticProps({ locale = 'en' }: { locale?: string }) {
+export async function getStaticProps({ }: { locale?: string }) {
   try {
     // Fetch all services
     const { data: services, error: servicesError } = await supabase
@@ -359,7 +356,6 @@ export async function getStaticProps({ locale = 'en' }: { locale?: string }) {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
         services: services || [],
         featuredServices: featuredServices || [],
       },
@@ -369,7 +365,6 @@ export async function getStaticProps({ locale = 'en' }: { locale?: string }) {
     console.error('Error in getStaticProps:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
         services: [],
         featuredServices: [],
       },

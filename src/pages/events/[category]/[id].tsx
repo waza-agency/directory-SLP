@@ -1,6 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -79,7 +77,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
 
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         event: event || null,
         relatedEvents: relatedEvents || [],
       },
@@ -89,7 +86,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
     console.error('Error fetching event data:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         event: null,
         relatedEvents: [],
       },
@@ -118,7 +114,6 @@ const formatTime = (dateString: string) => {
 };
 
 export default function EventDetail({ event, relatedEvents }: EventDetailProps) {
-  const { t } = useTranslation('common');
   const router = useRouter();
 
   if (router.isFallback) {

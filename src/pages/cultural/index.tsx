@@ -1,5 +1,3 @@
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +13,6 @@ interface CulturalPageProps {
 }
 
 export default function CulturalPage({ events }: CulturalPageProps) {
-  const { t } = useTranslation('common');
 
   // Function to format date
   const formatDate = (dateString: string) => {
@@ -346,7 +343,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     // Simplified query to only fetch arts-culture events
     const { data: events, error } = await supabase
@@ -362,7 +359,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       // Return empty events array instead of throwing
       return {
         props: {
-          ...(await serverSideTranslations(locale, ['common'])),
           events: [],
         },
         revalidate: 60,
@@ -371,7 +367,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         events: events || [],
       },
       revalidate: 60,
@@ -381,7 +376,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     // Return empty events array on any error
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
         events: [],
       },
       revalidate: 60,

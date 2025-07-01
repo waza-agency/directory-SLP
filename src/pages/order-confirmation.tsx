@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function OrderConfirmationPage() {
   return (
@@ -54,10 +53,9 @@ export default function OrderConfirmationPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'es', ['common'])),
     },
   };
 };

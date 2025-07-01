@@ -1,14 +1,11 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import Image from 'next/image';
 import SEO from '@/components/common/SEO';
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
@@ -105,7 +102,6 @@ const featuredExperiences = [
 ];
 
 export default function Outdoors() {
-  const { t } = useTranslation('common');
 
   return (
     <>

@@ -1,6 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState } from 'react';
 import { Place } from '@/types';
@@ -14,7 +12,6 @@ interface ModernDiningPageProps {
 }
 
 const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
-  const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 
@@ -88,7 +85,7 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   // Fetch modern dining places from Supabase
   const { data: places, error } = await supabase
     .from('places')
@@ -102,7 +99,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         places: [],
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
       },
       revalidate: 60, // Revalidate every minute
     };
@@ -127,7 +123,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
       places: mappedPlaces,
-      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
     revalidate: 60, // Revalidate every minute
   };

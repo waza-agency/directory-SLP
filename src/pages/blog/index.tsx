@@ -15,7 +15,7 @@ export const getStaticProps: GetStaticProps<BlogIndexProps> = async () => {
 
     return {
       props: {
-        posts
+        posts,
       },
       revalidate: 60 // Revalidate every 60 seconds
     };

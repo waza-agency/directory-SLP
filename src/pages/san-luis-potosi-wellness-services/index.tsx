@@ -1,6 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -76,16 +74,14 @@ const serviceTypes = [
   'Wellness Workshops',
 ];
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
 
 export default function WellnessServices() {
-  const { t } = useTranslation('common');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);

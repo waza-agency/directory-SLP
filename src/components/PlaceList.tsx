@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { Place } from '@/types';
 import PlaceCard from './PlaceCard';
 
@@ -9,12 +8,11 @@ interface PlaceListProps {
 }
 
 export default function PlaceList({ places, onPlaceSelect, selectedPlace }: PlaceListProps) {
-  const { t } = useTranslation('common');
 
   if (places.length === 0) {
     return (
       <div className="text-center py-10 bg-gray-50 rounded-lg">
-        <p className="text-lg text-gray-600">{t('no_places_found')}</p>
+        <p className="text-lg text-gray-600">No places found</p>
       </div>
     );
   }

@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 
@@ -16,7 +14,6 @@ type Order = {
 };
 
 export default function AccountPage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading, signOut } = useAuth();
   const [profile, setProfile] = useState<any>(null);
@@ -272,8 +269,8 @@ export default function AccountPage() {
   return (
     <>
       <Head>
-        <title>{t('account.title', 'My Account')} | San Luis Way</title>
-        <meta name="description" content={t('account.description', 'Manage your account, orders, and preferences')} />
+        <title>{'My Account'} | San Luis Way</title>
+        <meta name="description" content={'Manage your account, orders, and preferences'} />
         <meta name="robots" content="noindex" />
       </Head>
 
@@ -281,9 +278,9 @@ export default function AccountPage() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">
-              {t('account.welcome', 'Welcome back')}, {profile?.name || user.email?.split('@')[0] || 'User'}!
+              Welcome back, {profile?.name || user.email?.split('@')[0] || 'User'}!
             </h1>
-            <p className="text-gray-600 mt-2">{t('account.subtitle', 'Manage your account and view your activity')}</p>
+            <p className="text-gray-600 mt-2">Manage your account and view your activity</p>
 
             {error && (
               <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 mt-4">
@@ -312,45 +309,45 @@ export default function AccountPage() {
 
                   <div className="mt-6 space-y-2">
                     <Link href="/account" className="block w-full py-2 px-3 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
-                      {t('account.dashboard', 'Dashboard')}
+                      {'Dashboard'}
                     </Link>
                     <Link href="/account/orders" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                      {t('account.orders', 'Orders')}
+                      {'Orders'}
                     </Link>
 
                     {/* Only show the User Profile link if the user doesn't have a business profile */}
                     {!hasBusinessProfile && (
                       <Link href="/account/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                        {t('account.profile', 'Profile')}
+                        {'Profile'}
                       </Link>
                     )}
 
                     {/* Business Profile Link - Only shown if user has a business profile */}
                     {hasBusinessProfile && (
                       <Link href="/business/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                        {t('account.businessProfile', 'Business Profile')}
+                        {'Business Profile'}
                       </Link>
                     )}
 
                     {/* Business Dashboard Link - Only shown if user has a business profile */}
                     {hasBusinessProfile && (
                       <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                        {t('account.businessDashboard', 'Business Dashboard')}
+                        {'Business Dashboard'}
                       </Link>
                     )}
 
                     {/* Business Subscription Link - Show for all users */}
                     <Link href="/business/subscription" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
                       {hasBusinessProfile
-                        ? t('account.manageBusiness', 'Manage Business')
-                        : t('account.createBusiness', 'Create Business')}
+                        ? 'Manage Business'
+                        : 'Create Business'}
                     </Link>
 
                     <button
                       onClick={handleSignOut}
                       className="block w-full text-left py-2 px-3 text-sm font-medium rounded-md text-red-600 hover:bg-red-50"
                     >
-                      {t('account.signOut', 'Sign Out')}
+                      {'Sign Out'}
                     </button>
                   </div>
                 </div>
@@ -360,25 +357,25 @@ export default function AccountPage() {
               <div className="md:col-span-3">
                 {/* Account overview */}
                 <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('account.accountOverview', 'Account Overview')}</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">{'Account Overview'}</h2>
 
                   {isLoadingProfile ? (
                     <p>Loading profile information...</p>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
-                        <h3 className="font-medium text-gray-700 mb-2">{t('account.accountDetails', 'Account Details')}</h3>
+                        <h3 className="font-medium text-gray-700 mb-2">{'Account Details'}</h3>
                         <div className="text-sm text-gray-600 space-y-1">
-                          <p>{profile?.name || t('account.notProvided', 'Not provided')}</p>
+                          <p>{profile?.name || 'Not provided'}</p>
                           <p>{user.email}</p>
-                          <p>{profile?.phone || t('account.notProvided', 'Not provided')}</p>
+                          <p>{profile?.phone || 'Not provided'}</p>
                         </div>
                         <Link href={hasBusinessProfile ? "/business/profile" : "/account/profile"} className="inline-block mt-3 text-sm text-primary hover:text-primary-dark">
-                          {t('account.editProfile', 'Edit Profile')}
+                          {'Edit Profile'}
                         </Link>
                       </div>
                       <div>
-                        <h3 className="font-medium text-gray-700 mb-2">{t('account.defaultAddress', 'Default Address')}</h3>
+                        <h3 className="font-medium text-gray-700 mb-2">{'Default Address'}</h3>
                         {profile?.address ? (
                           <div className="text-sm text-gray-600 space-y-1">
                             <p>{profile.address}</p>
@@ -386,10 +383,10 @@ export default function AccountPage() {
                             <p>{profile.country || ''}</p>
                           </div>
                         ) : (
-                          <p className="text-sm text-gray-600">{t('account.noAddressProvided', 'No address provided')}</p>
+                          <p className="text-sm text-gray-600">{'No address provided'}</p>
                         )}
                         <Link href={hasBusinessProfile ? "/business/profile" : "/account/profile"} className="inline-block mt-3 text-sm text-primary hover:text-primary-dark">
-                          {t('account.updateAddress', 'Update Address')}
+                          {'Update Address'}
                         </Link>
                       </div>
                     </div>
@@ -402,10 +399,10 @@ export default function AccountPage() {
                     <h2 className="text-xl font-semibold text-gray-900">
                       {profile?.account_type === 'business'
                         ? 'Recent Received Orders'
-                        : t('account.recentOrders', 'Recent Orders')}
+                        : 'Recent Orders'}
                     </h2>
                     <Link href="/account/orders" className="text-sm text-primary hover:text-primary-dark">
-                      {t('account.viewAll', 'View All')}
+                      {'View All'}
                     </Link>
                   </div>
 
@@ -414,7 +411,7 @@ export default function AccountPage() {
                       <p className="text-gray-600 mb-4">
                         {profile?.account_type === 'business'
                           ? "You haven't received any orders yet."
-                          : t('account.noOrders', 'You haven\'t placed any orders yet.')}
+                          : 'You haven\'t placed any orders yet.'}
                       </p>
                       {profile?.account_type === 'business' ? (
                         <Link href="/business/subscription" className="inline-block px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
@@ -422,7 +419,7 @@ export default function AccountPage() {
                         </Link>
                       ) : (
                         <Link href="/marketplace" className="inline-block px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark">
-                          {t('account.startShopping', 'Start Shopping')}
+                          {'Start Shopping'}
                         </Link>
                       )}
                     </div>
@@ -432,19 +429,19 @@ export default function AccountPage() {
                         <thead className="bg-gray-50">
                           <tr>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              {t('account.order', 'Order')}
+                              {'Order'}
                             </th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              {t('account.date', 'Date')}
+                              {'Date'}
                             </th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              {t('account.status', 'Status')}
+                              {'Status'}
                             </th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              {t('account.total', 'Total')}
+                              {'Total'}
                             </th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              {t('account.items', 'Items')}
+                              {'Items'}
                             </th>
                           </tr>
                         </thead>
@@ -491,11 +488,10 @@ export default function AccountPage() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ }: { locale: string }) {
   try {
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   } catch (error) {

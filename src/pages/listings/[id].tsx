@@ -4,8 +4,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { supabase } from '@/lib/supabase';
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon, ClockIcon, GlobeAltIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { formatMXNPrice } from '@/utils/currency';
@@ -46,7 +44,6 @@ type ListingDetailProps = {
 };
 
 export default function BusinessListingDetail({ businessListing }: ListingDetailProps) {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -99,7 +96,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
           {/* Back Button */}
           <Link href="/listings" className="inline-flex items-center text-primary hover:text-primary-dark mb-8 transition duration-200">
             <ArrowLeftIcon className="h-4 w-4 mr-1" />
-            {t('listings.backToListings', 'Volver a Negocios')}
+            {'Volver a Negocios'}
           </Link>
 
           {/* Main Content */}
@@ -118,7 +115,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-                      <span className="text-gray-400">{t('listings.noImageAvailable', 'Sin imagen disponible')}</span>
+                      <span className="text-gray-400">{'Sin imagen disponible'}</span>
                     </div>
                   )}
 
@@ -189,7 +186,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                     </span>
                     {businessListing.type && (
                       <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                        {businessListing.type === 'service' ? t('listings.service', 'Servicio') : t('listings.product', 'Producto')}
+                        {businessListing.type === 'service' ? 'Service' : 'Product'}
                       </span>
                     )}
                   </div>
@@ -212,7 +209,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
 
                   {/* Contact Information */}
                   <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('listings.contactInformation', 'Información de Contacto')}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{'Información de Contacto'}</h3>
                     <div className="space-y-3">
                       {/* Address */}
                       {(businessListing.address || businessListing.business_profiles?.address) && (
@@ -317,7 +314,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                   {/* Services List */}
                   {businessListing.services && businessListing.services.length > 0 && (
                     <div className="mb-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('listings.services', 'Servicios')}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{'Servicios'}</h3>
                       <div className="flex flex-wrap gap-2">
                         {businessListing.services.map((service, index) => (
                           <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
@@ -338,7 +335,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                           className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center"
                         >
                           <PhoneIcon className="h-5 w-5 mr-2" />
-                          {t('listings.callBusiness', 'Llamar')}
+                          {'Llamar'}
                         </a>
                       )}
 
@@ -364,7 +361,7 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                           className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center sm:col-span-2"
                         >
                           <GlobeAltIcon className="h-5 w-5 mr-2" />
-                          {t('listings.visitWebsite', 'Visitar Sitio Web')}
+                          {'Visitar Sitio Web'}
                         </a>
                       )}
                     </div>
@@ -453,7 +450,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale = 
   return {
     props: {
       businessListing,
-      ...(await serverSideTranslations(locale || 'es', ['common'])),
     },
   };
 };

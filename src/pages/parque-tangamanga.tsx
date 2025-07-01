@@ -1,20 +1,16 @@
 import { GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { CalendarIcon, ClockIcon, MapPinIcon, TicketIcon, SunIcon, UsersIcon, SparklesIcon, HeartIcon } from '@heroicons/react/24/outline';
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 3600,
   };
 };
 
 export default function ParqueTangamanga() {
-  const { t } = useTranslation('common');
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">

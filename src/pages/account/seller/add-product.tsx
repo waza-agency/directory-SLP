@@ -1,13 +1,10 @@
 import { useState, useEffect, FormEvent } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 
 export default function AddProduct() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading } = useAuth();
   const [isSellerAccount, setIsSellerAccount] = useState(false);
@@ -203,20 +200,20 @@ export default function AddProduct() {
   return (
     <>
       <Head>
-        <title>{t('account.addProduct', 'Add Product')} | Directory SLP</title>
-        <meta name="description" content={t('account.addProductDescription', 'Add a new product to your marketplace listings.')} />
+        <title>{'Add Product'} | Directory SLP</title>
+        <meta name="description" content={'Add a new product to your marketplace listings.'} />
       </Head>
 
       <div className="bg-gray-50 min-h-screen py-8">
         <div className="container mx-auto px-4">
           <div className="mb-8">
             <a href="/account/seller" className="text-primary hover:text-primary-dark">
-              &larr; {t('account.backToSellerDashboard', 'Back to Seller Dashboard')}
+              &larr; {'Back to Seller Dashboard'}
             </a>
           </div>
 
           <h1 className="text-3xl font-bold text-gray-900 mb-8">
-            {t('account.addProduct', 'Add Product')}
+            {'Add Product'}
           </h1>
 
           {error && (
@@ -227,7 +224,7 @@ export default function AddProduct() {
 
           {success && (
             <div className="mb-6 p-4 bg-green-50 text-green-800 rounded-md">
-              {t('account.productAdded', 'Product added successfully! Redirecting to dashboard...')}
+              {'Product added successfully! Redirecting to dashboard...'}
             </div>
           )}
 
@@ -236,7 +233,7 @@ export default function AddProduct() {
               {/* Product Name */}
               <div className="mb-4">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('account.productName', 'Product Name')} *
+                  {'Product Name'} *
                 </label>
                 <input
                   type="text"
@@ -252,7 +249,7 @@ export default function AddProduct() {
               {/* Product Description */}
               <div className="mb-4">
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('account.productDescription', 'Product Description')}
+                  {'Product Description'}
                 </label>
                 <textarea
                   id="description"
@@ -268,7 +265,7 @@ export default function AddProduct() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('account.price', 'Price ($)')} *
+                    {'Price ($)'} *
                   </label>
                   <input
                     type="number"
@@ -284,7 +281,7 @@ export default function AddProduct() {
                 </div>
                 <div>
                   <label htmlFor="inventory" className="block text-sm font-medium text-gray-700 mb-1">
-                    {t('account.inventory', 'Inventory')}
+                    {'Inventory'}
                   </label>
                   <input
                     type="number"
@@ -301,7 +298,7 @@ export default function AddProduct() {
               {/* Category */}
               <div className="mb-4">
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('account.category', 'Category')}
+                  {'Category'}
                 </label>
                 <select
                   id="category"
@@ -310,20 +307,20 @@ export default function AddProduct() {
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                 >
-                  <option value="">{t('account.selectCategory', 'Select a category')}</option>
-                  <option value="Technology">{t('categories.technology', 'Technology')}</option>
-                  <option value="Food">{t('categories.food', 'Food')}</option>
-                  <option value="Clothing">{t('categories.clothing', 'Clothing')}</option>
-                  <option value="Services">{t('categories.services', 'Services')}</option>
-                  <option value="Home">{t('categories.home', 'Home')}</option>
-                  <option value="Other">{t('categories.other', 'Other')}</option>
+                  <option value="">{'Select a category'}</option>
+                  <option value="Technology">{'Technology'}</option>
+                  <option value="Food">{'Food'}</option>
+                  <option value="Clothing">{'Clothing'}</option>
+                  <option value="Services">{'Services'}</option>
+                  <option value="Home">{'Home'}</option>
+                  <option value="Other">{'Other'}</option>
                 </select>
               </div>
 
               {/* Product Image */}
               <div className="mb-4">
                 <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('account.productImage', 'Product Image')}
+                  {'Product Image'}
                 </label>
                 <input
                   type="file"
@@ -360,7 +357,7 @@ export default function AddProduct() {
                     className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                   />
                   <label htmlFor="active" className="ml-2 block text-sm text-gray-700">
-                    {t('account.productActive', 'Make product available for purchase')}
+                    {'Make product available for purchase'}
                   </label>
                 </div>
               </div>
@@ -373,8 +370,8 @@ export default function AddProduct() {
                   className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark transition-colors disabled:opacity-70"
                 >
                   {isSubmitting
-                    ? t('account.adding', 'Adding Product...')
-                    : t('account.addProduct', 'Add Product')}
+                    ? 'Adding Product...'
+                    : 'Add Product'}
                 </button>
               </div>
             </form>
@@ -385,10 +382,9 @@ export default function AddProduct() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 } 

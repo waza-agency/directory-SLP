@@ -1,21 +1,17 @@
 import { GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, TicketIcon, MusicalNoteIcon, FilmIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
 
 export default function SanLuisEnPrimavera() {
-  const { t } = useTranslation('common');
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-US', {

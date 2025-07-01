@@ -1,6 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState } from 'react';
 import { Place } from '@/types';
@@ -34,7 +32,6 @@ interface LiveMusicPageProps {
 }
 
 const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
-  const { t } = useTranslation('common');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 
@@ -109,7 +106,7 @@ const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   // Fetch live music places from Supabase
   const { data: places, error } = await supabase
     .from('places')
@@ -123,7 +120,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         places: [],
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
       },
       revalidate: 60, // Revalidate every minute
     };
@@ -148,7 +144,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
       places: mappedPlaces,
-      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
     revalidate: 60, // Revalidate every minute
   };

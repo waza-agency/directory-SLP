@@ -1,6 +1,4 @@
 import { GetServerSideProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,16 +12,14 @@ interface ContactFormData {
   phone?: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) => {
+export const getServerSideProps: GetServerSideProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
 
 export default function Contact() {
-  const { t } = useTranslation('common');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');

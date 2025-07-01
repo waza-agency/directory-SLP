@@ -1,6 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -73,16 +71,14 @@ const activityTypes = [
   'Local Traditions',
 ];
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
 
 export default function CommunityIntegration() {
-  const { t } = useTranslation('common');
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',

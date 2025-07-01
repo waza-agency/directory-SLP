@@ -1,5 +1,3 @@
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
@@ -8,7 +6,6 @@ import Link from 'next/link';
 import AdUnit from '../components/common/AdUnit';
 
 export default function ExpatGuidePage() {
-  const { t } = useTranslation('common');
   const [activeSection, setActiveSection] = useState('emergency');
 
   const scrollToSection = (sectionId: string) => {
@@ -443,10 +440,9 @@ export default function ExpatGuidePage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };

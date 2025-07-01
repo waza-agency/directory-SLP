@@ -1,4 +1,3 @@
-import { useTranslation } from 'next-i18next';
 import { Event } from '@/types';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -19,7 +18,6 @@ const formatDate = (dateString: string) => {
 };
 
 export default function EventList({ events }: EventListProps) {
-  const { t } = useTranslation('common');
 
   if (events.length === 0) {
     return (

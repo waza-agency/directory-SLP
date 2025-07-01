@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SignIn from '@/components/auth/SignIn';
 import { useAuth } from '@/lib/supabase-auth';
 
 const SignInPage = () => {
-  const { t } = useTranslation('common');
   const { user, session, isLoading } = useAuth();
   const [hasInitialized, setHasInitialized] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
@@ -66,8 +63,8 @@ const SignInPage = () => {
   return (
     <>
       <Head>
-        <title>{t('signin.title', 'Sign In')} | Directory SLP</title>
-        <meta name="description" content={t('signin.description', 'Sign in to your account to access all features.')} />
+        <title>{'Sign In'} | Directory SLP</title>
+        <meta name="description" content={'Sign in to your account to access all features.'} />
       </Head>
 
       <div className="min-h-screen py-12 bg-gray-100">
@@ -96,11 +93,10 @@ const SignInPage = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ }: { locale: string }) {
   try {
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   } catch (error) {

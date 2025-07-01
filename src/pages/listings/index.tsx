@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { supabase } from '@/lib/supabase';
 import { GetServerSideProps } from 'next';
 import { formatMXNPrice } from '@/utils/currency';
@@ -42,7 +40,6 @@ interface ListingsPageProps {
 }
 
 export default function ListingsPage({ initialListings }: ListingsPageProps) {
-  const { t } = useTranslation('common');
   const [listings, setListings] = useState<BusinessListing[]>(initialListings);
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -283,7 +280,7 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
                             href={`/listings/${listing.id}`}
                             className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                           >
-                            {t('view_details', 'View Details')}
+                            {'View Details'}
                           </Link>
                         </div>
                       </div>
@@ -299,12 +296,12 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
                   </svg>
                 </div>
                 <h3 className="mt-2 text-sm font-medium text-gray-900">
-                  {t('no_listings_found', 'No listings found')}
+                  {'No listings found'}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">
                   {selectedCategory === 'all'
-                    ? t('no_listings_available', 'No business listings are currently available.')
-                    : t('no_listings_in_category', 'No listings found in this category.')
+                    ? 'No business listings are currently available.'
+                    : 'No listings found in this category.'
                   }
                 </p>
                 {selectedCategory !== 'all' && (
@@ -313,7 +310,7 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
                       onClick={() => setSelectedCategory('all')}
                       className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      {t('view_all_listings', 'View All Listings')}
+                      {'View All Listings'}
                     </button>
                   </div>
                 )}
@@ -323,16 +320,16 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
             {/* Call to Action for Business Owners */}
             <div className="mt-16 bg-indigo-50 rounded-lg p-8 text-center">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                {t('own_a_business', 'Own a Business?')}
+                {'Own a Business?'}
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                {t('list_your_business', 'List your business and reach more customers in San Luis Potosí')}
+                {'List your business and reach more customers in San Luis Potosí'}
               </p>
               <Link
                 href="/business/subscription"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                {t('get_started', 'Get Started')}
+                {'Get Started'}
               </Link>
             </div>
           </div>
@@ -342,7 +339,7 @@ export default function ListingsPage({ initialListings }: ListingsPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) => {
+export const getServerSideProps: GetServerSideProps = async ({ }) => {
   try {
     // First get business listings with their profiles
     const { data: listings, error } = await supabase
@@ -378,7 +375,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) 
           return {
       props: {
         initialListings: [],
-        ...(await serverSideTranslations(locale || 'es', ['common'])),
       },
     };
     }
@@ -405,7 +401,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) 
           return {
         props: {
           initialListings: transformedListings,
-          ...(await serverSideTranslations(locale || 'es', ['common'])),
         },
       };
   } catch (error) {
@@ -413,7 +408,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale = 'en' }) 
     return {
       props: {
         initialListings: [],
-        ...(await serverSideTranslations(locale || 'es', ['common'])),
       },
       revalidate: 300,
     };

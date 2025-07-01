@@ -1,5 +1,3 @@
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps, GetStaticPaths } from 'next';
@@ -10,7 +8,6 @@ interface BrandPageProps {
 }
 
 export default function BrandPage({ brand }: BrandPageProps) {
-  const { t } = useTranslation('common');
 
   if (!brand) {
     return <div>Brand not found</div>;
@@ -336,7 +333,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
     return {
       props: {
         brand,
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
       },
       revalidate: 3600, // Revalidate every hour
     };

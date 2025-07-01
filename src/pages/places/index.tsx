@@ -1,6 +1,4 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
@@ -13,7 +11,6 @@ interface PlacesPageProps {
 }
 
 const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
-  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
@@ -304,7 +301,7 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     // Fetch all places
     const { data: places, error: placesError } = await supabase
@@ -330,7 +327,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
 
     return {
       props: {
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
         places: places || [],
         featuredPlaces: featuredPlaces || [],
       },
@@ -340,7 +336,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     console.error('Error in getStaticProps:', error);
     return {
       props: {
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
         places: [],
         featuredPlaces: [],
       },

@@ -4,8 +4,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 import { BuildingStorefrontIcon, CameraIcon, CreditCardIcon } from '@heroicons/react/24/outline';
@@ -94,7 +92,6 @@ interface BusinessHours {
 }
 
 export default function BusinessProfilePage() {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { user, isLoading } = useAuth();
   const [businessProfile, setBusinessProfile] = useState<BusinessProfile | null>(null);
@@ -561,16 +558,16 @@ export default function BusinessProfilePage() {
 
                 <div className="mt-6 space-y-2">
                   <Link href="/business/dashboard" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                    {t('business.dashboard', 'Dashboard')}
+                    {'Dashboard'}
                   </Link>
                   <Link href="/business/profile" className="block w-full py-2 px-3 text-sm font-medium rounded-md bg-gray-100 text-gray-900">
-                    {t('business.profile', 'Business Profile')}
+                    {'Business Profile'}
                   </Link>
                   <Link href="/business/subscription" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                    {t('business.subscription', 'Subscription')}
+                    {'Subscription'}
                   </Link>
                   <Link href="/account" className="block w-full py-2 px-3 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50">
-                    {t('business.backToAccount', 'Back to Account')}
+                    {'Back to Account'}
                   </Link>
                 </div>
               </div>
@@ -1234,12 +1231,12 @@ export default function BusinessProfilePage() {
                   <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                       <CreditCardIcon className="h-6 w-6 mr-2 text-primary" />
-                      {t('business.payments', 'Payment Settings')}
+                      {'Payment Settings'}
                     </h3>
 
                     <div className="mb-6">
                       <p className="text-gray-700 mb-4">
-                        {t('business.stripeConnectInfo', 'To receive payments for your items sold in the shop, you need to connect your business to our payment processor, Stripe. This allows us to securely transfer funds to your bank account when customers purchase your products.')}
+                        {'To receive payments for your items sold in the shop, you need to connect your business to our payment processor, Stripe. This allows us to securely transfer funds to your bank account when customers purchase your products.'}
                       </p>
 
                       {businessProfile?.stripe_connect_account_id ? (
@@ -1253,11 +1250,11 @@ export default function BusinessProfilePage() {
                               </div>
                               <div className="ml-3">
                                 <h3 className="text-sm font-medium text-green-800">
-                                  {t('business.stripeConnected', 'Stripe account connected')}
+                                  {'Stripe account connected'}
                                 </h3>
                                 <div className="mt-2 text-sm text-green-700">
                                   <p>
-                                    {t('business.stripeConnectedInfo', 'Your Stripe account is connected and ready to receive payments.')}
+                                    {'Your Stripe account is connected and ready to receive payments.'}
                                   </p>
                                 </div>
                               </div>
@@ -1266,7 +1263,7 @@ export default function BusinessProfilePage() {
 
                           <div className="mb-4">
                             <label htmlFor="stripe_connect_account_id" className="block text-sm font-medium text-gray-700 mb-1">
-                              {t('business.stripeConnectId', 'Stripe Connect Account ID')}
+                              {'Stripe Connect Account ID'}
                             </label>
                             <input
                               type="text"
@@ -1277,7 +1274,7 @@ export default function BusinessProfilePage() {
                               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                             />
                             <p className="mt-2 text-sm text-gray-500">
-                              {t('business.stripeConnectIdInfo', 'This is your Stripe Connect account ID. You can find this in your Stripe dashboard.')}
+                              {'This is your Stripe Connect account ID. You can find this in your Stripe dashboard.'}
                             </p>
                           </div>
 
@@ -1288,7 +1285,7 @@ export default function BusinessProfilePage() {
                               rel="noopener noreferrer"
                               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
-                              {t('business.stripeManage', 'Manage Stripe Account')}
+                              {'Manage Stripe Account'}
                             </Link>
                           </div>
                         </div>
@@ -1303,11 +1300,11 @@ export default function BusinessProfilePage() {
                               </div>
                               <div className="ml-3">
                                 <h3 className="text-sm font-medium text-yellow-800">
-                                  {t('business.stripeNotConnected', 'Stripe account not connected')}
+                                  {'Stripe account not connected'}
                                 </h3>
                                 <div className="mt-2 text-sm text-yellow-700">
                                   <p>
-                                    {t('business.stripeNotConnectedInfo', 'You need to connect a Stripe account to receive payments for your sold items. Without this, you will not be able to receive funds from sales.')}
+                                    {'You need to connect a Stripe account to receive payments for your sold items. Without this, you will not be able to receive funds from sales.'}
                                   </p>
                                 </div>
                               </div>
@@ -1316,7 +1313,7 @@ export default function BusinessProfilePage() {
 
                           <div className="mb-4">
                             <label htmlFor="stripe_connect_account_id" className="block text-sm font-medium text-gray-700 mb-1">
-                              {t('business.stripeConnectId', 'Stripe Connect Account ID')}
+                              {'Stripe Connect Account ID'}
                             </label>
                             <input
                               type="text"
@@ -1328,18 +1325,18 @@ export default function BusinessProfilePage() {
                               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                             />
                             <p className="mt-2 text-sm text-gray-500">
-                              {t('business.stripeConnectIdHelp', 'Enter your Stripe Connect account ID. This starts with "acct_" and can be found in your Stripe Dashboard.')}
+                              {'Enter your Stripe Connect account ID. This starts with "acct_" and can be found in your Stripe Dashboard.'}
                             </p>
                           </div>
 
                           <div className="mb-4 space-y-4">
                             <p className="text-sm text-gray-600">
-                              {t('business.stripeConnectSteps', 'To connect your Stripe account:')}
+                              {'To connect your Stripe account:'}
                             </p>
                             <ol className="list-decimal list-inside text-sm text-gray-600 pl-4 space-y-2">
-                              <li>{t('business.stripeStep1', 'Create a Stripe account if you don\'t have one')}</li>
-                              <li>{t('business.stripeStep2', 'Find your Connect account ID in the Stripe Dashboard')}</li>
-                              <li>{t('business.stripeStep3', 'Enter the ID above and save your profile')}</li>
+                              <li>{'Create a Stripe account if you don\'t have one'}</li>
+                              <li>{'Find your Connect account ID in the Stripe Dashboard'}</li>
+                              <li>{'Enter the ID above and save your profile'}</li>
                             </ol>
                           </div>
 
@@ -1349,7 +1346,7 @@ export default function BusinessProfilePage() {
                             rel="noopener noreferrer"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                           >
-                            {t('business.createStripeAccount', 'Create or Access Stripe Account')}
+                            {'Create or Access Stripe Account'}
                           </a>
                         </div>
                       )}
@@ -1375,10 +1372,9 @@ export default function BusinessProfilePage() {
   );
 }
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export async function getServerSideProps({ }: { locale: string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
 }

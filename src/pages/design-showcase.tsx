@@ -1,22 +1,18 @@
 import React from 'react';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 
 interface DesignShowcaseProps {}
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };
 
 const DesignShowcase: React.FC<DesignShowcaseProps> = () => {
-  const { t } = useTranslation('common');
 
   return (
     <>

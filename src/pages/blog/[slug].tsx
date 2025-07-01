@@ -19,10 +19,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     // Generate paths for all published blog posts
     const paths = posts.map((post) => ({
-      params: { slug: post.slug }
+      params: { slug: post.slug },
     }));
 
-    console.log('getStaticPaths: Generated paths:', paths.map(p => p.params.slug));
+    console.log('getStaticPaths: Generated paths:', paths.map(p => `/${p.params.slug}`));
 
     return {
       paths,
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params
 
     return {
       props: {
-        post
+        post,
       },
       revalidate: 300 // Revalidate every 5 minutes
     };

@@ -1,5 +1,3 @@
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +10,6 @@ interface BrandsPageProps {
 }
 
 export default function BrandsPage({ brands }: BrandsPageProps) {
-  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -336,7 +333,7 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
     // Fetch all brands from Supabase
     const fetchedBrands = await getAllBrands();
@@ -350,7 +347,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         brands,
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
       },
       revalidate: 3600, // Revalidate every hour
     };
@@ -486,7 +482,6 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
     return {
       props: {
         brands: fallbackBrands,
-        ...(await serverSideTranslations(locale || 'en', ['common'])),
       },
       revalidate: 3600,
     };
