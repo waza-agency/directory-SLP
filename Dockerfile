@@ -63,8 +63,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/package*.json ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nextjs:nodejs /app/server.js ./server.js
-COPY --from=builder --chown=nextjs:nodejs /app/next-i18next.config.js ./
 
 # Switch to non-root user
 USER nextjs
@@ -74,7 +72,7 @@ EXPOSE 3007
 
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3007/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3007/api/health-check || exit 1
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
