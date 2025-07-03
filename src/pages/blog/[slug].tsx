@@ -122,7 +122,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               <div>
                 {post.category && (
                   <span className="text-primary font-medium">
-                    {typeof post.category === 'object' ? post.category.name : post.category}
+                    {typeof post.category === 'object' ? (post.category as any).name || '' : post.category}
                   </span>
                 )}
                 <time className="text-gray-500 ml-4">
@@ -144,8 +144,25 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
             {/* Post Content */}
             <div className="prose prose-lg max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              {/* Ensure content is always a string to prevent rendering errors */}
+              {post.content && typeof post.content === 'string' && (
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              )}
             </div>
+
+            {/* Render tags safely */}
+            {post.tags && Array.isArray(post.tags) && post.tags.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-2">Tags</h3>
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag, index) => (
+                    <span key={index} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm">
+                      {typeof tag === 'object' ? (tag as any).name || '' : tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Bottom Ad Unit */}
             <div className="mt-12">
