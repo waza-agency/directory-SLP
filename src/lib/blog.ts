@@ -1,4 +1,3 @@
-
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client with better error handling
@@ -29,37 +28,9 @@ export interface BlogPost {
   tags?: string[];
 }
 
-// Helper function to validate Supabase connection
-async function validateConnection() {
-  try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .limit(1);
-
-    if (error) {
-      console.error('Supabase connection validation failed:', error);
-      return false;
-    }
-
-    console.log('Supabase connection validated successfully');
-    return true;
-  } catch (error) {
-    console.error('Supabase connection validation error:', error);
-    return false;
-  }
-}
-
 export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
     console.log('getBlogPosts: Starting fetch...');
-
-    // Validate connection first
-    const isConnected = await validateConnection();
-    if (!isConnected) {
-      console.error('getBlogPosts: Supabase connection failed');
-      return [];
-    }
 
     const { data, error } = await supabase
       .from('blog_posts')
@@ -107,13 +78,6 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 
     if (!slug) {
       console.error('getBlogPostBySlug: No slug provided');
-      return null;
-    }
-
-    // Validate connection first
-    const isConnected = await validateConnection();
-    if (!isConnected) {
-      console.error('getBlogPostBySlug: Supabase connection failed');
       return null;
     }
 
