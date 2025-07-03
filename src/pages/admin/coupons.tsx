@@ -477,4 +477,13 @@ function AdminCouponsPage() {
   );
 }
 
-export default withAdminPageAuth(AdminCouponsPage);
+export const getServerSideProps = withAdminPageAuth(async (context) => {
+  // This function is required to make the page server-side rendered.
+  // The 'withAdminPageAuth' HOC handles the auth check and redirection.
+  // You can fetch additional server-side props here if needed.
+  return {
+    props: {}, // Return an empty object if no additional props are needed
+  };
+});
+
+export default AdminCouponsPage;
