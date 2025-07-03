@@ -11,7 +11,7 @@ import { CalendarIcon, MegaphoneIcon, StarIcon, NewspaperIcon } from '@heroicons
 import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
-import { Brand, getRandomPotosinoBrands } from '@/lib/brands';
+import { Brand, getRandomPotosinoBrands, getFeaturedBrands, getSponsoredBrands } from '@/lib/brands';
 import { Event } from '@/types';
 import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import TangamangaBanner from '@/components/TangamangaBanner';
@@ -53,64 +53,30 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Use the helper to filter events and then take only the first 8
     const events = filterUpcomingEvents(eventsData).slice(0, 8);
 
-    // Fetch random Potosino brands instead of just featured ones
+    // Fetch featured brands, advertisers, and sponsored content from Supabase
     const brands = await getRandomPotosinoBrands(3);
+    const featuredAdvertisersData = await getFeaturedBrands(3);
+    const sponsoredContentData = await getSponsoredBrands(3);
 
-    // Mock featured advertisers data
-    const featuredAdvertisers = [
-      {
-        id: '1',
-        name: 'San Luis Rey Tranvía',
-        description: 'Discover the historic charm of San Luis Potosí with guided trolley tours through the colonial center, featuring expert commentary on local architecture and cultural landmarks.',
-        imageUrl: '/images/brands/san-luis-rey-tranvia-logo.jpg',
-        ctaUrl: '/blog/san-luis-rey-tranvia'
-      },
-      {
-        id: '2',
-        name: 'Corazón de Xoconostle',
-        description: 'Explore authentic Potosino culture through artisanal workshops, traditional crafts, and immersive experiences that celebrate the rich heritage of San Luis Potosí.',
-        imageUrl: '/images/brands/corazon-de-xoconostle-logo.png',
-        ctaUrl: '/blog/corazon-de-xoconostle'
-      },
-      {
-        id: '3',
-        name: 'La Gran Vía',
-        description: 'Experience authentic Spanish cuisine at this traditional restaurant, where classic recipes and warm hospitality create an unforgettable dining experience in San Luis Potosí.',
-        imageUrl: '/images/brands/la-gran-via-logo.jpg',
-        ctaUrl: '/blog/la-gran-via'
-      }
-    ];
+    // Map advertiser data to the expected format
+    const featuredAdvertisers = featuredAdvertisersData.map(brand => ({
+      id: brand.id,
+      name: brand.name,
+      description: brand.description || '',
+      imageUrl: brand.image_url || '/images/placeholder.jpg',
+      ctaUrl: `/brands/${brand.slug}`
+    }));
 
-    // Mock sponsored content data
-    const sponsoredContent = [
-      {
-        id: '1',
-        title: 'Discover the Potosino Wine Scene',
-        description: 'Explore the emerging wine regions of San Luis Potosí, local vineyards, and unique wine experiences throughout the state.',
-        imageUrl: '/images/sponsored/potosino-wine.jpg',
-        ctaUrl: '/guides/potosino-wine-scene',
-        sponsorLogo: '/images/brands/la-gran-via-logo.jpg',
-        sponsorName: 'La Gran Vía'
-      },
-      {
-        id: '2',
-        title: 'The Ultimate Foodie Guide to SLP',
-        description: 'From street tacos to fine dining: Your complete guide to San Luis Potosí\'s culinary scene.',
-        imageUrl: '/images/sponsored/food-guide.jpg',
-        ctaUrl: '/guides/foodie-guide',
-        sponsorLogo: '/images/brands/la-legendaria-logo.png',
-        sponsorName: 'La Legendaria'
-      },
-      {
-        id: '3',
-        title: 'Weekend Getaways from San Luis Potosí by Corazón de Xoconostle',
-        description: 'Explore the best day trips and weekend destinations within reach of the city with certified local experts.',
-        imageUrl: '/images/sponsored/weekend-getaways.jpg',
-        ctaUrl: '/weekend-getaways',
-        sponsorLogo: '/images/brands/corazon-de-xoconostle-logo.png',
-        sponsorName: 'Corazón de Xoconostle'
-      }
-    ];
+    // Map sponsored content data to the expected format
+    const sponsoredContent = sponsoredContentData.map(brand => ({
+      id: brand.id,
+      title: `Discover ${brand.name}`,
+      description: brand.description || `Explore the best of ${brand.name}.`,
+      imageUrl: brand.image_url || '/images/sponsored/weekend-getaways.jpg',
+      ctaUrl: `/brands/${brand.slug}`,
+      sponsorLogo: brand.image_url || '/images/placeholder.jpg',
+      sponsorName: brand.name
+    }));
 
     return {
       props: {

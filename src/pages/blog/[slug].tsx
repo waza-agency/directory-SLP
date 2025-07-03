@@ -22,7 +22,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         params: { slug: post.slug },
     }));
 
-    console.log('getStaticPaths: Generated paths:', paths.map(p => `/${p.params.slug}`));
+    console.log('getStaticPaths: Generated paths:', paths.map(p => p.params.slug));
 
     return {
       paths,

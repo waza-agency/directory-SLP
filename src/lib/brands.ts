@@ -107,6 +107,33 @@ export const getRandomPotosinoBrands = async (limit = 3): Promise<Brand[]> => {
 };
 
 /**
+ * Get sponsored brands from Supabase.
+ * For now, it fetches 3 random brands.
+ */
+export const getSponsoredBrands = async (limit = 3): Promise<Brand[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('brands')
+      .select('*');
+
+    if (error) {
+      console.error('Error fetching brands for sponsored content:', error);
+      return [];
+    }
+
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    const shuffled = [...data].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, limit);
+  } catch (error) {
+    console.error('Error in getSponsoredBrands:', error);
+    return [];
+  }
+};
+
+/**
  * Get a brand by ID
  */
 export const getBrandById = async (id: string): Promise<Brand | null> => {
