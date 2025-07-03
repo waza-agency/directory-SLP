@@ -248,7 +248,7 @@ Todos los blog posts deben usar esta estructura base:
 
 ### Enlaces Externos
 ```html
-<a href="https://ejemplo.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Texto del enlace</a>
+<a href="githuhttps://ejemplo.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Texto del enlace</a>
 ```
 
 ### Enlaces con Referencias Numeradas

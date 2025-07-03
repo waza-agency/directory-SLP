@@ -122,7 +122,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               <div>
                 {post.category && (
                   <span className="text-primary font-medium">
-                    {post.category}
+                    {typeof post.category === 'object' ? post.category.name : post.category}
                   </span>
                 )}
                 <time className="text-gray-500 ml-4">
