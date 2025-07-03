@@ -111,7 +111,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .eq('category', 'cantinas')
+    .like('category', '%cantinas%')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 

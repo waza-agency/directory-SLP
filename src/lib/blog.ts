@@ -88,17 +88,25 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       .eq('status', 'published')
       .single();
 
-    if (error) {
-      if (error.code === 'PGRST116') {
-        console.log(`getBlogPostBySlug: No post found with slug: ${slug}`);
-        return null;
-      }
-      console.error('getBlogPostBySlug: Database error:', error);
-      return null;
-    }
+    if (error || !data) {
+      console.error(`getBlogPostBySlug: Could not find post with slug "${slug}".`, error || 'No data returned.');
 
-    if (!data) {
-      console.log(`getBlogPostBySlug: No data returned for slug: ${slug}`);
+      // --- DEBUGGING: Let's see what slugs ARE available ---
+      console.log('--- DEBUG: Fetching all available published slugs for comparison ---');
+      const { data: allPosts, error: allPostsError } = await supabase
+        .from('blog_posts')
+        .select('slug, title')
+        .eq('status', 'published');
+
+      if (allPostsError) {
+        console.error('--- DEBUG: Failed to fetch slugs for debugging:', allPostsError);
+      } else if (allPosts && allPosts.length > 0) {
+        console.log(`--- DEBUG: Found ${allPosts.length} published slugs:`);
+        allPosts.forEach(p => console.log(`  -> "${p.slug}" (Title: ${p.title})`));
+      } else {
+        console.log('--- DEBUG: No published posts with slugs found at all.');
+      }
+      console.log('--- END DEBUG ---');
       return null;
     }
 

@@ -15,7 +15,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .contains('tags', ['breakfast'])
+    .like('tags', '%breakfast%')
     .order('name');
 
   if (error) {
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
   // Log the places data to debug image URLs
   console.log('Fetched breakfast places:', JSON.stringify(mappedPlaces, null, 2));
-  
+
   // Log each place's image URL
   mappedPlaces?.forEach(place => {
     console.log(`Place: ${place.name}`);
@@ -58,9 +58,9 @@ const OpenForBreakfastPage: React.FC<OpenForBreakfastPageProps> = ({ places }) =
     <>
       <Head>
         <title>Open For Breakfast - SLP Directory</title>
-        <meta 
-          name="description" 
-          content="Discover the best breakfast spots in San Luis Potosí, from traditional Mexican breakfast to international options and coffee houses." 
+        <meta
+          name="description"
+          content="Discover the best breakfast spots in San Luis Potosí, from traditional Mexican breakfast to international options and coffee houses."
         />
       </Head>
 
@@ -75,9 +75,9 @@ const OpenForBreakfastPage: React.FC<OpenForBreakfastPageProps> = ({ places }) =
         {places.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {places.map((place) => (
-              <PlaceCard 
-                key={place.id} 
-                place={place} 
+              <PlaceCard
+                key={place.id}
+                place={place}
                 onClick={() => setSelectedPlace(place)}
               />
             ))}
@@ -92,7 +92,7 @@ const OpenForBreakfastPage: React.FC<OpenForBreakfastPageProps> = ({ places }) =
           <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
             <h2 className="font-bold text-xl mb-3 text-gray-900">About Breakfast in San Luis Potosí</h2>
             <p className="text-gray-700 mb-4">
-              San Luis Potosí offers a variety of breakfast options from traditional Mexican breakfasts like chilaquiles and huevos rancheros to international fare. 
+              San Luis Potosí offers a variety of breakfast options from traditional Mexican breakfasts like chilaquiles and huevos rancheros to international fare.
               Many places open early to cater to locals and visitors looking for a great start to their day.
             </p>
             <p className="text-gray-700">
@@ -115,4 +115,4 @@ const OpenForBreakfastPage: React.FC<OpenForBreakfastPageProps> = ({ places }) =
   );
 };
 
-export default OpenForBreakfastPage; 
+export default OpenForBreakfastPage;
