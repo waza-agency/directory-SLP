@@ -204,3 +204,42 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
     return [];
   }
 }
+
+export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> {
+  if (!slugs || slugs.length === 0) return [];
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select("*")
+      .in('slug', slugs)
+      .eq('status', 'published');
+
+    if (error) {
+      console.error('getBlogPostsBySlugs: Database error:', error);
+      return [];
+    }
+
+    if (!data) {
+      return [];
+    }
+
+    const mappedData = data.map((post: any) => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      content: post.content,
+      excerpt: post.excerpt,
+      imageUrl: post.image_url,
+      category: post.category,
+      publishedAt: post.published_at,
+      createdAt: post.created_at,
+      updatedAt: post.updated_at,
+      tags: post.tags
+    }));
+
+    return mappedData;
+  } catch (error) {
+    console.error('getBlogPostsBySlugs: Unexpected error:', error);
+    return [];
+  }
+}

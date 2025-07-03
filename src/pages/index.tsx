@@ -11,7 +11,8 @@ import { CalendarIcon, MegaphoneIcon, StarIcon, NewspaperIcon } from '@heroicons
 import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
-import { Brand, getRandomPotosinoBrands, getFeaturedBrands, getSponsoredBrands } from '@/lib/brands';
+import { Brand, getRandomPotosinoBrands, getSponsoredBrands } from '@/lib/brands';
+import { BlogPost, getBlogPostsBySlugs } from '@/lib/blog';
 import { Event } from '@/types';
 import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import TangamangaBanner from '@/components/TangamangaBanner';
@@ -53,18 +54,17 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Use the helper to filter events and then take only the first 8
     const events = filterUpcomingEvents(eventsData).slice(0, 8);
 
-    // Fetch featured brands, advertisers, and sponsored content from Supabase
-    const brands = await getRandomPotosinoBrands(3);
-    const featuredAdvertisersData = await getFeaturedBrands(3);
+    // Fetch REAL data for advertisers and sponsored content
+    const advertiserSlugs = ['san-luis-rey-tranvia', 'corazon-de-xoconostle', 'la-gran-via'];
+    const featuredAdvertisersData = await getBlogPostsBySlugs(advertiserSlugs);
     const sponsoredContentData = await getSponsoredBrands(3);
 
-    // Map advertiser data to the expected format
-    const featuredAdvertisers = featuredAdvertisersData.map(brand => ({
-      id: brand.id,
-      name: brand.name,
-      description: brand.description || '',
-      imageUrl: brand.image_url || '/images/placeholder.jpg',
-      ctaUrl: `/brands/${brand.slug}`
+    const featuredAdvertisers = featuredAdvertisersData.map(post => ({
+      id: post.id,
+      name: post.title,
+      description: post.excerpt,
+      imageUrl: post.imageUrl || '/images/placeholder.jpg',
+      ctaUrl: `/blog/${post.slug}`
     }));
 
     // Map sponsored content data to the expected format
@@ -81,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     return {
       props: {
         events: events || [],
-        featuredBrands: brands || [],
+        featuredBrands: [], // This was fetching random brands, now advertisers do, so we can clear it.
         featuredAdvertisers,
         sponsoredContent
       },
