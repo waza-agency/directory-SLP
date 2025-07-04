@@ -4,9 +4,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { isAdminAuthenticated, removeAdminAuth } from '@/lib/admin-auth';
-import { GetServerSideProps } from 'next';
-import { withAdminPageAuth } from '@/lib/admin-auth';
+import { removeAdminAuth, withAdminPageAuth } from '@/lib/admin-auth';
 
 type Subscription = {
   id: string;
@@ -28,7 +26,7 @@ type SyncStats = {
   alreadyCorrect: number;
 };
 
-export default function AdminSubscriptions() {
+function AdminSubscriptions() {
   const router = useRouter();
   const { session } = useAuth();
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
@@ -59,12 +57,6 @@ export default function AdminSubscriptions() {
       }
     };
 
-    // Check client-side admin authentication as a fallback
-    if (!isAdminAuthenticated()) {
-      router.push('/admin/login?redirect=/admin/subscriptions');
-      return;
-    }
-    
     loadData();
   }, [router]);
 
@@ -118,12 +110,12 @@ export default function AdminSubscriptions() {
   const updateSubscriptionStatus = async (businessId: string, newStatus: string) => {
     setIsUpdating(businessId);
     setMessage(null);
-    
+
     try {
       // Update the business_profile record
       const { error } = await supabase
         .from('business_profiles')
-        .update({ 
+        .update({
           subscription_status: newStatus,
           // If activating, also update these fields
           ...(newStatus === 'active' && {
@@ -152,7 +144,7 @@ export default function AdminSubscriptions() {
         // Update the users table has_active_subscription field
         const { error: userError } = await supabase
           .from('users')
-          .update({ 
+          .update({
             has_active_subscription: newStatus === 'active',
             account_type: newStatus === 'active' ? 'business' : 'user'
           })
@@ -178,13 +170,13 @@ export default function AdminSubscriptions() {
     setIsSyncing(true);
     setSyncStats(null);
     setMessage(null);
-    
+
     try {
       // Get token from session if available or use a fake token (we're using cookie auth)
       const token = session?.access_token || "admin-auth-cookie";
-      
+
       console.log('Making sync-subscriptions API request...');
-      
+
       const response = await fetch('/api/admin/sync-subscriptions', {
         method: 'POST',
         headers: {
@@ -192,37 +184,37 @@ export default function AdminSubscriptions() {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       // Check if response is JSON
       const contentType = response.headers.get('content-type');
       console.log('Response content type:', contentType);
       console.log('Response status:', response.status);
-      
+
       if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
         console.error('Error: Non-JSON response received:', text);
-        setMessage({ 
-          text: 'Server returned an invalid response. Check console for details.', 
-          type: 'error' 
+        setMessage({
+          text: 'Server returned an invalid response. Check console for details.',
+          type: 'error'
         });
         return;
       }
-      
+
       const data = await response.json();
       console.log('API response data:', data);
-      
+
       if (!response.ok) {
         console.error('API error details:', data);
         setMessage({ text: data.message || 'Error syncing with Stripe', type: 'error' });
         return;
       }
-      
+
       setSyncStats(data.stats);
-      setMessage({ 
-        text: `Sync completed: ${data.stats.updated} subscriptions updated, ${data.stats.alreadyCorrect} already correct`, 
-        type: 'success' 
+      setMessage({
+        text: `Sync completed: ${data.stats.updated} subscriptions updated, ${data.stats.alreadyCorrect} already correct`,
+        type: 'success'
       });
-      
+
       // Refresh subscription data
       fetchSubscriptions();
     } catch (err: any) {
@@ -237,12 +229,12 @@ export default function AdminSubscriptions() {
     setIsTestingStripe(true);
     setMessage(null);
     setStripeTestResult(null);
-    
+
     try {
       const token = session?.access_token || "admin-auth-cookie";
-      
+
       console.log('Testing Stripe connection...');
-      
+
       const response = await fetch('/api/admin/test-stripe', {
         method: 'POST',
         headers: {
@@ -250,36 +242,36 @@ export default function AdminSubscriptions() {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       const contentType = response.headers.get('content-type');
       console.log('Test response status:', response.status);
       console.log('Test response content type:', contentType);
-      
+
       if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
         console.error('Error: Non-JSON test response:', text);
-        setMessage({ 
-          text: 'Server returned an invalid response for Stripe test. Check console.', 
-          type: 'error' 
+        setMessage({
+          text: 'Server returned an invalid response for Stripe test. Check console.',
+          type: 'error'
         });
         return;
       }
-      
+
       const data = await response.json();
       console.log('Stripe test response:', data);
       setStripeTestResult(data);
-      
+
       if (!response.ok) {
-        setMessage({ 
-          text: `Stripe test failed: ${data.message || 'Unknown error'}`, 
-          type: 'error' 
+        setMessage({
+          text: `Stripe test failed: ${data.message || 'Unknown error'}`,
+          type: 'error'
         });
         return;
       }
-      
-      setMessage({ 
-        text: `Stripe connection successful. Found ${data.subscriptionCount} subscriptions.`, 
-        type: 'success' 
+
+      setMessage({
+        text: `Stripe connection successful. Found ${data.subscriptionCount} subscriptions.`,
+        type: 'success'
       });
     } catch (err: any) {
       console.error('Error testing Stripe:', err);
@@ -292,12 +284,12 @@ export default function AdminSubscriptions() {
   const updateSubscriptionFromStripe = async (subscriptionId: string) => {
     setIsUpdating(subscriptionId);
     setMessage(null);
-    
+
     try {
       const token = session?.access_token || "admin-auth-cookie";
-      
+
       console.log(`Manually updating subscription: ${subscriptionId}...`);
-      
+
       const response = await fetch('/api/admin/update-subscription', {
         method: 'POST',
         headers: {
@@ -306,33 +298,33 @@ export default function AdminSubscriptions() {
         },
         body: JSON.stringify({ subscriptionId })
       });
-      
+
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
         console.error('Error: Non-JSON response:', text);
-        setMessage({ 
-          text: 'Server returned an invalid response. Check console.', 
-          type: 'error' 
+        setMessage({
+          text: 'Server returned an invalid response. Check console.',
+          type: 'error'
         });
         return;
       }
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         setMessage({ text: data.message || 'Error updating subscription', type: 'error' });
         return;
       }
-      
-      setMessage({ 
-        text: `Subscription updated successfully: ${data.message}`, 
-        type: 'success' 
+
+      setMessage({
+        text: `Subscription updated successfully: ${data.message}`,
+        type: 'success'
       });
-      
+
       // Refresh data
       fetchSubscriptions();
-      
+
       // If diagnosis is active, refresh it
       if (diagnosisResult) {
         diagnoseSubscriptions();
@@ -349,12 +341,12 @@ export default function AdminSubscriptions() {
     setIsDiagnosing(true);
     setMessage(null);
     setDiagnosisResult(null);
-    
+
     try {
       const token = session?.access_token || "admin-auth-cookie";
-      
+
       console.log('Diagnosing subscriptions...');
-      
+
       const response = await fetch('/api/admin/get-supabase-subs', {
         method: 'POST',
         headers: {
@@ -362,44 +354,44 @@ export default function AdminSubscriptions() {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       const contentType = response.headers.get('content-type');
       console.log('Diagnosis response status:', response.status);
-      
+
       if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
         console.error('Error: Non-JSON diagnosis response:', text);
-        setMessage({ 
-          text: 'Server returned an invalid response for diagnosis. Check console.', 
-          type: 'error' 
+        setMessage({
+          text: 'Server returned an invalid response for diagnosis. Check console.',
+          type: 'error'
         });
         return;
       }
-      
+
       const data = await response.json();
       console.log('Diagnosis response:', data);
-      
+
       // Ensure data has the expected structure
       const safeData = {
         message: data.message || 'Unknown response',
         subscriptions: Array.isArray(data.subscriptions) ? data.subscriptions : [],
         needsUpdate: typeof data.needsUpdate === 'number' ? data.needsUpdate : 0
       };
-      
+
       setDiagnosisResult(safeData);
-      
+
       if (!response.ok) {
-        setMessage({ 
-          text: `Diagnosis failed: ${data.message || 'Unknown error'}`, 
-          type: 'error' 
+        setMessage({
+          text: `Diagnosis failed: ${data.message || 'Unknown error'}`,
+          type: 'error'
         });
         return;
       }
-      
+
       if (safeData.needsUpdate > 0) {
-        setMessage({ 
-          text: `Found ${safeData.needsUpdate} subscription(s) that need updating.`, 
-          type: 'error' 
+        setMessage({
+          text: `Found ${safeData.needsUpdate} subscription(s) that need updating.`,
+          type: 'error'
         });
       } else if (safeData.subscriptions.length === 0) {
         setMessage({
@@ -407,9 +399,9 @@ export default function AdminSubscriptions() {
           type: 'info'
         });
       } else {
-        setMessage({ 
-          text: 'All subscriptions are correctly synchronized.', 
-          type: 'success' 
+        setMessage({
+          text: 'All subscriptions are correctly synchronized.',
+          type: 'success'
         });
       }
     } catch (err: any) {
@@ -428,8 +420,8 @@ export default function AdminSubscriptions() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-primary">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-xl font-semibold text-gray-700">Loading Subscriptions...</div>
       </div>
     );
   }
@@ -446,15 +438,15 @@ export default function AdminSubscriptions() {
             <h1 className="text-3xl font-bold mb-2">Manage Subscriptions</h1>
             <p className="text-gray-600">View and update subscription statuses for business accounts.</p>
           </div>
-          
-          <button 
+
+          <button
             onClick={handleLogout}
             className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
           >
             Admin Logout
           </button>
         </div>
-        
+
         <div className="mb-8">
           <div className="mt-4 flex items-center space-x-4 flex-wrap gap-y-2">
             <button
@@ -474,7 +466,7 @@ export default function AdminSubscriptions() {
                 "Sync with Stripe"
               )}
             </button>
-            
+
             <button
               onClick={testStripeConnection}
               disabled={isTestingStripe}
@@ -492,7 +484,7 @@ export default function AdminSubscriptions() {
                 "Test Stripe Connection"
               )}
             </button>
-            
+
             <button
               onClick={diagnoseSubscriptions}
               disabled={isDiagnosing}
@@ -510,7 +502,7 @@ export default function AdminSubscriptions() {
                 "Diagnose Subscription Issues"
               )}
             </button>
-            
+
             <button
               onClick={fetchSubscriptions}
               className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300"
@@ -518,13 +510,13 @@ export default function AdminSubscriptions() {
               Refresh Data
             </button>
           </div>
-          
+
           {message && (
             <div className={`mt-4 p-3 rounded ${message.type === 'success' ? 'bg-green-100 text-green-800' : message.type === 'error' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}`}>
               {message.text}
             </div>
           )}
-          
+
           {stripeTestResult && (
             <div className="mt-4 p-4 bg-blue-50 rounded-lg text-sm">
               <h3 className="font-medium text-blue-800 mb-2">Stripe Test Results:</h3>
@@ -533,7 +525,7 @@ export default function AdminSubscriptions() {
               </pre>
             </div>
           )}
-          
+
           {diagnosisResult && (
             <div className="mt-4 p-4 bg-amber-50 rounded-lg text-sm">
               <h3 className="font-medium text-amber-800 mb-2">Subscription Diagnosis Results:</h3>
@@ -595,7 +587,7 @@ export default function AdminSubscriptions() {
               )}
             </div>
           )}
-          
+
           {syncStats && (
             <div className="mt-4 p-4 bg-blue-50 rounded-lg text-sm">
               <h3 className="font-medium text-blue-800 mb-2">Sync Statistics:</h3>
@@ -655,10 +647,10 @@ export default function AdminSubscriptions() {
                       {subscription.email}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                        ${subscription.subscription_status === 'active' 
-                          ? 'bg-green-100 text-green-800' 
-                          : subscription.subscription_status === 'canceled' 
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                        ${subscription.subscription_status === 'active'
+                          ? 'bg-green-100 text-green-800'
+                          : subscription.subscription_status === 'canceled'
                             ? 'bg-red-100 text-red-800'
                             : 'bg-yellow-100 text-yellow-800'}`}>
                         {subscription.subscription_status}
@@ -700,5 +692,12 @@ export default function AdminSubscriptions() {
   );
 }
 
-// Use the admin authentication middleware
-export const getServerSideProps: GetServerSideProps = withAdminPageAuth(); 
+export const getServerSideProps = withAdminPageAuth({
+  redirectTo: '/admin/login',
+  async getServerSideProps(ctx) {
+    // Your server-side logic here
+    return { props: {} };
+  },
+});
+
+export default withAdminPageAuth(AdminSubscriptions);

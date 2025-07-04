@@ -2,13 +2,14 @@ import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { withAdminPageAuth } from '@/lib/admin-auth';
 
-export const getServerSideProps: GetServerSideProps = async ({ }) => {
-  return {
-    props: {
-    }
-  };
-};
+export const getServerSideProps: GetServerSideProps = withAdminPageAuth({
+  redirectTo: '/login',
+  async getServerSideProps(ctx) {
+    return { props: {} };
+  },
+});
 
 export default function RebuildSite() {
   const [loading, setLoading] = useState(false);
@@ -21,17 +22,17 @@ export default function RebuildSite() {
       setLoading(true);
       setError(null);
       setResult(null);
-      
+
       const response = await fetch('/api/rebuild-site', {
         method: 'POST',
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Failed to rebuild site');
       }
-      
+
       setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -45,17 +46,17 @@ export default function RebuildSite() {
       setFixingDates(true);
       setError(null);
       setResult(null);
-      
+
       const response = await fetch('/api/fix-event-dates', {
         method: 'POST',
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Failed to fix event dates');
       }
-      
+
       setResult({
         ...data,
         message: `${data.message}. You should now rebuild the site to see the changes.`
@@ -77,13 +78,13 @@ export default function RebuildSite() {
         <h1 className="text-3xl font-bold text-gray-900 mb-6">
           Rebuild Site
         </h1>
-        
+
         <div className="bg-white shadow rounded-lg p-6 mb-6">
           <p className="text-gray-700 mb-6">
             Use this page to force a rebuild of the site and clear the cache. This will ensure all
             your latest events and content are visible.
           </p>
-          
+
           <div className="space-y-4">
             <button
               onClick={triggerRebuild}
@@ -94,7 +95,7 @@ export default function RebuildSite() {
             >
               {loading ? 'Rebuilding...' : 'Rebuild Now'}
             </button>
-            
+
             <button
               onClick={fixEventDates}
               disabled={loading || fixingDates}
@@ -104,19 +105,19 @@ export default function RebuildSite() {
             >
               {fixingDates ? 'Fixing Dates...' : 'Fix Event Dates'}
             </button>
-            
+
             <p className="text-xs text-gray-500 text-center">
               The "Fix Event Dates" button will scan for events with missing or invalid dates and fix them automatically.
             </p>
           </div>
         </div>
-        
+
         {error && (
           <div className="bg-red-100 text-red-800 p-4 rounded-md mb-6">
             Error: {error}
           </div>
         )}
-        
+
         {result && (
           <div className="bg-green-100 text-green-800 p-4 rounded-md mb-6">
             <p className="font-bold">Success!</p>
@@ -131,13 +132,13 @@ export default function RebuildSite() {
             </p>
           </div>
         )}
-        
+
         <div className="mt-8 bg-white shadow rounded-lg p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Other Admin Tools</h2>
           <ul className="space-y-2">
             <li>
-              <Link 
-                href="/admin/debug-events" 
+              <Link
+                href="/admin/debug-events"
                 className="text-blue-600 hover:underline"
               >
                 View/Debug All Events
@@ -148,4 +149,6 @@ export default function RebuildSite() {
       </div>
     </div>
   );
-} 
+}
+
+export default withAdminPageAuth(RebuildSite);

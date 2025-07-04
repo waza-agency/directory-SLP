@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Event } from '@/types';
+import { withAdminPageAuth } from '@/lib/admin-auth';
 
-export default function EventChecker() {
+function EventChecker() {
   const [loading, setLoading] = useState(true);
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [culturalEvents, setCulturalEvents] = useState<Event[]>([]);
@@ -15,7 +16,7 @@ export default function EventChecker() {
     async function fetchEvents() {
       try {
         setLoading(true);
-        
+
         // Fetch all events
         const { data, error } = await supabase
           .from('events')
@@ -25,16 +26,16 @@ export default function EventChecker() {
         if (error) throw error;
 
         setAllEvents(data || []);
-        
+
         // Filter events by category
         setCulturalEvents(data?.filter(event => event.category === 'cultural') || []);
         setArtsCultureEvents(data?.filter(event => event.category === 'arts-culture') || []);
         setMusicEvents(data?.filter(event => event.category === 'music') || []);
         setSportsEvents(data?.filter(event => event.category === 'sports') || []);
-        setOtherEvents(data?.filter(event => 
-          event.category !== 'cultural' && 
-          event.category !== 'arts-culture' && 
-          event.category !== 'music' && 
+        setOtherEvents(data?.filter(event =>
+          event.category !== 'cultural' &&
+          event.category !== 'arts-culture' &&
+          event.category !== 'music' &&
           event.category !== 'sports'
         ) || []);
       } catch (error) {
@@ -55,7 +56,7 @@ export default function EventChecker() {
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Event Checker</h1>
       <p className="mb-4">This is a development-only page to check what events are currently in the database.</p>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Summary</h2>
         <ul className="list-disc pl-5">
@@ -67,7 +68,7 @@ export default function EventChecker() {
           <li>Other events: {otherEvents.length}</li>
         </ul>
       </div>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Cultural Events</h2>
         {culturalEvents.length > 0 ? (
@@ -86,7 +87,7 @@ export default function EventChecker() {
           <p className="text-gray-500">No cultural events found.</p>
         )}
       </div>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Arts-Culture Events</h2>
         {artsCultureEvents.length > 0 ? (
@@ -105,7 +106,7 @@ export default function EventChecker() {
           <p className="text-gray-500">No arts-culture events found.</p>
         )}
       </div>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Music Events</h2>
         {musicEvents.length > 0 ? (
@@ -126,4 +127,13 @@ export default function EventChecker() {
       </div>
     </div>
   );
-} 
+}
+
+export const getServerSideProps = withAdminPageAuth({
+  redirectTo: '/login',
+  async getServerSideProps(ctx) {
+    return { props: {} };
+  },
+});
+
+export default withAdminPageAuth(EventChecker);

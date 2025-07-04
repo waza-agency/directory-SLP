@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { withAdminPageAuth } from '@/lib/admin-auth';
 
-export const getServerSideProps: GetServerSideProps = async ({ }) => {
-  return {
-    props: {
-    }
-  };
-};
+export const getServerSideProps: GetServerSideProps = withAdminPageAuth({
+  redirectTo: '/login',
+  async getServerSideProps(ctx) {
+    return { props: {} };
+  },
+});
 
-export default function DebugEvents() {
+function DebugEvents() {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,9 +46,9 @@ export default function DebugEvents() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-6">Debug Events</h1>
         <p className="mb-4">Current server time: <span className="font-mono">{now}</span></p>
-        
+
         {loading && <div className="text-center py-12">Loading events...</div>}
-        
+
         {error && (
           <div className="bg-red-100 text-red-800 p-4 rounded-md mb-6">
             Error: {error}
@@ -57,7 +58,7 @@ export default function DebugEvents() {
         {!loading && !error && (
           <>
             <p className="mb-6">Found {events.length} events in the database</p>
-            
+
             <div className="bg-white shadow overflow-hidden rounded-md">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -76,10 +77,10 @@ export default function DebugEvents() {
                     // Determine event status
                     let status = 'Unknown';
                     let statusColor = 'gray';
-                    
+
                     if (event._diagnostics) {
                       const d = event._diagnostics;
-                      
+
                       if (!d.startDateValid) {
                         status = 'Invalid start date';
                         statusColor = 'red';
@@ -129,7 +130,7 @@ export default function DebugEvents() {
                 </tbody>
               </table>
             </div>
-            
+
             <div className="mt-8">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Event Details (Raw Data)</h2>
               <div className="bg-gray-800 text-white p-4 rounded-md overflow-auto max-h-96">
@@ -141,4 +142,6 @@ export default function DebugEvents() {
       </div>
     </div>
   );
-} 
+}
+
+export default withAdminPageAuth(DebugEvents);

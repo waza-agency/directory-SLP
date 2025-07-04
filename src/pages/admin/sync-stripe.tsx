@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { withAdminPageAuth } from '@/lib/admin-auth';
 
-export default function SyncStripePage() {
+function SyncStripePage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
@@ -186,5 +186,7 @@ export default function SyncStripePage() {
     </>
   );
 }
+
+export default withAdminPageAuth(SyncStripePage);
 
 export const getServerSideProps = withAdminPageAuth();
