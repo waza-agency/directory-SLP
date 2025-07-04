@@ -44,41 +44,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/admin/coupons</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/admin/debug-events</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/admin/event-checker</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/admin/login</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/admin/rebuild</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/admin/subscriptions</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/admin/sync-stripe</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/adsense-test</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

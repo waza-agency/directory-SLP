@@ -13,7 +13,7 @@ interface PlaceCardProps {
 export default function PlaceCard({ place, featured, onClick, isSelected }: PlaceCardProps) {
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  
+
   // Category colors map for accent colors
   const categoryColors: Record<string, string> = {
     food: 'border-amber-600 text-amber-600 bg-amber-50',
@@ -51,29 +51,29 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
     if (!url || url.trim() === '') {
       return getDefaultImage(place.category);
     }
-    
+
     // Clean the URL
     url = url.trim();
-    
+
     // Handle Google Drive links
     if (url.includes('drive.google.com')) {
       const fileIdMatch = url.match(/\/file\/d\/([-\w]{25,})/);
       const idParamMatch = url.match(/[?&]id=([-\w]{25,})/);
       const ucIdMatch = url.match(/\/uc\?.*id=([-\w]{25,})/);
-      
+
       const fileId = fileIdMatch?.[1] || idParamMatch?.[1] || ucIdMatch?.[1];
-      
+
       if (fileId) {
         return `https://drive.google.com/uc?export=view&id=${fileId}`;
       }
     }
-    
+
     // Return the URL as is for all other cases
     return url;
   };
-  
+
   return (
-    <div 
+    <div
       className={`slp-card bg-white rounded-xl overflow-hidden shadow-elegant hover-lift transition-all duration-300 cursor-pointer ${featured ? 'featured-card border-t-4 border-primary' : 'border-t-2 border-transparent hover:border-secondary/30'} ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -92,19 +92,17 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             onError={() => setImageError(true)}
             unoptimized={true}
           />
-          
+
           {/* Category Badge */}
           <div className={`absolute top-4 left-4 z-10 transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
             <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${categoryColors[place.category] || categoryColors.other}`}>
-              {t(`categories.${place.category}`, {
-                defaultValue: place.category
-                  .split
+              {place.category
+                  .split('-')
                   .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(' ')
-              })}
+                  .join(' ')}
             </span>
           </div>
-          
+
           {/* Featured Badge */}
           {place.featured && (
             <div className={`absolute top-4 right-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 rotate-3' : 'scale-100 rotate-0'}`}>
@@ -113,30 +111,30 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
               </span>
             </div>
           )}
-          
+
           {/* Overlay Gradient */}
           <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-90' : 'opacity-100'}`}></div>
-          
+
           {/* Corner Accent */}
           <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-primary/20 to-transparent pointer-events-none"></div>
         </div>
-        
+
         {/* Content */}
         <div className="p-6">
           <h3 className={`font-serif text-xl font-bold text-gray-900 mb-2 line-clamp-1 transition-colors duration-300 ${isHovered ? 'text-primary' : ''}`}>
             {place.name}
           </h3>
-          
+
           <div className="flex items-center mb-3">
             {/* Rating */}
             {place.rating && (
               <div className={`flex items-center mr-4 transition-transform duration-300 ${isHovered ? 'scale-105' : ''}`}>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <svg 
+                    <svg
                       key={i}
-                      className={`w-4 h-4 ${i < Math.floor(place.rating || 0) ? 'text-yellow-400' : 'text-gray-300'} transition-all duration-300 ${isHovered && i < Math.floor(place.rating || 0) ? 'scale-125' : ''}`} 
-                      fill="currentColor" 
+                      className={`w-4 h-4 ${i < Math.floor(place.rating || 0) ? 'text-yellow-400' : 'text-gray-300'} transition-all duration-300 ${isHovered && i < Math.floor(place.rating || 0) ? 'scale-125' : ''}`}
+                      fill="currentColor"
                       viewBox="0 0 20 20"
                     >
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -146,7 +144,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
                 <span className="ml-1 text-sm text-gray-600">{place.rating.toFixed(1)}</span>
               </div>
             )}
-            
+
             {/* Price Level */}
             {place.priceLevel && (
               <div className="text-sm text-gray-600">
@@ -154,11 +152,11 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
               </div>
             )}
           </div>
-          
+
           <p className="text-gray-600 text-sm line-clamp-2 mb-4">
             {place.description}
           </p>
-          
+
           {/* Location */}
           <div className="flex items-center text-sm text-gray-500 mb-2">
             <svg className="w-4 h-4 mr-2 flex-shrink-0 text-secondary/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,13 +164,13 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             </svg>
             <span className="line-clamp-1">{place.address}</span>
           </div>
-          
+
           {/* Tags */}
           {place.tags && place.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
               {place.tags.slice(0, 3).map((tag) => (
-                <span 
-                  key={tag} 
+                <span
+                  key={tag}
                   className="text-xs px-2 py-1 bg-secondary/5 text-secondary/70 rounded-md"
                 >
                   {tag}
@@ -186,7 +184,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             </div>
           )}
         </div>
-        
+
         {/* Footer */}
         <div className="px-6 py-4 border-t border-gray-100 bg-background-alt">
           <div className="flex justify-between items-center">
@@ -201,4 +199,4 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
       </Link>
     </div>
   );
-} 
+}

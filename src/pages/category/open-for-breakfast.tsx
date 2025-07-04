@@ -15,7 +15,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .like('tags', '%breakfast%')
+    .contains('tags', ['breakfast'])
     .order('name');
 
   if (error) {

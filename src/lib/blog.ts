@@ -45,7 +45,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, excerpt, image_url, category, published_at, created_at, tags')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
@@ -114,5 +114,46 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
     console.error(`Failed to get post by slug "${slug}": ${errorMessage}`);
     return null;
+  }
+}
+
+/**
+ * Fetches multiple blog posts by their slugs.
+ * @param {string[]} slugs - An array of slugs to fetch.
+ * @returns {Promise<BlogPost[]>} A promise that resolves to an array of blog posts.
+ */
+export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> {
+  if (!slugs || slugs.length === 0) {
+    console.error('getBlogPostsBySlugs: Slugs array is required.');
+    return [];
+  }
+
+  try {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from('blog_posts')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags')
+      .in('slug', slugs)
+      .eq('status', 'published');
+
+    if (error) {
+      console.error('Error fetching posts by slugs:', error.message);
+      return [];
+    }
+
+    if (!data) {
+      return [];
+    }
+
+    return data.map((post) => ({
+      ...post,
+      imageUrl: post.image_url,
+      publishedAt: post.published_at,
+      createdAt: post.created_at,
+    }));
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+    console.error(`Failed to get posts by slugs: ${errorMessage}`);
+    return [];
   }
 }
