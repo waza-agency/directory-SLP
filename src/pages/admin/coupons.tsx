@@ -486,4 +486,4 @@ export const getServerSideProps = withAdminPageAuth(async (context) => {
   };
 });
 
-export default AdminCouponsPage;
+export default withAdminPageAuth(AdminCouponsPage);
