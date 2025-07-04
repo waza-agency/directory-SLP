@@ -22,6 +22,12 @@ ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 
+# --- DEBUG: Print Build-Time Environment Variables ---
+RUN echo "--- Verifying Build-Time Environment Variables ---" && \
+    printenv | grep NEXT_PUBLIC_SUPABASE_URL && \
+    printenv | grep NEXT_PUBLIC_SUPABASE_ANON_KEY && \
+    echo "--- End Verification ---"
+
 # Install dependencies needed for building
 RUN apk add --no-cache libc6-compat
 
