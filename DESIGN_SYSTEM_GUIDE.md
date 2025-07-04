@@ -1,3 +1,4 @@
+npm run dev
 # Design System Quick Reference
 
 ## Typography
