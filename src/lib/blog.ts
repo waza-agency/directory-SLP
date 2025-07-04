@@ -1,14 +1,22 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client with better error handling
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+let supabase: SupabaseClient | null = null;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+function getSupabaseClient() {
+  if (supabase) {
+    return supabase;
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Supabase environment variables are not set.');
+  }
+
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  return supabase;
 }
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export interface BlogPost {
   id: string;
@@ -32,6 +40,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
     console.log('getBlogPosts: Starting fetch...');
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('blog_posts')
       .select("*")
@@ -76,6 +85,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   try {
     console.log(`getBlogPostBySlug: Fetching post with slug: ${slug}`);
 
+    const supabase = getSupabaseClient();
     if (!slug) {
       console.error('getBlogPostBySlug: No slug provided');
       return null;
@@ -135,6 +145,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 
 export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('blog_posts')
       .select("*")
@@ -171,6 +182,7 @@ export async function getRecentBlogPosts(limit = 3): Promise<BlogPost[]> {
 
 export async function getBlogPostsByCategory(category: string): Promise<BlogPost[]> {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('blog_posts')
       .select("*")
@@ -208,6 +220,7 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
 export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> {
   if (!slugs || slugs.length === 0) return [];
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('blog_posts')
       .select("*")
