@@ -45,7 +45,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
@@ -60,6 +60,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
     return data.map((post) => ({
       ...post,
+      title: post.title_en || post.title,
+      content: post.content_en || post.content,
+      excerpt: post.excerpt_en || post.excerpt,
       imageUrl: post.image_url,
       publishedAt: post.published_at,
       createdAt: post.created_at,
@@ -86,7 +89,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en')
       .eq('slug', slug)
       .eq('status', 'published')
       .single();
@@ -106,6 +109,9 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 
     return {
       ...data,
+      title: data.title_en || data.title,
+      content: data.content_en || data.content,
+      excerpt: data.excerpt_en || data.excerpt,
       imageUrl: data.image_url,
       publishedAt: data.published_at,
       createdAt: data.created_at,
@@ -132,7 +138,7 @@ export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en')
       .in('slug', slugs)
       .eq('status', 'published');
 
@@ -147,6 +153,9 @@ export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> 
 
     return data.map((post) => ({
       ...post,
+      title: post.title_en || post.title,
+      content: post.content_en || post.content,
+      excerpt: post.excerpt_en || post.excerpt,
       imageUrl: post.image_url,
       publishedAt: post.published_at,
       createdAt: post.created_at,

@@ -58,7 +58,7 @@ describe('/api/add-test-cultural-event', () => {
   });
 
   it('should reject non-POST methods', async () => {
-    const req = mockReques"DEFAULT";
+    const req = mockRequest('GET');
     const res = mockResponse();
 
     await handler(req, res);
