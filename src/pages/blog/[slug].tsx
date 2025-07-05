@@ -46,6 +46,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         {post.imageUrl && <meta property="og:image" content={post.imageUrl} />}
       </Head>
 
+      {/* Force revalidation */}
       <main className="bg-white">
         {post.imageUrl && (
           <div className="relative h-96 w-full">
