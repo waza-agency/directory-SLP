@@ -7,11 +7,11 @@ import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
 
-interface ModernDiningPageProps {
+interface RestaurantsPageProps {
   places: Place[];
 }
 
-const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
+const RestaurantsPage: NextPage<RestaurantsPageProps> = ({ places }) => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 
@@ -22,10 +22,10 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
   return (
     <>
       <Head>
-        <title>Modern Dining - SLP Descubre</title>
+        <title>All Restaurants - SLP Descubre</title>
         <meta
           name="description"
-          content="Discover contemporary restaurants and modern dining experiences in San Luis Potosí"
+          content="Explore all restaurants and dining experiences in San Luis Potosí."
         />
       </Head>
 
@@ -34,14 +34,14 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-primary text-sm font-medium uppercase tracking-wider">
-              CONTEMPORARY CUISINE
+              Explore Our Cuisine
             </span>
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">
-              Modern Dining
+              All Restaurants
             </h1>
             <p className="text-lg text-gray-600">
-              Experience the cutting-edge culinary scene of San Luis Potosí through our curated selection
-              of modern restaurants. From innovative fusion cuisine to contemporary dining experiences,
+              Discover the best culinary scene of San Luis Potosí through our curated selection
+              of restaurants. From innovative fusion cuisine to contemporary dining experiences,
               discover the city's most exciting culinary destinations.
             </p>
           </div>
@@ -59,7 +59,7 @@ const ModernDiningPage: NextPage<ModernDiningPageProps> = ({ places }) => {
       {/* All Modern Restaurants */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">All Modern Restaurants</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">All Restaurants</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {regularPlaces.map((place) => (
               <PlaceCard
@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .eq('category', 'modern-dining')
+    .eq('category', 'restaurant')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 
@@ -126,4 +126,4 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
   };
 };
 
-export default ModernDiningPage;
+export default RestaurantsPage;

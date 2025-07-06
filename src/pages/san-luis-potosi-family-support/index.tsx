@@ -3,126 +3,92 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import ReCAPTCHA from "react-google-recaptcha";
+import { getRecaptchaSiteKey, isRecaptchaConfigured } from '../../utils/recaptcha';
 import {
-  UserGroupIcon,
-  AcademicCapIcon,
   HeartIcon,
-  BookOpenIcon,
-  UserIcon,
-  BuildingLibraryIcon,
+  AcademicCapIcon,
+  PlayIcon,
+  ChatBubbleBottomCenterTextIcon,
+  FaceSmileIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline';
 
 interface ContactFormData {
   name: string;
   email: string;
-  phone: string;
-  familySize: string;
-  childrenAges: string[];
-  educationNeeds: string[];
-  healthcareNeeds: string;
-  languageSupport: string;
-  activityInterests: string[];
-  specialRequirements: string;
-  preferredSchedule: string;
-  additionalInformation: string;
+  message: string;
 }
 
 const familyServices = [
   {
     title: 'Childcare Services',
-    icon: <UserGroupIcon className="w-8 h-8 text-purple-500" />,
-    description: 'Professional babysitting and childcare solutions',
+    icon: <HeartIcon className="w-8 h-8 text-pink-500" />,
+    description: 'Find trusted babysitters and nannies',
   },
   {
-    title: 'Education Support',
-    icon: <AcademicCapIcon className="w-8 h-8 text-purple-500" />,
-    description: 'School selection and enrollment assistance',
-  },
-  {
-    title: 'Healthcare Connections',
-    icon: <HeartIcon className="w-8 h-8 text-purple-500" />,
-    description: 'Access to family doctors and pediatric care',
-  },
-  {
-    title: 'Tutoring Services',
-    icon: <BookOpenIcon className="w-8 h-8 text-purple-500" />,
-    description: 'Academic support and language tutoring',
+    title: 'Educational Support',
+    icon: <AcademicCapIcon className="w-8 h-8 text-pink-500" />,
+    description: 'Access to tutors and educational resources',
   },
   {
     title: 'Family Activities',
-    icon: <UserIcon className="w-8 h-8 text-purple-500" />,
-    description: 'Organized family events and activities',
+    icon: <PlayIcon className="w-8 h-8 text-pink-500" />,
+    description: 'Discover family-friendly events and activities',
   },
   {
-    title: 'School Integration',
-    icon: <BuildingLibraryIcon className="w-8 h-8 text-purple-500" />,
-    description: 'Support with academic and social integration',
+    title: 'Parenting Workshops',
+    icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-pink-500" />,
+    description: 'Join workshops on parenting in a new culture',
+  },
+  {
+    title: 'Support Groups',
+    icon: <FaceSmileIcon className="w-8 h-8 text-pink-500" />,
+    description: 'Connect with other expat families for support',
+  },
+  {
+    title: 'Healthcare Navigation',
+    icon: <ShieldCheckIcon className="w-8 h-8 text-pink-500" />,
+    description: 'Guidance on finding pediatricians and family doctors',
   },
 ];
 
-const educationOptions = [
-  'School Search',
-  'Enrollment Support',
-  'Academic Assessment',
-  'Language Classes',
-  'Tutoring',
-  'Special Education',
-  'International Curriculum',
-  'After-school Programs',
-  'Summer Programs',
-  'Parent-Teacher Communication',
-];
-
-const activityTypes = [
-  'Sports Programs',
-  'Art Classes',
-  'Music Lessons',
-  'Language Classes',
-  'Cultural Activities',
-  'Educational Trips',
-  'Family Events',
-  'Outdoor Activities',
-  'Social Groups',
-  'Holiday Programs',
-];
-
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({}) => {
   return {
     props: {
+        recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
-export default function FamilySupport() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    phone: '',
-    familySize: '',
-    childrenAges: [],
-    educationNeeds: [],
-    healthcareNeeds: '',
-    languageSupport: '',
-    activityInterests: [],
-    specialRequirements: '',
-    preferredSchedule: '',
-    additionalInformation: '',
+    message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!recaptchaValue) {
+    if (isRecaptchaConfigured() && !recaptchaValue) {
       setSubmitStatus('error');
       return;
     }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -136,385 +102,155 @@ export default function FamilySupport() {
           ...formData,
           recaptchaToken: recaptchaValue,
           to: 'info@sanluisway.com',
-          subject: 'Family Support Services Request',
-          message: `
-Family Support Service Request Details:
-------------------------
-Family Size: ${formData.familySize}
-Children Ages: ${formData.childrenAges.join(', ')}
-Education Needs: ${formData.educationNeeds.join(', ')}
-
-Healthcare Needs:
-${formData.healthcareNeeds}
-
-Language Support: ${formData.languageSupport}
-Activity Interests: ${formData.activityInterests.join(', ')}
-Preferred Schedule: ${formData.preferredSchedule}
-
-Special Requirements:
-${formData.specialRequirements || 'None specified'}
-
-Additional Information:
-${formData.additionalInformation || 'None provided'}
-          `.trim()
+          subject: 'Family Support Inquiry',
         }),
       });
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          familySize: '',
-          childrenAges: [],
-          educationNeeds: [],
-          healthcareNeeds: '',
-          languageSupport: '',
-          activityInterests: [],
-          specialRequirements: '',
-          preferredSchedule: '',
-          additionalInformation: ''
-        });
+        setFormData({ name: '', email: '', message: '' });
         recaptchaRef.current?.reset();
       } else {
-        throw new Error('Failed to send message');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send message');
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
-      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    
-    if (type === 'select-multiple') {
-      const select = e.target as HTMLSelectElement;
-      const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
-      setFormData(prev => ({
-        ...prev,
-        [name]: selectedOptions
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
     }
   };
 
   return (
     <>
       <Head>
-        <title>Family Support Services | San Luis Way - Supporting Expat Families</title>
-        <meta 
-          name="description" 
-          content="Comprehensive family support services in San Luis Potosí. From childcare to education, we help expat families thrive in their new home." 
-        />
-        <meta 
-          name="keywords" 
-          content="family support, San Luis Potosí, childcare, education, healthcare, tutoring, family activities, expat families" 
-        />
+        <title>Family Support Services | San Luis Way</title>
+        <meta name="description" content="Comprehensive support for expat families in San Luis Potosí, including childcare, education, and community integration." />
+        <meta name="keywords" content="family support, childcare, schools, parenting, expat families, san luis potosi" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        <div className="relative bg-gradient-to-r from-purple-600 to-purple-800 text-white">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/family-support/hero.jpg"
-              alt="Family Support Services in San Luis Potosí"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-          </div>
-          <div className="container mx-auto px-4 py-16 relative">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl font-bold mb-6">Family Support Services</h1>
-              <p className="text-xl mb-8">
-                Comprehensive support for expat families in San Luis Potosí. 
-                We help your whole family thrive in your new home.
-              </p>
-            </div>
+      <div className="relative h-96 w-full">
+        <Image
+          src="/images/practical-categories/family-activities.webp"
+          alt="Family enjoying an activity in San Luis Potosí"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-purple-800 bg-opacity-60 flex items-center justify-center">
+          <div className="text-center text-white px-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Family Support Services</h1>
+            <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+              Find the resources your family needs to thrive in San Luis Potosí. From childcare to education, we're here to help.
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 py-12">
-          {/* Services Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Family Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {familyServices.map((service, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
-                >
-                  <div className="mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-gray-600">{service.description}</p>
+      <div className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {familyServices.map((service) => (
+              <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
+                <div className="inline-block p-4 bg-pink-100 rounded-full mb-4">
+                  {service.icon}
                 </div>
-              ))}
-            </div>
-          </section>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-          {/* Contact Form */}
+      <div className="bg-gray-50 text-gray-800 py-16">
+        <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Request Family Support</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Contact Us for Family Support</h2>
+              {submitStatus === 'success' ? (
+                <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
+                  <p className="font-medium">Thank you for your inquiry!</p>
+                  <p>We've received your request and will contact you shortly.</p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={5}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      placeholder="Tell us about your family's needs..."
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="familySize" className="block text-sm font-medium text-gray-700 mb-1">
-                    Family Size
-                  </label>
-                  <select
-                    id="familySize"
-                    name="familySize"
-                    value={formData.familySize}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  {isRecaptchaConfigured() && (
+                    <div className="flex justify-center">
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={recaptchaSiteKey}
+                        onChange={handleRecaptchaChange}
+                      />
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors disabled:opacity-50"
                   >
-                    <option value="">Select family size</option>
-                    <option value="2">2 members</option>
-                    <option value="3">3 members</option>
-                    <option value="4">4 members</option>
-                    <option value="5">5 members</option>
-                    <option value="6+">6+ members</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="childrenAges" className="block text-sm font-medium text-gray-700 mb-1">
-                    Children's Age Groups
-                  </label>
-                  <select
-                    id="childrenAges"
-                    name="childrenAges"
-                    value={formData.childrenAges}
-                    onChange={handleChange}
-                    multiple
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    <option value="0-2">0-2 years</option>
-                    <option value="3-5">3-5 years</option>
-                    <option value="6-11">6-11 years</option>
-                    <option value="12-15">12-15 years</option>
-                    <option value="16-18">16-18 years</option>
-                  </select>
-                  <p className="mt-1 text-sm text-gray-500">Hold Ctrl (Cmd on Mac) to select multiple options</p>
-                </div>
-
-                <div>
-                  <label htmlFor="educationNeeds" className="block text-sm font-medium text-gray-700 mb-1">
-                    Education Needs
-                  </label>
-                  <select
-                    id="educationNeeds"
-                    name="educationNeeds"
-                    value={formData.educationNeeds}
-                    onChange={handleChange}
-                    multiple
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    {educationOptions.map((option, index) => (
-                      <option key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-1 text-sm text-gray-500">Hold Ctrl (Cmd on Mac) to select multiple options</p>
-                </div>
-
-                <div>
-                  <label htmlFor="healthcareNeeds" className="block text-sm font-medium text-gray-700 mb-1">
-                    Healthcare Needs
-                  </label>
-                  <select
-                    id="healthcareNeeds"
-                    name="healthcareNeeds"
-                    value={formData.healthcareNeeds}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    <option value="">Select healthcare needs</option>
-                    <option value="general">General Family Healthcare</option>
-                    <option value="pediatric">Pediatric Care</option>
-                    <option value="specialist">Specialist Care</option>
-                    <option value="dental">Dental Care</option>
-                    <option value="multiple">Multiple Services</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="languageSupport" className="block text-sm font-medium text-gray-700 mb-1">
-                    Language Support Needed
-                  </label>
-                  <select
-                    id="languageSupport"
-                    name="languageSupport"
-                    value={formData.languageSupport}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    <option value="">Select language support</option>
-                    <option value="none">No Support Needed</option>
-                    <option value="children">Children Only</option>
-                    <option value="adults">Adults Only</option>
-                    <option value="whole-family">Whole Family</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="activityInterests" className="block text-sm font-medium text-gray-700 mb-1">
-                    Activity Interests
-                  </label>
-                  <select
-                    id="activityInterests"
-                    name="activityInterests"
-                    value={formData.activityInterests}
-                    onChange={handleChange}
-                    multiple
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    {activityTypes.map((activity, index) => (
-                      <option key={index} value={activity.toLowerCase().replace(/\s+/g, '-')}>
-                        {activity}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-1 text-sm text-gray-500">Hold Ctrl (Cmd on Mac) to select multiple options</p>
-                </div>
-
-                <div>
-                  <label htmlFor="preferredSchedule" className="block text-sm font-medium text-gray-700 mb-1">
-                    Preferred Schedule
-                  </label>
-                  <select
-                    id="preferredSchedule"
-                    name="preferredSchedule"
-                    value={formData.preferredSchedule}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  >
-                    <option value="">Select preferred schedule</option>
-                    <option value="morning">Morning (8am-12pm)</option>
-                    <option value="afternoon">Afternoon (12pm-4pm)</option>
-                    <option value="evening">Evening (4pm-8pm)</option>
-                    <option value="flexible">Flexible</option>
-                    <option value="custom">Custom Schedule</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="specialRequirements" className="block text-sm font-medium text-gray-700 mb-1">
-                    Special Requirements
-                  </label>
-                  <textarea
-                    id="specialRequirements"
-                    name="specialRequirements"
-                    value={formData.specialRequirements}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Please specify any special requirements or considerations for your family..."
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="additionalInformation" className="block text-sm font-medium text-gray-700 mb-1">
-                    Additional Information
-                  </label>
-                  <textarea
-                    id="additionalInformation"
-                    name="additionalInformation"
-                    value={formData.additionalInformation}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Any other information you'd like to share about your family's needs..."
-                  />
-                </div>
-
-                <div className="flex justify-center">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                    onChange={handleRecaptchaChange}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !recaptchaValue}
-                  className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Sending...' : 'Submit Request'}
-                </button>
-
-                {submitStatus === 'success' && (
-                  <p className="text-green-600 text-center">Your request has been sent successfully!</p>
-                )}
-                {submitStatus === 'error' && (
-                  <p className="text-red-600 text-center">Failed to send request. Please try again.</p>
-                )}
-              </form>
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                  {submitStatus === 'error' && (
+                    <p className="text-center text-red-600 mt-4">
+                        Please complete the reCAPTCHA or try again later.
+                    </p>
+                  )}
+                </form>
+              )}
             </div>
           </section>
         </div>
       </div>
     </>
   );
-} 
+}

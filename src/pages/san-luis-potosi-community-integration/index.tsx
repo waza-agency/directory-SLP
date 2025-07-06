@@ -3,94 +3,70 @@ import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import ReCAPTCHA from "react-google-recaptcha";
+import { getRecaptchaSiteKey, isRecaptchaConfigured } from '../../utils/recaptcha';
 import {
-  UserGroupIcon,
-  GlobeAltIcon,
-  AcademicCapIcon,
-  HeartIcon,
+  UsersIcon,
+  ChatBubbleBottomCenterTextIcon,
+  CalendarDaysIcon,
+  BuildingLibraryIcon,
   LanguageIcon,
-  CalendarIcon,
+  TrophyIcon,
 } from '@heroicons/react/24/outline';
 
 interface ContactFormData {
   name: string;
   email: string;
-  phone: string;
-  interestAreas: string[];
-  languageLevel: string;
-  familyMembers: string;
-  preferredActivities: string[];
-  availability: string;
-  culturalInterests: string;
-  additionalInformation: string;
+  message: string;
 }
 
 const communityServices = [
-  {
-    title: 'Expat Groups',
-    icon: <UserGroupIcon className="w-8 h-8 text-red-500" />,
-    description: 'Connect with fellow expatriates in San Luis Potosí',
-  },
-  {
-    title: 'Cultural Exchange',
-    icon: <GlobeAltIcon className="w-8 h-8 text-red-500" />,
-    description: 'Participate in local cultural activities and events',
-  },
-  {
-    title: 'Language Exchange',
-    icon: <LanguageIcon className="w-8 h-8 text-red-500" />,
-    description: 'Practice Spanish and meet native speakers',
-  },
-  {
-    title: 'Social Activities',
-    icon: <CalendarIcon className="w-8 h-8 text-red-500" />,
-    description: 'Join regular social events and meetups',
-  },
-  {
-    title: 'Educational Programs',
-    icon: <AcademicCapIcon className="w-8 h-8 text-red-500" />,
-    description: 'Learn about Mexican culture and traditions',
-  },
-  {
-    title: 'Community Support',
-    icon: <HeartIcon className="w-8 h-8 text-red-500" />,
-    description: 'Access support networks and resources',
-  },
+    {
+      title: 'Social Groups',
+      icon: <UsersIcon className="w-8 h-8 text-red-500" />,
+      description: 'Join local and expat social groups to meet new people.',
+    },
+    {
+      title: 'Networking Events',
+      icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-red-500" />,
+      description: 'Connect with professionals and entrepreneurs in your field.',
+    },
+    {
+      title: 'Community Workshops',
+      icon: <CalendarDaysIcon className="w-8 h-8 text-red-500" />,
+      description: 'Participate in workshops on local culture and practical skills.',
+    },
+    {
+      title: 'Cultural Exchange',
+      icon: <BuildingLibraryIcon className="w-8 h-8 text-red-500" />,
+      description: 'Engage in activities that foster cultural understanding.',
+    },
+    {
+      title: 'Language Exchange Programs',
+      icon: <LanguageIcon className="w-8 h-8 text-red-500" />,
+      description: 'Improve your Spanish and help locals learn English.',
+    },
+    {
+      title: 'Volunteer Opportunities',
+      icon: <TrophyIcon className="w-8 h-8 text-red-500" />,
+      description: 'Give back to the community and make a meaningful impact.',
+    },
 ];
 
-const activityTypes = [
-  'Social Gatherings',
-  'Cultural Workshops',
-  'Language Exchange',
-  'Sports Activities',
-  'Professional Networking',
-  'Family Events',
-  'Volunteer Opportunities',
-  'Art & Music Events',
-  'Food & Cooking',
-  'Local Traditions',
-];
-
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({}) => {
   return {
     props: {
+      recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
-export default function CommunityIntegration() {
+export default function CommunityIntegration({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    phone: '',
-    interestAreas: [],
-    languageLevel: '',
-    familyMembers: '',
-    preferredActivities: [],
-    availability: '',
-    culturalInterests: '',
-    additionalInformation: '',
+    message: '',
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
@@ -100,12 +76,20 @@ export default function CommunityIntegration() {
     setRecaptchaValue(token);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!recaptchaValue) {
+    if (isRecaptchaConfigured() && !recaptchaValue) {
       setSubmitStatus('error');
       return;
     }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -119,313 +103,161 @@ export default function CommunityIntegration() {
           ...formData,
           recaptchaToken: recaptchaValue,
           to: 'info@sanluisway.com',
-          subject: 'Community Integration Request',
-          message: `
-Community Integration Request Details:
-------------------------
-Interest Areas: ${formData.interestAreas.join(', ')}
-Language Level: ${formData.languageLevel}
-Family Members: ${formData.familyMembers}
-Preferred Activities: ${formData.preferredActivities.join(', ')}
-Availability: ${formData.availability}
-
-Cultural Interests:
-${formData.culturalInterests}
-
-Additional Information:
-${formData.additionalInformation || 'None provided'}
-          `.trim()
+          subject: 'Community Integration Inquiry',
         }),
       });
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          interestAreas: [],
-          languageLevel: '',
-          familyMembers: '',
-          preferredActivities: [],
-          availability: '',
-          culturalInterests: '',
-          additionalInformation: ''
-        });
+        setFormData({ name: '', email: '', message: '' });
         recaptchaRef.current?.reset();
       } else {
-        throw new Error('Failed to send message');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send message');
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
-      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    
-    if (type === 'select-multiple') {
-      const select = e.target as HTMLSelectElement;
-      const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
-      setFormData(prev => ({
-        ...prev,
-        [name]: selectedOptions
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
     }
   };
 
   return (
     <>
       <Head>
-        <title>Community Integration | San Luis Way - Connect & Thrive</title>
-        <meta 
-          name="description" 
-          content="Join our vibrant expat community in San Luis Potosí. Connect with fellow expatriates, participate in cultural exchanges, and make lasting friendships." 
+        <title>Community Integration Services | San Luis Way</title>
+        <meta
+          name="description"
+          content="Connect with the local community in San Luis Potosí. We help you build your social network through events, groups, and cultural activities."
         />
-        <meta 
-          name="keywords" 
-          content="community integration, San Luis Potosí, expat community, cultural exchange, social activities, language exchange" 
+        <meta
+          name="keywords"
+          content="community integration, social groups, networking, expat community, cultural exchange, San Luis Potosí"
         />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        <div className="relative bg-gradient-to-r from-red-600 to-red-800 text-white">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/community-integration/hero.jpg"
-              alt="Community Integration in San Luis Potosí"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-          </div>
-          <div className="container mx-auto px-4 py-16 relative">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl font-bold mb-6">Community Integration</h1>
-              <p className="text-xl mb-8">
-                Connect with fellow expatriates and locals in San Luis Potosí. 
-                Join our vibrant community and make the most of your experience in Mexico.
-              </p>
-            </div>
+      <div className="relative h-96 w-full">
+        <Image
+          src="/images/calendar/community-fair.jpg"
+          alt="Community event in San Luis Potosí"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-red-800 bg-opacity-60 flex items-center justify-center">
+          <div className="text-center text-white px-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Community Integration</h1>
+            <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+              Connect with your new community and feel at home in San Luis Potosí. We offer resources and support to help you integrate smoothly.
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 py-12">
-          {/* Services Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Community Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {communityServices.map((service, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
-                >
-                  <div className="mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-gray-600">{service.description}</p>
+      <div className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {communityServices.map((service) => (
+              <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
+                <div className="inline-block p-4 bg-red-100 rounded-full mb-4">
+                  {service.icon}
                 </div>
-              ))}
-            </div>
-          </section>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-          {/* Contact Form */}
+      <div className="bg-gray-50 text-gray-800 py-16">
+        <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Join Our Community</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Join Our Community</h2>
+              {submitStatus === 'success' ? (
+                <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
+                  <p className="font-medium">Thank you for reaching out!</p>
+                  <p>We've received your message and will be in touch soon.</p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={5}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      placeholder="Tell us a bit about yourself and what you're looking for..."
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="interestAreas" className="block text-sm font-medium text-gray-700 mb-1">
-                    Areas of Interest
-                  </label>
-                  <select
-                    id="interestAreas"
-                    name="interestAreas"
-                    value={formData.interestAreas}
-                    onChange={handleChange}
-                    multiple
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  {isRecaptchaConfigured() && (
+                    <div className="flex justify-center">
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={recaptchaSiteKey}
+                        onChange={handleRecaptchaChange}
+                      />
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors disabled:opacity-50"
                   >
-                    {activityTypes.map((activity, index) => (
-                      <option key={index} value={activity}>
-                        {activity}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-1 text-sm text-gray-500">Hold Ctrl (Cmd on Mac) to select multiple options</p>
-                </div>
-
-                <div>
-                  <label htmlFor="languageLevel" className="block text-sm font-medium text-gray-700 mb-1">
-                    Spanish Language Level
-                  </label>
-                  <select
-                    id="languageLevel"
-                    name="languageLevel"
-                    value={formData.languageLevel}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  >
-                    <option value="">Select your level</option>
-                    <option value="none">No Spanish</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                    <option value="native">Native/Fluent</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="familyMembers" className="block text-sm font-medium text-gray-700 mb-1">
-                    Family Members in San Luis Potosí
-                  </label>
-                  <select
-                    id="familyMembers"
-                    name="familyMembers"
-                    value={formData.familyMembers}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  >
-                    <option value="">Select family size</option>
-                    <option value="single">Just me</option>
-                    <option value="couple">Couple</option>
-                    <option value="small-family">Small family (3-4 members)</option>
-                    <option value="large-family">Large family (5+ members)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="availability" className="block text-sm font-medium text-gray-700 mb-1">
-                    Availability for Activities
-                  </label>
-                  <select
-                    id="availability"
-                    name="availability"
-                    value={formData.availability}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                  >
-                    <option value="">Select availability</option>
-                    <option value="weekdays">Weekdays</option>
-                    <option value="weekends">Weekends</option>
-                    <option value="evenings">Evenings only</option>
-                    <option value="flexible">Flexible schedule</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="culturalInterests" className="block text-sm font-medium text-gray-700 mb-1">
-                    Cultural Interests
-                  </label>
-                  <textarea
-                    id="culturalInterests"
-                    name="culturalInterests"
-                    value={formData.culturalInterests}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                    placeholder="Tell us about your interests in Mexican culture, traditions, or specific activities you'd like to participate in..."
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="additionalInformation" className="block text-sm font-medium text-gray-700 mb-1">
-                    Additional Information
-                  </label>
-                  <textarea
-                    id="additionalInformation"
-                    name="additionalInformation"
-                    value={formData.additionalInformation}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                    placeholder="Any other information you'd like to share about your community integration needs..."
-                  />
-                </div>
-
-                <div className="flex justify-center">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                    onChange={handleRecaptchaChange}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !recaptchaValue}
-                  className="w-full bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Sending...' : 'Join Our Community'}
-                </button>
-
-                {submitStatus === 'success' && (
-                  <p className="text-green-600 text-center">Your request has been sent successfully!</p>
-                )}
-                {submitStatus === 'error' && (
-                  <p className="text-red-600 text-center">Failed to send request. Please try again.</p>
-                )}
-              </form>
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                  {submitStatus === 'error' && (
+                    <p className="text-center text-red-600 mt-4">
+                        Please complete the reCAPTCHA or try again later.
+                    </p>
+                  )}
+                </form>
+              )}
             </div>
           </section>
         </div>
       </div>
     </>
   );
-} 
+}

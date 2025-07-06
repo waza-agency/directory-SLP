@@ -16,14 +16,6 @@ import {
 interface ContactFormData {
   name: string;
   email: string;
-  phone: string;
-  moveInDate: string;
-  budget: string;
-  propertyType: string;
-  location: string;
-  furnishingPreference: string;
-  numberOfBedrooms: string;
-  additionalRequirements: string;
   message: string;
 }
 
@@ -60,27 +52,21 @@ const housingServices = [
   },
 ];
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({}) => {
   return {
     props: {
+      recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
-export default function HousingServices() {
+export default function HousingServices({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    phone: '',
-    moveInDate: '',
-    budget: '',
-    propertyType: '',
-    location: '',
-    furnishingPreference: '',
-    numberOfBedrooms: '',
-    additionalRequirements: '',
     message: '',
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
@@ -90,12 +76,20 @@ export default function HousingServices() {
     setRecaptchaValue(token);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!recaptchaValue) {
+    if (isRecaptchaConfigured() && !recaptchaValue) {
       setSubmitStatus('error');
       return;
     }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -109,38 +103,13 @@ export default function HousingServices() {
           ...formData,
           recaptchaToken: recaptchaValue,
           to: 'info@sanluisway.com',
-          subject: 'Housing Service Request',
-          message: `
-Housing Service Request Details:
-------------------------
-Move-in Date: ${formData.moveInDate}
-Budget: ${formData.budget}
-Property Type: ${formData.propertyType}
-Location: ${formData.location}
-Furnishing Preference: ${formData.furnishingPreference}
-Number of Bedrooms: ${formData.numberOfBedrooms}
-
-Additional Requirements:
-${formData.additionalRequirements || 'None provided'}
-          `.trim()
+          subject: 'Housing Services Inquiry',
         }),
       });
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          moveInDate: '',
-          budget: '',
-          propertyType: '',
-          location: '',
-          furnishingPreference: '',
-          numberOfBedrooms: '',
-          additionalRequirements: '',
-          message: '',
-        });
+        setFormData({ name: '', email: '', message: '' });
         recaptchaRef.current?.reset();
       } else {
         const errorData = await response.json();
@@ -154,76 +123,64 @@ ${formData.additionalRequirements || 'None provided'}
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
   return (
     <>
       <Head>
         <title>Housing Services | San Luis Way - Expert Housing Solutions</title>
-        <meta 
-          name="description" 
-          content="Find your perfect home in San Luis Potosí with our comprehensive housing services. Expert assistance with property search, rental agreements, and utilities setup." 
+        <meta
+          name="description"
+          content="Expert housing solutions in San Luis Potosí. We provide comprehensive support to find your ideal home, from apartments to houses."
         />
-        <meta 
-          name="keywords" 
-          content="housing services, San Luis Potosí, property search, rental agreements, utilities setup, expat housing" 
+        <meta
+          name="keywords"
+          content="housing services, rent apartment, rent house, real estate, relocation, expat housing, San Luis Potosí"
         />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        <div className="relative bg-gradient-to-r from-green-600 to-green-800 text-white">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/housing-services/hero.png"
-              alt="Housing Services in San Luis Potosí"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-          </div>
-          <div className="container mx-auto px-4 py-16 relative">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl font-bold mb-6">Housing Services</h1>
-              <p className="text-xl mb-8">
-                Find your perfect home in San Luis Potosí with our comprehensive housing services. 
-                We handle everything from property search to move-in support.
-              </p>
-            </div>
+      <div className="relative h-96 w-full">
+        <Image
+          src="/images/housing-services/hero.png"
+          alt="Housing in San Luis Potosí"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-green-800 bg-opacity-60 flex items-center justify-center">
+          <div className="text-center text-white px-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Housing Services</h1>
+            <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+              Find your perfect home in San Luis Potosí with our comprehensive housing services. We handle everything from property search to move-in support.
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 py-12">
-          {/* Services Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {housingServices.map((service, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
-                >
-                  <div className="mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-gray-600">{service.description}</p>
+      <div className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {housingServices.map((service) => (
+              <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
+                <div className="inline-block p-4 bg-green-100 rounded-full mb-4">
+                  {service.icon}
                 </div>
-              ))}
-            </div>
-          </section>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-          {/* Contact Form */}
+      <div className="bg-gray-50 text-gray-800 py-16">
+        <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Request Housing Services</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Contact Us for Housing Support</h2>
               {submitStatus === 'success' ? (
-                <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
+                <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
                   <p className="font-medium">Thank you for your inquiry!</p>
-                  <p>We've received your housing request and will contact you shortly.</p>
+                  <p>We've received your request and will contact you shortly.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -258,192 +215,41 @@ ${formData.additionalRequirements || 'None provided'}
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="moveInDate" className="block text-sm font-medium text-gray-700 mb-1">
-                      Desired Move-in Date
-                    </label>
-                    <input
-                      type="date"
-                      id="moveInDate"
-                      name="moveInDate"
-                      value={formData.moveInDate}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">
-                      Monthly Budget Range
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="">Select budget range</option>
-                      <option value="0-10000">$0 - $10,000 MXN</option>
-                      <option value="10000-15000">$10,000 - $15,000 MXN</option>
-                      <option value="15000-20000">$15,000 - $20,000 MXN</option>
-                      <option value="20000-30000">$20,000 - $30,000 MXN</option>
-                      <option value="30000+">$30,000+ MXN</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="propertyType" className="block text-sm font-medium text-gray-700 mb-1">
-                      Property Type
-                    </label>
-                    <select
-                      id="propertyType"
-                      name="propertyType"
-                      value={formData.propertyType}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="">Select property type</option>
-                      <option value="apartment">Apartment</option>
-                      <option value="house">House</option>
-                      <option value="condo">Condominium</option>
-                      <option value="studio">Studio</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
-                      Preferred Location
-                    </label>
-                    <select
-                      id="location"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="">Select preferred location</option>
-                      <option value="centro">Centro Histórico</option>
-                      <option value="lomas">Lomas</option>
-                      <option value="tangamanga">Tangamanga</option>
-                      <option value="industrial">Zona Industrial</option>
-                      <option value="other">Other Areas</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="furnishingPreference" className="block text-sm font-medium text-gray-700 mb-1">
-                      Furnishing Preference
-                    </label>
-                    <select
-                      id="furnishingPreference"
-                      name="furnishingPreference"
-                      value={formData.furnishingPreference}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="">Select furnishing preference</option>
-                      <option value="furnished">Fully Furnished</option>
-                      <option value="semi-furnished">Semi-Furnished</option>
-                      <option value="unfurnished">Unfurnished</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="numberOfBedrooms" className="block text-sm font-medium text-gray-700 mb-1">
-                      Number of Bedrooms
-                    </label>
-                    <select
-                      id="numberOfBedrooms"
-                      name="numberOfBedrooms"
-                      value={formData.numberOfBedrooms}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="">Select number of bedrooms</option>
-                      <option value="studio">Studio</option>
-                      <option value="1">1 Bedroom</option>
-                      <option value="2">2 Bedrooms</option>
-                      <option value="3">3 Bedrooms</option>
-                      <option value="4+">4+ Bedrooms</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="additionalRequirements" className="block text-sm font-medium text-gray-700 mb-1">
-                      Additional Requirements
-                    </label>
-                    <textarea
-                      id="additionalRequirements"
-                      name="additionalRequirements"
-                      value={formData.additionalRequirements}
-                      onChange={handleChange}
-                      rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Please specify any additional requirements (e.g., parking, pet-friendly, security features, etc.)"
-                    />
-                  </div>
-
-                  <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Additional Information
+                      Message
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      rows={4}
+                      required
+                      rows={5}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Any other details about your housing needs..."
+                      placeholder="Tell us about your housing needs..."
                     />
                   </div>
 
-                  <div className="mb-6">
-                    {isRecaptchaConfigured() ? (
+                  {isRecaptchaConfigured() && (
+                    <div className="flex justify-center">
                       <ReCAPTCHA
                         ref={recaptchaRef}
-                        sitekey={getRecaptchaSiteKey()}
+                        sitekey={recaptchaSiteKey}
                         onChange={handleRecaptchaChange}
                       />
-                    ) : (
-                      <div className="bg-yellow-100 text-yellow-700 p-4 rounded mb-6">
-                        ReCAPTCHA verification is not currently available. Please try again later or contact us directly.
-                      </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   <button
                     type="submit"
-                    className="w-full py-3 px-6 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
-                    disabled={isSubmitting || !recaptchaValue}
+                    disabled={isSubmitting}
+                    className="w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Request'}
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
 
                   {submitStatus === 'error' && (
-                    <div className="bg-red-100 text-red-700 p-4 rounded mb-6">
-                      <p>There was an error submitting your request. Please try again.</p>
-                    </div>
+                   <p className="text-red-600 text-center">Sorry, there was an error sending your message. Please complete the reCAPTCHA and try again.</p>
                   )}
                 </form>
               )}
@@ -453,4 +259,4 @@ ${formData.additionalRequirements || 'None provided'}
       </div>
     </>
   );
-} 
+}

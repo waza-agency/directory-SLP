@@ -6,109 +6,89 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { getRecaptchaSiteKey, isRecaptchaConfigured } from '../../utils/recaptcha';
 import {
   HeartIcon,
-  AcademicCapIcon,
   SparklesIcon,
   SunIcon,
-  MoonIcon,
-  FireIcon,
+  BeakerIcon,
+  ChatBubbleBottomCenterTextIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 
 interface ContactFormData {
   name: string;
   email: string;
-  phone: string;
-  serviceType: string[];
-  healthGoals: string;
-  currentPractices: string;
-  preferredSchedule: string;
-  location: string;
-  specialRequirements: string;
-  additionalInformation: string;
+  message: string;
 }
 
 const wellnessServices = [
   {
-    title: 'Mental Wellness',
-    icon: <AcademicCapIcon className="w-8 h-8 text-purple-500" />,
-    description: 'Professional counseling and mental health support services',
+    title: 'Mental Health Support',
+    icon: <HeartIcon className="w-8 h-8 text-rose-500" />,
+    description: 'Access to therapists and counselors'
   },
   {
-    title: 'Physical Wellness',
-    icon: <HeartIcon className="w-8 h-8 text-red-500" />,
-    description: 'Fitness programs and physical health guidance',
-  },
-  {
-    title: 'Spiritual Wellness',
-    icon: <SparklesIcon className="w-8 h-8 text-yellow-500" />,
-    description: 'Meditation and spiritual growth programs',
+    title: 'Fitness & Recreation',
+    icon: <SparklesIcon className="w-8 h-8 text-rose-500" />,
+    description: 'Find gyms, personal trainers, and sports clubs'
   },
   {
     title: 'Holistic Health',
-    icon: <SunIcon className="w-8 h-8 text-orange-500" />,
-    description: 'Alternative medicine and holistic healing practices',
+    icon: <SunIcon className="w-8 h-8 text-rose-500" />,
+    description: 'Yoga, meditation, acupuncture, and more'
   },
   {
-    title: 'Sleep Wellness',
-    icon: <MoonIcon className="w-8 h-8 text-indigo-500" />,
-    description: 'Sleep improvement and relaxation techniques',
+    title: 'Nutritional Guidance',
+    icon: <BeakerIcon className="w-8 h-8 text-rose-500" />,
+    description: 'Connect with nutritionists and dietitians'
   },
   {
-    title: 'Energy Management',
-    icon: <FireIcon className="w-8 h-8 text-amber-500" />,
-    description: 'Energy optimization and stress management',
+    title: 'Support Networks',
+    icon: <UserGroupIcon className="w-8 h-8 text-rose-500" />,
+    description: 'Join wellness groups and communities'
   },
+  {
+    title: 'Health Coaching',
+    icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-rose-500" />,
+    description: 'Personalized coaching to achieve your health goals'
+  }
 ];
 
-const serviceTypes = [
-  'Mental Health Counseling',
-  'Fitness Training',
-  'Meditation Classes',
-  'Holistic Healing',
-  'Sleep Therapy',
-  'Stress Management',
-  'Nutritional Guidance',
-  'Yoga Classes',
-  'Massage Therapy',
-  'Energy Healing',
-  'Life Coaching',
-  'Wellness Workshops',
-];
-
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({}) => {
   return {
     props: {
+      recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
-export default function WellnessServices() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    phone: '',
-    serviceType: [],
-    healthGoals: '',
-    currentPractices: '',
-    preferredSchedule: '',
-    location: '',
-    specialRequirements: '',
-    additionalInformation: '',
+    message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!recaptchaValue) {
+    if (isRecaptchaConfigured() && !recaptchaValue) {
       setSubmitStatus('error');
       return;
     }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -122,135 +102,77 @@ export default function WellnessServices() {
           ...formData,
           recaptchaToken: recaptchaValue,
           to: 'info@sanluisway.com',
-          subject: 'Wellness Services Request',
-          message: `
-Wellness Service Request Details:
-------------------------
-Service Types: ${formData.serviceType.join(', ')}
-Location: ${formData.location}
-Preferred Schedule: ${formData.preferredSchedule}
-
-Health Goals:
-${formData.healthGoals}
-
-Current Practices:
-${formData.currentPractices}
-
-Special Requirements:
-${formData.specialRequirements || 'None specified'}
-
-Additional Information:
-${formData.additionalInformation || 'None provided'}
-          `.trim()
+          subject: 'Wellness Service Inquiry',
         }),
       });
 
       if (response.ok) {
         setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          serviceType: [],
-          healthGoals: '',
-          currentPractices: '',
-          preferredSchedule: '',
-          location: '',
-          specialRequirements: '',
-          additionalInformation: ''
-        });
+        setFormData({ name: '', email: '', message: '' });
         recaptchaRef.current?.reset();
       } else {
-        throw new Error('Failed to send message');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send message');
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmitStatus('error');
-      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    
-    if (type === 'select-multiple') {
-      const select = e.target as HTMLSelectElement;
-      const selectedOptions = Array.from(select.selectedOptions).map(option => option.value);
-      setFormData(prev => ({
-        ...prev,
-        [name]: selectedOptions
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
     }
   };
 
   return (
     <>
       <Head>
-        <title>Wellness Services in San Luis Potosí | San Luis Way</title>
-        <meta 
-          name="description" 
-          content="Professional wellness services in San Luis Potosí. From mental health to physical fitness, find the perfect wellness program for your needs." 
-        />
-        <meta 
-          name="keywords" 
-          content="wellness services, San Luis Potosí, mental health, fitness, meditation, holistic health, wellness programs" 
-        />
+        <title>Health & Wellness Services | San Luis Way</title>
+        <meta name="description" content="Holistic wellness services for expats in San Luis Potosí, including mental health, fitness, and nutritional support." />
+        <meta name="keywords" content="health and wellness, mental health, fitness, nutrition, holistic health, san luis potosi" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        <div className="relative bg-gradient-to-r from-purple-600 to-purple-800 text-white">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/wellness-services/hero.jpg"
-              alt="Wellness Services in San Luis Potosí"
-              fill
-              className="object-cover opacity-20"
-              priority
-            />
-          </div>
-          <div className="container mx-auto px-4 py-16 relative">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl font-bold mb-6">Wellness Services in San Luis Potosí</h1>
-              <p className="text-xl mb-8">
-                Discover comprehensive wellness services designed to enhance your physical, mental, and spiritual well-being in San Luis Potosí.
-              </p>
-            </div>
+      <div className="relative h-96 w-full">
+        <Image
+          src="/images/practical-categories/english-speaking-healthcare.jpg"
+          alt="A person meditating in a peaceful setting"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-teal-800 bg-opacity-60 flex items-center justify-center">
+          <div className="text-center text-white px-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Health & Wellness</h1>
+            <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+              Your guide to health and wellness in San Luis Potosí. Access quality healthcare, fitness centers, and mental health support.
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 py-12">
-          {/* Services Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Wellness Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {wellnessServices.map((service, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl"
-                >
-                  <div className="mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-gray-600">{service.description}</p>
+      <div className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {wellnessServices.map((service) => (
+              <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
+                <div className="inline-block p-4 bg-rose-100 rounded-full mb-4">
+                  {service.icon}
                 </div>
-              ))}
-            </div>
-          </section>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-          {/* Contact Form */}
+      <div className="bg-gray-50 text-gray-800 py-16">
+        <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Request Wellness Services</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Contact Us for Wellness Support</h2>
               {submitStatus === 'success' ? (
-                <div className="bg-green-100 text-green-700 p-4 rounded mb-6">
-                  <p className="font-medium">Thank you for your wellness inquiry!</p>
+                <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
+                  <p className="font-medium">Thank you for your inquiry!</p>
                   <p>We've received your request and will contact you shortly.</p>
                 </div>
               ) : (
@@ -266,7 +188,7 @@ ${formData.additionalInformation || 'None provided'}
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                     />
                   </div>
 
@@ -281,170 +203,47 @@ ${formData.additionalInformation || 'None provided'}
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="serviceType" className="block text-sm font-medium text-gray-700 mb-1">
-                      Services Interested In
-                    </label>
-                    <select
-                      id="serviceType"
-                      name="serviceType"
-                      value={formData.serviceType}
-                      onChange={handleChange}
-                      multiple
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    >
-                      {serviceTypes.map((service, index) => (
-                        <option key={index} value={service.toLowerCase().replace(/\s+/g, '-')}>
-                          {service}
-                        </option>
-                      ))}
-                    </select>
-                    <p className="mt-1 text-sm text-gray-500">Hold Ctrl (Cmd on Mac) to select multiple options</p>
-                  </div>
-
-                  <div>
-                    <label htmlFor="healthGoals" className="block text-sm font-medium text-gray-700 mb-1">
-                      Health Goals
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                      Message
                     </label>
                     <textarea
-                      id="healthGoals"
-                      name="healthGoals"
-                      value={formData.healthGoals}
-                      onChange={handleChange}
-                      rows={3}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="What are your main health and wellness goals?"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="currentPractices" className="block text-sm font-medium text-gray-700 mb-1">
-                      Current Wellness Practices
-                    </label>
-                    <textarea
-                      id="currentPractices"
-                      name="currentPractices"
-                      value={formData.currentPractices}
-                      onChange={handleChange}
-                      rows={3}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="What wellness practices do you currently engage in?"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="preferredSchedule" className="block text-sm font-medium text-gray-700 mb-1">
-                      Preferred Schedule
-                    </label>
-                    <select
-                      id="preferredSchedule"
-                      name="preferredSchedule"
-                      value={formData.preferredSchedule}
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    >
-                      <option value="">Select preferred schedule</option>
-                      <option value="morning">Morning (6am-12pm)</option>
-                      <option value="afternoon">Afternoon (12pm-5pm)</option>
-                      <option value="evening">Evening (5pm-10pm)</option>
-                      <option value="weekend">Weekend Only</option>
-                      <option value="flexible">Flexible</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
-                      Preferred Location
-                    </label>
-                    <input
-                      type="text"
-                      id="location"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="Preferred area in San Luis Potosí"
+                      rows={5}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+                      placeholder="Tell us about your wellness goals..."
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="specialRequirements" className="block text-sm font-medium text-gray-700 mb-1">
-                      Special Requirements
-                    </label>
-                    <textarea
-                      id="specialRequirements"
-                      name="specialRequirements"
-                      value={formData.specialRequirements}
-                      onChange={handleChange}
-                      rows={3}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="Any special requirements or accommodations needed?"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="additionalInformation" className="block text-sm font-medium text-gray-700 mb-1">
-                      Additional Information
-                    </label>
-                    <textarea
-                      id="additionalInformation"
-                      name="additionalInformation"
-                      value={formData.additionalInformation}
-                      onChange={handleChange}
-                      rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                      placeholder="Any other information you'd like to share..."
-                    />
-                  </div>
-
-                  <div className="flex justify-center">
-                    {isRecaptchaConfigured() ? (
+                  {isRecaptchaConfigured() && (
+                    <div className="flex justify-center">
                       <ReCAPTCHA
                         ref={recaptchaRef}
-                        sitekey={getRecaptchaSiteKey()}
+                        sitekey={recaptchaSiteKey}
                         onChange={handleRecaptchaChange}
                       />
-                    ) : (
-                      <div className="bg-yellow-100 text-yellow-700 p-4 rounded mb-6">
-                        ReCAPTCHA verification is not currently available. Please try again later or contact us directly.
-                      </div>
-                    )}
-                  </div>
-                  
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    disabled={isSubmitting || !recaptchaValue}
-                    className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isSubmitting}
+                    className="w-full bg-rose-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-rose-700 transition-colors disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Sending...' : 'Submit Request'}
+                    {isSubmitting ? 'Sending...' : 'Send Inquiry'}
                   </button>
-                  
                   {submitStatus === 'error' && (
-                    <div className="bg-red-100 text-red-700 p-4 rounded mb-6">
-                      <p>There was an error submitting your request. Please try again.</p>
-                    </div>
+                    <p className="text-center text-red-600 mt-4">
+                        Please complete the reCAPTCHA or try again later.
+                    </p>
                   )}
                 </form>
               )}
@@ -454,4 +253,4 @@ ${formData.additionalInformation || 'None provided'}
       </div>
     </>
   );
-} 
+}
