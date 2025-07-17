@@ -11,6 +11,10 @@ import { CalendarIcon, MegaphoneIcon, StarIcon, NewspaperIcon } from '@heroicons
 import { getImageUrl } from '@/utils/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import HeroBanner from '@/components/HeroBanner';
+import HeroCarousel from '@/components/HeroCarousel';
+import EventsCarousel from '@/components/EventsCarousel';
+import ImageCarousel from '@/components/ImageCarousel';
+import AnimatedSection from '@/components/AnimatedSection';
 import { Brand, getRandomPotosinoBrands, getSponsoredBrands } from '@/lib/brands';
 import { BlogPost, getBlogPostsBySlugs } from '@/lib/blog';
 import { Event } from '@/types';
@@ -229,6 +233,114 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 
+  // Hero carousel slides
+  const heroSlides = [
+    {
+      id: 'discover',
+      title: 'Discover San Luis Potosí',
+      subtitle: 'Your complete guide to living, working, and exploring this beautiful Mexican city',
+      description: 'From local insider tips to practical expat advice',
+      image: '/images/hero-bg.jpg',
+      ctaText: 'Start Exploring',
+      ctaLink: '#explore',
+      accent: 'Your Guide to San Luis Potosí'
+    },
+    {
+      id: 'events',
+      title: 'Upcoming Events',
+      subtitle: 'Discover the vibrant cultural scene of San Luis Potosí',
+      description: 'From art exhibitions to traditional festivals, never miss what\'s happening in the city',
+      image: '/images/events/festival.jpg',
+      ctaText: 'View All Events',
+      ctaLink: '/events',
+      accent: 'What\'s Happening'
+    },
+    {
+      id: 'places',
+      title: 'Hidden Gems',
+      subtitle: 'Find the best restaurants, cafes, and local spots',
+      description: 'Curated recommendations from locals who know the city best',
+      image: '/images/pedestrian-street.jpg',
+      ctaText: 'Explore Places',
+      ctaLink: '/places',
+      accent: 'Local Favorites'
+    },
+    {
+      id: 'culture',
+      title: 'Rich Culture',
+      subtitle: 'Immerse yourself in San Luis Potosí\'s traditions and heritage',
+      description: 'Learn about local customs, history, and the people that make this city special',
+      image: '/images/cultural/san-luis-potosi-cathedral.jpg',
+      ctaText: 'Learn More',
+      ctaLink: '/cultural',
+      accent: 'Cultural Heritage'
+    }
+  ];
+
+  // Outdoor activities for carousel
+  const outdoorActivities = [
+    {
+      id: 'hiking',
+      title: 'Hiking Trails',
+      description: 'Explore scenic mountain trails and natural landscapes around San Luis Potosí',
+      image: '/images/outdoors/hiking.jpg',
+      link: '/outdoors#hiking',
+      linkText: 'Find Trails',
+      badge: 'Adventure',
+      badgeColor: 'bg-green-500'
+    },
+    {
+      id: 'camping',
+      title: 'Camping Sites',
+      description: 'Discover beautiful camping spots in the Sierra Madre Oriental',
+      image: '/images/outdoors/camping.jpg',
+      link: '/outdoors#camping',
+      linkText: 'View Sites',
+      badge: 'Nature',
+      badgeColor: 'bg-blue-500'
+    },
+    {
+      id: 'real-catorce',
+      title: 'Real de Catorce',
+      description: 'Visit this historic ghost town and UNESCO World Heritage site',
+      image: '/images/outdoors/real-de-catorce-main.jpg',
+      link: '/outdoors#real-catorce',
+      linkText: 'Plan Visit',
+      badge: 'Historic',
+      badgeColor: 'bg-purple-500'
+    },
+    {
+      id: 'media-luna',
+      title: 'Media Luna',
+      description: 'Crystal clear waters perfect for swimming and snorkeling',
+      image: '/images/outdoors/media-luna.jpg',
+      link: '/outdoors#media-luna',
+      linkText: 'Learn More',
+      badge: 'Swimming',
+      badgeColor: 'bg-cyan-500'
+    },
+    {
+      id: 'huasteca',
+      title: 'Huasteca Potosina',
+      description: 'Tropical paradise with waterfalls and jungle adventures',
+      image: '/images/outdoors/huasteca-waterfall.jpg',
+      link: '/outdoors#huasteca',
+      linkText: 'Explore',
+      badge: 'Waterfalls',
+      badgeColor: 'bg-teal-500'
+    },
+    {
+      id: 'xilitla',
+      title: 'Xilitla',
+      description: 'Surreal gardens and architectural wonders in the cloud forest',
+      image: '/images/outdoors/xilitla.webp',
+      link: '/outdoors#xilitla',
+      linkText: 'Discover',
+      badge: 'Surreal',
+      badgeColor: 'bg-pink-500'
+    }
+  ];
+
   // Agregar efecto para mantener la posición de desplazamiento cuando se refresca la página
   useEffect(() => {
     // Función para guardar la posición del scroll
@@ -316,7 +428,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
-        <HeroBanner />
+        <HeroCarousel slides={heroSlides} />
 
         {/* Ad after hero section */}
         <section className="py-6">
@@ -328,39 +440,47 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* City Recognition Announcement */}
-        <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-8 border-y border-primary/20">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
-              <div className="flex items-center gap-4">
-                <div className="bg-primary/20 rounded-full p-3 animate-float">
-                  <MegaphoneIcon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold mb-1 animate-slide-in animate-retro-strobe">
-                    San Luis Potosí: Mexico's 2nd Best City to Live In!
-                  </h2>
-                  <p className="text-gray-600 animate-slide-in [animation-delay:200ms]">
-                    According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico!
-                  </p>
-                </div>
-              </div>
-              <Link
-                href="/about#rankings"
-                className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full font-medium transition-all duration-300 group animate-slide-in [animation-delay:400ms]"
-              >
-                Learn More
-                <svg
-                  className="w-4 h-4 transform transition-transform group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
+        <AnimatedSection animationType="fadeInUp" delay={200}>
+          <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-8 border-y border-primary/20 relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-4 left-4 w-16 h-16 border-2 border-primary/20 rounded-full animate-spinSlow"></div>
+              <div className="absolute bottom-4 right-4 w-12 h-12 border border-secondary/20 rounded-full animate-float"></div>
             </div>
-          </div>
-        </section>
+            
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
+                <div className="flex items-center gap-4">
+                  <div className="bg-primary/20 rounded-full p-3 animate-float">
+                    <MegaphoneIcon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold mb-1 animate-fadeInLeft delay-300">
+                      San Luis Potosí: Mexico's 2nd Best City to Live In!
+                    </h2>
+                    <p className="text-gray-600 animate-fadeInLeft delay-500">
+                      According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico!
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/about#rankings"
+                  className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full font-medium transition-all duration-300 group animate-fadeInRight delay-700 hover:scale-105"
+                >
+                  Learn More
+                  <svg
+                    className="w-4 h-4 transform transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </section>
+        </AnimatedSection>
 
         {/* Featured Advertisers Banner */}
         <section className="bg-background-alt py-8 relative slp-corner-accent overflow-hidden">
@@ -607,26 +727,34 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Expat Services Section */}
-        <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
-          <div className="container mx-auto">
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <span className="text-primary text-sm font-medium uppercase tracking-wider">
-                Comprehensive Support
-              </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
-                Expat Services for Every Need
-              </h2>
-              <p className="text-xl text-gray-600">
-                From housing to healthcare, we connect you with trusted professionals for all your expat needs
-              </p>
-              <div className="mt-8 bg-white p-6 rounded-xl border border-primary/20 max-w-2xl mx-auto shadow-lg">
-                <p className="text-lg text-gray-800 italic">
-                  We connect you with trusted local professionals and service providers, serving as your personal intermediary to navigate bureaucracy and language barriers.
-                </p>
-              </div>
+        <AnimatedSection animationType="fadeInUp" delay={500}>
+          <section className="py-24 px-4 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-24 left-24 w-24 h-24 border-2 border-primary/8 rounded-full animate-float"></div>
+              <div className="absolute bottom-24 right-24 w-32 h-32 border border-secondary/8 rounded-full animate-spinSlow"></div>
+              <div className="absolute top-2/3 left-1/3 w-18 h-18 border border-primary/5 rounded-full animate-pulse"></div>
             </div>
+            
+            <div className="container mx-auto relative z-10">
+              <div className="max-w-3xl mx-auto text-center mb-16">
+                <span className="text-primary text-sm font-medium uppercase tracking-wider animate-fadeInUp">
+                  Comprehensive Support
+                </span>
+                <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight animate-fadeInUp delay-200">
+                  Expat Services for Every Need
+                </h2>
+                <p className="text-xl text-gray-600 animate-fadeInUp delay-300">
+                  From housing to healthcare, we connect you with trusted professionals for all your expat needs
+                </p>
+                <div className="mt-8 bg-white p-6 rounded-xl border border-primary/20 max-w-2xl mx-auto shadow-lg animate-fadeInUp delay-400">
+                  <p className="text-lg text-gray-800 italic">
+                    We connect you with trusted local professionals and service providers, serving as your personal intermediary to navigate bureaucracy and language barriers.
+                  </p>
+                </div>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 staggered-animation">
               <div className="bg-white rounded-xl p-6 shadow-elegant hover-lift group">
                 <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -756,138 +884,64 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
               </div>
             </div>
 
-            <div className="mt-12 text-center">
-              <Link
-                href="/contact"
-                className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
-              >
-                Need Personal Assistance?
-              </Link>
-              <p className="text-sm text-gray-500 mt-4 max-w-xl mx-auto">
-                Some services may charge fees. We'll always inform you beforehand.
-              </p>
+              <div className="mt-12 text-center animate-fadeInUp delay-1000">
+                <Link
+                  href="/contact"
+                  className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors hover:scale-105 duration-300"
+                >
+                  Need Personal Assistance?
+                </Link>
+                <p className="text-sm text-gray-500 mt-4 max-w-xl mx-auto">
+                  Some services may charge fees. We'll always inform you beforehand.
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
 
         {/* Outdoors Section */}
-        <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Outdoor Adventures</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Discover San Luis Potosí's natural wonders and outdoor activities
-              </p>
+        <AnimatedSection animationType="fadeInUp" delay={400}>
+          <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-16 right-16 w-28 h-28 border-2 border-green-500/10 rounded-full animate-float"></div>
+              <div className="absolute bottom-16 left-16 w-32 h-32 border border-blue-500/10 rounded-full animate-spinSlow"></div>
+              <div className="absolute top-1/3 left-1/3 w-20 h-20 border border-teal-500/5 rounded-full animate-pulse"></div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* Hiking Card */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src="/images/outdoors/hiking.jpg"
-                    alt="Hiking trails in San Luis Potosí"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                    priority={false}
-                    quality={85}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Hiking Trails</h3>
-                  <p className="text-gray-600 mb-4">
-                    Explore scenic trails in the Sierra de Álvarez and Huasteca Potosina
-                  </p>
-                  <Link href="/outdoors#hiking" className="text-secondary hover:text-secondary-light font-medium">
-                    Learn more →
-                  </Link>
-                </div>
+            
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4 animate-fadeInUp">
+                  Outdoor Adventures
+                </h2>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-fadeInUp delay-200">
+                  Discover San Luis Potosí's natural wonders and outdoor activities
+                </p>
               </div>
 
-              {/* Running Card */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src="/images/outdoors/running.webp"
-                    alt="Running groups in San Luis Potosí"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                    priority={false}
-                    quality={85}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Running Groups</h3>
-                  <p className="text-gray-600 mb-4">
-                    Join local running communities and discover the best routes
-                  </p>
-                  <Link href="/outdoors#running" className="text-secondary hover:text-secondary-light font-medium">
-                    Learn more →
-                  </Link>
-                </div>
+              <div className="animate-fadeInUp delay-400">
+                <ImageCarousel 
+                  items={outdoorActivities} 
+                  itemsPerView={4}
+                  height="h-64"
+                  interval={6000}
+                />
               </div>
 
-              {/* Camping Card */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src="/images/outdoors/camping.jpg"
-                    alt="Camping spots in San Luis Potosí"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                    priority={false}
-                    quality={85}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Camping Spots</h3>
-                  <p className="text-gray-600 mb-4">
-                    Find the perfect camping locations in natural areas
-                  </p>
-                  <Link href="/outdoors#camping" className="text-secondary hover:text-secondary-light font-medium">
-                    Learn more →
-                  </Link>
-                </div>
-              </div>
-
-              {/* Adventures Card */}
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src="/images/outdoors/adventures.jpg"
-                    alt="Outdoor adventures in San Luis Potosí"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                    priority={false}
-                    quality={85}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">More Adventures</h3>
-                  <p className="text-gray-600 mb-4">
-                    Discover rock climbing, cycling, and other outdoor activities
-                  </p>
-                  <Link href="/outdoors#adventures" className="text-secondary hover:text-secondary-light font-medium">
-                    Learn more →
-                  </Link>
-                </div>
+              <div className="text-center mt-12 animate-fadeInUp delay-600">
+                <Link
+                  href="/outdoors"
+                  className="inline-flex items-center gap-3 bg-secondary hover:bg-secondary-light text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                >
+                  Explore All Outdoor Activities
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
-
-            <div className="text-center mt-12">
-              <Link
-                href="/outdoors"
-                className="inline-block bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary-light transition-colors"
-              >
-                Explore All Outdoor Activities
-              </Link>
-            </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
 
         {/* Parque Tangamanga Banner */}
         <TangamangaBanner />
@@ -1022,7 +1076,7 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">Sponsored Content</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Potosino Brands</h2>
               <Link href="/sponsor" className="text-primary hover:text-primary-dark">
                 Become a Sponsor →
               </Link>
@@ -1225,60 +1279,47 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </section>
 
         {/* Upcoming Events Section */}
-        <section className="py-20 px-4 bg-white">
-          <div className="container mx-auto">
-            <div className="text-center mb-12">
-              <span className="text-primary text-sm font-medium uppercase tracking-wider">
-                MARK YOUR CALENDAR
-              </span>
-              <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4">
-                Upcoming Events
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Don't miss out on these exciting events happening in San Luis Potosí.
-              </p>
+        <AnimatedSection animationType="fadeInUp" delay={300} id="explore">
+          <section className="py-20 px-4 bg-white relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-20 left-20 w-20 h-20 border-2 border-primary/10 rounded-full animate-float"></div>
+              <div className="absolute bottom-20 right-20 w-24 h-24 border border-secondary/10 rounded-full animate-spinSlow"></div>
+              <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-primary/5 rounded-full animate-pulse"></div>
             </div>
+            
+            <div className="container mx-auto relative z-10">
+              <div className="text-center mb-12">
+                <span className="text-primary text-sm font-medium uppercase tracking-wider animate-fadeInUp">
+                  MARK YOUR CALENDAR
+                </span>
+                <h2 className="font-serif text-3xl font-bold text-gray-900 mt-2 mb-4 animate-fadeInUp delay-200">
+                  Upcoming Events
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto animate-fadeInUp delay-300">
+                  Don't miss out on these exciting events happening in San Luis Potosí.
+                </p>
+              </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {events.map((event) => (
-                <div
-                  key={event.id}
-                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
+              <div className="animate-fadeInUp delay-500">
+                <EventsCarousel events={events} />
+              </div>
+
+              {/* View All Events Button */}
+              <div className="text-center mt-12 animate-fadeInUp delay-700">
+                <Link
+                  href="/events"
+                  className="inline-flex items-center gap-3 bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
-                  <div className="relative h-48">
-                    <Image
-                      src={event.image_url || '/images/events/default.jpg'}
-                      alt={event.title}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <span className={`inline-block px-2 py-1 rounded-full text-xs text-white bg-${eventCategories.find(cat => cat.id === event.category)?.color || 'primary'} mb-2`}>
-                        {eventCategories.find(cat => cat.id === event.category)?.title || event.category}
-                      </span>
-                      <h3 className="text-white font-medium text-lg leading-tight">{event.title}</h3>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <CalendarIcon className="w-4 h-4 mr-2" />
-                        <span>{formatDate(event.start_date)}</span>
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        <span>{event.location}</span>
-                      </div>
-                    </div>
-                    <Link href={`/events/${event.id}`} className="text-primary font-medium text-sm hover:underline">
-                      Learn more →
-                    </Link>
-                  </div>
-                </div>
-              ))}
+                  View All Events
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
 
         {/*
         ============================================================
