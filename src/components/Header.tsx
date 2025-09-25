@@ -82,14 +82,14 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50">
-      {/* San Luis color accent line */}
-      <div className="bg-gradient-to-r from-primary to-secondary h-1"></div>
+    <header className="sticky top-0 z-50 backdrop-blur-sm">
+      {/* San Luis color accent line with subtle animation */}
+      <div className="bg-gradient-to-r from-primary to-secondary h-1 animate-pulse-slow"></div>
 
       {/* Main Navigation Bar */}
-      <div className="bg-background shadow-sm">
-        <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
-          <Link href="/" className="flex items-center">
+      <div className="bg-background/95 backdrop-blur-md shadow-elegant border-b border-gray-100/50">
+        <div className="container-responsive flex justify-between items-center py-5">
+          <Link href="/" className="flex items-center hover-scale transition-transform duration-200">
             <Image
               src="/images/logo.jpeg"
               alt="SLP Descubre Logo"
@@ -100,45 +100,45 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-10">
             <Link
               href="/"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
               Home
             </Link>
 
             <Link
               href="/places"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
               Explore
             </Link>
 
             <Link
               href="/blog"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
               Blog
             </Link>
 
             <Link
               href="/about"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
               About
             </Link>
 
             <Link
               href="/faq"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
               FAQ
             </Link>
 
             <Link
               href="/contact"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
               Contact
             </Link>
@@ -150,9 +150,9 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="text-gray-700 hover:text-primary transition-colors flex items-center"
+                  className="text-gray-700 hover:text-primary transition-all duration-200 flex items-center hover:scale-105 focus-ring"
                 >
-                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium mr-2">
+                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark text-white rounded-full flex items-center justify-center text-base font-semibold mr-3 shadow-md hover:shadow-lg transition-all duration-200">
                     {user.email ? user.email.charAt(0).toUpperCase() : 'U'}
                   </div>
                   <span className="text-sm hidden lg:inline">
@@ -169,7 +169,7 @@ export default function Header() {
                 </button>
 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10">
+                  <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-xl shadow-strong py-2 z-10 animate-scaleIn">
                     <Link
                       href="/account"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
@@ -192,16 +192,16 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-4">
                 <Link
                   href="/signin"
-                  className="text-gray-700 hover:text-primary text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-primary text-base font-medium transition-all duration-200 hover:scale-105 focus-ring py-2 px-3 rounded-lg"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/signup"
-                  className="bg-primary hover:bg-primary-dark text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+                  className="btn-primary btn-sm"
                 >
                   Sign Up
                 </Link>
@@ -212,7 +212,7 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                className="text-gray-700 hover:text-gray-900 transition-colors px-3 py-1 text-sm border border-gray-200 rounded-md hover:border-gray-300 flex items-center"
+                className="text-gray-700 hover:text-primary transition-all duration-200 px-4 py-2.5 text-base border border-gray-200 rounded-xl hover:border-primary/30 hover:bg-primary/5 flex items-center hover:scale-105 focus-ring"
               >
                 {languages[router.locale as keyof typeof languages] || 'English'}
                 <svg
@@ -226,7 +226,7 @@ export default function Header() {
               </button>
 
               {isLanguageMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10">
+                <div className="absolute right-0 mt-3 w-44 bg-white border border-gray-200 rounded-xl shadow-strong py-2 z-10 animate-scaleIn">
                   {Object.entries(languages).map(([code, name]) => (
                     <button
                       key={code}
@@ -246,7 +246,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-500 hover:text-gray-700"
+            className="lg:hidden text-gray-500 hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-gray-100 focus-ring"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -261,26 +261,28 @@ export default function Header() {
       </div>
 
       {/* Categories Navigation Bar */}
-      <div className="bg-background-alt border-b border-gray-100 hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-12">
+      <div className="bg-background-alt/90 backdrop-blur-sm border-b border-gray-100 hidden lg:block">
+        <div className="container-responsive">
+          <div className="flex items-center justify-between h-14">
             {/* Categories */}
-            <div className="flex space-x-8">
-              <Link href="/cultural" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+            <div className="flex space-x-10">
+              <Link href="/cultural" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
                 CULTURAL
-                <span className="ml-1 px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">NEW</span>
+                <span className="ml-2 px-2.5 py-0.5 text-xs font-bold bg-primary/15 text-primary rounded-full animate-pulse-slow">NEW</span>
               </Link>
-              <Link href="/places" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+              <Link href="/places" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
                 PLACES
               </Link>
+              {/* TEMPORARILY HIDDEN - LISTINGS
               <Link href="/listings" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
                 LISTINGS
               </Link>
+              */}
               {/* MARKETPLACE DISABLED - Shop link removed */}
-              <Link href="/events" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+              <Link href="/events" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
                 EVENTS
               </Link>
-              <Link href="/services" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
+              <Link href="/services" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
                 SERVICES
               </Link>
               {/* <Link href="/community" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
@@ -289,18 +291,18 @@ export default function Header() {
             </div>
 
             {/* Search Bar */}
-            <div className="relative w-64">
+            <div className="relative w-72">
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
-                  placeholder="Search..."
-                  className="w-full pl-8 pr-4 py-1 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent"
+                  placeholder="Search places, events..."
+                  className="w-full pl-10 pr-4 py-3 text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200 hover:border-gray-300 bg-white/80 backdrop-blur-sm"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setShowResults(true)}
                 />
-                <div className="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none">
-                  <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
@@ -308,7 +310,7 @@ export default function Header() {
 
               {/* Search Results Dropdown */}
               {showResults && (searchQuery.length >= 2) && (
-                <div className="absolute right-0 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div className="absolute right-0 mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-strong z-50 animate-scaleIn backdrop-blur-sm">
                   {loading ? (
                     <div className="p-4 text-center">
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary mx-auto"></div>
@@ -339,11 +341,11 @@ export default function Header() {
 
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white py-4 px-6 mt-2 rounded-md shadow-md animate-fadeIn">
-          <div className="flex flex-col space-y-3">
+        <div className="lg:hidden bg-white/95 backdrop-blur-md py-6 px-6 mx-4 mt-2 rounded-xl shadow-strong border border-gray-100 animate-fadeInUp">
+          <div className="flex flex-col space-y-4">
             <Link
               href="/"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
@@ -351,7 +353,7 @@ export default function Header() {
 
             <Link
               href="/places"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
               Explore
@@ -359,7 +361,7 @@ export default function Header() {
 
             <Link
               href="/blog"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
@@ -367,7 +369,7 @@ export default function Header() {
 
             <Link
               href="/about"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
               About
@@ -375,7 +377,7 @@ export default function Header() {
 
             <Link
               href="/faq"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
               FAQ
@@ -383,7 +385,7 @@ export default function Header() {
 
             <Link
               href="/contact"
-              className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+              className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
@@ -449,9 +451,11 @@ export default function Header() {
                 <Link href="/places" className="block text-sm text-gray-700 hover:text-primary">
                   Places
                 </Link>
+                {/* TEMPORARILY HIDDEN - LISTINGS
                 <Link href="/listings" className="block text-sm text-gray-700 hover:text-primary">
                   Listings
                 </Link>
+                */}
                 {/* MARKETPLACE DISABLED - Shop link removed */}
                 <Link href="/events" className="block text-sm text-gray-700 hover:text-primary">
                   Events

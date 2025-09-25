@@ -74,18 +74,18 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
 
   return (
     <div
-      className={`slp-card bg-white rounded-xl overflow-hidden shadow-elegant hover-lift transition-all duration-300 cursor-pointer ${featured ? 'featured-card border-t-4 border-primary' : 'border-t-2 border-transparent hover:border-secondary/30'} ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''}`}
+      className={`card-interactive bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-strong transition-all duration-300 cursor-pointer group ${featured ? 'featured-card border-t-4 border-gradient-to-r from-primary to-primary-dark' : 'border-t-2 border-transparent hover:border-secondary/30'} ${isSelected ? 'ring-2 ring-primary ring-offset-2 scale-105' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       <Link href={`/places/${place.id}`} className="block">
-        {/* Image Container */}
-        <div className="relative h-56 overflow-hidden">
+        {/* Enhanced Image Container */}
+        <div className="relative h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
           <Image
             src={imageError ? getDefaultImage(place.category) : getImageUrl(place.imageUrl)}
             alt={place.name}
-            className={`object-cover transition-transform duration-700 ease-in-out ${isHovered ? 'scale-110' : 'scale-100'}`}
+            className={`object-cover transition-all duration-700 ease-out ${isHovered ? 'scale-110 brightness-110' : 'scale-100 brightness-100'}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={featured}
@@ -93,9 +93,9 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             unoptimized={true}
           />
 
-          {/* Category Badge */}
-          <div className={`absolute top-4 left-4 z-10 transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
-            <span className={`text-xs font-medium px-3 py-1.5 rounded-full border ${categoryColors[place.category] || categoryColors.other}`}>
+          {/* Enhanced Category Badge */}
+          <div className={`absolute top-4 left-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 -translate-y-1' : 'scale-100 translate-y-0'}`}>
+            <span className={`text-xs font-semibold px-4 py-2 rounded-xl border backdrop-blur-sm shadow-md ${categoryColors[place.category] || categoryColors.other} transition-all duration-300`}>
               {place.category
                   .split('-')
                   .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -103,37 +103,37 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
             </span>
           </div>
 
-          {/* Featured Badge */}
+          {/* Enhanced Featured Badge */}
           {place.featured && (
-            <div className={`absolute top-4 right-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 rotate-3' : 'scale-100 rotate-0'}`}>
-              <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-primary text-white">
-                Featured
+            <div className={`absolute top-4 right-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 rotate-3 -translate-y-1' : 'scale-100 rotate-0 translate-y-0'}`}>
+              <span className="text-xs font-bold px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg backdrop-blur-sm border border-white/20 animate-pulse-slow">
+                ⭐ Featured
               </span>
             </div>
           )}
 
-          {/* Overlay Gradient */}
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-90' : 'opacity-100'}`}></div>
+          {/* Enhanced Overlay Gradient */}
+          <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-all duration-300 ${isHovered ? 'from-black/80 via-black/30' : ''}`}></div>
 
-          {/* Corner Accent */}
-          <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-primary/20 to-transparent pointer-events-none"></div>
+          {/* Enhanced Corner Accent */}
+          <div className={`absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-primary/25 via-primary/10 to-transparent pointer-events-none transition-all duration-300 ${isHovered ? 'from-primary/40' : ''}`}></div>
         </div>
 
-        {/* Content */}
+        {/* Enhanced Content */}
         <div className="p-6">
-          <h3 className={`font-serif text-xl font-bold text-gray-900 mb-2 line-clamp-1 transition-colors duration-300 ${isHovered ? 'text-primary' : ''}`}>
+          <h3 className={`font-serif text-xl font-bold text-gray-900 mb-3 line-clamp-1 transition-all duration-300 ${isHovered ? 'text-primary scale-105' : ''}`}>
             {place.name}
           </h3>
 
           <div className="flex items-center mb-3">
-            {/* Rating */}
+            {/* Enhanced Rating */}
             {place.rating && (
-              <div className={`flex items-center mr-4 transition-transform duration-300 ${isHovered ? 'scale-105' : ''}`}>
+              <div className={`flex items-center mr-4 bg-yellow-50 px-3 py-1 rounded-lg transition-all duration-300 ${isHovered ? 'scale-105 bg-yellow-100' : ''}`}>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <svg
                       key={i}
-                      className={`w-4 h-4 ${i < Math.floor(place.rating || 0) ? 'text-yellow-400' : 'text-gray-300'} transition-all duration-300 ${isHovered && i < Math.floor(place.rating || 0) ? 'scale-125' : ''}`}
+                      className={`w-4 h-4 ${i < Math.floor(place.rating || 0) ? 'text-yellow-400' : 'text-gray-300'} transition-all duration-300 ${isHovered && i < Math.floor(place.rating || 0) ? 'scale-125 drop-shadow-sm' : ''}`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -141,14 +141,16 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
                     </svg>
                   ))}
                 </div>
-                <span className="ml-1 text-sm text-gray-600">{place.rating.toFixed(1)}</span>
+                <span className="ml-2 text-sm font-semibold text-gray-700">{place.rating.toFixed(1)}</span>
               </div>
             )}
 
-            {/* Price Level */}
+            {/* Enhanced Price Level */}
             {place.priceLevel && (
-              <div className="text-sm text-gray-600">
-                {Array(place.priceLevel).fill('$').join('')}
+              <div className="bg-green-50 px-3 py-1 rounded-lg">
+                <span className="text-sm font-semibold text-green-600">
+                  {Array(place.priceLevel).fill('$').join('')}
+                </span>
               </div>
             )}
           </div>
@@ -185,13 +187,13 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
           )}
         </div>
 
-        {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-100 bg-background-alt">
+        {/* Enhanced Footer */}
+        <div className="px-6 py-4 border-t border-gray-100 bg-gradient-to-r from-background-alt to-background transition-all duration-300 group-hover:from-primary/5 group-hover:to-secondary/5">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-secondary hover:text-secondary-light transition-colors">
+            <span className="text-base font-semibold text-secondary hover:text-primary transition-all duration-200">
               View Details
             </span>
-            <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={`w-5 h-5 text-secondary transition-all duration-300 ${isHovered ? 'translate-x-1 text-primary' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </div>

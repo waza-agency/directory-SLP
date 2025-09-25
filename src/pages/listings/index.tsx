@@ -39,7 +39,25 @@ interface ListingsPageProps {
   initialListings: BusinessListing[];
 }
 
+// TEMPORARILY DISABLED - Redirecting to home
 export default function ListingsPage({ initialListings }: ListingsPageProps) {
+  React.useEffect(() => {
+    window.location.href = '/';
+  }, []);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Coming Soon</h1>
+        <p className="text-gray-600">This section is under construction.</p>
+        <p className="text-sm text-gray-500 mt-4">Redirecting to home...</p>
+      </div>
+    </div>
+  );
+}
+
+// ORIGINAL COMPONENT - TEMPORARILY DISABLED
+export function ListingsPageOriginal({ initialListings }: ListingsPageProps) {
   const [listings, setListings] = useState<BusinessListing[]>(initialListings);
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');

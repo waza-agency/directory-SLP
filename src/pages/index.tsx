@@ -23,7 +23,7 @@ import TangamangaBanner from '@/components/TangamangaBanner';
 import SEO from '@/components/common/SEO';
 import { OptimizedImage } from '@/components/common/OptimizedImage';
 import AdUnit from '../components/common/AdUnit';
-import ListingsBanner from '@/components/ListingsBanner';
+// TEMPORARILY HIDDEN - import ListingsBanner from '@/components/ListingsBanner';
 
 interface HomeProps {
   events: Event[];
@@ -431,8 +431,8 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         <HeroCarousel slides={heroSlides} />
 
         {/* Ad after hero section */}
-        <section className="py-6">
-          <div className="container mx-auto px-4">
+        <section className="section-padding-sm bg-gradient-to-b from-gray-50 to-white">
+          <div className="container-responsive">
             <AdUnit
               style={{ display: 'block', textAlign: 'center', margin: '20px 0' }}
             />
@@ -441,35 +441,35 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
 
         {/* City Recognition Announcement */}
         <AnimatedSection animationType="fadeInUp" delay={200}>
-          <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-8 border-y border-primary/20 relative overflow-hidden">
+          <section className="bg-gradient-to-r from-primary/8 to-secondary/8 section-padding-sm border-y border-primary/20 relative overflow-hidden">
             {/* Animated background elements */}
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-4 left-4 w-16 h-16 border-2 border-primary/20 rounded-full animate-spinSlow"></div>
               <div className="absolute bottom-4 right-4 w-12 h-12 border border-secondary/20 rounded-full animate-float"></div>
             </div>
-            
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
+
+            <div className="container-responsive relative z-10">
+              <div className="flex items-center justify-between gap-8 flex-wrap lg:flex-nowrap">
                 <div className="flex items-center gap-4">
-                  <div className="bg-primary/20 rounded-full p-3 animate-float">
-                    <MegaphoneIcon className="w-6 h-6 text-primary" />
+                  <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-full p-4 animate-float shadow-md">
+                    <MegaphoneIcon className="w-8 h-8 text-primary" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold mb-1 animate-fadeInLeft delay-300">
+                    <h2 className="text-2xl lg:text-3xl font-bold mb-3 animate-fadeInLeft delay-300 text-gradient">
                       San Luis Potosí: Mexico's 2nd Best City to Live In!
                     </h2>
-                    <p className="text-gray-600 animate-fadeInLeft delay-500">
+                    <p className="text-gray-700 text-lg leading-relaxed animate-fadeInLeft delay-500">
                       According to IMCO (Instituto Mexicano para la Competencia), our beautiful city has been recognized as the second-best city to live in Mexico!
                     </p>
                   </div>
                 </div>
                 <Link
                   href="/about#rankings"
-                  className="inline-flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full font-medium transition-all duration-300 group animate-fadeInRight delay-700 hover:scale-105"
+                  className="btn-outline btn-sm group animate-fadeInRight delay-700"
                 >
                   Learn More
                   <svg
-                    className="w-4 h-4 transform transition-transform group-hover:translate-x-1"
+                    className="w-5 h-5 ml-2 transform transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -483,39 +483,52 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
         </AnimatedSection>
 
         {/* Featured Advertisers Banner */}
-        <section className="bg-background-alt py-8 relative slp-corner-accent overflow-hidden">
+        <section className="section-padding bg-gradient-to-br from-background-alt to-gray-50 relative overflow-hidden">
           <div className="absolute inset-0 z-0" style={{
             backgroundImage: `url('/images/advertisers/plaza-san-luis.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.15
+            opacity: 0.08
           }}></div>
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">{'Featured Advertisers'}</h2>
-              <Link href="/advertise" className="text-sm text-primary hover:text-primary-dark">
-                {'Advertise with us'} →
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 z-0"></div>
+          <div className="container-responsive relative z-10">
+            <div className="text-center mb-16">
+              <span className="inline-block bg-primary/10 text-primary text-sm font-semibold px-4 py-2 rounded-full mb-4">
+                Featured Partners
+              </span>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{'Featured Advertisers'}</h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Discover trusted local businesses and services that make San Luis Potosí special
+              </p>
+              <Link href="/advertise" className="btn-outline btn-sm group">
+                {'Advertise with us'}
+                <svg className="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {featuredAdvertisers?.map((advertiser) => (
-                <div key={advertiser.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow max-w-sm mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {featuredAdvertisers?.map((advertiser, index) => (
+                <div key={advertiser.id} className={`card-interactive overflow-hidden max-w-sm mx-auto animate-fadeInUp`} style={{animationDelay: `${index * 200}ms`}}>
                   {advertiser.imageUrl && (
-                    <div className="relative h-32 w-full">
+                    <div className="relative h-40 w-full bg-gradient-to-br from-gray-50 to-gray-100">
                       <Image
                         src={advertiser.imageUrl}
                         alt={advertiser.name}
                         fill
-                        className="object-contain p-2"
+                        className="object-contain p-4 hover:scale-105 transition-transform duration-300"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   )}
-                  <div className="p-3">
-                    <h3 className="font-semibold text-base mb-2">{advertiser.name}</h3>
-                    <p className="text-gray-600 text-xs mb-3">{advertiser.description}</p>
-                    <Link href={advertiser.ctaUrl} className="text-primary hover:text-primary-dark text-xs font-medium">
-                      Learn More →
+                  <div className="p-6">
+                    <h3 className="font-bold text-lg mb-3 text-gray-900">{advertiser.name}</h3>
+                    <p className="text-gray-600 text-base mb-4 leading-relaxed">{advertiser.description}</p>
+                    <Link href={advertiser.ctaUrl} className="text-primary hover:text-primary-dark text-base font-semibold inline-flex items-center group">
+                      Learn More
+                      <svg className="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </Link>
                   </div>
                 </div>
@@ -524,16 +537,17 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* FENAPO 2025 Highlight */}
-        <section className="py-16 px-4 slp-gradient-bg relative">
-          <div className="absolute top-0 left-0 right-0 h-1 bg-secondary opacity-10"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-secondary opacity-10"></div>
-          <div className="container mx-auto">
+        {/* Xantolo 2025 Highlight */}
+        <section className="section-padding-lg bg-gradient-to-br from-orange-50 to-amber-50 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-100/30 to-amber-100/30"></div>
+          <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-orange-400 to-amber-400 opacity-60"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-400 to-orange-400 opacity-60"></div>
+          <div className="container-responsive relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src="/images/events/fenapo-fair.jpg"
-                  alt={'FENAPO 2025'}
+                  src="/images/events/xantolo-image-1.jpg"
+                  alt={'Xantolo 2025 - Danza de los Huehues'}
                   fill
                   className="object-cover object-center"
                   priority
@@ -543,43 +557,43 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
                 <div className="absolute bottom-0 left-0 p-6 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <CalendarIcon className="w-5 h-5" />
-                    <span className="font-medium">{'August 8 - 31, 2025'}</span>
+                    <span className="font-medium">{'October 31 - November 2, 2025'}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <div className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-medium text-sm mb-4">
+                <div className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full font-semibold text-base mb-6 shadow-md">
                   Featured Event
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 font-serif">
-                  {'FENAPO 2025'}
+                <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 font-serif animate-fadeInUp">
+                  {'Xantolo 2025'}
                 </h2>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-blue-800">
-                  {'Feria Nacional Potosina'}
+                <h3 className="text-2xl lg:text-3xl font-semibold mb-8 text-orange-700 animate-fadeInUp" style={{animationDelay: '200ms'}}>
+                  {'Day of the Dead in Huasteca Potosina'}
                 </h3>
                 <div className="prose prose-lg mb-8 text-gray-600 slp-accent-border">
                   <p>
-                    {'The most traditional fair in Mexico returns to San Luis Potosí with 24 days of cultural events, sports, gastronomy, concerts and entertainment for the whole family.'}
+                    {'Experience the most authentic and ancestral Day of the Dead celebration in Mexico. Immerse yourself in the millenary traditions of Huasteca Potosina with rituals, dances, music, and offerings.'}
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span>{'Teatro del Pueblo with national and international artists'}</span>
+                      <span className="text-orange-600 font-bold">•</span>
+                      <span>{'Dance of the Huehues with traditional masks'}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span>{'Traditional Mexican palenque shows'}</span>
+                      <span className="text-orange-600 font-bold">•</span>
+                      <span>{'Monumental offerings and floral arches'}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span>{'Regional and international gastronomy'}</span>
+                      <span className="text-orange-600 font-bold">•</span>
+                      <span>{'Traditional gastronomy: zacahuil, tamales, and pan de muerto'}</span>
                     </li>
                   </ul>
                 </div>
                 <Link
-                  href="/events/fenapo-2025"
-                  className="bg-blue-800 hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
+                  href="/events/xantolo-2025"
+                  className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-bold px-8 py-4 rounded-xl inline-flex items-center gap-3 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 animate-fadeInUp" style={{animationDelay: '600ms'}}
                 >
                   {'Learn More'}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -591,69 +605,69 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* Blue Background Section */}
-        <section className="py-16 px-4 bg-secondary/5 relative">
-          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-secondary/10 to-transparent"></div>
+        {/* Services Overview Section */}
+        <section className="section-padding-lg bg-gradient-to-b from-secondary/5 to-secondary/10 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-secondary/15 to-transparent"></div>
           <div className="absolute inset-0"
                style={{
-                 backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 100px, rgba(0, 0, 122, 0.03) 100px, rgba(0, 0, 122, 0.03) 200px)`,
+                 backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(0, 0, 122, 0.04) 80px, rgba(0, 0, 122, 0.04) 160px)`,
                }}>
           </div>
-          <div className="container mx-auto relative">
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <span className="inline-block bg-secondary text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+          <div className="container-responsive relative z-10">
+            <div className="max-w-4xl mx-auto text-center mb-20">
+              <span className="inline-block bg-gradient-to-r from-secondary to-primary text-white text-base font-bold px-6 py-3 rounded-full mb-6 shadow-md">
                 {'Connect with San Luis Potosí'}
               </span>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">{'Discover unique local experiences'}</h2>
-              <p className="text-lg text-gray-600">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8 animate-fadeInUp">{'Discover unique local experiences'}</h2>
+              <p className="text-xl text-gray-600 leading-relaxed animate-fadeInUp" style={{animationDelay: '200ms'}}>
                 {'Explore the best of San Luis Potosí with our complete guide to services, events, and places to visit.'}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="slp-card p-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              <div className="card-interactive p-10 text-center animate-fadeInUp hover-glow">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center mx-auto mb-8 shadow-md">
+                  <svg className="w-10 h-10 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{'Expat Community'}</h3>
-                <p className="text-gray-600 mb-6">{'Connect with other expatriates and share experiences in San Luis Potosí.'}</p>
-                <Link href="/community" className="inline-flex items-center text-secondary font-medium">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">{'Expat Community'}</h3>
+                <p className="text-gray-600 mb-8 text-lg leading-relaxed">{'Connect with other expatriates and share experiences in San Luis Potosí.'}</p>
+                <Link href="/community" className="inline-flex items-center text-secondary font-semibold text-lg group">
                   {'Learn more'}
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
               </div>
 
-              <div className="slp-card p-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="card-interactive p-10 text-center animate-fadeInUp hover-glow" style={{animationDelay: '200ms'}}>
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mx-auto mb-8 shadow-md">
+                  <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{'Discover Places'}</h3>
-                <p className="text-gray-600 mb-6">{'Find the best restaurants, shops, and leisure spaces in the city.'}</p>
-                <Link href="/places" className="inline-flex items-center text-primary font-medium">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">{'Discover Places'}</h3>
+                <p className="text-gray-600 mb-8 text-lg leading-relaxed">{'Find the best restaurants, shops, and leisure spaces in the city.'}</p>
+                <Link href="/places" className="inline-flex items-center text-primary font-semibold text-lg group">
                   {'Explore'}
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
               </div>
 
-              <div className="slp-card p-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="card-interactive p-10 text-center animate-fadeInUp hover-glow" style={{animationDelay: '400ms'}}>
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center mx-auto mb-8 shadow-md">
+                  <svg className="w-10 h-10 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{'Cultural Events'}</h3>
-                <p className="text-gray-600 mb-6">{'Stay up to date with festivals, concerts, and exhibitions in San Luis.'}</p>
-                <Link href="/events" className="inline-flex items-center text-secondary font-medium">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">{'Cultural Events'}</h3>
+                <p className="text-gray-600 mb-8 text-lg leading-relaxed">{'Stay up to date with festivals, concerts, and exhibitions in San Luis.'}</p>
+                <Link href="/events" className="inline-flex items-center text-secondary font-semibold text-lg group">
                   {'View calendar'}
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
@@ -662,63 +676,66 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
-        {/* Listings Banner */}
+        {/* TEMPORARILY HIDDEN - Listings Banner
         <ListingsBanner />
+        */}
 
         {/* Welcome/About Section */}
-        <section id="discover" className="py-24 px-4 bg-gradient-to-b from-white to-gray-50">
-          <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-              <span className="text-primary text-sm font-medium uppercase tracking-wider">
+        <section id="discover" className="section-padding-lg bg-gradient-to-b from-white via-gray-50/50 to-white">
+          <div className="container-responsive">
+            <div className="max-w-5xl mx-auto text-center mb-20">
+              <span className="inline-block text-primary text-base font-bold uppercase tracking-wider bg-primary/10 px-6 py-3 rounded-full mb-6">
                 Your Gateway to San Luis Potosí
               </span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mt-4 mb-6 leading-tight">
+              <h2 className="font-serif text-4xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight animate-fadeInUp">
                 Discover the Heart of Mexico
               </h2>
-              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+              <p className="text-2xl text-gray-600 mb-8 leading-relaxed animate-fadeInUp" style={{animationDelay: '200ms'}}>
                 Connect with local experiences, find trusted services, and make San Luis Potosí your home
               </p>
-              <p className="text-lg text-primary font-medium bg-white/80 px-6 py-3 rounded-full inline-block shadow-lg">
-                We serve as your personal intermediary for a seamless experience
-              </p>
+              <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-2xl shadow-md inline-block animate-fadeInUp" style={{animationDelay: '400ms'}}>
+                <p className="text-lg text-gray-800 font-semibold">
+                  We serve as your personal intermediary for a seamless experience
+                </p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className="card-interactive p-10 text-center flex flex-col animate-fadeInUp" style={{animationDelay: '600ms'}}>
+                <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center shadow-md">
+                  <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Local Connections</h3>
-                <p className="text-gray-600 mb-4 flex-grow">Connect with trusted locals and build your network in San Luis Potosí</p>
-                <Link href="/local-connections" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Local Connections</h3>
+                <p className="text-gray-600 mb-8 flex-grow text-lg leading-relaxed">Connect with trusted locals and build your network in San Luis Potosí</p>
+                <Link href="/local-connections" className="btn-primary btn-sm mt-auto">
                   Start Connecting
                 </Link>
               </div>
 
-              <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="card-interactive p-10 text-center flex flex-col animate-fadeInUp" style={{animationDelay: '800ms'}}>
+                <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-secondary/20 to-secondary/10 flex items-center justify-center shadow-md">
+                  <svg className="w-10 h-10 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Cultural Experiences</h3>
-                <p className="text-gray-600 mb-4 flex-grow">Immerse yourself in the rich culture and traditions of San Luis Potosí</p>
-                <Link href="/cultural-experiences" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Cultural Experiences</h3>
+                <p className="text-gray-600 mb-8 flex-grow text-lg leading-relaxed">Immerse yourself in the rich culture and traditions of San Luis Potosí</p>
+                <Link href="/cultural-experiences" className="btn-secondary btn-sm mt-auto">
                   Explore Culture
                 </Link>
               </div>
 
-              <div className="bg-white rounded-xl p-8 shadow-elegant text-center hover-lift flex flex-col">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="card-interactive p-10 text-center flex flex-col animate-fadeInUp" style={{animationDelay: '1000ms'}}>
+                <div className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center shadow-md">
+                  <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-gray-900 mb-3">Relocation Support</h3>
-                <p className="text-gray-600 mb-4 flex-grow">Get professional assistance with your move and settling into San Luis Potosí</p>
-                <Link href="/san-luis-potosi-relocation-support" className="btn-primary text-white py-2 px-4 rounded-md text-sm inline-block mt-auto">
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Relocation Support</h3>
+                <p className="text-gray-600 mb-8 flex-grow text-lg leading-relaxed">Get professional assistance with your move and settling into San Luis Potosí</p>
+                <Link href="/san-luis-potosi-relocation-support" className="btn-primary btn-sm mt-auto">
                   Get Support
                 </Link>
               </div>
