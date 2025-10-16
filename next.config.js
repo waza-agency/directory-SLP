@@ -11,8 +11,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
     images: {
-    // Use unoptimized for now to bypass image optimization issues
-    unoptimized: true,
+    // Enabled Next.js image optimization for better performance
+    unoptimized: false,
     domains: [
       'localhost',
       'sanluisway.com',

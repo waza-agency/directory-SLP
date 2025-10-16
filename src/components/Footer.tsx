@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import NewsletterSignup from './NewsletterSignup';
 
 export default function Footer() {
   return (
@@ -21,6 +22,11 @@ export default function Footer() {
       </div>
 
       <div className="container-responsive section-padding relative z-10">
+        {/* Newsletter Section */}
+        <div className="mb-16">
+          <NewsletterSignup variant="footer" />
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Enhanced Brand Section */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">

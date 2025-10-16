@@ -23,6 +23,7 @@ import TangamangaBanner from '@/components/TangamangaBanner';
 import SEO from '@/components/common/SEO';
 import { OptimizedImage } from '@/components/common/OptimizedImage';
 import AdUnit from '../components/common/AdUnit';
+import Testimonials from '@/components/Testimonials';
 // TEMPORARILY HIDDEN - import ListingsBanner from '@/components/ListingsBanner';
 
 interface HomeProps {
@@ -237,33 +238,33 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
   const heroSlides = [
     {
       id: 'discover',
-      title: 'Discover San Luis Potosí',
-      subtitle: 'Your complete guide to living, working, and exploring this beautiful Mexican city',
-      description: 'From local insider tips to practical expat advice',
+      title: 'Your Expat Guide to San Luis Potosí',
+      subtitle: '500+ verified local businesses, events & insider tips for expats and travelers',
+      description: 'From finding English-speaking doctors to the best coffee shops - we\'ve got you covered',
       image: '/images/hero-bg.jpg',
       ctaText: 'Start Exploring',
       ctaLink: '#explore',
-      accent: 'Your Guide to San Luis Potosí'
+      accent: 'Trusted by 1,000+ Expats'
     },
     {
       id: 'events',
-      title: 'Upcoming Events',
-      subtitle: 'Discover the vibrant cultural scene of San Luis Potosí',
-      description: 'From art exhibitions to traditional festivals, never miss what\'s happening in the city',
+      title: 'Never Miss Out',
+      subtitle: 'Discover cultural events, expat meetups & local festivals',
+      description: 'Join the community - from art exhibitions to traditional celebrations and networking events',
       image: '/images/events/festival.jpg',
       ctaText: 'View All Events',
       ctaLink: '/events',
-      accent: 'What\'s Happening'
+      accent: 'What\'s Happening This Week'
     },
     {
       id: 'places',
-      title: 'Hidden Gems',
-      subtitle: 'Find the best restaurants, cafes, and local spots',
-      description: 'Curated recommendations from locals who know the city best',
+      title: 'Discover Hidden Gems',
+      subtitle: 'Authentic restaurants, cozy cafes & expat-friendly spots',
+      description: 'Handpicked recommendations from expats and locals - no tourist traps',
       image: '/images/pedestrian-street.jpg',
       ctaText: 'Explore Places',
       ctaLink: '/places',
-      accent: 'Local Favorites'
+      accent: 'Verified Reviews'
     },
     {
       id: 'culture',
@@ -2224,8 +2225,11 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
           </div>
         </section>
 
+        {/* Testimonials Section */}
+        <Testimonials />
+
         {/* Digital Advertising Section */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Advertise with San Luis Way</h2>

@@ -72,8 +72,10 @@ const SEO: React.FC<SEOProps> = ({
 
       {/* Additional SEO tags for better indexing */}
       <meta name="robots" content="index, follow" />
-      <meta name="language" content="English" />
+      <meta name="language" content="en" />
       <meta name="revisit-after" content="7 days" />
+      <meta name="author" content="San Luis Way" />
+      <meta name="application-name" content="San Luis Way" />
     </Head>
   );
 };

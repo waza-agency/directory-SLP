@@ -47,24 +47,51 @@ function App({ Component, pageProps }: AppProps) {
         {/* Google Analytics - Add your GA4 tracking code here */}
         {/* Add other verification meta tags as needed */}
 
-        {/* Structured Data - JSON-LD for local business */}
+        {/* Structured Data - JSON-LD for WebSite */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "Directory SLP",
-              "url": "https://directory-slp.com",
-              "description": "Directorio completo de San Luis Potosí - lugares, eventos, y guías locales",
-              "inLanguage": ["es-MX", "en-US"],
+              "name": "San Luis Way",
+              "url": "https://www.sanluisway.com",
+              "description": "Your complete guide to San Luis Potosí - discover the best places, events, and authentic local experiences for expats",
+              "inLanguage": ["en-US", "es-MX"],
               "potentialAction": {
                 "@type": "SearchAction",
                 "target": {
                   "@type": "EntryPoint",
-                  "urlTemplate": "https://directory-slp.com/search?q={search_term_string}"
+                  "urlTemplate": "https://www.sanluisway.com/search?q={search_term_string}"
                 },
                 "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+
+        {/* Structured Data - JSON-LD for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "San Luis Way",
+              "url": "https://www.sanluisway.com",
+              "logo": "https://www.sanluisway.com/og-image.jpg",
+              "description": "Your trusted local guide to San Luis Potosí - helping expats and travelers discover authentic experiences, businesses, and events",
+              "sameAs": [
+                "https://www.facebook.com/sanluisway",
+                "https://www.instagram.com/sanluisway",
+                "https://twitter.com/sanluisway"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Customer Service",
+                "email": "info@sanluisway.com",
+                "areaServed": "MX",
+                "availableLanguage": ["English", "Spanish"]
               }
             })
           }}
