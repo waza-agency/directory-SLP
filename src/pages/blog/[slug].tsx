@@ -2,6 +2,8 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { BlogPost, getBlogPosts, getBlogPostBySlug } from '@/lib/blog';
+import SEO from '@/components/common/SEO';
+import Breadcrumbs from '@/components/common/Breadcrumbs';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -40,13 +42,56 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context)
 export default function BlogPostPage({ post }: BlogPostPageProps) {
   return (
     <>
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        keywords={post.tags?.join(', ')}
+        ogImage={post.imageUrl || '/og-image.jpg'}
+        ogType="article"
+        article={{
+          publishedTime: post.publishedAt,
+          modifiedTime: post.createdAt,
+          tags: post.tags
+        }}
+      />
+
+      {/* Article Structured Data */}
       <Head>
-        <title>{post.title} - San Luis Way</title>
-        <meta name="description" content={post.excerpt} />
-        {post.imageUrl && <meta property="og:image" content={post.imageUrl} />}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "headline": post.title,
+              "description": post.excerpt,
+              "image": post.imageUrl || "https://www.sanluisway.com/og-image.jpg",
+              "datePublished": post.publishedAt,
+              "dateModified": post.createdAt,
+              "author": {
+                "@type": "Organization",
+                "name": "San Luis Way",
+                "url": "https://www.sanluisway.com"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "San Luis Way",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.sanluisway.com/og-image.jpg"
+                }
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://www.sanluisway.com/blog/${post.slug}`
+              },
+              "keywords": post.tags?.join(', ') || '',
+              "articleSection": post.category || "Expat Guide"
+            })
+          }}
+        />
       </Head>
 
-      {/* Force revalidation */}
       <main className="bg-white">
         {post.imageUrl && (
           <div className="relative h-96 w-full">
@@ -65,7 +110,18 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           </div>
         )}
 
-        <div className="container mx-auto max-w-3xl px-4 py-12">
+        <div className="container mx-auto max-w-3xl px-4 py-8">
+          {/* Breadcrumbs */}
+          <Breadcrumbs
+            items={[
+              { label: 'Blog', href: '/blog' },
+              { label: post.title, href: `/blog/${post.slug}` }
+            ]}
+            className="mb-8"
+          />
+        </div>
+
+        <div className="container mx-auto max-w-3xl px-4 pb-12">
           <div
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
