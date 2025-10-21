@@ -44,17 +44,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/adsense-test</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/advertise</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/auth-test</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -159,11 +149,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/private-dining-rooms</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/category/rainy-day-activities</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -254,21 +239,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/debug</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/debug-blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/debug-blog-production</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/design-showcase</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -329,6 +299,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/events/xantolo-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/expat-guide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -369,11 +344,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/modern-dining</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/order-confirmation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -407,6 +377,11 @@
     <loc>https://sanluisway.com/places/la-gran-via</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/restaurants</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/san-luis-potosi-community-integration/</loc>
@@ -504,11 +479,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/simple-test</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://sanluisway.com/submit-listing/business</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -522,11 +492,6 @@
     <loc>https://sanluisway.com/submit-listing/success</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanluisway.com/test-minimal-signup</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sanluisway.com/traditional-cuisine</loc>

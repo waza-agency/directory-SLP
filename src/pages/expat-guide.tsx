@@ -138,9 +138,99 @@ export default function ExpatGuidePage() {
   return (
     <>
       <Head>
-        <title>"TEXT"</title>
-        <meta name="description" content="TEXT" />
-        <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, healthcare, housing, transportation, banking" />
+        <title>Complete Expat Guide to San Luis Potosí | Essential Info 2025</title>
+        <meta name="description" content="Everything you need to know about living in San Luis Potosí as an expat. Emergency contacts, healthcare, housing, banking, immigration, and transportation info all in one place." />
+        <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, healthcare San Luis Potosí, housing SLP, expat transportation Mexico, banking for expats, immigration Mexico, emergency contacts SLP" />
+        <meta property="og:title" content="Complete Expat Guide to San Luis Potosí | Essential Info 2025" />
+        <meta property="og:description" content="Everything you need to know about living in San Luis Potosí as an expat. Emergency contacts, healthcare, housing, banking, immigration, and transportation." />
+        <meta property="og:image" content="/images/cultura-2.jpg" />
+        <meta property="og:url" content="https://www.sanluisway.com/expat-guide" />
+
+        {/* FAQ Schema for Featured Snippets */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What are the emergency numbers in San Luis Potosí?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The main emergency number in San Luis Potosí is 911 for general emergencies. Police: 444 826 8300, Fire Department: 444 812 4344, Red Cross: 444 815 0808, and Tourist Police: 444 834 1115."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Where can expats find healthcare in San Luis Potosí?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "San Luis Potosí has several healthcare options for expats. Private hospitals include Hospital Lomas de San Luis (444 824 2424) and Hospital Angeles (444 813 1717). The main public hospital is Hospital Central Dr. Ignacio Morones Prieto (444 834 2700)."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What documents do I need to open a bank account in San Luis Potosí?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "To open a bank account in San Luis Potosí, you'll typically need: a valid passport, immigration document (FM2/FM3 or temporary/permanent resident card), proof of address in Mexico, and often a Tax ID (RFC). Some banks may also require a minimum deposit."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Where is the immigration office in San Luis Potosí?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Instituto Nacional de Migración (INM) office in San Luis Potosí is located at Av. Mariano Otero 455, Tequisquiapan. Phone: 444 813 6748. They handle visa applications, residency permits, and other immigration matters."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What transportation options are available for expats in San Luis Potosí?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "San Luis Potosí offers multiple transportation options including Uber, DiDi, and Beat ride-sharing apps. Traditional taxi services include Taxi Seguro (444 817 2111) and Radio Taxi (444 812 0000). For intercity travel, bus companies like Primera Plus and ETN provide service."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I set up utilities in San Luis Potosí?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Utilities in San Luis Potosí: Electricity is provided by CFE (071 or www.cfe.mx), water by INTERAPAS (444 811 6230 or www.interapas.mx). For internet, major providers include Telmex (800 123 2222) and Totalplay (800 510 0510)."
+                  }
+                }
+              ]
+            })
+          }}
+        />
+
+        {/* Breadcrumb Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://www.sanluisway.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Expat Guide",
+                  "item": "https://www.sanluisway.com/expat-guide"
+                }
+              ]
+            })
+          }}
+        />
       </Head>
 
       <main className="bg-background min-h-screen">

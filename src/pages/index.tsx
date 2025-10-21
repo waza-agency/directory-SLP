@@ -414,17 +414,61 @@ export default function Home({ events = [], featuredBrands = [], featuredAdverti
       />
 
       <Head>
-        <title>San Luis Potosí - Your Insider Guide</title>
-        <meta name="description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
-        <meta name="keywords" content="San Luis Potosí, SLP, expat guide, local guide, places, events, culture, travel, expatriate community, Mexico" />
-        <meta property="og:title" content="San Luis Potosí - Your Insider Guide" />
-        <meta property="og:description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <title>Living in San Luis Potosí as an Expat | Complete Guide 2025</title>
+        <meta name="description" content="Your complete expat guide to San Luis Potosí, Mexico. Find housing, English-speaking services, cost of living, healthcare, and the best places to eat, work, and explore. Trusted by 1,000+ expats." />
+        <meta name="keywords" content="living in San Luis Potosí, expat guide San Luis Potosí, moving to SLP Mexico, San Luis Potosí cost of living, expat community Mexico, English-speaking services SLP, housing San Luis Potosí, digital nomad Mexico, relocating to San Luis Potosí" />
+        <meta property="og:title" content="Living in San Luis Potosí as an Expat | Complete Guide 2025" />
+        <meta property="og:description" content="Your complete expat guide to San Luis Potosí, Mexico. Find housing, English-speaking services, cost of living, healthcare, and the best places to eat, work, and explore. Trusted by 1,000+ expats." />
         <meta property="og:image" content="/og-image.jpg" />
-        <meta property="og:url" content="https://sanluisway.com" />
-        <meta name="twitter:title" content="San Luis Potosí - Your Insider Guide" />
-        <meta name="twitter:description" content="Discover San Luis Potosí with San Luis Way - your comprehensive guide for expats and locals. Find the best places, events, and cultural experiences in SLP." />
+        <meta property="og:url" content="https://www.sanluisway.com" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Living in San Luis Potosí as an Expat | Complete Guide 2025" />
+        <meta name="twitter:description" content="Your complete expat guide to San Luis Potosí, Mexico. Find housing, English-speaking services, cost of living, healthcare, and the best places to eat, work, and explore." />
         <meta name="twitter:image" content="/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
+
+        {/* Structured Data for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "San Luis Way",
+              "description": "Complete expat guide and directory for San Luis Potosí, Mexico",
+              "url": "https://www.sanluisway.com",
+              "logo": "https://www.sanluisway.com/og-image.jpg",
+              "sameAs": [
+                "https://www.facebook.com/sanluisway",
+                "https://www.instagram.com/sanluisway"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Customer Support",
+                "availableLanguage": ["English", "Spanish"]
+              }
+            })
+          }}
+        />
+
+        {/* Breadcrumb Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://www.sanluisway.com"
+                }
+              ]
+            })
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-background">
