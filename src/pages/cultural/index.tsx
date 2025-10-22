@@ -248,6 +248,189 @@ export default function CulturalPage({ events }: CulturalPageProps) {
             </div>
           </section>
 
+          {/* Local Legends & Folklore Section */}
+          <section className="mb-16 bg-gradient-to-br from-purple-50 to-indigo-50 -mx-4 px-4 py-16 md:py-24">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-4">Local Legends & Folklore</h2>
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                  Discover the mystical tales, ghost stories, and legends that have shaped San Luis Potosí's cultural identity for centuries
+                </p>
+              </div>
+
+              {/* Featured Legends Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                {/* La Llorona de SLP */}
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="relative h-56">
+                    <Image
+                      src="/images/cultural/la-llorona.jpg"
+                      alt="La Llorona legend"
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/cultural/cultural-default.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="inline-block px-3 py-1 bg-purple-500/90 text-white text-xs font-semibold rounded-full mb-2">Ghost Story</div>
+                      <h3 className="font-serif text-2xl font-bold text-white">La Llorona de los Puentes</h3>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      The weeping woman is said to haunt the old bridges of San Luis Potosí, especially near the Río Santiago. Locals report hearing her mournful cries on foggy nights, searching eternally for her lost children. The legend dates back to colonial times and remains one of the city's most enduring ghost stories.
+                    </p>
+                    <div className="flex items-center text-sm text-purple-600">
+                      <MapPinIcon className="w-4 h-4 mr-1" />
+                      <span className="font-medium">Puente de San Francisco area</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* El Tesoro del Cerro de San Pedro */}
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="relative h-56">
+                    <Image
+                      src="/images/cultural/cerro-san-pedro.jpg"
+                      alt="Cerro de San Pedro treasure legend"
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/cultural/cultural-default.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="inline-block px-3 py-1 bg-amber-500/90 text-white text-xs font-semibold rounded-full mb-2">Historical Legend</div>
+                      <h3 className="font-serif text-2xl font-bold text-white">El Tesoro del Cerro de San Pedro</h3>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      During the mining boom, miners discovered vast silver and gold deposits in Cerro de San Pedro. Legend tells of a hidden treasure chamber sealed by a collapse in the 1700s, containing riches beyond imagination. Many have searched, but the treasure remains undiscovered, guarded by the mountain itself.
+                    </p>
+                    <div className="flex items-center text-sm text-amber-600">
+                      <MapPinIcon className="w-4 h-4 mr-1" />
+                      <span className="font-medium">Cerro de San Pedro ghost town</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* El Fantasma del Teatro de la Paz */}
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="relative h-56">
+                    <Image
+                      src="/images/cultural/teatro-de-la-paz.jpg"
+                      alt="Teatro de la Paz ghost"
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/cultural/cultural-default.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="inline-block px-3 py-1 bg-purple-500/90 text-white text-xs font-semibold rounded-full mb-2">Urban Legend</div>
+                      <h3 className="font-serif text-2xl font-bold text-white">El Fantasma del Teatro</h3>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      Theater workers and performers report unexplained phenomena at Teatro de la Paz: phantom footsteps in empty corridors, a mysterious woman in Victorian dress appearing in Box 13, and the sound of applause when the theater is empty. Some say it's the spirit of Ángela Peralta, the famous soprano, still drawn to the stage.
+                    </p>
+                    <div className="flex items-center text-sm text-purple-600">
+                      <MapPinIcon className="w-4 h-4 mr-1" />
+                      <span className="font-medium">Teatro de la Paz, Centro Histórico</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* La Cueva de los Espíritus */}
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="relative h-56">
+                    <Image
+                      src="/images/cultural/cave-legends.jpg"
+                      alt="Cave of Spirits"
+                      fill
+                      className="object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/images/cultural/cultural-default.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="inline-block px-3 py-1 bg-emerald-500/90 text-white text-xs font-semibold rounded-full mb-2">Mystical Place</div>
+                      <h3 className="font-serif text-2xl font-bold text-white">La Cueva de los Espíritus</h3>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-700 mb-4 leading-relaxed">
+                      Near the Huasteca Potosina region, indigenous communities speak of sacred caves where ancient spirits dwell. These caves were used for pre-Hispanic rituals and are said to be portals between worlds. Locals warn against entering without proper respect and offerings, as the spirits guard their territory fiercely.
+                    </p>
+                    <div className="flex items-center text-sm text-emerald-600">
+                      <MapPinIcon className="w-4 h-4 mr-1" />
+                      <span className="font-medium">Huasteca Potosina region</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Storytelling Tradition */}
+              <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+                <div className="flex flex-col md:flex-row items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-4">The Living Tradition of Storytelling</h3>
+                    <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+                      In Mexican culture, storytelling is more than entertainment—it's a sacred act of preserving history, teaching values, and connecting generations. These legends serve as cautionary tales, historical records, and spiritual teachings passed down through centuries.
+                    </p>
+                    <p className="text-gray-700 leading-relaxed mb-6">
+                      The oral tradition remains strong in San Luis Potosí, with grandparents sharing tales around the dinner table, and communities gathering during festivals to recount the stories of their ancestors. Each telling adds new layers, keeping the legends alive and relevant to contemporary life.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-purple-50 rounded-lg p-4">
+                        <div className="font-semibold text-purple-900 mb-1">Cultural Memory</div>
+                        <p className="text-sm text-purple-700">Legends preserve historical events and cultural values across generations</p>
+                      </div>
+                      <div className="bg-indigo-50 rounded-lg p-4">
+                        <div className="font-semibold text-indigo-900 mb-1">Moral Lessons</div>
+                        <p className="text-sm text-indigo-700">Stories teach respect for nature, family, and community bonds</p>
+                      </div>
+                      <div className="bg-violet-50 rounded-lg p-4">
+                        <div className="font-semibold text-violet-900 mb-1">Identity & Belonging</div>
+                        <p className="text-sm text-violet-700">Shared stories create connection and sense of place</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="text-center mt-10">
+                <p className="text-gray-600 mb-4">Experience these legends through local tours and storytelling events</p>
+                <Link
+                  href="/events?category=cultural-tours"
+                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                >
+                  Explore Cultural Tours
+                  <ArrowRightIcon className="ml-2 w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </section>
+
           {/* Cultural Guides Section */}
           <section className="mb-16">
             <div className="text-center mb-12">
