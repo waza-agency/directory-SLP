@@ -4,79 +4,159 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function LanguagePage() {
-  const [activeCategory, setActiveCategory] = useState('restaurant');
+export default function MusicDancePage() {
+  const [activeGenre, setActiveGenre] = useState('mariachi');
 
-  const essentialPhrases = {
-    restaurant: [
-      { spanish: "Una mesa para dos, por favor", english: "A table for two, please", phonetic: "OO-nah MEH-sah PAH-rah dohs, pohr fah-VOHR" },
-      { spanish: "¿Qué me recomienda?", english: "What do you recommend?", phonetic: "keh meh reh-koh-mee-EN-dah" },
-      { spanish: "La cuenta, por favor", english: "The check, please", phonetic: "lah KWEN-tah, pohr fah-VOHR" },
-      { spanish: "¿Tienen menú en inglés?", english: "Do you have a menu in English?", phonetic: "tee-EH-nen meh-NOO en een-GLEHS" },
-      { spanish: "Soy alérgico/a a...", english: "I'm allergic to...", phonetic: "soy ah-LEHR-hee-koh/kah ah" },
-      { spanish: "Está delicioso", english: "It's delicious", phonetic: "es-TAH deh-lee-see-OH-soh" },
-    ],
-    shopping: [
-      { spanish: "¿Cuánto cuesta?", english: "How much does it cost?", phonetic: "KWAN-toh KWES-tah" },
-      { spanish: "¿Tiene otro color/talla?", english: "Do you have another color/size?", phonetic: "tee-EH-neh OH-troh koh-LOHR/TAH-yah" },
-      { spanish: "Sólo estoy mirando", english: "I'm just looking", phonetic: "SOH-loh es-TOY mee-RAHN-doh" },
-      { spanish: "¿Puedo probármelo?", english: "Can I try it on?", phonetic: "PWEH-doh proh-BAHR-meh-loh" },
-      { spanish: "¿Aceptan tarjeta?", english: "Do you accept cards?", phonetic: "ah-SEP-tahn tar-HEH-tah" },
-      { spanish: "¿Me da un descuento?", english: "Can you give me a discount?", phonetic: "meh dah oon des-KWEN-toh" },
-    ],
-    taxi: [
-      { spanish: "¿Cuánto cuesta ir a...?", english: "How much to go to...?", phonetic: "KWAN-toh KWES-tah eer ah" },
-      { spanish: "Por favor, use el taxímetro", english: "Please use the meter", phonetic: "pohr fah-VOHR, OO-seh el tak-SEE-meh-troh" },
-      { spanish: "Aquí está bien", english: "Here is fine", phonetic: "ah-KEE es-TAH bee-EN" },
-      { spanish: "¿Puede esperarme?", english: "Can you wait for me?", phonetic: "PWEH-deh es-peh-RAHR-meh" },
-      { spanish: "Voy a...", english: "I'm going to...", phonetic: "voy ah" },
-      { spanish: "¿Conoce esta dirección?", english: "Do you know this address?", phonetic: "koh-NOH-seh ES-tah dee-rek-see-OHN" },
-    ],
-    emergencies: [
-      { spanish: "¡Ayuda!", english: "Help!", phonetic: "ah-YOO-dah" },
-      { spanish: "Necesito un doctor", english: "I need a doctor", phonetic: "neh-seh-SEE-toh oon dohk-TOHR" },
-      { spanish: "¿Dónde está el hospital?", english: "Where is the hospital?", phonetic: "DOHN-deh es-TAH el ohs-pee-TAHL" },
-      { spanish: "Llame a la policía", english: "Call the police", phonetic: "YAH-meh ah lah poh-lee-SEE-ah" },
-      { spanish: "No hablo español", english: "I don't speak Spanish", phonetic: "noh AH-bloh es-pah-NYOHL" },
-      { spanish: "¿Habla inglés?", english: "Do you speak English?", phonetic: "AH-blah een-GLEHS" },
-    ],
+  const musicGenres = {
+    mariachi: {
+      name: "Mariachi",
+      description: "The iconic sound of Mexico, featuring trumpets, violins, and guitars",
+      origins: "Jalisco, 18th century",
+      characteristics: [
+        "Typically 6-8 musicians in traditional charro suits",
+        "Features trumpets, violins, guitars, vihuela, and guitarrón",
+        "Songs about love, patriotism, and Mexican pride",
+        "Performed at celebrations, weddings, and serenades"
+      ],
+      etiquette: [
+        "It's customary to tip mariachis generously after a song",
+        "You can request specific songs - classics like 'Cielito Lindo' or 'La Bamba'",
+        "Traditional to hire mariachis for serenades (las mañanitas for birthdays)",
+        "Show respect during Mexican national anthem performances"
+      ],
+      whereToExperience: [
+        "Plaza de Armas on weekend evenings",
+        "Traditional restaurants and cantinas",
+        "Festivals and celebrations throughout the year",
+        "Private events and serenades (can be hired)"
+      ]
+    },
+    huapango: {
+      name: "Huapango Huasteco",
+      description: "Traditional folk music from the Huasteca region, including parts of SLP",
+      origins: "Huasteca region (SLP, Veracruz, Hidalgo)",
+      characteristics: [
+        "Features violin, jarana huasteca (small guitar), and huapanguera",
+        "Falsetto singing style (unique vocal technique)",
+        "Complex rhythms and improvisational verses",
+        "Often performed with zapateado (rhythmic footwork dancing)"
+      ],
+      etiquette: [
+        "Zapateado dancing on wooden platform is traditional - join if invited!",
+        "Verses are often improvised and can be poetic or humorous",
+        "Respectful silence during falsetto passages shows appreciation",
+        "Common at regional festivals and traditional celebrations"
+      ],
+      whereToExperience: [
+        "Huasteca Potosina cultural events",
+        "Traditional festivals in Ciudad Valles and Tamazunchale",
+        "Cultural centers showcasing regional traditions",
+        "Special performances during Xantolo (Day of the Dead)"
+      ]
+    },
+    norteno: {
+      name: "Norteño",
+      description: "Accordion-driven music from Northern Mexico, popular across SLP",
+      origins: "Northern Mexico, late 19th century",
+      characteristics: [
+        "Accordion and bajo sexto (12-string bass guitar) are key",
+        "Polka and waltz rhythms from European immigrants",
+        "Storytelling lyrics about daily life, love, and struggle",
+        "Energetic and danceable - corridos and rancheras"
+      ],
+      etiquette: [
+        "Perfect for dancing - cumbia norteña is very popular",
+        "Songs often tell stories - listen to the lyrics",
+        "Common at family gatherings and parties",
+        "Respectful to dance when invited, even if you're a beginner"
+      ],
+      whereToExperience: [
+        "Local dance halls and salones de baile",
+        "Family parties and celebrations",
+        "Bars and cantinas throughout SLP",
+        "Regional festivals and fairs"
+      ]
+    },
+    son: {
+      name: "Son Mexicano",
+      description: "Traditional folk music blending indigenous, Spanish, and African influences",
+      origins: "Various regions of Mexico, colonial period",
+      characteristics: [
+        "Diverse regional styles (son jarocho, son huasteco, etc.)",
+        "Call-and-response singing patterns",
+        "Improvised verses and poetic dueling (trovadores)",
+        "Often accompanied by traditional dancing"
+      ],
+      etiquette: [
+        "Participatory music - clapping and dancing encouraged",
+        "Verses can be improvised on the spot",
+        "Traditional at community gatherings and fiestas",
+        "Learning basic steps shows cultural appreciation"
+      ],
+      whereToExperience: [
+        "Community fiestas and celebrations",
+        "Cultural events at Casa de la Cultura",
+        "Traditional festivals throughout the year",
+        "Regional museums with live demonstrations"
+      ]
+    }
   };
 
-  const localSlang = [
-    { term: "¿Qué onda?", meaning: "What's up? / How's it going?", usage: "Casual greeting among friends" },
-    { term: "Chido/a", meaning: "Cool / Nice", usage: "¡Qué chido! (That's cool!)" },
-    { term: "No manches", meaning: "No way! / You're kidding!", usage: "Expression of disbelief or surprise" },
-    { term: "Ahorita", meaning: "Right now (but not really)", usage: "Can mean now, later, or never - context matters!" },
-    { term: "¿Mande?", meaning: "What? / Pardon?", usage: "Polite way to ask someone to repeat" },
-    { term: "Provecho", meaning: "Enjoy your meal", usage: "Said when passing someone eating" },
-    { term: "Con permiso", meaning: "Excuse me (to pass)", usage: "Used when passing by someone" },
-    { term: "Güey", meaning: "Dude / Buddy", usage: "Very casual, use only with friends" },
+  const traditionalDances = [
+    {
+      name: "Jarabe Tapatío",
+      aka: "Mexican Hat Dance",
+      description: "Mexico's national folk dance, recognized worldwide",
+      attire: "Women in colorful china poblana dresses, men in charro suits",
+      significance: "Courtship dance symbolizing Mexican identity and pride"
+    },
+    {
+      name: "Danza de los Viejitos",
+      aka: "Dance of the Little Old Men",
+      description: "Playful dance from Michoacán featuring masked dancers",
+      attire: "Wooden masks, traditional clothing, and walking sticks",
+      significance: "Satirizes old age while celebrating wisdom and vitality"
+    },
+    {
+      name: "Huapango Dance",
+      aka: "Zapateado Huasteco",
+      description: "Traditional dance from the Huasteca region with rhythmic footwork",
+      attire: "White traditional clothing, often with colorful embroidery",
+      significance: "Regional identity and indigenous heritage celebration"
+    },
+    {
+      name: "Danza de los Concheros",
+      aka: "Aztec Dance",
+      description: "Pre-Hispanic ceremonial dance with indigenous roots",
+      attire: "Feathered headdresses, traditional indigenous costumes",
+      significance: "Spiritual connection to indigenous ancestors and traditions"
+    }
   ];
 
   return (
     <>
       <Head>
-        <title>Spanish Survival Guide for Expats | San Luis Potosí</title>
-        <meta name="description" content="Essential Spanish phrases, local slang, and communication tips for expats living in San Luis Potosí. Your practical guide to daily life in Mexico." />
-        <meta name="keywords" content="Spanish phrases, San Luis Potosí slang, expat communication, essential Spanish, survival Spanish, Mexican expressions" />
-        <meta property="og:title" content="Spanish Survival Guide for Expats | San Luis Potosí" />
-        <meta property="og:description" content="Essential Spanish phrases, local slang, and communication tips for expats living in San Luis Potosí." />
-        <meta property="og:image" content="/images/language.jpg" />
+        <title>Traditional Music & Dance | San Luis Potosí Culture</title>
+        <meta name="description" content="Discover the rich musical traditions of San Luis Potosí - from mariachi and huapango to traditional dances. Your guide to experiencing authentic Mexican music and culture." />
+        <meta name="keywords" content="mariachi San Luis Potosí, huapango huasteco, Mexican traditional music, folk dances Mexico, norteño music, son mexicano, cultural traditions SLP" />
+        <meta property="og:title" content="Traditional Music & Dance | San Luis Potosí Culture" />
+        <meta property="og:description" content="Discover the rich musical traditions of San Luis Potosí - from mariachi and huapango to traditional dances." />
+        <meta property="og:image" content="/images/music-dance.jpg" />
       </Head>
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative h-[50vh] min-h-[400px] bg-gradient-to-br from-primary to-secondary overflow-hidden">
+        <section className="relative h-[50vh] min-h-[400px] bg-gradient-to-br from-amber-600 to-red-600 overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="/images/language.jpg"
-              alt="Spanish communication in San Luis Potosí"
+              src="/images/music-dance.jpg"
+              alt="Traditional Mexican music and dance in San Luis Potosí"
               fill
               className="object-cover opacity-20"
               priority
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-                target.src = target.src.replace('.jpg', '.png');
+                target.src = '/images/language.jpg';
               }}
             />
           </div>
@@ -85,311 +165,305 @@ export default function LanguagePage() {
           <div className="relative container mx-auto px-6 md:px-12 lg:px-20 h-full flex items-center">
             <div className="max-w-3xl">
               <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2 mb-6">
-                <span className="text-white font-medium text-sm tracking-wider uppercase">Essential Spanish</span>
+                <span className="text-white font-medium text-sm tracking-wider uppercase">Cultural Traditions</span>
               </div>
               <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Your Spanish Survival Guide
+                Music & Dance Traditions
               </h1>
               <p className="text-white/90 text-xl leading-relaxed">
-                Essential phrases, local slang, and practical tips to navigate daily life in San Luis Potosí with confidence
+                Discover the vibrant sounds and movements that define Mexican culture, from mariachi serenades to regional huapango
               </p>
             </div>
           </div>
         </section>
 
-        {/* Essential Phrases Section */}
+        {/* Music Genres Section */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Daily Essentials</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Traditional Sounds</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Phrases You'll Use Every Day
+                Musical Traditions of Mexico
               </h2>
               <p className="text-xl text-gray-600">
-                Master these essential phrases for restaurants, shopping, transportation, and emergencies
+                Explore the diverse musical styles that bring Mexican culture to life
               </p>
             </div>
 
-            {/* Category Tabs */}
+            {/* Genre Tabs */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-              {Object.keys(essentialPhrases).map((category) => (
+              {Object.keys(musicGenres).map((genre) => (
                 <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
+                  key={genre}
+                  onClick={() => setActiveGenre(genre)}
                   className={`px-8 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    activeCategory === category
-                      ? 'bg-primary text-white shadow-lg scale-105'
+                    activeGenre === genre
+                      ? 'bg-amber-600 text-white shadow-lg scale-105'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {musicGenres[genre as keyof typeof musicGenres].name}
                 </button>
               ))}
             </div>
 
-            {/* Phrases Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {essentialPhrases[activeCategory as keyof typeof essentialPhrases].map((phrase, index) => (
-                <div
-                  key={index}
-                  className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                      <span className="text-primary font-bold text-lg">{index + 1}</span>
+            {/* Genre Details */}
+            <div className="max-w-5xl mx-auto">
+              <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-10 border border-amber-100">
+                <div className="mb-8">
+                  <h3 className="font-serif text-3xl font-bold text-gray-900 mb-3">
+                    {musicGenres[activeGenre as keyof typeof musicGenres].name}
+                  </h3>
+                  <p className="text-xl text-gray-700 mb-2">
+                    {musicGenres[activeGenre as keyof typeof musicGenres].description}
+                  </p>
+                  <p className="text-sm text-gray-600 italic">
+                    Origins: {musicGenres[activeGenre as keyof typeof musicGenres].origins}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Characteristics */}
+                  <div className="bg-white rounded-2xl p-6 shadow-sm">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                        </svg>
+                      </div>
+                      <h4 className="font-semibold text-gray-900 text-lg">Characteristics</h4>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-2xl font-serif font-bold text-gray-900 mb-2">{phrase.spanish}</p>
-                      <p className="text-lg text-gray-600 mb-2">{phrase.english}</p>
-                      <p className="text-sm text-gray-500 italic">{phrase.phonetic}</p>
+                    <ul className="space-y-2">
+                      {musicGenres[activeGenre as keyof typeof musicGenres].characteristics.map((char, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-gray-600">
+                          <span className="text-amber-500 mt-1">•</span>
+                          <span>{char}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Etiquette */}
+                  <div className="bg-white rounded-2xl p-6 shadow-sm">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <h4 className="font-semibold text-gray-900 text-lg">Cultural Etiquette</h4>
                     </div>
+                    <ul className="space-y-2">
+                      {musicGenres[activeGenre as keyof typeof musicGenres].etiquette.map((tip, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-gray-600">
+                          <span className="text-green-500 mt-1">•</span>
+                          <span>{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              ))}
+
+                {/* Where to Experience */}
+                <div className="mt-6 bg-white rounded-2xl p-6 shadow-sm">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-gray-900 text-lg">Where to Experience</h4>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {musicGenres[activeGenre as keyof typeof musicGenres].whereToExperience.map((place, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-gray-600 bg-gray-50 rounded-lg p-3">
+                        <span className="text-blue-500 mt-1">📍</span>
+                        <span>{place}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Local Slang Section */}
+        {/* Traditional Dances Section */}
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Sound Like a Local</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Movement & Expression</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Potosino Slang & Expressions
+                Traditional Mexican Dances
               </h2>
               <p className="text-xl text-gray-600">
-                Common expressions and slang unique to San Luis Potosí and Mexico
+                Discover the folk dances that tell stories of Mexico's rich heritage and regional identity
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {localSlang.map((slang, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {traditionalDances.map((dance, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1"
+                  className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1"
                 >
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 mb-4">
-                    <p className="text-2xl font-bold text-primary text-center">{slang.term}</p>
+                  <div className="bg-gradient-to-br from-amber-500 to-red-500 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white mb-2">{dance.name}</h3>
+                    <p className="text-white/90 text-sm italic">{dance.aka}</p>
                   </div>
-                  <p className="text-lg font-semibold text-gray-900 mb-2">{slang.meaning}</p>
-                  <p className="text-sm text-gray-600 italic">{slang.usage}</p>
+                  <div className="p-6">
+                    <p className="text-gray-700 mb-4 leading-relaxed">{dance.description}</p>
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <span className="text-purple-600">👗</span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">Traditional Attire</p>
+                          <p className="text-sm text-gray-600">{dance.attire}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <span className="text-blue-600">⭐</span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 mb-1">Cultural Significance</p>
+                          <p className="text-sm text-gray-600">{dance.significance}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Communication Tips */}
+        {/* Cultural Tips Section */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-16">
-                <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Pro Tips</span>
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  Communicating Without Fluent Spanish
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100">
-                  <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Use Translation Apps</h3>
-                  <ul className="space-y-3 text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Google Translate has offline mode - download Spanish
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Camera translation works great for menus and signs
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Voice translation helps with pronunciation
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border border-green-100">
-                  <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Body Language Works</h3>
-                  <ul className="space-y-3 text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Pointing and gestures are universally understood
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Smiling goes a long way - Mexicans are friendly!
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Write numbers down to avoid confusion
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-8 border border-purple-100">
-                  <div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Start Simple</h3>
-                  <ul className="space-y-3 text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Learn greetings first: "Hola", "Buenos días", "Gracias"
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Master numbers 1-100 for shopping and taxis
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Practice one new phrase daily
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-8 border border-amber-100">
-                  <div className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Connect with Community</h3>
-                  <ul className="space-y-3 text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Join expat groups - they've been where you are
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Ask locals to correct you - they appreciate the effort
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      Don't be afraid to make mistakes!
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Cultural Dos and Don'ts */}
-        <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Cultural Etiquette</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Experience It Yourself</span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Communication Dos & Don'ts
+                How to Enjoy Music & Dance in SLP
               </h2>
               <p className="text-xl text-gray-600">
-                Navigate conversations and social situations with cultural awareness
+                Practical tips for experiencing traditional music and dance as an expat
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-              {/* DO's */}
-              <div>
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-3xl font-bold text-gray-900">DO</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-8 border border-amber-100">
+                <div className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <div className="space-y-4">
-                  {[
-                    { title: "Greet everyone", desc: "Say 'Buenos días' when entering shops or restaurants" },
-                    { title: "Use formal 'Usted'", desc: "Especially with elders, officials, and service staff" },
-                    { title: "Say 'Provecho'", desc: "When passing people eating - it's polite!" },
-                    { title: "Be patient", desc: "Mexican pace is slower - embrace it" },
-                    { title: "Use 'Por favor' and 'Gracias'", desc: "Politeness is highly valued" },
-                    { title: "Make small talk", desc: "Mexicans value personal connection before business" },
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-4 bg-white rounded-xl p-6 shadow-sm border border-green-100">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold text-gray-900 mb-1">{item.title}</p>
-                        <p className="text-gray-600 text-sm">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Where to Find It</h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">•</span>
+                    Plaza de Armas on weekend evenings for mariachi
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">•</span>
+                    Traditional restaurants often have live music
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">•</span>
+                    Casa de la Cultura for cultural performances
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">•</span>
+                    Annual festivals showcase regional music
+                  </li>
+                </ul>
               </div>
 
-              {/* DON'Ts */}
-              <div>
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </div>
-                  <h3 className="font-serif text-3xl font-bold text-gray-900">DON'T</h3>
+              <div className="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border border-green-100">
+                <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <div className="space-y-4">
-                  {[
-                    { title: "Rush conversations", desc: "Mexicans value warmth over efficiency" },
-                    { title: "Use 'Tú' with everyone", desc: "Wait for the other person to suggest informal" },
-                    { title: "Raise your voice", desc: "It's seen as aggressive - stay calm" },
-                    { title: "Point with your index finger", desc: "Use your whole hand instead" },
-                    { title: "Say 'No' too directly", desc: "Soften refusals: 'Quizás' (maybe) or 'Ahorita no' (not right now)" },
-                    { title: "Expect punctuality", desc: "'Ahorita' rarely means 'right now'" },
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-4 bg-white rounded-xl p-6 shadow-sm border border-red-100">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold text-gray-900 mb-1">{item.title}</p>
-                        <p className="text-gray-600 text-sm">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Participation Tips</h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">•</span>
+                    Don't be shy - clapping along is encouraged
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">•</span>
+                    Dancing is social - join in even as a beginner
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">•</span>
+                    Tip musicians generously if they take requests
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500">•</span>
+                    Ask about dance lessons at cultural centers
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100">
+                <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Cultural Respect</h3>
+                <ul className="space-y-3 text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Show respect during traditional ceremonies
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Ask before taking photos of performers
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Appreciate the cultural significance, not just entertainment
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Support local musicians and dancers
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-br from-primary to-secondary">
+        <section className="py-20 bg-gradient-to-br from-amber-600 to-red-600">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">
-                Ready to Practice Your Spanish?
+                Ready to Experience Traditional Music?
               </h2>
               <p className="text-xl text-white/90 mb-10">
-                Join our expat community and connect with locals who can help you improve
+                Discover live performances, cultural events, and traditional celebrations in San Luis Potosí
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/community"
-                  className="inline-flex items-center justify-center gap-3 bg-white text-primary px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                  href="/events"
+                  className="inline-flex items-center justify-center gap-3 bg-white text-amber-600 px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  Join the Community
+                  Browse Cultural Events
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
                 <Link
-                  href="/events"
-                  className="inline-flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-primary"
+                  href="/cultural"
+                  className="inline-flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-amber-600"
                 >
-                  Find Language Meetups
+                  Explore More Culture
                 </Link>
               </div>
             </div>
