@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       id: post.id,
       name: post.title,
       description: post.excerpt,
-      imageUrl: post.imageUrl || '/images/placeholder.jpg',
+      imageUrl: post.imageUrl || 'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?q=80&w=1000',
       ctaUrl: `/blog/${post.slug}`
     }));
 
