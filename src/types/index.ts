@@ -11,6 +11,7 @@ export interface Place {
   longitude?: number;
   description?: string;
   imageUrl?: string;
+  image_url?: string; // Support both camelCase and snake_case for compatibility
   hours?: string;
   featured: boolean;
   tags?: string[];

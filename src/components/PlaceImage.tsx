@@ -36,8 +36,8 @@ export default function PlaceImage({ place, className = '', sizes }: PlaceImageP
     }
   };
   
-  // Directly use the image URL from place data without any validation
-  const imageUrl = place.imageUrl || getDefaultImage(place.category);
+  // Use image_url from Supabase (snake_case) or imageUrl (camelCase) for compatibility
+  const imageUrl = place.image_url || place.imageUrl || getDefaultImage(place.category);
   
   // Debug info
   console.log(`Rendering image for ${place.name}: ${imageUrl}`);
@@ -59,12 +59,11 @@ export default function PlaceImage({ place, className = '', sizes }: PlaceImageP
         fill
         className={`object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
         sizes={sizes}
-        unoptimized={true}
         onLoad={() => setImageLoaded(true)}
         onError={(e) => {
           console.error(`Image error for ${place.name}: ${imageUrl}`);
           setImageError(true);
-          
+
           // If the image fails to load, try to load the default image instead
           if (imageUrl !== getDefaultImage(place.category)) {
             const img = e.target as HTMLImageElement;

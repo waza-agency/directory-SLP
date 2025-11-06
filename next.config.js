@@ -18,7 +18,8 @@ const nextConfig = {
       'sanluisway.com',
       'omxporaecrqsqhzjzvnx.supabase.co',
       'static.wixstatic.com',
-      'assets.seobotai.com'
+      'assets.seobotai.com',
+      'images.unsplash.com'
     ],
     remotePatterns: [
       {
@@ -36,6 +37,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       }
     ],
     formats: ['image/avif', 'image/webp'],

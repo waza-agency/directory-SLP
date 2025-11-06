@@ -84,9 +84,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/cultural/language" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
+                <Link href="/cultural/music-dance" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-primary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-primary group-hover:scale-125"></span>
-                  Language
+                  Music & Dance
                 </Link>
               </li>
               <li>

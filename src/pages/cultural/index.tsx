@@ -112,12 +112,12 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Language & Arts</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Music & Dance</h3>
                   <p className="text-gray-600">
-                    Discover local artistic expressions, language resources, and opportunities to engage with the local culture.
+                    Experience the rich musical traditions and folk dances that define San Luis Potosí's cultural heritage.
                   </p>
                   <Link
-                    href="/cultural/language"
+                    href="/cultural/music-dance"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
                     Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />

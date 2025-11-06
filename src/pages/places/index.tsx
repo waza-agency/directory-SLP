@@ -125,11 +125,13 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
                 {featuredPlaces.map((place) => (
                   <div key={place.id} className="bg-white rounded-xl p-6 shadow-elegant hover:shadow-lg transition-shadow">
                     {place.image_url && (
-                      <div className="w-full h-48 mb-4 rounded-lg overflow-hidden">
-                        <img
+                      <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+                        <Image
                           src={place.image_url}
                           alt={place.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
                     )}
@@ -233,11 +235,13 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
                 {filteredPlaces.map((place) => (
                   <div key={place.id} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
                     {place.image_url && (
-                      <div className="w-full h-40 mb-4 rounded-lg overflow-hidden">
-                        <img
+                      <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden">
+                        <Image
                           src={place.image_url}
                           alt={place.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
                     )}
