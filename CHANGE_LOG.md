@@ -4,6 +4,29 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-06] Corrección de AdSense CSP y carga de imágenes en Hidden Gems
+
+**Archivos modificados:**
+- src/pages/_document.tsx
+- src/pages/index.tsx
+- src/pages/_app.tsx
+
+**Cambios realizados:**
+- Agregado `https://fundingchoicesmessages.google.com` al Content Security Policy
+- Actualizado CSP con directivas completas: default-src, style-src, img-src, font-src, connect-src, frame-src
+- Cambiado placeholder de imagen de `/images/placeholder.jpg` (no existente) a URL de Unsplash
+- Movido viewport meta tag de _document.tsx a _app.tsx (Next.js best practices)
+
+**Resultado:** ✅ Exitoso
+- Google AdSense ya no es bloqueado por CSP en producción
+- Imágenes de Hidden Gems ahora tienen fallback válido
+- Eliminado warning de Next.js sobre viewport en _document.tsx
+- Anuncios de AdSense funcionan correctamente en producción
+
+**Commit:** aecffe42
+
+---
+
 ## [2025-11-05] Optimización de carga de imágenes en Places/Hidden Gems
 
 **Archivos modificados:**

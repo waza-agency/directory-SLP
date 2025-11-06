@@ -4,6 +4,44 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: aecffe42 - 2025-11-06
+
+**Mensaje:** fix: resolve AdSense CSP blocking and image loading issues
+
+**Archivos modificados:**
+- src/pages/_document.tsx
+- src/pages/index.tsx
+- src/pages/_app.tsx
+
+**Descripción detallada:**
+
+Este commit resuelve problemas críticos que impedían que Google AdSense se cargara en producción y corrige problemas de visualización de imágenes en la sección Hidden Gems.
+
+1. **_document.tsx (línea 10-11):**
+   - ANTES: CSP solo especificaba dominios parciales de Google
+   - DESPUÉS: Agregado `https://fundingchoicesmessages.google.com` a script-src
+   - Agregadas directivas completas de CSP: default-src, style-src, img-src, font-src, connect-src, frame-src
+   - Removido viewport meta tag (warning de Next.js)
+
+2. **index.tsx (línea 45):**
+   - ANTES: Placeholder `/images/placeholder.jpg` que no existe
+   - DESPUÉS: URL de Unsplash como fallback válido
+   - Soluciona errores 400 cuando blog posts no tienen imagen
+
+3. **_app.tsx (línea 23):**
+   - Agregado viewport meta tag en la ubicación correcta según Next.js best practices
+   - Resuelve warning "viewport meta tags should not be used in _document.js"
+
+**Propósito/Razón:**
+
+El sitio en producción mostraba errores de CSP que bloqueaban scripts de Google AdSense, específicamente `fundingchoicesmessages.google.com`. Esto impedía que los anuncios se mostraran correctamente. Además, las imágenes de la sección Hidden Gems fallaban con error 400 porque el placeholder local no existía.
+
+Este commit habilita AdSense en producción y asegura que todas las imágenes tengan un fallback válido.
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: 2e5b5f6c - 2025-11-05
 
 **Mensaje:** fix: optimize image loading for places and hidden gems
