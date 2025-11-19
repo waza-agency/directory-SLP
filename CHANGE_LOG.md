@@ -4,6 +4,29 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-19] Actualización de página de Potosino Brands con URLs de imágenes correctas
+
+**Archivos modificados:**
+- src/pages/brands/index.tsx
+- supabase/migrations/20250119000000_create_brands_table.sql (nuevo)
+
+**Cambios realizados:**
+- Actualizado el fallback de brands con todas las imágenes disponibles en `/public/images/brands`
+- Agregadas nuevas marcas: Aeroméxico, Corazón de Xoconostle, La Gran Vía, La Legendaria, Las Sevillanas, Productos Don Tacho, Ron Potosí, San Luis Rey Tranvía
+- Corregida URL de imagen de Ron Potosí (ron-potosino.jpg → ron-potosi.jpg)
+- Removidas marcas sin imágenes disponibles (Quesos Carranco, Cajeta Coronado, Canel's)
+- Creada migración SQL para tabla de brands en Supabase con estructura completa
+
+**Resultado:** ✅ Exitoso
+- Todas las imágenes de brands ahora cargan correctamente en la página
+- Total de 13 marcas potosinas con imágenes válidas
+- Migración lista para aplicar cuando se configure acceso a Supabase
+- Página de brands muestra contenido completo sin imágenes rotas
+
+**Commit:** 296e5785
+
+---
+
 ## [2025-11-06] Corrección de AdSense CSP y carga de imágenes en Hidden Gems
 
 **Archivos modificados:**

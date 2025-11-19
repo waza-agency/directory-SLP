@@ -4,6 +4,54 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 296e5785 - 2025-11-19
+
+**Mensaje:** fix: update Potosino brands page with correct image URLs and add brands table migration
+
+**Archivos modificados:**
+- src/pages/brands/index.tsx
+- supabase/migrations/20250119000000_create_brands_table.sql (nuevo)
+
+**Descripción detallada:**
+
+Este commit soluciona el problema de imágenes faltantes en la página de Potosino Brands y establece la base para la gestión de marcas en la base de datos.
+
+1. **brands/index.tsx (líneas 356-555):**
+   - ANTES: Fallback contenía 8 marcas, algunas con URLs incorrectas (ron-potosino.jpg) y referencias a imágenes inexistentes (quesos-carranco.jpg, cajeta-coronado.jpg, canels.jpg)
+   - DESPUÉS: Actualizado a 13 marcas con todas las imágenes disponibles en `/public/images/brands`
+   - Agregadas nuevas marcas potosinas:
+     * Aeroméxico (aeromexico-logo.png) - Categoría: aviation
+     * Corazón de Xoconostle (corazon-de-xoconostle-logo.png) - Productos artesanales de xoconostle
+     * La Gran Vía (la-gran-via-logo.jpg) - Panadería tradicional
+     * La Legendaria (la-legendaria-logo.png) - Cervecería artesanal
+     * Las Sevillanas (las-sevillanas.jpg) - Galletas y dulces regionales
+     * Productos Don Tacho (productos-don-tacho.jpg) - Mole y salsas tradicionales
+     * Ron Potosí (ron-potosi.jpg, antes ron-potosino.jpg) - Destilería
+     * San Luis Rey Tranvía (san-luis-rey-tranvia-logo.jpg) - Tours turísticos
+   - Removidas marcas sin imágenes disponibles para evitar enlaces rotos
+
+2. **20250119000000_create_brands_table.sql (nuevo archivo):**
+   - Creada estructura completa de tabla brands en Supabase
+   - Campos: id, name, slug, category, year_founded, address, city, phone, website, instagram, description, notable_products, where_to_buy, image_url, featured, created_at, updated_at
+   - Trigger automático para updated_at
+   - Row Level Security habilitado con política de lectura pública
+   - Índices en slug, category, y featured para búsquedas eficientes
+   - Pre-poblada con los 13 brands y sus URLs correctas
+   - Lista para aplicar con `supabase db push` cuando se configure acceso
+
+**Propósito/Razón:**
+
+La página de Potosino Brands mostraba imágenes rotas porque:
+- No existía la tabla brands en Supabase, forzando uso del fallback
+- El código de fallback tenía URLs incorrectas y referencias a imágenes inexistentes
+- Faltaban varias marcas potosinas cuyas imágenes ya estaban disponibles en el proyecto
+
+Este commit asegura que todas las 13 imágenes disponibles en `/public/images/brands` se muestren correctamente en la página, mejorando la experiencia del usuario y mostrando más marcas auténticas de San Luis Potosí. La migración permite transición futura a base de datos sin modificar el código.
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: aecffe42 - 2025-11-06
 
 **Mensaje:** fix: resolve AdSense CSP blocking and image loading issues
