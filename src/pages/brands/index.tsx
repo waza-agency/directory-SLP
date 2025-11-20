@@ -338,6 +338,13 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Fetch all brands from Supabase
     const fetchedBrands = await getAllBrands();
 
+    console.log('Fetched brands from Supabase:', fetchedBrands.length);
+
+    // If no brands found, throw error to use fallback
+    if (!fetchedBrands || fetchedBrands.length === 0) {
+      throw new Error('No brands found in Supabase');
+    }
+
     // Ensure all brands have slugs
     const brands = fetchedBrands.map(brand => ({
       ...brand,
@@ -348,216 +355,18 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       props: {
         brands,
       },
+      revalidate: 60, // Revalidate every 60 seconds
     };
   } catch (error) {
-    console.error('Error fetching brands:', error);
+    console.error('Error fetching brands from Supabase:', error);
 
-    // Fallback to sample brands if Supabase is not available
-    const fallbackBrands = [
-      {
-        id: 'aeromexico',
-        name: 'Aeroméxico',
-        slug: 'aeromexico-aviation-san-luis-potosi',
-        category: 'aviation',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Mexico\'s global airline carrier with extensive domestic and international routes, offering premium service and connectivity.',
-        notable_products: 'Domestic and international flights, cargo services',
-        where_to_buy: 'aeromexico.com',
-        image_url: '/images/brands/aeromexico-logo.png',
-        featured: true,
-        year_founded: '1934',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'aguas-de-lourdes',
-        name: 'Aguas de Lourdes',
-        slug: 'aguas-de-lourdes-beverages-san-luis-potosi',
-        category: 'beverages',
-        address: 'Calle Universidad 205',
-        city: 'San Luis Potosí',
-        description: 'Refreshing traditional Mexican aguas frescas and beverages made with natural ingredients.',
-        notable_products: 'Agua de jamaica, horchata, limón con chía',
-        where_to_buy: 'Puestos en el centro, mercados locales',
-        image_url: '/images/brands/aguas-de-lourdes.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'bicicletas-mercurio',
-        name: 'Bicicletas Mercurio',
-        slug: 'bicicletas-mercurio-automotive-san-luis-potosi',
-        category: 'automotive',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Historic bicycle manufacturer producing quality bicycles for Mexican families since 1949.',
-        notable_products: 'Bicicletas urbanas, bicicletas de montaña, bicicletas para niños',
-        where_to_buy: 'Tiendas deportivas, distribuidores autorizados',
-        image_url: '/images/brands/bicicletas-mercurio.jpg',
-        featured: true,
-        year_founded: '1949',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'botanas-provi',
-        name: 'Botanas Provi',
-        slug: 'botanas-provi-food-san-luis-potosi',
-        category: 'food',
-        address: 'Centro Histórico, San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Traditional Mexican snacks and treats made with authentic recipes passed down through generations.',
-        notable_products: 'Chicharrones, cacahuates, dulces típicos',
-        where_to_buy: 'Tiendas de abarrotes en SLP, mercado República',
-        image_url: '/images/brands/botanas-provi.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'chocolates-costanzo',
-        name: 'Chocolates Costanzo',
-        slug: 'chocolates-costanzo-food-san-luis-potosi',
-        category: 'food',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Artisanal chocolate factory producing fine Mexican chocolates and traditional sweets with authentic Potosino recipes.',
-        notable_products: 'Chocolates, dulces tradicionales, bombones',
-        where_to_buy: 'Tiendas de dulces, mercados',
-        image_url: '/images/brands/chocolates-costanzo.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'corazon-de-xoconostle',
-        name: 'Corazón de Xoconostle',
-        slug: 'corazon-de-xoconostle-food-san-luis-potosi',
-        category: 'food',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Innovative Potosino brand creating artisanal products from xoconostle, a traditional regional ingredient with unique flavor and health benefits.',
-        notable_products: 'Mermeladas de xoconostle, productos artesanales',
-        where_to_buy: 'Mercados locales, tiendas gourmet',
-        image_url: '/images/brands/corazon-de-xoconostle-logo.png',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'la-gran-via',
-        name: 'La Gran Vía',
-        slug: 'la-gran-via-food-san-luis-potosi',
-        category: 'food',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Traditional Potosino bakery known for authentic Mexican pastries and breads made with time-honored recipes.',
-        notable_products: 'Pan dulce, conchas, bolillos, pasteles',
-        where_to_buy: 'Sucursales en San Luis Potosí',
-        image_url: '/images/brands/la-gran-via-logo.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'la-legendaria',
-        name: 'La Legendaria',
-        slug: 'la-legendaria-beverages-san-luis-potosi',
-        category: 'beverages',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Craft beer brewery producing exceptional beers inspired by Potosino culture and Mexican brewing traditions.',
-        notable_products: 'Cervezas artesanales, seasonal brews',
-        where_to_buy: 'Bares locales, tiendas especializadas',
-        image_url: '/images/brands/la-legendaria-logo.png',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'las-sevillanas',
-        name: 'Las Sevillanas',
-        slug: 'las-sevillanas-food-san-luis-potosi',
-        category: 'food',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Traditional bakery specializing in regional pastries and cookies that reflect Potosino culinary heritage.',
-        notable_products: 'Galletas tradicionales, polvorones, dulces regionales',
-        where_to_buy: 'Tiendas de dulces, mercados',
-        image_url: '/images/brands/las-sevillanas.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'panaderia-la-superior',
-        name: 'Panaderías La Superior',
-        slug: 'panaderias-la-superior-food-san-luis-potosi',
-        category: 'food',
-        address: 'Av. Carranza 150, Centro',
-        city: 'San Luis Potosí',
-        description: 'Artisanal bakery offering fresh bread, pastries, and traditional Mexican baked goods since 1950.',
-        notable_products: 'Pan dulce, conchas, birotes',
-        where_to_buy: 'Sucursales en toda la ciudad',
-        image_url: '/images/brands/panaderia-la-superior.jpg',
-        featured: true,
-        year_founded: '1950',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'productos-don-tacho',
-        name: 'Productos Don Tacho',
-        slug: 'productos-don-tacho-food-san-luis-potosi',
-        category: 'food',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Producer of authentic regional foods including traditional mole, salsas, and dried chiles.',
-        notable_products: 'Mole potosino, salsas artesanales, chiles secos',
-        where_to_buy: 'Mercados locales, supermercados',
-        image_url: '/images/brands/productos-don-tacho.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'ron-potosi',
-        name: 'Ron Potosí',
-        slug: 'ron-potosi-beverages-san-luis-potosi',
-        category: 'beverages',
-        address: 'San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Distillery producing fine rum with a distinctive Potosino character and smooth finish.',
-        notable_products: 'Ron añejo, ron blanco, ron especiado',
-        where_to_buy: 'Licorerías, supermercados',
-        image_url: '/images/brands/ron-potosi.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 'san-luis-rey-tranvia',
-        name: 'San Luis Rey Tranvía',
-        slug: 'san-luis-rey-tranvia-tourism-san-luis-potosi',
-        category: 'tourism',
-        address: 'Centro Histórico, San Luis Potosí',
-        city: 'San Luis Potosí',
-        description: 'Historic streetcar offering guided tours through the beautiful historic center of San Luis Potosí.',
-        notable_products: 'Tours turísticos, recorridos históricos',
-        where_to_buy: 'Centro Histórico, punto de partida Plaza de Armas',
-        image_url: '/images/brands/san-luis-rey-tranvia-logo.jpg',
-        featured: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }
-    ];
-
+    // Return empty brands array if database connection fails
+    // This should rarely happen as the connection is configured correctly
     return {
       props: {
-        brands: fallbackBrands,
+        brands: [],
       },
+      revalidate: 60,
     };
   }
 };
