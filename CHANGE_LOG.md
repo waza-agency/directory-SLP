@@ -4,6 +4,32 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-20] Conexión de página de Brands a base de datos Supabase
+
+**Archivos modificados:**
+- src/pages/brands/index.tsx
+- scripts/check-brands-table.js (nuevo)
+- scripts/get-supabase-project-info.js (nuevo)
+
+**Cambios realizados:**
+- Removido código de fallback con datos hardcodeados (200+ líneas eliminadas)
+- Página ahora obtiene todos los brands directamente de la tabla `brands` en Supabase
+- Verificado que los 21 brands se cargan correctamente desde la base de datos
+- Agregado ISR con revalidación cada 60 segundos
+- Creados scripts de utilidad para verificar datos en Supabase
+- Confirmado que todas las imágenes cargan desde Supabase Storage
+
+**Resultado:** ✅ Exitoso
+- La página carga 21 brands reales desde Supabase
+- Todas las imágenes provienen de Supabase Storage (buckets: brand-images/ y images/brands/)
+- Campo `image_url` de la base de datos se usa correctamente
+- Página se regenera automáticamente cada 60 segundos con datos actualizados
+- Ya no hay dependencia de datos hardcodeados
+
+**Commit:** 1d7017a9
+
+---
+
 ## [2025-11-19] Actualización de página de Potosino Brands con URLs de imágenes correctas
 
 **Archivos modificados:**

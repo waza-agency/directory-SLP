@@ -4,6 +4,67 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 1d7017a9 - 2025-11-20
+
+**Mensaje:** fix: connect brands page to Supabase database instead of using fallback
+
+**Archivos modificados:**
+- src/pages/brands/index.tsx (modificado, -318 líneas, +55 líneas)
+- scripts/check-brands-table.js (nuevo)
+- scripts/get-supabase-project-info.js (nuevo)
+- EMAIL_SETUP_GUIDE.md (eliminado)
+
+**Descripción detallada:**
+
+Este commit completa la integración real con Supabase para la página de brands, eliminando el código de fallback hardcodeado y conectando directamente a la base de datos.
+
+1. **brands/index.tsx:**
+   - ANTES: Tenía 200+ líneas de datos de fallback hardcodeados con solo 13 brands
+   - DESPUÉS: Removido todo el fallback, ahora solo retorna array vacío en caso de error
+   - Agregado `revalidate: 60` para ISR (Incremental Static Regeneration)
+   - Agregado logging detallado: "Fetched brands from Supabase: 21"
+   - Verificación de que fetchedBrands no sea vacío antes de continuar
+   - El código ahora confía en que Supabase está correctamente configurado
+
+2. **check-brands-table.js (nuevo):**
+   - Script de utilidad para verificar la tabla brands en Supabase
+   - Muestra todos los brands con su información completa
+   - Identifica brands sin imágenes configuradas
+   - Útil para debugging y verificación de datos
+
+3. **get-supabase-project-info.js (nuevo):**
+   - Script para obtener información del proyecto Supabase
+   - Decodifica el JWT token para mostrar metadata del proyecto
+   - Muestra project reference, issuer, role, fechas de emisión/expiración
+   - Proporciona instrucciones para obtener info de organización/owner
+
+**Datos verificados:**
+- La tabla `brands` existe en Supabase con 21 registros
+- Todos los brands tienen el campo `image_url` configurado
+- Imágenes almacenadas en dos buckets de Supabase Storage:
+  * brand-images/ (para algunas marcas como aguas-de-lourdes.jpg)
+  * images/brands/ (para otras marcas con UUIDs como nombres)
+- El dominio de Supabase ya está configurado en next.config.js
+- La página usa correctamente `brand.image_url` en líneas 136 y 279
+
+**Propósito/Razón:**
+
+El código anterior usaba un fallback extenso que nunca debía ejecutarse porque Supabase está correctamente configurado. Este fallback:
+- Añadía 200+ líneas de código innecesario
+- Contenía solo 13 brands vs 21 reales en la base de datos
+- No se sincronizaba con la app que alimenta la base de datos
+- Creaba confusión sobre la fuente de verdad de los datos
+
+Al eliminar el fallback y conectar directamente a Supabase:
+- La página ahora muestra los 21 brands reales de la base de datos
+- Cualquier cambio en la app de gestión se refleja automáticamente (cada 60 segundos)
+- El código es más limpio y mantenible
+- La fuente de verdad es clara: la tabla brands en Supabase
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: 296e5785 - 2025-11-19
 
 **Mensaje:** fix: update Potosino brands page with correct image URLs and add brands table migration
