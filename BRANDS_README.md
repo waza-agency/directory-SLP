@@ -6,6 +6,7 @@ This document outlines the dedicated Brands management system that has been impl
 
 The Potosino Brands feature allows showcasing local brands from San Luis Potosí with rich information about each brand, including:
 
+
 - Name
 - Category
 - Year Founded
@@ -106,4 +107,4 @@ Possible future enhancements to consider:
 1. Brand categories management in the admin
 2. Brand analytics tracking
 3. Featured brands rotation system
-4. Brand social media integration 
+4. Brand social media integration
