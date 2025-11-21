@@ -11,8 +11,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
     images: {
-    // Enabled Next.js image optimization for better performance
-    unoptimized: false,
+    // Disabled Next.js image optimization for external images (causes 400 errors in production)
+    unoptimized: true,
     domains: [
       'localhost',
       'sanluisway.com',
