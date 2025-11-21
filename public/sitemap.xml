@@ -324,6 +324,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanluisway.com/index-backup-20251021-155913</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanluisway.com/index-redesign</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sanluisway.com/join-directory</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
