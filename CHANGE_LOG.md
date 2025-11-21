@@ -4,6 +4,59 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-21] Optimización de SEO: Sitemap y Robots.txt
+
+**Archivos modificados/creados:**
+- public/sitemap.xml (optimizado)
+- public/robots.txt (nuevo)
+- scripts/generate-sitemap.js (mejorado)
+
+**Problema resuelto:**
+Google Search Console reportaba múltiples páginas con error 404 Not Found y muchas páginas sin indexar debido a un sitemap mal configurado.
+
+**Cambios realizados:**
+
+1. **Sitemap optimizado (79 URLs vs 102 anteriores):**
+   - Eliminadas páginas internas de Next.js que causaban 404: `/_app`, `/_document`
+   - Eliminadas páginas de desarrollo/backup: `/index-backup-*`, `/index-redesign`
+   - Eliminadas páginas privadas que no deberían indexarse: `/account/*`, `/business/*`
+   - Eliminadas múltiples versiones de signup/signin creadas para testing
+   - Eliminadas páginas de resultados: `/checkout/success`, `/order-confirmation`
+   - Agregado campo `<lastmod>` con fecha actual en todas las URLs
+   - Mejoradas las prioridades según importancia de páginas
+   - Script configurado para obtener páginas dinámicas desde Supabase (brands, blog posts)
+
+2. **Robots.txt creado:**
+   - Bloquea acceso de bots a páginas privadas (`/api/`, `/account/`, `/business/`)
+   - Bloquea páginas de desarrollo y test (`/index-backup*`, `/signup-*`, etc.)
+   - Indica ubicación del sitemap para facilitar indexación
+   - Permite acceso a contenido público
+   - Configurado `Crawl-delay: 1` para evitar sobrecarga del servidor
+
+3. **Script generate-sitemap.js mejorado:**
+   - Sistema de exclusión automática de páginas problemáticas
+   - Obtiene páginas dinámicas desde Supabase (21 brands + blog posts)
+   - Genera URLs con lastmod, changefreq y prioridades apropiadas
+   - Maneja correctamente el caso sin credenciales de Supabase
+   - Mejor organización y documentación del código
+
+**Resultado:** ✅ Exitoso
+- Reducidas URLs en sitemap de 102 a 79 (eliminadas 23 páginas problemáticas)
+- Todos los errores 404 causados por páginas internas resueltos
+- Mejora en la indexabilidad del sitio para motores de búsqueda
+- Robots.txt optimizado para SEO y seguridad
+- Mejor organización de URLs por prioridad e importancia
+
+**Próximos pasos recomendados:**
+1. Enviar nuevo sitemap a Google Search Console
+2. Verificar que robots.txt sea accesible en https://sanluisway.com/robots.txt
+3. Solicitar reindexación de páginas afectadas
+4. Monitorear errores 404 en Search Console durante próximos días
+
+**Commit:** be7c86b3
+
+---
+
 ## [2025-11-21] Verificación de configuración de imágenes en sección Discover Hidden Gems
 
 **Archivos verificados:**

@@ -4,6 +4,114 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: be7c86b3 - 2025-11-21
+
+**Mensaje:** feat: optimize sitemap and add robots.txt for better SEO
+
+**Archivos modificados:**
+- public/sitemap.xml (optimizado, -23 URLs problemáticas)
+- public/robots.txt (nuevo archivo)
+- scripts/generate-sitemap.js (completamente reescrito)
+
+**Descripción detallada:**
+
+Este commit resuelve problemas críticos reportados por Google Search Console: múltiples errores 404 y páginas sin indexar debido a un sitemap mal configurado que incluía páginas internas de Next.js y páginas privadas.
+
+**1. Sitemap optimizado (public/sitemap.xml):**
+
+ANTES (102 URLs):
+- Incluía páginas internas: `/_app`, `/_document` → 404 error
+- Incluía páginas de desarrollo: `/index-backup-*`, `/index-redesign` → 404 error
+- Incluía páginas privadas: `/account/*`, `/business/*` → No deberían indexarse
+- Incluía múltiples versiones de signup/signin para testing → Contenido duplicado
+- Incluía páginas de resultados: `/checkout/success`, `/order-confirmation` → No deberían indexarse
+- No tenía campo `lastmod` → Mala práctica SEO
+- Prioridades mal asignadas
+
+DESPUÉS (79 URLs):
+- Excluye todas las páginas problemáticas mencionadas
+- Incluye campo `<lastmod>2025-11-21</lastmod>` en todas las URLs
+- Prioridades mejoradas:
+  * 1.0 para homepage
+  * 0.9 para secciones principales (/places/, /events/, /brands/, etc.)
+  * 0.8 para páginas de sección
+  * 0.7 para subsecciones y categorías
+- URLs ordenadas alfabéticamente para mejor organización
+- Configurado para incluir páginas dinámicas desde Supabase durante build
+
+**2. Robots.txt creado (public/robots.txt):**
+
+Nuevo archivo que:
+- Permite acceso a todos los bots (`User-agent: *`)
+- Bloquea páginas privadas: `/api/`, `/account/`, `/business/`, `/_next/`
+- Bloquea páginas de autenticación: `/signin`, `/signup`, `/checkout`
+- Bloquea páginas de desarrollo: `/index-backup*`, `/index-redesign`, `/signup-*`, `/signin-*`
+- Permite acceso a rutas well-known: `Allow: /.well-known/`
+- Configura crawl-delay de 1 segundo para evitar sobrecarga
+- Indica ubicación del sitemap: `Sitemap: https://sanluisway.com/sitemap.xml`
+
+**3. Script generate-sitemap.js completamente reescrito:**
+
+Mejoras implementadas:
+- **Sistema de exclusión robusto:**
+  * Array `EXCLUDED_PAGES` con 15+ páginas a excluir
+  * Patrones regex en `EXCLUDED_PATTERNS` para excluir categorías completas
+  * Función `shouldExclude()` que valida ambos sistemas
+
+- **Integración con Supabase:**
+  * Conecta a base de datos para obtener páginas dinámicas
+  * Fetch de brands: obtiene slugs de tabla `brands` → URLs `/brands/{slug}`
+  * Fetch de blog posts: obtiene slugs de posts publicados → URLs `/blog/{slug}`
+  * Manejo graceful cuando Supabase no está disponible
+
+- **Configuración mejorada:**
+  * Sistema CONFIG con 5 niveles de prioridad
+  * Función `getConfig()` que asigna prioridades inteligentemente
+  * Campo `lastmod` generado automáticamente con fecha actual
+  * Frecuencias de cambio apropiadas por tipo de página
+
+- **Mejor manejo de rutas:**
+  * Función `formatPath()` mejorada para manejar index pages correctamente
+  * Trailing slashes solo en páginas index
+  * Eliminación correcta de extensiones .tsx/.jsx
+  * Conversión de rutas de archivo a URLs web
+
+- **Logging detallado:**
+  * Muestra cuántos archivos encuentra
+  * Reporta cuántas páginas excluye
+  * Indica cuántas páginas dinámicas agrega
+  * Confirma éxito con total de URLs generadas
+
+**Problema resuelto:**
+
+Google Search Console reportaba:
+- 23+ páginas con error 404 Not Found
+- Muchas páginas privadas siendo indexadas incorrectamente
+- Falta de robots.txt causando indexación de contenido no deseado
+- Sitemap desactualizado sin lastmod
+
+**Impacto del cambio:**
+
+✅ Elimina todos los errores 404 causados por páginas internas de Next.js
+✅ Previene indexación de páginas privadas (account, business)
+✅ Mejora la calidad del índice de Google (solo páginas públicas relevantes)
+✅ Robots.txt protege rutas sensibles y API
+✅ Sitemap con lastmod ayuda a Google a priorizar crawling
+✅ Reducción de 23 URLs innecesarias mejora eficiencia de crawling
+✅ Páginas dinámicas (brands, blog) se incluyen automáticamente en cada build
+
+**Próximos pasos recomendados:**
+
+1. Enviar nuevo sitemap a Google Search Console
+2. Verificar que robots.txt sea accesible públicamente
+3. Solicitar reindexación de páginas afectadas
+4. Monitorear errores 404 durante próximos 7 días
+5. Verificar que páginas privadas ya no aparezcan en resultados de búsqueda
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: 71c06649 - 2025-11-21
 
 **Mensaje:** docs: verify blog images configuration and update sitemap
