@@ -4,6 +4,216 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: [pending] - 2025-11-21
+
+**Mensaje:** docs: create comprehensive style guides for blog checklists and travel itineraries
+
+**Archivos creados:**
+- BLOG_CHECKLIST_STYLE_GUIDE.md (nuevo, 1,100+ líneas)
+- BLOG_ITINERARY_STYLE_GUIDE.md (nuevo, 1,100+ líneas)
+
+**Archivos modificados:**
+- CHANGE_LOG.md (nueva entrada)
+- COMMIT_LOG.md (esta entrada)
+
+**Descripción detallada:**
+
+Este commit agrega dos nuevos style guides comprehensivos al sistema de documentación del blog, expandiendo las capacidades de creación de contenido con dos formatos adicionales: posts de checklists y posts de itinerarios turísticos.
+
+**Contexto:**
+
+El proyecto San Luis Way actualmente cuenta con 3 style guides existentes:
+1. BLOG_STYLE_GUIDE.md - Guía general de estilos
+2. BLOG_DEEP_DIVE_STYLE_GUIDE - Para artículos profundos con imágenes
+3. BLOG_COMPARISSON_STYLE_GUIDE - Para comparaciones de productos con affiliate links
+
+La necesidad de crear contenido de checklists útiles (ej: "Checklist para mudarse a SLP") e itinerarios turísticos detallados (ej: "3 días en San Luis Potosí") requería documentación específica para estos formatos.
+
+**Propósito/Razón:**
+
+Establecer estándares consistentes y reutilizables para dos tipos importantes de contenido de blog que:
+- Atraen tráfico de búsqueda (keywords como "checklist para..." e "itinerario de...")
+- Proporcionan valor práctico a usuarios
+- Mantienen consistencia visual con el diseño existente
+- Siguen mejores prácticas de UX y accesibilidad
+
+**BLOG_CHECKLIST_STYLE_GUIDE.md - Contenido detallado:**
+
+1. **Estructura y componentes (1,100+ líneas):**
+   - Sistema de organización por categorías (documentos, trámites administrativos, seguimiento)
+   - Componentes de checkbox interactivos con HTML/Tailwind CSS
+   - Tracking de progreso visual con barras e indicadores porcentuales
+   - Timeline integrada para procesos cronológicos
+   - Cajas de desglose de costos por categoría
+   - Secciones de errores comunes y cómo evitarlos
+   - Cajas de pro tips y consejos de expertos
+   - Enlaces a recursos oficiales (gobierno, instituciones)
+   - Sección FAQ obligatoria
+   - CTAs finales para contacto/consultas
+
+2. **Componentes clave incluidos:**
+   - Progress tracker visual (ej: "45% completado - 9 de 20 items")
+   - Category boxes con checkboxes estilizados
+   - Document cards con íconos y detalles
+   - Timeline de deadlines y fechas importantes
+   - Cost breakdown tables
+   - Warning boxes para información crítica
+   - Success confirmation boxes
+
+3. **Sistema de colores semántico:**
+   - Azul: Información general y documentos
+   - Verde: Confirmaciones y éxitos
+   - Amarillo: TOC y advertencias
+   - Rojo: Información crítica y errores comunes
+   - Purple: Tips premium y consejos expertos
+
+4. **Reglas críticas establecidas:**
+   - **NUNCA** incluir información no verificada
+   - Siempre atribuir fuentes a sitios oficiales
+   - Mantener checklists realistas y prácticos
+   - Incluir timelines realistas
+   - Especificar costos actuales con disclaimer de variación
+
+**BLOG_ITINERARY_STYLE_GUIDE.md - Contenido detallado:**
+
+1. **Estructura y componentes (1,100+ líneas):**
+   - Headers de día con estadísticas visuales (distancia, tiempo, presupuesto, # actividades)
+   - Timeline visual con color-coding por período del día
+   - Activity cards detalladas (restaurantes, outdoor, cultura, transporte)
+   - Sistema de categorización con 15+ iconos específicos
+   - Desglose de presupuestos por estilo (budget/mid-range/luxury)
+   - Integración de mapas con Google Maps
+   - Secciones de transporte y logística
+   - Información práctica (clima, seguridad, qué empacar)
+   - Galerías fotográficas estratégicas
+   - Tips de insiders locales y secretos
+   - Guías estacionales completas
+   - FAQ section
+   - CTAs finales
+
+2. **Componentes de timeline:**
+   - Color-coding por período del día:
+     * Azul = Mañana (6 AM - 12 PM)
+     * Verde = Mediodía (12 PM - 3 PM)
+     * Amarillo = Tarde (3 PM - 6 PM)
+     * Purple = Noche (6 PM - 10 PM)
+   - Indicadores de duración para cada actividad
+   - Costos específicos por actividad
+   - Nivel de dificultad/esfuerzo físico
+
+3. **Activity cards especializadas:**
+   - **Restaurant cards:** con must-try dishes, price range, horarios, reservas
+   - **Cultural/sightseeing cards:** con horarios, costos, nivel accesibilidad
+   - **Outdoor/adventure cards:** con dificultad, distancia, qué llevar, safety notes
+   - Cada card incluye: ubicación, horarios, costos, contacto, insider tip
+
+4. **Secciones de información práctica:**
+   - Quick trip overview (duración, budget, mejor temporada, dificultad)
+   - Budget breakdowns por día y por estilo de viaje
+   - Comparación de opciones de transporte (tabla con ratings)
+   - Weather & seasonal guide (tabla mes por mes)
+   - Safety & health information
+   - What to pack checklist (con checkboxes)
+   - Local tips & insider secrets (6+ tips por destino)
+
+5. **Sistema de iconos (15+ iconos):**
+   - 🗓️ Itinerario/fechas
+   - 📍 Ubicaciones/mapas
+   - 💰 Presupuesto/costos
+   - 🍽️ Restaurantes/comida
+   - 🏛️ Cultura/museos
+   - 🥾 Actividades outdoor
+   - 🚕 Transporte
+   - 🏨 Alojamiento
+   - 🎒 Qué empacar
+   - ⏱️ Duración/tiempo
+   - 🌡️ Clima
+   - 💡 Tips/consejos
+   - ⚠️ Advertencias
+   - 📸 Photo spots
+   - 🤫 Insider secrets
+
+**Características compartidas entre ambos guides:**
+
+1. **Adherencia a sistema existente:**
+   - Mismo esquema de colores que otros style guides
+   - Estructura HTML/Tailwind CSS consistente
+   - Componentes responsive (mobile-first)
+   - Énfasis en accesibilidad (alt text, semantic HTML)
+
+2. **Regla crítica de verificación:**
+   - Sección especial "⚠️ CRITICAL RULE: Verified Information Only"
+   - Prohibición explícita de claims no verificados
+   - Guías de atribución correcta (ej: "According to local tourism experts..." vs "We discovered...")
+   - Ejemplos de buenas y malas prácticas
+
+3. **Componentes obligatorios:**
+   - Table of Contents (yellow box) al inicio
+   - FAQ section al final
+   - CTA final (green box) linkando a contacto o recursos
+   - Mínimo de imágenes especificado
+
+4. **Ejemplos completos:**
+   - Cada guide incluye ejemplo completo de estructura
+   - Código HTML/Tailwind CSS listo para copy-paste
+   - Comentarios explicativos en el código
+
+**Impacto esperado:**
+
+✅ **Beneficios:**
+- Estandarización de formatos de checklist e itinerario en el blog
+- Reducción de tiempo de creación de contenido (plantillas listas)
+- Consistencia visual en toda la plataforma
+- Mejora en UX con componentes específicamente diseñados
+- SEO-friendly con estructura correcta de headings e IDs
+- Escalabilidad: fácil crear múltiples posts siguiendo los guides
+
+📈 **SEO & Traffic:**
+- Posts de checklists optimizados para keywords "checklist para [tema]"
+- Posts de itinerarios optimizados para "[destino] itinerario", "X días en [destino]"
+- Estructura semántica correcta (mejor para search engines)
+
+💼 **Casos de uso previstos:**
+
+Checklists:
+- "Checklist completo para mudarse a San Luis Potosí"
+- "Lista de verificación: Abrir un negocio en SLP"
+- "Checklist de documentos para turistas en México"
+- "Guía paso a paso: Renovación de visa en SLP"
+
+Itinerarios:
+- "3 días perfectos en San Luis Potosí: Itinerario completo"
+- "Ruta de 1 día en Centro Histórico de SLP"
+- "Itinerario de fin de semana: Real de Catorce y Xilitla"
+- "7 días en Potosí: Guía definitiva para viajeros"
+
+**Estado del sistema de documentación:**
+
+Ahora el proyecto cuenta con **5 style guides completos**:
+1. BLOG_STYLE_GUIDE.md - General (base para todos)
+2. BLOG_DEEP_DIVE_STYLE_GUIDE - Artículos profundos
+3. BLOG_COMPARISSON_STYLE_GUIDE - Comparaciones con affiliate links
+4. BLOG_CHECKLIST_STYLE_GUIDE.md - **NUEVO** ✨
+5. BLOG_ITINERARY_STYLE_GUIDE.md - **NUEVO** ✨
+
+**Próximos pasos sugeridos:**
+
+1. Crear primer post usando BLOG_CHECKLIST_STYLE_GUIDE.md
+2. Crear primer post usando BLOG_ITINERARY_STYLE_GUIDE.md
+3. Iterar y mejorar guides basado en uso real
+4. Potencialmente crear más guides para otros formatos (FAQ posts, comparison posts sin productos, how-to guides, etc.)
+
+**Verificación:**
+
+Los guides están listos para usar inmediatamente:
+- ✅ Sintaxis HTML/Tailwind correcta
+- ✅ Responsive design considerado
+- ✅ Componentes probados conceptualmente
+- ✅ Consistencia con guides existentes
+- ✅ Documentación completa con ejemplos
+
+---
+
 ## Commit: 08aba78d - 2025-11-21
 
 **Mensaje:** fix: disable Next.js image optimization for blog images

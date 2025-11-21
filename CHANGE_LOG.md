@@ -4,6 +4,81 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-21] Creación de Style Guides para Blog: Checklists e Itinerarios
+
+**Archivos creados:**
+- BLOG_CHECKLIST_STYLE_GUIDE.md
+- BLOG_ITINERARY_STYLE_GUIDE.md
+
+**Propósito:**
+Establecer guías de estilo completas y consistentes para dos nuevos tipos de contenido de blog: posts de checklists útiles y posts de itinerarios turísticos/guías prácticas.
+
+**Contenido de BLOG_CHECKLIST_STYLE_GUIDE.md:**
+- 1,100+ líneas de guía comprehensiva para posts de checklists
+- Componentes de checkbox interactivos con HTML/CSS
+- Sistema de organización por categorías (documentos, trámites, seguimiento)
+- Tracking de progreso visual con indicadores
+- Integración de timelines para procesos paso a paso
+- Cajas de desglose de costos
+- Secciones de errores comunes y advertencias
+- Cajas de pro tips y consejos expertos
+- Enlaces a recursos oficiales
+- Ejemplos completos de código HTML/Tailwind CSS
+- Basado en patrones de los 3 style guides de referencia existentes
+
+**Contenido de BLOG_ITINERARY_STYLE_GUIDE.md:**
+- 1,100+ líneas de guía comprehensiva para itinerarios turísticos
+- Componentes de itinerario día por día con headers visuales
+- Layouts de timeline con color-coding por período del día
+- Cards de actividades detalladas (restaurantes, outdoor, cultura)
+- Sistema de categorización de actividades con iconos
+- Desglose de presupuestos por estilo de viaje (budget/mid-range/luxury)
+- Integración de mapas y ubicaciones
+- Secciones de transporte y logística
+- Cajas de información práctica (clima, seguridad, qué empacar)
+- Galerías de fotos estratégicas
+- Tips de insiders locales y secretos
+- Guías climáticas y estacionales
+- Ejemplos completos de estructura de posts
+- 15+ iconos específicos para itinerarios
+
+**Características compartidas:**
+- Ambos guides siguen el sistema de colores semántico establecido:
+  * Azul = Información general
+  * Verde = Éxito, confirmaciones, CTAs
+  * Amarillo = TOC, highlights, advertencias
+  * Rojo = Información crítica, errores comunes
+  * Purple = Headers especiales, premium info
+- Estructura HTML/Tailwind CSS consistente con guides existentes
+- Componentes responsive (mobile-first)
+- Énfasis en accesibilidad
+- Regla crítica: **NUNCA incluir información no verificada**
+- Guías para atribución correcta de fuentes
+- Secciones FAQ obligatorias
+- CTAs finales en verde
+
+**Uso:**
+Estas guías servirán como referencia para crear:
+1. **Posts de checklists:** Guías paso a paso para procesos (ej: "Checklist completo para mudarse a San Luis Potosí")
+2. **Posts de itinerarios:** Guías de viaje día por día (ej: "3 días perfectos en San Luis Potosí: Itinerario completo")
+
+**Resultado:** ✅ Exitoso
+- Dos style guides comprehensivos creados y listos para usar
+- Expandido el sistema de documentación de blog con 2 nuevos formatos
+- Mantenida consistencia con style guides existentes
+- Total de 5 style guides disponibles ahora:
+  1. BLOG_STYLE_GUIDE.md (general)
+  2. BLOG_DEEP_DIVE_STYLE_GUIDE (artículos profundos)
+  3. BLOG_COMPARISSON_STYLE_GUIDE (comparaciones de productos)
+  4. BLOG_CHECKLIST_STYLE_GUIDE.md (checklists) ✨ NUEVO
+  5. BLOG_ITINERARY_STYLE_GUIDE.md (itinerarios) ✨ NUEVO
+
+**Próximos pasos:**
+- Usar estos guides para crear contenido de blog de alta calidad
+- Actualizar según necesidades emergentes del proyecto
+
+---
+
 ## [2025-11-21] Fix: Imágenes de blog no cargaban en producción
 
 **Archivos modificados:**
