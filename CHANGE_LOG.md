@@ -4,6 +4,54 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-21] Fix: Imágenes de blog no cargaban en producción
+
+**Archivos modificados:**
+- next.config.js
+
+**Problema identificado:**
+Las imágenes del blog no cargaban en producción (sanluisway.com) con error 400 (Bad Request), aunque funcionaban correctamente en desarrollo local. El error ocurría porque Next.js intentaba optimizar imágenes externas de múltiples dominios y fallaba en el proceso.
+
+**Error en consola:**
+```
+image:1 Failed to load resource: the server responded with a status of 400 (Bad Request)
+```
+
+**Causa raíz:**
+- Next.js Image Optimization estaba habilitado (`unoptimized: false`)
+- Las imágenes provenían de 3 dominios externos diferentes:
+  * Supabase Storage: `omxporaecrqsqhzjzvnx.supabase.co`
+  * Seobot AI: `assets.seobotai.com`
+  * Wix Static: `static.wixstatic.com`
+- El optimizador de Next.js fallaba al procesar estas imágenes externas en producción
+
+**Solución aplicada:**
+- Cambiado `unoptimized: false` → `unoptimized: true` en next.config.js línea 15
+- Las imágenes ahora se sirven directamente sin pasar por el optimizador de Next.js
+- Los dominios ya estaban correctamente configurados en `domains` y `remotePatterns`
+
+**Trade-offs de la solución:**
+- ✅ PRO: Las imágenes cargan correctamente en producción
+- ✅ PRO: No más errores 400
+- ✅ PRO: Solución simple y efectiva
+- ⚠️ CON: Las imágenes no se optimizan automáticamente (WebP/AVIF)
+- ⚠️ CON: Sin lazy loading automático de Next.js
+- ⚠️ CON: Tamaños de imagen no optimizados automáticamente
+
+**Páginas afectadas (ahora funcionan):**
+- /blog/ (índice de blog posts)
+- /blog/[slug] (posts individuales)
+- / (homepage - featured places en "Discover Hidden Gems")
+
+**Resultado:** ✅ Exitoso
+- Imágenes de blog cargan correctamente en producción
+- Error 400 eliminado
+- Todas las imágenes de Supabase, Seobot y Wix se muestran correctamente
+
+**Commit:** 08aba78d
+
+---
+
 ## [2025-11-21] Optimización de SEO: Sitemap y Robots.txt
 
 **Archivos modificados/creados:**

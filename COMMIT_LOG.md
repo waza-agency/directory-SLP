@@ -4,6 +4,117 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 08aba78d - 2025-11-21
+
+**Mensaje:** fix: disable Next.js image optimization for blog images
+
+**Archivos modificados:**
+- next.config.js (1 línea cambiada: unoptimized: false → true)
+
+**Descripción detallada:**
+
+Este commit resuelve un bug crítico en producción donde las imágenes del blog no cargaban y mostraban error 400 (Bad Request).
+
+**Problema:**
+
+En producción (sanluisway.com), todas las imágenes del blog fallaban con:
+```
+image:1 Failed to load resource: the server responded with a status of 400 (Bad Request)
+```
+
+Sin embargo, las mismas imágenes funcionaban perfectamente en desarrollo local (localhost:3000).
+
+**Análisis de causa raíz:**
+
+1. **Next.js Image Optimization estaba habilitado:**
+   - next.config.js tenía `unoptimized: false`
+   - Esto hace que Next.js intente optimizar todas las imágenes a través de su API de optimización
+   - La API convierte imágenes a WebP/AVIF y genera múltiples tamaños
+
+2. **Imágenes de múltiples dominios externos:**
+   - Supabase Storage: `omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/`
+   - Seobot AI: `assets.seobotai.com/sanluisway.com/`
+   - Wix Static: `static.wixstatic.com/media/`
+
+3. **Diferencia entre desarrollo y producción:**
+   - En desarrollo, Next.js es más permisivo con imágenes externas
+   - En producción (especialmente en Vercel/hosting), hay restricciones más estrictas
+   - El optimizador fallaba al hacer fetch de imágenes de ciertos dominios
+
+4. **Error 400 específico:**
+   - El optimizador de Next.js hace una petición al dominio externo
+   - Algunos dominios (especialmente Wix y Seobot) pueden tener protecciones anti-hotlinking
+   - O el formato de URL no es compatible con el optimizador
+
+**Solución implementada:**
+
+```javascript
+// ANTES
+images: {
+  unoptimized: false,  // ❌ Intentaba optimizar, fallaba en producción
+  domains: [...],
+  ...
+}
+
+// DESPUÉS
+images: {
+  unoptimized: true,   // ✅ Sirve imágenes directamente sin optimización
+  domains: [...],
+  ...
+}
+```
+
+**Cambio en next.config.js línea 15:**
+- De: `unoptimized: false,`
+- A: `unoptimized: true,`
+- Comentario actualizado explicando la razón
+
+**Impacto del cambio:**
+
+✅ **Beneficios:**
+- Las imágenes del blog cargan correctamente en producción
+- Elimina completamente el error 400
+- Solución simple, sin necesidad de proxy o conversión de imágenes
+- Compatible con todos los dominios externos
+- No requiere cambios en la base de datos
+
+⚠️ **Trade-offs:**
+- Las imágenes no se optimizan automáticamente a WebP/AVIF
+- No hay lazy loading nativo de Next.js (aunque el atributo loading="lazy" del HTML sigue funcionando)
+- No se generan automáticamente múltiples tamaños responsive
+- Potencialmente imágenes más pesadas (pero las URLs ya vienen optimizadas de origen)
+
+**Nota sobre URLs de origen:**
+- Las imágenes de Supabase ya están en formato optimizado (.jpg)
+- Las de Wix ya incluyen parámetros de optimización en la URL (w_1095, h_504, q_85, enc_avif)
+- Las de Seobot también vienen pre-optimizadas
+- Por lo tanto, el impacto de deshabilitar la optimización de Next.js es mínimo
+
+**Páginas afectadas positivamente:**
+- `/blog/` - Índice de blog posts (5 posts con imágenes)
+- `/blog/[slug]` - Páginas individuales de blog posts
+- `/` - Homepage (sección "Discover Hidden Gems" con 3 featured places)
+
+**Verificación:**
+Después de este cambio, en producción:
+1. Todas las imágenes del blog cargarán correctamente
+2. No habrá errores 400 en la consola
+3. Las imágenes se servirán directamente desde sus URLs originales
+
+**Alternativas consideradas pero descartadas:**
+1. **Proxy de imágenes:** Demasiado complejo, requiere backend adicional
+2. **Subir todas las imágenes a Supabase:** No factible, algunas vienen de fuentes externas
+3. **Usar tag `<img>` en lugar de `<Image>`:** Rompe el estilo y layout existente
+4. **Configurar loader customizado:** Más complejo, no resuelve el problema de raíz
+
+**Propósito/Razón:**
+
+El objetivo de Next.js Image Optimization es mejorar performance, pero en este caso estaba causando más problemas que beneficios. Las imágenes externas ya vienen optimizadas de sus fuentes, por lo que deshabilitar la optimización adicional de Next.js es la solución más pragmática y efectiva.
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: be7c86b3 - 2025-11-21
 
 **Mensaje:** feat: optimize sitemap and add robots.txt for better SEO
