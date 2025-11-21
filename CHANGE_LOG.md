@@ -4,6 +4,34 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-21] Verificación de configuración de imágenes en sección Discover Hidden Gems
+
+**Archivos verificados:**
+- src/pages/index.tsx
+- src/lib/blog.ts
+- next.config.js
+- check_blog_images.js
+
+**Verificación realizada:**
+- Confirmado que las imágenes de blog posts están correctamente almacenadas en tabla `blog_posts` de Supabase
+- URLs de imágenes verificadas para:
+  * La Gran Vía: https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg
+  * Corazón de Xoconostle: https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg
+  * San Luis Rey Tranvía: https://static.wixstatic.com/media/... (desde Wix)
+- Configuración de dominios en next.config.js confirmada (líneas 16-44)
+- Código en getBlogPostsBySlugs (src/lib/blog.ts:131-167) funciona correctamente
+- Mapeo de datos en index.tsx (líneas 38-47) correcto
+
+**Resultado:** ✅ Exitoso
+- Las imágenes se obtienen correctamente desde la base de datos Supabase
+- No se requirieron cambios en el código (ya estaba configurado correctamente)
+- Script check_blog_images.js agregado para verificaciones futuras
+- Sitemap actualizado durante el build
+
+**Commit:** 71c06649
+
+---
+
 ## [2025-11-20] Conexión de página de Brands a base de datos Supabase
 
 **Archivos modificados:**

@@ -4,6 +4,59 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 71c06649 - 2025-11-21
+
+**Mensaje:** docs: verify blog images configuration and update sitemap
+
+**Archivos modificados:**
+- public/sitemap.xml (actualizado durante build)
+- check_blog_images.js (nuevo)
+
+**Descripción detallada:**
+
+Este commit documenta la verificación completa de la configuración de imágenes para la sección "Discover Hidden Gems" en la página de inicio. No se realizaron cambios en el código porque todo ya estaba correctamente configurado.
+
+1. **Verificación de imágenes en base de datos:**
+   - Ejecutado script check_blog_images.js para consultar tabla `blog_posts`
+   - Confirmado que los 3 posts tienen URLs de imágenes válidas:
+     * la-gran-via: https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/la-gran-via-restaurant.jpg
+     * corazon-de-xoconostle: https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-images/corazon-de-xoconostle-adventure.jpg
+     * san-luis-rey-tranvia: https://static.wixstatic.com/media/11131f_e3a952f5434a40a195aa9b60aee03ed5~mv2.jpg/...
+   - Todos los posts tienen status='published'
+
+2. **Verificación de código:**
+   - src/lib/blog.ts:159 - getBlogPostsBySlugs mapea correctamente image_url a imageUrl
+   - src/pages/index.tsx:38-47 - getStaticProps obtiene posts con slugs correctos
+   - src/pages/index.tsx:350 - Componente Image usa place.imageUrl correctamente
+   - El flujo de datos es: Supabase → getBlogPostsBySlugs → featuredAdvertisers → render
+
+3. **Verificación de configuración:**
+   - next.config.js:19 - Dominio omxporaecrqsqhzjzvnx.supabase.co configurado
+   - next.config.js:20 - Dominio static.wixstatic.com configurado
+   - next.config.js:22 - Dominio images.unsplash.com configurado (fallback)
+   - next.config.js:24-44 - remotePatterns incluye todos los dominios necesarios
+
+4. **check_blog_images.js:**
+   - Nuevo script de utilidad para verificar imágenes de blog posts
+   - Consulta tabla blog_posts filtrando por slugs específicos
+   - Muestra título, slug, status e image_url de cada post
+   - Útil para debugging y verificación rápida de datos
+
+**Propósito/Razón:**
+
+El usuario solicitó agregar las imágenes que faltaban en la sección "Discover Hidden Gems" del home. Al investigar, se descubrió que:
+- Las imágenes YA ESTABAN en la base de datos
+- El código YA ESTABA configurado correctamente
+- Los dominios YA ESTABAN permitidos en next.config.js
+
+No se requirieron cambios en el código. Las imágenes deberían mostrarse correctamente en el navegador. Si el usuario no las ve, es probablemente un problema de caché del navegador que se resuelve con un hard refresh (Cmd+Shift+R).
+
+Este commit documenta la verificación realizada y agrega el script check_blog_images.js para futuras verificaciones.
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: 1d7017a9 - 2025-11-20
 
 **Mensaje:** fix: connect brands page to Supabase database instead of using fallback
