@@ -1,0 +1,31 @@
+# robots.txt for San Luis Way
+# Updated: 2025-11-21
+
+# Allow all bots to access public content
+User-agent: *
+
+# Disallow private/protected pages
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /_next/
+Disallow: /signin
+Disallow: /signup
+Disallow: /checkout
+Disallow: /order-confirmation
+
+# Disallow development/test pages
+Disallow: /index-backup
+Disallow: /index-redesign
+Disallow: /signup-*
+Disallow: /signin-*
+Disallow: /design-showcase
+
+# Allow well-known paths
+Allow: /.well-known/
+
+# Crawl delay (optional, helps prevent server overload)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://sanluisway.com/sitemap.xml
