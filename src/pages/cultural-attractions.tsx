@@ -249,6 +249,35 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
         </div>
       </section>
 
+      {/* Cost of Living Callout */}
+      <section className="py-8 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 shadow-lg">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Thinking About Moving to SLP?</h3>
+                  <p className="text-gray-700 mb-3">
+                    Living in San Luis Potosí means enjoying world-class culture at fraction of the cost. Our comprehensive cost of living guide helps you budget for your new lifestyle, including entertainment and cultural activities.
+                  </p>
+                  <a
+                    href="/blog/costo-de-vida-san-luis-potosi-2025"
+                    className="inline-flex items-center text-purple-600 hover:text-purple-800 font-semibold transition-colors"
+                  >
+                    Explore Real Cost of Living in SLP →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Attractions */}
       <section className="py-16">
         <div className="container mx-auto px-4">

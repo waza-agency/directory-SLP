@@ -183,6 +183,29 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
+              {/* Cost of Living Callout */}
+              <div className="mb-12 bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200 rounded-xl p-6 shadow-lg max-w-4xl mx-auto">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Need to Budget for Services?</h3>
+                    <p className="text-gray-700 mb-3">
+                      Understanding service costs is crucial when planning your move to SLP. Our comprehensive guide breaks down real costs for utilities, healthcare, transportation, and more.
+                    </p>
+                    <a
+                      href="/blog/costo-de-vida-san-luis-potosi-2025"
+                      className="inline-flex items-center text-green-600 hover:text-green-800 font-semibold transition-colors"
+                    >
+                      View 2025 Cost of Living Analysis →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <div className="text-center mb-12">
                 <span className="text-primary text-sm font-medium uppercase tracking-wider">
                   Local Service Directory

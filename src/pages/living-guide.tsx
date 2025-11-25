@@ -303,6 +303,29 @@ export default function LivingGuidePage() {
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
+            {/* Cost of Living Callout */}
+            <div className="mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6 shadow-lg">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Planning Your Budget?</h3>
+                  <p className="text-gray-700 mb-3">
+                    Before moving to SLP, it's essential to understand the real cost of living. Our comprehensive 2025 analysis covers housing, food, transportation, healthcare, and more.
+                  </p>
+                  <a
+                    href="/blog/costo-de-vida-san-luis-potosi-2025"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+                  >
+                    Read the Complete Cost of Living Analysis →
+                  </a>
+                </div>
+              </div>
+            </div>
+
             {/* Culture & Lifestyle Section */}
             <section id="culture" className="mb-16">
               <h2 className="text-3xl font-bold text-gray-900 mb-8">Culture & Lifestyle</h2>
