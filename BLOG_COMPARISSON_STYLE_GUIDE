@@ -1,0 +1,986 @@
+# Comparison Blog Post Style Guide
+
+> **Complete guide for creating product/service comparison articles with tables, charts, product links, and visual comparisons**
+
+## 📋 Table of Contents
+
+- [Overview & Purpose](#overview--purpose)
+- [Base Structure](#base-structure)
+- [Comparison Tables](#comparison-tables)
+- [Product Integration](#product-integration)
+- [Visual Comparisons](#visual-comparisons)
+- [Charts & Data Visualization](#charts--data-visualization)
+- [Comparison Components](#comparison-components)
+- [Winner/Verdict Sections](#winnerverdict-sections)
+- [Complete Example](#complete-example)
+
+---
+
+## ⚠️ CRITICAL RULE: Verified Information Only
+
+**NEVER UNDER ANY CIRCUMSTANCE INCLUDE INFORMATION THAT IS NOT VERIFIED. NEVER SAY STUFF THAT WE DIDN'T DO.**
+
+### Mandatory Guidelines:
+- ❌ **NEVER** claim to have tested products unless you actually did
+- ❌ **NEVER** claim to have conducted research, studies, or trials that weren't performed
+- ❌ **NEVER** use first-person language for actions not taken ("we tested", "our testing", "we found")
+- ✅ **ALWAYS** attribute findings to credible external sources
+- ✅ **ALWAYS** use phrases like: "Based on research done by X...", "According to dermatologist reviews...", "Expert analysis shows...", "Published studies indicate..."
+- ✅ **ALWAYS** cite real sources when referencing studies, tests, or expert opinions
+
+**Examples:**
+- ❌ BAD: "We tested 12 products during 4 weeks and measured hydration levels"
+- ✅ GOOD: "Based on dermatologist reviews and clinical studies published in the Journal of Cosmetic Dermatology, these 12 products show measurable hydration improvements"
+- ❌ BAD: "Our testing methodology involved corneometer measurements"
+- ✅ GOOD: "According to independent lab testing and consumer feedback analysis..."
+
+---
+
+## Overview & Purpose
+
+### What is a Comparison Post?
+
+Comparison posts are **product/service evaluation articles** that:
+- **Compare 2+ options** side-by-side with objective criteria
+- **Include detailed comparison tables** for easy scanning
+- **Feature product links** from our Amazon affiliate inventory
+- **Use visual comparisons** (images, charts, pros/cons)
+- **Provide clear recommendations** based on use cases
+- **Help readers make purchasing decisions** with actionable insights
+
+### Ideal Length
+- **2,500 - 4,500 words**
+- **6-10 main sections**
+- **3-5 comparison tables**
+- **4-8 product images**
+- **8-12 product links** (Amazon affiliate with tag=glamlocalstor-20)
+
+### SEO Keywords Pattern
+Target keywords like:
+- "X vs Y"
+- "Best [product] for [purpose]"
+- "[Product A] or [Product B] which is better"
+- "Comparison between X and Y"
+- "[Product] review and comparison"
+
+---
+
+## Base Structure
+
+### Required Sections (in order)
+
+1. **Table of Contents** (yellow box)
+2. **Key Takeaways** (blue box) - Quick verdict
+3. **Introduction** - What we're comparing and why
+4. **Quick Comparison Table** - At-a-glance overview
+5. **Detailed Analysis** - Section per product/feature
+6. **Side-by-Side Comparison** - Feature-by-feature
+7. **Pros & Cons** - For each option
+8. **Price Comparison** - Cost analysis
+9. **Who Should Choose What** - Use case recommendations
+10. **Final Verdict** - Clear winner by category
+11. **FAQ Section** - Common questions
+12. **Product Links Box** (blue) - Featured products with affiliate links
+13. **Final CTA** (green) - Link to /deals page
+
+### Wrapper Principal
+```html
+<div class="prose prose-lg max-w-none">
+  <!-- Todo el contenido del comparison post aquí -->
+</div>
+```
+
+---
+
+## Comparison Tables
+
+### 1. Quick Comparison Overview (Obligatoria al inicio)
+
+**Usar después de Key Takeaways:**
+
+```html
+<div class="overflow-x-auto mb-12">
+  <table class="min-w-full bg-white border-2 border-gray-200 rounded-lg shadow-lg">
+    <thead class="bg-gradient-to-r from-purple-600 to-pink-600">
+      <tr>
+        <th class="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider">Feature</th>
+        <th class="px-6 py-4 text-center text-sm font-bold text-white uppercase tracking-wider">Product A</th>
+        <th class="px-6 py-4 text-center text-sm font-bold text-white uppercase tracking-wider">Product B</th>
+        <th class="px-6 py-4 text-center text-sm font-bold text-white uppercase tracking-wider">Product C</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 font-semibold text-gray-900">Price</td>
+        <td class="px-6 py-4 text-center text-gray-700">$29.99</td>
+        <td class="px-6 py-4 text-center text-gray-700">$39.99</td>
+        <td class="px-6 py-4 text-center text-gray-700">$24.99</td>
+      </tr>
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 font-semibold text-gray-900">Rating</td>
+        <td class="px-6 py-4 text-center">
+          <span class="text-yellow-500">★★★★★</span>
+          <span class="text-gray-400 text-sm ml-1">(4.8)</span>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <span class="text-yellow-500">★★★★</span><span class="text-gray-300">★</span>
+          <span class="text-gray-400 text-sm ml-1">(4.2)</span>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <span class="text-yellow-500">★★★★</span><span class="text-gray-300">★</span>
+          <span class="text-gray-400 text-sm ml-1">(4.5)</span>
+        </td>
+      </tr>
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 font-semibold text-gray-900">Best For</td>
+        <td class="px-6 py-4 text-center text-sm text-gray-700">Dry skin</td>
+        <td class="px-6 py-4 text-center text-sm text-gray-700">Oily skin</td>
+        <td class="px-6 py-4 text-center text-sm text-gray-700">Sensitive skin</td>
+      </tr>
+      <tr class="bg-green-50 font-medium">
+        <td class="px-6 py-4 font-bold text-gray-900">Winner</td>
+        <td class="px-6 py-4 text-center">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-500 text-white">
+            🏆 Best Overall
+          </span>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <span class="text-gray-400">—</span>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-500 text-white">
+            💰 Best Value
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+### 2. Detailed Feature Comparison Table
+
+**Para comparaciones feature-by-feature:**
+
+```html
+<div class="overflow-x-auto mb-12">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Feature</th>
+        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Option A</th>
+        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Option B</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr>
+        <td class="px-6 py-4 text-sm font-medium text-gray-900">Active Ingredients</td>
+        <td class="px-6 py-4 text-sm text-gray-700 text-center">Hyaluronic Acid, Vitamin C</td>
+        <td class="px-6 py-4 text-sm text-gray-700 text-center">Retinol, Niacinamide</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-6 py-4 text-sm font-medium text-gray-900">Texture</td>
+        <td class="px-6 py-4 text-sm text-gray-700 text-center">Gel</td>
+        <td class="px-6 py-4 text-sm text-gray-700 text-center">Cream</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 text-sm font-medium text-gray-900">Suitable for</td>
+        <td class="px-6 py-4 text-sm text-gray-700 text-center">All skin types</td>
+        <td class="px-6 py-4 text-sm text-gray-700 text-center">Mature skin</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+### 3. Price Comparison Table con Links
+
+**IMPORTANTE: Incluir links de productos de Amazon:**
+
+```html
+<div class="overflow-x-auto mb-8">
+  <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+    <thead class="bg-green-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Product</th>
+        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Regular Price</th>
+        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Sale Price</th>
+        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Discount</th>
+        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Link</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr class="hover:bg-gray-50">
+        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+          <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+            La Roche-Posay Hyalu B5 Serum
+          </a>
+        </td>
+        <td class="px-6 py-4 text-center text-sm text-gray-500 line-through">$39.99</td>
+        <td class="px-6 py-4 text-center text-sm font-bold text-green-600">$29.99</td>
+        <td class="px-6 py-4 text-center">
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+            -25%
+          </span>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+            Shop Now →
+          </a>
+        </td>
+      </tr>
+      <tr class="hover:bg-gray-50">
+        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+          <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+            The Ordinary Azelaic Acid 10%
+          </a>
+        </td>
+        <td class="px-6 py-4 text-center text-sm text-gray-500 line-through">$16.00</td>
+        <td class="px-6 py-4 text-center text-sm font-bold text-green-600">$12.50</td>
+        <td class="px-6 py-4 text-center">
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+            -22%
+          </span>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+            Shop Now →
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8">
+  <p class="text-yellow-800 text-sm"><strong>💡 Tip:</strong> Prices and availability may vary. Check Amazon for the latest deals and promotions.</p>
+</div>
+```
+
+---
+
+## Product Integration
+
+### 1. Inline Product Links (En el texto)
+
+**REGLA: Incluir 8-12 product links naturalmente en el artículo**
+
+```html
+<p class="text-gray-700 mb-6">
+  For best results with hyaluronic acid, we recommend
+  <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">La Roche-Posay Hyalu B5 Pure Hyaluronic Acid Serum</a>,
+  which features multiple molecular weights for deeper penetration. If you're on a budget,
+  <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">The Ordinary Niacinamide 10% + Zinc</a>
+  offers excellent value at under $15.
+</p>
+```
+
+### 2. Product Card Grid (Con imágenes)
+
+**Para mostrar productos visualmente:**
+
+```html
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+  <!-- Product 1 -->
+  <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+    <div class="relative h-64 overflow-hidden bg-gray-100">
+      <img
+        src="https://images.unsplash.com/photo-product1?w=400&h=400&fit=crop&q=80"
+        alt="Product name"
+        class="w-full h-full object-contain p-4"
+        loading="lazy"
+      />
+      <div class="absolute top-4 right-4">
+        <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+          -25% OFF
+        </span>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">La Roche-Posay Hyalu B5</h4>
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-yellow-500">★★★★★</span>
+        <span class="text-sm text-gray-600">(4.8/5)</span>
+      </div>
+      <div class="flex items-baseline gap-2 mb-4">
+        <span class="text-2xl font-bold text-green-600">$29.99</span>
+        <span class="text-sm text-gray-500 line-through">$39.99</span>
+      </div>
+      <p class="text-sm text-gray-600 mb-4">
+        Pure hyaluronic acid serum for intense hydration. Perfect for all skin types.
+      </p>
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+        Shop on Amazon →
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 2 -->
+  <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+    <div class="relative h-64 overflow-hidden bg-gray-100">
+      <img
+        src="https://images.unsplash.com/photo-product2?w=400&h=400&fit=crop&q=80"
+        alt="Product name"
+        class="w-full h-full object-contain p-4"
+        loading="lazy"
+      />
+      <div class="absolute top-4 left-4">
+        <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+          🏆 TOP PICK
+        </span>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">The Ordinary Niacinamide</h4>
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-yellow-500">★★★★</span><span class="text-gray-300">★</span>
+        <span class="text-sm text-gray-600">(4.5/5)</span>
+      </div>
+      <div class="flex items-baseline gap-2 mb-4">
+        <span class="text-2xl font-bold text-green-600">$12.99</span>
+      </div>
+      <p class="text-sm text-gray-600 mb-4">
+        Budget-friendly niacinamide serum. Great for pore refinement and oil control.
+      </p>
+      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+        Shop on Amazon →
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 3 -->
+  <div class="bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+    <!-- Similar structure -->
+  </div>
+</div>
+```
+
+### 3. Featured Products Resource Box (Obligatorio al final)
+
+**SIEMPRE incluir antes del CTA final:**
+
+```html
+<div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
+  <h3 class="text-lg font-semibold mb-3 text-blue-900">🛍️ Featured Products Mentioned in This Comparison</h3>
+  <ul class="space-y-2 text-blue-800">
+    <li>
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+        → La Roche-Posay Hyalu B5 Pure Hyaluronic Acid Serum
+      </a>
+      <span class="text-sm text-blue-700 ml-2">(Best Overall)</span>
+    </li>
+    <li>
+      <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+        → The Ordinary Azelaic Acid 10% Suspension
+      </a>
+      <span class="text-sm text-blue-700 ml-2">(Best for Brightening)</span>
+    </li>
+    <li>
+      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+        → The Ordinary Niacinamide 10% + Zinc
+      </a>
+      <span class="text-sm text-blue-700 ml-2">(Best Value)</span>
+    </li>
+    <li>
+      <a href="https://www.amazon.com/dp/B01B9OEDKS?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+        → Drunk Elephant B-Hydra Intensive Hydration Gel
+      </a>
+      <span class="text-sm text-blue-700 ml-2">(Luxury Option)</span>
+    </li>
+  </ul>
+  <p class="text-sm text-blue-700 mt-4 italic">💰 Shop more beauty deals on our <a href="/deals" class="underline font-semibold">Deals Page</a></p>
+</div>
+```
+
+---
+
+## Visual Comparisons
+
+### 1. Side-by-Side Product Images
+
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+  <figure>
+    <div class="rounded-xl overflow-hidden shadow-lg border-4 border-blue-200">
+      <img
+        src="https://images.unsplash.com/photo-product-a?w=600&h=400&fit=crop&q=80"
+        alt="Product A packaging"
+        class="w-full h-80 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <figcaption class="mt-4">
+      <h4 class="text-xl font-semibold text-blue-900 mb-2">Product A</h4>
+      <p class="text-sm text-gray-600">Gel texture, lightweight, absorbs quickly. Best for oily skin.</p>
+      <a href="https://www.amazon.com/dp/ASIN1?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm font-medium mt-2 inline-block">
+        Shop Product A →
+      </a>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <div class="rounded-xl overflow-hidden shadow-lg border-4 border-green-200">
+      <img
+        src="https://images.unsplash.com/photo-product-b?w=600&h=400&fit=crop&q=80"
+        alt="Product B packaging"
+        class="w-full h-80 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <figcaption class="mt-4">
+      <h4 class="text-xl font-semibold text-green-900 mb-2">Product B</h4>
+      <p class="text-sm text-gray-600">Rich cream, deeply nourishing. Best for dry/mature skin.</p>
+      <a href="https://www.amazon.com/dp/ASIN2?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm font-medium mt-2 inline-block">
+        Shop Product B →
+      </a>
+    </figcaption>
+  </figure>
+</div>
+```
+
+### 2. Before/After Comparison
+
+```html
+<div class="bg-gray-50 p-8 rounded-2xl mb-12">
+  <h3 class="text-2xl font-bold text-center text-gray-900 mb-8">Results Comparison: 4 Weeks</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <div class="relative rounded-lg overflow-hidden shadow-lg">
+        <img
+          src="https://images.unsplash.com/photo-before?w=600&h=400&fit=crop&q=80"
+          alt="Before using products"
+          class="w-full h-64 object-cover"
+          loading="lazy"
+        />
+        <div class="absolute top-4 left-4 bg-red-500 text-white px-4 py-2 rounded-lg font-bold">
+          BEFORE
+        </div>
+      </div>
+      <p class="text-sm text-gray-600 mt-3 text-center italic">
+        Skin condition: Dry, dull, uneven texture
+      </p>
+    </div>
+
+    <div>
+      <div class="relative rounded-lg overflow-hidden shadow-lg">
+        <img
+          src="https://images.unsplash.com/photo-after?w=600&h=400&fit=crop&q=80"
+          alt="After using products"
+          class="w-full h-64 object-cover"
+          loading="lazy"
+        />
+        <div class="absolute top-4 left-4 bg-green-500 text-white px-4 py-2 rounded-lg font-bold">
+          AFTER 4 WEEKS
+        </div>
+      </div>
+      <p class="text-sm text-gray-600 mt-3 text-center italic">
+        Results: Hydrated, glowing, smoother texture
+      </p>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Charts & Data Visualization
+
+### 1. Score/Rating Chart (Visual)
+
+```html
+<div class="bg-white border-2 border-gray-200 rounded-xl p-8 mb-12">
+  <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Performance Comparison</h3>
+
+  <div class="space-y-6">
+    <!-- Product A Scores -->
+    <div>
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-semibold text-gray-900">Product A - La Roche-Posay</span>
+        <span class="text-2xl font-bold text-blue-600">8.9/10</span>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Effectiveness</span>
+            <span>9/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="bg-blue-600 h-3 rounded-full" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Value for Money</span>
+            <span>8/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="bg-blue-600 h-3 rounded-full" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Texture & Feel</span>
+            <span>9.5/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="bg-blue-600 h-3 rounded-full" style="width: 95%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product B Scores -->
+    <div>
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-semibold text-gray-900">Product B - The Ordinary</span>
+        <span class="text-2xl font-bold text-green-600">8.5/10</span>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Effectiveness</span>
+            <span>8/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="bg-green-600 h-3 rounded-full" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Value for Money</span>
+            <span>10/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm text-gray-600 mb-1">
+            <span>Texture & Feel</span>
+            <span>7.5/10</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div class="bg-green-600 h-3 rounded-full" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+### 2. Price/Value Chart
+
+```html
+<div class="bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-2xl mb-12">
+  <h3 class="text-2xl font-bold text-center text-gray-900 mb-8">Price vs Performance Analysis</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+      <div class="text-4xl mb-3">💰</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">Budget Option</h4>
+      <p class="text-3xl font-bold text-green-600 mb-2">$12.99</p>
+      <p class="text-sm text-gray-600 mb-4">The Ordinary</p>
+      <div class="text-yellow-500 text-xl mb-2">★★★★☆</div>
+      <p class="text-xs text-gray-500">Value Score: 10/10</p>
+    </div>
+
+    <div class="bg-gradient-to-br from-blue-100 to-purple-100 p-6 rounded-xl shadow-2xl text-center border-4 border-blue-500">
+      <div class="text-4xl mb-3">🏆</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">Best Overall</h4>
+      <p class="text-3xl font-bold text-blue-600 mb-2">$29.99</p>
+      <p class="text-sm text-gray-600 mb-4">La Roche-Posay</p>
+      <div class="text-yellow-500 text-xl mb-2">★★★★★</div>
+      <p class="text-xs text-gray-500">Value Score: 9/10</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+      <div class="text-4xl mb-3">✨</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">Luxury Option</h4>
+      <p class="text-3xl font-bold text-purple-600 mb-2">$68.00</p>
+      <p class="text-sm text-gray-600 mb-4">Drunk Elephant</p>
+      <div class="text-yellow-500 text-xl mb-2">★★★★★</div>
+      <p class="text-xs text-gray-500">Value Score: 7/10</p>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Comparison Components
+
+### 1. Pros & Cons Grid
+
+**OBLIGATORIO para cada producto comparado:**
+
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+  <!-- PROS -->
+  <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
+    <h3 class="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+      <span class="text-2xl">✅</span> Pros
+    </h3>
+    <ul class="space-y-3">
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl flex-shrink-0">•</span>
+        <p class="text-green-800"><strong>Highly effective:</strong> Clinical studies show 85% improvement in hydration after 4 weeks</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl flex-shrink-0">•</span>
+        <p class="text-green-800"><strong>Multi-molecular weight HA:</strong> Penetrates different skin layers for maximum effect</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl flex-shrink-0">•</span>
+        <p class="text-green-800"><strong>Suitable for all skin types:</strong> Non-comedogenic and fragrance-free</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl flex-shrink-0">•</span>
+        <p class="text-green-800"><strong>Quick absorption:</strong> Doesn't leave sticky residue</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl flex-shrink-0">•</span>
+        <p class="text-green-800"><strong>Trusted brand:</strong> Dermatologist-recommended La Roche-Posay</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONS -->
+  <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+    <h3 class="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+      <span class="text-2xl">❌</span> Cons
+    </h3>
+    <ul class="space-y-3">
+      <li class="flex items-start gap-3">
+        <span class="text-red-600 text-xl flex-shrink-0">•</span>
+        <p class="text-red-800"><strong>Higher price point:</strong> At $29.99, it's more expensive than budget options</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-red-600 text-xl flex-shrink-0">•</span>
+        <p class="text-red-800"><strong>Small bottle:</strong> Only 1 oz means you'll need to repurchase frequently</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-red-600 text-xl flex-shrink-0">•</span>
+        <p class="text-red-800"><strong>Not vegan:</strong> Contains ingredients derived from animal sources</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-red-600 text-xl flex-shrink-0">•</span>
+        <p class="text-red-800"><strong>Requires consistent use:</strong> Results fade if you stop using</p>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+### 2. "Who Should Choose This" Section
+
+```html
+<div class="space-y-8 mb-12">
+  <!-- Option A -->
+  <div class="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 p-8 rounded-r-xl">
+    <h3 class="text-2xl font-bold text-blue-900 mb-4">Choose Product A if you...</h3>
+    <ul class="space-y-3 text-blue-900">
+      <li class="flex items-start gap-3">
+        <span class="text-blue-600 text-xl">👉</span>
+        <p><strong>Have dry or dehydrated skin</strong> that needs intensive moisture</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-blue-600 text-xl">👉</span>
+        <p><strong>Want clinically-proven results</strong> backed by dermatologist testing</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-blue-600 text-xl">👉</span>
+        <p><strong>Don't mind spending more</strong> for premium quality and trusted brand</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-blue-600 text-xl">👉</span>
+        <p><strong>Have sensitive skin</strong> and need fragrance-free formulas</p>
+      </li>
+    </ul>
+    <div class="mt-6">
+      <a href="https://www.amazon.com/dp/ASIN?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg">
+        Shop Product A on Amazon →
+      </a>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 p-8 rounded-r-xl">
+    <h3 class="text-2xl font-bold text-green-900 mb-4">Choose Product B if you...</h3>
+    <ul class="space-y-3 text-green-900">
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl">👉</span>
+        <p><strong>Are on a budget</strong> but still want effective results</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl">👉</span>
+        <p><strong>Prefer simple formulations</strong> with minimal ingredients</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl">👉</span>
+        <p><strong>Are new to active ingredients</strong> and want to start slowly</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-green-600 text-xl">👉</span>
+        <p><strong>Want to try multiple products</strong> without breaking the bank</p>
+      </li>
+    </ul>
+    <div class="mt-6">
+      <a href="https://www.amazon.com/dp/ASIN?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-all shadow-lg">
+        Shop Product B on Amazon →
+      </a>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Winner/Verdict Sections
+
+### Final Verdict Box (Al final del artículo)
+
+```html
+<div class="bg-gradient-to-br from-purple-100 via-pink-100 to-purple-100 border-4 border-purple-500 rounded-2xl p-10 mb-12 shadow-2xl">
+  <div class="text-center mb-8">
+    <div class="text-6xl mb-4">🏆</div>
+    <h2 class="text-4xl font-bold text-gray-900 mb-2">The Verdict</h2>
+    <p class="text-lg text-gray-700">Our final recommendation based on comprehensive testing</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 font-bold rounded-full text-sm mb-4">
+        🥇 BEST OVERALL
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">La Roche-Posay Hyalu B5</h3>
+      <p class="text-3xl font-bold text-purple-600 mb-3">$29.99</p>
+      <p class="text-sm text-gray-600 mb-4">
+        Unbeatable combination of efficacy, texture, and dermatologist trust. Worth the investment.
+      </p>
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+        Shop Now →
+      </a>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-400 to-green-500 text-white font-bold rounded-full text-sm mb-4">
+        💰 BEST VALUE
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">The Ordinary Niacinamide</h3>
+      <p class="text-3xl font-bold text-green-600 mb-3">$12.99</p>
+      <p class="text-sm text-gray-600 mb-4">
+        Incredible effectiveness at an unbeatable price. Perfect for skincare beginners.
+      </p>
+      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="block bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-green-700 hover:to-green-800 transition-all">
+        Shop Now →
+      </a>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold rounded-full text-sm mb-4">
+        ✨ LUXURY PICK
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">Drunk Elephant B-Hydra</h3>
+      <p class="text-3xl font-bold text-purple-600 mb-3">$68.00</p>
+      <p class="text-sm text-gray-600 mb-4">
+        Premium ingredients and luxurious experience. If budget allows, you'll love it.
+      </p>
+      <a href="https://www.amazon.com/dp/B01B9OEDKS?tag=glamlocalstor-20" target="_blank" class="block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+        Shop Now →
+      </a>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl p-6 text-center">
+    <p class="text-gray-700 text-lg">
+      <strong>Bottom Line:</strong> For most people, we recommend <strong>La Roche-Posay Hyalu B5</strong> as the best all-around choice.
+      If you're on a budget, <strong>The Ordinary</strong> delivers impressive results at a fraction of the cost.
+      For those seeking the ultimate luxury experience, <strong>Drunk Elephant</strong> is worth the splurge.
+    </p>
+  </div>
+</div>
+```
+
+---
+
+## Complete Example Structure
+
+```html
+<!-- TABLE OF CONTENTS (Yellow Box) -->
+<div class="bg-yellow-50 p-6 rounded-lg mb-8">
+  <h2 class="text-xl font-semibold mb-4">Guía de Contenido</h2>
+  <ul class="list-disc pl-6">
+    <li><a href="#introduction" class="text-blue-600 hover:text-blue-800">Introduction</a></li>
+    <li><a href="#quick-comparison" class="text-blue-600 hover:text-blue-800">Quick Comparison Table</a></li>
+    <li><a href="#product-a-review" class="text-blue-600 hover:text-blue-800">Product A: Detailed Review</a></li>
+    <li><a href="#product-b-review" class="text-blue-600 hover:text-blue-800">Product B: Detailed Review</a></li>
+    <li><a href="#side-by-side" class="text-blue-600 hover:text-blue-800">Side-by-Side Comparison</a></li>
+    <li><a href="#pros-cons" class="text-blue-600 hover:text-blue-800">Pros & Cons Analysis</a></li>
+    <li><a href="#price-comparison" class="text-blue-600 hover:text-blue-800">Price & Value Comparison</a></li>
+    <li><a href="#who-should-choose" class="text-blue-600 hover:text-blue-800">Who Should Choose What?</a></li>
+    <li><a href="#verdict" class="text-blue-600 hover:text-blue-800">Final Verdict</a></li>
+    <li><a href="#faq" class="text-blue-600 hover:text-blue-800">FAQ</a></li>
+  </ul>
+</div>
+
+<!-- KEY TAKEAWAYS (Blue Box) -->
+<div class="bg-blue-50 p-6 rounded-lg mb-8">
+  <h3 class="text-lg font-semibold mb-4 text-blue-900">Puntos Clave de esta Comparación</h3>
+  <ul class="list-disc pl-6 space-y-2">
+    <li><strong>Best Overall:</strong> Product A wins for effectiveness and quality</li>
+    <li><strong>Best Value:</strong> Product B offers incredible results at budget price</li>
+    <li><strong>Best For Dry Skin:</strong> Product A with richer formula</li>
+    <li><strong>Price Range:</strong> $12.99 - $68.00 depending on your budget</li>
+    <li><strong>All Options:</strong> Work well, just different use cases</li>
+  </ul>
+</div>
+
+<!-- WRAPPER PRINCIPAL -->
+<div class="prose prose-lg max-w-none">
+
+  <!-- INTRODUCTION -->
+  <p class="text-lg text-gray-700 mb-8"><strong>Choosing between Product A and Product B can be confusing. Both are highly-rated serums, but they serve different skin types and budgets. In this comprehensive comparison, we break down everything you need to know to make the right choice for your skin.</strong></p>
+
+  <!-- QUICK COMPARISON TABLE -->
+  <section id="quick-comparison" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Quick Comparison at a Glance</h2>
+
+    <!-- Insert Quick Comparison Table here -->
+  </section>
+
+  <!-- PRODUCT A REVIEW -->
+  <section id="product-a-review" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Product A: La Roche-Posay Hyalu B5 Deep Dive</h2>
+
+    <!-- Product image -->
+    <figure class="my-8">
+      <img src="product-image.jpg" alt="Product A" class="w-full rounded-lg shadow-lg" />
+      <figcaption class="text-sm text-gray-600 text-center mt-3 italic">La Roche-Posay Hyalu B5 Serum packaging and texture</figcaption>
+    </figure>
+
+    <p class="text-gray-700 mb-6">Detailed analysis of Product A...</p>
+
+    <!-- Include product link inline -->
+    <p class="text-gray-700 mb-6">
+      You can purchase
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">La Roche-Posay Hyalu B5 on Amazon</a>
+      for $29.99 with free shipping.
+    </p>
+  </section>
+
+  <!-- SIDE-BY-SIDE COMPARISON -->
+  <section id="side-by-side" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Side-by-Side Feature Comparison</h2>
+
+    <!-- Insert Feature Comparison Table -->
+  </section>
+
+  <!-- PROS & CONS -->
+  <section id="pros-cons" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Pros & Cons: Complete Analysis</h2>
+
+    <!-- Insert Pros & Cons Grid for each product -->
+  </section>
+
+  <!-- PRICE COMPARISON -->
+  <section id="price-comparison" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Price & Value Analysis</h2>
+
+    <!-- Insert Price Comparison Table -->
+    <!-- Insert Price/Value Chart -->
+  </section>
+
+  <!-- WHO SHOULD CHOOSE WHAT -->
+  <section id="who-should-choose" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Who Should Choose What?</h2>
+
+    <!-- Insert "Who Should Choose" sections -->
+  </section>
+
+  <!-- FINAL VERDICT -->
+  <section id="verdict" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">The Final Verdict</h2>
+
+    <!-- Insert Winner/Verdict Box -->
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">Frequently Asked Questions</h2>
+
+    <div class="space-y-6">
+      <div class="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold mb-3 text-gray-900">Can I use both products together?</h3>
+        <p class="text-gray-700">Yes, but layer them correctly. Use Product A in the morning and Product B at night for best results.</p>
+      </div>
+
+      <!-- More FAQ items -->
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS BOX (Blue - Obligatorio) -->
+  <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
+    <h3 class="text-lg font-semibold mb-3 text-blue-900">🛍️ Featured Products in This Comparison</h3>
+    <ul class="space-y-2 text-blue-800">
+      <!-- List all products with affiliate links -->
+    </ul>
+    <p class="text-sm text-blue-700 mt-4 italic">💰 Find more deals on our <a href="/deals" class="underline font-semibold">Deals Page</a></p>
+  </div>
+
+  <!-- FINAL CTA (Green - Obligatorio) -->
+  <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-8">
+    <h3 class="text-lg font-semibold mb-3 text-green-900">Ready to Shop? Browse Our Full Collection</h3>
+    <p class="text-green-800 mb-3"><strong>Discover more beauty product comparisons and exclusive deals on our Deals page.</strong></p>
+    <p class="text-green-800">
+      <a href="/deals" class="text-blue-600 hover:text-blue-800 underline font-semibold">Explore All Deals →</a>
+    </p>
+  </div>
+
+</div>
+```
+
+---
+
+## Reglas de Consistencia
+
+### ✅ OBLIGATORIO:
+1. **Tabla de Contenidos** (amarilla) al inicio
+2. **Key Takeaways** (azul) después del TOC
+3. **Quick Comparison Table** en las primeras secciones
+4. **8-12 product links** integrados naturalmente (tag=glamlocalstor-20)
+5. **Pros & Cons** para cada producto comparado
+6. **Price Comparison Table** con links de compra
+7. **"Who Should Choose"** secciones para guiar decisión
+8. **Final Verdict Box** con ganadores por categoría
+9. **Featured Products Box** (azul) antes del CTA final
+10. **Final CTA** (verde) al final linkando a /deals
+11. **FAQ Section** al final del artículo
+12. **3-5 imágenes** de productos/comparaciones
+
+### Estructura de Product Links:
+```html
+https://www.amazon.com/dp/[ASIN]?tag=glamlocalstor-20
+```
+
+### Colores Semánticos:
+- **Azul** = Información, recursos, featured products
+- **Verde** = Éxito, ganadores, CTAs
+- **Amarillo** = TOC, advertencias, tips
+- **Rojo** = Cons, advertencias críticas
+- **Purple/Pink** = Headers principales, gradientes de botones
+
+---
+
+**Fecha de creación:** Octubre 2025
+**Última actualización:** Octubre 17, 2025
+**Versión:** 1.0
+
+> 💡 **Nota Importante:** TODOS los comparison posts DEBEN incluir product links de nuestro inventario Amazon con el affiliate tag `glamlocalstor-20`. Los artículos de comparación sin product integration NO serán publicados.

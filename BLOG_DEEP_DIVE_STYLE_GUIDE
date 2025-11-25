@@ -1,0 +1,833 @@
+# Deep Dive Blog Post Style Guide
+
+> **Comprehensive guide for creating in-depth, image-rich blog posts with extensive written content**
+
+## 📋 Table of Contents
+
+- [⚠️ CRITICAL RULE: Verified Information Only](#️-critical-rule-verified-information-only)
+- [Overview & Philosophy](#overview--philosophy)
+- [Base Structure](#base-structure)
+- [Typography & Paragraphs](#typography--paragraphs)
+- [Image Integration](#image-integration)
+- [Deep Dive Components](#deep-dive-components)
+- [Research & Data](#research--data)
+- [Long-Form Elements](#long-form-elements)
+- [Navigation & Reading Experience](#navigation--reading-experience)
+- [Complete Example](#complete-example)
+
+---
+
+## ⚠️ CRITICAL RULE: Verified Information Only
+
+**NEVER UNDER ANY CIRCUMSTANCE INCLUDE INFORMATION THAT IS NOT VERIFIED. NEVER SAY STUFF THAT WE DIDN'T DO.**
+
+### Mandatory Guidelines:
+- ❌ **NEVER** claim to have tested products unless you actually did
+- ❌ **NEVER** claim to have conducted research, studies, or trials that weren't performed
+- ❌ **NEVER** use first-person language for actions not taken ("we tested", "our testing", "we found")
+- ✅ **ALWAYS** attribute findings to credible external sources
+- ✅ **ALWAYS** use phrases like: "Based on research done by X...", "According to dermatologist reviews...", "Expert analysis shows...", "Published studies indicate..."
+- ✅ **ALWAYS** cite real sources when referencing studies, tests, or expert opinions
+
+**Examples:**
+- ❌ BAD: "We tested 12 products during 4 weeks and measured hydration levels"
+- ✅ GOOD: "Based on dermatologist reviews and clinical studies published in the Journal of Cosmetic Dermatology, these 12 products show measurable hydration improvements"
+- ❌ BAD: "Our testing methodology involved corneometer measurements"
+- ✅ GOOD: "According to independent lab testing and consumer feedback analysis..."
+
+---
+
+## Overview & Philosophy
+
+### What is a Deep Dive Post?
+
+Deep dive posts are **comprehensive, research-backed articles** that:
+- Provide **extensive analysis** and detailed explanations
+- Include **multiple images** (8-15+) throughout the content
+- Feature **longer paragraphs** with rich, flowing prose
+- Offer **in-depth insights** backed by research and expert opinions
+- Use **visual storytelling** to enhance understanding
+- Maintain **reader engagement** through varied content formats
+
+### Ideal Length
+- **3,000 - 8,000+ words**
+- **10-20 sections** with subsections
+- **8-15+ images** strategically placed
+
+---
+
+## Base Structure
+
+### Complete Wrapper
+```html
+<div class="prose prose-lg lg:prose-xl max-w-none">
+  <!-- Hero Section -->
+  <!-- Table of Contents -->
+  <!-- Introduction -->
+  <!-- Main Content Sections -->
+  <!-- Conclusion -->
+  <!-- Related Resources -->
+</div>
+```
+
+### Hero Section with Featured Image
+```html
+<div class="not-prose mb-12">
+  <!-- Featured Image -->
+  <div class="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl mb-8">
+    <img
+      src="https://images.unsplash.com/photo-example?w=1200&h=500&fit=crop"
+      alt="Descriptive alt text for accessibility"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+      <div class="p-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Complete Guide Title</h1>
+        <p class="text-xl text-white/90">Compelling subtitle that hooks the reader</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article Metadata -->
+  <div class="flex items-center justify-between text-sm text-gray-600 mb-8">
+    <div class="flex items-center gap-4">
+      <span>By <strong class="text-gray-900">Author Name</strong></span>
+      <span>•</span>
+      <span>January 15, 2025</span>
+      <span>•</span>
+      <span>15 min read</span>
+    </div>
+    <div class="flex gap-2">
+      <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">Category</span>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Typography & Paragraphs
+
+### Opening Paragraph (Hook)
+```html
+<p class="text-xl leading-relaxed text-gray-800 mb-8 font-medium">
+  <strong>Start with a compelling hook</strong> that draws readers into the topic. This opening paragraph should be larger, bolder, and immediately capture attention while setting the stage for the deep dive ahead.
+</p>
+```
+
+### Standard Body Paragraphs
+```html
+<p class="text-lg leading-relaxed text-gray-700 mb-6">
+  Regular body paragraphs should flow naturally with a conversational yet authoritative tone. Each paragraph should explore a single idea thoroughly, typically containing 3-5 sentences. Use transitional phrases to connect ideas smoothly and maintain narrative flow throughout the article.
+</p>
+
+<p class="text-lg leading-relaxed text-gray-700 mb-6">
+  Continue with related thoughts in subsequent paragraphs. Deep dive posts benefit from well-developed ideas that give readers time to absorb complex concepts. Don't rush through topics—allow the narrative to breathe and develop naturally.
+</p>
+```
+
+### Emphasis Within Paragraphs
+```html
+<p class="text-lg leading-relaxed text-gray-700 mb-6">
+  Use <strong class="font-semibold text-gray-900">bold text</strong> for key terms and important concepts. Use <em class="italic">italics</em> for subtle emphasis or foreign terms. For critical information that must stand out, use <span class="bg-yellow-100 px-1 py-0.5 rounded">highlighted text</span> sparingly.
+</p>
+```
+
+### Section Introduction Paragraphs
+```html
+<p class="text-lg leading-relaxed text-gray-800 mb-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+  <strong>Section Overview:</strong> Each major section can begin with a highlighted introductory paragraph that previews what readers will learn. This helps with scanability and sets clear expectations for the content ahead.
+</p>
+```
+
+---
+
+## Image Integration
+
+### 1. Hero Image (Required)
+**Use at the very top of the post:**
+```html
+<div class="not-prose mb-12">
+  <div class="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+    <img
+      src="https://images.unsplash.com/photo-example?w=1600&h=900&fit=crop&q=80"
+      alt="Detailed description of what the image shows"
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+  </div>
+</div>
+```
+
+### 2. Full-Width Inline Image with Caption
+**For major visual breaks and important illustrations:**
+```html
+<figure class="not-prose my-12">
+  <div class="rounded-xl overflow-hidden shadow-lg">
+    <img
+      src="https://images.unsplash.com/photo-example?w=1200&h=675&fit=crop&q=80"
+      alt="Descriptive alt text"
+      class="w-full h-auto"
+      loading="lazy"
+    />
+  </div>
+  <figcaption class="mt-4 text-center text-sm text-gray-600 italic">
+    Figure 1: Caption describing the image and providing context or data source
+  </figcaption>
+</figure>
+```
+
+### 3. Text-Wrapped Image (Inline)
+**For smaller illustrations that complement paragraphs:**
+```html
+<div class="not-prose float-right ml-8 mb-6 w-full md:w-1/3">
+  <div class="rounded-lg overflow-hidden shadow-md">
+    <img
+      src="https://images.unsplash.com/photo-example?w=500&h=375&fit=crop&q=80"
+      alt="Descriptive alt text"
+      class="w-full h-auto"
+      loading="lazy"
+    />
+  </div>
+  <p class="mt-2 text-xs text-gray-600 italic text-center">Image caption</p>
+</div>
+
+<p class="text-lg leading-relaxed text-gray-700 mb-6">
+  Your paragraph text flows naturally around the image. This works well for product shots, diagrams, or supporting visuals that don't need full attention. The text wraps elegantly around the floating image on larger screens, while stacking on mobile for better readability.
+</p>
+
+<!-- Clear float after several paragraphs -->
+<div class="clear-both"></div>
+```
+
+### 4. Side-by-Side Image Comparison
+**Perfect for before/after, comparisons, or related concepts:**
+```html
+<div class="not-prose grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
+  <figure>
+    <div class="rounded-lg overflow-hidden shadow-md">
+      <img
+        src="https://images.unsplash.com/photo-example1?w=600&h=400&fit=crop&q=80"
+        alt="Before scenario"
+        class="w-full h-64 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <figcaption class="mt-3 text-sm text-gray-600 font-medium text-center">
+      Before: Description of initial state
+    </figcaption>
+  </figure>
+
+  <figure>
+    <div class="rounded-lg overflow-hidden shadow-md">
+      <img
+        src="https://images.unsplash.com/photo-example2?w=600&h=400&fit=crop&q=80"
+        alt="After scenario"
+        class="w-full h-64 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <figcaption class="mt-3 text-sm text-gray-600 font-medium text-center">
+      After: Description of improved state
+    </figcaption>
+  </figure>
+</div>
+```
+
+### 5. Image Gallery (3-4 images)
+**For showcasing multiple related examples or perspectives:**
+```html
+<div class="not-prose my-12">
+  <h4 class="text-xl font-semibold mb-6 text-gray-900">Gallery: Examples of [Topic]</h4>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+      <img
+        src="https://images.unsplash.com/photo-1?w=400&h=300&fit=crop&q=80"
+        alt="Example 1"
+        class="w-full h-48 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+      <img
+        src="https://images.unsplash.com/photo-2?w=400&h=300&fit=crop&q=80"
+        alt="Example 2"
+        class="w-full h-48 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+      <img
+        src="https://images.unsplash.com/photo-3?w=400&h=300&fit=crop&q=80"
+        alt="Example 3"
+        class="w-full h-48 object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+      <img
+        src="https://images.unsplash.com/photo-4?w=400&h=300&fit=crop&q=80"
+        alt="Example 4"
+        class="w-full h-48 object-cover"
+        loading="lazy"
+      />
+    </div>
+  </div>
+  <p class="mt-4 text-sm text-gray-600 italic text-center">
+    Collection caption explaining what these images demonstrate
+  </p>
+</div>
+```
+
+### 6. Image with Callout Box
+**Combine visual and textual information:**
+```html
+<div class="not-prose my-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <div class="rounded-xl overflow-hidden shadow-lg">
+    <img
+      src="https://images.unsplash.com/photo-example?w=700&h=500&fit=crop&q=80"
+      alt="Key concept visualization"
+      class="w-full h-auto"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="bg-blue-50 p-8 rounded-xl border-l-4 border-blue-500">
+    <h4 class="text-2xl font-semibold mb-4 text-blue-900">Key Insight</h4>
+    <p class="text-lg text-blue-800 mb-4">
+      Important takeaway or explanation that directly relates to the image shown. This combination helps reinforce the message through both visual and textual means.
+    </p>
+    <ul class="list-disc pl-6 text-blue-800 space-y-2">
+      <li>Supporting point 1</li>
+      <li>Supporting point 2</li>
+      <li>Supporting point 3</li>
+    </ul>
+  </div>
+</div>
+```
+
+---
+
+## Deep Dive Components
+
+### Research Citation Block
+```html
+<div class="not-prose my-8 bg-gray-50 border-l-4 border-gray-400 p-6 rounded-r-lg">
+  <div class="flex items-start gap-3">
+    <span class="text-2xl">📚</span>
+    <div>
+      <h4 class="font-semibold text-gray-900 mb-2">Research Finding</h4>
+      <p class="text-gray-700 mb-3">
+        "Direct quote from research or study that supports your point and adds credibility to the deep dive content."
+      </p>
+      <p class="text-sm text-gray-600">
+        — Source Name, <em>Publication</em> (2024)
+        <a href="https://source.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline ml-1">
+          <sup>[1]</sup>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+```
+
+### Expert Quote/Pull Quote
+```html
+<blockquote class="not-prose my-12 bg-gradient-to-r from-blue-50 to-transparent border-l-4 border-blue-500 p-8 rounded-r-xl">
+  <p class="text-2xl font-serif italic text-gray-800 mb-4">
+    "Compelling quote from an expert or authority that reinforces a key point in your deep dive. This should add weight and perspective to your analysis."
+  </p>
+  <footer class="flex items-center gap-4">
+    <img
+      src="https://images.unsplash.com/photo-expert?w=100&h=100&fit=crop&q=80"
+      alt="Expert Name"
+      class="w-12 h-12 rounded-full object-cover"
+      loading="lazy"
+    />
+    <div>
+      <cite class="not-italic font-semibold text-gray-900">Expert Name</cite>
+      <p class="text-sm text-gray-600">Title, Company/Institution</p>
+    </div>
+  </footer>
+</blockquote>
+```
+
+### Case Study Block
+```html
+<div class="not-prose my-12 bg-green-50 border-2 border-green-200 rounded-2xl overflow-hidden shadow-lg">
+  <div class="bg-green-500 px-8 py-4">
+    <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+      <span>📖</span> Case Study: [Title]
+    </h3>
+  </div>
+
+  <div class="p-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="text-center">
+        <p class="text-3xl font-bold text-green-700">85%</p>
+        <p class="text-sm text-gray-600 mt-1">Key Metric 1</p>
+      </div>
+      <div class="text-center">
+        <p class="text-3xl font-bold text-green-700">$50K</p>
+        <p class="text-sm text-gray-600 mt-1">Key Metric 2</p>
+      </div>
+      <div class="text-center">
+        <p class="text-3xl font-bold text-green-700">6 months</p>
+        <p class="text-sm text-gray-600 mt-1">Timeframe</p>
+      </div>
+    </div>
+
+    <div class="prose prose-green">
+      <p class="text-gray-700 mb-4">
+        <strong>Background:</strong> Brief description of the situation or problem that was addressed.
+      </p>
+      <p class="text-gray-700 mb-4">
+        <strong>Approach:</strong> Explanation of the strategy or method used to tackle the challenge.
+      </p>
+      <p class="text-gray-700">
+        <strong>Results:</strong> Specific outcomes and measurable impact of the solution.
+      </p>
+    </div>
+  </div>
+</div>
+```
+
+### Pro Tips Section
+```html
+<div class="not-prose my-12 bg-yellow-50 border-2 border-yellow-300 rounded-xl p-8">
+  <h4 class="text-2xl font-bold text-yellow-900 mb-6 flex items-center gap-3">
+    <span class="text-3xl">💡</span> Pro Tips from the Experts
+  </h4>
+
+  <div class="space-y-4">
+    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-yellow-500">
+      <p class="font-semibold text-gray-900 mb-2">Tip #1: [Specific Tip]</p>
+      <p class="text-gray-700">Detailed explanation of the tip and why it matters for readers implementing these strategies.</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-yellow-500">
+      <p class="font-semibold text-gray-900 mb-2">Tip #2: [Another Tip]</p>
+      <p class="text-gray-700">More actionable advice that adds practical value beyond the main content.</p>
+    </div>
+  </div>
+</div>
+```
+
+### Timeline/Process Visualization
+```html
+<div class="not-prose my-12">
+  <h4 class="text-2xl font-semibold mb-8 text-gray-900 text-center">Step-by-Step Process</h4>
+
+  <div class="relative">
+    <!-- Vertical line -->
+    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200"></div>
+
+    <div class="space-y-8">
+      <!-- Step 1 -->
+      <div class="relative flex items-start gap-6">
+        <div class="flex-shrink-0 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">
+          1
+        </div>
+        <div class="flex-1 bg-white p-6 rounded-xl shadow-md border border-gray-200">
+          <h5 class="text-xl font-semibold text-gray-900 mb-3">Step Title</h5>
+          <p class="text-gray-700 mb-4">Detailed explanation of this step in the process.</p>
+          <img
+            src="https://images.unsplash.com/photo-step1?w=600&h=300&fit=crop&q=80"
+            alt="Step 1 visual"
+            class="w-full h-40 object-cover rounded-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="relative flex items-start gap-6">
+        <div class="flex-shrink-0 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">
+          2
+        </div>
+        <div class="flex-1 bg-white p-6 rounded-xl shadow-md border border-gray-200">
+          <h5 class="text-xl font-semibold text-gray-900 mb-3">Next Step</h5>
+          <p class="text-gray-700 mb-4">Continue with subsequent steps...</p>
+          <img
+            src="https://images.unsplash.com/photo-step2?w=600&h=300&fit=crop&q=80"
+            alt="Step 2 visual"
+            class="w-full h-40 object-cover rounded-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Add more steps as needed -->
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Research & Data
+
+### Statistical Highlight
+```html
+<div class="not-prose my-8 bg-gradient-to-br from-purple-100 to-pink-100 p-8 rounded-2xl shadow-lg text-center">
+  <p class="text-6xl font-bold text-purple-700 mb-3">73%</p>
+  <p class="text-xl font-semibold text-gray-800 mb-2">of users reported improvement</p>
+  <p class="text-sm text-gray-600">Based on a study of 1,250 participants (Source, 2024)</p>
+</div>
+```
+
+### Data Comparison Table
+```html
+<div class="not-prose overflow-x-auto my-12">
+  <table class="min-w-full bg-white border-2 border-gray-200 rounded-xl overflow-hidden shadow-lg">
+    <thead class="bg-gradient-to-r from-blue-600 to-blue-700">
+      <tr>
+        <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">Feature</th>
+        <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">Option A</th>
+        <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">Option B</th>
+        <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider">Option C</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 font-medium text-gray-900">Metric 1</td>
+        <td class="px-6 py-4 text-gray-700">Value A</td>
+        <td class="px-6 py-4 text-gray-700">Value B</td>
+        <td class="px-6 py-4 text-gray-700">Value C</td>
+      </tr>
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 font-medium text-gray-900">Metric 2</td>
+        <td class="px-6 py-4 text-gray-700">Value A</td>
+        <td class="px-6 py-4 text-gray-700">Value B</td>
+        <td class="px-6 py-4 text-gray-700">Value C</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+---
+
+## Long-Form Elements
+
+### Chapter/Major Section Divider
+```html
+<div class="not-prose my-16">
+  <div class="flex items-center justify-center">
+    <div class="border-t-2 border-gray-300 flex-grow"></div>
+    <span class="px-6 text-gray-400 text-4xl">✦</span>
+    <div class="border-t-2 border-gray-300 flex-grow"></div>
+  </div>
+</div>
+```
+
+### Key Takeaways Summary Box
+```html
+<div class="not-prose my-12 bg-blue-600 text-white p-8 rounded-2xl shadow-2xl">
+  <h4 class="text-2xl font-bold mb-6 flex items-center gap-3">
+    <span class="text-3xl">🎯</span> Key Takeaways
+  </h4>
+  <ul class="space-y-4">
+    <li class="flex items-start gap-3">
+      <span class="text-yellow-300 text-xl flex-shrink-0">✓</span>
+      <p class="text-lg">First major takeaway that readers should remember from this section.</p>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="text-yellow-300 text-xl flex-shrink-0">✓</span>
+      <p class="text-lg">Second important point that reinforces the deep dive's main message.</p>
+    </li>
+    <li class="flex items-start gap-3">
+      <span class="text-yellow-300 text-xl flex-shrink-0">✓</span>
+      <p class="text-lg">Third essential insight readers can apply immediately.</p>
+    </li>
+  </ul>
+</div>
+```
+
+### Interactive Reading Note
+```html
+<div class="not-prose my-8 bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg">
+  <p class="text-amber-900">
+    <strong>📌 Pause and Reflect:</strong> Before continuing, consider how this concept applies to your specific situation. The next section builds on this foundation.
+  </p>
+</div>
+```
+
+---
+
+## Navigation & Reading Experience
+
+### Progress Indicator (Table of Contents)
+```html
+<div class="not-prose sticky top-4 mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-md border border-blue-100">
+  <h3 class="text-xl font-semibold mb-4 text-gray-900 flex items-center gap-2">
+    <span>📑</span> In This Deep Dive
+  </h3>
+  <nav class="space-y-2">
+    <a href="#introduction" class="block text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+      → Introduction & Overview
+    </a>
+    <a href="#section-1" class="block text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+      → 1. [Section Title]
+    </a>
+    <a href="#section-2" class="block text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+      → 2. [Section Title]
+    </a>
+    <a href="#section-3" class="block text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+      → 3. [Section Title]
+    </a>
+    <a href="#conclusion" class="block text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+      → Conclusion & Next Steps
+    </a>
+  </nav>
+  <p class="mt-4 text-sm text-gray-600 italic">Estimated reading time: 15 minutes</p>
+</div>
+```
+
+### Section Navigation
+```html
+<section id="section-name" class="mb-16 scroll-mt-8">
+  <div class="not-prose mb-8">
+    <h2 class="text-4xl font-bold text-gray-900 mb-4 border-b-4 border-blue-500 pb-4 inline-block">
+      Section Title
+    </h2>
+    <p class="text-lg text-gray-600 mt-4 italic">
+      A brief overview of what this section covers and why it matters
+    </p>
+  </div>
+
+  <!-- Section content with images and paragraphs -->
+</section>
+```
+
+### Related Content Sidebar
+```html
+<div class="not-prose my-12 bg-gray-50 p-6 rounded-xl border border-gray-200">
+  <h4 class="text-lg font-semibold mb-4 text-gray-900">📚 Related Reading</h4>
+  <ul class="space-y-3">
+    <li>
+      <a href="/blog/related-post-1" class="text-blue-600 hover:text-blue-800 hover:underline">
+        → Related Article Title 1
+      </a>
+      <p class="text-sm text-gray-600 mt-1">Brief description of how it relates</p>
+    </li>
+    <li>
+      <a href="/blog/related-post-2" class="text-blue-600 hover:text-blue-800 hover:underline">
+        → Related Article Title 2
+      </a>
+      <p class="text-sm text-gray-600 mt-1">Why readers might want to check this out</p>
+    </li>
+  </ul>
+</div>
+```
+
+---
+
+## Complete Example
+
+```html
+<!-- HERO SECTION -->
+<div class="not-prose mb-12">
+  <div class="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl mb-8">
+    <img
+      src="https://images.unsplash.com/photo-hero?w=1600&h=900&fit=crop&q=80"
+      alt="Hero image description"
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+      <div class="p-8">
+        <h1 class="text-5xl font-bold text-white mb-4">Complete Guide to [Topic]</h1>
+        <p class="text-xl text-white/90">Everything you need to know about mastering this subject</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between text-sm text-gray-600 mb-8">
+    <div class="flex items-center gap-4">
+      <span>By <strong class="text-gray-900">Expert Name</strong></span>
+      <span>•</span>
+      <span>January 15, 2025</span>
+      <span>•</span>
+      <span>15 min read</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="not-prose sticky top-4 mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-md border border-blue-100 z-10">
+  <h3 class="text-xl font-semibold mb-4 text-gray-900 flex items-center gap-2">
+    <span>📑</span> In This Deep Dive
+  </h3>
+  <nav class="space-y-2">
+    <a href="#introduction" class="block text-blue-600 hover:text-blue-800 hover:underline">→ Introduction</a>
+    <a href="#main-concepts" class="block text-blue-600 hover:text-blue-800 hover:underline">→ Main Concepts</a>
+    <a href="#practical-application" class="block text-blue-600 hover:text-blue-800 hover:underline">→ Practical Application</a>
+    <a href="#conclusion" class="block text-blue-600 hover:text-blue-800 hover:underline">→ Conclusion</a>
+  </nav>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div class="prose prose-lg lg:prose-xl max-w-none">
+
+  <!-- OPENING HOOK -->
+  <p class="text-xl leading-relaxed text-gray-800 mb-8 font-medium">
+    <strong>Start with a compelling opening</strong> that hooks the reader and sets up the problem or topic you'll be exploring in depth. This paragraph should be larger and bolder to draw immediate attention.
+  </p>
+
+  <!-- BODY PARAGRAPHS -->
+  <p class="text-lg leading-relaxed text-gray-700 mb-6">
+    Regular body paragraphs flow naturally with rich, detailed explanations. Each paragraph explores a single idea thoroughly, typically containing 3-5 sentences that develop the concept fully.
+  </p>
+
+  <!-- INLINE IMAGE WITH CAPTION -->
+  <figure class="not-prose my-12">
+    <div class="rounded-xl overflow-hidden shadow-lg">
+      <img
+        src="https://images.unsplash.com/photo-1?w=1200&h=675&fit=crop&q=80"
+        alt="Key concept illustration"
+        class="w-full h-auto"
+        loading="lazy"
+      />
+    </div>
+    <figcaption class="mt-4 text-center text-sm text-gray-600 italic">
+      Figure 1: Visual representation of the main concept discussed above
+    </figcaption>
+  </figure>
+
+  <p class="text-lg leading-relaxed text-gray-700 mb-6">
+    Continue with more detailed paragraphs that build on the previous ideas. Deep dive content should feel comprehensive yet accessible, maintaining reader interest through varied content formats.
+  </p>
+
+  <!-- RESEARCH CITATION -->
+  <div class="not-prose my-8 bg-gray-50 border-l-4 border-gray-400 p-6 rounded-r-lg">
+    <div class="flex items-start gap-3">
+      <span class="text-2xl">📚</span>
+      <div>
+        <h4 class="font-semibold text-gray-900 mb-2">Research Finding</h4>
+        <p class="text-gray-700 mb-3">
+          "Supporting quote from research that backs up your claims."
+        </p>
+        <p class="text-sm text-gray-600">
+          — Research Source (2024) <a href="#" class="text-blue-600 hover:underline"><sup>[1]</sup></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION WITH MULTIPLE IMAGES -->
+  <section id="main-concepts" class="mb-16 scroll-mt-8">
+    <div class="not-prose mb-8">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4 border-b-4 border-blue-500 pb-4 inline-block">
+        Main Concepts Explained
+      </h2>
+    </div>
+
+    <p class="text-lg leading-relaxed text-gray-700 mb-6">
+      Detailed explanation of the main concepts, broken down into digestible pieces...
+    </p>
+
+    <!-- IMAGE GALLERY -->
+    <div class="not-prose my-12">
+      <h4 class="text-xl font-semibold mb-6 text-gray-900">Gallery: Visual Examples</h4>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <img src="https://images.unsplash.com/photo-1?w=400&h=300&fit=crop&q=80" alt="Example 1" class="w-full h-48 object-cover" loading="lazy" />
+        </div>
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <img src="https://images.unsplash.com/photo-2?w=400&h=300&fit=crop&q=80" alt="Example 2" class="w-full h-48 object-cover" loading="lazy" />
+        </div>
+        <div class="rounded-lg overflow-hidden shadow-md">
+          <img src="https://images.unsplash.com/photo-3?w=400&h=300&fit=crop&q=80" alt="Example 3" class="w-full h-48 object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- KEY TAKEAWAYS -->
+  <div class="not-prose my-12 bg-blue-600 text-white p-8 rounded-2xl shadow-2xl">
+    <h4 class="text-2xl font-bold mb-6 flex items-center gap-3">
+      <span class="text-3xl">🎯</span> Key Takeaways
+    </h4>
+    <ul class="space-y-4">
+      <li class="flex items-start gap-3">
+        <span class="text-yellow-300 text-xl">✓</span>
+        <p class="text-lg">Major takeaway that summarizes the deep dive's insights.</p>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-yellow-300 text-xl">✓</span>
+        <p class="text-lg">Another critical point readers should remember.</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONCLUSION CTA -->
+  <div class="not-prose mt-16 bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200 p-8 rounded-2xl">
+    <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Take Action?</h3>
+    <p class="text-lg text-gray-700 mb-6">
+      Now that you understand [topic] in depth, here's how to get started implementing these insights.
+    </p>
+    <a href="/contact" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold px-8 py-4 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg">
+      Get Expert Help →
+    </a>
+  </div>
+
+</div>
+```
+
+---
+
+## Image Best Practices
+
+### ✅ DO:
+1. **Use high-resolution images** (minimum 1200px wide for full-width)
+2. **Add descriptive alt text** for accessibility
+3. **Include captions** that add context or cite sources
+4. **Use lazy loading** for images below the fold (`loading="lazy"`)
+5. **Maintain consistent image style** (similar filters, color grading)
+6. **Place images strategically** near related text
+7. **Use figure/figcaption** semantic HTML
+8. **Optimize file sizes** (use Unsplash parameters: `w=1200&q=80`)
+9. **Test on mobile** to ensure images scale properly
+10. **Balance text and images** (aim for 1 image every 300-500 words)
+
+### ❌ DON'T:
+1. Don't use pixelated or low-quality images
+2. Don't forget alt text on any image
+3. Don't use images without proper licensing/rights
+4. Don't overuse images (too many breaks reading flow)
+5. Don't use inconsistent image dimensions in galleries
+6. Don't rely on images alone—always add explanatory text
+7. Don't use generic stock photos that don't add value
+8. Don't forget to test image loading performance
+
+---
+
+## Content Flow Guidelines
+
+### Paragraph Structure
+- **Opening paragraph**: 40-60 words, compelling hook
+- **Body paragraphs**: 80-150 words each, single idea per paragraph
+- **Transitional paragraphs**: 30-50 words, bridge between sections
+- **Section summaries**: 60-100 words, recap key points
+
+### Content Rhythm
+Alternate between:
+- Dense explanatory paragraphs
+- Visual breaks (images, charts, quotes)
+- Interactive elements (tips, case studies)
+- Breathing room (dividers, callout boxes)
+
+### Recommended Ratio
+- **60% text**: In-depth paragraphs and explanations
+- **30% images**: Visual content throughout
+- **10% special elements**: Charts, quotes, callouts
+
+---
+
+**Created:** January 2025
+**Last Updated:** January 15, 2025
+**Version:** 1.0
+
+> 💡 **Remember:** Deep dive posts should provide comprehensive value that readers can't find anywhere else. Every image should enhance understanding, and every paragraph should add meaningful insight. Quality and depth trump brevity.
