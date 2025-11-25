@@ -4,6 +4,146 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 977d3a9e - 2025-11-24
+
+**Mensaje:** feat: add comprehensive cost of living blog post and style guides
+
+**Archivos creados:**
+- BLOG_DEEP_DIVE_STYLE_GUIDE (nuevo, 800+ líneas)
+- BLOG_COMPARISSON_STYLE_GUIDE (nuevo, 980+ líneas)
+- BLOG_POST_TITLES.md (nuevo, lista de 71 ideas de blog posts organizadas)
+- blog-post-costo-de-vida-slp-2025.html (nuevo, 5,000+ palabras, post completo publicado)
+- src/pages/api/blog/create-post.ts (nuevo, API endpoint para crear posts)
+- scripts/publish-direct.js (nuevo, script de publicación con service role)
+
+**Descripción detallada:**
+
+Este commit introduce un sistema completo de creación y publicación de contenido de blog de alta calidad para el proyecto San Luis Way, incluyendo el primer post deep-dive publicado sobre el costo de vida en San Luis Potosí.
+
+**Contenido creado:**
+
+1. **BLOG_DEEP_DIVE_STYLE_GUIDE (800+ líneas):**
+   - Guía completa para crear artículos de investigación profunda (3,000-8,000 palabras)
+   - 6 tipos de integración de imágenes (hero, full-width, text-wrapped, side-by-side, galleries, callouts)
+   - Componentes especializados: research citations, expert quotes, case studies, pro tips
+   - Timeline/process visualizations con números de paso
+   - Statistical highlights y data comparison tables
+   - Navigation elements (sticky TOC, breadcrumbs, section anchors)
+   - Regla crítica: NUNCA afirmar información no verificada
+   - Ejemplos completos de código para cada componente
+
+2. **BLOG_COMPARISSON_STYLE_GUIDE (980+ líneas):**
+   - Guía especializada para posts de comparación de productos/servicios (2,500-4,500 palabras)
+   - Estructura de 13 secciones obligatorias
+   - Sistema de product integration con Amazon affiliate links (tag=glamlocalstor-20)
+   - 3 tipos de comparison tables (quick overview, detailed features, price comparison)
+   - Product cards grid con imágenes y ratings
+   - Pros & cons grids por producto
+   - Score charts con barras de progreso visuales
+   - Winner/verdict sections con badges
+   - Requiere 8-12 product links naturalmente integrados
+   - Featured products box y final CTA obligatorios
+
+3. **BLOG_POST_TITLES.md:**
+   - Lista curada de 71 ideas de blog posts organizadas en 5 categorías:
+     * Análisis y Guías Profundas (12 títulos)
+     * Comparativas (12 títulos)
+     * Checklists Prácticos (13 títulos)
+     * Listas Top y Consejos (14 títulos)
+     * Cultura Local y Descubrimiento (20 títulos)
+   - Cada título optimizado para SEO y targeting de keywords específicas
+   - Enfoque en contenido valioso para expatriados, repatriados y turistas
+
+4. **blog-post-costo-de-vida-slp-2025.html (5,000+ palabras):**
+
+   **Post completo publicado exitosamente en:**
+   - URL: /blog/costo-de-vida-san-luis-potosi-2025
+   - ID en DB: 7f501866-0fc4-47a4-b79f-fc4be58cd5b7
+   - Status: published
+   - Fecha publicación: 2025-11-24
+
+   **Estructura del post:**
+   - Hero section con imagen overlay y título impactante
+   - Table of Contents sticky con 9 secciones
+   - 8 secciones principales de contenido:
+     1. Vivienda por colonias (tabla de precios detallada)
+     2. Alimentación: mercados vs supermercados (tabla comparativa)
+     3. Transporte: público, Uber, auto propio
+     4. Servicios y utilidades (CFE, agua, gas, internet)
+     5. Salud y seguros médicos
+     6. Entretenimiento y ocio
+     7. Presupuestos completos (económico $13k, moderado $29k, cómodo $55k)
+     8. Comparación con Querétaro, León, Aguascalientes
+   - 15+ imágenes de Unsplash estratégicamente ubicadas
+   - 6 tablas de datos comparativos
+   - Multiple callout boxes, statistical highlights, pro tips
+   - Conclusiones y CTAs
+
+   **SEO y Keywords:**
+   - Title optimizado: "Análisis 2025 del Costo de Vida Real en San Luis Potosí: ¿Cuánto necesitas para vivir cómodamente?"
+   - Keywords: costo de vida, expatriados, repatriados, presupuesto, mudanza, San Luis Potosí, vivienda, gastos mensuales
+   - Excerpt de 150+ caracteres optimizado
+   - Category: Expat Guide
+   - Tags: 8 tags relevantes
+
+5. **src/pages/api/blog/create-post.ts:**
+   - API endpoint POST en Next.js para crear blog posts
+   - Validación de campos requeridos (title, slug, excerpt, content)
+   - Verificación de slugs duplicados (status 409 si existe)
+   - Inserción en tabla blog_posts de Supabase
+   - Auto-población de campos: status='published', published_at, created_at
+   - Soporte para contenido bilingüe (title_en, excerpt_en, content_en)
+   - Response estructurada con ID, title, slug, url del post creado
+
+6. **scripts/publish-direct.js:**
+   - Script de Node.js para publicación directa a Supabase
+   - Usa SUPABASE_SERVICE_ROLE_KEY para bypass de RLS policies
+   - Carga variables de entorno con dotenv
+   - Verifica slugs duplicados antes de insertar
+   - Lee contenido HTML del archivo blog post
+   - Feedback detallado con console.log formateado
+   - Manejo de errores con mensajes claros
+
+**Flujo de trabajo implementado:**
+
+1. Creación de contenido HTML según BLOG_DEEP_DIVE_STYLE_GUIDE
+2. Uso de script publish-direct.js para insertar en DB
+3. Post automáticamente disponible en /blog/[slug]
+4. Sistema de static generation con Next.js (getStaticPaths/getStaticProps)
+
+**Propósito/Razón:**
+
+Establecer un sistema profesional de content marketing para San Luis Way que:
+- Genera tráfico orgánico vía SEO (keywords de alto volumen como "costo de vida SLP")
+- Proporciona valor real a expatriados y personas considerando mudarse
+- Posiciona a San Luis Way como autoridad en información sobre SLP
+- Crea contenido evergreen reutilizable y actualizable anualmente
+- Sigue mejores prácticas de UX, accesibilidad y SEO
+
+El post de costo de vida fue seleccionado como primer deep-dive porque:
+- Responde pregunta crítica para toma de decisiones de mudanza
+- Keywords de alto volumen de búsqueda
+- Contenido evergreen con relevancia continua
+- Se puede actualizar anualmente para mantener frescura
+
+**Métricas del post:**
+- 5,000+ palabras de contenido original
+- 15+ imágenes optimizadas
+- 8 secciones principales con subsecciones
+- 6 tablas de datos verificables
+- 3 presupuestos mensuales completos y detallados
+- Comparación con 3 ciudades del Bajío
+- Tiempo de lectura estimado: 18 minutos
+
+**Tecnologías utilizadas:**
+- Next.js (getStaticPaths/Props para SSG)
+- Supabase (PostgreSQL database)
+- Tailwind CSS (styling)
+- TypeScript (type safety en API)
+- Node.js (scripts de publicación)
+
+---
+
 ## Commit: 56fa5d76 - 2025-11-21
 
 **Mensaje:** docs: create comprehensive style guides for blog checklists and travel itineraries
