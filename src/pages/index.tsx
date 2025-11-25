@@ -28,6 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     const { data: eventsData, error: eventsError } = await supabase
       .from('events')
       .select("*")
+      .eq('show_in_cultural_calendar', true)
       .gte('end_date', safetyDateString)
       .order('start_date', { ascending: true })
       .limit(12);

@@ -528,11 +528,11 @@ export default function CulturalPage({ events }: CulturalPageProps) {
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   try {
-    // Simplified query to only fetch arts-culture events
+    // Fetch events marked for cultural calendar
     const { data: events, error } = await supabase
       .from('events')
       .select("*")
-      .eq('category', 'arts-culture')
+      .eq('show_in_cultural_calendar', true)
       .gte('end_date', new Date().toISOString())
       .order('start_date', { ascending: true })
       .limit(6);
