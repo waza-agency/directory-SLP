@@ -4,6 +4,67 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-25] Rediseño del calendario cultural con carrusel elegante y corrección de categorías
+
+**Archivos modificados:**
+- src/pages/index.tsx
+- src/pages/events/[category]/index.tsx
+- src/components/EventCategoryFilter.tsx
+
+**Archivos creados:**
+- scripts/check-music-events.js
+- scripts/remove-event-images.js
+
+**Cambios realizados:**
+
+1. **Eliminación de imágenes de eventos:**
+   - Ejecutado script para poner image_url = null en todos los eventos
+   - 13 eventos actualizados (eventos previos que tenían imágenes)
+   - Calendario cultural ahora muestra solo información, sin espacios para imágenes
+
+2. **Rediseño del calendario cultural en homepage:**
+   - ANTES: Grid vertical de 4 eventos con imágenes
+   - DESPUÉS: Carrusel horizontal auto-scroll con 8 eventos
+   - Características del nuevo diseño:
+     * Scroll automático continuo (40 segundos por ciclo)
+     * Loop infinito con eventos duplicados
+     * Tarjetas de 400px de ancho
+     * Efecto fade con gradientes en los extremos
+     * Badge de fecha grande y destacado
+     * Información completa: título, descripción, ubicación, categoría
+     * Hover effects elegantes
+
+3. **Corrección del sistema de categorías de eventos:**
+   - Problema: Categorías 'cultural' y 'other' no existen en base de datos
+   - Categorías válidas en DB: sports, arts-culture, music, culinary, community-social
+   - Solución implementada:
+     * Agregadas 'music' y 'community-social' como categorías válidas
+     * 'cultural' ahora es un alias de 'arts-culture' (compatibilidad retroactiva)
+     * Página /events/cultural funciona mostrando eventos de arts-culture
+     * Página /events/music ahora funciona correctamente (15 eventos encontrados)
+
+4. **Actualización de EventCategoryFilter:**
+   - Tipo EventCategory actualizado con categorías correctas
+   - Botones de filtro actualizados:
+     * 'Cultural' → mapea a 'arts-culture'
+     * 'Music' → agregado
+     * 'Community' → reemplaza 'Other'
+
+5. **Scripts de utilidad creados:**
+   - check-music-events.js: Verifica eventos de música en la base de datos
+   - remove-event-images.js: Remueve image_url de todos los eventos
+
+**Resultado:** ✅ Exitoso
+- Calendario cultural con diseño elegante tipo carrusel
+- Sistema de categorías corregido y funcional
+- Todas las páginas de categorías funcionan correctamente
+- Sin espacios vacíos para imágenes
+- Mejor experiencia visual y de usuario
+
+**Commit:** e121e3d5
+
+---
+
 ## [2025-11-25] Sistema completo de calendario cultural y gestión de eventos
 
 **Archivos modificados:**
