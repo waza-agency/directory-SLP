@@ -4,6 +4,301 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 7cd215ab - 2025-11-25
+
+**Mensaje:** feat: implement cultural calendar filtering and event import system
+
+**Archivos modificados:**
+- src/pages/cultural/index.tsx (query modificado, conditional rendering agregado)
+- src/pages/index.tsx (query modificado, conditional rendering agregado)
+- public/sitemap.xml (actualizado durante build)
+
+**Archivos creados:**
+- CULTURAL_EVENTS_RESEARCH_2025.md (investigacion de 30+ eventos)
+- EVENTS_TEMPLATE.json (plantilla con estructura y ejemplos)
+- EVENTS_TO_IMPORT.json (63 eventos listos para importar)
+- EVENTS_TO_IMPORT.json.bak (backup automatico)
+- EVENTS_TO_IMPORT.json.bak2 (backup automatico)
+- HOW_TO_ADD_EVENTS.md (guia paso a paso)
+- scripts/add-events-from-template.js (script de validacion e importacion)
+- scripts/add-event-categories.js (script para gestionar categorias)
+
+**Descripcion detallada:**
+
+Este commit resuelve un problema critico en el calendario cultural y establece un sistema completo de gestion de eventos culturales para San Luis Way, incluyendo la importacion exitosa de 63 eventos.
+
+**Contexto del problema:**
+
+El usuario reporto que el calendario cultural aparecia vacio en la homepage y en la pagina /cultural, aunque algunos eventos tenian la columna "Add to cultural calendar" marcada como true en Supabase.
+
+**Analisis de la causa raiz:**
+
+1. **Homepage (src/pages/index.tsx):**
+   - La query obtenia eventos sin filtrar por el flag de calendario cultural
+   - Mostraba seccion vacia con mensaje "no events found"
+   - Linea 47: Faltaba `.eq('add_to_cultural_calendar', true)`
+
+2. **Pagina cultural (src/pages/cultural/index.tsx):**
+   - Filtraba por categoria "cultural" en lugar del flag de calendario
+   - Categoria "cultural" no es valida en el enum (debe ser "arts-culture")
+   - Linea 73: Usaba `.eq('category', 'cultural')` incorrectamente
+
+3. **Esquema de base de datos:**
+   - Columna real: `add_to_cultural_calendar` (boolean)
+   - Categorias validas: 'sports', 'arts-culture', 'music', 'culinary', 'community-social'
+   - NO son validas: 'cultural', 'other'
+
+**Solucion implementada:**
+
+**1. Correccion de queries (src/pages/index.tsx y src/pages/cultural/index.tsx):**
+
+ANTES (homepage):
+```typescript
+const { data: eventsData } = await supabase
+  .from('events')
+  .select("*")
+  .gte('end_date', safetyDateString)
+  .order('start_date', { ascending: true })
+  .limit(12);
+```
+
+DESPUES (homepage):
+```typescript
+const { data: eventsData } = await supabase
+  .from('events')
+  .select("*")
+  .eq('add_to_cultural_calendar', true)  // ✅ Filtro agregado
+  .gte('end_date', safetyDateString)
+  .order('start_date', { ascending: true })
+  .limit(12);
+```
+
+ANTES (pagina cultural):
+```typescript
+const { data: events } = await supabase
+  .from('events')
+  .select("*")
+  .eq('category', 'cultural')  // ❌ Categoria invalida
+  .gte('end_date', new Date().toISOString())
+  .order('start_date', { ascending: true })
+  .limit(6);
+```
+
+DESPUES (pagina cultural):
+```typescript
+const { data: events } = await supabase
+  .from('events')
+  .select("*")
+  .eq('add_to_cultural_calendar', true)  // ✅ Flag correcto
+  .gte('end_date', new Date().toISOString())
+  .order('start_date', { ascending: true })
+  .limit(6);
+```
+
+**2. Rendering condicional para ocultar secciones vacias:**
+
+El usuario solicito explicitamente: "I dont want to see any empty calendar anywhere in the whole site"
+
+Agregado en ambas paginas:
+```typescript
+{events.length > 0 && (
+  <section className="...">
+    {/* Contenido del calendario */}
+  </section>
+)}
+```
+
+**3. Sistema de investigacion y documentacion (CULTURAL_EVENTS_RESEARCH_2025.md):**
+
+El usuario solicito: "help me do a deep search of upcoming cultural events in San Luis Potosi"
+
+- Realizada investigacion exhaustiva de eventos culturales en SLP
+- Documentados 30+ eventos con detalles completos:
+  * Nombre del evento
+  * Fechas (inicio y fin)
+  * Ubicacion especifica
+  * Descripcion detallada
+  * Categoria
+  * Fuente de informacion
+  * Recomendacion para inclusion en calendario
+- Fuentes consultadas:
+  * Sitios oficiales de gobierno
+  * Portales turisticos
+  * Redes sociales de organizadores
+  * Sitios de eventos (Eventbrite, etc.)
+- Organizacion por fecha y categoria
+- Priorizacion por relevancia cultural
+
+**4. Sistema de importacion de eventos:**
+
+El usuario solicito: "give me the structure I need for the events file to be correctly added to the database"
+
+**EVENTS_TEMPLATE.json (plantilla completa):**
+```json
+{
+  "events_to_add": [],
+  "field_definitions": {
+    "title": "string (required) - Event name",
+    "description": "string or null - Detailed description",
+    "start_date": "YYYY-MM-DDTHH:MM:SS (required)",
+    "end_date": "YYYY-MM-DDTHH:MM:SS (required)",
+    "location": "string (required) - Full address",
+    "category": "enum (required): sports|arts-culture|music|culinary|community-social",
+    "image_url": "string or null - Full URL",
+    "featured": "boolean (required)",
+    "show_in_cultural_calendar": "boolean - Show in cultural calendar"
+  }
+}
+```
+
+**scripts/add-events-from-template.js (validacion e importacion):**
+
+Funcionalidades:
+- Lee eventos desde EVENTS_TO_IMPORT.json
+- Valida campos requeridos: title, start_date, end_date, location, category
+- Valida formato de fechas: regex `/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/`
+- Valida categorias contra enum permitido
+- Valida tipo boolean para featured
+- Mapea `show_in_cultural_calendar` a `add_to_cultural_calendar` correctamente
+- Inserta eventos en bulk a Supabase
+- Reporta errores detallados con numero de evento y campo problematico
+- Muestra resumen de eventos insertados con IDs
+
+**HOW_TO_ADD_EVENTS.md:**
+- Guia paso a paso para agregar eventos
+- Ejemplos de formato correcto
+- Lista de errores comunes y como evitarlos
+- Checklist de verificacion pre-importacion
+
+**5. Importacion masiva de 63 eventos:**
+
+El usuario proporciono 63 eventos en formato JSON y solicito: "ahora quiero agregar estos eventos a la base de datos"
+
+**Proceso de importacion:**
+
+1. **Primer intento - Error de campo place_id:**
+   - Error: "Could not find the 'place_id' column of 'events' in the schema cache"
+   - Solucion: Removido campo place_id del script (no existe en tabla)
+
+2. **Segundo intento - Error de campo show_in_cultural_calendar:**
+   - Error: "Could not find the 'show_in_cultural_calendar' column"
+   - Solucion: Cambiado a `add_to_cultural_calendar` en script
+
+3. **Tercer intento - Error de categoria "cultural":**
+   - Error: 'invalid input value for enum event_category: "cultural"'
+   - 26 eventos tenian category: "cultural"
+   - Solucion: sed -i.bak 's/"category": "cultural"/"category": "arts-culture"/g'
+
+4. **Cuarto intento - Error de categoria "other":**
+   - Error: 'invalid input value for enum event_category: "other"'
+   - 17 eventos tenian category: "other"
+   - Solucion: sed -i.bak2 's/"category": "other"/"category": "community-social"/g'
+
+5. **Quinto intento - Error de validacion del script:**
+   - Script validaba categorias contra array que no incluia "community-social"
+   - Solucion: Agregado 'community-social' a validCategories array en linea 57
+
+6. **Sexto intento - EXITOSO:**
+   - Todos los 63 eventos validados correctamente
+   - Insertados exitosamente a la base de datos
+   - Cada evento recibio ID unico asignado por Supabase
+   - Confirmacion: "🎉 Successfully added 63 event(s) to the database!"
+
+**Eventos importados (muestra representativa):**
+
+- Festival de San Luis 2025 (2025-01-17 a 2025-02-02)
+- Feria Nacional de la Mascara (2025-02-01 a 2025-02-15)
+- Festival Internacional de Danza Contemporanea (2025-03-15 a 2025-03-22)
+- Festival Internacional de Jazz (2025-06-01 a 2025-06-07)
+- Festival Internacional Barroco (2025-11-15 a 2025-11-30)
+- Conciertos del Jardin de San Francisco (eventos semanales)
+- Exposiciones de museos (MACMA, Museo Regional, etc.)
+- Eventos deportivos (temporadas de TOROS, hockey, basketball)
+- Mercados artesanales y gastronomicos
+- Festivales de cine, fotografia, literatura
+- Y 48 eventos mas...
+
+**6. Reconstruccion del sitio:**
+
+Despues de todas las correcciones:
+```bash
+npm run build
+```
+
+Resultado:
+- ✓ Compiled successfully
+- ✓ Collecting page data
+- ✓ Generating static pages (284/284)
+- ✓ Finalizing page optimization
+
+**Impacto del cambio:**
+
+✅ **Problema resuelto:**
+- Calendario cultural ahora muestra eventos correctamente en homepage
+- Calendario cultural se muestra en /cultural cuando hay eventos disponibles
+- Secciones vacias completamente ocultas (no muestran mensaje "no events")
+
+✅ **Sistema escalable creado:**
+- Template reutilizable para futuros eventos (EVENTS_TEMPLATE.json)
+- Script de validacion robusto (add-events-from-template.js)
+- Guia de usuario clara (HOW_TO_ADD_EVENTS.md)
+- Documento de investigacion como referencia (CULTURAL_EVENTS_RESEARCH_2025.md)
+
+✅ **Base de datos enriquecida:**
+- 63 eventos culturales agregados
+- Cobertura de eventos para todo 2025
+- Variedad de categorias: deportes, artes, musica, gastronomia, comunidad
+- Todos los eventos con flag `add_to_cultural_calendar = true`
+
+**Aprendizajes tecnicos:**
+
+1. **Esquema de Supabase:**
+   - Columna: `add_to_cultural_calendar` (NOT show_in_cultural_calendar)
+   - Enum valido: sports, arts-culture, music, culinary, community-social
+   - NO usar: cultural, other
+
+2. **Patron de query correcto:**
+   ```typescript
+   .eq('add_to_cultural_calendar', true)
+   ```
+
+3. **Rendering condicional en Next.js:**
+   ```typescript
+   {array.length > 0 && <Component />}
+   ```
+
+**Archivos de referencia creados:**
+
+1. **CULTURAL_EVENTS_RESEARCH_2025.md** - 30+ eventos investigados
+2. **EVENTS_TEMPLATE.json** - Plantilla con estructura completa
+3. **EVENTS_TO_IMPORT.json** - 63 eventos listos (post-correccion)
+4. **HOW_TO_ADD_EVENTS.md** - Guia paso a paso
+5. **scripts/add-events-from-template.js** - Script de importacion
+6. **scripts/add-event-categories.js** - Helper para categorias
+
+**Proposito/Razon:**
+
+Este commit transforma el calendario cultural de San Luis Way de una funcionalidad rota a un sistema completo y funcional que:
+- Muestra eventos culturales relevantes a visitantes y residentes
+- Mantiene contenido fresco y actualizado
+- Proporciona valor real a usuarios buscando que hacer en SLP
+- Establece proceso repetible para agregar eventos futuros
+- Demuestra la riqueza cultural de San Luis Potosi
+
+El calendario cultural es una feature clave de diferenciacion para San Luis Way como plataforma de descubrimiento local.
+
+**Estadisticas finales:**
+- 11 archivos modificados/creados
+- 3,357 inserciones
+- 191 eliminaciones
+- 63 eventos agregados a base de datos
+- 100% de eventos validados exitosamente
+- 0 errores en build final
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: 977d3a9e - 2025-11-24
 
 **Mensaje:** feat: add comprehensive cost of living blog post and style guides

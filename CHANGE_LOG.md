@@ -4,6 +4,82 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-11-25] Sistema completo de calendario cultural y gestión de eventos
+
+**Archivos modificados:**
+- src/pages/index.tsx
+- src/pages/cultural/index.tsx
+- public/sitemap.xml
+
+**Archivos creados:**
+- CULTURAL_EVENTS_RESEARCH_2025.md
+- EVENTS_TEMPLATE.json
+- EVENTS_TO_IMPORT.json
+- HOW_TO_ADD_EVENTS.md
+- scripts/add-events-from-template.js
+- scripts/add-event-categories.js
+
+**Problema resuelto:**
+El calendario cultural aparecia vacio aunque algunos eventos tenian la columna "Add to cultural calendar" marcada como true en Supabase.
+
+**Cambios realizados:**
+
+1. **Correccion de queries en homepage y pagina cultural:**
+   - ANTES: Filtraba por categoria o no filtraba correctamente
+   - DESPUES: Filtra por `add_to_cultural_calendar = true`
+   - Agregado rendering condicional para ocultar secciones vacias completamente
+   - src/pages/index.tsx linea 47: `.eq('add_to_cultural_calendar', true)`
+   - src/pages/cultural/index.tsx linea 73: `.eq('add_to_cultural_calendar', true)`
+
+2. **Investigacion de eventos culturales:**
+   - Realizada busqueda exhaustiva de eventos en San Luis Potosi
+   - Documentados 30+ eventos en CULTURAL_EVENTS_RESEARCH_2025.md
+   - Categorizados por tipo, fecha y prioridad
+   - Fuentes verificadas: sitios oficiales, redes sociales, portales turisticos
+
+3. **Sistema de importacion de eventos:**
+   - Creado EVENTS_TEMPLATE.json con estructura completa y ejemplos
+   - Desarrollado script add-events-from-template.js con validacion robusta
+   - Validaciones incluidas:
+     * Campos requeridos: title, start_date, end_date, location, category
+     * Formato de fechas ISO 8601: YYYY-MM-DDTHH:MM:SS
+     * Categorias validas: sports, arts-culture, music, culinary, community-social
+     * Tipo de dato featured: boolean
+   - Creado HOW_TO_ADD_EVENTS.md con guia paso a paso
+
+4. **Importacion masiva de eventos:**
+   - Procesados 63 eventos culturales desde EVENTS_TO_IMPORT.json
+   - Todos los eventos validados e insertados exitosamente
+   - Categorias corregidas:
+     * "cultural" → "arts-culture" (26 eventos)
+     * "other" → "community-social" (17 eventos)
+   - Cada evento con: titulo, descripcion, fechas, ubicacion, categoria, featured flag
+
+5. **Correccion de esquema:**
+   - Identificado que columna real es `add_to_cultural_calendar` no `show_in_cultural_calendar`
+   - Actualizado script para mapear correctamente
+   - Actualizado queries en todas las paginas
+
+**Eventos importados (ejemplos):**
+- Festival de San Luis 2025 (enero-febrero)
+- Feria Nacional de la Mascaras (febrero)
+- Festival Internacional de Danza Contemporanea (marzo)
+- Festival de Jazz (junio)
+- Festival Internacional Barroco (noviembre)
+- Y 58 eventos mas...
+
+**Resultado:** ✅ Exitoso
+- 63 eventos culturales agregados exitosamente a la base de datos
+- Calendario cultural ahora se muestra correctamente en homepage
+- Calendario cultural se muestra en pagina /cultural cuando hay eventos
+- Secciones vacias completamente ocultas (no muestran "no events")
+- Sistema de importacion reutilizable para futuros eventos
+- Sitio reconstruido con todas las correcciones aplicadas
+
+**Commit:** 7cd215ab
+
+---
+
 ## [2025-11-21] Creación de Style Guides para Blog: Checklists e Itinerarios
 
 **Archivos creados:**
