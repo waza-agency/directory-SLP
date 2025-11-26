@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
 import { Service } from '@/types';
 import { supabase } from '@/lib/supabase';
 import AdUnit from '../components/common/AdUnit';
+import SEO from '@/components/common/SEO';
 
 interface ServicesPageProps {
   services: Service[];
@@ -34,10 +34,11 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
 
   return (
     <>
-      <Head>
-        <title>"TEXT" | San Luis Way</title>
-        <meta name="description" content="TEXT" />
-      </Head>
+      <SEO
+        title="Local Services Directory | San Luis Way"
+        description="Find trusted local service providers in San Luis Potosí. From healthcare to home maintenance, we connect you with reliable professionals recommended by the community."
+        keywords="San Luis Potosí services, expat services SLP, doctors San Luis Potosí, lawyers SLP, mechanics SLP, home maintenance San Luis Potosí"
+      />
 
       <main className="bg-background min-h-screen">
         {/* Hero Section with Background */}

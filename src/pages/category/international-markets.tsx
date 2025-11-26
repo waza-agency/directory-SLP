@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -29,13 +29,10 @@ export default function InternationalMarkets() {
 
   return (
     <>
-      <Head>
-        <title>International Markets in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
-          content="Find imported goods and international products from your home country at specialty markets and stores in San Luis Potosí."
-        />
-      </Head>
+      <SEO
+        title="International Markets in San Luis Potosí | SLP Guide"
+        description="Find imported goods and international products from your home country at specialty markets and stores in San Luis Potosí."
+      />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero Section */}
@@ -65,7 +62,7 @@ export default function InternationalMarkets() {
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {markets.map((market) => (
-                <div 
+                <div
                   key={market.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -104,7 +101,7 @@ export default function InternationalMarkets() {
                     <div className="mt-4 space-y-3">
                       <div className="flex flex-wrap gap-2">
                         {market.features.map((feature) => (
-                          <span 
+                          <span
                             key={feature}
                             className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -114,7 +111,7 @@ export default function InternationalMarkets() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {market.specialties.map((specialty) => (
-                          <span 
+                          <span
                             key={specialty}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -191,8 +188,8 @@ export default function InternationalMarkets() {
             <p className="text-lg text-gray-600 mb-8">
               Let us know what products from your home country you'd like to see in San Luis Potosí.
             </p>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
             >
               Request Products
@@ -202,4 +199,4 @@ export default function InternationalMarkets() {
       </main>
     </>
   );
-} 
+}

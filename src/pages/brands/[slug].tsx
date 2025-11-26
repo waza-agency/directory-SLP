@@ -1,7 +1,7 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllBrands, getBrandBySlug, generateBrandSlug, Brand } from '../../lib/brands';
+import SEO from '@/components/common/SEO';
 
 interface BrandPageProps {
   brand: Brand;
@@ -15,10 +15,12 @@ export default function BrandPage({ brand }: BrandPageProps) {
 
   return (
     <>
-      <Head>
-        <title>{brand.name} | "TEXT" | SLP Tundra</title>
-        <meta name="description" content={brand.description || "DEFAULT"} />
-      </Head>
+      <SEO
+        title={`${brand.name} | San Luis Way`}
+        description={brand.description || `Discover ${brand.name}, a local brand from San Luis Potosí.`}
+        ogImage={brand.image_url || '/images/placeholder.jpg'}
+        ogType="article"
+      />
 
       {/* Hero Image */}
       <div className="relative h-64 md:h-96">

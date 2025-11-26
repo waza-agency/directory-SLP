@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -28,13 +28,10 @@ export default function RestaurantsWithPlaygrounds() {
 
   return (
     <>
-      <Head>
-        <title>Restaurants with Playgrounds in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
-          content="Discover family-friendly restaurants with playgrounds in San Luis Potosí. Enjoy your meal while your children play in safe, dedicated areas."
-        />
-      </Head>
+      <SEO
+        title="Restaurants with Playgrounds in San Luis Potosí | SLP Guide"
+        description="Discover family-friendly restaurants with playgrounds in San Luis Potosí. Enjoy your meal while your children play in safe, dedicated areas."
+      />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero Section */}
@@ -64,7 +61,7 @@ export default function RestaurantsWithPlaygrounds() {
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {restaurants.map((restaurant) => (
-                <div 
+                <div
                   key={restaurant.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -96,7 +93,7 @@ export default function RestaurantsWithPlaygrounds() {
                     </div>
                     <div className="mt-4 flex flex-wrap gap-2">
                       {restaurant.features.map((feature) => (
-                        <span 
+                        <span
                           key={feature}
                           className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full"
                         >
@@ -155,4 +152,4 @@ export default function RestaurantsWithPlaygrounds() {
       </main>
     </>
   );
-} 
+}

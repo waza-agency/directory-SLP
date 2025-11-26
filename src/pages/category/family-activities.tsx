@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -30,13 +30,10 @@ export default function FamilyActivities() {
 
   return (
     <>
-      <Head>
-        <title>Family Activities in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
-          content="Discover kid-friendly venues, entertainment centers, and educational activities perfect for families with children in San Luis Potosí."
-        />
-      </Head>
+      <SEO
+        title="Family Activities in San Luis Potosí | SLP Guide"
+        description="Discover kid-friendly venues, entertainment centers, and educational activities perfect for families with children in San Luis Potosí."
+      />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero Section */}
@@ -82,7 +79,7 @@ export default function FamilyActivities() {
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {activities.map((activity) => (
-                <div 
+                <div
                   key={activity.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -121,7 +118,7 @@ export default function FamilyActivities() {
                     <div className="mt-4 space-y-3">
                       <div className="flex flex-wrap gap-2">
                         {activity.features.map((feature) => (
-                          <span 
+                          <span
                             key={feature}
                             className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -131,7 +128,7 @@ export default function FamilyActivities() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {activity.ageGroups.map((age) => (
-                          <span 
+                          <span
                             key={age}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -141,7 +138,7 @@ export default function FamilyActivities() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {activity.facilities.map((facility) => (
-                          <span 
+                          <span
                             key={facility}
                             className="bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -287,4 +284,4 @@ export default function FamilyActivities() {
       </main>
     </>
   );
-} 
+}

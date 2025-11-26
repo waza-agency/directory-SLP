@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import SEO from '@/components/common/SEO';
 import {
   BuildingOfficeIcon,
   UserGroupIcon,
@@ -69,21 +70,14 @@ export default function JoinDirectoryOptimized() {
 
   return (
     <>
+      <SEO
+        title="List Your Business in San Luis Potosí Expat Directory | Reach 1,000+ Customers"
+        description="Get your business in front of 1,000+ expats, digital nomads, and travelers in San Luis Potosí. Premium directory listing from 250 MXN/month. Start your 3-month trial today."
+        keywords="San Luis Potosí business directory, expat customers, advertise to expats, business listing Mexico, reach expats SLP"
+        ogImage="/images/og-join-directory.jpg"
+        ogType="website"
+      />
       <Head>
-        <title>List Your Business in San Luis Potosí Expat Directory | Reach 1,000+ Customers</title>
-        <meta
-          name="description"
-          content="Get your business in front of 1,000+ expats, digital nomads, and travelers in San Luis Potosí. Premium directory listing from 250 MXN/month. Start your 3-month trial today."
-        />
-        <meta name="keywords" content="San Luis Potosí business directory, expat customers, advertise to expats, business listing Mexico, reach expats SLP" />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.sanluisway.com/join-directory" />
-        <meta property="og:title" content="Reach 1,000+ English-Speaking Customers in San Luis Potosí" />
-        <meta property="og:description" content="Get your business listed in the #1 expat directory for SLP. Only 250 MXN/month. 3-month money-back guarantee." />
-        <meta property="og:image" content="/images/og-join-directory.jpg" />
-
         {/* FAQ Schema */}
         <script
           type="application/ld+json"

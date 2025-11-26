@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useState } from 'react';
+import SEO from '@/components/common/SEO';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
@@ -43,13 +43,10 @@ const CantinasPage: NextPage<CantinasPageProps> = ({ places }) => {
 
   return (
     <>
-      <Head>
-        <title>Traditional Cantinas in San Luis Potosí - SLP Descubre</title>
-        <meta
-          name="description"
-          content="Experience the authentic Mexican cantina culture in San Luis Potosí. Discover historic cantinas, live music venues, and traditional food spots."
-        />
-      </Head>
+      <SEO
+        title="Traditional Cantinas in San Luis Potosí - SLP Descubre"
+        description="Experience the authentic Mexican cantina culture in San Luis Potosí. Discover historic cantinas, live music venues, and traditional food spots."
+      />
 
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-primary/5 to-secondary/5">

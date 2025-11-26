@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
+import SEO from '@/components/common/SEO';
 
 interface PlacesPageProps {
   places: Place[];
@@ -32,10 +32,10 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
 
   return (
     <>
-      <Head>
-        <title>Places to Visit in San Luis Potosí | SLP Descubre</title>
-        <meta name="description" content="Discover the best places to visit in San Luis Potosí. From historic sites to modern attractions, find your next adventure." />
-      </Head>
+      <SEO
+        title="Places to Visit in San Luis Potosí | SLP Descubre"
+        description="Discover the best places to visit in San Luis Potosí. From historic sites to modern attractions, find your next adventure."
+      />
 
       <main className="bg-background min-h-screen">
         {/* Hero Section with Background */}

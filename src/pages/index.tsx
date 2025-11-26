@@ -139,16 +139,11 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
   return (
     <div className="slp-root bg-white">
       <SEO
-        title="San Luis Way - Your Elegant Guide to Living in San Luis Potosí"
-        description="Discover the art of living in San Luis Potosí. Your sophisticated guide for expats and travelers seeking authentic experiences in Mexico's hidden gem."
+        title="Living in San Luis Potosí | Your Elegant Expat Guide 2025"
+        description="Experience the refined lifestyle of San Luis Potosí. Curated recommendations for discerning expats and travelers seeking authentic experiences in Mexico's hidden gem."
         keywords="San Luis Potosí, SLP, expat guide, luxury travel, Mexico living, cultural experiences, digital nomad"
         ogImage="/og-image.jpg"
       />
-
-      <Head>
-        <title>Living in San Luis Potosí | Your Elegant Expat Guide 2025</title>
-        <meta name="description" content="Experience the refined lifestyle of San Luis Potosí. Curated recommendations for discerning expats and travelers." />
-      </Head>
 
       <main className="min-h-screen">
 

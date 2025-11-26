@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useState } from 'react';
+import SEO from '@/components/common/SEO';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
@@ -43,13 +43,10 @@ const LiveMusicPage: NextPage<LiveMusicPageProps> = ({ places }) => {
 
   return (
     <>
-      <Head>
-        <title>Live Music Venues in San Luis Potosí - SLP Descubre</title>
-        <meta
-          name="description"
-          content="Discover the best live music venues in San Luis Potosí. From cozy bars to restaurants with live performances, find the perfect spot for live music."
-        />
-      </Head>
+      <SEO
+        title="Live Music Venues in San Luis Potosí - SLP Descubre"
+        description="Discover the best live music venues in San Luis Potosí. From cozy bars to restaurants with live performances, find the perfect spot for live music."
+      />
 
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-primary/5 to-secondary/5">

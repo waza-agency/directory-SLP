@@ -1,6 +1,6 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import SEO from '@/components/common/SEO';
 import {
   MegaphoneIcon,
   ChartBarIcon,
@@ -21,14 +21,12 @@ import {
 export default function Advertise() {
   return (
     <>
-      <Head>
-        <title>Publicita con San Luis Way - Conecta con tu Audiencia en San Luis Potosí</title>
-        <meta name="description" content="Haz crecer tu marca en San Luis Potosí con nuestras opciones de publicidad: banners, contenido patrocinado, reportajes y menciones especiales. Conecta con locales y expatriados." />
-        <meta name="keywords" content="publicidad, marketing, San Luis Potosí, banners, contenido patrocinado, blog posts, reportajes, marcas locales" />
-        <meta property="og:title" content="Publicita con San Luis Way - Conecta con tu Audiencia" />
-        <meta property="og:description" content="Opciones de publicidad premium para hacer crecer tu marca en San Luis Potosí" />
-        <meta property="og:type" content="website" />
-      </Head>
+      <SEO
+        title="Publicita con San Luis Way - Conecta con tu Audiencia en San Luis Potosí"
+        description="Haz crecer tu marca en San Luis Potosí con nuestras opciones de publicidad: banners, contenido patrocinado, reportajes y menciones especiales. Conecta con locales y expatriados."
+        keywords="publicidad, marketing, San Luis Potosí, banners, contenido patrocinado, blog posts, reportajes, marcas locales"
+        ogType="website"
+      />
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}

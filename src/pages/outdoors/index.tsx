@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
@@ -40,7 +39,7 @@ export default function OutdoorsPage() {
               <div className="flex items-center mt-6">
                 <p className="text-white text-sm font-medium mr-3">In collaboration with</p>
                 <div className="relative w-40 h-16 bg-white/10 rounded-md p-1">
-                  <Image 
+                  <Image
                     src="/images/brands/corazon-de-xoconostle-logo.png"
                     alt="Corazón de Xoconostle Logo"
                     fill
@@ -456,7 +455,7 @@ export default function OutdoorsPage() {
                   <li>Custom experiences</li>
                 </ul>
                 <div className="mt-4 text-sm text-gray-500">
-                  <p>For expert-led adventures with certified local guides, we recommend our partners at 
+                  <p>For expert-led adventures with certified local guides, we recommend our partners at
                   <a href="https://www.corazondexoconostle.com/index.php/en/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline"> Corazón de Xoconostle</a>, who specialize in authentic outdoor experiences throughout San Luis Potosí.</p>
                 </div>
               </div>
@@ -473,4 +472,4 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     props: {
     },
   };
-}; 
+};

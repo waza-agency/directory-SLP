@@ -181,6 +181,34 @@ async function fetchDynamicPages() {
       console.log(`Added ${blogPosts.length} blog post pages`);
     }
 
+    // Fetch places
+    const { data: places } = await supabase
+      .from('places')
+      .select('id');
+
+    if (places && places.length > 0) {
+      places.forEach(place => {
+        if (place.id) {
+          dynamicPages.push(`/places/${place.id}`);
+        }
+      });
+      console.log(`Added ${places.length} place pages`);
+    }
+
+    // Fetch events
+    const { data: events } = await supabase
+      .from('events')
+      .select('id, category');
+
+    if (events && events.length > 0) {
+      events.forEach(event => {
+        if (event.id && event.category) {
+          dynamicPages.push(`/events/${event.category}/${event.id}`);
+        }
+      });
+      console.log(`Added ${events.length} event pages`);
+    }
+
   } catch (error) {
     console.error('Error fetching dynamic pages:', error);
   }

@@ -4,6 +4,7 @@ import { getPlaceById, getPlaces } from '@/lib/supabase';
 import type { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import SEO from '@/components/common/SEO';
 
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
   const router = useRouter();
@@ -51,8 +52,14 @@ export default function PlacePage({ place, error }: { place: Place | null; error
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <>
+      <SEO
+        title={`${place.name} | San Luis Potosí`}
+        description={place.description || `Visit ${place.name} in San Luis Potosí.`}
+        ogImage={place.imageUrl || '/images/placeholder.jpg'}
+      />
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="relative h-96">
             <Image
@@ -133,6 +140,7 @@ export default function PlacePage({ place, error }: { place: Place | null; error
         </div>
       </div>
     </div>
+    </>
   );
 }
 

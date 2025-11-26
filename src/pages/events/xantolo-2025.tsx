@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, TicketIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { GetStaticProps } from 'next';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -15,13 +15,12 @@ export default function Xantolo2025() {
 
   return (
     <>
-      <Head>
-        <title>{'Xantolo 2025 - Day of the Dead in San Luis Potosí | Huasteca Tradition'}</title>
-        <meta
-          name="description"
-          content={'Xantolo 2025 - The most authentic Day of the Dead celebration in Huasteca Potosina. October 31 to November 2. Ancestral rituals, traditional dances, offerings, and typical gastronomy.'}
-        />
-      </Head>
+      <SEO
+        title="Xantolo 2025 - Day of the Dead in San Luis Potosí | Huasteca Tradition"
+        description="Xantolo 2025 - The most authentic Day of the Dead celebration in Huasteca Potosina. October 31 to November 2. Ancestral rituals, traditional dances, offerings, and typical gastronomy."
+        keywords="Xantolo 2025, Day of the Dead San Luis Potosí, Huasteca Potosina traditions, Xantolo festival, Dia de Muertos Mexico"
+        ogImage="/images/events/xantolo-image-1.jpg"
+      />
 
       {/* Hero Section */}
       <section className="relative">

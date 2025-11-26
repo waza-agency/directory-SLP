@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -14,6 +13,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
+import SEO from '@/components/common/SEO';
 
 interface EventDetailProps {
   event: Event | null;
@@ -161,13 +161,16 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
 
   return (
     <>
-      <Head>
-        <title>{event.title} | SLP Descubre</title>
-        <meta
-          name="description"
-          content={event.description || `Detalles del evento ${event.title} en San Luis Potosí`}
-        />
-      </Head>
+      <SEO
+        title={`${event.title} | SLP Descubre`}
+        description={event.description || `Detalles del evento ${event.title} en San Luis Potosí`}
+        ogImage={event.image_url || '/og-image.jpg'}
+        ogType="article"
+        article={{
+          publishedTime: event.created_at,
+          tags: [event.category]
+        }}
+      />
 
       {/* Hero Section */}
       <section className="relative">

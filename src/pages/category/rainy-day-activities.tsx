@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -73,13 +73,10 @@ export default function RainyDayActivities() {
 
   return (
     <>
-      <Head>
-        <title>Rainy Day Activities in San Luis Potosí | SLP Guide</title>
-        <meta
-          name="description"
-          content="Discover the best indoor activities and attractions for rainy days in San Luis Potosí."
-        />
-      </Head>
+      <SEO
+        title="Rainy Day Activities in San Luis Potosí | SLP Guide"
+        description="Discover the best indoor activities and attractions for rainy days in San Luis Potosí."
+      />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero Section */}

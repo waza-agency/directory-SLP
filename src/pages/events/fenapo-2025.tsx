@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, TicketIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { GetStaticProps } from 'next';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -15,13 +15,12 @@ export default function Fenapo2025() {
 
   return (
     <>
-      <Head>
-        <title>{'FENAPO 2025 - Feria Nacional Potosina | San Luis Potosí'}</title>
-        <meta
-          name="description"
-          content={'FENAPO 2025 - The most traditional fair in Mexico. August 8-31, 2025 in San Luis Potosí. Cultural events, sports, concerts, gastronomy and much more.'}
-        />
-      </Head>
+      <SEO
+        title="FENAPO 2025 - Feria Nacional Potosina | San Luis Potosí"
+        description="FENAPO 2025 - The most traditional fair in Mexico. August 8-31, 2025 in San Luis Potosí. Cultural events, sports, concerts, gastronomy and much more."
+        keywords="FENAPO 2025, Feria Nacional Potosina, San Luis Potosí fair, Mexico fairs, palenque, teatro del pueblo"
+        ogImage="/images/events/fenapo-fair.jpg"
+      />
 
       {/* Hero Section */}
       <section className="relative">

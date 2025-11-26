@@ -1,9 +1,9 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useState, useMemo } from 'react';
 import { Brand, getAllBrands, generateBrandSlug } from '@/lib/brands';
+import SEO from '@/components/common/SEO';
 
 interface BrandsPageProps {
   brands: Brand[];
@@ -34,14 +34,11 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
 
   return (
     <>
-      <Head>
-        <title>Potosino Brands | Authentic Local Businesses | SLP Tundra</title>
-        <meta
-          name="description"
-          content="Discover authentic brands born in San Luis Potosí. Explore local artisans, traditional products, and the creativity of Potosino entrepreneurs."
-        />
-        <meta name="keywords" content="San Luis Potosí brands, local businesses, Potosino products, Mexican artisans, authentic brands" />
-      </Head>
+      <SEO
+        title="Potosino Brands | Authentic Local Businesses | San Luis Way"
+        description="Discover authentic brands born in San Luis Potosí. Explore local artisans, traditional products, and the creativity of Potosino entrepreneurs."
+        keywords="San Luis Potosí brands, local businesses, Potosino products, Mexican artisans, authentic brands"
+      />
 
       {/* Hero Section */}
       <div className="relative h-96 bg-gradient-to-r from-primary to-primary-dark">

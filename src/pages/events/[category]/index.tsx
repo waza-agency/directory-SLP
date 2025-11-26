@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Event } from '@/types';
@@ -9,6 +8,7 @@ import EventCategoryFilter, { EventCategory } from '@/components/EventCategoryFi
 import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, ArrowLongRightIcon } from '@heroicons/react/24/outline';
+import SEO from '@/components/common/SEO';
 
 interface EventsPageProps {
   events: Event[];
@@ -165,13 +165,10 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
 
   return (
     <>
-      <Head>
-        <title>{getCategoryTitle(category)} - SLP Descubre</title>
-        <meta
-          name="description"
-          content={`Descubre los mejores ${getCategoryTitle(category).toLowerCase()} en San Luis Potosí.`}
-        />
-      </Head>
+      <SEO
+        title={`${getCategoryTitle(category)} - SLP Descubre`}
+        description={`Descubre los mejores ${getCategoryTitle(category).toLowerCase()} en San Luis Potosí. Agenda cultural, conciertos, festivales y más.`}
+      />
 
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-primary to-secondary text-white">

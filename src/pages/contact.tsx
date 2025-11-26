@@ -1,8 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useState, useRef, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import ReCAPTCHA from "react-google-recaptcha";
+import SEO from '@/components/common/SEO';
 
 interface ContactFormData {
   name: string;
@@ -105,13 +104,10 @@ export default function Contact() {
 
   return (
     <>
-      <Head>
-        <title>Contact Us | SLP Descubre</title>
-        <meta
-          name="description"
-          content="Get in touch with SLP Descubre. We're here to help you discover and make the most of San Luis Potosí."
-        />
-      </Head>
+      <SEO
+        title="Contact Us | San Luis Way"
+        description="Get in touch with San Luis Way. We're here to help you discover and make the most of San Luis Potosí."
+      />
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section with About Us */}

@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ }) => {
   return {
@@ -30,13 +30,10 @@ export default function EnglishSpeakingHealthcare() {
 
   return (
     <>
-      <Head>
-        <title>English-Speaking Healthcare in San Luis Potosí | SLP Guide</title>
-        <meta 
-          name="description" 
-          content="Find medical facilities, clinics, and pharmacies with English-speaking staff and international insurance acceptance in San Luis Potosí."
-        />
-      </Head>
+      <SEO
+        title="English-Speaking Healthcare in San Luis Potosí | SLP Guide"
+        description="Find medical facilities, clinics, and pharmacies with English-speaking staff and international insurance acceptance in San Luis Potosí."
+      />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero Section */}
@@ -94,7 +91,7 @@ export default function EnglishSpeakingHealthcare() {
           <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {facilities.map((facility) => (
-                <div 
+                <div
                   key={facility.id}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
                 >
@@ -133,7 +130,7 @@ export default function EnglishSpeakingHealthcare() {
                     <div className="mt-4 space-y-3">
                       <div className="flex flex-wrap gap-2">
                         {facility.features.map((feature) => (
-                          <span 
+                          <span
                             key={feature}
                             className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -143,7 +140,7 @@ export default function EnglishSpeakingHealthcare() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {facility.specialties.map((specialty) => (
-                          <span 
+                          <span
                             key={specialty}
                             className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
                           >
@@ -155,7 +152,7 @@ export default function EnglishSpeakingHealthcare() {
                         <p className="text-sm text-gray-600 font-medium mb-2">Accepted Insurance:</p>
                         <div className="flex flex-wrap gap-2">
                           {facility.insuranceAccepted.map((insurance) => (
-                            <span 
+                            <span
                               key={insurance}
                               className="bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
                             >
@@ -238,7 +235,7 @@ export default function EnglishSpeakingHealthcare() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {['Cigna', 'Aetna', 'Blue Cross', 'Bupa', 'MetLife', 'AXA'].map((provider) => (
-                      <span 
+                      <span
                         key={provider}
                         className="bg-blue-50 text-blue-600 text-sm font-medium px-3 py-1 rounded-full"
                       >
@@ -265,8 +262,8 @@ export default function EnglishSpeakingHealthcare() {
             <p className="text-lg text-gray-600 mb-8">
               Our team can help you find the right healthcare provider and assist with insurance coordination.
             </p>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="inline-block bg-primary hover:bg-primary-dark text-white font-medium px-8 py-3 rounded-md transition-colors"
             >
               Contact Our Healthcare Liaison
@@ -276,4 +273,4 @@ export default function EnglishSpeakingHealthcare() {
       </main>
     </>
   );
-} 
+}
