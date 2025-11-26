@@ -136,6 +136,58 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
     }
   ];
 
+  // Practical guides data
+  const practicalGuides = [
+    {
+      id: 'family',
+      title: 'Family Activities',
+      description: 'Fun things to do with kids in San Luis Potosí',
+      image: '/images/practical-categories/family-activities.webp',
+      link: '/category/family-activities',
+      badge: 'Family',
+    },
+    {
+      id: 'rainy-day',
+      title: 'Rainy Day Activities',
+      description: 'Indoor fun for when the weather turns',
+      image: '/images/practical-categories/activities-rainy-day.jpg',
+      link: '/category/rainy-day-activities',
+      badge: 'Indoor',
+    },
+    {
+      id: 'playgrounds',
+      title: 'Restaurants with Playgrounds',
+      description: 'Dining spots where kids can play safely',
+      image: '/images/practical-categories/restaurants-with-playgrounds.png',
+      link: '/category/restaurants-with-playgrounds',
+      badge: 'Dining',
+    },
+    {
+      id: 'healthcare',
+      title: 'English-Speaking Healthcare',
+      description: 'Medical services for the international community',
+      image: '/images/practical-categories/english-speaking-healthcare.jpg',
+      link: '/category/english-speaking-healthcare',
+      badge: 'Health',
+    },
+    {
+      id: 'markets',
+      title: 'International Markets',
+      description: 'Where to find imported goods and specialty foods',
+      image: '/images/practical-categories/international-markets.jpg',
+      link: '/category/international-markets',
+      badge: 'Shopping',
+    },
+    {
+      id: 'parking',
+      title: 'Easy Parking Spots',
+      description: 'Guide to parking in the city center',
+      image: '/images/practical-categories/easy-parking-spots.png',
+      link: '/category/easy-parking-spots',
+      badge: 'Practical',
+    }
+  ];
+
   return (
     <div className="slp-root bg-white">
       <SEO
@@ -952,6 +1004,32 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </div>
         </section>
 
+        {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
+        <section id="practical-001" className="py-32 bg-white">
+          <div className="container mx-auto px-6 md:px-12 lg:px-20">
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Useful Resources</span>
+              <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                Practical Guides
+              </h2>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Essential information for families and daily life in San Luis Potosí
+              </p>
+            </div>
+
+            {/* Practical Guides Carousel */}
+            <div className="mb-12">
+              <ImageCarousel
+                items={practicalGuides}
+                itemsPerView={3}
+                height="h-64"
+                interval={0} // Disable auto-scroll for practical guides
+              />
+            </div>
+          </div>
+        </section>
+
         {/* FINAL CTA - Elegant Call to Action */}
         <section id="cta-001" className="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
           {/* Background Pattern */}
@@ -1020,7 +1098,6 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       {selectedPlace && (
         <PlaceModal
           place={selectedPlace}
-          isOpen={!!selectedPlace}
           onClose={() => setSelectedPlace(null)}
         />
       )}
