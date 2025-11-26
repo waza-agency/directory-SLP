@@ -36,7 +36,8 @@ export default function ImageCarousel({
 
   // Auto-play functionality
   useEffect(() => {
-    if (!autoPlay || items.length <= itemsPerView) return;
+    // Don't autoplay if disabled, not enough items, or interval is invalid (<= 0)
+    if (!autoPlay || items.length <= itemsPerView || interval <= 0) return;
 
     const timer = setInterval(() => {
       nextSlide();

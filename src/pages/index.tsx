@@ -10,7 +10,6 @@ import { CalendarIcon, MegaphoneIcon, MapPinIcon, SparklesIcon, HeartIcon, UserG
 import { Event } from '@/types';
 import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
-import AdUnit from '../components/common/AdUnit';
 import { getBlogPostsBySlugs } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
@@ -1024,6 +1023,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 items={practicalGuides}
                 itemsPerView={3}
                 height="h-64"
+                autoPlay={false}
                 interval={0} // Disable auto-scroll for practical guides
               />
             </div>

@@ -175,7 +175,7 @@ export default function Footer() {
         </div>
 
         {/* Enhanced Bottom Bar */}
-        <div className="mt-12 border-t border-gray-700/50 pt-8">
+        <div className="mt-8 border-t border-gray-700/50 pt-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             <p className="text-lg text-gray-300 font-medium">
               © {new Date().getFullYear()} SLP Descubre. All rights reserved.
