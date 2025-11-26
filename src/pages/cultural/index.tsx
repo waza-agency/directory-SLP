@@ -207,46 +207,26 @@ export default function CulturalPage({ events }: CulturalPageProps) {
             </div>
           </section>
 
-          {/* Cultural Events Section */}
-          <section className="mb-16">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Upcoming Cultural Events</h2>
-              <p className="text-gray-600 max-w-3xl mx-auto">
-                Don't miss these cultural events happening in San Luis Potosí
-              </p>
-            </div>
-            {events.length > 0 ? (
-              <EventList events={events} />
-            ) : (
-              <div className="text-center py-16 bg-white rounded-xl shadow-sm">
-                <div className="max-w-md mx-auto">
-                  <div className="text-gray-400 mb-4">
-                    <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">No Events Found</h3>
-                  <p className="text-gray-600 mb-6">
-                    There are no upcoming cultural events at the moment. Check back later for new events!
-                  </p>
-                  <Link
-                    href="/"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary hover:bg-primary-dark transition-colors"
-                  >
-                    Return to Home
-                  </Link>
-                </div>
+          {/* Cultural Events Section - Only show if there are events */}
+          {events.length > 0 && (
+            <section className="mb-16">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Upcoming Cultural Events</h2>
+                <p className="text-gray-600 max-w-3xl mx-auto">
+                  Don't miss these cultural events happening in San Luis Potosí
+                </p>
               </div>
-            )}
-            <div className="text-center mt-8">
-              <Link
-                href="/events"
-                className="inline-block px-6 py-3 bg-white border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
-              >
-                View All Events
-              </Link>
-            </div>
-          </section>
+              <EventList events={events} />
+              <div className="text-center mt-8">
+                <Link
+                  href="/events"
+                  className="inline-block px-6 py-3 bg-white border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
+                >
+                  View All Events
+                </Link>
+              </div>
+            </section>
+          )}
 
           {/* Local Legends & Folklore Section */}
           <section className="mb-16 bg-gradient-to-br from-purple-50 to-indigo-50 -mx-4 px-4 py-16 md:py-24">
@@ -532,7 +512,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     const { data: events, error } = await supabase
       .from('events')
       .select("*")
-      .eq('show_in_cultural_calendar', true)
+      .eq('add_to_cultural_calendar', true)
       .gte('end_date', new Date().toISOString())
       .order('start_date', { ascending: true })
       .limit(6);

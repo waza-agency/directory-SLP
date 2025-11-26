@@ -1,0 +1,149 @@
+{
+  "instructions": {
+    "description": "Template for adding cultural events to the database",
+    "usage": "Copy the template below and fill in the information for each event you want to add",
+    "important_notes": [
+      "Dates must be in ISO 8601 format: YYYY-MM-DDTHH:MM:SS (e.g., 2025-04-12T10:00:00)",
+      "If event is a single day, use the same date for start_date and end_date",
+      "If no specific time, use 00:00:00 for the time portion",
+      "category must be one of: 'sports', 'cultural', 'arts-culture', 'music', 'culinary', 'other'",
+      "featured: true will make the event appear in featured sections",
+      "show_in_cultural_calendar: true will make it appear in the cultural calendar on homepage",
+      "image_url can be a path to local image or URL (use null if no image yet)",
+      "description can be null if you don't have one yet"
+    ]
+  },
+
+  "field_definitions": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "The name of the event",
+      "example": "Festival Internacional San Luis en Primavera"
+    },
+    "description": {
+      "type": "string or null",
+      "required": false,
+      "description": "Detailed description of the event. Can be null.",
+      "example": "Annual cultural festival celebrating the rich heritage of San Luis Potosí with music, dance, and art exhibitions."
+    },
+    "start_date": {
+      "type": "string (ISO 8601 format)",
+      "required": true,
+      "format": "YYYY-MM-DDTHH:MM:SS",
+      "description": "When the event starts",
+      "example": "2025-04-12T10:00:00"
+    },
+    "end_date": {
+      "type": "string (ISO 8601 format)",
+      "required": true,
+      "format": "YYYY-MM-DDTHH:MM:SS",
+      "description": "When the event ends. Use same as start_date for single-day events.",
+      "example": "2025-04-19T22:00:00"
+    },
+    "location": {
+      "type": "string",
+      "required": true,
+      "description": "Where the event takes place",
+      "example": "Plaza de Los Fundadores, Centro Histórico"
+    },
+    "category": {
+      "type": "string (enum)",
+      "required": true,
+      "valid_values": ["sports", "cultural", "arts-culture", "music", "culinary", "other"],
+      "description": "The type/category of the event",
+      "example": "cultural"
+    },
+    "image_url": {
+      "type": "string or null",
+      "required": false,
+      "description": "URL or path to event image. Can be null.",
+      "example": "/images/events/primavera-festival.jpg"
+    },
+    "featured": {
+      "type": "boolean",
+      "required": true,
+      "description": "Whether to feature this event prominently",
+      "example": true
+    },
+    "show_in_cultural_calendar": {
+      "type": "boolean",
+      "required": true,
+      "description": "Whether to show in the cultural calendar section",
+      "example": true
+    },
+    "place_id": {
+      "type": "string or null",
+      "required": false,
+      "description": "UUID of related place from places table. Usually null for new events.",
+      "example": null
+    }
+  },
+
+  "category_guide": {
+    "sports": "Sports events, marathons, tournaments",
+    "cultural": "General cultural events, traditions, heritage celebrations",
+    "arts-culture": "Art exhibitions, museum events, cultural showcases",
+    "music": "Concerts, music festivals, performances",
+    "culinary": "Food festivals, cooking events, gastronomic celebrations",
+    "other": "Events that don't fit other categories"
+  },
+
+  "example_events": [
+    {
+      "title": "Festival Internacional San Luis en Primavera",
+      "description": "Major international spring festival celebrating arts and culture with concerts, exhibitions, and performances by renowned artists including Eugenia León, Fernando de la Mora, and Ramón Vargas. Free events at Plaza de Los Fundadores.",
+      "start_date": "2025-04-12T10:00:00",
+      "end_date": "2025-04-19T22:00:00",
+      "location": "Plaza de Los Fundadores, Aranzazú",
+      "category": "cultural",
+      "image_url": null,
+      "featured": true,
+      "show_in_cultural_calendar": true,
+      "place_id": null
+    },
+    {
+      "title": "Kuitólil Festival - 6th Edition",
+      "description": "National reference festival showcasing performing arts for children and youth. Multiple venues including Teatro de la Paz.",
+      "start_date": "2025-11-24T10:00:00",
+      "end_date": "2025-12-01T20:00:00",
+      "location": "Teatro de la Paz and other venues",
+      "category": "arts-culture",
+      "image_url": null,
+      "featured": true,
+      "show_in_cultural_calendar": true,
+      "place_id": null
+    },
+    {
+      "title": "Marco Antonio Solís Concert",
+      "description": "Legendary Mexican singer-songwriter performs at Arena Potosí.",
+      "start_date": "2025-05-23T20:00:00",
+      "end_date": "2025-05-23T23:00:00",
+      "location": "Arena Potosí",
+      "category": "music",
+      "image_url": null,
+      "featured": false,
+      "show_in_cultural_calendar": false,
+      "place_id": null
+    }
+  ],
+
+  "blank_templates": [
+    {
+      "title": "",
+      "description": null,
+      "start_date": "YYYY-MM-DDTHH:MM:SS",
+      "end_date": "YYYY-MM-DDTHH:MM:SS",
+      "location": "",
+      "category": "cultural",
+      "image_url": null,
+      "featured": false,
+      "show_in_cultural_calendar": true,
+      "place_id": null
+    }
+  ],
+
+  "events_to_add": [
+
+  ]
+}
