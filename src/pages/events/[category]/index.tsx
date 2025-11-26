@@ -18,7 +18,8 @@ interface EventsPageProps {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Define the possible category paths
-  const categories = ['all', 'sports', 'cultural', 'arts-culture', 'culinary', 'other'];
+  // 'cultural' is an alias for 'arts-culture' to maintain backward compatibility
+  const categories = ['all', 'sports', 'cultural', 'arts-culture', 'music', 'culinary', 'community-social'];
 
   const paths = categories.map((category) => ({
     params: { category }
@@ -35,7 +36,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const category = params?.category as string;
 
     // Validate category
-    const validCategories = ['all', 'sports', 'cultural', 'arts-culture', 'culinary', 'other'];
+    // 'cultural' is an alias for 'arts-culture' to maintain backward compatibility
+    const validCategories = ['all', 'sports', 'cultural', 'arts-culture', 'music', 'culinary', 'community-social'];
     if (!validCategories.includes(category)) {
       return {
         notFound: true,
@@ -57,47 +59,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     // Filter events based on category
     let filteredEvents = allEvents;
     if (category !== 'all') {
-      if (category === 'cultural') {
-        filteredEvents = allEvents.filter(event =>
-          event.category === 'cultural' ||
-          event.category === 'arts-culture' ||
-          event.category === 'music'
-        );
-      } else if (category === 'arts-culture') {
-        filteredEvents = allEvents.filter(event =>
-          event.category === 'arts-culture' ||
-          event.category === 'arts culture'
-        );
-      } else if (category === 'other') {
-        filteredEvents = allEvents.filter(event =>
-          event.category !== 'sports' &&
-          event.category !== 'cultural' &&
-          event.category !== 'arts-culture' &&
-          event.category !== 'music' &&
-          event.category !== 'culinary'
-        );
-      } else {
-        filteredEvents = allEvents.filter(event => event.category === category);
-      }
+      // Map 'cultural' to 'arts-culture' for backward compatibility
+      const filterCategory = category === 'cultural' ? 'arts-culture' : category;
+      filteredEvents = allEvents.filter(event => event.category === filterCategory);
     }
 
-    // Calcular conteo de categorías
+    // Calcular conteo de categorías (matching database enum values)
+    const artsCount = allEvents?.filter(event => event.category === 'arts-culture').length || 0;
     const categoryCounts: Record<string, number> = {
       all: allEvents?.length || 0,
       sports: allEvents?.filter(event => event.category === 'sports').length || 0,
-      cultural: allEvents?.filter(event =>
-        event.category === 'cultural' ||
-        event.category === 'arts-culture' ||
-        event.category === 'music'
-      ).length || 0,
+      cultural: artsCount, // Alias for arts-culture
+      'arts-culture': artsCount,
+      music: allEvents?.filter(event => event.category === 'music').length || 0,
       culinary: allEvents?.filter(event => event.category === 'culinary').length || 0,
-      other: allEvents?.filter(event =>
-        event.category !== 'sports' &&
-        event.category !== 'cultural' &&
-        event.category !== 'arts-culture' &&
-        event.category !== 'music' &&
-        event.category !== 'culinary'
-      ).length || 0,
+      'community-social': allEvents?.filter(event => event.category === 'community-social').length || 0,
     };
 
     return {
@@ -116,8 +92,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           all: 0,
           sports: 0,
           cultural: 0,
+          'arts-culture': 0,
+          music: 0,
           culinary: 0,
-          other: 0
+          'community-social': 0
         },
         category: params?.category as string || 'all',
       },

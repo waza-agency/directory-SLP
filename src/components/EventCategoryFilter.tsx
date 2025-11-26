@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export type EventCategory = 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'other' | 'all';
+export type EventCategory = 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'community-social' | 'all';
 
 interface EventCategoryFilterProps {
   selectedCategory: EventCategory;
@@ -19,13 +19,14 @@ export default function EventCategoryFilter({
 }: EventCategoryFilterProps) {
 
   // Definición de categorías con iconos y textos
+  // 'cultural' is an alias for 'arts-culture' to maintain backward compatibility
   const categories: { id: EventCategory; icon: string; label: string; href?: string }[] = [
     { id: 'all', icon: '🗓️', label: 'All Events' },
     { id: 'sports', icon: '🏆', label: 'Sports', href: '/events/sports' },
     { id: 'cultural', icon: '🎭', label: 'Cultural', href: '/events/cultural' },
     { id: 'music', icon: '🎵', label: 'Music', href: '/events/music' },
     { id: 'culinary', icon: '🍽️', label: 'Food & Drinks', href: '/events/culinary' },
-    { id: 'other', icon: '✨', label: 'Other', href: '/events/other' },
+    { id: 'community-social', icon: '✨', label: 'Community', href: '/events/community-social' },
   ];
 
   return (
