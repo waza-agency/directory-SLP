@@ -23,9 +23,9 @@ interface ImageCarouselProps {
   height?: string;
 }
 
-export default function ImageCarousel({ 
-  items, 
-  autoPlay = true, 
+export default function ImageCarousel({
+  items,
+  autoPlay = true,
   interval = 4000,
   showControls = true,
   itemsPerView = 4,
@@ -100,8 +100,8 @@ export default function ImageCarousel({
           <div
             key={`${item.id}-${index}`}
             className={`transition-all duration-500 transform ${
-              isVisible 
-                ? 'opacity-100 translate-y-0' 
+              isVisible
+                ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-4'
             }`}
             style={{ transitionDelay: `${index * 100}ms` }}
@@ -116,7 +116,7 @@ export default function ImageCarousel({
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
-                
+
                 {/* Badge */}
                 {item.badge && (
                   <div className="absolute top-4 left-4">
@@ -130,7 +130,7 @@ export default function ImageCarousel({
 
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
+
                 {/* Overlay Content */}
                 <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="text-white">
@@ -197,8 +197,8 @@ export default function ImageCarousel({
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentIndex === index 
-                  ? 'bg-primary scale-125' 
+                currentIndex === index
+                  ? 'bg-primary scale-125'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
             />

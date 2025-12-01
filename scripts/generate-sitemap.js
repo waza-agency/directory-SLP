@@ -2,10 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const { createClient } = require('@supabase/supabase-js');
+// Try loading .env.local first, then .env
 require('dotenv').config({ path: path.join(__dirname, '..', '.env.local') });
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+}
 
 // Your domain
-const DOMAIN = 'https://sanluisway.com';
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
 
 // Initialize Supabase client (only if env vars are available)
 let supabase = null;
@@ -95,21 +99,18 @@ const STATIC_DYNAMIC_PAGES = [
 // Helper function to format route path to URL
 function formatPath(pagePath) {
   let formattedPath = pagePath.replace(/\.(tsx|jsx)$/, '');
-  formattedPath = formattedPath.replace(/\/index$/, '/');
+  formattedPath = formattedPath.replace(/\/index$/, '');
   formattedPath = formattedPath.replace(/^(\.\/)?src\/pages/, '');
 
   if (!formattedPath.startsWith('/')) {
     formattedPath = '/' + formattedPath;
   }
 
-  // Ensure trailing slash for directory index pages
-  if (formattedPath !== '/' && !formattedPath.includes('.') && !formattedPath.endsWith('/')) {
-    // Only add trailing slash for index pages
-    const isIndexPage = pagePath.includes('/index.');
-    if (isIndexPage && formattedPath.length > 1) {
-      formattedPath = formattedPath + '/';
-    }
+  if (formattedPath === '') {
+    formattedPath = '/';
   }
+
+  // Note: Removed trailing slash addition logic to match next.config.js trailingSlash: false
 
   return formattedPath;
 }
@@ -117,7 +118,7 @@ function formatPath(pagePath) {
 // Check if page should be excluded
 function shouldExclude(url) {
   // Check excluded pages
-  if (EXCLUDED_PAGES.some(excluded => url.startsWith(excluded))) {
+  if (EXCLUDED_PAGES.some(excluded => url === excluded || url.startsWith(excluded + '/'))) {
     return true;
   }
 
@@ -132,7 +133,7 @@ function shouldExclude(url) {
 // Determine config based on URL
 function getConfig(url) {
   if (url === '/') return CONFIG.home;
-  if (['/places/', '/events/', '/services', '/community', '/cultural/', '/brands/', '/outdoors/'].includes(url)) {
+  if (['/places', '/events', '/services', '/community', '/cultural', '/brands', '/outdoors'].includes(url)) {
     return CONFIG.main;
   }
   if (['/privacy', '/terms', '/cookies'].includes(url)) return CONFIG.legal;
@@ -196,17 +197,28 @@ async function fetchDynamicPages() {
     }
 
     // Fetch events
+    // Only fetch recent and future events to avoid indexing old, dead pages
     const { data: events } = await supabase
       .from('events')
-      .select('id, category');
+      .select('id, category, end_date');
 
     if (events && events.length > 0) {
+      const today = new Date();
+      // Keep events that end in the future or ended in the last 90 days
+      const retentionDate = new Date(today);
+      retentionDate.setDate(today.getDate() - 90);
+
+      let addedEvents = 0;
+
       events.forEach(event => {
-        if (event.id && event.category) {
+        const endDate = event.end_date ? new Date(event.end_date) : new Date();
+        // Only include if event is recent enough
+        if (endDate >= retentionDate && event.id && event.category) {
           dynamicPages.push(`/events/${event.category}/${event.id}`);
+          addedEvents++;
         }
       });
-      console.log(`Added ${events.length} event pages`);
+      console.log(`Added ${addedEvents} event pages (filtered from ${events.length} total events)`);
     }
 
   } catch (error) {

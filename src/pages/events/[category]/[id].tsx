@@ -61,7 +61,12 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
       .eq('id', id)
       .single();
 
-    if (error) throw error;
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return { notFound: true };
+      }
+      throw error;
+    }
 
     // Fetch related events from the same category
     const { data: relatedEvents, error: relatedError } = await supabase

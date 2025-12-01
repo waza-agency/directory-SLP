@@ -23,7 +23,11 @@ const SEO: React.FC<SEOProps> = ({
   article,
 }) => {
   const router = useRouter();
-  const canonicalUrl = `https://www.sanluisway.com${router.asPath}`;
+  // Remove query parameters and trailing slashes (except for root) to avoid duplicate content issues
+  const path = router.asPath.split('?')[0];
+  const cleanPath = path === '/' ? path : path.replace(/\/$/, '');
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
+  const canonicalUrl = `${siteUrl}${cleanPath}`;
   const siteName = "San Luis Way";
 
   // Make title specific but also include site name

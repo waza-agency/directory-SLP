@@ -191,10 +191,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     if (!place) {
       console.error('Place not found:', params.id);
       return {
-        props: {
-          place: null,
-          error: 'Place not found'
-        },
+        notFound: true,
       };
     }
 

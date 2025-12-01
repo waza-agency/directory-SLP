@@ -28,4 +28,4 @@ Allow: /.well-known/
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://sanluisway.com/sitemap.xml
+Sitemap: https://www.sanluisway.com/sitemap.xml
