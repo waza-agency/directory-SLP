@@ -309,162 +309,508 @@ Organize findings by section with:
 
 ---
 
-## 5. Complete Newsletter Template
+## 5. HTML Email Design Specifications
 
-```
-========================================
-SAN LUIS WAY WEEKLY
-Your digest of Potosino life
-[Week of DATE - DATE, YEAR]
-========================================
+### Brand Colors
 
-Hey there! 👋
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Primary (Gold) | `#FFCB05` | Headers, buttons, accents |
+| Secondary (Terracotta) | `#C75B39` | Section backgrounds, highlights |
+| Dark Gray | `#1F2937` | Body text |
+| Light Gray | `#F3F4F6` | Section backgrounds |
+| White | `#FFFFFF` | Card backgrounds |
+| Link Blue | `#2563EB` | Links |
 
-[Opening hook - 2-3 sentences capturing the week's theme, biggest story, or seasonal mood. Make it personal and engaging.]
+### Typography
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+| Element | Font | Size | Weight |
+|---------|------|------|--------|
+| Header/Logo | Georgia, serif | 28px | Bold |
+| Section Titles | Arial, sans-serif | 20px | Bold |
+| Subheadings | Arial, sans-serif | 16px | Bold |
+| Body Text | Arial, sans-serif | 15px | Normal |
+| Small Text | Arial, sans-serif | 13px | Normal |
+| Footer | Arial, sans-serif | 12px | Normal |
 
-📰 THE WEEK IN SLP
-What you need to know
+### Design Principles
 
-**[HEADLINE 1]**
-[2-3 sentence summary of news story]
-→ Why it matters: [Brief explanation of impact on daily life]
+- **Max width:** 600px (standard for email)
+- **Mobile responsive:** Stack columns on mobile
+- **Padding:** 20-30px sections, 15px content
+- **Border radius:** 8px for cards
+- **Line height:** 1.6 for readability
+- **Images:** Always include alt text, max-width: 100%
 
-**[HEADLINE 2]**
-[2-3 sentence summary]
-→ Why it matters: [Impact]
+---
 
-**[HEADLINE 3]**
-[2-3 sentence summary]
-→ Why it matters: [Impact]
+## 6. Complete HTML Newsletter Template
 
-Quick hits:
-• [One-line news item]
-• [One-line news item]
-• [One-line news item]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>San Luis Way Weekly | [DATE RANGE]</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* Reset */
+    body, table, td, p, a, li { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    /* Base Styles */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #1F2937;
+      background-color: #F3F4F6;
+    }
 
-🌟 THIS WEEK'S TOP PICKS
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+    }
 
-1️⃣ [EVENT NAME]
-📅 Day, Date | Time
-📍 Venue, Address
-[2-3 sentence description - what is it, why go, what's special]
-💰 [Cost] | 🔗 [Link]
+    .section {
+      padding: 25px 30px;
+    }
 
-2️⃣ [EVENT NAME]
-📅 Day, Date | Time
-📍 Venue, Address
-[Description]
-💰 [Cost] | 🔗 [Link]
+    .section-alt {
+      background-color: #F9FAFB;
+    }
 
-3️⃣ [EVENT NAME]
-📅 Day, Date | Time
-📍 Venue, Address
-[Description]
-💰 [Cost] | 🔗 [Link]
+    h1, h2, h3 { margin: 0 0 15px 0; }
+    p { margin: 0 0 15px 0; }
 
-→ See all events: sanluisway.com/events
+    a { color: #2563EB; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #FFCB05;
+      color: #1F2937 !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-🎭 MORE THIS WEEK
+    .btn-secondary {
+      background-color: #C75B39;
+      color: #FFFFFF !important;
+    }
 
-**Culture & Arts**
-• [Event] - [Date] @ [Venue]
-• [Event] - [Date] @ [Venue]
+    .card {
+      background-color: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
 
-**Music & Nightlife**
-• [Event] - [Date] @ [Venue]
-• [Event] - [Date] @ [Venue]
+    .event-card {
+      border-left: 4px solid #FFCB05;
+    }
 
-**Food & Dining**
-• [Event] - [Date] @ [Venue]
+    .news-card {
+      border-left: 4px solid #C75B39;
+    }
 
-**Sports**
-• [Event] - [Date] @ [Venue]
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #FEF3C7;
+      color: #92400E;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
 
-**Family**
-• [Event] - [Date] @ [Venue]
+    .meta {
+      color: #6B7280;
+      font-size: 13px;
+    }
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    .divider {
+      border: none;
+      border-top: 2px solid #E5E7EB;
+      margin: 25px 0;
+    }
 
-🏙️ AROUND TOWN
-What's new in the city
+    .emoji {
+      font-size: 20px;
+      margin-right: 8px;
+    }
 
-**Now Open:** [New restaurant/business name]
-[Brief description - what it is, where, why check it out]
-📍 [Address] | 🔗 [Instagram/website]
+    /* Responsive */
+    @media only screen and (max-width: 620px) {
+      .container { width: 100% !important; }
+      .section { padding: 20px 15px !important; }
+      .mobile-full { width: 100% !important; display: block !important; }
+      .mobile-hide { display: none !important; }
+      .mobile-center { text-align: center !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #F3F4F6;">
 
-**Spotted:** [Interesting observation or trend]
-[Brief description]
+  <!-- Preview Text -->
+  <div style="display: none; max-height: 0; overflow: hidden;">
+    [PREVIEW_TEXT - First 90 chars shown in inbox preview]
+  </div>
 
-**Good to Know:** [Practical city update]
-[Brief explanation]
+  <!-- Email Container -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F3F4F6;">
+    <tr>
+      <td align="center" style="padding: 20px 10px;">
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 
-🌿 WEEKEND ESCAPE
-[DESTINATION OR ACTIVITY NAME]
+          <!-- HEADER -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #C75B39 0%, #FFCB05 100%); padding: 30px; text-align: center;">
+              <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="200" style="max-width: 200px; height: auto;">
+              <h1 style="color: #FFFFFF; font-family: Georgia, serif; font-size: 28px; margin: 20px 0 5px 0;">San Luis Way Weekly</h1>
+              <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0;">Your digest of Potosino life</p>
+              <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 10px 0 0 0; font-weight: bold;">[WEEK_DATE_RANGE]</p>
+            </td>
+          </tr>
 
-[3-4 sentences about a day trip idea, Huasteca update, or regional attraction. Include practical info like distance, best time to go, what to expect.]
+          <!-- OPENING HOOK -->
+          <tr>
+            <td class="section" style="padding: 30px;">
+              <p style="font-size: 16px; line-height: 1.7;">Hey there! 👋</p>
+              <p style="font-size: 16px; line-height: 1.7;">[OPENING_HOOK_TEXT - 2-3 sentences about the week's theme, biggest story, or seasonal mood]</p>
+            </td>
+          </tr>
 
-→ More day trips: sanluisway.com/outdoors
+          <!-- NEWS SECTION -->
+          <tr>
+            <td class="section section-alt" style="background-color: #FEF2F2;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
+                <span class="emoji">📰</span> The Week in SLP
+              </h2>
+              <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">What you need to know</p>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+              <!-- News Item 1 -->
+              <div class="card news-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_1]</h3>
+                <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[NEWS_SUMMARY_1 - 2-3 sentences]</p>
+                <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_1]</p>
+              </div>
 
-📅 COMING UP
+              <!-- News Item 2 -->
+              <div class="card news-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_2]</h3>
+                <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[NEWS_SUMMARY_2]</p>
+                <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_2]</p>
+              </div>
 
-**[DATE]:** [Major event]
-**[DATE]:** [Major event]
-**[DATE]:** [Major event]
-**[DATE]:** [Major event]
+              <!-- Quick Hits -->
+              <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; margin-top: 15px;">
+                <p style="font-weight: bold; font-size: 14px; margin: 0 0 10px 0; color: #6B7280;">Quick hits:</p>
+                <ul style="margin: 0; padding-left: 20px; color: #4B5563; font-size: 14px;">
+                  <li style="margin-bottom: 5px;">[QUICK_HIT_1]</li>
+                  <li style="margin-bottom: 5px;">[QUICK_HIT_2]</li>
+                  <li>[QUICK_HIT_3]</li>
+                </ul>
+              </div>
+            </td>
+          </tr>
 
-Mark your calendar → sanluisway.com/events
+          <!-- TOP PICKS -->
+          <tr>
+            <td class="section" style="padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
+                <span class="emoji">🌟</span> This Week's Top Picks
+              </h2>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+              <!-- Event 1 -->
+              <div class="card event-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <span class="tag" style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_1]</span>
+                <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_1]</h3>
+                <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
+                  📅 [DATE_TIME_1] &nbsp;|&nbsp; 📍 [VENUE_1]
+                </p>
+                <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_1 - 2-3 sentences]</p>
+                <p style="margin: 0; font-size: 13px;">
+                  <span style="color: #059669; font-weight: bold;">💰 [COST_1]</span>
+                  &nbsp;|&nbsp;
+                  <a href="[LINK_1]" style="color: #2563EB;">More info →</a>
+                </p>
+              </div>
 
-💡 EXPAT PRO TIP OF THE WEEK
+              <!-- Event 2 -->
+              <div class="card event-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <span class="tag" style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_2]</span>
+                <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_2]</h3>
+                <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
+                  📅 [DATE_TIME_2] &nbsp;|&nbsp; 📍 [VENUE_2]
+                </p>
+                <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_2]</p>
+                <p style="margin: 0; font-size: 13px;">
+                  <span style="color: #059669; font-weight: bold;">💰 [COST_2]</span>
+                  &nbsp;|&nbsp;
+                  <a href="[LINK_2]" style="color: #2563EB;">More info →</a>
+                </p>
+              </div>
 
-**[Tip Title]**
+              <!-- Event 3 -->
+              <div class="card event-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                <span class="tag" style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_3]</span>
+                <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_3]</h3>
+                <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
+                  📅 [DATE_TIME_3] &nbsp;|&nbsp; 📍 [VENUE_3]
+                </p>
+                <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_3]</p>
+                <p style="margin: 0; font-size: 13px;">
+                  <span style="color: #059669; font-weight: bold;">💰 [COST_3]</span>
+                  &nbsp;|&nbsp;
+                  <a href="[LINK_3]" style="color: #2563EB;">More info →</a>
+                </p>
+              </div>
 
-[2-3 sentences with practical advice. Could be about navigating bureaucracy, cultural insight, money-saving hack, seasonal advice, or local knowledge that makes life easier.]
+              <div style="text-align: center;">
+                <a href="https://www.sanluisway.com/events" class="btn" style="display: inline-block; padding: 12px 24px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">See All Events →</a>
+              </div>
+            </td>
+          </tr>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          <!-- MORE THIS WEEK -->
+          <tr>
+            <td class="section section-alt" style="background-color: #F9FAFB; padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
+                <span class="emoji">🎭</span> More This Week
+              </h2>
 
-📖 FROM THE BLOG
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="50%" valign="top" style="padding-right: 10px;">
+                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🎭 Culture & Arts</h4>
+                    <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
+                      <li style="margin-bottom: 5px;">[EVENT] - [DATE]</li>
+                      <li>[EVENT] - [DATE]</li>
+                    </ul>
 
-**[Blog Post Title]**
-[One sentence teaser that creates curiosity]
+                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🍽️ Food & Dining</h4>
+                    <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
+                      <li>[EVENT] - [DATE]</li>
+                    </ul>
+                  </td>
+                  <td width="50%" valign="top" style="padding-left: 10px;">
+                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🎵 Music & Nightlife</h4>
+                    <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
+                      <li style="margin-bottom: 5px;">[EVENT] - [DATE]</li>
+                      <li>[EVENT] - [DATE]</li>
+                    </ul>
 
-→ Read more: sanluisway.com/blog/[slug]
+                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">⚽ Sports</h4>
+                    <ul style="margin: 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
+                      <li>[EVENT] - [DATE]</li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          <!-- AROUND TOWN -->
+          <tr>
+            <td class="section" style="padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
+                <span class="emoji">🏙️</span> Around Town
+              </h2>
+              <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">What's new in the city</p>
 
-That's a wrap for this week!
+              <div style="background-color: #ECFDF5; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <p style="margin: 0 0 5px 0; font-weight: bold; color: #059669; font-size: 13px;">✨ NOW OPEN</p>
+                <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #1F2937;">[NEW_PLACE_NAME]</h4>
+                <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[DESCRIPTION - what it is, why check it out]</p>
+                <p style="margin: 0; font-size: 13px; color: #6B7280;">📍 [ADDRESS] | <a href="[LINK]" style="color: #2563EB;">@instagram</a></p>
+              </div>
 
-Have news or events to share? Hit reply - we love hearing from you.
-Know someone who'd enjoy this? Forward it their way!
+              <div style="background-color: #FEF3C7; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <p style="margin: 0 0 5px 0; font-weight: bold; color: #92400E; font-size: 13px;">👀 SPOTTED</p>
+                <p style="margin: 0; font-size: 14px; color: #4B5563;">[INTERESTING_OBSERVATION_OR_TREND]</p>
+              </div>
 
-Explore more → sanluisway.com
-Follow us → @sanluisway on Instagram & TikTok
+              <div style="background-color: #EFF6FF; border-radius: 8px; padding: 20px;">
+                <p style="margin: 0 0 5px 0; font-weight: bold; color: #1D4ED8; font-size: 13px;">📌 GOOD TO KNOW</p>
+                <p style="margin: 0; font-size: 14px; color: #4B5563;">[PRACTICAL_CITY_UPDATE]</p>
+              </div>
+            </td>
+          </tr>
 
-Hasta la próxima,
-The San Luis Way Team 🌵
+          <!-- WEEKEND ESCAPE -->
+          <tr>
+            <td class="section section-alt" style="background-color: #F0FDF4; padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+                <span class="emoji">🌿</span> Weekend Escape
+              </h2>
+              <h3 style="font-size: 18px; color: #166534; margin: 0 0 15px 0;">[DESTINATION_NAME]</h3>
+              <p style="font-size: 14px; color: #4B5563; margin: 0 0 15px 0;">[3-4 sentences about a day trip idea, Huasteca update, or regional attraction. Include practical info.]</p>
+              <a href="https://www.sanluisway.com/outdoors" style="color: #166534; font-weight: bold; font-size: 14px;">Explore more day trips →</a>
+            </td>
+          </tr>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-San Luis Way | sanluisway.com
-Your guide to life in San Luis Potosí
+          <!-- COMING UP -->
+          <tr>
+            <td class="section" style="padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
+                <span class="emoji">📅</span> Coming Up
+              </h2>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px;">
+                <tr>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+                    <strong style="color: #C75B39;">[DATE_1]</strong>
+                  </td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">
+                    [UPCOMING_EVENT_1]
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+                    <strong style="color: #C75B39;">[DATE_2]</strong>
+                  </td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">
+                    [UPCOMING_EVENT_2]
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+                    <strong style="color: #C75B39;">[DATE_3]</strong>
+                  </td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">
+                    [UPCOMING_EVENT_3]
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0;">
+                    <strong style="color: #C75B39;">[DATE_4]</strong>
+                  </td>
+                  <td style="padding: 8px 0; color: #4B5563;">
+                    [UPCOMING_EVENT_4]
+                  </td>
+                </tr>
+              </table>
+              <div style="text-align: center; margin-top: 20px;">
+                <a href="https://www.sanluisway.com/events" style="color: #2563EB; font-weight: bold; font-size: 14px;">Mark your calendar →</a>
+              </div>
+            </td>
+          </tr>
 
-[Unsubscribe] | [Update Preferences]
-========================================
+          <!-- PRO TIP -->
+          <tr>
+            <td class="section" style="padding: 30px; background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+                <span class="emoji">💡</span> Expat Pro Tip
+              </h2>
+              <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[TIP_TITLE]</h3>
+              <p style="font-size: 14px; color: #4B5563; margin: 0;">[2-3 sentences with practical advice]</p>
+            </td>
+          </tr>
+
+          <!-- FROM THE BLOG -->
+          <tr>
+            <td class="section" style="padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+                <span class="emoji">📖</span> From the Blog
+              </h2>
+              <div style="background-color: #F9FAFB; border-radius: 8px; padding: 20px;">
+                <h3 style="font-size: 16px; color: #1F2937; margin: 0 0 10px 0;">[BLOG_POST_TITLE]</h3>
+                <p style="font-size: 14px; color: #4B5563; margin: 0 0 15px 0;">[ONE_SENTENCE_TEASER]</p>
+                <a href="[BLOG_POST_URL]" class="btn-secondary" style="display: inline-block; padding: 10px 20px; background-color: #C75B39; color: #FFFFFF; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 13px;">Read More →</a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- CLOSING -->
+          <tr>
+            <td class="section" style="padding: 30px; text-align: center; background-color: #F9FAFB;">
+              <p style="font-size: 15px; color: #4B5563; margin: 0 0 15px 0;">That's a wrap for this week!</p>
+              <p style="font-size: 14px; color: #6B7280; margin: 0 0 10px 0;">Have news or events to share? <strong>Hit reply</strong> - we love hearing from you.</p>
+              <p style="font-size: 14px; color: #6B7280; margin: 0 0 25px 0;">Know someone who'd enjoy this? <strong>Forward it their way!</strong></p>
+
+              <!-- Social Links -->
+              <div style="margin-bottom: 20px;">
+                <a href="https://www.sanluisway.com" style="display: inline-block; margin: 0 10px; color: #4B5563; text-decoration: none; font-size: 13px;">🌐 Website</a>
+                <a href="https://www.instagram.com/sanluisway/" style="display: inline-block; margin: 0 10px; color: #4B5563; text-decoration: none; font-size: 13px;">📸 Instagram</a>
+                <a href="https://www.tiktok.com/@sanluisway" style="display: inline-block; margin: 0 10px; color: #4B5563; text-decoration: none; font-size: 13px;">🎵 TikTok</a>
+              </div>
+
+              <p style="font-size: 16px; color: #1F2937; margin: 0;">
+                Hasta la próxima,<br>
+                <strong>The San Luis Way Team</strong> 🌵
+              </p>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="padding: 25px 30px; background-color: #1F2937; text-align: center;">
+              <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="120" style="max-width: 120px; height: auto; margin-bottom: 15px; opacity: 0.9;">
+              <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 0 0 10px 0;">
+                San Luis Way | Your guide to life in San Luis Potosí
+              </p>
+              <p style="color: rgba(255,255,255,0.6); font-size: 12px; margin: 0 0 15px 0;">
+                San Luis Potosí, México
+              </p>
+              <p style="margin: 0;">
+                <a href="[UNSUBSCRIBE_URL]" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: underline;">Unsubscribe</a>
+                <span style="color: rgba(255,255,255,0.4); margin: 0 10px;">|</span>
+                <a href="[PREFERENCES_URL]" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: underline;">Update Preferences</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
 ```
 
 ---
 
-## 6. Writing Style Guidelines
+## 7. HTML Template Placeholders Reference
+
+When generating the newsletter, replace these placeholders:
+
+| Placeholder | Description |
+|-------------|-------------|
+| `[DATE_RANGE]` / `[WEEK_DATE_RANGE]` | e.g., "December 1 - 7, 2025" |
+| `[PREVIEW_TEXT]` | First 90 chars shown in inbox preview |
+| `[OPENING_HOOK_TEXT]` | 2-3 engaging sentences |
+| `[NEWS_HEADLINE_1]`, `[NEWS_SUMMARY_1]`, `[IMPACT_1]` | News items |
+| `[QUICK_HIT_1]`, `[QUICK_HIT_2]`, `[QUICK_HIT_3]` | Brief news bullets |
+| `[CATEGORY_1]`, `[EVENT_NAME_1]`, `[DATE_TIME_1]`, `[VENUE_1]`, `[EVENT_DESCRIPTION_1]`, `[COST_1]`, `[LINK_1]` | Event details |
+| `[NEW_PLACE_NAME]`, `[ADDRESS]` | Around Town section |
+| `[DESTINATION_NAME]` | Weekend Escape destination |
+| `[TIP_TITLE]` | Pro tip heading |
+| `[BLOG_POST_TITLE]`, `[BLOG_POST_URL]` | Blog promotion |
+| `[UNSUBSCRIBE_URL]`, `[PREFERENCES_URL]` | Footer links |
+
+---
+
+## 8. Writing Style Guidelines
 
 ### Voice & Tone
 
