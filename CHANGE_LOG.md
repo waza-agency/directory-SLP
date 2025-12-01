@@ -4,6 +4,52 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-01] Creación de páginas legales, newsletter style guide y corrección de social links
+
+**Archivos modificados:**
+- src/components/Footer.tsx
+
+**Archivos creados:**
+- src/pages/newsletter.tsx
+- src/pages/privacy.tsx
+- src/pages/terms.tsx
+- src/pages/cookies.tsx
+- src/pages/sitemap.tsx
+
+**Problema resuelto:**
+Site audit identificó 5 URLs con error 404 (/newsletter, /privacy, /terms, /cookies, /sitemap) y social links con placeholders (#) en el Footer.
+
+**Cambios realizados:**
+
+1. **Página /newsletter con Style Guide completo:**
+   - Newsletter Overview: frecuencia semanal, enfoque en eventos de SLP
+   - 7 categorías de contenido: Culture, Food, Sports, Educational, Health, Entertainment, Arts
+   - Deep Search Prompt Template para encontrar eventos en SLP
+   - Writing Instructions: tono, estructura, longitud, formato
+   - SEO & Marketing Rules: subject lines, CTAs, link integration
+   - Template completo de newsletter con secciones y formato
+
+2. **Páginas legales creadas:**
+   - /privacy - Privacy Policy con 10 secciones (data collection, usage, third-party, security, etc.)
+   - /terms - Terms of Service con 14 secciones (acceptable use, IP, liability, etc.)
+   - /cookies - Cookie Policy con 8 secciones (types, third-party, management, opt-out)
+   - /sitemap - HTML sitemap con 6 categorías navegables + link a XML sitemap
+
+3. **Corrección de social links en Footer:**
+   - Instagram actualizado: de "#" a "https://www.instagram.com/sanluisway/"
+   - Agregado label "@sanluisway" visible junto al icono
+   - Removidos iconos de Facebook y YouTube (no hay cuentas activas)
+
+**Resultado:** ✅ Exitoso
+- 5 errores 404 resueltos
+- Social links funcionales con URL real de Instagram
+- Newsletter style guide listo para usar en herramienta externa de generación
+- Páginas legales completas y profesionales
+
+**Commit:** c5017d36
+
+---
+
 ## [2025-11-25] Rediseño del calendario cultural con carrusel elegante y corrección de categorías
 
 **Archivos modificados:**

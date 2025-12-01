@@ -4,6 +4,209 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: c5017d36 - 2025-12-01
+
+**Mensaje:** feat: Add legal pages, newsletter style guide, and fix social links
+
+**Archivos modificados:**
+- src/components/Footer.tsx (Instagram URL actualizado, FB/YouTube removidos)
+
+**Archivos creados:**
+- src/pages/newsletter.tsx (style guide completo)
+- src/pages/privacy.tsx (política de privacidad)
+- src/pages/terms.tsx (términos de servicio)
+- src/pages/cookies.tsx (política de cookies)
+- src/pages/sitemap.tsx (sitemap HTML navegable)
+
+**Descripción detallada:**
+
+Este commit resuelve 5 errores 404 identificados en un site audit y corrige los social links en el Footer.
+
+**Contexto del problema:**
+
+Un site audit previo usando Playwright identificó:
+1. 5 páginas con error 404: /newsletter, /privacy, /terms, /cookies, /sitemap
+2. Social links con placeholders "#" para Facebook, Instagram y YouTube
+3. Links que no llevaban a ningún destino real
+
+**Solución implementada:**
+
+**1. Newsletter Style Guide (src/pages/newsletter.tsx):**
+
+Página completa con guía de estilo para generación de newsletters semanales:
+
+- **Newsletter Overview:**
+  * Frecuencia: Semanal (cada viernes)
+  * Objetivo: Informar sobre eventos en SLP y promocionar sanluisway.com
+  * Audiencia: Expatriados, turistas y residentes de SLP
+
+- **7 Categorías de contenido:**
+  1. Culture - Festivales, tradiciones, museos, galerías
+  2. Food - Restaurantes, mercados, experiencias culinarias
+  3. Sports - Eventos deportivos locales y recreación
+  4. Educational - Talleres, cursos, tours educativos
+  5. Health - Bienestar, yoga, eventos de salud
+  6. Entertainment - Conciertos, películas, nightlife
+  7. Arts - Performances, exhibiciones, eventos creativos
+
+- **Deep Search Prompt Template:**
+  ```
+  Search for events happening in San Luis Potosí, Mexico during [DATE RANGE].
+  Look for: cultural events, festivals, food events, sports events...
+  Include: event name, date/time, location, description, cost, official links
+  Sources to check: tourism sites, event platforms, official calendars...
+  ```
+
+- **Writing Instructions:**
+  * Tone: Friendly, informative, enthusiastic pero profesional
+  * Structure: Categorized sections, clear headers, bullet points
+  * Length: 5-minute read, concise descriptions
+  * Format: Mobile-friendly, scannable content
+
+- **SEO & Marketing Rules:**
+  * Subject lines: Compelling, date-specific, action-oriented
+  * CTAs: "Explore more at sanluisway.com", "Don't miss out"
+  * Links: 3-5 internal links to sanluisway.com per newsletter
+  * Tracking: UTM parameters for analytics
+
+**2. Privacy Policy (src/pages/privacy.tsx):**
+
+10 secciones completas:
+1. Information We Collect (personal data, usage data, location)
+2. How We Use Your Information (service provision, analytics, marketing)
+3. Cookies and Tracking (types, purposes, management)
+4. Third-Party Services (Google Analytics, AdSense, Supabase)
+5. Data Retention (policies, periods)
+6. Your Rights (access, correction, deletion, portability)
+7. Children's Privacy (age restrictions)
+8. Data Security (measures, encryption)
+9. Changes to Policy (notification process)
+10. Contact Information (email, contact form)
+
+**3. Terms of Service (src/pages/terms.tsx):**
+
+14 secciones completas:
+1. Agreement to Terms
+2. Description of Service
+3. User Accounts (responsibilities)
+4. Acceptable Use (prohibited activities)
+5. Content and Intellectual Property
+6. User-Generated Content (license grants)
+7. Business Listings (accuracy disclaimers)
+8. Third-Party Links (liability)
+9. Disclaimer of Warranties
+10. Limitation of Liability
+11. Indemnification
+12. Modifications to Terms
+13. Governing Law (Mexico/SLP jurisdiction)
+14. Contact Information
+
+**4. Cookie Policy (src/pages/cookies.tsx):**
+
+8 secciones con información detallada:
+1. What Are Cookies (definición)
+2. How We Use Cookies (propósitos)
+3. Types of Cookies:
+   - Essential (session, auth, security)
+   - Analytics (Google Analytics, performance)
+   - Preference (language, theme, location)
+   - Advertising (Google AdSense, tracking)
+4. Third-Party Cookies (tabla con providers)
+5. Managing Cookies (browser settings)
+6. Impact of Disabling
+7. Updates to Policy
+8. Contact Us
+
+**5. HTML Sitemap (src/pages/sitemap.tsx):**
+
+6 categorías navegables:
+- Main Pages: Home, About, Contact, FAQ
+- Explore: Places, Events, Services, Outdoors
+- Cultural: Hub, History, Festivals, Music & Dance
+- Guides: Expat Guide, Living Guide, Blog, Newsletter
+- Account: Sign In, Sign Up
+- Legal: Privacy, Terms, Cookies
+
+Incluye:
+- Link a XML sitemap para search engines
+- Quick Access section con botones principales
+- Social media link a Instagram
+
+**6. Footer Social Links (src/components/Footer.tsx):**
+
+ANTES:
+```tsx
+<a href="#" className="...">Facebook icon</a>
+<a href="#" className="...">Instagram icon</a>
+<a href="#" className="...">YouTube icon</a>
+```
+
+DESPUÉS:
+```tsx
+<a href="https://www.instagram.com/sanluisway/" target="_blank" rel="noopener noreferrer" className="... flex items-center gap-2">
+  <svg>Instagram icon</svg>
+  <span className="text-sm font-medium">@sanluisway</span>
+</a>
+```
+
+Cambios:
+- Instagram: URL actualizado a cuenta real
+- Agregado label visible "@sanluisway"
+- Agregados atributos target="_blank" y rel="noopener noreferrer"
+- Removidos Facebook y YouTube (no hay cuentas)
+
+**Impacto del cambio:**
+
+✅ **Errores 404 resueltos:**
+- /newsletter → Página con style guide completo
+- /privacy → Privacy policy profesional
+- /terms → Terms of service completos
+- /cookies → Cookie policy detallada
+- /sitemap → Sitemap HTML navegable
+
+✅ **Social links funcionales:**
+- Instagram conectado a cuenta real @sanluisway
+- Links muertos eliminados (FB/YouTube)
+- UX mejorado con label visible
+
+✅ **SEO mejorado:**
+- Páginas legales indexables
+- Sitemap HTML para usuarios
+- Links internos funcionales
+
+✅ **Newsletter system ready:**
+- Style guide completo para generación automatizada
+- Categorías definidas para contenido
+- Prompts y templates listos para uso externo
+
+**Estadísticas:**
+- 6 archivos modificados/creados
+- 1,092 líneas insertadas
+- 14 líneas eliminadas
+- 5 errores 404 resueltos
+- 1 social link corregido
+- 2 social links removidos
+
+**Propósito/Razón:**
+
+Este commit transforma el sitio de uno con links rotos y páginas faltantes a uno profesional con documentación legal completa y una guía de estilo para newsletters que puede ser usada en herramientas externas de generación de contenido.
+
+Las páginas legales (privacy, terms, cookies) son esenciales para:
+- Cumplimiento con regulaciones (GDPR, CCPA)
+- Profesionalismo y credibilidad
+- Google AdSense requirements
+- User trust
+
+El newsletter style guide permite:
+- Automatización de creación de newsletters
+- Consistencia en el contenido
+- SEO optimization
+- Promoción efectiva de sanluisway.com
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: e121e3d5 - 2025-11-25
 
 **Mensaje:** feat: redesign cultural calendar with elegant carousel and fix event categories
