@@ -326,9 +326,7 @@ export default function ReligiousPracticesPage() {
                   <span className="font-semibold">Location:</span> Near Real de Catorce in the Altiplano region
                 </p>
                 <p className="text-gray-600">
-                  <Link href="/places/wirikuta-desert" className="text-secondary hover:underline mt-4 inline-block">
-                    View details →
-                  </Link>
+                  {/* Wirikuta Desert details */}
                 </p>
               </div>
               <div className="bg-white rounded-lg p-6 shadow-sm">
@@ -340,9 +338,7 @@ export default function ReligiousPracticesPage() {
                   <span className="font-semibold">Location:</span> Municipality of Aquismón in the Huasteca region
                 </p>
                 <p className="text-gray-600">
-                  <Link href="/places/cave-of-swallows" className="text-secondary hover:underline mt-4 inline-block">
-                    View details →
-                  </Link>
+                  {/* Cave of Swallows details */}
                 </p>
               </div>
               <div className="bg-white rounded-lg p-6 shadow-sm">
@@ -354,9 +350,7 @@ export default function ReligiousPracticesPage() {
                   <span className="font-semibold">Location:</span> Near Tamuín in the eastern part of the state
                 </p>
                 <p className="text-gray-600">
-                  <Link href="/places/tamtoc-archaeological-site" className="text-secondary hover:underline mt-4 inline-block">
-                    View details →
-                  </Link>
+                  {/* Tamtoc Archaeological Site details */}
                 </p>
               </div>
             </div>

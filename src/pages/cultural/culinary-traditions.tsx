@@ -373,24 +373,24 @@ export default function CulinaryTraditionsPage() {
                 </p>
                 <ul className="list-disc list-inside text-gray-600">
                   <li>
-                    <Link href="/places/la-oruga-y-la-cebada" className="text-secondary hover:underline">
+                    <Link href="/places/06ce69b9-e72f-4dde-8167-68401dc17c6a" className="text-secondary hover:underline">
                       La Oruga y La Cebada
                     </Link>
                   </li>
                   <li>
-                    <Link href="/places/la-parroquia-potosina" className="text-secondary hover:underline">
+                    <Link href="/places/99eec289-d249-4e8c-92bc-f68203f0de42" className="text-secondary hover:underline">
                       La Parroquia Potosina
                     </Link>
                   </li>
                   <li>
-                    <Link href="/places/el-rincon-huasteco" className="text-secondary hover:underline">
+                    <span className="text-gray-600">
                       El Rincón Huasteco
-                    </Link>
+                    </span>
                   </li>
                   <li>
-                    <Link href="/places/la-casa-del-portal" className="text-secondary hover:underline">
+                    <span className="text-gray-600">
                       La Casa del Portal
-                    </Link>
+                    </span>
                   </li>
                 </ul>
               </div>

@@ -159,7 +159,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     <span>Centro Histórico, San Luis Potosí</span>
                   </div>
                   <Link
-                    href="/places/teatro-de-la-paz"
+                    href="/places/e5b31195-79a2-439b-aff5-971aa415a715"
                     className="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                   >
                     View Details
@@ -189,7 +189,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     <span>Álvaro Obregón 80, Centro Histórico</span>
                   </div>
                   <Link
-                    href="/places/museo-federico-silva"
+                    href="/places/9ee476c9-5902-4382-97e2-9fd63cafa118"
                     className="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                   >
                     View Details
