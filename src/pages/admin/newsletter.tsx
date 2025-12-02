@@ -22,12 +22,19 @@ interface Newsletter {
 export default function NewsletterAdminPage() {
   const [adminKey, setAdminKey] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [activeTab, setActiveTab] = useState<'subscribers' | 'newsletters'>('subscribers');
+  const [activeTab, setActiveTab] = useState<'subscribers' | 'newsletters' | 'send'>('subscribers');
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [subscriberCounts, setSubscriberCounts] = useState({ active: 0, unsubscribed: 0, bounced: 0 });
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
+
+  // Send form state
+  const [subject, setSubject] = useState('');
+  const [htmlContent, setHtmlContent] = useState('');
+  const [testEmail, setTestEmail] = useState('');
+  const [sending, setSending] = useState(false);
+  const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const fetchSubscribers = useCallback(async () => {
     setLoading(true);
@@ -65,7 +72,7 @@ export default function NewsletterAdminPage() {
   useEffect(() => {
     if (isAuthenticated) {
       if (activeTab === 'subscribers') fetchSubscribers();
-      else fetchNewsletters();
+      else if (activeTab === 'newsletters') fetchNewsletters();
     }
   }, [isAuthenticated, activeTab, fetchSubscribers, fetchNewsletters]);
 
@@ -83,10 +90,66 @@ export default function NewsletterAdminPage() {
 
   useEffect(() => {
     const savedKey = localStorage.getItem('newsletter_admin_key');
-    if (savedKey) {
-      setAdminKey(savedKey);
-    }
+    if (savedKey) setAdminKey(savedKey);
   }, []);
+
+  const createAndSendNewsletter = async (sendToAll: boolean) => {
+    if (!subject.trim() || !htmlContent.trim()) {
+      alert('Subject and HTML content are required');
+      return;
+    }
+    if (!sendToAll && !testEmail.trim()) {
+      alert('Please enter a test email address');
+      return;
+    }
+
+    setSending(true);
+    setSendResult(null);
+
+    try {
+      // First create the newsletter
+      const createRes = await fetch('/api/newsletter/newsletters', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
+        body: JSON.stringify({ subject, html_content: htmlContent })
+      });
+      const createData = await createRes.json();
+
+      if (!createRes.ok) throw new Error(createData.message || 'Failed to create newsletter');
+
+      // Then send it
+      const sendRes = await fetch('/api/newsletter/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
+        body: JSON.stringify({
+          newsletter_id: createData.newsletter.id,
+          test_email: sendToAll ? undefined : testEmail
+        })
+      });
+      const sendData = await sendRes.json();
+
+      if (sendRes.ok) {
+        setSendResult({
+          success: true,
+          message: sendToAll
+            ? `Newsletter sent to ${sendData.stats?.sent || 0} subscribers!`
+            : `Test email sent to ${testEmail}`
+        });
+        if (sendToAll) {
+          setSubject('');
+          setHtmlContent('');
+        }
+      } else {
+        throw new Error(sendData.message || 'Failed to send newsletter');
+      }
+    } catch (error) {
+      setSendResult({
+        success: false,
+        message: error instanceof Error ? error.message : 'An error occurred'
+      });
+    }
+    setSending(false);
+  };
 
   if (!isAuthenticated) {
     return (
@@ -101,7 +164,7 @@ export default function NewsletterAdminPage() {
               onChange={(e) => setAdminKey(e.target.value)}
               placeholder="Enter admin key"
               className="w-full px-4 py-3 border rounded-lg mb-4"
-              onKeyPress={(e) => e.key === 'Enter' && handleAuth()}
+              onKeyDown={(e) => e.key === 'Enter' && handleAuth()}
             />
             <button
               onClick={handleAuth}
@@ -160,10 +223,17 @@ export default function NewsletterAdminPage() {
             >
               Newsletters
             </button>
+            <button
+              onClick={() => setActiveTab('send')}
+              className={`px-6 py-2 rounded-lg font-medium ${activeTab === 'send' ? 'bg-terracotta text-white' : 'bg-white text-gray-600'}`}
+            >
+              ✉️ Send Newsletter
+            </button>
           </div>
 
           {/* Content */}
           <div className="bg-white rounded-lg shadow">
+            {/* SUBSCRIBERS TAB */}
             {activeTab === 'subscribers' && (
               <div>
                 <div className="p-4 border-b flex items-center gap-4">
@@ -177,12 +247,14 @@ export default function NewsletterAdminPage() {
                     <option value="unsubscribed">Unsubscribed</option>
                     <option value="bounced">Bounced</option>
                   </select>
-                  <button onClick={fetchSubscribers} className="px-4 py-2 bg-gray-100 rounded-lg">
+                  <button onClick={fetchSubscribers} className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
                     Refresh
                   </button>
                 </div>
                 {loading ? (
                   <div className="p-8 text-center text-gray-500">Loading...</div>
+                ) : subscribers.length === 0 ? (
+                  <div className="p-8 text-center text-gray-500">No subscribers yet</div>
                 ) : (
                   <table className="w-full">
                     <thead className="bg-gray-50">
@@ -220,10 +292,11 @@ export default function NewsletterAdminPage() {
               </div>
             )}
 
+            {/* NEWSLETTERS TAB */}
             {activeTab === 'newsletters' && (
               <div>
                 <div className="p-4 border-b">
-                  <button onClick={fetchNewsletters} className="px-4 py-2 bg-gray-100 rounded-lg">
+                  <button onClick={fetchNewsletters} className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
                     Refresh
                   </button>
                 </div>
@@ -249,6 +322,7 @@ export default function NewsletterAdminPage() {
                             <span className={`px-2 py-1 text-xs rounded-full ${
                               nl.status === 'sent' ? 'bg-green-100 text-green-700' :
                               nl.status === 'draft' ? 'bg-yellow-100 text-yellow-700' :
+                              nl.status === 'sending' ? 'bg-blue-100 text-blue-700' :
                               'bg-gray-100 text-gray-600'
                             }`}>
                               {nl.status}
@@ -265,6 +339,102 @@ export default function NewsletterAdminPage() {
                     </tbody>
                   </table>
                 )}
+              </div>
+            )}
+
+            {/* SEND NEWSLETTER TAB */}
+            {activeTab === 'send' && (
+              <div className="p-6">
+                <h2 className="text-xl font-bold mb-6">Send Newsletter</h2>
+
+                {sendResult && (
+                  <div className={`mb-6 p-4 rounded-lg ${sendResult.success ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
+                    {sendResult.message}
+                  </div>
+                )}
+
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Subject Line *
+                    </label>
+                    <input
+                      type="text"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      placeholder="e.g., San Luis Way Weekly - Dec 1-7"
+                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-terracotta focus:border-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      HTML Content *
+                    </label>
+                    <textarea
+                      value={htmlContent}
+                      onChange={(e) => setHtmlContent(e.target.value)}
+                      placeholder="Paste your newsletter HTML here..."
+                      rows={12}
+                      className="w-full px-4 py-3 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-terracotta focus:border-transparent"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Paste the complete HTML from your newsletter file
+                    </p>
+                  </div>
+
+                  {/* Preview */}
+                  {htmlContent && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Preview
+                      </label>
+                      <div className="border rounded-lg p-4 bg-gray-50 max-h-96 overflow-auto">
+                        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Test Email */}
+                  <div className="border-t pt-6">
+                    <h3 className="font-medium mb-4">Test Email</h3>
+                    <div className="flex gap-4">
+                      <input
+                        type="email"
+                        value={testEmail}
+                        onChange={(e) => setTestEmail(e.target.value)}
+                        placeholder="your@email.com"
+                        className="flex-1 px-4 py-3 border rounded-lg"
+                      />
+                      <button
+                        onClick={() => createAndSendNewsletter(false)}
+                        disabled={sending || !subject || !htmlContent}
+                        className="px-6 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {sending ? 'Sending...' : 'Send Test'}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Send to All */}
+                  <div className="border-t pt-6">
+                    <h3 className="font-medium mb-2">Send to All Subscribers</h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                      This will send the newsletter to all {subscriberCounts.active} active subscribers.
+                    </p>
+                    <button
+                      onClick={() => {
+                        if (confirm(`Are you sure you want to send this newsletter to ${subscriberCounts.active} subscribers?`)) {
+                          createAndSendNewsletter(true);
+                        }
+                      }}
+                      disabled={sending || !subject || !htmlContent}
+                      className="px-8 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {sending ? 'Sending...' : `Send to ${subscriberCounts.active} Subscribers`}
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>

@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 
 interface SEOProps {
   title: string;
-  description: string;
+  description?: string;
   keywords?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
+  noIndex?: boolean;
   article?: {
     publishedTime?: string;
     modifiedTime?: string;
@@ -18,8 +19,9 @@ const SEO: React.FC<SEOProps> = ({
   title,
   description,
   keywords,
-  ogImage = '/og-image.jpg', // Default OG image
+  ogImage = '/og-image.jpg',
   ogType = 'website',
+  noIndex = false,
   article,
 }) => {
   const router = useRouter();
@@ -37,9 +39,10 @@ const SEO: React.FC<SEOProps> = ({
     <Head>
       {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      {description && <meta name="description" content={description} />}
       {keywords && <meta name="keywords" content={keywords} />}
-      <link rel="canonical" href={canonicalUrl} />
+      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      {!noIndex && <link rel="canonical" href={canonicalUrl} />}
 
       {/* Favicon Tags */}
       <link rel="icon" type="image/x-icon" href="/favicon.ico" />

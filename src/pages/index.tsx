@@ -14,6 +14,7 @@ import { getBlogPostsBySlugs } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
 import ImageCarousel from '@/components/ImageCarousel';
+import AdUnit from '@/components/common/AdUnit';
 
 interface HomeProps {
   events: Event[];
@@ -360,6 +361,11 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </div>
         </section>
 
+        {/* Ad Placement 1 */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
+          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
+        </div>
+
         {/* FEATURED PLACES - Editorial Style */}
         <section id="places-001" className="py-32 bg-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
@@ -443,6 +449,11 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             </div>
           </div>
         </section>
+
+        {/* Ad Placement 2 */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
+          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
+        </div>
 
         {/* EVENTS PREVIEW - Magazine Style - Only show if there are events */}
         {events.length > 0 && (
@@ -568,6 +579,11 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             </div>
           </section>
         )}
+
+        {/* Ad Placement 3 */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
+          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
+        </div>
 
         {/* CULTURAL HERITAGE - Traditions & History */}
         <section id="culture-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
@@ -1002,6 +1018,11 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             </div>
           </div>
         </section>
+
+        {/* Ad Placement 4 */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
+          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
+        </div>
 
         {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
         <section id="practical-001" className="py-32 bg-white">
