@@ -26,20 +26,26 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
     setStatus('loading');
 
     try {
-      // TODO: Integrate with your email service (Mailchimp, SendGrid, etc.)
-      // For now, we'll simulate an API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'website_signup' }),
+      });
 
-      // Store email in localStorage as backup (replace with actual API call)
-      const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
-      subscribers.push({ email, timestamp: new Date().toISOString() });
-      localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Subscription failed');
+      }
 
       setStatus('success');
-      setMessage('Thanks for subscribing! Check your email for confirmation.');
+      setMessage(data.alreadySubscribed
+        ? 'You\'re already subscribed!'
+        : data.resubscribed
+          ? 'Welcome back! You\'ve been resubscribed.'
+          : 'Thanks for subscribing! Check your inbox for a welcome email.');
       setEmail('');
 
-      // Reset after 5 seconds
       setTimeout(() => {
         setStatus('idle');
         setMessage('');
@@ -47,7 +53,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
     } catch (error) {
       setStatus('error');
-      setMessage('Oops! Something went wrong. Please try again.');
+      setMessage(error instanceof Error ? error.message : 'Oops! Something went wrong. Please try again.');
     }
   };
 

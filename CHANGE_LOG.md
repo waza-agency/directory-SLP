@@ -4,6 +4,52 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-01] Implementación completa del sistema de Newsletter
+
+**Archivos creados:**
+- src/pages/api/newsletter/subscribe.ts - API para suscripción con email de bienvenida
+- src/pages/api/newsletter/unsubscribe.ts - API para desuscripción (GET/POST)
+- src/pages/api/newsletter/newsletters.ts - CRUD para newsletters
+- src/pages/api/newsletter/newsletters/[id].ts - Operaciones por newsletter individual
+- src/pages/api/newsletter/send.ts - Envío masivo de newsletters
+- src/pages/api/newsletter/subscribers.ts - Gestión de suscriptores
+- src/pages/newsletter/unsubscribed.tsx - Página de confirmación de desuscripción
+- src/pages/admin/newsletter.tsx - Panel de administración de newsletters
+- supabase/migrations/newsletter_tables.sql - Migración SQL para las tablas
+- scripts/create-newsletter-tables.js - Script de creación de tablas
+
+**Archivos modificados:**
+- src/components/NewsletterSignup.tsx - Integración con API en lugar de localStorage
+- .env.example - Agregado NEWSLETTER_ADMIN_KEY
+
+**Sistema implementado:**
+1. **Base de datos (3 tablas):**
+   - newsletter_subscribers: suscriptores con estado, preferencias, tracking
+   - newsletters: contenido HTML, estadísticas, estado de envío
+   - newsletter_sends: tracking individual por envío
+
+2. **API Routes:**
+   - POST /api/newsletter/subscribe: Suscripción con email de bienvenida via Resend
+   - GET/POST /api/newsletter/unsubscribe: Desuscripción desde email o sitio
+   - GET/POST /api/newsletter/newsletters: Listar y crear newsletters
+   - GET/PUT/DELETE /api/newsletter/newsletters/[id]: Operaciones CRUD
+   - POST /api/newsletter/send: Envío masivo o test email
+   - GET /api/newsletter/subscribers: Listar suscriptores con filtros
+
+3. **Panel Admin (/admin/newsletter):**
+   - Autenticación con NEWSLETTER_ADMIN_KEY
+   - Dashboard con contadores (active, unsubscribed, bounced)
+   - Tabla de suscriptores con filtros por estado
+   - Tabla de newsletters con estado y fechas
+
+4. **Componente NewsletterSignup actualizado:**
+   - Llamada a API real en lugar de localStorage
+   - Manejo de estados: nuevo suscriptor, ya suscrito, resuscripción
+
+**Resultado:** ✅ Exitoso - Build compilado correctamente
+
+---
+
 ## [2025-12-01] Creación de páginas legales, newsletter style guide y corrección de social links
 
 **Archivos modificados:**

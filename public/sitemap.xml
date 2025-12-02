@@ -4,1531 +4,1573 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://sanluisway.com/</loc>
+    <loc>https://www.sanluisway.com/</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/about</loc>
+    <loc>https://www.sanluisway.com/about</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/advertise</loc>
+    <loc>https://www.sanluisway.com/admin/newsletter</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/advertise</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog</loc>
+    <loc>https://www.sanluisway.com/blog</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog/checklist-mudanza-15-pasos-relocacion-slp</loc>
+    <loc>https://www.sanluisway.com/blog/checklist-mudanza-15-pasos-relocacion-slp</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog/corazon-de-xoconostle</loc>
+    <loc>https://www.sanluisway.com/blog/corazon-de-xoconostle</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog/cost-of-living-san-luis-potosi-2025</loc>
+    <loc>https://www.sanluisway.com/blog/cost-of-living-san-luis-potosi-2025</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog/guia-completa-rentar-casa-san-luis-potosi-2025</loc>
+    <loc>https://www.sanluisway.com/blog/guia-completa-rentar-casa-san-luis-potosi-2025</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog/la-gran-via</loc>
+    <loc>https://www.sanluisway.com/blog/la-gran-via</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/blog/san-luis-rey-tranvia</loc>
+    <loc>https://www.sanluisway.com/blog/san-luis-rey-tranvia</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/brands</loc>
+    <loc>https://www.sanluisway.com/brands</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/cantinas</loc>
+    <loc>https://www.sanluisway.com/category/cantinas</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/cocktail-bars</loc>
+    <loc>https://www.sanluisway.com/category/cocktail-bars</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/easy-parking-spots</loc>
+    <loc>https://www.sanluisway.com/category/easy-parking-spots</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/english-speaking-healthcare</loc>
+    <loc>https://www.sanluisway.com/category/english-speaking-healthcare</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/family-activities</loc>
+    <loc>https://www.sanluisway.com/category/family-activities</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/international-markets</loc>
+    <loc>https://www.sanluisway.com/category/international-markets</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/language-exchange-cafes</loc>
+    <loc>https://www.sanluisway.com/category/language-exchange-cafes</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/live-music</loc>
+    <loc>https://www.sanluisway.com/category/live-music</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/local-organic-products</loc>
+    <loc>https://www.sanluisway.com/category/local-organic-products</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/open-for-breakfast</loc>
+    <loc>https://www.sanluisway.com/category/open-for-breakfast</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/outdoors</loc>
+    <loc>https://www.sanluisway.com/category/outdoors</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/rainy-day-activities</loc>
+    <loc>https://www.sanluisway.com/category/rainy-day-activities</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/remote-work-cafes</loc>
+    <loc>https://www.sanluisway.com/category/remote-work-cafes</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/restaurants-with-playgrounds</loc>
+    <loc>https://www.sanluisway.com/category/restaurants-with-playgrounds</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/sports-fitness</loc>
+    <loc>https://www.sanluisway.com/category/sports-fitness</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/category/terraces</loc>
+    <loc>https://www.sanluisway.com/category/terraces</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/checkout</loc>
+    <loc>https://www.sanluisway.com/checkout</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/community</loc>
+    <loc>https://www.sanluisway.com/community</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/contact</loc>
+    <loc>https://www.sanluisway.com/contact</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural</loc>
+    <loc>https://www.sanluisway.com/cookies</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/cultural</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural-attractions</loc>
+    <loc>https://www.sanluisway.com/cultural-attractions</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural-tours</loc>
+    <loc>https://www.sanluisway.com/cultural-tours</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural/culinary-traditions</loc>
+    <loc>https://www.sanluisway.com/cultural/culinary-traditions</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural/customs-etiquette</loc>
+    <loc>https://www.sanluisway.com/cultural/customs-etiquette</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural/festivals</loc>
+    <loc>https://www.sanluisway.com/cultural/festivals</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural/history</loc>
+    <loc>https://www.sanluisway.com/cultural/history</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural/music-dance</loc>
+    <loc>https://www.sanluisway.com/cultural/music-dance</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/cultural/religious-practices</loc>
+    <loc>https://www.sanluisway.com/cultural/religious-practices</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events</loc>
+    <loc>https://www.sanluisway.com/events</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/2072452f-670c-46a5-bfb2-8d0b827a2c5d</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/2072452f-670c-46a5-bfb2-8d0b827a2c5d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/213f78f4-a8cc-4b77-b4e5-913168635e53</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/213f78f4-a8cc-4b77-b4e5-913168635e53</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/3ed3bbd4-3e13-4d9b-9ed6-65905837e432</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/3ed3bbd4-3e13-4d9b-9ed6-65905837e432</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/64f5a66f-1d8c-49e2-a6cf-cafe35045c22</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/64f5a66f-1d8c-49e2-a6cf-cafe35045c22</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/6548c1ba-74dc-4f9d-ba9e-4ae208aff6cf</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/6548c1ba-74dc-4f9d-ba9e-4ae208aff6cf</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/66932189-b679-4480-98c4-159bf5c1fc6f</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/66932189-b679-4480-98c4-159bf5c1fc6f</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/6aa04f3d-1ce6-4105-aee3-69e7f82f2a28</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/6aa04f3d-1ce6-4105-aee3-69e7f82f2a28</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/7abab26d-a1f9-4fea-9e1d-43fdcfb070c8</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/7abab26d-a1f9-4fea-9e1d-43fdcfb070c8</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/817f0f7e-9515-4737-a0c3-29b635f3291a</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/817f0f7e-9515-4737-a0c3-29b635f3291a</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/8f91fa64-3502-4e5f-8070-409607b75b90</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/8f91fa64-3502-4e5f-8070-409607b75b90</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/a0c5446c-0f8f-4e62-ac95-d53fe8fa62c9</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/a0c5446c-0f8f-4e62-ac95-d53fe8fa62c9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/b27e302c-f3d8-4aac-9f33-072bd47d9250</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/b27e302c-f3d8-4aac-9f33-072bd47d9250</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/c0edf0b5-efae-4b15-9493-3b5a73247c94</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/c0edf0b5-efae-4b15-9493-3b5a73247c94</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/c1dc1ed2-c33e-464d-b46b-f32d46858537</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/c1dc1ed2-c33e-464d-b46b-f32d46858537</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/c8274f76-909b-4cbc-9020-0dfda58ed3d3</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/c8274f76-909b-4cbc-9020-0dfda58ed3d3</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/d1101536-ca2a-4d23-a301-a40ee16ab3da</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/d1101536-ca2a-4d23-a301-a40ee16ab3da</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/dbb850ea-f263-4731-8ac0-30fc5469f246</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/dbb850ea-f263-4731-8ac0-30fc5469f246</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/dc6519bb-3887-48de-9218-cafc5ba31cd1</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/dc6519bb-3887-48de-9218-cafc5ba31cd1</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/ec6a4eb9-ee93-4207-a3e8-86eed44fd594</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/ec6a4eb9-ee93-4207-a3e8-86eed44fd594</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/arts-culture/fd9021a7-9541-4ead-a0d4-a018b9bbc058</loc>
+    <loc>https://www.sanluisway.com/events/arts-culture/fd9021a7-9541-4ead-a0d4-a018b9bbc058</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social</loc>
+    <loc>https://www.sanluisway.com/events/community-social</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/019b6320-e896-41dd-8f85-58c083921e2e</loc>
+    <loc>https://www.sanluisway.com/events/community-social/019b6320-e896-41dd-8f85-58c083921e2e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/1c57661d-f499-4169-b1a0-4c5883c7fb6b</loc>
+    <loc>https://www.sanluisway.com/events/community-social/1c57661d-f499-4169-b1a0-4c5883c7fb6b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/20d619d5-dc2e-42d4-9f64-a03a499f8117</loc>
+    <loc>https://www.sanluisway.com/events/community-social/20d619d5-dc2e-42d4-9f64-a03a499f8117</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/33bac3df-0db1-44d3-90d1-479535821d96</loc>
+    <loc>https://www.sanluisway.com/events/community-social/33bac3df-0db1-44d3-90d1-479535821d96</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/3d824f07-82af-449f-be78-6604efb8ac11</loc>
+    <loc>https://www.sanluisway.com/events/community-social/3d824f07-82af-449f-be78-6604efb8ac11</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/41f5da42-3d87-43e9-991c-db2262164ba6</loc>
+    <loc>https://www.sanluisway.com/events/community-social/41f5da42-3d87-43e9-991c-db2262164ba6</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/4ea5330d-cfa7-4c75-a430-9e6abdecd1bf</loc>
+    <loc>https://www.sanluisway.com/events/community-social/4ea5330d-cfa7-4c75-a430-9e6abdecd1bf</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/5681ea89-a72d-4581-9894-9a8403f9e44d</loc>
+    <loc>https://www.sanluisway.com/events/community-social/5681ea89-a72d-4581-9894-9a8403f9e44d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/574a91d4-0cd3-4eec-afc4-af1db72c804a</loc>
+    <loc>https://www.sanluisway.com/events/community-social/574a91d4-0cd3-4eec-afc4-af1db72c804a</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/72c2eab2-d0fa-43b2-a6fb-83bccffcbc64</loc>
+    <loc>https://www.sanluisway.com/events/community-social/72c2eab2-d0fa-43b2-a6fb-83bccffcbc64</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/9ddb2335-42cd-4821-b908-c47647dc7d3c</loc>
+    <loc>https://www.sanluisway.com/events/community-social/9ddb2335-42cd-4821-b908-c47647dc7d3c</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/a16c2d08-b0f9-4b7e-a8b1-c10f5a67c4c6</loc>
+    <loc>https://www.sanluisway.com/events/community-social/a16c2d08-b0f9-4b7e-a8b1-c10f5a67c4c6</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/bcbd7989-c230-46f9-9ece-608da04a7aaa</loc>
+    <loc>https://www.sanluisway.com/events/community-social/bcbd7989-c230-46f9-9ece-608da04a7aaa</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/bf354a72-aa6a-4a3c-9ba0-7afa250a5824</loc>
+    <loc>https://www.sanluisway.com/events/community-social/bf354a72-aa6a-4a3c-9ba0-7afa250a5824</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/eafe1d27-3383-4460-8dfa-412195a0b112</loc>
+    <loc>https://www.sanluisway.com/events/community-social/eafe1d27-3383-4460-8dfa-412195a0b112</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/community-social/ed047e1a-e33f-4f01-a230-d549aeb0e11b</loc>
+    <loc>https://www.sanluisway.com/events/community-social/ed047e1a-e33f-4f01-a230-d549aeb0e11b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/culinary</loc>
+    <loc>https://www.sanluisway.com/events/culinary</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/culinary/05145d0d-893b-4a6a-ad9b-fe5215a2092b</loc>
+    <loc>https://www.sanluisway.com/events/culinary/05145d0d-893b-4a6a-ad9b-fe5215a2092b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/culinary/6fce8959-4c7d-4689-a95e-ef4ad70fe6c1</loc>
+    <loc>https://www.sanluisway.com/events/culinary/6fce8959-4c7d-4689-a95e-ef4ad70fe6c1</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/culinary/7070cd59-b855-4a1e-b019-b7c817a70cb1</loc>
+    <loc>https://www.sanluisway.com/events/culinary/7070cd59-b855-4a1e-b019-b7c817a70cb1</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/culinary/c119d963-767f-48ec-bf57-bc7bb5e5b640</loc>
+    <loc>https://www.sanluisway.com/events/culinary/c119d963-767f-48ec-bf57-bc7bb5e5b640</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/culinary/c7b0b525-6881-4866-9cf7-7786a4a60208</loc>
+    <loc>https://www.sanluisway.com/events/culinary/c7b0b525-6881-4866-9cf7-7786a4a60208</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/fenapo-2025</loc>
+    <loc>https://www.sanluisway.com/events/fenapo-2025</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/kids-family</loc>
+    <loc>https://www.sanluisway.com/events/kids-family</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music</loc>
+    <loc>https://www.sanluisway.com/events/music</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/08cb87ba-4da9-4a05-84f4-53fe21d54a02</loc>
+    <loc>https://www.sanluisway.com/events/music/08cb87ba-4da9-4a05-84f4-53fe21d54a02</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/0ef182fe-91a7-4049-aeed-471a052a4fa9</loc>
+    <loc>https://www.sanluisway.com/events/music/0ef182fe-91a7-4049-aeed-471a052a4fa9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/0f8adcf5-8bd4-446c-bf01-1995de6f4d9d</loc>
+    <loc>https://www.sanluisway.com/events/music/0f8adcf5-8bd4-446c-bf01-1995de6f4d9d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/1feccbac-f18b-44fd-8c43-45c1fd416e88</loc>
+    <loc>https://www.sanluisway.com/events/music/1feccbac-f18b-44fd-8c43-45c1fd416e88</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/3cbe9801-c047-4f6e-acc9-40c377798104</loc>
+    <loc>https://www.sanluisway.com/events/music/3cbe9801-c047-4f6e-acc9-40c377798104</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/488ae7fa-7fd5-40f9-b952-14aabef7012e</loc>
+    <loc>https://www.sanluisway.com/events/music/488ae7fa-7fd5-40f9-b952-14aabef7012e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/5b2da5b3-8158-47cf-898e-dea9586390c5</loc>
+    <loc>https://www.sanluisway.com/events/music/5b2da5b3-8158-47cf-898e-dea9586390c5</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/65125f26-52a3-439c-b511-c762a10cf3fa</loc>
+    <loc>https://www.sanluisway.com/events/music/65125f26-52a3-439c-b511-c762a10cf3fa</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/7c8506d8-2367-4960-9701-14c049c7a8d4</loc>
+    <loc>https://www.sanluisway.com/events/music/7c8506d8-2367-4960-9701-14c049c7a8d4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/8196b414-1537-4592-a75b-68ffab67fd26</loc>
+    <loc>https://www.sanluisway.com/events/music/8196b414-1537-4592-a75b-68ffab67fd26</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/b1aaf219-7169-4adc-b029-d81833d9d14f</loc>
+    <loc>https://www.sanluisway.com/events/music/b1aaf219-7169-4adc-b029-d81833d9d14f</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/ba41a54b-2687-43d7-bab5-2dfad812d8f3</loc>
+    <loc>https://www.sanluisway.com/events/music/ba41a54b-2687-43d7-bab5-2dfad812d8f3</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/e7c89324-5c2c-4518-86a9-6219a0da01df</loc>
+    <loc>https://www.sanluisway.com/events/music/e7c89324-5c2c-4518-86a9-6219a0da01df</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/ed8ce9ec-bce7-4cc9-b881-2e1ee251793b</loc>
+    <loc>https://www.sanluisway.com/events/music/ed8ce9ec-bce7-4cc9-b881-2e1ee251793b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/music/f8985e58-aea9-4466-b185-bc6a145cabd8</loc>
+    <loc>https://www.sanluisway.com/events/music/f8985e58-aea9-4466-b185-bc6a145cabd8</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/san-luis-en-primavera-2025</loc>
+    <loc>https://www.sanluisway.com/events/san-luis-en-primavera-2025</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports</loc>
+    <loc>https://www.sanluisway.com/events/sports</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/047fcef9-d422-46e1-af57-f029c08144ce</loc>
+    <loc>https://www.sanluisway.com/events/sports/047fcef9-d422-46e1-af57-f029c08144ce</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/072d25b8-5a99-4a79-90f0-b27c1e3f33b7</loc>
+    <loc>https://www.sanluisway.com/events/sports/072d25b8-5a99-4a79-90f0-b27c1e3f33b7</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/156b7ca8-3cab-4fa2-88e6-1b6cd13c6f07</loc>
+    <loc>https://www.sanluisway.com/events/sports/156b7ca8-3cab-4fa2-88e6-1b6cd13c6f07</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/19cca37b-7ee5-4652-a24b-2d685006bbbb</loc>
+    <loc>https://www.sanluisway.com/events/sports/19cca37b-7ee5-4652-a24b-2d685006bbbb</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/34ff8009-7504-44d9-8aac-575678986809</loc>
+    <loc>https://www.sanluisway.com/events/sports/34ff8009-7504-44d9-8aac-575678986809</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/395181a0-ee04-40a4-9895-c5da87f4c039</loc>
+    <loc>https://www.sanluisway.com/events/sports/395181a0-ee04-40a4-9895-c5da87f4c039</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/442ffcf5-b20b-4bfb-ba39-eb9350148540</loc>
+    <loc>https://www.sanluisway.com/events/sports/442ffcf5-b20b-4bfb-ba39-eb9350148540</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/499f0991-bc70-4dd5-913d-6950417f11b0</loc>
+    <loc>https://www.sanluisway.com/events/sports/499f0991-bc70-4dd5-913d-6950417f11b0</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/50dcc37a-0841-4686-ac1a-b47485e06173</loc>
+    <loc>https://www.sanluisway.com/events/sports/50dcc37a-0841-4686-ac1a-b47485e06173</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/52c4cb69-77e4-464d-b9a8-70e64bcc3525</loc>
+    <loc>https://www.sanluisway.com/events/sports/52c4cb69-77e4-464d-b9a8-70e64bcc3525</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/841db353-eb5a-43f0-aa72-1782f6c0b93e</loc>
+    <loc>https://www.sanluisway.com/events/sports/841db353-eb5a-43f0-aa72-1782f6c0b93e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/9b5ec49a-7a9e-4955-a039-cd42ddca808e</loc>
+    <loc>https://www.sanluisway.com/events/sports/9b5ec49a-7a9e-4955-a039-cd42ddca808e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/9ed1b8c2-91e6-4db5-9dfc-9e368546b2d9</loc>
+    <loc>https://www.sanluisway.com/events/sports/9ed1b8c2-91e6-4db5-9dfc-9e368546b2d9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/aacfb2fd-c8cf-47d5-b057-679c4981e49c</loc>
+    <loc>https://www.sanluisway.com/events/sports/aacfb2fd-c8cf-47d5-b057-679c4981e49c</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/b5cd4aec-4a71-4006-ba59-13722bc94ed1</loc>
+    <loc>https://www.sanluisway.com/events/sports/b5cd4aec-4a71-4006-ba59-13722bc94ed1</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/c9d3dac2-218a-494d-a544-6cc3fcfaf1d4</loc>
+    <loc>https://www.sanluisway.com/events/sports/c9d3dac2-218a-494d-a544-6cc3fcfaf1d4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/cba2b5e4-2f7d-4463-89bc-7c18835b7e5c</loc>
+    <loc>https://www.sanluisway.com/events/sports/cba2b5e4-2f7d-4463-89bc-7c18835b7e5c</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/ccd58488-c45f-416f-87f7-3396d485264f</loc>
+    <loc>https://www.sanluisway.com/events/sports/ccd58488-c45f-416f-87f7-3396d485264f</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/cd6d5cdf-86be-4625-a3e8-de78d2e471e9</loc>
+    <loc>https://www.sanluisway.com/events/sports/cd6d5cdf-86be-4625-a3e8-de78d2e471e9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/sports/ec60e96c-117f-437c-8b59-4e31d7595fc3</loc>
+    <loc>https://www.sanluisway.com/events/sports/ec60e96c-117f-437c-8b59-4e31d7595fc3</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/traditional</loc>
+    <loc>https://www.sanluisway.com/events/traditional</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/wellness</loc>
+    <loc>https://www.sanluisway.com/events/wellness</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/events/xantolo-2025</loc>
+    <loc>https://www.sanluisway.com/events/xantolo-2025</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/expat-guide</loc>
+    <loc>https://www.sanluisway.com/expat-guide</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/faq</loc>
+    <loc>https://www.sanluisway.com/faq</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/guides/foodie-guide</loc>
+    <loc>https://www.sanluisway.com/guides/foodie-guide</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/guides/potosino-wine-scene</loc>
+    <loc>https://www.sanluisway.com/guides/potosino-wine-scene</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/index-backup-20251021-155913</loc>
+    <loc>https://www.sanluisway.com/index-backup-20251021-155913</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/join-directory</loc>
+    <loc>https://www.sanluisway.com/join-directory</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/join-directory-optimized</loc>
+    <loc>https://www.sanluisway.com/join-directory-optimized</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/listings</loc>
+    <loc>https://www.sanluisway.com/listings</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/living-guide</loc>
+    <loc>https://www.sanluisway.com/living-guide</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/local-connections</loc>
+    <loc>https://www.sanluisway.com/local-connections</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/outdoors</loc>
+    <loc>https://www.sanluisway.com/newsletter</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/newsletter/unsubscribed</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/outdoors</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/parque-tangamanga</loc>
+    <loc>https://www.sanluisway.com/parque-tangamanga</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places</loc>
+    <loc>https://www.sanluisway.com/places</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/050c3f98-13b0-4404-b100-17b56d05b270</loc>
+    <loc>https://www.sanluisway.com/places/050c3f98-13b0-4404-b100-17b56d05b270</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/05f84c23-2a87-468e-8bb7-f66df20e6a33</loc>
+    <loc>https://www.sanluisway.com/places/05f84c23-2a87-468e-8bb7-f66df20e6a33</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/06ce69b9-e72f-4dde-8167-68401dc17c6a</loc>
+    <loc>https://www.sanluisway.com/places/06ce69b9-e72f-4dde-8167-68401dc17c6a</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/0805c766-2aa5-4a6f-8d4d-7eb479dd08c1</loc>
+    <loc>https://www.sanluisway.com/places/0805c766-2aa5-4a6f-8d4d-7eb479dd08c1</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/088f9b3b-83f9-41bb-ba11-9eaa253c52ad</loc>
+    <loc>https://www.sanluisway.com/places/088f9b3b-83f9-41bb-ba11-9eaa253c52ad</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/08f3423f-0d7f-424b-af1c-8dff44ed1bf3</loc>
+    <loc>https://www.sanluisway.com/places/08f3423f-0d7f-424b-af1c-8dff44ed1bf3</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/0f234a1c-fe4d-4bf0-803d-c9fec2ffc0f9</loc>
+    <loc>https://www.sanluisway.com/places/0f234a1c-fe4d-4bf0-803d-c9fec2ffc0f9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/125fb0cd-58d5-4371-aaad-80b2b6c6f943</loc>
+    <loc>https://www.sanluisway.com/places/125fb0cd-58d5-4371-aaad-80b2b6c6f943</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/133279e5-116e-4932-9516-ca4527b07495</loc>
+    <loc>https://www.sanluisway.com/places/133279e5-116e-4932-9516-ca4527b07495</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/137f0abb-9592-4a8c-9602-de9976c2905e</loc>
+    <loc>https://www.sanluisway.com/places/137f0abb-9592-4a8c-9602-de9976c2905e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/13829970-eca7-47e5-844e-bf4e0184a857</loc>
+    <loc>https://www.sanluisway.com/places/13829970-eca7-47e5-844e-bf4e0184a857</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/15b6f61a-34c8-4b51-a2ae-7ddd74236fb9</loc>
+    <loc>https://www.sanluisway.com/places/15b6f61a-34c8-4b51-a2ae-7ddd74236fb9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/15cde1f0-3866-439c-8a5a-af1be95f69fd</loc>
+    <loc>https://www.sanluisway.com/places/15cde1f0-3866-439c-8a5a-af1be95f69fd</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/1794dcd8-bdc8-4ce9-a3ff-7629d1e1acd4</loc>
+    <loc>https://www.sanluisway.com/places/1794dcd8-bdc8-4ce9-a3ff-7629d1e1acd4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/1f3f6206-a441-46ab-b61b-f3088ef73548</loc>
+    <loc>https://www.sanluisway.com/places/1f3f6206-a441-46ab-b61b-f3088ef73548</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/24e6f36f-4c03-4eab-a3f9-2f3a48e7543c</loc>
+    <loc>https://www.sanluisway.com/places/24e6f36f-4c03-4eab-a3f9-2f3a48e7543c</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/25fe1848-541c-44c6-88a5-7f39784f9368</loc>
+    <loc>https://www.sanluisway.com/places/25fe1848-541c-44c6-88a5-7f39784f9368</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/2842fb7f-6269-4cbf-b943-8d219b9622b6</loc>
+    <loc>https://www.sanluisway.com/places/2842fb7f-6269-4cbf-b943-8d219b9622b6</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/2e0a131d-e30d-4d59-9db8-7c35c83d79e7</loc>
+    <loc>https://www.sanluisway.com/places/2e0a131d-e30d-4d59-9db8-7c35c83d79e7</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/2f406af1-be02-4e5d-9472-4e7355565056</loc>
+    <loc>https://www.sanluisway.com/places/2f406af1-be02-4e5d-9472-4e7355565056</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/35757efe-05b0-4554-b4d8-ddd91eacbd5b</loc>
+    <loc>https://www.sanluisway.com/places/35757efe-05b0-4554-b4d8-ddd91eacbd5b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/39cefcae-28c5-4e81-a2c6-dde9937ccea5</loc>
+    <loc>https://www.sanluisway.com/places/39cefcae-28c5-4e81-a2c6-dde9937ccea5</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/39fd5cf0-1449-44e0-be19-a80270207e8b</loc>
+    <loc>https://www.sanluisway.com/places/39fd5cf0-1449-44e0-be19-a80270207e8b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/3acb8dcb-f304-4570-a8fa-634100c34c7e</loc>
+    <loc>https://www.sanluisway.com/places/3acb8dcb-f304-4570-a8fa-634100c34c7e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/3bac2ecb-e53b-40e3-8335-d3e2edac3d46</loc>
+    <loc>https://www.sanluisway.com/places/3bac2ecb-e53b-40e3-8335-d3e2edac3d46</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/405be8f8-565f-48f4-9db6-7812568cb541</loc>
+    <loc>https://www.sanluisway.com/places/405be8f8-565f-48f4-9db6-7812568cb541</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/4108cfb3-27a4-4f4e-82cd-a0fa9aacd64d</loc>
+    <loc>https://www.sanluisway.com/places/4108cfb3-27a4-4f4e-82cd-a0fa9aacd64d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/44e389ff-8538-4891-86fa-193a65924516</loc>
+    <loc>https://www.sanluisway.com/places/44e389ff-8538-4891-86fa-193a65924516</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/49222b15-e558-4524-8dc3-9a8f854bb549</loc>
+    <loc>https://www.sanluisway.com/places/49222b15-e558-4524-8dc3-9a8f854bb549</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/4bc41d48-43ed-470c-9e42-f6fc7936ee2a</loc>
+    <loc>https://www.sanluisway.com/places/4bc41d48-43ed-470c-9e42-f6fc7936ee2a</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/4ca5ecdd-e575-4588-918d-6dc47d0d8e65</loc>
+    <loc>https://www.sanluisway.com/places/4ca5ecdd-e575-4588-918d-6dc47d0d8e65</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/52430511-fce5-477a-9477-f26d5876c789</loc>
+    <loc>https://www.sanluisway.com/places/52430511-fce5-477a-9477-f26d5876c789</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/571aa778-97af-400e-9981-6188ceda4213</loc>
+    <loc>https://www.sanluisway.com/places/571aa778-97af-400e-9981-6188ceda4213</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/5e66cfa4-168e-4dfc-8323-8885a051570d</loc>
+    <loc>https://www.sanluisway.com/places/5e66cfa4-168e-4dfc-8323-8885a051570d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/6100be4f-e76d-43ad-81f7-9a3dd0b04e91</loc>
+    <loc>https://www.sanluisway.com/places/6100be4f-e76d-43ad-81f7-9a3dd0b04e91</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/66bfdea0-289b-4cf4-8998-3a2e4b2bc547</loc>
+    <loc>https://www.sanluisway.com/places/66bfdea0-289b-4cf4-8998-3a2e4b2bc547</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/69029a15-0aa0-43b0-8d19-0c5b4f2ea26a</loc>
+    <loc>https://www.sanluisway.com/places/69029a15-0aa0-43b0-8d19-0c5b4f2ea26a</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/6f1ff675-21c9-415e-8027-dd2557a0df39</loc>
+    <loc>https://www.sanluisway.com/places/6f1ff675-21c9-415e-8027-dd2557a0df39</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/70596a18-3e08-4e2c-8cb2-0c9b53c448d4</loc>
+    <loc>https://www.sanluisway.com/places/70596a18-3e08-4e2c-8cb2-0c9b53c448d4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/70cf3aca-5dc2-484a-a673-fe06a5161781</loc>
+    <loc>https://www.sanluisway.com/places/70cf3aca-5dc2-484a-a673-fe06a5161781</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/75ca7c32-5dd9-4606-9a81-8fb400e3001c</loc>
+    <loc>https://www.sanluisway.com/places/75ca7c32-5dd9-4606-9a81-8fb400e3001c</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/782d2311-ea88-44ed-8122-bfd2096a22bf</loc>
+    <loc>https://www.sanluisway.com/places/782d2311-ea88-44ed-8122-bfd2096a22bf</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/7ec7865a-25c2-4254-a30a-7ba19b972f7d</loc>
+    <loc>https://www.sanluisway.com/places/7ec7865a-25c2-4254-a30a-7ba19b972f7d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/8287134f-4a42-4b6a-a817-f7328787ab86</loc>
+    <loc>https://www.sanluisway.com/places/8287134f-4a42-4b6a-a817-f7328787ab86</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/82d2f0fe-8216-4a3b-aa94-bb3a4aebdc54</loc>
+    <loc>https://www.sanluisway.com/places/82d2f0fe-8216-4a3b-aa94-bb3a4aebdc54</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/8336b4be-8211-4a3e-b3c5-4a98ad52de94</loc>
+    <loc>https://www.sanluisway.com/places/8336b4be-8211-4a3e-b3c5-4a98ad52de94</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/86ef6fc8-cf85-486b-8b5f-669969b801e1</loc>
+    <loc>https://www.sanluisway.com/places/86ef6fc8-cf85-486b-8b5f-669969b801e1</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/8a4cdf02-11f7-4b48-997f-6fa07ad0d6ee</loc>
+    <loc>https://www.sanluisway.com/places/8a4cdf02-11f7-4b48-997f-6fa07ad0d6ee</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/8c414e2d-4aff-4bed-9c08-1efc35a05d53</loc>
+    <loc>https://www.sanluisway.com/places/8c414e2d-4aff-4bed-9c08-1efc35a05d53</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/906575d6-0fcf-40a2-83b5-af9a12360b97</loc>
+    <loc>https://www.sanluisway.com/places/906575d6-0fcf-40a2-83b5-af9a12360b97</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/90f1b693-6e8c-4220-85fc-877005a75726</loc>
+    <loc>https://www.sanluisway.com/places/90f1b693-6e8c-4220-85fc-877005a75726</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/97dac11d-0c36-4e60-979d-51415e453bb2</loc>
+    <loc>https://www.sanluisway.com/places/97dac11d-0c36-4e60-979d-51415e453bb2</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/98fe77ed-d0f1-40f7-b65a-8aed805873a4</loc>
+    <loc>https://www.sanluisway.com/places/98fe77ed-d0f1-40f7-b65a-8aed805873a4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/99eec289-d249-4e8c-92bc-f68203f0de42</loc>
+    <loc>https://www.sanluisway.com/places/99eec289-d249-4e8c-92bc-f68203f0de42</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/9a76691a-bbbb-4541-9d01-6cf01ffa0ba2</loc>
+    <loc>https://www.sanluisway.com/places/9a76691a-bbbb-4541-9d01-6cf01ffa0ba2</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/9c8cb34c-8f52-451f-9e5a-2fcbc8bf4f8a</loc>
+    <loc>https://www.sanluisway.com/places/9c8cb34c-8f52-451f-9e5a-2fcbc8bf4f8a</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/9ee476c9-5902-4382-97e2-9fd63cafa118</loc>
+    <loc>https://www.sanluisway.com/places/9ee476c9-5902-4382-97e2-9fd63cafa118</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/9fa4acbb-71b9-4d22-87c5-6a9568ae2e09</loc>
+    <loc>https://www.sanluisway.com/places/9fa4acbb-71b9-4d22-87c5-6a9568ae2e09</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/a066599d-80d7-4ee4-b44c-e49240de04d0</loc>
+    <loc>https://www.sanluisway.com/places/a066599d-80d7-4ee4-b44c-e49240de04d0</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/a37e3dd4-f935-4d9c-8333-594fe87d1ee8</loc>
+    <loc>https://www.sanluisway.com/places/a37e3dd4-f935-4d9c-8333-594fe87d1ee8</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/a3900c6a-cff5-46bb-9eb7-cfb1a40a4817</loc>
+    <loc>https://www.sanluisway.com/places/a3900c6a-cff5-46bb-9eb7-cfb1a40a4817</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/aa502431-8f2d-457b-963c-d72df1796e81</loc>
+    <loc>https://www.sanluisway.com/places/aa502431-8f2d-457b-963c-d72df1796e81</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/ad74111d-3000-411d-8ce4-92657a84d661</loc>
+    <loc>https://www.sanluisway.com/places/ad74111d-3000-411d-8ce4-92657a84d661</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/af6b4a35-6e18-4f9e-833b-45986c20c578</loc>
+    <loc>https://www.sanluisway.com/places/af6b4a35-6e18-4f9e-833b-45986c20c578</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/b0f80c9d-e5af-4119-bd07-f8e756bc0c6f</loc>
+    <loc>https://www.sanluisway.com/places/b0f80c9d-e5af-4119-bd07-f8e756bc0c6f</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/b14811b1-88ee-4faa-988e-c06852fdfb7e</loc>
+    <loc>https://www.sanluisway.com/places/b14811b1-88ee-4faa-988e-c06852fdfb7e</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/b763471f-0a56-480b-8802-d5e737bea129</loc>
+    <loc>https://www.sanluisway.com/places/b763471f-0a56-480b-8802-d5e737bea129</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/b932fc04-72b7-430f-a018-6e1fc7f0ffa9</loc>
+    <loc>https://www.sanluisway.com/places/b932fc04-72b7-430f-a018-6e1fc7f0ffa9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/ba4685c0-ba20-49d6-8068-bf9bf683d46d</loc>
+    <loc>https://www.sanluisway.com/places/ba4685c0-ba20-49d6-8068-bf9bf683d46d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/bd10e9a6-b4b5-4cc9-848f-0a6eefcd642d</loc>
+    <loc>https://www.sanluisway.com/places/bd10e9a6-b4b5-4cc9-848f-0a6eefcd642d</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/bf3b7fab-28d1-41fc-9e84-a62e494706e9</loc>
+    <loc>https://www.sanluisway.com/places/bf3b7fab-28d1-41fc-9e84-a62e494706e9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/c1d42dd0-4433-46fc-a121-9b3008234852</loc>
+    <loc>https://www.sanluisway.com/places/c1d42dd0-4433-46fc-a121-9b3008234852</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/c463c5c0-2f76-4afc-8228-48d3f0b2f661</loc>
+    <loc>https://www.sanluisway.com/places/c463c5c0-2f76-4afc-8228-48d3f0b2f661</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/c4e23e72-5881-4c70-bf37-5064061000bf</loc>
+    <loc>https://www.sanluisway.com/places/c4e23e72-5881-4c70-bf37-5064061000bf</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/c709f681-9999-4053-b179-d872a4512673</loc>
+    <loc>https://www.sanluisway.com/places/c709f681-9999-4053-b179-d872a4512673</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/ccd069fe-5e49-4650-9628-b9f543e113b4</loc>
+    <loc>https://www.sanluisway.com/places/ccd069fe-5e49-4650-9628-b9f543e113b4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/cd46fbf7-d2a0-44dc-bdd3-ce970f4284b0</loc>
+    <loc>https://www.sanluisway.com/places/cd46fbf7-d2a0-44dc-bdd3-ce970f4284b0</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/corazon-de-xoconostle</loc>
+    <loc>https://www.sanluisway.com/places/corazon-de-xoconostle</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/d0449bce-130d-4fcd-b902-5f15f5a949ae</loc>
+    <loc>https://www.sanluisway.com/places/d0449bce-130d-4fcd-b902-5f15f5a949ae</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/d0a1e084-520e-4fbb-a504-cf79be3f1d6b</loc>
+    <loc>https://www.sanluisway.com/places/d0a1e084-520e-4fbb-a504-cf79be3f1d6b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/d2a5df2f-22f3-4e83-b47d-a1b1df1cbc04</loc>
+    <loc>https://www.sanluisway.com/places/d2a5df2f-22f3-4e83-b47d-a1b1df1cbc04</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/d3630143-16d6-451d-b371-fdf3ec4ac8ca</loc>
+    <loc>https://www.sanluisway.com/places/d3630143-16d6-451d-b371-fdf3ec4ac8ca</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/d6e0cc35-cd7e-4bc8-9f02-14caa38b66d7</loc>
+    <loc>https://www.sanluisway.com/places/d6e0cc35-cd7e-4bc8-9f02-14caa38b66d7</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/d8656bc7-d2cc-4c36-933f-5ab29125a0a9</loc>
+    <loc>https://www.sanluisway.com/places/d8656bc7-d2cc-4c36-933f-5ab29125a0a9</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/e0d917f1-589e-4ae7-a27a-59285b4059df</loc>
+    <loc>https://www.sanluisway.com/places/e0d917f1-589e-4ae7-a27a-59285b4059df</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/e2b55e18-9e91-4cf9-b4aa-2e5348650fc6</loc>
+    <loc>https://www.sanluisway.com/places/e2b55e18-9e91-4cf9-b4aa-2e5348650fc6</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/e5b31195-79a2-439b-aff5-971aa415a715</loc>
+    <loc>https://www.sanluisway.com/places/e5b31195-79a2-439b-aff5-971aa415a715</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/e65167e3-a5ad-4979-8cae-396e141152a5</loc>
+    <loc>https://www.sanluisway.com/places/e65167e3-a5ad-4979-8cae-396e141152a5</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/ec8571f1-02ab-4738-8c33-aa533b4812ed</loc>
+    <loc>https://www.sanluisway.com/places/ec8571f1-02ab-4738-8c33-aa533b4812ed</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/el-ricardito</loc>
+    <loc>https://www.sanluisway.com/places/el-ricardito</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/f1df98b0-fa40-4c31-8434-1e89a353fbfa</loc>
+    <loc>https://www.sanluisway.com/places/f1df98b0-fa40-4c31-8434-1e89a353fbfa</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/f795b7af-da8e-4118-872b-c77d44a5523b</loc>
+    <loc>https://www.sanluisway.com/places/f795b7af-da8e-4118-872b-c77d44a5523b</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/fe0807fe-79e0-4125-b5d3-08d4de8aa1a4</loc>
+    <loc>https://www.sanluisway.com/places/fe0807fe-79e0-4125-b5d3-08d4de8aa1a4</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/feda67a7-1c80-4914-8101-1e405595cf20</loc>
+    <loc>https://www.sanluisway.com/places/feda67a7-1c80-4914-8101-1e405595cf20</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/places/la-gran-via</loc>
+    <loc>https://www.sanluisway.com/places/la-gran-via</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/restaurants</loc>
+    <loc>https://www.sanluisway.com/privacy</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/restaurants</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-community-integration</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-community-integration</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-cultural-services</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-cultural-services</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-experiences</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-experiences</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-family-support</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-family-support</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-home-services</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-home-services</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-housing-services</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-housing-services</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-legal-administrative</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-legal-administrative</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-pet-care</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-pet-care</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-relocation-support</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-relocation-support</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/san-luis-potosi-wellness-services</loc>
+    <loc>https://www.sanluisway.com/san-luis-potosi-wellness-services</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/services</loc>
+    <loc>https://www.sanluisway.com/services</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/shop</loc>
+    <loc>https://www.sanluisway.com/shop</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/signin</loc>
+    <loc>https://www.sanluisway.com/signin</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/signup</loc>
+    <loc>https://www.sanluisway.com/signup</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/submit-listing/business</loc>
+    <loc>https://www.sanluisway.com/sitemap</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/submit-listing/business</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/submit-listing/service</loc>
+    <loc>https://www.sanluisway.com/submit-listing/service</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/submit-listing/success</loc>
+    <loc>https://www.sanluisway.com/submit-listing/success</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/traditional-cuisine</loc>
+    <loc>https://www.sanluisway.com/terms</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.sanluisway.com/traditional-cuisine</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sanluisway.com/weekend-getaways</loc>
+    <loc>https://www.sanluisway.com/weekend-getaways</loc>
     <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
