@@ -4,6 +4,38 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-03] Nuevo blog post: Inversión Extranjera Directa en SLP
+
+**Descripción:**
+Creación de un artículo deep dive sobre inversión extranjera directa y oportunidades laborales para profesionistas extranjeros en San Luis Potosí.
+
+**Archivos creados:**
+- scripts/publish-fdi-deep-dive.js - Script para publicar el blog post
+
+**Contenido del post (18 min read):**
+1. **FDI Overview** - $3B+ proyectados para 2025, principales países inversores
+2. **Key Industries** - Automotriz, manufactura, energía, logística
+3. **Nearshoring Effect** - SLP como hub estratégico
+4. **Job Opportunities** - Perfiles más demandados para extranjeros
+5. **Visa Requirements** - Proceso paso a paso para visa de trabajo
+6. **Salary Expectations** - Rangos salariales por posición
+7. **Cost of Living** - Comparación con CDMX (26% más barato)
+8. **Practical Tips** - Recursos y recomendaciones
+
+**URL del post:** /blog/foreign-direct-investment-slp-job-market-foreign-professionals
+
+**Fuentes utilizadas:**
+- Secretaría de Desarrollo Económico SLP
+- Gobierno del Estado de SLP
+- Instituto Nacional de Migración
+- Glassdoor, Indeed México
+- Mexico Industry, Líder Empresarial
+- Expatistan, Numbeo
+
+**Resultado:** ✅ Exitoso - Post publicado correctamente en la base de datos
+
+---
+
 ## [2025-12-03] Migración de imágenes de blog a Supabase Storage
 
 **Descripción:**
