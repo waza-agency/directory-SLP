@@ -4,6 +4,69 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-03] Migración de imágenes de blog a Supabase Storage
+
+**Descripción:**
+Migración completa de imágenes del blog post "Top 5 Cozy Cafés" desde el filesystem local a Supabase Storage para que las imágenes vivan en la base de datos.
+
+**Archivos creados/usados:**
+- scripts/upload-cafe-images-to-bucket.js - Script para subir imágenes a Supabase Storage
+- scripts/update-cozy-cafes-image.js - Script para actualizar el header image
+- scripts/update-cozy-cafes-post.js - Script para actualizar URLs en el contenido
+
+**Imágenes migradas a Supabase Storage (bucket: blog-post-images):**
+- cozy-cafes-slp-header.jpg (header image)
+- cafes/capital-coffee.jpg
+- cafes/cafe-sideral.jpg
+- cafes/500-noches.jpg
+- cafes/las-castanas.jpg
+- cafes/halva-cafe.png
+- cafes/hot-chocolate-slp.jpg
+
+**Cambios en base de datos:**
+- Blog post `top-5-cozy-cafes-winter-san-luis-potosi` actualizado con:
+  - image_url: https://omxporaecrqsqhzjzvnx.supabase.co/storage/v1/object/public/blog-post-images/cozy-cafes-slp-header.jpg
+  - content: Todas las 6 imágenes internas ahora usan URLs de Supabase Storage
+
+**Resultado:** ✅ Exitoso
+- 7 imágenes migradas a Supabase Storage
+- Blog post ahora carga imágenes desde la base de datos
+- Imágenes locales ya no son necesarias para producción
+
+---
+
+## [2025-12-02] Nuevo blog post: Top 5 Cozy Cafés for Winter in SLP
+
+**Descripción:**
+Creación de un nuevo artículo de blog sobre los 5 mejores cafés acogedores para el invierno en San Luis Potosí.
+
+**Archivos creados:**
+- scripts/publish-cozy-cafes-post.js - Script para publicar el blog post
+- public/images/blog/cozy-cafes-slp-header.jpg - Imagen header del post
+
+**Archivos modificados:**
+- src/pages/api/blog/create-post.ts - Actualizado para usar SUPABASE_SERVICE_ROLE_KEY (bypass RLS)
+
+**Contenido del post:**
+1. **Capital Coffee** - Café moderno con terraza, opciones veganas, WiFi excelente
+2. **Café Sideral** - "El café más bonito de San Luis", murales artísticos
+3. **500 Noches** - Café de Chiapas con música trova en vivo
+4. **Las Castañas** - Repostería histórica frente a la iglesia de Tequis
+5. **Halva Café** - Pastelería francesa experimental, super-instagrammable
+
+**URL del post:** /blog/top-5-cozy-cafes-winter-san-luis-potosi
+
+**Fuentes utilizadas:**
+- Tripadvisor (Capital Coffee, Café Sideral, 500 Noches, Las Castañas)
+- Tourbly.com.mx
+- LíderLife
+- Restaurant Guru
+- Instagram oficial de cada café
+
+**Resultado:** ✅ Exitoso - Post publicado correctamente en la base de datos
+
+---
+
 ## [2025-12-01] Implementación completa del sistema de Newsletter
 
 **Archivos creados:**
