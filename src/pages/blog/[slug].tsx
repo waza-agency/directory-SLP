@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { BlogPost, getBlogPosts, getBlogPostBySlug } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
+import NewsletterBanner from '@/components/NewsletterBanner';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -277,6 +278,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               </div>
             </div>
           )}
+
+          {/* Newsletter CTA - End of Article */}
+          <NewsletterBanner variant="blog-end" />
         </div>
       </main>
     </>

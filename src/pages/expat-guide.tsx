@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import Link from 'next/link';
 import AdUnit from '../components/common/AdUnit';
+import NewsletterBanner from '@/components/NewsletterBanner';
 
 export default function ExpatGuidePage() {
   const [activeSection, setActiveSection] = useState('emergency');
@@ -497,6 +498,11 @@ export default function ExpatGuidePage() {
                   </div>
                 </div>
               </div>
+            </section>
+
+            {/* Newsletter CTA */}
+            <section className="my-12">
+              <NewsletterBanner variant="mid-content" />
             </section>
 
             {/* Ad in the middle of content */}

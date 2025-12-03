@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost, getBlogPosts } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
+import NewsletterBanner from '@/components/NewsletterBanner';
 
 interface BlogIndexProps {
   posts: BlogPost[];
@@ -102,6 +103,9 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
         ) : (
           <p className="text-center text-lg">No blog posts found. Check back later!</p>
         )}
+
+        {/* Newsletter CTA */}
+        <NewsletterBanner variant="mid-content" className="mt-16" />
       </main>
     </>
   );

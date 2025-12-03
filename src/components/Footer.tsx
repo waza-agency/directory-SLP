@@ -194,7 +194,7 @@ export default function Footer() {
           <div className="mt-8 text-center">
             <div className="bg-gradient-to-r from-transparent via-gray-800/30 to-transparent p-6 rounded-2xl">
               <p className="text-gray-300 text-lg mb-2">
-                Made with <span className="text-pink-500 animate-pulse text-xl">❤</span> by <a href="https://wazastudio.com" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-bold hover:text-pink-400 transition-all duration-200 hover:scale-105 inline-flex items-center gap-1">Waza Studio</a>
+                Made with <span className="text-pink-500 animate-pulse text-xl">❤</span> by <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-bold hover:text-pink-400 transition-all duration-200 hover:scale-105 inline-flex items-center gap-1">Waza Studio</a>
               </p>
               <p className="text-gray-400 text-base mb-6">
                 We are <span className="text-pink-500 font-bold text-lg">WAZA</span>. And we're coding a cooler world.
@@ -203,7 +203,7 @@ export default function Footer() {
               {/* Other Waza Projects */}
               <div className="border-t border-gray-700/50 pt-6">
                 <p className="text-gray-300 text-lg font-semibold mb-4">Other projects by Waza:</p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <a
                     href="https://vibecodingprd.com"
                     target="_blank"
@@ -230,6 +230,15 @@ export default function Footer() {
                   >
                     <div className="font-semibold group-hover:text-pink-400">Sobrecitos</div>
                     <div className="text-sm text-gray-400">Family Budget Tracker</div>
+                  </a>
+                  <a
+                    href="https://glamlocal.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-pink-400 transition-all duration-200 p-4 rounded-lg hover:scale-105 group"
+                  >
+                    <div className="font-semibold group-hover:text-pink-400">Glam Local</div>
+                    <div className="text-sm text-gray-400">Beauty Services Marketplace</div>
                   </a>
                 </div>
               </div>

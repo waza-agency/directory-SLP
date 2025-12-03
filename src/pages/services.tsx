@@ -6,6 +6,7 @@ import { Service } from '@/types';
 import { supabase } from '@/lib/supabase';
 import AdUnit from '../components/common/AdUnit';
 import SEO from '@/components/common/SEO';
+import NewsletterBanner from '@/components/NewsletterBanner';
 
 interface ServicesPageProps {
   services: Service[];
@@ -179,6 +180,11 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
             </div>
           </section>
         )}
+
+        {/* Newsletter CTA */}
+        <div className="container mx-auto px-4 py-8">
+          <NewsletterBanner variant="mid-content" />
+        </div>
 
         {/* All Services Section */}
         <section className="py-16 bg-gray-50">

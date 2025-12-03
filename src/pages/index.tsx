@@ -15,6 +15,7 @@ import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
 import ImageCarousel from '@/components/ImageCarousel';
 import AdUnit from '@/components/common/AdUnit';
+import NewsletterBanner from '@/components/NewsletterBanner';
 
 interface HomeProps {
   events: Event[];
@@ -585,6 +586,11 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
         </div>
 
+        {/* NEWSLETTER BANNER - Mid Content */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20">
+          <NewsletterBanner variant="mid-content" />
+        </div>
+
         {/* CULTURAL HERITAGE - Traditions & History */}
         <section id="culture-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
@@ -1050,6 +1056,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             </div>
           </div>
         </section>
+
+        {/* NEWSLETTER HERO BANNER */}
+        <NewsletterBanner variant="hero" />
 
         {/* FINAL CTA - Elegant Call to Action */}
         <section id="cta-001" className="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">

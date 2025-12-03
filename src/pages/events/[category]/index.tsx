@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import SEO from '@/components/common/SEO';
+import NewsletterBanner from '@/components/NewsletterBanner';
 
 interface EventsPageProps {
   events: Event[];
@@ -269,6 +270,9 @@ export default function EventsPage({ events, categoryCounts, category }: EventsP
             <EventList events={regularEvents} />
           </section>
         )}
+
+        {/* Newsletter CTA */}
+        <NewsletterBanner variant="mid-content" className="mb-16" />
       </div>
     </>
   );

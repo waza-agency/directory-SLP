@@ -34,6 +34,7 @@ export default function NewsletterAdminPage() {
   const [htmlContent, setHtmlContent] = useState('');
   const [testEmail, setTestEmail] = useState('');
   const [sending, setSending] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const fetchSubscribers = useCallback(async () => {
@@ -92,6 +93,30 @@ export default function NewsletterAdminPage() {
     const savedKey = localStorage.getItem('newsletter_admin_key');
     if (savedKey) setAdminKey(savedKey);
   }, []);
+
+  const handleGenerate = async () => {
+    if (!confirm('This will use AI to search for news and generate a draft. It may take 30-60 seconds. Continue?')) return;
+
+    setGenerating(true);
+    try {
+      const res = await fetch('/api/newsletter/generate', {
+        method: 'POST',
+        headers: { 'x-admin-key': adminKey }
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setSubject(data.newsletter.subject);
+        setHtmlContent(data.newsletter.html_content);
+        alert('Newsletter generated successfully! You can now review and edit it.');
+      } else {
+        throw new Error(data.message || 'Failed to generate');
+      }
+    } catch (error) {
+      alert('Error generating newsletter: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    }
+    setGenerating(false);
+  };
 
   const createAndSendNewsletter = async (sendToAll: boolean) => {
     if (!subject.trim() || !htmlContent.trim()) {
@@ -345,7 +370,26 @@ export default function NewsletterAdminPage() {
             {/* SEND NEWSLETTER TAB */}
             {activeTab === 'send' && (
               <div className="p-6">
-                <h2 className="text-xl font-bold mb-6">Send Newsletter</h2>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-xl font-bold">Send Newsletter</h2>
+                  <button
+                    onClick={handleGenerate}
+                    disabled={generating}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
+                  >
+                    {generating ? (
+                      <>
+                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Thinking...
+                      </>
+                    ) : (
+                      <>✨ Generate with AI</>
+                    )}
+                  </button>
+                </div>
 
                 {sendResult && (
                   <div className={`mb-6 p-4 rounded-lg ${sendResult.success ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
