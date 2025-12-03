@@ -64,10 +64,14 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
             Free Weekly Newsletter
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
             Your Insider Guide to<br />
             <span className="text-amber-200">San Luis Potosí</span>
           </h2>
+
+          <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+            Practical tips and useful info to navigate the city like a local — delivered every week.
+          </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-8 text-white/90">
             <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
@@ -80,7 +84,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
             </span>
             <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
               <SparklesIcon className="w-5 h-5" />
-              Expat Tips
+              Practical Info
             </span>
           </div>
 
@@ -152,7 +156,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                 Stay in the Loop
               </h3>
               <p className="text-gray-400 mb-2">
-                Get the <span className="text-terracotta font-semibold">SLP Weekly</span> — your curated guide to events, restaurants, and expat life.
+                Get the <span className="text-terracotta font-semibold">SLP Weekly</span> — practical tips and useful info to navigate the city, plus events and local discoveries.
               </p>
               <div className="flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-500">
                 <span className="flex items-center gap-1">
@@ -225,7 +229,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                 Get the SLP Weekly
               </p>
               <p className="text-sm text-gray-400 hidden sm:block">
-                Events, tips & local news every Sunday
+                Practical city tips & local info every Sunday
               </p>
             </div>
           </div>
@@ -268,7 +272,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
             </div>
             <div>
               <p className="font-bold text-gray-900">SLP Weekly Newsletter</p>
-              <p className="text-sm text-gray-600">Events, tips & local discoveries</p>
+              <p className="text-sm text-gray-600">Practical tips to navigate the city</p>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="flex gap-2 w-full sm:w-auto">
@@ -316,7 +320,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               Enjoyed this article?
             </h3>
             <p className="text-gray-400 mb-8">
-              Get more stories like this plus weekly events, restaurant openings, and insider tips delivered to your inbox.
+              Get practical tips to navigate the city, weekly events, and useful local info delivered to your inbox.
             </p>
 
             <form onSubmit={handleSubmit}>
