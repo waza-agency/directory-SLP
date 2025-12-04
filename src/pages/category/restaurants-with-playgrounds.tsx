@@ -1,40 +1,36 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
+import { useState } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
-import SEO from '@/components/common/SEO';
+import { Place } from '@/types';
+import { supabase } from '@/lib/supabase';
+import PlaceCard from '@/components/PlaceCard';
+import PlaceModal from '@/components/PlaceModal';
+import FeaturedPlaces from '@/components/FeaturedPlaces';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
-  return {
-    props: {
-    },
-  };
-};
+interface RestaurantsWithPlaygroundsPageProps {
+  places: Place[];
+}
 
-const restaurants = [
-  {
-    id: 'restaurant-1',
-    name: 'La Posta del Angel',
-    description: 'Family-friendly restaurant with a large playground and dedicated children\'s area.',
-    image: '/images/restaurants/la-posta-del-angel.jpg',
-    location: 'Av. Venustiano Carranza',
-    features: ['Indoor Playground', 'Kids Menu', 'Family Events'],
-    hours: '12:00 PM - 10:00 PM',
-    rating: 4.5,
-  },
-  // Add more restaurants here
-];
+const RestaurantsWithPlaygroundsPage: NextPage<RestaurantsWithPlaygroundsPageProps> = ({ places }) => {
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
 
-export default function RestaurantsWithPlaygrounds() {
+  const featuredPlaces = places?.filter(place => place.featured) || [];
+  const regularPlaces = places?.filter(place => !place.featured) || [];
 
   return (
     <>
-      <SEO
-        title="Restaurants with Playgrounds in San Luis Potosí | SLP Guide"
-        description="Discover family-friendly restaurants with playgrounds in San Luis Potosí. Enjoy your meal while your children play in safe, dedicated areas."
-      />
+      <Head>
+        <title>Restaurants with Playgrounds in San Luis Potosí | SLP Guide</title>
+        <meta
+          name="description"
+          content="Discover family-friendly restaurants with playgrounds in San Luis Potosí. Enjoy your meal while your children play in safe, dedicated areas."
+        />
+      </Head>
 
       <main className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
         <section className="relative h-[400px]">
           <Image
             src="/images/practical-categories/restaurants-with-playgrounds.png"
@@ -56,59 +52,34 @@ export default function RestaurantsWithPlaygrounds() {
           </div>
         </section>
 
-        {/* Listings Section */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {restaurants.map((restaurant) => (
-                <div
-                  key={restaurant.id}
-                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={restaurant.image}
-                      alt={restaurant.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">{restaurant.name}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{restaurant.description}</p>
-                    <div className="space-y-2">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        {restaurant.location}
-                      </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {restaurant.hours}
-                      </div>
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {restaurant.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {featuredPlaces.length > 0 && (
+          <FeaturedPlaces
+            places={featuredPlaces}
+            onPlaceSelect={(place) => setSelectedPlace(place)}
+          />
+        )}
+
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">All Family-Friendly Restaurants</h2>
+            {regularPlaces.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {regularPlaces.map((place) => (
+                  <PlaceCard
+                    key={place.id}
+                    place={place}
+                    onClick={() => setSelectedPlace(place)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-500 py-8">
+                No places found in this category yet. Check back soon!
+              </p>
+            )}
           </div>
         </section>
 
-        {/* Tips Section */}
         <section className="py-16 px-4 bg-white">
           <div className="container mx-auto">
             <h2 className="text-3xl font-bold text-center mb-8">Tips for Dining with Kids</h2>
@@ -149,7 +120,50 @@ export default function RestaurantsWithPlaygrounds() {
             </div>
           </div>
         </section>
+
+        {selectedPlace && (
+          <PlaceModal
+            place={selectedPlace}
+            onClose={() => setSelectedPlace(null)}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+        )}
       </main>
     </>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { data: places, error } = await supabase
+    .from('places')
+    .select("*")
+    .eq('category', 'restaurants-with-playgrounds')
+    .order('featured', { ascending: false })
+    .order('name', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching places:', error);
+    return {
+      props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+        places: [],
+      },
+    };
+  }
+
+  const mappedPlaces = places?.map(place => ({
+    ...place,
+    imageUrl: place.image_url
+  })) || [];
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+      places: mappedPlaces,
+    },
+    revalidate: 3600,
+  };
+};
+
+export default RestaurantsWithPlaygroundsPage;

@@ -1,31 +1,18 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
+import { useState } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import SEO from '@/components/common/SEO';
+import { Place } from '@/types';
+import { supabase } from '@/lib/supabase';
+import PlaceCard from '@/components/PlaceCard';
+import PlaceModal from '@/components/PlaceModal';
+import FeaturedPlaces from '@/components/FeaturedPlaces';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
-  return {
-    props: {
-    },
-  };
-};
-
-const activities = [
-  {
-    id: 'activity-1',
-    name: 'Centro de las Artes',
-    description: 'A cultural center housed in a former prison, featuring art exhibitions, workshops, and performances.',
-    image: '/images/rainy-day/centro-artes.jpg',
-    location: 'Centro Histórico',
-    type: 'Cultural',
-    features: ['Art Galleries', 'Workshops', 'Theater'],
-    hours: '10:00 AM - 6:00 PM',
-    priceRange: '$',
-    suitable: ['Adults', 'Teens', 'Children'],
-    website: 'www.centrodelasartesslp.gob.mx',
-  },
-  // Add more activities here
-];
+interface RainyDayActivitiesPageProps {
+  places: Place[];
+}
 
 const categories = [
   {
@@ -69,17 +56,24 @@ const popularActivities = [
   },
 ];
 
-export default function RainyDayActivities() {
+const RainyDayActivitiesPage: NextPage<RainyDayActivitiesPageProps> = ({ places }) => {
+  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const [activeTab, setActiveTab] = useState<'description' | 'reviews' | 'call' | 'website'>('description');
+
+  const featuredPlaces = places?.filter(place => place.featured) || [];
+  const regularPlaces = places?.filter(place => !place.featured) || [];
 
   return (
     <>
-      <SEO
-        title="Rainy Day Activities in San Luis Potosí | SLP Guide"
-        description="Discover the best indoor activities and attractions for rainy days in San Luis Potosí."
-      />
+      <Head>
+        <title>Rainy Day Activities in San Luis Potosí | SLP Guide</title>
+        <meta
+          name="description"
+          content="Discover the best indoor activities and attractions for rainy days in San Luis Potosí."
+        />
+      </Head>
 
       <main className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
         <section className="relative h-[400px]">
           <Image
             src="/images/practical-categories/rainy-day.jpg"
@@ -101,7 +95,6 @@ export default function RainyDayActivities() {
           </div>
         </section>
 
-        {/* Categories Section */}
         <section className="py-12 bg-white">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -124,7 +117,6 @@ export default function RainyDayActivities() {
           </div>
         </section>
 
-        {/* Popular Activities */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="container mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Popular Indoor Activities</h2>
@@ -147,85 +139,34 @@ export default function RainyDayActivities() {
           </div>
         </section>
 
-        {/* Venues Section */}
-        <section className="py-16 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Featured Venues</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {activities.map((activity) => (
-                <div
-                  key={activity.id}
-                  className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={activity.image}
-                      alt={activity.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-semibold">{activity.name}</h3>
-                      <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
-                        {activity.type}
-                      </span>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-4">{activity.description}</p>
-                    <div className="space-y-2">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        {activity.location}
-                      </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {activity.hours}
-                      </div>
-                      <div className="flex items-center text-sm text-gray-500">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {activity.priceRange}
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <div className="flex flex-wrap gap-2">
-                        {activity.features.map((feature) => (
-                          <span
-                            key={feature}
-                            className="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded-full"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <div className="flex flex-wrap gap-2">
-                        {activity.suitable.map((group) => (
-                          <span
-                            key={group}
-                            className="bg-blue-50 text-blue-600 text-xs font-medium px-2 py-1 rounded-full"
-                          >
-                            {group}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {featuredPlaces.length > 0 && (
+          <FeaturedPlaces
+            places={featuredPlaces}
+            onPlaceSelect={(place) => setSelectedPlace(place)}
+          />
+        )}
+
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">All Rainy Day Activities</h2>
+            {regularPlaces.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {regularPlaces.map((place) => (
+                  <PlaceCard
+                    key={place.id}
+                    place={place}
+                    onClick={() => setSelectedPlace(place)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-gray-500 py-8">
+                No places found in this category yet. Check back soon!
+              </p>
+            )}
           </div>
         </section>
 
-        {/* Tips Section */}
         <section className="py-16 px-4 bg-white">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-3xl font-bold text-center mb-12">Rainy Day Tips</h2>
@@ -267,7 +208,6 @@ export default function RainyDayActivities() {
           </div>
         </section>
 
-        {/* Newsletter Section */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
@@ -282,7 +222,50 @@ export default function RainyDayActivities() {
             </Link>
           </div>
         </section>
+
+        {selectedPlace && (
+          <PlaceModal
+            place={selectedPlace}
+            onClose={() => setSelectedPlace(null)}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+        )}
       </main>
     </>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { data: places, error } = await supabase
+    .from('places')
+    .select("*")
+    .eq('category', 'rainy-day-activities')
+    .order('featured', { ascending: false })
+    .order('name', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching places:', error);
+    return {
+      props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+        places: [],
+      },
+    };
+  }
+
+  const mappedPlaces = places?.map(place => ({
+    ...place,
+    imageUrl: place.image_url
+  })) || [];
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+      places: mappedPlaces,
+    },
+    revalidate: 3600,
+  };
+};
+
+export default RainyDayActivitiesPage;

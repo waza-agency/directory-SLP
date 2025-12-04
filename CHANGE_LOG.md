@@ -4,6 +4,63 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-04] Migración de páginas de categoría a Supabase
+
+**Descripción:**
+Migración de 3 páginas de categoría que tenían datos estáticos hardcodeados para que ahora obtengan sus lugares desde la tabla `places` de Supabase.
+
+**Archivos modificados:**
+- src/pages/category/rainy-day-activities.tsx
+- src/pages/category/restaurants-with-playgrounds.tsx
+- src/pages/category/easy-parking-spots.tsx
+
+**Archivos creados:**
+- supabase/migrations/20251204100000_create_guides_tables.sql (migración para futuras guías)
+- scripts/seed-guides.js (script de seed para guías - preparación futura)
+
+**Cambios realizados:**
+
+1. **rainy-day-activities.tsx:**
+   - ANTES: Datos estáticos con 1 actividad hardcodeada + secciones de categorías/tips
+   - DESPUÉS: Obtiene lugares de Supabase con categoría 'rainy-day-activities'
+   - Usa componentes PlaceCard, PlaceModal y FeaturedPlaces
+   - Mantiene las secciones de tips y categorías visuales
+
+2. **restaurants-with-playgrounds.tsx:**
+   - ANTES: Datos estáticos con 1 restaurante hardcodeado + tips
+   - DESPUÉS: Obtiene lugares de Supabase con categoría 'restaurants-with-playgrounds'
+   - Usa componentes PlaceCard, PlaceModal y FeaturedPlaces
+   - Mantiene la sección de tips para padres
+
+3. **easy-parking-spots.tsx:**
+   - ANTES: Datos estáticos con 1 estacionamiento hardcodeado + tips + CTA de app
+   - DESPUÉS: Obtiene lugares de Supabase con categoría 'easy-parking-spots'
+   - Usa componentes PlaceCard, PlaceModal y FeaturedPlaces
+   - Mantiene la sección de tips de estacionamiento
+
+**Patrón implementado en las 3 páginas:**
+- getStaticProps con query a Supabase filtrando por categoría
+- ISR con revalidate: 3600 (1 hora)
+- Mapeo de image_url a imageUrl para compatibilidad
+- Separación de featured y regular places
+- Integración con serverSideTranslations para i18n
+
+**Categorías de Supabase utilizadas:**
+- 'rainy-day-activities'
+- 'restaurants-with-playgrounds'
+- 'easy-parking-spots'
+
+**Resultado:** ✅ Exitoso
+- Build completado sin errores (701 páginas generadas)
+- Las 3 páginas ahora son dinámicas y obtienen datos de Supabase
+- Para que muestren contenido, es necesario agregar lugares con estas categorías en Supabase
+
+**Próximos pasos:**
+- Agregar lugares a Supabase con las categorías correspondientes
+- Las páginas mostrarán automáticamente los nuevos lugares
+
+---
+
 ## [2025-12-03] Nuevo blog post: Inversión Extranjera Directa en SLP
 
 **Descripción:**
