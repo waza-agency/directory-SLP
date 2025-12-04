@@ -5,12 +5,14 @@ import { useState, useEffect } from 'react';
 import { searchPlaces } from '@/lib/supabase';
 // import Cart from './common/Cart'; // MARKETPLACE DISABLED
 import { useAuth } from '@/lib/supabase-auth';
+import { useTranslation } from 'next-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
   const router = useRouter();
   const { user, signOut } = useAuth();
+  const { t } = useTranslation('common');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -21,18 +23,6 @@ export default function Header() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const changeLanguage = (locale: string) => {
-    router.push(router.pathname, router.asPath, { });
-  };
-
-  // Map of language codes to display names
-  const languages = {
-    en: 'English',
-    es: 'Español',
-    de: 'Deutsch',
-    ja: '日本語'
-  };
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -105,49 +95,49 @@ export default function Header() {
               href="/"
               className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
-              Home
+              {t('nav.home')}
             </Link>
 
             <Link
               href="/places"
               className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
-              Explore
+              {t('nav.explore')}
             </Link>
 
             <Link
               href="/blog"
               className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
-              Blog
+              {t('nav.blog')}
             </Link>
 
             <Link
               href="/about"
               className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
-              About
+              {t('nav.about')}
             </Link>
 
             <Link
               href="/faq"
               className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
-              FAQ
+              {t('nav.faq')}
             </Link>
 
             <Link
               href="/contact"
               className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
             >
-              Contact
+              {t('nav.contact')}
             </Link>
 
             {/* MARKETPLACE DISABLED - Shopping Cart removed */}
 
             {/* Authentication Buttons or User Menu */}
             {user ? (
-              <div className="relative">
+              <div className="relative z-[60]">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="text-gray-700 hover:text-primary transition-all duration-200 flex items-center hover:scale-105 focus-ring"
@@ -169,24 +159,24 @@ export default function Header() {
                 </button>
 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-xl shadow-strong py-2 z-10 animate-scaleIn">
+                  <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-xl shadow-strong py-2 z-[100] animate-scaleIn">
                     <Link
                       href="/account"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
-                      My Account
+                      {t('nav.myAccount')}
                     </Link>
                     <Link
                       href="/account/orders"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
-                      My Orders
+                      {t('nav.myOrders')}
                     </Link>
                     <button
                       onClick={handleSignOut}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
-                      Sign Out
+                      {t('nav.signOut')}
                     </button>
                   </div>
                 )}
@@ -197,51 +187,19 @@ export default function Header() {
                   href="/signin"
                   className="text-gray-700 hover:text-primary text-base font-medium transition-all duration-200 hover:scale-105 focus-ring py-2 px-3 rounded-lg"
                 >
-                  Sign In
+                  {t('nav.signIn')}
                 </Link>
                 <Link
                   href="/signup"
                   className="btn-primary btn-sm"
                 >
-                  Sign Up
+                  {t('nav.signUp')}
                 </Link>
               </div>
             )}
 
             {/* Language Selector */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                className="text-gray-700 hover:text-primary transition-all duration-200 px-4 py-2.5 text-base border border-gray-200 rounded-xl hover:border-primary/30 hover:bg-primary/5 flex items-center hover:scale-105 focus-ring"
-              >
-                {languages[router.locale as keyof typeof languages] || 'English'}
-                <svg
-                  className={`ml-2 w-4 h-4 transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
-
-              {isLanguageMenuOpen && (
-                <div className="absolute right-0 mt-3 w-44 bg-white border border-gray-200 rounded-xl shadow-strong py-2 z-10 animate-scaleIn">
-                  {Object.entries(languages).map(([code, name]) => (
-                    <button
-                      key={code}
-                      onClick={() => {
-                        changeLanguage(code);
-                        setIsLanguageMenuOpen(false);
-                      }}
-                      className={`block w-full text-left px-4 py-2 text-sm ${router.locale === code ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:bg-gray-50 hover:text-primary'}`}
-                    >
-                      {name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <LanguageSwitcher variant="desktop" />
           </nav>
 
           {/* Mobile Menu Button */}
@@ -267,27 +225,20 @@ export default function Header() {
             {/* Categories */}
             <div className="flex space-x-10">
               <Link href="/cultural" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
-                CULTURAL
-                <span className="ml-2 px-2.5 py-0.5 text-xs font-bold bg-primary/15 text-primary rounded-full animate-pulse-slow">NEW</span>
+                {t('categories.cultural')}
+                <span className="ml-2 px-2.5 py-0.5 text-xs font-bold bg-primary/15 text-primary rounded-full animate-pulse-slow">{t('categories.new')}</span>
               </Link>
               <Link href="/places" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
-                PLACES
+                {t('categories.places')}
               </Link>
-              {/* TEMPORARILY HIDDEN - LISTINGS
-              <Link href="/listings" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
-                LISTINGS
-              </Link>
-              */}
+              {/* TEMPORARILY HIDDEN - LISTINGS */}
               {/* MARKETPLACE DISABLED - Shop link removed */}
               <Link href="/events" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
-                EVENTS
+                {t('categories.events')}
               </Link>
               <Link href="/services" className="inline-flex items-center px-2 pt-1 text-base font-semibold text-gray-700 hover:text-primary border-b-3 border-transparent hover:border-primary transition-all duration-200 hover:scale-105">
-                SERVICES
+                {t('categories.services')}
               </Link>
-              {/* <Link href="/community" className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-primary border-b-2 border-transparent hover:border-primary transition-colors">
-                COMMUNITY
-              </Link> */}
             </div>
 
             {/* Search Bar */}
@@ -295,7 +246,7 @@ export default function Header() {
               <form onSubmit={handleSearch} className="relative">
                 <input
                   type="text"
-                  placeholder="Search places, events..."
+                  placeholder={t('search.placeholder')}
                   className="w-full pl-10 pr-4 py-3 text-base border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200 hover:border-gray-300 bg-white/80 backdrop-blur-sm"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -329,7 +280,7 @@ export default function Header() {
                     </div>
                   ) : (
                     <div className="p-4 text-sm text-gray-500 text-center">
-                      No places found
+                      {t('search.noResults')}
                     </div>
                   )}
                 </div>
@@ -348,7 +299,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
+              {t('nav.home')}
             </Link>
 
             <Link
@@ -356,7 +307,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
-              Explore
+              {t('nav.explore')}
             </Link>
 
             <Link
@@ -364,7 +315,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
-              Blog
+              {t('nav.blog')}
             </Link>
 
             <Link
@@ -372,7 +323,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              {t('nav.about')}
             </Link>
 
             <Link
@@ -380,7 +331,7 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
-              FAQ
+              {t('nav.faq')}
             </Link>
 
             <Link
@@ -388,12 +339,12 @@ export default function Header() {
               className="text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium py-2 px-3 rounded-lg hover:bg-primary/10"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              {t('nav.contact')}
             </Link>
 
             {/* Authentication Links for Mobile */}
             <div className="pt-3 border-t border-gray-200">
-              <p className="text-xs text-gray-500 mb-2">Account</p>
+              <p className="text-xs text-gray-500 mb-2">{t('account.title')}</p>
               {user ? (
                 <div className="space-y-2">
                   <Link
@@ -401,14 +352,14 @@ export default function Header() {
                     className="block text-sm text-gray-700 hover:text-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    My Account
+                    {t('nav.myAccount')}
                   </Link>
                   <Link
                     href="/account/orders"
                     className="block text-sm text-gray-700 hover:text-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    My Orders
+                    {t('nav.myOrders')}
                   </Link>
                   <button
                     onClick={async () => {
@@ -417,7 +368,7 @@ export default function Header() {
                     }}
                     className="block text-sm text-gray-700 hover:text-primary"
                   >
-                    Sign Out
+                    {t('nav.signOut')}
                   </button>
                 </div>
               ) : (
@@ -427,68 +378,40 @@ export default function Header() {
                     className="block text-sm text-gray-700 hover:text-primary"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign In
+                    {t('nav.signIn')}
                   </Link>
                   <Link
                     href="/signup"
                     className="block bg-primary hover:bg-primary-dark text-white text-sm px-3 py-1.5 rounded-md transition-colors inline-block"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign Up
+                    {t('nav.signUp')}
                   </Link>
                 </div>
               )}
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              {/* MARKETPLACE DISABLED - Shopping Cart removed */}
-
-              <p className="text-xs text-gray-500 mb-2">Categories</p>
+              <p className="text-xs text-gray-500 mb-2">{t('categories.cultural')}</p>
               <div className="space-y-2">
                 <Link href="/cultural" className="block text-sm text-gray-700 hover:text-primary">
-                  Cultural <span className="ml-1 px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">NEW</span>
+                  {t('categories.cultural')} <span className="ml-1 px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">{t('categories.new')}</span>
                 </Link>
                 <Link href="/places" className="block text-sm text-gray-700 hover:text-primary">
-                  Places
+                  {t('categories.places')}
                 </Link>
-                {/* TEMPORARILY HIDDEN - LISTINGS
-                <Link href="/listings" className="block text-sm text-gray-700 hover:text-primary">
-                  Listings
-                </Link>
-                */}
-                {/* MARKETPLACE DISABLED - Shop link removed */}
                 <Link href="/events" className="block text-sm text-gray-700 hover:text-primary">
-                  Events
+                  {t('categories.events')}
                 </Link>
                 <Link href="/services" className="block text-sm text-gray-700 hover:text-primary">
-                  Services
+                  {t('categories.services')}
                 </Link>
-                {/* <Link href="/community" className="block text-sm text-gray-700 hover:text-primary">
-                  Community
-                </Link> */}
               </div>
             </div>
 
             <div className="pt-3 border-t border-gray-200">
-              <p className="text-xs text-gray-500 mb-2">Language</p>
-              <div className="grid grid-cols-2 gap-2">
-                {Object.entries(languages).map(([code, name]) => (
-                  <button
-                    key={code}
-                    onClick={() => {
-                      changeLanguage(code);
-                      setIsMenuOpen(false);
-                    }}
-                    className={`text-sm px-3 py-1 rounded-md ${
-                      router.locale === code
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {name}
-                  </button>
-                ))}
-              </div>
+              <p className="text-xs text-gray-500 mb-2">{t('languages.select')}</p>
+              <LanguageSwitcher variant="mobile" />
             </div>
           </div>
         </div>
