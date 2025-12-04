@@ -237,10 +237,11 @@ const RainyDayActivitiesPage: NextPage<RainyDayActivitiesPageProps> = ({ places 
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  // Query places where category matches OR additional_categories contains the category
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .eq('category', 'rainy-day-activities')
+    .or('category.eq.rainy-day-activities,additional_categories.cs.{"activities-rainy-day"}')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 

@@ -135,10 +135,11 @@ const EasyParkingSpotsPage: NextPage<EasyParkingSpotsPageProps> = ({ places }) =
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  // Query places where category matches OR additional_categories contains the category
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .eq('category', 'easy-parking-spots')
+    .or('category.eq.easy-parking-spots,additional_categories.cs.{"easy-parking-spots"}')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 

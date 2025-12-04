@@ -135,10 +135,11 @@ const RestaurantsWithPlaygroundsPage: NextPage<RestaurantsWithPlaygroundsPagePro
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  // Query places where category matches OR additional_categories contains the category
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .eq('category', 'restaurants-with-playgrounds')
+    .or('category.eq.restaurants-with-playgrounds,additional_categories.cs.{"restaurants-with-playgrounds"}')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 
