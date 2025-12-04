@@ -16,6 +16,7 @@ import TangamangaBanner from '@/components/TangamangaBanner';
 import ImageCarousel from '@/components/ImageCarousel';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface HomeProps {
   events: Event[];
@@ -23,7 +24,7 @@ interface HomeProps {
   featuredBrands?: any[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     const safetyDateString = getSafetyDateBuffer();
     const { data: eventsData, error: eventsError } = await supabase
@@ -53,6 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: events || [],
         featuredAdvertisers,
         featuredBrands: featuredBrandsData || [],
@@ -62,6 +64,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     console.error('Error fetching data:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: [],
         featuredAdvertisers: [],
         featuredBrands: [],

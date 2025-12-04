@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import NewsletterSignup from './NewsletterSignup';
+import { useTranslation } from 'next-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation('common');
+
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-white relative overflow-hidden">
       {/* Enhanced San Luis Colors Accent Bar */}
@@ -40,7 +43,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-gray-300 mb-6 text-base leading-relaxed">
-              Your comprehensive guide to discovering the rich cultural heritage and vibrant community of San Luis Potosí. We help expatriates navigate the city's cultural landscape with curated recommendations and local insights.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-5">
               <a href="https://www.instagram.com/sanluisway/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-primary transition-all duration-200 p-2 rounded-lg hover:bg-primary/10 hover:scale-110 flex items-center gap-2">
@@ -62,31 +65,31 @@ export default function Footer() {
           <div className="relative pl-6">
             <div className="absolute left-0 top-0 w-1 h-16 bg-gradient-to-b from-primary to-primary-dark rounded-full"></div>
             <h3 className="text-lg font-bold text-white tracking-wide mb-6">
-              Quick Links
+              {t('footer.quickLinks')}
             </h3>
             <ul className="space-y-4">
               <li>
                 <Link href="/cultural/history" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-primary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-primary group-hover:scale-125"></span>
-                  History
+                  {t('footer.history')}
                 </Link>
               </li>
               <li>
                 <Link href="/cultural/festivals" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-primary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-primary group-hover:scale-125"></span>
-                  Festivals
+                  {t('footer.festivals')}
                 </Link>
               </li>
               <li>
                 <Link href="/cultural/music-dance" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-primary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-primary group-hover:scale-125"></span>
-                  Music & Dance
+                  {t('footer.musicDance')}
                 </Link>
               </li>
               <li>
                 <Link href="/places" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-primary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-primary group-hover:scale-125"></span>
-                  Places
+                  {t('categories.places')}
                 </Link>
               </li>
             </ul>
@@ -96,31 +99,31 @@ export default function Footer() {
           <div className="relative pl-6">
             <div className="absolute left-0 top-0 w-1 h-16 bg-gradient-to-b from-secondary to-secondary-light rounded-full"></div>
             <h3 className="text-lg font-bold text-white tracking-wide mb-6">
-              Resources
+              {t('footer.resources')}
             </h3>
             <ul className="space-y-4">
               <li>
                 <Link href="/blog" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
-                  Blog
+                  {t('nav.blog')}
                 </Link>
               </li>
               <li>
                 <Link href="/expat-guide" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
-                  Expat Guide
+                  {t('footer.expatGuide')}
                 </Link>
               </li>
               <li>
                 <Link href="/living-guide" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
-                  Living Guide
+                  {t('footer.livingGuide')}
                 </Link>
               </li>
               <li>
                 <Link href="/newsletter" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
                   <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
-                  Newsletter
+                  {t('footer.newsletter')}
                 </Link>
               </li>
             </ul>
@@ -130,7 +133,7 @@ export default function Footer() {
           <div className="relative pl-6">
             <div className="absolute left-0 top-0 w-1 h-16 bg-gradient-to-b from-primary to-primary-dark rounded-full"></div>
             <h3 className="text-lg font-bold text-white tracking-wide mb-6">
-              Contact Us
+              {t('footer.contactUs')}
             </h3>
             <ul className="space-y-4">
               <li>
@@ -161,7 +164,7 @@ export default function Footer() {
                   <svg className="w-4 h-4 mr-3 text-primary/60 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  Contact Form
+                  {t('footer.contactForm')}
                 </Link>
               </li>
             </ul>
@@ -172,20 +175,20 @@ export default function Footer() {
         <div className="mt-8 border-t border-gray-700/50 pt-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             <p className="text-lg text-gray-300 font-medium">
-              © {new Date().getFullYear()} SLP Descubre. All rights reserved.
+              {t('footer.copyright', { year: new Date().getFullYear() })}
             </p>
             <div className="flex flex-wrap justify-center lg:justify-end gap-8">
               <Link href="/privacy" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:scale-105">
-                Privacy Policy
+                {t('footer.privacyPolicy')}
               </Link>
               <Link href="/terms" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:scale-105">
-                Terms of Service
+                {t('footer.termsOfService')}
               </Link>
               <Link href="/cookies" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:scale-105">
-                Cookie Policy
+                {t('footer.cookiePolicy')}
               </Link>
               <Link href="/sitemap" className="text-base text-gray-300 hover:text-primary transition-all duration-200 hover:scale-105">
-                Sitemap
+                {t('footer.sitemap')}
               </Link>
             </div>
           </div>
@@ -194,15 +197,15 @@ export default function Footer() {
           <div className="mt-8 text-center">
             <div className="bg-gradient-to-r from-transparent via-gray-800/30 to-transparent p-6 rounded-2xl">
               <p className="text-gray-300 text-lg mb-2">
-                Made with <span className="text-pink-500 animate-pulse text-xl">❤</span> by <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-bold hover:text-pink-400 transition-all duration-200 hover:scale-105 inline-flex items-center gap-1">Waza Studio</a>
+                {t('footer.madeWith')} <span className="text-pink-500 animate-pulse text-xl">❤</span> {t('footer.by')} <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-bold hover:text-pink-400 transition-all duration-200 hover:scale-105 inline-flex items-center gap-1">Waza Studio</a>
               </p>
               <p className="text-gray-400 text-base mb-6">
-                We are <span className="text-pink-500 font-bold text-lg">WAZA</span>. And we're coding a cooler world.
+                {t('footer.wazaSlogan')}
               </p>
 
               {/* Other Waza Projects */}
               <div className="border-t border-gray-700/50 pt-6">
-                <p className="text-gray-300 text-lg font-semibold mb-4">Other projects by Waza:</p>
+                <p className="text-gray-300 text-lg font-semibold mb-4">{t('footer.otherProjects')}</p>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <a
                     href="https://vibecodingprd.com"

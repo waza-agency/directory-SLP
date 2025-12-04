@@ -5,16 +5,18 @@ import Image from 'next/image';
 import { BlogPost, getBlogPosts } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BlogIndexProps {
   posts: BlogPost[];
 }
 
-export const getStaticProps: GetStaticProps<BlogIndexProps> = async () => {
+export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale }) => {
   const posts = await getBlogPosts();
 
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       posts,
     },
     revalidate: 60 * 5, // Re-generate the page every 5 minutes

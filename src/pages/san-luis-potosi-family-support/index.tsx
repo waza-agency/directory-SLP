@@ -12,6 +12,8 @@ import {
   FaceSmileIcon,
   ShieldCheckIcon
 } from '@heroicons/react/24/outline';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 interface ContactFormData {
   name: string;
@@ -19,48 +21,17 @@ interface ContactFormData {
   message: string;
 }
 
-const familyServices = [
-  {
-    title: 'Childcare Services',
-    icon: <HeartIcon className="w-8 h-8 text-pink-500" />,
-    description: 'Find trusted babysitters and nannies',
-  },
-  {
-    title: 'Educational Support',
-    icon: <AcademicCapIcon className="w-8 h-8 text-pink-500" />,
-    description: 'Access to tutors and educational resources',
-  },
-  {
-    title: 'Family Activities',
-    icon: <PlayIcon className="w-8 h-8 text-pink-500" />,
-    description: 'Discover family-friendly events and activities',
-  },
-  {
-    title: 'Parenting Workshops',
-    icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-pink-500" />,
-    description: 'Join workshops on parenting in a new culture',
-  },
-  {
-    title: 'Support Groups',
-    icon: <FaceSmileIcon className="w-8 h-8 text-pink-500" />,
-    description: 'Connect with other expat families for support',
-  },
-  {
-    title: 'Healthcare Navigation',
-    icon: <ShieldCheckIcon className="w-8 h-8 text-pink-500" />,
-    description: 'Guidance on finding pediatricians and family doctors',
-  },
-];
-
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-        recaptchaSiteKey: getRecaptchaSiteKey(),
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+      recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
 export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
+  const { t } = useTranslation('common');
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -70,6 +41,39 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const familyServices = [
+    {
+      title: t('familySupport.childcare'),
+      icon: <HeartIcon className="w-8 h-8 text-pink-500" />,
+      description: t('familySupport.childcareDesc'),
+    },
+    {
+      title: t('familySupport.education'),
+      icon: <AcademicCapIcon className="w-8 h-8 text-pink-500" />,
+      description: t('familySupport.educationDesc'),
+    },
+    {
+      title: t('familySupport.activities'),
+      icon: <PlayIcon className="w-8 h-8 text-pink-500" />,
+      description: t('familySupport.activitiesDesc'),
+    },
+    {
+      title: t('familySupport.workshops'),
+      icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-pink-500" />,
+      description: t('familySupport.workshopsDesc'),
+    },
+    {
+      title: t('familySupport.supportGroups'),
+      icon: <FaceSmileIcon className="w-8 h-8 text-pink-500" />,
+      description: t('familySupport.supportGroupsDesc'),
+    },
+    {
+      title: t('familySupport.healthcare'),
+      icon: <ShieldCheckIcon className="w-8 h-8 text-pink-500" />,
+      description: t('familySupport.healthcareDesc'),
+    },
+  ];
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
@@ -125,8 +129,8 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
   return (
     <>
       <Head>
-        <title>Family Support Services | San Luis Way</title>
-        <meta name="description" content="Comprehensive support for expat families in San Luis Potosí, including childcare, education, and community integration." />
+        <title>{t('familySupport.pageTitle')}</title>
+        <meta name="description" content={t('familySupport.metaDescription')} />
         <meta name="keywords" content="family support, childcare, schools, parenting, expat families, san luis potosi" />
       </Head>
 
@@ -140,9 +144,9 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
         />
         <div className="absolute inset-0 bg-purple-800 bg-opacity-60 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Family Support Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">{t('familySupport.heroTitle')}</h1>
             <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
-              Find the resources your family needs to thrive in San Luis Potosí. From childcare to education, we're here to help.
+              {t('familySupport.heroDescription')}
             </p>
           </div>
         </div>
@@ -150,7 +154,7 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
 
       <div className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">{t('services.ourServices')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {familyServices.map((service) => (
               <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
@@ -169,17 +173,17 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
         <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Contact Us for Family Support</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">{t('familySupport.contactTitle')}</h2>
               {submitStatus === 'success' ? (
                 <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
-                  <p className="font-medium">Thank you for your inquiry!</p>
-                  <p>We've received your request and will contact you shortly.</p>
+                  <p className="font-medium">{t('forms.thankYou')}</p>
+                  <p>{t('forms.weWillContact')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Name
+                      {t('forms.yourName')}
                     </label>
                     <input
                       type="text"
@@ -194,7 +198,7 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email Address
+                      {t('forms.emailAddress')}
                     </label>
                     <input
                       type="email"
@@ -209,7 +213,7 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
+                      {t('forms.message')}
                     </label>
                     <textarea
                       id="message"
@@ -219,7 +223,7 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
                       required
                       rows={5}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                      placeholder="Tell us about your family's needs..."
+                      placeholder={t('familySupport.messagePlaceholder')}
                     />
                   </div>
 
@@ -238,11 +242,11 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
                     disabled={isSubmitting}
                     className="w-full bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {isSubmitting ? t('forms.sending') : t('forms.sendMessage')}
                   </button>
                   {submitStatus === 'error' && (
                     <p className="text-center text-red-600 mt-4">
-                        Please complete the reCAPTCHA or try again later.
+                      {t('forms.recaptchaError')}
                     </p>
                   )}
                 </form>

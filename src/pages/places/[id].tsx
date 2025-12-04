@@ -5,6 +5,7 @@ import type { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
   const router = useRouter();
@@ -170,13 +171,14 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }: { params: { id: string } }) {
+export async function getStaticProps({ params, locale }: { params: { id: string }; locale?: string }) {
   console.log('getStaticProps called with:', { params });
 
   if (!params?.id) {
     console.error('No ID provided in params');
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         place: null,
         error: 'Missing place ID'
       },
@@ -201,6 +203,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         place: serializablePlace,
       },
     };
@@ -216,6 +219,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         place: null,
         error: errorMessage
       },

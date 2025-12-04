@@ -6,6 +6,7 @@ import { BlogPost, getBlogPosts, getBlogPostBySlug } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -25,6 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context) => {
   const slug = context.params?.slug as string;
+  const locale = context.locale;
   const post = await getBlogPostBySlug(slug);
 
   if (!post) {
@@ -35,6 +37,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context)
 
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       post,
     },
     revalidate: 60,

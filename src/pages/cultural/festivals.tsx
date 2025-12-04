@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function FestivalsPage() {
 
@@ -311,9 +312,10 @@ export default function FestivalsPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 }; 

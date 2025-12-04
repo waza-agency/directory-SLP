@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import AdUnit from '../components/common/AdUnit';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface ServicesPageProps {
   services: Service[];
@@ -360,7 +361,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
   );
 };
 
-export async function getStaticProps({ }: { locale?: string }) {
+export async function getStaticProps({ locale }: { locale?: string }) {
   try {
     // Fetch all services
     const { data: services, error: servicesError } = await supabase
@@ -386,6 +387,7 @@ export async function getStaticProps({ }: { locale?: string }) {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         services: services || [],
         featuredServices: featuredServices || [],
       },
@@ -394,6 +396,7 @@ export async function getStaticProps({ }: { locale?: string }) {
     console.error('Error in getStaticProps:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         services: [],
         featuredServices: [],
       },

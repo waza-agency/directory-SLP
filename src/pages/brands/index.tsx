@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState, useMemo } from 'react';
 import { Brand, getAllBrands, generateBrandSlug } from '@/lib/brands';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BrandsPageProps {
   brands: Brand[];
@@ -332,7 +333,7 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     // Fetch all brands from Supabase
     const fetchedBrands = await getAllBrands();
@@ -352,6 +353,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         brands,
       },
       revalidate: 60, // Revalidate every 60 seconds
@@ -363,6 +365,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // This should rarely happen as the connection is configured correctly
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         brands: [],
       },
       revalidate: 60,

@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // Categories specific to terraces
 const categories = [
@@ -106,7 +107,7 @@ const TerracesPage: NextPage<TerracesPageProps> = ({ places }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   // Fetch terraces from Supabase
   const { data: places, error } = await supabase
     .from('places')
@@ -119,6 +120,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     console.error('Error fetching places:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         places: [],
       },
     };
@@ -142,6 +144,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       places: mappedPlaces,
     },
   };

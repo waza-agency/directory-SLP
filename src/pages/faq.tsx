@@ -5,6 +5,7 @@ import { GetStaticProps } from 'next';
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function FAQPage() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
@@ -205,9 +206,10 @@ export default function FAQPage() {
   );
 }
 
-export async function getStaticProps({ }: { locale?: string }) {
+export async function getStaticProps({ locale }: { locale?: string }) {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 }

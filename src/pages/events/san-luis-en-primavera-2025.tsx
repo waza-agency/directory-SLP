@@ -3,10 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, TicketIcon, MusicalNoteIcon, FilmIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };

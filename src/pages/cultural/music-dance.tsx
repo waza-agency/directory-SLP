@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import Link from 'next/link';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function MusicDancePage() {
   const [activeGenre, setActiveGenre] = useState('mariachi');
@@ -474,9 +475,10 @@ export default function MusicDancePage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };

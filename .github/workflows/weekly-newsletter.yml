@@ -1,0 +1,19 @@
+name: Weekly Newsletter
+
+on:
+  schedule:
+    # Runs at 13:00 UTC every Monday (8:00 AM EST / 9:00 AM EDT)
+    # Note: EST is UTC-5, so 8am EST is 13:00 UTC.
+    - cron: '0 13 * * 1'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  trigger-newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Newsletter API
+        run: |
+          curl -X POST ${{ secrets.SITE_URL }}/api/newsletter/cron/generate-weekly?mode=live \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+          -H "Content-Type: application/json"
+

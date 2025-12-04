@@ -15,6 +15,8 @@ import {
   FireIcon,
   InboxIcon
 } from '@heroicons/react/24/outline';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 interface ContactFormData {
   name: string;
@@ -22,63 +24,17 @@ interface ContactFormData {
   message: string;
 }
 
-const homeServices = [
-  {
-    title: 'General Repairs & Maintenance',
-    icon: <WrenchScrewdriverIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Plumbing, electrical, carpentry, and appliance repairs.'
-  },
-  {
-    title: 'Professional Cleaning',
-    icon: <HomeModernIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Scheduled deep cleaning, move-in/out cleaning, and regular housekeeping.'
-  },
-  {
-    title: 'Utility Setup & Management',
-    icon: <BoltIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Assistance with electricity, water, gas, and bill payments.'
-  },
-  {
-    title: 'Internet & Communications',
-    icon: <WifiIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Installation of internet, television, and phone lines.'
-  },
-  {
-    title: 'Painting & Decorating',
-    icon: <PaintBrushIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Interior/exterior painting, wallpapering, and design consultation.'
-  },
-  {
-    title: 'Verified Contractor Sourcing',
-    icon: <UserGroupIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Finding trusted professionals for remodeling, and installations.'
-  },
-  {
-    title: 'Home Security',
-    icon: <ShieldCheckIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Alarm system installation, camera setup, and security assessments.'
-  },
-  {
-    title: 'Pest Control',
-    icon: <FireIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Safe and effective solutions for all common household pests.'
-  },
-  {
-    title: 'Moving & Storage',
-    icon: <InboxIcon className="w-8 h-8 text-blue-500" />,
-    description: 'Local moving assistance and secure storage solutions.'
-  }
-];
-
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
 const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) => {
+  const { t } = useTranslation('common');
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -88,6 +44,54 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const homeServices = [
+    {
+      title: t('homeServices.repairs'),
+      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.repairsDesc')
+    },
+    {
+      title: t('homeServices.cleaning'),
+      icon: <HomeModernIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.cleaningDesc')
+    },
+    {
+      title: t('homeServices.utilities'),
+      icon: <BoltIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.utilitiesDesc')
+    },
+    {
+      title: t('homeServices.internet'),
+      icon: <WifiIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.internetDesc')
+    },
+    {
+      title: t('homeServices.painting'),
+      icon: <PaintBrushIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.paintingDesc')
+    },
+    {
+      title: t('homeServices.contractors'),
+      icon: <UserGroupIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.contractorsDesc')
+    },
+    {
+      title: t('homeServices.security'),
+      icon: <ShieldCheckIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.securityDesc')
+    },
+    {
+      title: t('homeServices.pest'),
+      icon: <FireIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.pestDesc')
+    },
+    {
+      title: t('homeServices.moving'),
+      icon: <InboxIcon className="w-8 h-8 text-blue-500" />,
+      description: t('homeServices.movingDesc')
+    }
+  ];
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
@@ -143,8 +147,8 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
   return (
     <>
       <Head>
-        <title>Home Services | San Luis Way - Reliable Home Support</title>
-        <meta name="description" content="Comprehensive home services in San Luis Potosí, including repairs, cleaning, utility setup, and contractor sourcing." />
+        <title>{t('homeServices.pageTitle')}</title>
+        <meta name="description" content={t('homeServices.metaDescription')} />
         <meta name="keywords" content="home services, home repairs, cleaning services, utility setup, contractors, San Luis Potosí" />
       </Head>
 
@@ -158,9 +162,9 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
         />
         <div className="absolute inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Home Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">{t('homeServices.heroTitle')}</h1>
             <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
-              Reliable and professional home services to make your life easier. From maintenance to cleaning, we've got you covered.
+              {t('homeServices.heroDescription')}
             </p>
           </div>
         </div>
@@ -168,7 +172,7 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
 
       <div className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">{t('services.ourServices')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {homeServices.map((service) => (
               <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
@@ -187,17 +191,17 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
         <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Request Home Services</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">{t('homeServices.contactTitle')}</h2>
               {submitStatus === 'success' ? (
                 <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
-                  <p className="font-medium">Thank you for your request!</p>
-                  <p>We've received it and will get back to you shortly.</p>
+                  <p className="font-medium">{t('forms.thankYou')}</p>
+                  <p>{t('forms.weWillContact')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Name
+                      {t('forms.yourName')}
                     </label>
                     <input
                       type="text"
@@ -212,7 +216,7 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email Address
+                      {t('forms.emailAddress')}
                     </label>
                     <input
                       type="email"
@@ -227,7 +231,7 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
+                      {t('forms.message')}
                     </label>
                     <textarea
                       id="message"
@@ -237,7 +241,7 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
                       required
                       rows={5}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Please describe the services you need..."
+                      placeholder={t('homeServices.messagePlaceholder')}
                     />
                   </div>
 
@@ -256,11 +260,11 @@ const HomeServicesPage = ({ recaptchaSiteKey }: { recaptchaSiteKey: string }) =>
                     disabled={isSubmitting}
                     className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Request'}
+                    {isSubmitting ? t('forms.sending') : t('forms.sendRequest')}
                   </button>
                   {submitStatus === 'error' && (
                     <p className="text-center text-red-600 mt-4">
-                        Please complete the reCAPTCHA or try again later.
+                      {t('forms.recaptchaError')}
                     </p>
                   )}
                 </form>

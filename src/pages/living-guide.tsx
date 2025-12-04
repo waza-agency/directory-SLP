@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function LivingGuidePage() {
   const [activeSection, setActiveSection] = useState('culture');
@@ -598,9 +599,10 @@ export default function LivingGuidePage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 }; 

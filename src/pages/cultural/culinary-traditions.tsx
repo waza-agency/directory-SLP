@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function CulinaryTraditionsPage() {
 
@@ -426,9 +427,10 @@ export default function CulinaryTraditionsPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };

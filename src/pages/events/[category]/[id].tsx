@@ -14,6 +14,7 @@ import {
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface EventDetailProps {
   event: Event | null;
@@ -49,7 +50,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const category = params?.category as string;
     const id = params?.id as string;
@@ -82,6 +83,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         event: event || null,
         relatedEvents: relatedEvents || [],
       },
@@ -91,6 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
     console.error('Error fetching event data:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         event: null,
         relatedEvents: [],
       },

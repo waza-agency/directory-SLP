@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import AdUnit from '../components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function ExpatGuidePage() {
   const [activeSection, setActiveSection] = useState('emergency');
@@ -536,9 +537,10 @@ export default function ExpatGuidePage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };

@@ -50,7 +50,16 @@ What's happening in SLP that affects residents and visitors.
 - Plano Informativo
 - Government press releases (slp.gob.mx)
 
-### 🎭 PILLAR 2: EVENTS & ENTERTAINMENT
+### 🌦️ PILLAR 2: WEATHER & ENVIRONMENT (NEW)
+A detailed look at the week's weather and environmental conditions.
+
+**Content:**
+- 7-day forecast summary (temperatures, rain probability)
+- Air quality alerts
+- UV index warnings
+- Recommendations based on weather (e.g., "Carry an umbrella," "Perfect for hiking")
+
+### 🎭 PILLAR 3: EVENTS & ENTERTAINMENT
 What to do this week and beyond.
 
 **Event categories:**
@@ -62,7 +71,17 @@ What to do this week and beyond.
 - Educational (workshops, conferences, talks)
 - Wellness (yoga, meditation, health events)
 
-### 🏙️ PILLAR 3: CITY LIFE & LIFESTYLE
+### 🧠 PILLAR 4: DID YOU KNOW? (Curious Fact) (NEW)
+A dedicated section for a curious, historical, or cultural fact about San Luis Potosí to educate and engage readers.
+
+**Content:**
+- Historical anecdotes
+- Legends and myths
+- Architectural details
+- Famous Potosinos
+- Origin of street names or traditions
+
+### 🏙️ PILLAR 5: CITY LIFE & LIFESTYLE
 The pulse of daily life in San Luis Potosí.
 
 **Topics to cover:**
@@ -76,7 +95,15 @@ The pulse of daily life in San Luis Potosí.
 - Local personalities and community stories
 - Hidden gems and discoveries
 
-### 🌿 PILLAR 4: EXPLORE & DISCOVER
+### 😂 PILLAR 6: MEME / HUMOR OF THE WEEK (NEW)
+A lighthearted section capturing the "Potosino experience" through humor.
+
+**Content:**
+- A relatable meme image or description
+- "Just Potosino Things" jokes
+- Relatable observations about local life (traffic, weather, slang)
+
+### 🌿 PILLAR 7: EXPLORE & DISCOVER
 Beyond the city - the region's attractions.
 
 **Topics to cover:**
@@ -88,7 +115,7 @@ Beyond the city - the region's attractions.
 - Seasonal recommendations
 - New attractions or experiences
 
-### 💡 PILLAR 5: EXPAT ESSENTIALS
+### 💡 PILLAR 8: EXPAT ESSENTIALS
 Practical information for navigating life in SLP.
 
 **Topics to cover:**
@@ -128,9 +155,10 @@ TOPICS:
 - Public transportation updates
 - Airport and travel news
 - University news (UASLP, Tec de Monterrey)
-- Weather and environmental updates
 - Tourism initiatives
 - Public safety (relevant updates, not crime reports)
+
+Also identify 3-4 "Quick Hits": short, practical updates (weather, traffic, construction, small alerts) to include as a bulleted list.
 
 SOURCES:
 - El Sol de San Luis (elsoldesanluis.com.mx)
@@ -142,12 +170,30 @@ SOURCES:
 
 FORMAT FOR EACH NEWS ITEM:
 - Headline (translated to English)
-- 2-3 sentence summary
+- **Detailed Summary (4-5 sentences)** providing context and depth.
 - Why it matters to residents/expats
 - Source link
+- **Image URL** (if available from search source)
+
+FORMAT FOR QUICK HITS:
+- List 3-4 short, practical updates.
+- Format each as HTML: "<strong>[Category/Topic]:</strong> [Brief Update text]"
+- Example: "<strong>Traffic Alert:</strong> Continued maintenance on Himno Nacional."
 
 ═══════════════════════════════════════════════════════════
-SECTION 2: EVENTS & ENTERTAINMENT
+SECTION 2: WEATHER FORECAST
+═══════════════════════════════════════════════════════════
+
+Search for "Clima San Luis Potosí [DATE RANGE]" and "Calidad del aire San Luis Potosí".
+
+FORMAT:
+- General Outlook: (Sunny, rainy, cold front, etc.)
+- High/Low Temps: Range for the week
+- Rain Probability: Days with rain expected
+- Recommendation: (e.g. "Bring a jacket," "High UV warning")
+
+═══════════════════════════════════════════════════════════
+SECTION 3: EVENTS & ENTERTAINMENT
 ═══════════════════════════════════════════════════════════
 
 Search for events happening [DATE RANGE] + preview next 2 weeks:
@@ -175,12 +221,23 @@ SOURCES:
 FORMAT FOR EACH EVENT:
 - Event name (English + Spanish if applicable)
 - Date, time, location with address
-- Brief description (what, why attend, what's special)
+- **Detailed description** (3-4 sentences explaining what it is and why it's worth going)
 - Cost/ticket info
 - Website or ticket link
+- **Image URL** (if available)
 
 ═══════════════════════════════════════════════════════════
-SECTION 3: CITY LIFE & LIFESTYLE
+SECTION 4: DID YOU KNOW? (Curious Fact)
+═══════════════════════════════════════════════════════════
+
+Search for "datos curiosos San Luis Potosí", "leyendas San Luis Potosí", or "historia San Luis Potosí".
+
+FORMAT:
+- Title: Catchy header
+- Fact: 3-4 sentences explaining the historical or cultural fact.
+
+═══════════════════════════════════════════════════════════
+SECTION 5: CITY LIFE & LIFESTYLE
 ═══════════════════════════════════════════════════════════
 
 Search for lifestyle news and updates:
@@ -208,7 +265,18 @@ FORMAT:
 - Why readers should care
 
 ═══════════════════════════════════════════════════════════
-SECTION 4: EXPLORE & DISCOVER
+SECTION 6: MEME / HUMOR
+═══════════════════════════════════════════════════════════
+
+Search for "memes San Luis Potosí", "chistes potosinos", or relate to a current event (e.g. cold weather, traffic).
+
+FORMAT:
+- Title: "Meme of the Week" or "Potosino Humor"
+- Description: Text describing the humorous situation or meme image.
+- Image URL: Link to a relevant funny image if found (or use a placeholder).
+
+═══════════════════════════════════════════════════════════
+SECTION 7: EXPLORE & DISCOVER
 ═══════════════════════════════════════════════════════════
 
 Search for regional tourism and outdoor activities:
@@ -353,7 +421,7 @@ Organize findings by section with:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>San Luis Way Weekly | [DATE RANGE]</title>
+  <title>San Luis Way Weekly | [DATE_RANGE]</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -439,6 +507,7 @@ Organize findings by section with:
       border-radius: 12px;
       font-size: 12px;
       font-weight: bold;
+      margin-bottom: 8px;
     }
 
     .meta {
@@ -499,6 +568,23 @@ Organize findings by section with:
             </td>
           </tr>
 
+          <!-- WEATHER & ENVIRONMENT (New Pillar 2) -->
+          <tr>
+            <td class="section section-alt" style="background-color: #F0F9FF; padding: 20px 30px;">
+              <h2 style="font-size: 18px; color: #0C4A6E; margin-bottom: 10px;">
+                <span class="emoji">🌦️</span> Weather Watch
+              </h2>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <p style="margin: 0; font-size: 14px; color: #0C4A6E;"><strong>Forecast:</strong> [WEATHER_SUMMARY]</p>
+                    <p style="margin: 5px 0 0 0; font-size: 14px; color: #0C4A6E;"><strong>Tip:</strong> [WEATHER_RECOMMENDATION]</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
           <!-- NEWS SECTION -->
           <tr>
             <td class="section section-alt" style="background-color: #FEF2F2;">
@@ -510,6 +596,8 @@ Organize findings by section with:
               <!-- News Item 1 -->
               <div class="card news-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
                 <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_1]</h3>
+                <!-- Optional Image for News 1 -->
+                <!-- <img src="[NEWS_IMAGE_1]" style="width: 100%; border-radius: 4px; margin-bottom: 10px;"> -->
                 <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[NEWS_SUMMARY_1 - 2-3 sentences]</p>
                 <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_1]</p>
               </div>
@@ -521,7 +609,7 @@ Organize findings by section with:
                 <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_2]</p>
               </div>
 
-              <!-- Quick Hits -->
+              <!-- Quick Hits (Practical Info) -->
               <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; margin-top: 15px;">
                 <p style="font-weight: bold; font-size: 14px; margin: 0 0 10px 0; color: #6B7280;">Quick hits:</p>
                 <ul style="margin: 0; padding-left: 20px; color: #4B5563; font-size: 14px;">
@@ -547,6 +635,8 @@ Organize findings by section with:
                 <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
                   📅 [DATE_TIME_1] &nbsp;|&nbsp; 📍 [VENUE_1]
                 </p>
+                <!-- Optional Image for Event 1 -->
+                <!-- <img src="[EVENT_IMAGE_1]" style="width: 100%; border-radius: 4px; margin-bottom: 10px;"> -->
                 <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_1 - 2-3 sentences]</p>
                 <p style="margin: 0; font-size: 13px;">
                   <span style="color: #059669; font-weight: bold;">💰 [COST_1]</span>
@@ -629,6 +719,17 @@ Organize findings by section with:
             </td>
           </tr>
 
+          <!-- DID YOU KNOW? (New Pillar 4) -->
+          <tr>
+            <td class="section" style="padding: 30px; background-color: #FFFBEB;">
+              <h2 style="font-size: 20px; color: #92400E; margin-bottom: 15px;">
+                <span class="emoji">🧠</span> Did You Know?
+              </h2>
+              <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[FACT_TITLE]</h3>
+              <p style="font-size: 14px; color: #78350F; margin: 0;">[FACT_BODY]</p>
+            </td>
+          </tr>
+
           <!-- AROUND TOWN -->
           <tr>
             <td class="section" style="padding: 30px;">
@@ -642,11 +743,6 @@ Organize findings by section with:
                 <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #1F2937;">[NEW_PLACE_NAME]</h4>
                 <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[DESCRIPTION - what it is, why check it out]</p>
                 <p style="margin: 0; font-size: 13px; color: #6B7280;">📍 [ADDRESS] | <a href="[LINK]" style="color: #2563EB;">@instagram</a></p>
-              </div>
-
-              <div style="background-color: #FEF3C7; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <p style="margin: 0 0 5px 0; font-weight: bold; color: #92400E; font-size: 13px;">👀 SPOTTED</p>
-                <p style="margin: 0; font-size: 14px; color: #4B5563;">[INTERESTING_OBSERVATION_OR_TREND]</p>
               </div>
 
               <div style="background-color: #EFF6FF; border-radius: 8px; padding: 20px;">
@@ -663,6 +759,8 @@ Organize findings by section with:
                 <span class="emoji">🌿</span> Weekend Escape
               </h2>
               <h3 style="font-size: 18px; color: #166534; margin: 0 0 15px 0;">[DESTINATION_NAME]</h3>
+              <!-- Optional Image for Escape -->
+              <!-- <img src="[ESCAPE_IMAGE]" style="width: 100%; border-radius: 4px; margin-bottom: 15px;"> -->
               <p style="font-size: 14px; color: #4B5563; margin: 0 0 15px 0;">[3-4 sentences about a day trip idea, Huasteca update, or regional attraction. Include practical info.]</p>
               <a href="https://www.sanluisway.com/outdoors" style="color: #166534; font-weight: bold; font-size: 14px;">Explore more day trips →</a>
             </td>
@@ -711,6 +809,17 @@ Organize findings by section with:
               <div style="text-align: center; margin-top: 20px;">
                 <a href="https://www.sanluisway.com/events" style="color: #2563EB; font-weight: bold; font-size: 14px;">Mark your calendar →</a>
               </div>
+            </td>
+          </tr>
+
+          <!-- MEME OF THE WEEK (New Pillar 6) -->
+          <tr>
+            <td class="section" style="padding: 20px 30px; text-align: center; background-color: #FFFFFF;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+                <span class="emoji">😂</span> Potosino Humor
+              </h2>
+              <img src="[MEME_IMAGE_URL]" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;">
+              <p style="font-size: 14px; color: #4B5563; font-style: italic;">[MEME_DESCRIPTION_OR_JOKE]</p>
             </td>
           </tr>
 
@@ -982,6 +1091,61 @@ Always include in footer:
 - **Instagram:** https://www.instagram.com/sanluisway/
 - **TikTok:** https://www.tiktok.com/@sanluisway
 - **Email:** info@sanluisway.com
+---
+
+---
+
+## 12. Visual & Footer Rules
+
+- **Hero + highlight imagery:** Each newsletter must include at least two photos that visually anchor the issue. Place a hero image immediately after the opening hook and insert a second illustration inside a highlight card (such as Top Picks, Weekend Escape, or Around Town). Always supply meaningful `alt` text describing what readers see (for example, `alt="Atlético San Luis fans celebrating a goal at Estadio Alfonso Lastras"`).
+- **Image placement rules:** Keep images responsive (max-width: 100%, height auto, rounded corners) and store them on a stable CDN when possible. Do not leave the placeholders unresolved—fetch real image URLs as part of generation and credit the source if the model provides one.
+- **Blog + CTA requirement:** Promote one blog post per issue inside the “From the Blog” card and follow it with the CTA block. The CTA should include a confident headline, two sentences of practical persuasion, and a bold button that points to the recommended story or another actionable experience. Tie the CTA copy to our socials by reminding readers to follow `@sanluisway` in the closing block.
+- **Unified closing/footer:** Reuse the closing and footer markup from the December 1, 2025 newsletter exactly, including the paragraphs, social links, sign-off, and San Luis Way footer block below (only adjust `[UNSUBSCRIBE_URL]` and `[PREFERENCES_URL]` if deployment-specific links are required).
+
+```html
+          <!-- CLOSING -->
+          <tr>
+            <td class="section" style="padding: 30px; text-align: center; background-color: #F9FAFB;">
+              <p style="font-size: 15px; color: #4B5563; margin: 0 0 15px 0;">That's a wrap for this week!</p>
+              <p style="font-size: 14px; color: #6B7280; margin: 0 0 10px 0;">Have news or events to share? <strong>Hit reply</strong> - we love hearing from you.</p>
+              <p style="font-size: 14px; color: #6B7280; margin: 0 0 25px 0;">Know someone who'd enjoy this? <strong>Forward it their way!</strong></p>
+
+              <!-- Social Links -->
+              <div style="margin-bottom: 20px;">
+                <a href="https://www.sanluisway.com" style="display: inline-block; margin: 0 10px; color: #4B5563; text-decoration: none; font-size: 13px;">🌐 Website</a>
+                <a href="https://www.instagram.com/sanluisway/" style="display: inline-block; margin: 0 10px; color: #4B5563; text-decoration: none; font-size: 13px;">📸 Instagram</a>
+                <a href="https://www.tiktok.com/@sanluisway" style="display: inline-block; margin: 0 10px; color: #4B5563; text-decoration: none; font-size: 13px;">🎵 TikTok</a>
+              </div>
+
+              <p style="font-size: 16px; color: #1F2937; margin: 0;">
+                Hasta la próxima,<br>
+                <strong>The San Luis Way Team</strong> 🌵
+              </p>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="padding: 25px 30px; background-color: #1F2937; text-align: center;">
+              <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="120" style="max-width: 120px; height: auto; margin-bottom: 15px; opacity: 0.9;">
+              <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 0 0 10px 0;">
+                San Luis Way | Your guide to life in San Luis Potosí
+              </p>
+              <p style="color: rgba(255,255,255,0.6); font-size: 12px; margin: 0 0 15px 0;">
+                San Luis Potosí, México
+              </p>
+              <p style="margin: 0;">
+                <a href="[UNSUBSCRIBE_URL]" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: underline;">Unsubscribe</a>
+                <span style="color: rgba(255,255,255,0.4); margin: 0 10px;">|</span>
+                <a href="[PREFERENCES_URL]" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: underline;">Update Preferences</a>
+              </p>
+            </td>
+          </tr>
+```
+
+> The extra paragraph in the footer reiterating “SanLuisWay.com keeps expats and locals connected…” must stay so every issue reminds readers about the site’s mission.
+
+> Do not modify the copy, emojis, or layout of this closing/footer block unless a future style refresh is approved. Update the unsubscribe/preferences anchors only when configuration requires different destinations.
 
 ---
 

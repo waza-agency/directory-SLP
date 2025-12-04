@@ -12,6 +12,8 @@ import {
   ChatBubbleBottomCenterTextIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 interface ContactFormData {
   name: string;
@@ -19,48 +21,17 @@ interface ContactFormData {
   message: string;
 }
 
-const wellnessServices = [
-  {
-    title: 'Mental Health Support',
-    icon: <HeartIcon className="w-8 h-8 text-rose-500" />,
-    description: 'Access to therapists and counselors'
-  },
-  {
-    title: 'Fitness & Recreation',
-    icon: <SparklesIcon className="w-8 h-8 text-rose-500" />,
-    description: 'Find gyms, personal trainers, and sports clubs'
-  },
-  {
-    title: 'Holistic Health',
-    icon: <SunIcon className="w-8 h-8 text-rose-500" />,
-    description: 'Yoga, meditation, acupuncture, and more'
-  },
-  {
-    title: 'Nutritional Guidance',
-    icon: <BeakerIcon className="w-8 h-8 text-rose-500" />,
-    description: 'Connect with nutritionists and dietitians'
-  },
-  {
-    title: 'Support Networks',
-    icon: <UserGroupIcon className="w-8 h-8 text-rose-500" />,
-    description: 'Join wellness groups and communities'
-  },
-  {
-    title: 'Health Coaching',
-    icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-rose-500" />,
-    description: 'Personalized coaching to achieve your health goals'
-  }
-];
-
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
 export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
+  const { t } = useTranslation('common');
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -70,6 +41,39 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const wellnessServices = [
+    {
+      title: t('wellness.mentalHealth'),
+      icon: <HeartIcon className="w-8 h-8 text-rose-500" />,
+      description: t('wellness.mentalHealthDesc')
+    },
+    {
+      title: t('wellness.fitness'),
+      icon: <SparklesIcon className="w-8 h-8 text-rose-500" />,
+      description: t('wellness.fitnessDesc')
+    },
+    {
+      title: t('wellness.holistic'),
+      icon: <SunIcon className="w-8 h-8 text-rose-500" />,
+      description: t('wellness.holisticDesc')
+    },
+    {
+      title: t('wellness.nutrition'),
+      icon: <BeakerIcon className="w-8 h-8 text-rose-500" />,
+      description: t('wellness.nutritionDesc')
+    },
+    {
+      title: t('wellness.support'),
+      icon: <UserGroupIcon className="w-8 h-8 text-rose-500" />,
+      description: t('wellness.supportDesc')
+    },
+    {
+      title: t('wellness.coaching'),
+      icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8 text-rose-500" />,
+      description: t('wellness.coachingDesc')
+    }
+  ];
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
@@ -125,8 +129,8 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
   return (
     <>
       <Head>
-        <title>Health & Wellness Services | San Luis Way</title>
-        <meta name="description" content="Holistic wellness services for expats in San Luis Potosí, including mental health, fitness, and nutritional support." />
+        <title>{t('wellness.pageTitle')}</title>
+        <meta name="description" content={t('wellness.metaDescription')} />
         <meta name="keywords" content="health and wellness, mental health, fitness, nutrition, holistic health, san luis potosi" />
       </Head>
 
@@ -140,9 +144,9 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
         />
         <div className="absolute inset-0 bg-teal-800 bg-opacity-60 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Health & Wellness</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">{t('wellness.heroTitle')}</h1>
             <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
-              Your guide to health and wellness in San Luis Potosí. Access quality healthcare, fitness centers, and mental health support.
+              {t('wellness.heroDescription')}
             </p>
           </div>
         </div>
@@ -150,7 +154,7 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
 
       <div className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">{t('services.ourServices')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {wellnessServices.map((service) => (
               <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
@@ -169,17 +173,17 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
         <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Contact Us for Wellness Support</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">{t('wellness.contactTitle')}</h2>
               {submitStatus === 'success' ? (
                 <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
-                  <p className="font-medium">Thank you for your inquiry!</p>
-                  <p>We've received your request and will contact you shortly.</p>
+                  <p className="font-medium">{t('forms.thankYou')}</p>
+                  <p>{t('forms.weWillContact')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Name
+                      {t('forms.yourName')}
                     </label>
                     <input
                       type="text"
@@ -194,7 +198,7 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email Address
+                      {t('forms.emailAddress')}
                     </label>
                     <input
                       type="email"
@@ -209,7 +213,7 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
+                      {t('forms.message')}
                     </label>
                     <textarea
                       id="message"
@@ -219,7 +223,7 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
                       required
                       rows={5}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-                      placeholder="Tell us about your wellness goals..."
+                      placeholder={t('wellness.messagePlaceholder')}
                     />
                   </div>
 
@@ -238,11 +242,11 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
                     disabled={isSubmitting}
                     className="w-full bg-rose-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-rose-700 transition-colors disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                    {isSubmitting ? t('forms.sending') : t('forms.sendInquiry')}
                   </button>
                   {submitStatus === 'error' && (
                     <p className="text-center text-red-600 mt-4">
-                        Please complete the reCAPTCHA or try again later.
+                      {t('forms.recaptchaError')}
                     </p>
                   )}
                 </form>

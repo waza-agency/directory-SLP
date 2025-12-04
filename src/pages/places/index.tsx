@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface PlacesPageProps {
   places: Place[];
@@ -305,7 +306,7 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     // Fetch all places
     const { data: places, error: placesError } = await supabase
@@ -331,6 +332,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         places: places || [],
         featuredPlaces: featuredPlaces || [],
       },
@@ -339,6 +341,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     console.error('Error in getStaticProps:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         places: [],
         featuredPlaces: [],
       },

@@ -27,6 +27,14 @@ module.exports = {
       moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1'
       },
+    },
+    {
+      displayName: 'Lib Tests',
+      testMatch: ['<rootDir>/src/lib/**/*.test.ts'],
+      testEnvironment: 'node',
+      moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1'
+      },
     }
   ]
 }

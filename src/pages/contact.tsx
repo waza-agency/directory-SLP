@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useState, useRef, useEffect } from 'react';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface ContactFormData {
   name: string;
@@ -11,9 +12,10 @@ interface ContactFormData {
   phone?: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };

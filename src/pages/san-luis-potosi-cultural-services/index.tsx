@@ -12,6 +12,7 @@ import {
   TicketIcon,
   MapPinIcon,
 } from '@heroicons/react/24/outline';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface ContactFormData {
   name: string;
@@ -53,9 +54,10 @@ const culturalServices = [
 ];
 
 
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };

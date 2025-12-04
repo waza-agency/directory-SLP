@@ -5,12 +5,13 @@ import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface OpenForBreakfastPageProps {
   places: Place[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   // Query places that are open for breakfast
   const { data: places, error } = await supabase
     .from('places')
@@ -22,6 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     console.error('Error fetching breakfast places:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         places: [],
       },
     };
@@ -45,6 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       places: mappedPlaces,
     },
   };

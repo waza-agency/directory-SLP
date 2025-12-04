@@ -12,6 +12,8 @@ import {
   TruckIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 interface ContactFormData {
   name: string;
@@ -19,48 +21,17 @@ interface ContactFormData {
   message: string;
 }
 
-const petServices = [
-  {
-    title: 'Veterinary Services',
-    icon: <HeartIcon className="w-8 h-8 text-cyan-500" />,
-    description: 'Access to trusted vets and emergency care'
-  },
-  {
-    title: 'Pet Sitting & Boarding',
-    icon: <HomeIcon className="w-8 h-8 text-cyan-500" />,
-    description: 'Reliable care for your pets when you are away'
-  },
-  {
-    title: 'Grooming',
-    icon: <SparklesIcon className="w-8 h-8 text-cyan-500" />,
-    description: 'Professional grooming services to keep your pet looking great'
-  },
-  {
-    title: 'Training & Behavior',
-    icon: <UserGroupIcon className="w-8 h-8 text-cyan-500" />,
-    description: 'Expert training for a well-behaved companion'
-  },
-  {
-    title: 'Pet Relocation',
-    icon: <TruckIcon className="w-8 h-8 text-cyan-500" />,
-    description: 'Assistance with national and international pet transport'
-  },
-  {
-    title: 'Pet Insurance',
-    icon: <ShieldCheckIcon className="w-8 h-8 text-cyan-500" />,
-    description: 'Find the best insurance options for your pet'
-  }
-];
-
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       recaptchaSiteKey: getRecaptchaSiteKey(),
     },
   };
 };
 
 export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey: string }) {
+  const { t } = useTranslation('common');
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -70,6 +41,39 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const petServices = [
+    {
+      title: t('petCare.veterinary'),
+      icon: <HeartIcon className="w-8 h-8 text-cyan-500" />,
+      description: t('petCare.veterinaryDesc')
+    },
+    {
+      title: t('petCare.sitting'),
+      icon: <HomeIcon className="w-8 h-8 text-cyan-500" />,
+      description: t('petCare.sittingDesc')
+    },
+    {
+      title: t('petCare.grooming'),
+      icon: <SparklesIcon className="w-8 h-8 text-cyan-500" />,
+      description: t('petCare.groomingDesc')
+    },
+    {
+      title: t('petCare.training'),
+      icon: <UserGroupIcon className="w-8 h-8 text-cyan-500" />,
+      description: t('petCare.trainingDesc')
+    },
+    {
+      title: t('petCare.relocation'),
+      icon: <TruckIcon className="w-8 h-8 text-cyan-500" />,
+      description: t('petCare.relocationDesc')
+    },
+    {
+      title: t('petCare.insurance'),
+      icon: <ShieldCheckIcon className="w-8 h-8 text-cyan-500" />,
+      description: t('petCare.insuranceDesc')
+    }
+  ];
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaValue(token);
@@ -125,8 +129,8 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
   return (
     <>
       <Head>
-        <title>Pet Care Services | San Luis Way</title>
-        <meta name="description" content="Complete pet care services for expats in San Luis Potosí, including veterinary, grooming, sitting, and relocation support." />
+        <title>{t('petCare.pageTitle')}</title>
+        <meta name="description" content={t('petCare.metaDescription')} />
         <meta name="keywords" content="pet care, veterinary, pet grooming, pet sitting, pet relocation, san luis potosi" />
       </Head>
 
@@ -140,9 +144,9 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
         />
         <div className="absolute inset-0 bg-yellow-800 bg-opacity-60 flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">Pet Care Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-yellow-400">{t('petCare.heroTitle')}</h1>
             <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
-              Comprehensive and compassionate care for your beloved pets. From grooming to veterinary services, we're here for you.
+              {t('petCare.heroDescription')}
             </p>
           </div>
         </div>
@@ -150,7 +154,7 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
 
       <div className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">{t('services.ourServices')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {petServices.map((service) => (
               <div key={service.title} className="bg-gray-50 p-8 rounded-lg shadow-sm text-center transition-transform hover:scale-105">
@@ -169,17 +173,17 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
         <div className="container mx-auto px-4">
           <section className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Contact Us for Pet Care</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">{t('petCare.contactTitle')}</h2>
               {submitStatus === 'success' ? (
                 <div className="text-center p-4 bg-green-100 text-green-800 rounded-lg">
-                  <p className="font-medium">Thank you for your inquiry!</p>
-                  <p>We'll get back to you soon with information about our pet services.</p>
+                  <p className="font-medium">{t('forms.thankYou')}</p>
+                  <p>{t('forms.weWillContact')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Name
+                      {t('forms.yourName')}
                     </label>
                     <input
                       type="text"
@@ -194,7 +198,7 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email Address
+                      {t('forms.emailAddress')}
                     </label>
                     <input
                       type="email"
@@ -209,7 +213,7 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
+                      {t('forms.message')}
                     </label>
                     <textarea
                       id="message"
@@ -219,7 +223,7 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
                       required
                       rows={5}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                      placeholder="Tell us about your pet and the services you need..."
+                      placeholder={t('petCare.messagePlaceholder')}
                     />
                   </div>
 
@@ -238,11 +242,11 @@ export default function PetCareServices({ recaptchaSiteKey }: { recaptchaSiteKey
                     disabled={isSubmitting}
                     className="w-full bg-cyan-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                    {isSubmitting ? t('forms.sending') : t('forms.sendInquiry')}
                   </button>
                   {submitStatus === 'error' && (
                     <p className="text-center text-red-600 mt-4">
-                        Please complete the reCAPTCHA or try again later.
+                      {t('forms.recaptchaError')}
                     </p>
                   )}
                 </form>

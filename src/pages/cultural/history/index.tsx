@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -31,9 +32,10 @@ import {
   MusicalNoteIcon as FestivalIcon
 } from '@heroicons/react/24/outline';
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };

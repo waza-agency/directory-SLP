@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { CalendarIcon, MapPinIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import EventList from '@/components/EventList';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface CulturalPageProps {
   events: Event[];
@@ -506,7 +507,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   try {
     // Fetch events marked for cultural calendar
     const { data: events, error } = await supabase
@@ -522,6 +523,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
       // Return empty events array instead of throwing
       return {
         props: {
+          ...(await serverSideTranslations(locale ?? 'es', ['common'])),
           events: [],
         },
       };
@@ -529,6 +531,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: events || [],
       },
     };
@@ -537,6 +540,7 @@ export const getStaticProps: GetStaticProps = async ({ }) => {
     // Return empty events array on any error
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: [],
       },
     };

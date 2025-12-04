@@ -11,6 +11,7 @@ import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { AuthProvider } from '@/lib/supabase-auth';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { appWithTranslation } from 'next-i18next';
 
 // Create a single instance of the Supabase client
 const supabaseClient = createPagesBrowserClient();
@@ -134,4 +135,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default App;
+export default appWithTranslation(App);

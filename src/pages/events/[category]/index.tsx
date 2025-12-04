@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { CalendarIcon, MapPinIcon, ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface EventsPageProps {
   events: Event[];
@@ -32,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const category = params?.category as string;
 
@@ -79,6 +80,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: filteredEvents || [],
         categoryCounts,
         category,
@@ -88,6 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     console.error('Error al obtener eventos:', error);
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: [],
         categoryCounts: {
           all: 0,

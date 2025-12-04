@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllBrands, getBrandBySlug, generateBrandSlug, Brand } from '../../lib/brands';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BrandPageProps {
   brand: Brand;
@@ -171,7 +172,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   try {
     const slug = params?.slug as string;
 
@@ -334,6 +335,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale = 'en' }) 
 
     return {
       props: {
+        ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         brand,
       },
     };
