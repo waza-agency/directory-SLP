@@ -77,7 +77,7 @@ export default function Header() {
       <div className="bg-gradient-to-r from-primary to-secondary h-1 animate-pulse-slow"></div>
 
       {/* Main Navigation Bar */}
-      <div className="bg-background/95 backdrop-blur-md shadow-elegant border-b border-gray-100/50">
+      <div className="bg-background/95 backdrop-blur-md shadow-elegant border-b border-gray-100/50 relative z-20">
         <div className="container-responsive flex justify-between items-center py-5">
           <Link href="/" className="flex items-center hover-scale transition-transform duration-200">
             <Image
@@ -219,7 +219,7 @@ export default function Header() {
       </div>
 
       {/* Categories Navigation Bar */}
-      <div className="bg-background-alt/90 backdrop-blur-sm border-b border-gray-100 hidden lg:block">
+      <div className="bg-background-alt/90 backdrop-blur-sm border-b border-gray-100 hidden lg:block relative z-10">
         <div className="container-responsive">
           <div className="flex items-center justify-between h-14">
             {/* Categories */}
