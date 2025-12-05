@@ -62,7 +62,7 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
   }
 
   return (
-    <div className="relative z-50" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="text-gray-700 hover:text-primary transition-all duration-200 px-4 py-2.5 text-base border border-gray-200 rounded-xl hover:border-primary/30 hover:bg-primary/5 flex items-center hover:scale-105 focus-ring"
@@ -87,7 +87,7 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-3 w-44 bg-white border border-gray-200 rounded-xl shadow-xl py-2 z-[100] animate-scaleIn"
+          className="absolute right-0 mt-3 w-44 bg-white border border-gray-200 rounded-xl shadow-xl py-2 animate-scaleIn"
           role="listbox"
         >
           {locales?.map((locale) => (

@@ -77,7 +77,7 @@ export default function Header() {
       <div className="bg-gradient-to-r from-primary to-secondary h-1 animate-pulse-slow"></div>
 
       {/* Main Navigation Bar */}
-      <div className="bg-background/95 backdrop-blur-md shadow-elegant border-b border-gray-100/50 relative z-20">
+      <div className="bg-background/95 shadow-elegant border-b border-gray-100/50 relative z-20">
         <div className="container-responsive flex justify-between items-center py-5">
           <Link href="/" className="flex items-center hover-scale transition-transform duration-200">
             <Image
@@ -137,7 +137,7 @@ export default function Header() {
 
             {/* Authentication Buttons or User Menu */}
             {user ? (
-              <div className="relative z-[60]">
+              <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="text-gray-700 hover:text-primary transition-all duration-200 flex items-center hover:scale-105 focus-ring"
@@ -159,7 +159,7 @@ export default function Header() {
                 </button>
 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-xl shadow-strong py-2 z-[100] animate-scaleIn">
+                  <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-xl shadow-strong py-2 animate-scaleIn">
                     <Link
                       href="/account"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
@@ -219,7 +219,7 @@ export default function Header() {
       </div>
 
       {/* Categories Navigation Bar */}
-      <div className="bg-background-alt/90 backdrop-blur-sm border-b border-gray-100 hidden lg:block relative z-10">
+      <div className="bg-background-alt border-b border-gray-100 hidden lg:block relative z-10">
         <div className="container-responsive">
           <div className="flex items-center justify-between h-14">
             {/* Categories */}
