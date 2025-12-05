@@ -5,9 +5,11 @@ import { useState, useRef, useEffect } from 'react';
 const languageFlags: Record<string, string> = {
   en: '🇺🇸',
   es: '🇲🇽',
-  de: '🇩🇪',
-  ja: '🇯🇵',
-  zh: '🇨🇳',
+};
+
+const languageNames: Record<string, string> = {
+  en: 'English',
+  es: 'Español',
 };
 
 interface LanguageSwitcherProps {
@@ -52,7 +54,7 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
             }`}
           >
             <span>{languageFlags[locale]}</span>
-            <span>{t(`languages.${locale}`)}</span>
+            <span>{languageNames[locale]}</span>
           </button>
         ))}
       </div>
@@ -68,7 +70,7 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
         aria-haspopup="listbox"
       >
         <span className="mr-2">{languageFlags[currentLocale || 'es']}</span>
-        {t(`languages.${currentLocale}`)}
+        {languageNames[currentLocale || 'es']}
         <svg
           className={`ml-2 w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +103,7 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
               }`}
             >
               <span className="text-lg">{languageFlags[locale]}</span>
-              <span>{t(`languages.${locale}`)}</span>
+              <span>{languageNames[locale]}</span>
             </button>
           ))}
         </div>

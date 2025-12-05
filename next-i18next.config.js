@@ -4,13 +4,12 @@ const path = require('path');
 module.exports = {
   i18n: {
     defaultLocale: 'es',
-    locales: ['es', 'en', 'zh', 'ja', 'de'],
+    locales: ['es', 'en'],
+    localeDetection: false,
   },
   ns: ['common'],
   defaultNS: 'common',
-  fallbackLng: {
-    default: ['es'],
-  },
+  fallbackLng: 'es',
   localePath: path.resolve('./public/locales'),
   reloadOnPrerender: process.env.NODE_ENV === 'development',
 };
