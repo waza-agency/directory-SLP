@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const { data: places, error } = await supabase
     .from('places')
     .select("*")
-    .or('category.eq.restaurants-with-playgrounds,additional_categories.cs.{"restaurants-with-playgrounds"}')
+    .or('category.eq.restaurants-with-playgrounds,additional_categories.cs.["restaurants-with-playgrounds"]')
     .order('featured', { ascending: false })
     .order('name', { ascending: true });
 
