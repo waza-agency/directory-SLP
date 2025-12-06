@@ -18,6 +18,8 @@ import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 interface HomeProps {
   events: Event[];
@@ -76,67 +78,69 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 export default function Home({ events = [], featuredAdvertisers = [], featuredBrands = [] }: HomeProps) {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const { t } = useTranslation('common');
+  const { locale } = useRouter();
 
   // Outdoor activities data
   const outdoorActivities = [
     {
       id: 'hiking',
-      title: 'Hiking Trails',
-      description: 'Explore scenic mountain trails and natural landscapes',
+      title: t('homepage.outdoors.hiking.title'),
+      description: t('homepage.outdoors.hiking.description'),
       image: '/images/outdoors/hiking.jpg',
       link: '/outdoors#hiking',
-      linkText: 'Find Trails',
-      badge: 'Adventure',
+      linkText: t('homepage.outdoors.hiking.linkText'),
+      badge: t('homepage.outdoors.hiking.badge'),
       badgeColor: 'bg-green-500'
     },
     {
       id: 'camping',
-      title: 'Camping Sites',
-      description: 'Discover beautiful camping spots in the Sierra Madre Oriental',
+      title: t('homepage.outdoors.camping.title'),
+      description: t('homepage.outdoors.camping.description'),
       image: '/images/outdoors/camping.jpg',
       link: '/outdoors#camping',
-      linkText: 'View Sites',
-      badge: 'Nature',
+      linkText: t('homepage.outdoors.camping.linkText'),
+      badge: t('homepage.outdoors.camping.badge'),
       badgeColor: 'bg-blue-500'
     },
     {
       id: 'real-catorce',
-      title: 'Real de Catorce',
-      description: 'Visit this historic ghost town and UNESCO World Heritage site',
+      title: t('homepage.outdoors.realCatorce.title'),
+      description: t('homepage.outdoors.realCatorce.description'),
       image: '/images/outdoors/real-de-catorce-main.jpg',
       link: '/outdoors#real-catorce',
-      linkText: 'Plan Visit',
-      badge: 'Historic',
+      linkText: t('homepage.outdoors.realCatorce.linkText'),
+      badge: t('homepage.outdoors.realCatorce.badge'),
       badgeColor: 'bg-purple-500'
     },
     {
       id: 'media-luna',
-      title: 'Media Luna',
-      description: 'Crystal clear waters perfect for swimming and snorkeling',
+      title: t('homepage.outdoors.mediaLuna.title'),
+      description: t('homepage.outdoors.mediaLuna.description'),
       image: '/images/outdoors/media-luna.jpg',
       link: '/outdoors#media-luna',
-      linkText: 'Learn More',
-      badge: 'Swimming',
+      linkText: t('homepage.outdoors.mediaLuna.linkText'),
+      badge: t('homepage.outdoors.mediaLuna.badge'),
       badgeColor: 'bg-cyan-500'
     },
     {
       id: 'huasteca',
-      title: 'Huasteca Potosina',
-      description: 'Tropical paradise with waterfalls and jungle adventures',
+      title: t('homepage.outdoors.huasteca.title'),
+      description: t('homepage.outdoors.huasteca.description'),
       image: '/images/outdoors/huasteca-waterfall.jpg',
       link: '/outdoors#huasteca',
-      linkText: 'Explore',
-      badge: 'Waterfalls',
+      linkText: t('homepage.outdoors.huasteca.linkText'),
+      badge: t('homepage.outdoors.huasteca.badge'),
       badgeColor: 'bg-teal-500'
     },
     {
       id: 'xilitla',
-      title: 'Xilitla',
-      description: 'Surreal gardens and architectural wonders in the cloud forest',
+      title: t('homepage.outdoors.xilitla.title'),
+      description: t('homepage.outdoors.xilitla.description'),
       image: '/images/outdoors/xilitla.webp',
       link: '/outdoors#xilitla',
-      linkText: 'Discover',
-      badge: 'Surreal',
+      linkText: t('homepage.outdoors.xilitla.linkText'),
+      badge: t('homepage.outdoors.xilitla.badge'),
       badgeColor: 'bg-pink-500'
     }
   ];
@@ -145,51 +149,51 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
   const practicalGuides = [
     {
       id: 'family',
-      title: 'Family Activities',
-      description: 'Fun things to do with kids in San Luis Potosí',
+      title: t('homepage.practical.family.title'),
+      description: t('homepage.practical.family.description'),
       image: '/images/practical-categories/family-activities.webp',
       link: '/category/family-activities',
-      badge: 'Family',
+      badge: t('homepage.practical.family.badge'),
     },
     {
       id: 'rainy-day',
-      title: 'Rainy Day Activities',
-      description: 'Indoor fun for when the weather turns',
+      title: t('homepage.practical.rainyDay.title'),
+      description: t('homepage.practical.rainyDay.description'),
       image: '/images/practical-categories/activities-rainy-day.jpg',
       link: '/category/rainy-day-activities',
-      badge: 'Indoor',
+      badge: t('homepage.practical.rainyDay.badge'),
     },
     {
       id: 'playgrounds',
-      title: 'Restaurants with Playgrounds',
-      description: 'Dining spots where kids can play safely',
+      title: t('homepage.practical.playgrounds.title'),
+      description: t('homepage.practical.playgrounds.description'),
       image: '/images/practical-categories/restaurants-with-playgrounds.png',
       link: '/category/restaurants-with-playgrounds',
-      badge: 'Dining',
+      badge: t('homepage.practical.playgrounds.badge'),
     },
     {
       id: 'healthcare',
-      title: 'English-Speaking Healthcare',
-      description: 'Medical services for the international community',
+      title: t('homepage.practical.healthcare.title'),
+      description: t('homepage.practical.healthcare.description'),
       image: '/images/practical-categories/english-speaking-healthcare.jpg',
       link: '/category/english-speaking-healthcare',
-      badge: 'Health',
+      badge: t('homepage.practical.healthcare.badge'),
     },
     {
       id: 'markets',
-      title: 'International Markets',
-      description: 'Where to find imported goods and specialty foods',
+      title: t('homepage.practical.markets.title'),
+      description: t('homepage.practical.markets.description'),
       image: '/images/practical-categories/international-markets.jpg',
       link: '/category/international-markets',
-      badge: 'Shopping',
+      badge: t('homepage.practical.markets.badge'),
     },
     {
       id: 'parking',
-      title: 'Easy Parking Spots',
-      description: 'Guide to parking in the city center',
+      title: t('homepage.practical.parking.title'),
+      description: t('homepage.practical.parking.description'),
       image: '/images/practical-categories/easy-parking-spots.png',
       link: '/category/easy-parking-spots',
-      badge: 'Practical',
+      badge: t('homepage.practical.parking.badge'),
     }
   ];
 
@@ -231,17 +235,17 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
               {/* Refined Badge */}
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 mb-8 animate-fade-in">
                 <SparklesIcon className="w-5 h-5 text-primary" />
-                <span className="text-white font-medium text-sm tracking-wider uppercase">Trusted by 1,000+ Expats</span>
+                <span className="text-white font-medium text-sm tracking-wider uppercase">{t('homepage.hero.badge')}</span>
               </div>
 
               {/* Elegant Typography */}
               <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-[1.1] animate-slide-up tracking-tight">
-                Your Refined Life in<br />
-                <span className="text-primary italic">San Luis Potosí</span>
+                {t('homepage.hero.title1')}<br />
+                <span className="text-primary italic">{t('homepage.hero.title2')}</span>
               </h1>
 
               <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl leading-relaxed font-light animate-fade-in" style={{animationDelay: '200ms'}}>
-                Discover a sophisticated lifestyle where colonial charm meets modern comfort. Your curated guide to living, exploring, and thriving in Mexico's hidden gem.
+                {t('homepage.hero.description')}
               </p>
 
               {/* Elegant CTA Buttons */}
@@ -250,7 +254,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   href="#explore"
                   className="group inline-flex items-center justify-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-primary hover:text-white hover:scale-105 hover:shadow-2xl"
                 >
-                  Start Exploring
+                  {t('homepage.hero.cta1')}
                   <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -259,7 +263,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   href="/places"
                   className="inline-flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-gray-900 hover:border-white"
                 >
-                  View Places
+                  {t('homepage.hero.cta2')}
                 </Link>
               </div>
             </div>
@@ -279,12 +283,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Why San Luis Potosí</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.benefits.badge')}</span>
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                A Life Well Lived
+                {t('homepage.benefits.title')}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Experience the perfect blend of affordability, culture, and quality of life in Mexico's second-best city
+                {t('homepage.benefits.description')}
               </p>
             </div>
 
@@ -298,12 +302,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                   </svg>
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">Affordable Excellence</h3>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.affordable.title')}</h3>
                 <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  Enjoy a sophisticated lifestyle at a fraction of the cost. Quality housing, dining, and services that don't break the bank.
+                  {t('homepage.benefits.affordable.description')}
                 </p>
                 <div className="border-t border-gray-100 pt-4 mt-4">
-                  <p className="text-sm text-gray-500 font-medium">Average monthly cost: $1,200-$2,000</p>
+                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.affordable.detail')}</p>
                 </div>
               </div>
 
@@ -312,12 +316,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <HeartIcon className="w-6 h-6 text-white" strokeWidth={2} />
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">Rich Cultural Heritage</h3>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.culture.title')}</h3>
                 <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  Immerse yourself in centuries of history, colonial architecture, and vibrant traditions that make every day special.
+                  {t('homepage.benefits.culture.description')}
                 </p>
                 <div className="border-t border-gray-100 pt-4 mt-4">
-                  <p className="text-sm text-gray-500 font-medium">UNESCO World Heritage nearby</p>
+                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.culture.detail')}</p>
                 </div>
               </div>
 
@@ -326,12 +330,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                   <UserGroupIcon className="w-6 h-6 text-white" strokeWidth={2} />
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">Welcoming Community</h3>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.community.title')}</h3>
                 <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  Join a growing expat community while experiencing authentic Mexican hospitality and warm local connections.
+                  {t('homepage.benefits.community.description')}
                 </p>
                 <div className="border-t border-gray-100 pt-4 mt-4">
-                  <p className="text-sm text-gray-500 font-medium">1,000+ active expat members</p>
+                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.community.detail')}</p>
                 </div>
               </div>
             </div>
@@ -346,17 +350,17 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 </div>
                 <div className="flex-1">
                   <h3 className="font-serif text-2xl font-bold text-gray-900 mb-2">
-                    Mexico's 2nd Best City to Live
+                    {t('homepage.benefits.recognition.title')}
                   </h3>
                   <p className="text-gray-700 text-lg">
-                    Recognized by IMCO for quality of life, safety, and opportunity
+                    {t('homepage.benefits.recognition.description')}
                   </p>
                 </div>
                 <Link
                   href="/about#rankings"
                   className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
                 >
-                  Learn More
+                  {t('homepage.benefits.recognition.cta')}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -381,19 +385,19 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             {/* Section Header */}
             <div className="flex justify-between items-end mb-16">
               <div className="max-w-2xl">
-                <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Curated Experiences</span>
+                <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.places.badge')}</span>
                 <h2 className="font-serif text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                  Discover Hidden Gems
+                  {t('homepage.places.title')}
                 </h2>
                 <p className="text-xl text-gray-600">
-                  Handpicked by locals and expats who know the city best
+                  {t('homepage.places.description')}
                 </p>
               </div>
               <Link
                 href="/places"
                 className="hidden md:inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-primary transition-colors group"
               >
-                View All Places
+                {t('homepage.places.viewAll')}
                 <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -418,7 +422,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
                     {/* Floating Badge */}
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
-                      <span className="text-xs font-semibold text-gray-900">Featured</span>
+                      <span className="text-xs font-semibold text-gray-900">{t('homepage.places.featured')}</span>
                     </div>
                   </div>
 
@@ -433,7 +437,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                       href={place.ctaUrl}
                       className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                     >
-                      Discover More
+                      {t('homepage.places.discoverMore')}
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -449,7 +453,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 href="/places"
                 className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all"
               >
-                View All Places
+                {t('homepage.places.viewAll')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -471,19 +475,19 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
               {/* Section Header */}
               <div className="flex justify-between items-end mb-16">
                 <div className="max-w-2xl">
-                  <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">What's Happening</span>
+                  <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.events.badge')}</span>
                   <h2 className="font-serif text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                    Cultural Calendar
+                    {t('homepage.events.title')}
                   </h2>
                   <p className="text-xl text-gray-600">
-                    From art exhibitions to traditional festivals
+                    {t('homepage.events.description')}
                   </p>
                 </div>
                 <Link
                   href="/events"
                   className="hidden md:inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-primary transition-colors group"
                 >
-                  View All Events
+                  {t('homepage.events.viewAll')}
                   <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -509,10 +513,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                         <div className="flex-shrink-0 text-center">
                           <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-3 min-w-[70px]">
                             <div className="text-2xl font-bold text-primary">
-                              {new Date(event.start_date).toLocaleDateString('en-US', { day: 'numeric' })}
+                              {new Date(event.start_date).toLocaleDateString(locale, { day: 'numeric' })}
                             </div>
                             <div className="text-xs font-semibold text-gray-600 uppercase">
-                              {new Date(event.start_date).toLocaleDateString('en-US', { month: 'short' })}
+                              {new Date(event.start_date).toLocaleDateString(locale, { month: 'short' })}
                             </div>
                           </div>
                         </div>
@@ -539,7 +543,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                               <div className="flex items-center gap-1.5">
                                 <CalendarIcon className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                                 <span>
-                                  Until {new Date(event.end_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                  {t('homepage.events.until')} {new Date(event.end_date).toLocaleDateString(locale, { month: 'short', day: 'numeric' })}
                                 </span>
                               </div>
                             )}
@@ -578,7 +582,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   href="/events"
                   className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all"
                 >
-                  View All Events
+                  {t('homepage.events.viewAll')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -606,13 +610,13 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
               {/* Content Side */}
               <div>
                 <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4 bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-2 rounded-full">
-                  Cultural Heritage
+                  {t('homepage.culture.badge')}
                 </span>
                 <h2 className="font-serif text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  Traditions & History
+                  {t('homepage.culture.title')}
                 </h2>
                 <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-                  Explore San Luis Potosí's rich cultural heritage and traditions that make this city truly special
+                  {t('homepage.culture.description')}
                 </p>
 
                 {/* Cultural Features */}
@@ -628,10 +632,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                     <div>
                       <Link href="/cultural/history" className="block hover:opacity-80 transition-opacity">
                         <h3 className="font-serif text-xl font-bold text-gray-900 mb-2">
-                          Historical Heritage
+                          {t('homepage.culture.history.title')}
                         </h3>
                         <p className="text-gray-600 leading-relaxed">
-                          Discover the colonial architecture and historical significance of this UNESCO-adjacent city
+                          {t('homepage.culture.history.description')}
                         </p>
                       </Link>
                     </div>
@@ -647,10 +651,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                     <div>
                       <Link href="/cultural/festivals" className="block hover:opacity-80 transition-opacity">
                         <h3 className="font-serif text-xl font-bold text-gray-900 mb-2">
-                          Cultural Festivals
+                          {t('homepage.culture.festivals.title')}
                         </h3>
                         <p className="text-gray-600 leading-relaxed">
-                          Year-round celebrations and traditional events that bring the community together
+                          {t('homepage.culture.festivals.description')}
                         </p>
                       </Link>
                     </div>
@@ -666,10 +670,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                     <div>
                       <Link href="/cultural/language" className="block hover:opacity-80 transition-opacity">
                         <h3 className="font-serif text-xl font-bold text-gray-900 mb-2">
-                          Local Language
+                          {t('homepage.culture.language.title')}
                         </h3>
                         <p className="text-gray-600 leading-relaxed">
-                          Spanish language resources and cultural nuances to help you integrate
+                          {t('homepage.culture.language.description')}
                         </p>
                       </Link>
                     </div>
@@ -682,14 +686,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                     href="/events/cultural"
                     className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   >
-                    View Event Calendar
+                    {t('homepage.culture.viewCalendar')}
                     <CalendarIcon className="w-5 h-5" />
                   </Link>
                   <Link
                     href="/cultural-tours"
                     className="inline-flex items-center justify-center gap-2 bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-full font-semibold hover:border-primary hover:text-primary transition-all duration-300"
                   >
-                    Book Cultural Tour
+                    {t('homepage.culture.bookTour')}
                   </Link>
                 </div>
               </div>
@@ -701,14 +705,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   <div className="aspect-[4/5] relative rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 group">
                     <Image
                       src="/images/cultura-1.jpg"
-                      alt="Cultural Heritage San Luis Potosí"
+                      alt={t('homepage.culture.colonialArch')}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 40vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <span className="text-white font-semibold text-lg">Colonial Architecture</span>
+                      <span className="text-white font-semibold text-lg">{t('homepage.culture.colonialArch')}</span>
                     </div>
                   </div>
                 </div>
@@ -719,14 +723,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   <div className="aspect-square relative rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 group">
                     <Image
                       src="/images/cultura-2.jpg"
-                      alt="Traditional Festivals"
+                      alt={t('homepage.culture.traditionalFestivals')}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <span className="text-white text-sm font-medium">Traditional Festivals</span>
+                      <span className="text-white text-sm font-medium">{t('homepage.culture.traditionalFestivals')}</span>
                     </div>
                   </div>
 
@@ -734,14 +738,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   <div className="aspect-square relative rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 group">
                     <Image
                       src="/images/cultura-3.jpg"
-                      alt="Local Artisans"
+                      alt={t('homepage.culture.localArtisans')}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <span className="text-white text-sm font-medium">Local Artisans</span>
+                      <span className="text-white text-sm font-medium">{t('homepage.culture.localArtisans')}</span>
                     </div>
                   </div>
                 </div>
@@ -756,12 +760,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Beyond the City</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.outdoors.badge')}</span>
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Natural Wonders Await
+                {t('homepage.outdoors.title')}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                From mystical ghost towns to tropical waterfalls, discover the extraordinary landscapes surrounding San Luis Potosí
+                {t('homepage.outdoors.description')}
               </p>
             </div>
 
@@ -781,7 +785,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 href="/outdoors"
                 className="inline-flex items-center gap-3 bg-secondary hover:bg-secondary-light text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               >
-                Explore All Adventures
+                {t('homepage.outdoors.cta')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -798,12 +802,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Culinary Scene</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.dining.badge')}</span>
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Savor the Flavors
+                {t('homepage.dining.title')}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                From traditional Potosino cuisine to modern fusion restaurants and trendy cocktail bars
+                {t('homepage.dining.description')}
               </p>
             </div>
 
@@ -815,22 +819,22 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src="/images/restaurants-and-bars/traditional-restaurants.jpg"
-                    alt="Traditional Cuisine"
+                    alt={t('homepage.dining.traditional.title')}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">Traditional Cuisine</h3>
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.traditional.title')}</h3>
                   </div>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    Authentic Potosino restaurants serving enchiladas potosinas, zacahuil, and regional specialties
+                    {t('homepage.dining.traditional.description')}
                   </p>
                   <Link href="/traditional-cuisine" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    Explore Traditional →
+                    {t('homepage.dining.traditional.link')} →
                   </Link>
                 </div>
               </article>
@@ -840,22 +844,22 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src="/images/restaurants-and-bars/modern-restaurants.webp"
-                    alt="Modern Dining"
+                    alt={t('homepage.dining.modern.title')}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">Modern Dining</h3>
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.modern.title')}</h3>
                   </div>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    Contemporary restaurants with fusion cuisine, farm-to-table experiences, and innovative creations
+                    {t('homepage.dining.modern.description')}
                   </p>
                   <Link href="/modern-dining" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    View Modern Spots →
+                    {t('homepage.dining.modern.link')} →
                   </Link>
                 </div>
               </article>
@@ -865,22 +869,22 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src="/images/restaurants-and-bars/cocktail-bars.webp"
-                    alt="Cocktail Bars"
+                    alt={t('homepage.dining.cocktails.title')}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">Cocktail Bars</h3>
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.cocktails.title')}</h3>
                   </div>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    Trendy bars featuring craft cocktails, local mezcal, and vibrant nightlife
+                    {t('homepage.dining.cocktails.description')}
                   </p>
                   <Link href="/category/cocktail-bars" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    Find Your Bar →
+                    {t('homepage.dining.cocktails.link')} →
                   </Link>
                 </div>
               </article>
@@ -890,22 +894,22 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src="/images/restaurants-and-bars/terraces.webp"
-                    alt="Rooftop Terraces"
+                    alt={t('homepage.dining.terraces.title')}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">Rooftop Terraces</h3>
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.terraces.title')}</h3>
                   </div>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    Stunning rooftop venues with panoramic city views and al fresco dining
+                    {t('homepage.dining.terraces.description')}
                   </p>
                   <Link href="/category/terraces" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    See Terraces →
+                    {t('homepage.dining.terraces.link')} →
                   </Link>
                 </div>
               </article>
@@ -915,22 +919,22 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src="/images/restaurants-and-bars/cantinas.jpg"
-                    alt="Traditional Cantinas"
+                    alt={t('homepage.dining.cantinas.title')}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">Cantinas</h3>
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.cantinas.title')}</h3>
                   </div>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    Authentic cantinas with traditional atmosphere, complimentary botanas, and mariachi
+                    {t('homepage.dining.cantinas.description')}
                   </p>
                   <Link href="/category/cantinas" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    Visit Cantinas →
+                    {t('homepage.dining.cantinas.link')} →
                   </Link>
                 </div>
               </article>
@@ -940,22 +944,22 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="relative h-64 overflow-hidden">
                   <Image
                     src="/images/restaurants-and-bars/live-music.jpg"
-                    alt="Live Music Venues"
+                    alt={t('homepage.dining.liveMusic.title')}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">Live Music</h3>
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.liveMusic.title')}</h3>
                   </div>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    Venues featuring live performances from jazz to rock, mariachi to electronic
+                    {t('homepage.dining.liveMusic.description')}
                   </p>
                   <Link href="/category/live-music" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    Find Live Music →
+                    {t('homepage.dining.liveMusic.link')} →
                   </Link>
                 </div>
               </article>
@@ -968,12 +972,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Made in SLP</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.brands.badge')}</span>
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Potosino Brands
+                {t('homepage.brands.title')}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Authentic brands born in San Luis Potosí, showcasing local creativity and craftsmanship
+                {t('homepage.brands.description')}
               </p>
             </div>
 
@@ -1007,7 +1011,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                       href={`/brands/${brand.slug}`}
                       className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                     >
-                      Discover Brand
+                      {t('homepage.brands.discoverBrand')}
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -1023,7 +1027,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 href="/brands"
                 className="inline-flex items-center gap-3 bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               >
-                Explore All Brands
+                {t('homepage.brands.exploreAll')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -1042,12 +1046,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">Useful Resources</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.practical.badge')}</span>
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Practical Guides
+                {t('homepage.practical.title')}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Essential information for families and daily life in San Luis Potosí
+                {t('homepage.practical.description')}
               </p>
             </div>
 
@@ -1084,10 +1088,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-                Ready to Begin Your<br />San Luis Potosí Journey?
+                {t('homepage.cta.title1')}<br />{t('homepage.cta.title2')}
               </h2>
               <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-                Join our community of expats and travelers discovering the art of living in Mexico's hidden gem
+                {t('homepage.cta.description')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1095,7 +1099,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   href="/contact"
                   className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  Get Personalized Assistance
+                  {t('homepage.cta.assistance')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -1104,7 +1108,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                   href="/community"
                   className="inline-flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-gray-900"
                 >
-                  Join the Community
+                  {t('homepage.cta.community')}
                 </Link>
               </div>
 
@@ -1113,15 +1117,15 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 <div className="grid grid-cols-3 gap-8">
                   <div>
                     <div className="text-4xl font-bold text-primary mb-2">500+</div>
-                    <div className="text-sm text-gray-400">Verified Businesses</div>
+                    <div className="text-sm text-gray-400">{t('homepage.cta.stats.businesses')}</div>
                   </div>
                   <div>
                     <div className="text-4xl font-bold text-primary mb-2">1,000+</div>
-                    <div className="text-sm text-gray-400">Active Members</div>
+                    <div className="text-sm text-gray-400">{t('homepage.cta.stats.members')}</div>
                   </div>
                   <div>
                     <div className="text-4xl font-bold text-primary mb-2">#2</div>
-                    <div className="text-sm text-gray-400">Best City in Mexico</div>
+                    <div className="text-sm text-gray-400">{t('homepage.cta.stats.ranking')}</div>
                   </div>
                 </div>
               </div>
