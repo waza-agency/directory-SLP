@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { createPost as createBeehiivPost } from '@/lib/beehiiv-service';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  const { newsletter_id, test_email } = req.body;
+  const { newsletter_id, test_email, create_beehiiv_draft } = req.body;
 
   if (!newsletter_id) {
     return res.status(400).json({ message: 'Newsletter ID is required' });
@@ -82,9 +83,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       .eq('id', newsletter_id);
 
+    // Optionally create Beehiiv draft for manual sending via Beehiiv dashboard
+    let beehiivPostId = null;
+    if (create_beehiiv_draft) {
+      const beehiivResult = await createBeehiivPost(
+        newsletter.subject,
+        newsletter.html_content,
+        { subtitle: newsletter.preview_text }
+      );
+      if (beehiivResult.success) {
+        beehiivPostId = beehiivResult.post?.id;
+        console.log('Beehiiv draft created:', beehiivPostId);
+      } else {
+        console.error('Failed to create Beehiiv draft:', beehiivResult.error);
+      }
+    }
+
     return res.status(200).json({
       message: 'Newsletter sent successfully',
-      stats: { total: subscribers.length, sent, failed }
+      stats: { total: subscribers.length, sent, failed },
+      beehiiv_post_id: beehiivPostId
     });
 
   } catch (error) {

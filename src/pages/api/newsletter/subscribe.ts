@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { addSubscriber as addBeehiivSubscriber } from '@/lib/beehiiv-service';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -185,6 +186,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (updateError) throw updateError;
 
+      // Sync to Beehiiv (reactivate)
+      addBeehiivSubscriber(email, {
+        utmSource: source,
+        utmMedium: 'resubscribe',
+        sendWelcomeEmail: false,
+      }).catch(err => console.error('Beehiiv sync error:', err));
+
       await sendWelcomeEmail(email, firstName);
 
       return res.status(200).json({
@@ -221,6 +229,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       throw insertError;
     }
+
+    // Sync new subscriber to Beehiiv
+    addBeehiivSubscriber(email, {
+      utmSource: source,
+      utmMedium: 'website',
+      sendWelcomeEmail: false,
+    }).catch(err => console.error('Beehiiv sync error:', err));
 
     // Send welcome email
     await sendWelcomeEmail(email, firstName);
