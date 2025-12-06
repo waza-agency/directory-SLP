@@ -16,6 +16,7 @@ import TangamangaBanner from '@/components/TangamangaBanner';
 import ImageCarousel from '@/components/ImageCarousel';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface HomeProps {
@@ -364,6 +365,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             </div>
           </div>
         </section>
+
+        {/* CIRCLE OF TRUST BANNER */}
+        <CircleOfTrustBanner />
 
         {/* Ad Placement 1 */}
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">

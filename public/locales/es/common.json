@@ -173,5 +173,34 @@
     "supportGroupsDesc": "Conéctate con otras familias expatriadas para apoyo",
     "healthcare": "Navegación de Salud",
     "healthcareDesc": "Orientación para encontrar pediatras y médicos familiares"
+  },
+  "circleOfTrust": {
+    "badge": "Nuestra Promesa",
+    "title": "El Círculo de Confianza",
+    "description1": "Todo lo que recomendamos en San Luis Way es",
+    "highlight": "seguro y recomendado por locales",
+    "description2": "No somos un directorio genérico - somos una comunidad curada de lugares que conocemos y en los que confiamos.",
+    "description3": "Cada lugar en nuestra plataforma ha sido",
+    "highlight2": "visitado, probado y aprobado",
+    "description4": "por residentes locales. No aceptamos cualquier negocio - solo aquellos que cumplen con nuestros estándares de calidad, servicio y autenticidad.",
+    "stats": {
+      "verified": "Verificado",
+      "randomPlaces": "Lugares Random",
+      "first": "First"
+    },
+    "features": {
+      "curatedByLocals": {
+        "title": "Curado por Locales",
+        "description": "Cada recomendación viene de alguien que vive en SLP y conoce la ciudad"
+      },
+      "safetyGuaranteed": {
+        "title": "Seguridad Garantizada",
+        "description": "Solo lugares en zonas seguras y con buena reputación en la comunidad"
+      },
+      "qualityOverQuantity": {
+        "title": "Calidad sobre Cantidad",
+        "description": "Preferimos menos lugares de alta calidad que un directorio infinito sin filtro"
+      }
+    }
   }
 }
