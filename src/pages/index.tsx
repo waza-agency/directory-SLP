@@ -13,6 +13,7 @@ import SEO from '@/components/common/SEO';
 import { getBlogPostsBySlugs } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
+import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import ImageCarousel from '@/components/ImageCarousel';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
@@ -369,6 +370,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
           <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
         </div>
+
+        {/* CIRCLE OF TRUST BANNER */}
+        <CircleOfTrustBanner />
 
         {/* FEATURED PLACES - Editorial Style */}
         <section id="places-001" className="py-32 bg-white">
