@@ -1601,3 +1601,71 @@ El sitio no estaba cargando las imágenes de lugares y hidden gems debido a:
 Este commit restaura la funcionalidad de visualización de imágenes y mejora significativamente el rendimiento de la aplicación.
 
 **Co-Authored-By:** Claude <noreply@anthropic.com>
+
+---
+
+## Commit: c9e2f36c - 2025-12-06
+
+**Mensaje:** feat: Add Beehiiv newsletter integration
+
+**Archivos creados:**
+- src/lib/beehiiv-service.ts (API wrapper para Beehiiv)
+- src/pages/api/newsletter/beehiiv-webhook.ts (webhook handler para sync bidireccional)
+- scripts/migrate-subscribers-to-beehiiv.js (script de migración one-time)
+
+**Archivos modificados:**
+- src/pages/api/newsletter/subscribe.ts (sync automático a Beehiiv)
+- src/pages/api/newsletter/send.ts (opción para crear drafts en Beehiiv)
+
+**Descripción detallada:**
+
+Integración híbrida con Beehiiv para habilitar monetización y crecimiento manteniendo la generación de contenido con IA.
+
+**Componentes implementados:**
+
+1. **beehiiv-service.ts** - API wrapper completo:
+   - addSubscriber() - Agregar suscriptores a Beehiiv
+   - getSubscriberByEmail() - Buscar suscriptor por email
+   - listSubscribers() - Listar todos los suscriptores
+   - removeSubscriber() - Eliminar suscriptor
+   - createPost() - Crear draft de newsletter
+   - getPublicationStats() - Obtener estadísticas
+   - bulkImportSubscribers() - Importación masiva
+
+2. **beehiiv-webhook.ts** - Handler para eventos de Beehiiv:
+   - subscription.created - Nuevo suscriptor desde Beehiiv
+   - subscription.confirmed - Suscriptor confirmado
+   - subscription.deleted - Baja de suscripción
+   - subscription.upgraded/downgraded - Cambios de tier
+   - subscription.paused/resumed - Pausar/reanudar
+
+3. **subscribe.ts** - Modificado para sync automático:
+   - Cada nuevo suscriptor en Supabase se sincroniza a Beehiiv
+   - Re-suscripciones también se sincronizan
+
+4. **send.ts** - Nueva opción create_beehiiv_draft:
+   - Permite crear draft en Beehiiv además de enviar via Resend
+   - Útil para enviar manualmente desde dashboard de Beehiiv
+
+5. **migrate-subscribers-to-beehiiv.js** - Script de migración:
+   - Migró 6 suscriptores existentes a Beehiiv
+   - Incluye delay entre requests para evitar rate limiting
+
+**Variables de entorno agregadas:**
+- BEEHIIV_API_KEY
+- BEEHIIV_PUBLICATION_ID
+- BEEHIIV_WEBHOOK_SECRET
+
+**Propósito/Razón:**
+
+Integrar Beehiiv para obtener:
+- Monetización: Suscripciones pagas, red de anuncios
+- Crecimiento: Programa de referidos, Boost network (cross-promotion)
+- Analytics: Métricas especializadas de newsletter
+
+Mientras se mantiene:
+- Generación de contenido con IA (Gemini + OpenAI)
+- Envío via Resend (más control y sin costo Enterprise de Beehiiv)
+- Base de datos de suscriptores en Supabase
+
+**Co-Authored-By:** Claude <noreply@anthropic.com>

@@ -683,3 +683,5 @@ Google Search Console reportaba múltiples páginas con error 404 Not Found y mu
 - Servidor corriendo sin errores en http://localhost:3000
 
 **Commit:** 2e5b5f6c
+
+[2025-12-06] Beehiiv newsletter integration | Archivos: beehiiv-service.ts, beehiiv-webhook.ts, subscribe.ts, send.ts, migrate-subscribers-to-beehiiv.js | Estado: ✅ Exitoso
