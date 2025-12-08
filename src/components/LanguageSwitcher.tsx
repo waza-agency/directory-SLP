@@ -25,7 +25,13 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
   const { locales, locale: currentLocale } = router;
 
   const changeLanguage = (locale: string) => {
-    router.push(router.pathname, router.asPath, { locale });
+    // Build the new path with locale prefix
+    const currentPath = router.asPath;
+    // Remove existing locale prefix if present
+    const pathWithoutLocale = currentPath.replace(/^\/(es|en)/, '') || '/';
+    // Build new URL with the selected locale prefix
+    const newPath = `/${locale}${pathWithoutLocale}`;
+    router.push(newPath);
     setIsOpen(false);
   };
 

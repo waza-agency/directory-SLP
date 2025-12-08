@@ -133,6 +133,34 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
+  async redirects() {
+    return [
+      // Redirect root without locale to /es
+      {
+        source: '/',
+        destination: '/es',
+        permanent: true,
+        has: [
+          {
+            type: 'header',
+            key: 'accept-language',
+          },
+        ],
+        missing: [
+          {
+            type: 'cookie',
+            key: 'NEXT_LOCALE',
+          },
+        ],
+      },
+      // Redirect pages without locale prefix to /es/
+      {
+        source: '/:path((?!es|en|api|_next|images|favicon|sitemap|robots).*)',
+        destination: '/es/:path',
+        permanent: false,
+      },
+    ];
+  },
   // Temporarily disable experimental features
   // experimental: {
   //   forceSwcTransforms: true,
