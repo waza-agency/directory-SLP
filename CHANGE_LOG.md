@@ -4,6 +4,25 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-08] Cambio de idioma por defecto a Inglés
+
+**Descripción:**
+Cambiado el idioma por defecto de español a inglés. Ahora inglés es el idioma principal y español es el secundario.
+
+**Archivos modificados:**
+- next-i18next.config.js
+- next.config.js
+- src/components/LanguageSwitcher.tsx
+
+**Cambios realizados:**
+- `defaultLocale`: 'es' → 'en'
+- `fallbackLng`: 'es' → 'en'
+- Redirects ahora apuntan a `/en/` en lugar de `/es/`
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-08] Fix: Language Switcher URL con prefijo de locale
 
 **Descripción:**

@@ -4,6 +4,30 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: d29f9dff - 2025-12-08
+
+**Mensaje:** feat: Change default language from Spanish to English
+
+**Archivos modificados:**
+- next-i18next.config.js
+- next.config.js
+- src/components/LanguageSwitcher.tsx
+
+**Descripción detallada:**
+Cambio del idioma por defecto de español a inglés según requerimiento del usuario.
+
+**Cambios:**
+- `defaultLocale`: 'es' → 'en'
+- `fallbackLng`: 'es' → 'en'
+- `locales`: ['es', 'en'] → ['en', 'es']
+- Redirects actualizados para apuntar a `/en/`
+- LanguageSwitcher fallback actualizado a 'en'
+
+**Propósito/Razón:**
+El usuario quiere que inglés sea el idioma principal y español el secundario.
+
+---
+
 ## Commit: 853e1ce7 - 2025-12-08
 
 **Mensaje:** feat: Force locale prefix in URLs for language switcher
