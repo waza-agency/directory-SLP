@@ -377,6 +377,81 @@
       }
     }
   },
+  "tangamanga": {
+    "title": "Parque Tangamanga",
+    "subtitle": "El Pulmón Verde de San Luis Potosí - Donde la Naturaleza se Encuentra con la Aventura",
+    "hours": "Horario",
+    "hoursMon": "Lun: 6AM-11AM",
+    "hoursTueSun": "Mar-Dom: 6AM-8PM",
+    "admission": "Entrada",
+    "freeEntry": "Entrada Gratuita",
+    "location": "Ubicación",
+    "size": "Tamaño",
+    "hectares": "420+ Hectáreas",
+    "history": {
+      "title": "Historia y Significado Cultural",
+      "meaningTitle": "El Significado de \"Tangamanga\"",
+      "meaningText": "El nombre \"Tangamanga\" proviene del idioma Huachichil, un grupo indígena que una vez habitó la región. Se traduce como \"lugar de encuentro\" o \"lugar de reunión\", reflejando el rol del parque como un centro social y cultural para la comunidad.",
+      "creationTitle": "Creación y Desarrollo",
+      "creationText": "Inaugurado en 1980, el Parque Tangamanga fue creado como parte de un ambicioso proyecto de desarrollo urbano destinado a proporcionar espacios verdes para recreación y ocio. El proyecto fue una respuesta a la creciente necesidad de espacios públicos en San Luis Potosí, mientras la ciudad experimentaba una rápida urbanización.",
+      "impactTitle": "Impacto Cultural",
+      "impactText": "A lo largo de los años, el Parque Tangamanga se ha convertido en mucho más que un espacio verde. Ha evolucionado hacia un punto de encuentro fundamental para la comunidad potosina, albergando innumerables eventos culturales, festivales y actividades comunitarias."
+    },
+    "attractions": {
+      "title": "Principales Atracciones",
+      "naturalTitle": "Espacios Naturales",
+      "natural1": "Jardín botánico con diversas especies de plantas",
+      "natural2": "Lago artificial para paseos en bote",
+      "natural3": "Senderos para caminar y ciclismo",
+      "natural4": "Áreas de picnic y asadores",
+      "sportsTitle": "Instalaciones Deportivas",
+      "sports1": "Canchas deportivas (fútbol, voleibol, basquetbol)",
+      "sports2": "Skatepark",
+      "sports3": "Pistas de correr",
+      "sports4": "Área de escalada en roca"
+    },
+    "activities": {
+      "title": "Actividades y Eventos",
+      "sportsTitle": "Deportes",
+      "sports1": "Clases de yoga al aire libre",
+      "sports2": "Grupos de corredores y caminantes",
+      "sports3": "Clases de zumba y baile",
+      "sports4": "Práctica de deportes en equipo",
+      "sports5": "Escalada en roca",
+      "cultureTitle": "Cultura",
+      "culture1": "Presentaciones de teatro al aire libre",
+      "culture2": "Conciertos en el anfiteatro",
+      "culture3": "Exposiciones de arte",
+      "culture4": "Talleres de educación ambiental",
+      "culture5": "Festivales culturales",
+      "familyTitle": "Familia",
+      "family1": "Área de juegos infantiles",
+      "family2": "Paseos en bote por el lago",
+      "family3": "Visitas guiadas al jardín botánico",
+      "family4": "Actividades de educación ambiental",
+      "family5": "Festivales familiares"
+    },
+    "biodiversity": {
+      "title": "Biodiversidad",
+      "text": "El parque alberga una rica diversidad de flora y fauna. En sus más de 420 hectáreas, puedes encontrar varias especies de árboles nativos, aves migratorias y residentes, así como pequeños mamíferos y reptiles. El jardín botánico es especialmente importante para la conservación de especies endémicas de la región."
+    },
+    "services": {
+      "title": "Servicios",
+      "parking": "Estacionamiento",
+      "restrooms": "Baños",
+      "food": "Puestos de Comida",
+      "bikeRental": "Renta de Bicicletas"
+    },
+    "tips": {
+      "title": "Consejos para Visitantes",
+      "tip1": "Trae bloqueador solar y agua",
+      "tip2": "Usa zapatos cómodos",
+      "tip3": "Llega temprano los fines de semana",
+      "tip4": "Consulta el calendario de eventos",
+      "tip5": "Respeta las áreas designadas",
+      "tip6": "No dejes basura"
+    }
+  },
   "circleOfTrust": {
     "badge": "Nuestra Promesa",
     "title": "El Círculo de Confianza",

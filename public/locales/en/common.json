@@ -377,6 +377,81 @@
       }
     }
   },
+  "tangamanga": {
+    "title": "Tangamanga Park",
+    "subtitle": "The Green Lung of San Luis Potosí - Where Nature Meets Adventure",
+    "hours": "Hours",
+    "hoursMon": "Mon: 6AM-11AM",
+    "hoursTueSun": "Tue-Sun: 6AM-8PM",
+    "admission": "Admission",
+    "freeEntry": "Free Entry",
+    "location": "Location",
+    "size": "Size",
+    "hectares": "420+ Hectares",
+    "history": {
+      "title": "History & Cultural Significance",
+      "meaningTitle": "The Meaning of \"Tangamanga\"",
+      "meaningText": "The name \"Tangamanga\" comes from the Huachichil language, an indigenous group that once inhabited the region. It translates to \"meeting place\" or \"place of gathering\", reflecting the park's role as a central social and cultural hub for the community.",
+      "creationTitle": "Creation and Development",
+      "creationText": "Inaugurated in 1980, Tangamanga Park was created as part of an ambitious urban development project aimed at providing green spaces for recreation and leisure. The project was a response to the growing need for public spaces in San Luis Potosí, as the city was experiencing rapid urbanization.",
+      "impactTitle": "Cultural Impact",
+      "impactText": "Over the years, Tangamanga Park has become much more than just a green space. It has evolved into a fundamental gathering point for the Potosino community, hosting countless cultural events, festivals, and community activities."
+    },
+    "attractions": {
+      "title": "Main Attractions",
+      "naturalTitle": "Natural Spaces",
+      "natural1": "Botanical garden with diverse plant species",
+      "natural2": "Artificial lake for boat rides",
+      "natural3": "Trails for walking and cycling",
+      "natural4": "Picnic areas and grills",
+      "sportsTitle": "Sports Facilities",
+      "sports1": "Sports courts (soccer, volleyball, basketball)",
+      "sports2": "Skatepark",
+      "sports3": "Running tracks",
+      "sports4": "Rock climbing area"
+    },
+    "activities": {
+      "title": "Activities & Events",
+      "sportsTitle": "Sports",
+      "sports1": "Outdoor yoga classes",
+      "sports2": "Running and walking groups",
+      "sports3": "Zumba and dance classes",
+      "sports4": "Team sports practice",
+      "sports5": "Rock climbing",
+      "cultureTitle": "Culture",
+      "culture1": "Outdoor theater performances",
+      "culture2": "Concerts at the amphitheater",
+      "culture3": "Art exhibitions",
+      "culture4": "Environmental education workshops",
+      "culture5": "Cultural festivals",
+      "familyTitle": "Family",
+      "family1": "Children's playground area",
+      "family2": "Boat rides on the lake",
+      "family3": "Guided tours of the botanical garden",
+      "family4": "Environmental education activities",
+      "family5": "Family festivals"
+    },
+    "biodiversity": {
+      "title": "Biodiversity",
+      "text": "The park hosts a rich diversity of flora and fauna. In its more than 420 hectares, you can find various species of native trees, migratory and resident birds, as well as small mammals and reptiles. The botanical garden is especially important for the conservation of endemic species in the region."
+    },
+    "services": {
+      "title": "Services",
+      "parking": "Parking",
+      "restrooms": "Restrooms",
+      "food": "Food Stands",
+      "bikeRental": "Bike Rental"
+    },
+    "tips": {
+      "title": "Visitor Tips",
+      "tip1": "Bring sunscreen and water",
+      "tip2": "Wear comfortable shoes",
+      "tip3": "Arrive early on weekends",
+      "tip4": "Check event schedule",
+      "tip5": "Respect designated areas",
+      "tip6": "Don't leave trash"
+    }
+  },
   "circleOfTrust": {
     "badge": "Our Promise",
     "title": "The Circle of Trust",

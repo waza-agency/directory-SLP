@@ -685,3 +685,59 @@ Google Search Console reportaba múltiples páginas con error 404 Not Found y mu
 **Commit:** 2e5b5f6c
 
 [2025-12-06] Beehiiv newsletter integration | Archivos: beehiiv-service.ts, beehiiv-webhook.ts, subscribe.ts, send.ts, migrate-subscribers-to-beehiiv.js | Estado: ✅ Exitoso
+
+---
+
+## [2025-12-08] Fix: Internacionalización rota en página parque-tangamanga
+
+**Descripción:**
+La página `/en/parque-tangamanga` mostraba las claves de traducción en lugar del texto traducido (ej: `nav.home`, `footer.description`, `categories.cultural`). Esto afectaba al Header, Footer y barra de categorías.
+
+**Problema identificado:**
+El `getStaticProps` de `parque-tangamanga.tsx` no llamaba a `serverSideTranslations`, lo que causaba que i18next no se inicializara correctamente en el cliente.
+
+**Archivos modificados:**
+- src/pages/parque-tangamanga.tsx
+
+**Cambios realizados:**
+```tsx
+// ANTES (líneas 1-11):
+import { GetStaticProps } from 'next';
+import Image from 'next/image';
+import { ... } from '@heroicons/react/24/outline';
+
+export const getStaticProps: GetStaticProps = async ({ }) => {
+  return {
+    props: {
+    },
+  };
+};
+
+// DESPUÉS:
+import { GetStaticProps } from 'next';
+import Image from 'next/image';
+import { ... } from '@heroicons/react/24/outline';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+    },
+  };
+};
+```
+
+**Resultado:** ✅ Exitoso (código corregido, pendiente deploy en Docker)
+- Build compilado correctamente
+- Cambios pusheados a GitHub (commit b1b4a58e)
+- Para aplicar en producción: requiere rebuild del contenedor Docker
+
+**Commit:** b1b4a58e
+
+**Nota:** El sitio usa Docker para producción. Ejecutar en el servidor:
+```bash
+git pull origin main
+docker-compose build
+docker-compose up -d
+```
