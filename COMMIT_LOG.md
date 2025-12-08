@@ -4,6 +4,44 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 853e1ce7 - 2025-12-08
+
+**Mensaje:** feat: Force locale prefix in URLs for language switcher
+
+**Archivos modificados:**
+- src/components/LanguageSwitcher.tsx
+- next.config.js
+
+**Descripción detallada:**
+
+Este commit corrige el problema donde el Language Switcher no incluía el prefijo de idioma en las URLs al cambiar de idioma.
+
+**Contexto del problema:**
+
+Cuando un usuario visitaba `/en/parque-tangamanga` y hacía clic en "Español", la URL resultante era `/parque-tangamanga` en lugar de `/es/parque-tangamanga`. Esto causaba problemas de navegación y SEO.
+
+**Causa raíz:**
+
+Next.js con `defaultLocale: 'es'` omite automáticamente el prefijo para el idioma por defecto. El método original `router.push(router.pathname, router.asPath, { locale })` dependía de este comportamiento.
+
+**Solución implementada:**
+
+1. **LanguageSwitcher.tsx:**
+   - Modificada función `changeLanguage()` para construir URLs manualmente
+   - Remueve cualquier prefijo de locale existente de la URL actual
+   - Construye nueva URL con el formato `/${locale}${pathWithoutLocale}`
+
+2. **next.config.js:**
+   - Agregada configuración `redirects()` para forzar prefijo de locale
+   - Root `/` → `/es` (redirect permanente)
+   - Paths sin prefijo `/:path` → `/es/:path` (redirect temporal)
+   - Excluye: api, _next, images, favicon, sitemap, robots
+
+**Propósito/Razón:**
+Asegurar URLs consistentes con prefijo de idioma para mejor SEO y experiencia de usuario.
+
+---
+
 ## Commit: c5017d36 - 2025-12-01
 
 **Mensaje:** feat: Add legal pages, newsletter style guide, and fix social links

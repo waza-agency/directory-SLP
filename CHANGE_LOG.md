@@ -4,6 +4,30 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-08] Fix: Language Switcher URL con prefijo de locale
+
+**Descripción:**
+Corrección del Language Switcher para que siempre incluya el prefijo de idioma en las URLs (/es/ o /en/). Anteriormente, al cambiar a español, redirigía a URLs sin prefijo.
+
+**Archivos modificados:**
+- src/components/LanguageSwitcher.tsx
+- next.config.js
+
+**Cambios realizados:**
+
+1. **LanguageSwitcher.tsx:**
+   - Modificado `changeLanguage()` para construir URLs manualmente con prefijo de locale
+   - Remueve prefijo existente y agrega el nuevo: `/${locale}${pathWithoutLocale}`
+
+2. **next.config.js:**
+   - Agregados redirects para forzar prefijo de locale en URLs
+   - Root `/` redirige a `/es`
+   - Paths sin locale prefix redirigen a `/es/:path`
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-04] Migración de páginas de categoría a Supabase
 
 **Descripción:**
