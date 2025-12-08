@@ -75,8 +75,8 @@ export default function LanguageSwitcher({ variant = 'desktop' }: LanguageSwitch
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        <span className="mr-2">{languageFlags[currentLocale || 'es']}</span>
-        {languageNames[currentLocale || 'es']}
+        <span className="mr-2">{languageFlags[currentLocale || 'en']}</span>
+        {languageNames[currentLocale || 'en']}
         <svg
           className={`ml-2 w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           xmlns="http://www.w3.org/2000/svg"

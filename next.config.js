@@ -135,10 +135,10 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Redirect root without locale to /es
+      // Redirect root without locale to /en
       {
         source: '/',
-        destination: '/es',
+        destination: '/en',
         permanent: true,
         has: [
           {
@@ -153,10 +153,10 @@ const nextConfig = {
           },
         ],
       },
-      // Redirect pages without locale prefix to /es/
+      // Redirect pages without locale prefix to /en/
       {
         source: '/:path((?!es|en|api|_next|images|favicon|sitemap|robots).*)',
-        destination: '/es/:path',
+        destination: '/en/:path',
         permanent: false,
       },
     ];
