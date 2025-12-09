@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { searchPlaces } from '@/lib/supabase';
 // import Cart from './common/Cart'; // MARKETPLACE DISABLED
 import { useAuth } from '@/lib/supabase-auth';
 import { useTranslation } from 'next-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import { logger } from '@/lib/logger';
 
 export default function Header() {
   const router = useRouter();
@@ -24,47 +25,57 @@ export default function Header() {
     setMounted(true);
   }, []);
 
+  // Memoized search function to prevent re-creation on every render
+  const performSearch = useCallback(async (query: string) => {
+    if (query.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const results = await searchPlaces(query);
+      setSearchResults(results.slice(0, 5)); // Show only first 5 results
+      setShowResults(true);
+    } catch (error) {
+      logger.error('Error searching places:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    const fetchResults = async () => {
-      if (searchQuery.length < 2) {
-        setSearchResults([]);
-        return;
-      }
-
-      try {
-        setLoading(true);
-        const results = await searchPlaces(searchQuery);
-        setSearchResults(results.slice(0, 5)); // Show only first 5 results
-        setShowResults(true);
-      } catch (error) {
-        console.error('Error searching places:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const timeoutId = setTimeout(fetchResults, 300);
+    const timeoutId = setTimeout(() => performSearch(searchQuery), 300);
     return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
+  }, [searchQuery, performSearch]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  // Memoized event handlers
+  const handleSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       router.push(`/places?search=${encodeURIComponent(searchQuery)}`);
     }
-  };
+  }, [searchQuery, router]);
 
-  const handleResultClick = (placeId: string) => {
+  const handleResultClick = useCallback((placeId: string) => {
     router.push(`/places/${placeId}`);
     setShowResults(false);
     setSearchQuery('');
-  };
+  }, [router]);
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     await signOut();
     router.push('/');
     setIsUserMenuOpen(false);
-  };
+  }, [signOut, router]);
+
+  const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
+  const toggleUserMenu = useCallback(() => setIsUserMenuOpen(prev => !prev), []);
+
+  // Memoize user initial for avatar
+  const userInitial = useMemo(() => {
+    return user?.email ? user.email.charAt(0).toUpperCase() : 'U';
+  }, [user?.email]);
 
   // Don't render anything until component is mounted
   if (!mounted) {
@@ -139,11 +150,11 @@ export default function Header() {
             {user ? (
               <div className="relative">
                 <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  onClick={toggleUserMenu}
                   className="text-gray-700 hover:text-primary transition-all duration-200 flex items-center hover:scale-105 focus-ring"
                 >
                   <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark text-white rounded-full flex items-center justify-center text-base font-semibold mr-3 shadow-md hover:shadow-lg transition-all duration-200">
-                    {user.email ? user.email.charAt(0).toUpperCase() : 'U'}
+                    {userInitial}
                   </div>
                   <span className="text-sm hidden lg:inline">
                     {user.email?.split[0]}
@@ -205,7 +216,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             className="lg:hidden text-gray-500 hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-gray-100 focus-ring"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={toggleMenu}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isMenuOpen ? (
