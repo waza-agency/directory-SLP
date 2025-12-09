@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Place } from '@/types';
-import PlaceModal from '@/components/PlaceModal';
-import { useState } from 'react';
 import Image from 'next/image';
 import { CalendarIcon, MegaphoneIcon, MapPinIcon, SparklesIcon, HeartIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { Event } from '@/types';
@@ -13,13 +11,17 @@ import SEO from '@/components/common/SEO';
 import { getBlogPostsBySlugs } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
-import ImageCarousel from '@/components/ImageCarousel';
+import { logger } from '@/lib/logger';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+
+// Lazy load heavy components for better performance
+const PlaceModal = lazy(() => import('@/components/PlaceModal'));
+const ImageCarousel = lazy(() => import('@/components/ImageCarousel'));
 
 interface HomeProps {
   events: Event[];
@@ -64,7 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    logger.error('Error fetching data:', error);
     return {
       props: {
         ...(await serverSideTranslations(locale ?? 'es', ['common'])),
@@ -771,12 +773,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
             {/* Outdoor Activities Carousel */}
             <div className="mb-12">
-              <ImageCarousel
-                items={outdoorActivities}
-                itemsPerView={4}
-                height="h-64"
-                interval={6000}
-              />
+              <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse rounded-lg" />}>
+                <ImageCarousel
+                  items={outdoorActivities}
+                  itemsPerView={4}
+                  height="h-64"
+                  interval={6000}
+                />
+              </Suspense>
             </div>
 
             {/* CTA */}
@@ -1057,13 +1061,15 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
             {/* Practical Guides Carousel */}
             <div className="mb-12">
-              <ImageCarousel
-                items={practicalGuides}
-                itemsPerView={3}
-                height="h-64"
-                autoPlay={false}
-                interval={0} // Disable auto-scroll for practical guides
-              />
+              <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse rounded-lg" />}>
+                <ImageCarousel
+                  items={practicalGuides}
+                  itemsPerView={3}
+                  height="h-64"
+                  autoPlay={false}
+                  interval={0} // Disable auto-scroll for practical guides
+                />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -1137,10 +1143,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
       {/* Place Modal */}
       {selectedPlace && (
-        <PlaceModal
-          place={selectedPlace}
-          onClose={() => setSelectedPlace(null)}
-        />
+        <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"><div className="bg-white p-8 rounded-lg">Loading...</div></div>}>
+          <PlaceModal
+            place={selectedPlace}
+            onClose={() => setSelectedPlace(null)}
+          />
+        </Suspense>
       )}
     </div>
   );
