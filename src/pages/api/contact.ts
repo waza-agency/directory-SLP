@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 // CORS middleware
 function cors(req: NextApiRequest, res: NextApiResponse) {
@@ -30,7 +31,7 @@ async function verifyRecaptcha(token: string) {
 // Function to send email using Resend
 async function sendEmailViaResend(emailData: any) {
   try {
-    console.log('Sending email via Resend');
+    logger.log('Sending email via Resend');
 
     if (!process.env.RESEND_API_KEY) {
       throw new Error('RESEND_API_KEY not configured');
@@ -57,11 +58,11 @@ async function sendEmailViaResend(emailData: any) {
     }
 
     const result = await response.json();
-    console.log('Email sent successfully via Resend:', result);
+    logger.log('Email sent successfully via Resend:', result);
     return { success: true, method: 'resend', id: result.id };
 
   } catch (error) {
-    console.error('Resend email error:', error);
+    logger.error('Resend email error:', error);
     throw error;
   }
 }
@@ -93,11 +94,11 @@ async function sendEmailViaSMTP(emailData: any) {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully via Gmail:', info.messageId);
+    logger.log('Email sent successfully via Gmail:', info.messageId);
     return { success: true, method: 'gmail', id: info.messageId };
 
   } catch (error) {
-    console.error('Gmail email error:', error);
+    logger.error('Gmail email error:', error);
     throw error;
   }
 }
@@ -113,7 +114,7 @@ async function sendEmail(emailData: any) {
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Unknown Resend error';
       errors.push(`Resend: ${errorMsg}`);
-      console.log('Resend failed, trying Gmail fallback...');
+      logger.log('Resend failed, trying Gmail fallback...');
     }
   }
 
@@ -124,23 +125,23 @@ async function sendEmail(emailData: any) {
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Unknown Gmail error';
       errors.push(`Gmail: ${errorMsg}`);
-      console.log('Gmail failed, using console logging...');
+      logger.log('Gmail failed, using console logging...');
     }
   }
 
   // Final fallback: Log to console in development
   if (process.env.NODE_ENV === 'development') {
-    console.log('\n' + '='.repeat(80));
-    console.log('📧 EMAIL THAT WOULD BE SENT:');
-    console.log('='.repeat(80));
-    console.log(`From: ${emailData.from}`);
-    console.log(`To: ${emailData.to}`);
-    console.log(`Reply-To: ${emailData.replyTo}`);
-    console.log(`Subject: ${emailData.subject}`);
-    console.log('-'.repeat(80));
-    console.log('CONTENT:');
-    console.log(emailData.html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 500) + '...');
-    console.log('='.repeat(80) + '\n');
+    logger.log('\n' + '='.repeat(80));
+    logger.log('📧 EMAIL THAT WOULD BE SENT:');
+    logger.log('='.repeat(80));
+    logger.log(`From: ${emailData.from}`);
+    logger.log(`To: ${emailData.to}`);
+    logger.log(`Reply-To: ${emailData.replyTo}`);
+    logger.log(`Subject: ${emailData.subject}`);
+    logger.log('-'.repeat(80));
+    logger.log('CONTENT:');
+    logger.log(emailData.html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().substring(0, 500) + '...');
+    logger.log('='.repeat(80) + '\n');
 
     return { success: true, method: 'console_log' };
   }
@@ -183,12 +184,12 @@ async function ensureContactInquiriesTable(supabase: any) {
     });
 
     if (error) {
-      console.log('Table creation via RPC failed, table might already exist:', error);
+      logger.log('Table creation via RPC failed, table might already exist:', error);
     } else {
-      console.log('Contact inquiries table ensured via RPC');
+      logger.log('Contact inquiries table ensured via RPC');
     }
   } catch (error) {
-    console.log('RPC not available, table should exist already:', error);
+    logger.log('RPC not available, table should exist already:', error);
   }
 }
 
@@ -199,7 +200,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  console.log('Contact API called with body:', JSON.stringify(req.body, null, 2));
+  logger.log('Contact API called with body:', JSON.stringify(req.body, null, 2));
 
   const {
     name,
@@ -251,26 +252,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (process.env.NODE_ENV === 'production') {
     try {
       if (!recaptchaToken) {
-        console.error('Production error: reCAPTCHA token missing');
+        logger.error('Production error: reCAPTCHA token missing');
         return res.status(400).json({ message: 'reCAPTCHA token is required' });
       }
 
-      console.log('Verifying reCAPTCHA in production...');
+      logger.log('Verifying reCAPTCHA in production...');
       const isHuman = await verifyRecaptcha(recaptchaToken);
       if (!isHuman) {
-        console.error('Production error: reCAPTCHA verification failed');
+        logger.error('Production error: reCAPTCHA verification failed');
         return res.status(400).json({ message: 'reCAPTCHA verification failed' });
       }
-      console.log('reCAPTCHA verified successfully');
+      logger.log('reCAPTCHA verified successfully');
     } catch (error) {
-      console.error('reCAPTCHA verification error:', error);
+      logger.error('reCAPTCHA verification error:', error);
       return res.status(500).json({
         message: 'Failed to verify reCAPTCHA',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   } else {
-    console.log('Skipping reCAPTCHA verification in development mode - recaptchaToken:', recaptchaToken);
+    logger.log('Skipping reCAPTCHA verification in development mode - recaptchaToken:', recaptchaToken);
   }
 
   try {
@@ -322,14 +323,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (contactError) {
-      console.error('Error storing contact inquiry:', contactError);
+      logger.error('Error storing contact inquiry:', contactError);
       return res.status(500).json({
         message: 'Failed to store contact inquiry',
         error: contactError.message
       });
     }
 
-    console.log('Contact inquiry stored successfully:', contactResult);
+    logger.log('Contact inquiry stored successfully:', contactResult);
 
     // Build the email content with San Luis Way branding
     let htmlContent = `
@@ -435,8 +436,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
     } catch (emailError) {
-      console.error('Error sending email:', emailError);
-      console.error('Environment check:', {
+      logger.error('Error sending email:', emailError);
+      logger.error('Environment check:', {
         NODE_ENV: process.env.NODE_ENV,
         RESEND_API_KEY: process.env.RESEND_API_KEY ? 'SET' : 'NOT SET',
         GMAIL_USER: process.env.GMAIL_USER ? 'SET' : 'NOT SET',
@@ -467,7 +468,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
   } catch (error) {
-    console.error('Error processing contact inquiry:', error);
+    logger.error('Error processing contact inquiry:', error);
     return res.status(500).json({
       message: 'Failed to process contact inquiry',
       error: error instanceof Error ? error.message : 'Unknown error'
