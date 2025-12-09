@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import SignIn from '@/components/auth/SignIn';
+import AuthForm from '@/components/auth/AuthForm';
 import { useAuth } from '@/lib/supabase-auth';
+import { logger } from '@/lib/logger';
 
 const SignInPage = () => {
   const { user, session, isLoading } = useAuth();
@@ -17,8 +18,8 @@ const SignInPage = () => {
   // Only check auth status once on mount
   useEffect(() => {
     if (!hasInitialized && !isLoading) {
-      console.log('SignIn page: Initial auth check');
-      console.log('Auth state:', {
+      logger.log('SignIn page: Initial auth check');
+      logger.log('Auth state:', {
         user: user ? { id: user.id, email: user.email } : 'not authenticated',
         session: session ? {
           access_token: session.access_token ? 'present' : 'missing',
@@ -29,7 +30,7 @@ const SignInPage = () => {
 
       // Check both user and session
       if (session?.access_token) {
-        console.log('Valid session detected, redirecting to account');
+        logger.log('Valid session detected, redirecting to account');
         window.location.href = '/account';
       }
 
@@ -86,7 +87,7 @@ const SignInPage = () => {
           </div>
         )}
         <div className="container max-w-lg mx-auto px-4">
-          <SignIn />
+          <AuthForm mode="signin" />
         </div>
       </div>
     </>
@@ -100,7 +101,7 @@ export async function getServerSideProps({ }: { locale: string }) {
       },
     };
   } catch (error) {
-    console.error('Error in getServerSideProps for signin page:', error);
+    logger.error('Error in getServerSideProps for signin page:', error);
     return {
       props: {},
     };

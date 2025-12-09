@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import ProductionSignUp from '@/components/auth/ProductionSignUp';
+import AuthForm from '@/components/auth/AuthForm';
+import { logger } from '@/lib/logger';
 
 export default function ProductionSignUpPage() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function ProductionSignUpPage() {
         }
       } catch (error) {
         // If localStorage is not available or any error occurs, continue to show signup
-        console.log('Auth check skipped:', error);
+        logger.log('Auth check skipped:', error);
       }
     };
 
@@ -36,7 +37,7 @@ export default function ProductionSignUpPage() {
 
       <div className="min-h-screen py-12 bg-gray-100">
         <div className="container max-w-lg mx-auto px-4">
-          <ProductionSignUp />
+          <AuthForm mode="signup" variant="default" enableRetry={true} showAccountType={true} />
 
           {/* Production Environment Indicator */}
           {process.env.NODE_ENV === 'production' && (

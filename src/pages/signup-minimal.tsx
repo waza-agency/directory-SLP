@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import MinimalSignUp from '@/components/auth/MinimalSignUp';
+import AuthForm from '@/components/auth/AuthForm';
 
 export default function MinimalSignUpPage() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function MinimalSignUpPage() {
 
       <div className="min-h-screen py-12 bg-gray-100">
         <div className="container max-w-lg mx-auto px-4">
-          <MinimalSignUp />
+          <AuthForm mode="signup" variant="minimal" />
 
           {/* Development Info */}
           {process.env.NODE_ENV !== 'production' && (

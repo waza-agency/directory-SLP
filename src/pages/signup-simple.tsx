@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import SimpleSignUp from '@/components/auth/SimpleSignUp';
+import AuthForm from '@/components/auth/AuthForm';
+import { logger } from '@/lib/logger';
 
 export default function SimpleSignUpPage() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function SimpleSignUpPage() {
       checkAuth();
     } catch (error) {
       // If auth check fails, just continue to show signup
-      console.log('Auth check skipped:', error);
+      logger.log('Auth check skipped:', error);
     }
   }, [router]);
 
@@ -34,7 +35,7 @@ export default function SimpleSignUpPage() {
 
       <div className="min-h-screen py-12 bg-gray-100">
         <div className="container max-w-lg mx-auto px-4">
-          <SimpleSignUp />
+          <AuthForm mode="signup" variant="simple" title="Simple Signup" />
         </div>
       </div>
     </>

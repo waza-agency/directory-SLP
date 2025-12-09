@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import SimpleSignIn from '@/components/auth/SimpleSignIn';
+import AuthForm from '@/components/auth/AuthForm';
 import { supabase } from '@/lib/supabase';
+import { logger } from '@/lib/logger';
 
 export default function SimpleSignInPage() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function SimpleSignInPage() {
           router.push('/account');
         }
       } catch (error) {
-        console.error('Error checking auth status:', error);
+        logger.error('Error checking auth status:', error);
         // Continue to show signin form if auth check fails
       }
     };
@@ -33,7 +34,7 @@ export default function SimpleSignInPage() {
 
       <div className="min-h-screen py-12 bg-gray-100">
         <div className="container max-w-lg mx-auto px-4">
-          <SimpleSignIn />
+          <AuthForm mode="signin" variant="simple" />
         </div>
       </div>
     </>
