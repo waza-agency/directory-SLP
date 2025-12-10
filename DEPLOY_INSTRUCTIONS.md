@@ -107,13 +107,6 @@ sudo systemctl reload nginx
 **O borrar todo:**
 - Chrome: `Ctrl + Shift + Delete` → Seleccionar "Imágenes y archivos en caché"
 
-### 3. Caché de CDN (si usas Cloudflare u otro)
-
-Si usas Cloudflare:
-1. Ir al dashboard de Cloudflare
-2. Seleccionar el dominio sanluisway.com
-3. Caching → Purge Everything
-
 ## Verificación de Redirecciones
 
 ### Desde tu computadora local:
