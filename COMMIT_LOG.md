@@ -4,6 +4,149 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 4c52b891 - 2025-12-10
+
+**Mensaje:** chore: Remove Jenkins and Cloudflare references
+
+**Archivos modificados:**
+- Jenkinsfile (eliminado)
+- QUICK_FIX.md (eliminado)
+- DEPLOY_INSTRUCTIONS.md
+
+**Descripción detallada:**
+
+Eliminación de todas las referencias a Jenkins CI/CD y Cloudflare CDN del proyecto. El proyecto dejó de usar estos servicios, por lo que se eliminaron los archivos y documentación relacionados.
+
+**Cambios realizados:**
+
+1. **Jenkinsfile (eliminado):**
+   - Pipeline completo de Jenkins con stages: Checkout, Install Dependencies, Build, Test, Deploy, Cleanup
+   - Incluía configuración de credenciales, variables de entorno y manejo de Docker
+   - Ya no necesario al no usar Jenkins
+
+2. **QUICK_FIX.md (eliminado):**
+   - Guía para usuarios sin permisos de admin en Cloudflare
+   - Instrucciones de Development Mode, purga de caché y troubleshooting
+   - Ya no relevante sin Cloudflare
+
+3. **DEPLOY_INSTRUCTIONS.md:**
+   - Eliminada sección "Caché de CDN (si usas Cloudflare u otro)"
+   - Removidas instrucciones para purgar caché en dashboard de Cloudflare
+
+**Propósito/Razón:** El proyecto migró fuera de Jenkins y Cloudflare, haciendo estos archivos obsoletos y potencialmente confusos para futuros desarrolladores.
+
+---
+
+## Commit: 6ee7c0a1 - 2025-12-10
+
+**Mensaje:** fix: Corregir traducciones navbar y eliminar botones de autenticación
+
+**Archivos modificados:**
+- public/locales/en/common.json
+- public/locales/es/common.json
+- src/components/header/HeaderUserMenu.tsx
+
+**Descripción detallada:**
+
+Corrección de traducciones faltantes en la navbar que causaban que se mostraran claves de traducción (nav.searchPlaceh, nav.signin, nav.getStarted) en lugar del texto traducido. También se eliminaron los botones de Sign In y Sign Up de la navbar según solicitud del usuario.
+
+**Problema identificado:**
+
+La navbar mostraba claves de traducción en lugar de texto debido a:
+1. Claves faltantes en los archivos de traducción (public/locales/*/common.json)
+2. Inconsistencias entre las claves usadas en los componentes y las definidas en los archivos de traducción
+
+Claves problemáticas:
+- `nav.searchPlaceholder` - usado en HeaderSearch.tsx:60 pero no existía en common.json
+- `nav.searching` - usado en HeaderSearch.tsx:82 pero no existía en common.json
+- `nav.signin` - usado en HeaderUserMenu.tsx:35 (lowercase) pero en common.json estaba como `nav.signIn` (camelCase)
+- `nav.getStarted` - usado en HeaderUserMenu.tsx:41 pero no existía en common.json
+- `nav.dashboard` - usado en HeaderUserMenu.tsx:79 pero no existía en common.json
+- `nav.settings` - usado en HeaderUserMenu.tsx:85 pero no existía en common.json
+
+**Cambios realizados:**
+
+1. **public/locales/en/common.json:**
+   - Agregadas 7 nuevas claves de traducción en la sección `nav`:
+     * `signin`: "Sign In" (lowercase version para compatibilidad)
+     * `signout`: "Sign Out" (lowercase version para compatibilidad)
+     * `getStarted`: "Get Started"
+     * `searchPlaceholder`: "Search places, events..."
+     * `searching`: "Searching"
+     * `dashboard`: "Dashboard"
+     * `settings`: "Settings"
+
+2. **public/locales/es/common.json:**
+   - Agregadas las mismas 7 claves en español:
+     * `signin`: "Iniciar Sesión"
+     * `signout`: "Cerrar Sesión"
+     * `getStarted`: "Comenzar"
+     * `searchPlaceholder`: "Buscar lugares, eventos..."
+     * `searching`: "Buscando"
+     * `dashboard`: "Panel"
+     * `settings`: "Configuración"
+
+3. **src/components/header/HeaderUserMenu.tsx (líneas 28-44):**
+
+   ANTES:
+   ```tsx
+   if (!user) {
+     return (
+       <>
+         <Link href="/signin" className="...">
+           {t('nav.signin')}
+         </Link>
+         <Link href="/signup" className="...">
+           {t('nav.getStarted')}
+         </Link>
+       </>
+     );
+   }
+   ```
+
+   DESPUÉS:
+   ```tsx
+   if (!user) {
+     return null;
+   }
+   ```
+
+**Impacto del cambio:**
+
+✅ **Traducciones corregidas:**
+- El buscador ahora muestra "Search places, events..." o "Buscar lugares, eventos..." en lugar de "nav.searchPlaceh"
+- Los textos de autenticación ahora se traducen correctamente
+- Todas las claves de traducción de la navbar funcionan en inglés y español
+
+✅ **Botones de autenticación eliminados:**
+- Los botones "Sign In" y "Get Started" ya no aparecen en la navbar principal
+- Cuando no hay usuario autenticado, el espacio de autenticación está completamente vacío
+- Esto simplifica la interfaz y elimina elementos no deseados
+
+✅ **Consistencia de código:**
+- Las claves de traducción ahora coinciden entre componentes y archivos JSON
+- Soporte para variaciones (signIn/signin, signOut/signout)
+
+**Propósito/Razón:**
+
+El usuario reportó que la navbar mostraba "nombres en código" (claves de traducción) en lugar de texto legible. Esto se debía a que los componentes usaban claves de traducción que no estaban definidas en los archivos common.json.
+
+Adicionalmente, el usuario solicitó explícitamente la eliminación de los botones de Sign In y Sign Up de la navbar principal, lo cual se implementó retornando `null` cuando no hay usuario autenticado.
+
+**Verificación:**
+
+Después de estos cambios:
+1. La navbar muestra textos traducidos correctamente en inglés y español
+2. El buscador muestra el placeholder correcto
+3. No aparecen claves de traducción en la interfaz
+4. Los botones de autenticación han sido completamente removidos
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+---
+
 ## Commit: d29f9dff - 2025-12-08
 
 **Mensaje:** feat: Change default language from Spanish to English

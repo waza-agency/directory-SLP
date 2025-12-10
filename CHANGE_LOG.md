@@ -4,6 +4,63 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-10] Chore: Eliminar referencias a Jenkins y Cloudflare
+
+**Descripción:**
+Eliminación de todas las referencias a Jenkins CI/CD y Cloudflare CDN del proyecto, ya que el proyecto dejó de usar estos servicios.
+
+**Archivos modificados:**
+- Jenkinsfile (eliminado)
+- QUICK_FIX.md (eliminado)
+- DEPLOY_INSTRUCTIONS.md (actualizado)
+
+**Cambios realizados:**
+
+1. **Jenkinsfile:**
+   - Archivo eliminado completamente - ya no se usa Jenkins para CI/CD
+
+2. **QUICK_FIX.md:**
+   - Archivo eliminado completamente - contenía instrucciones específicas para solucionar problemas de caché de Cloudflare
+
+3. **DEPLOY_INSTRUCTIONS.md:**
+   - Eliminada la sección "Caché de CDN (si usas Cloudflare u otro)" que explicaba cómo purgar el caché de Cloudflare
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-10] Fix: Corregir traducciones navbar y eliminar botones de autenticación
+
+**Descripción:**
+Corrección de traducciones que se mostraban como claves en código (nav.searchPlaceh, nav.signin, nav.getStarted) y eliminación de botones de Sign In y Sign Up de la navbar principal.
+
+**Archivos modificados:**
+- public/locales/en/common.json
+- public/locales/es/common.json
+- src/components/header/HeaderUserMenu.tsx
+
+**Cambios realizados:**
+
+1. **Traducciones agregadas en common.json:**
+   - `nav.searchPlaceholder`: "Search places, events..." / "Buscar lugares, eventos..."
+   - `nav.searching`: "Searching" / "Buscando"
+   - `nav.signin`: "Sign In" / "Iniciar Sesión"
+   - `nav.signout`: "Sign Out" / "Cerrar Sesión"
+   - `nav.getStarted`: "Get Started" / "Comenzar"
+   - `nav.dashboard`: "Dashboard" / "Panel"
+   - `nav.settings`: "Settings" / "Configuración"
+
+2. **HeaderUserMenu.tsx:**
+   - Eliminados los botones de Sign In y Sign Up que aparecían cuando no había usuario autenticado
+   - Ahora retorna `null` cuando no hay usuario en lugar de mostrar botones
+
+**Problema resuelto:**
+La navbar mostraba claves de traducción en lugar de texto traducido porque faltaban las claves en los archivos de traducción. Los botones de autenticación han sido removidos según solicitud del usuario.
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-08] Cambio de idioma por defecto a Inglés
 
 **Descripción:**
