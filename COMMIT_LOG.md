@@ -4,6 +4,29 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: ae8f92a5 - 2025-12-10
+
+**Mensaje:** chore: Major codebase cleanup - remove dead code and obsolete files
+
+**Archivos eliminados:** 88 archivos (23,792 líneas eliminadas)
+
+**Descripción detallada:**
+
+Limpieza masiva del codebase eliminando código muerto, archivos de backup, variantes de páginas no utilizadas, componentes sin uso, scripts de uso único y documentación obsoleta.
+
+**Categorías de archivos eliminados:**
+
+1. **Backups:** 5 archivos .backup y .bak
+2. **Variantes de páginas:** 8 archivos (signup-*, signin-simple, index-*, join-directory-optimized)
+3. **Componentes:** 3 archivos (DebugData, GlitchEffect, VectorLineEffect)
+4. **Lib files:** 3 archivos (simple-auth, news-scraper, supabase-client)
+5. **Scripts:** ~50 archivos de uso único
+6. **Documentación:** Varios archivos MD obsoletos
+
+**Propósito/Razón:** Reducir la complejidad del codebase, eliminar confusión para futuros desarrolladores y mejorar la mantenibilidad del proyecto.
+
+---
+
 ## Commit: 4c52b891 - 2025-12-10
 
 **Mensaje:** chore: Remove Jenkins and Cloudflare references

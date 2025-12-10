@@ -4,6 +4,51 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-10] Chore: Limpieza mayor del codebase
+
+**Descripción:**
+Eliminación masiva de código muerto, archivos obsoletos, scripts de uso único y documentación redundante.
+
+**Archivos eliminados:** 88 archivos (~23,800 líneas de código)
+
+**Categorías eliminadas:**
+
+1. **Archivos backup (5 archivos):**
+   - *.backup y *.bak files
+
+2. **Variantes de páginas no usadas (8 archivos):**
+   - signup-fixed.tsx, signup-simple.tsx, signup-minimal.tsx, signup-production.tsx
+   - signin-simple.tsx
+   - index-backup-*.tsx, index-redesign.tsx
+   - join-directory-optimized.tsx
+
+3. **Componentes sin uso (3 archivos):**
+   - DebugData.tsx - componente de debug
+   - GlitchEffect.tsx - efecto canvas roto
+   - VectorLineEffect.tsx - efecto canvas roto
+
+4. **Archivos lib obsoletos (3 archivos):**
+   - simple-auth.ts - reemplazado por supabase-auth.tsx
+   - news-scraper.ts - nunca usado
+   - supabase-client.ts - cliente duplicado
+
+5. **Scripts de uso único (~50 archivos):**
+   - Scripts de migración de base de datos
+   - Scripts de gestión de suscripciones
+   - Scripts de publicación de contenido
+   - Scripts de seeding de datos
+   - Varios scripts de fixes
+
+6. **Documentación obsoleta:**
+   - DESIGN_SYSTEM_GUIDE.md (duplicado de DESIGN_SYSTEM.md)
+   - Documentos de estrategia Google Ads
+   - Documentos de investigación temporales
+   - Borradores de blog posts
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-10] Chore: Eliminar referencias a Jenkins y Cloudflare
 
 **Descripción:**
