@@ -26,22 +26,7 @@ const HeaderUserMenu = memo(function HeaderUserMenu({ user, signOut }: HeaderUse
   }, [user?.email]);
 
   if (!user) {
-    return (
-      <>
-        <Link
-          href="/signin"
-          className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium hover:scale-105"
-        >
-          {t('nav.signin')}
-        </Link>
-        <Link
-          href="/signup"
-          className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 text-base"
-        >
-          {t('nav.getStarted')}
-        </Link>
-      </>
-    );
+    return null;
   }
 
   return (

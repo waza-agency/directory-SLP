@@ -7,10 +7,17 @@
     "faq": "FAQ",
     "contact": "Contact",
     "signIn": "Sign In",
+    "signin": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out",
+    "signout": "Sign Out",
     "myAccount": "My Account",
-    "myOrders": "My Orders"
+    "myOrders": "My Orders",
+    "getStarted": "Get Started",
+    "searchPlaceholder": "Search places, events...",
+    "searching": "Searching",
+    "dashboard": "Dashboard",
+    "settings": "Settings"
   },
   "categories": {
     "cultural": "CULTURAL",

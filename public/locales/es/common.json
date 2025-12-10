@@ -7,10 +7,17 @@
     "faq": "Preguntas Frecuentes",
     "contact": "Contacto",
     "signIn": "Iniciar Sesión",
+    "signin": "Iniciar Sesión",
     "signUp": "Registrarse",
     "signOut": "Cerrar Sesión",
+    "signout": "Cerrar Sesión",
     "myAccount": "Mi Cuenta",
-    "myOrders": "Mis Pedidos"
+    "myOrders": "Mis Pedidos",
+    "getStarted": "Comenzar",
+    "searchPlaceholder": "Buscar lugares, eventos...",
+    "searching": "Buscando",
+    "dashboard": "Panel",
+    "settings": "Configuración"
   },
   "categories": {
     "cultural": "CULTURAL",
