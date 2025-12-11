@@ -4,6 +4,47 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 5082a676 - 2025-12-10
+
+**Mensaje:** chore: Migrate deployment to Netlify
+
+**Archivos creados:**
+- netlify.toml
+
+**Archivos eliminados:**
+- Dockerfile
+- docker-compose.yml
+- deploy-production.sh
+- DEPLOY_INSTRUCTIONS.md
+
+**Archivos modificados:**
+- package.json
+
+**Descripción detallada:**
+
+Migración completa del sistema de deployment de Docker/servidor a Netlify. El proyecto ahora se deployará automáticamente desde GitHub a través de Netlify.
+
+**Cambios realizados:**
+
+1. **netlify.toml (creado):**
+   - Configuración de build: `npm run build`
+   - Plugin `@netlify/plugin-nextjs` para soporte completo de Next.js
+   - Redirect 301 de sanluisway.com a www.sanluisway.com
+   - Headers de seguridad (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
+
+2. **Archivos Docker eliminados:**
+   - Dockerfile: Multi-stage build para Node.js 18
+   - docker-compose.yml: Configuración de servicio con variables de entorno
+   - deploy-production.sh: Script de deploy manual
+
+3. **package.json simplificado:**
+   - Scripts reducidos de 22 a 7
+   - Removidos scripts específicos de Docker y verificación
+
+**Propósito/Razón:** Simplificar el proceso de deployment usando la integración nativa de Netlify con Next.js, eliminando la necesidad de mantener infraestructura Docker.
+
+---
+
 ## Commit: ae8f92a5 - 2025-12-10
 
 **Mensaje:** chore: Major codebase cleanup - remove dead code and obsolete files

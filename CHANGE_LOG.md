@@ -4,6 +4,39 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-10] Chore: Migrar deploy a Netlify
+
+**Descripción:**
+Migración del sistema de deploy de Docker/servidor (DigitalOcean) a Netlify para simplificar el proceso de deployment.
+
+**Archivos creados:**
+- `netlify.toml` - Configuración de Netlify con plugin Next.js, redirects y headers
+
+**Archivos eliminados:**
+- `Dockerfile` - Ya no se usa Docker
+- `docker-compose.yml` - Ya no se usa Docker Compose
+- `deploy-production.sh` - Script de deploy manual obsoleto
+- `DEPLOY_INSTRUCTIONS.md` - Instrucciones de deploy obsoletas
+
+**Archivos modificados:**
+- `package.json` - Scripts simplificados (removidos scripts obsoletos)
+
+**Cambios en package.json scripts:**
+- Removidos: `dev:next`, `build-safe`, `netlify-build`, `export`, `build-static`, `start:next`, `preinstall`, `generate-sitemap`, `prebuild`, `check-node`, `test:coverage:report`, `test:integration`, `test:unit`, `verify-deployment`
+- Simplificado `build` a solo `next build`
+- Simplificado `start` a solo `next start`
+
+**Acciones manuales requeridas:**
+1. Conectar repo en Netlify
+2. Configurar variables de entorno en Netlify
+3. Configurar dominio sanluisway.com en Netlify
+4. Detener contenedor Docker en DigitalOcean
+5. Actualizar DNS para apuntar a Netlify
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-10] Chore: Limpieza mayor del codebase
 
 **Descripción:**
