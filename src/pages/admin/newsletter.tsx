@@ -19,6 +19,12 @@ interface Newsletter {
   stats?: { sent: number; failed: number };
 }
 
+interface BeehiivResult {
+  success: boolean;
+  post_id?: string;
+  edit_url?: string;
+}
+
 export default function NewsletterAdminPage() {
   const [adminKey, setAdminKey] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -32,10 +38,9 @@ export default function NewsletterAdminPage() {
   // Send form state
   const [subject, setSubject] = useState('');
   const [htmlContent, setHtmlContent] = useState('');
-  const [testEmail, setTestEmail] = useState('');
-  const [sending, setSending] = useState(false);
   const [generating, setGenerating] = useState(false);
-  const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [beehiivResult, setBeehiivResult] = useState<BeehiivResult | null>(null);
+  const [generationMessage, setGenerationMessage] = useState('');
 
   const fetchSubscribers = useCallback(async () => {
     setLoading(true);
@@ -95,9 +100,12 @@ export default function NewsletterAdminPage() {
   }, []);
 
   const handleGenerate = async () => {
-    if (!confirm('This will use AI to search for news and generate a draft. It may take 30-60 seconds. Continue?')) return;
+    if (!confirm('This will use AI to generate a newsletter draft in Beehiiv. It may take 30-60 seconds. Continue?')) return;
 
     setGenerating(true);
+    setBeehiivResult(null);
+    setGenerationMessage('');
+
     try {
       const res = await fetch('/api/newsletter/generate', {
         method: 'POST',
@@ -106,9 +114,10 @@ export default function NewsletterAdminPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setSubject(data.newsletter.subject);
-        setHtmlContent(data.newsletter.html_content);
-        alert('Newsletter generated successfully! You can now review and edit it.');
+        setSubject(data.newsletter?.subject || '');
+        setHtmlContent('');
+        setBeehiivResult(data.beehiiv);
+        setGenerationMessage(data.message);
       } else {
         throw new Error(data.message || 'Failed to generate');
       }
@@ -116,64 +125,6 @@ export default function NewsletterAdminPage() {
       alert('Error generating newsletter: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
     setGenerating(false);
-  };
-
-  const createAndSendNewsletter = async (sendToAll: boolean) => {
-    if (!subject.trim() || !htmlContent.trim()) {
-      alert('Subject and HTML content are required');
-      return;
-    }
-    if (!sendToAll && !testEmail.trim()) {
-      alert('Please enter a test email address');
-      return;
-    }
-
-    setSending(true);
-    setSendResult(null);
-
-    try {
-      // First create the newsletter
-      const createRes = await fetch('/api/newsletter/newsletters', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-        body: JSON.stringify({ subject, html_content: htmlContent })
-      });
-      const createData = await createRes.json();
-
-      if (!createRes.ok) throw new Error(createData.message || 'Failed to create newsletter');
-
-      // Then send it
-      const sendRes = await fetch('/api/newsletter/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
-        body: JSON.stringify({
-          newsletter_id: createData.newsletter.id,
-          test_email: sendToAll ? undefined : testEmail
-        })
-      });
-      const sendData = await sendRes.json();
-
-      if (sendRes.ok) {
-        setSendResult({
-          success: true,
-          message: sendToAll
-            ? `Newsletter sent to ${sendData.stats?.sent || 0} subscribers!`
-            : `Test email sent to ${testEmail}`
-        });
-        if (sendToAll) {
-          setSubject('');
-          setHtmlContent('');
-        }
-      } else {
-        throw new Error(sendData.message || 'Failed to send newsletter');
-      }
-    } catch (error) {
-      setSendResult({
-        success: false,
-        message: error instanceof Error ? error.message : 'An error occurred'
-      });
-    }
-    setSending(false);
   };
 
   if (!isAuthenticated) {
@@ -210,12 +161,22 @@ export default function NewsletterAdminPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Newsletter Admin</h1>
-            <button
-              onClick={() => { setIsAuthenticated(false); localStorage.removeItem('newsletter_admin_key'); }}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              Logout
-            </button>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://app.beehiiv.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-yellow-500 text-black rounded-lg font-medium hover:bg-yellow-400"
+              >
+                Open Beehiiv Dashboard
+              </a>
+              <button
+                onClick={() => { setIsAuthenticated(false); localStorage.removeItem('newsletter_admin_key'); }}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                Logout
+              </button>
+            </div>
           </div>
 
           {/* Stats Cards */}
@@ -252,7 +213,7 @@ export default function NewsletterAdminPage() {
               onClick={() => setActiveTab('send')}
               className={`px-6 py-2 rounded-lg font-medium ${activeTab === 'send' ? 'bg-terracotta text-white' : 'bg-white text-gray-600'}`}
             >
-              ✉️ Send Newsletter
+              Generate Newsletter
             </button>
           </div>
 
@@ -367,116 +328,81 @@ export default function NewsletterAdminPage() {
               </div>
             )}
 
-            {/* SEND NEWSLETTER TAB */}
+            {/* GENERATE NEWSLETTER TAB */}
             {activeTab === 'send' && (
               <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold">Send Newsletter</h2>
+                <div className="mb-8">
+                  <h2 className="text-xl font-bold mb-2">Generate Newsletter with AI</h2>
+                  <p className="text-gray-600 mb-6">
+                    Click the button below to generate a newsletter draft using AI. The draft will be created directly in Beehiiv where you can edit and send it.
+                  </p>
+
                   <button
                     onClick={handleGenerate}
                     disabled={generating}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
+                    className="px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
                   >
                     {generating ? (
                       <>
-                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Thinking...
+                        Generating... (30-60 seconds)
                       </>
                     ) : (
-                      <>✨ Generate with AI</>
+                      <>Generate Newsletter with AI</>
                     )}
                   </button>
                 </div>
 
-                {sendResult && (
-                  <div className={`mb-6 p-4 rounded-lg ${sendResult.success ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'}`}>
-                    {sendResult.message}
+                {/* Success Message with Beehiiv Link */}
+                {beehiivResult && (
+                  <div className={`mb-8 p-6 rounded-lg ${beehiivResult.success ? 'bg-green-50 border border-green-200' : 'bg-yellow-50 border border-yellow-200'}`}>
+                    <h3 className="font-bold text-lg mb-2">
+                      {beehiivResult.success ? 'Draft Created Successfully!' : 'Draft Created with Issues'}
+                    </h3>
+                    <p className="text-gray-700 mb-4">{generationMessage}</p>
+
+                    {subject && (
+                      <p className="text-sm text-gray-600 mb-4">
+                        <strong>Subject:</strong> {subject}
+                      </p>
+                    )}
+
+                    {beehiivResult.edit_url && (
+                      <a
+                        href={beehiivResult.edit_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-6 py-3 bg-yellow-500 text-black rounded-lg font-bold hover:bg-yellow-400 transition"
+                      >
+                        Open in Beehiiv to Edit & Send
+                      </a>
+                    )}
                   </div>
                 )}
 
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Subject Line *
-                    </label>
-                    <input
-                      type="text"
-                      value={subject}
-                      onChange={(e) => setSubject(e.target.value)}
-                      placeholder="e.g., San Luis Way Weekly - Dec 1-7"
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-terracotta focus:border-transparent"
-                    />
-                  </div>
+                {/* Instructions */}
+                <div className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="font-bold mb-4">How it works:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-gray-600">
+                    <li>Click &quot;Generate Newsletter with AI&quot; to create a draft</li>
+                    <li>The AI searches for news, events, and information about San Luis Potosí</li>
+                    <li>A draft is created directly in your Beehiiv account</li>
+                    <li>Click the link to open Beehiiv and review/edit the content</li>
+                    <li>Send the newsletter from Beehiiv&apos;s dashboard</li>
+                  </ol>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      HTML Content *
-                    </label>
-                    <textarea
-                      value={htmlContent}
-                      onChange={(e) => setHtmlContent(e.target.value)}
-                      placeholder="Paste your newsletter HTML here..."
-                      rows={12}
-                      className="w-full px-4 py-3 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-terracotta focus:border-transparent"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Paste the complete HTML from your newsletter file
-                    </p>
-                  </div>
-
-                  {/* Preview */}
-                  {htmlContent && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Preview
-                      </label>
-                      <div className="border rounded-lg p-4 bg-gray-50 max-h-96 overflow-auto">
-                        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Test Email */}
-                  <div className="border-t pt-6">
-                    <h3 className="font-medium mb-4">Test Email</h3>
-                    <div className="flex gap-4">
-                      <input
-                        type="email"
-                        value={testEmail}
-                        onChange={(e) => setTestEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        className="flex-1 px-4 py-3 border rounded-lg"
-                      />
-                      <button
-                        onClick={() => createAndSendNewsletter(false)}
-                        disabled={sending || !subject || !htmlContent}
-                        className="px-6 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {sending ? 'Sending...' : 'Send Test'}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Send to All */}
-                  <div className="border-t pt-6">
-                    <h3 className="font-medium mb-2">Send to All Subscribers</h3>
-                    <p className="text-sm text-gray-500 mb-4">
-                      This will send the newsletter to all {subscriberCounts.active} active subscribers.
-                    </p>
-                    <button
-                      onClick={() => {
-                        if (confirm(`Are you sure you want to send this newsletter to ${subscriberCounts.active} subscribers?`)) {
-                          createAndSendNewsletter(true);
-                        }
-                      }}
-                      disabled={sending || !subject || !htmlContent}
-                      className="px-8 py-3 bg-terracotta text-white rounded-lg font-semibold hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {sending ? 'Sending...' : `Send to ${subscriberCounts.active} Subscribers`}
-                    </button>
+                  <div className="mt-6 pt-6 border-t">
+                    <h4 className="font-medium mb-2">Why send from Beehiiv?</h4>
+                    <ul className="list-disc list-inside text-sm text-gray-500 space-y-1">
+                      <li>Better email deliverability</li>
+                      <li>Built-in analytics (open rates, clicks)</li>
+                      <li>Ad Network monetization</li>
+                      <li>Boost cross-promotion opportunities</li>
+                      <li>Professional email templates</li>
+                    </ul>
                   </div>
                 </div>
               </div>
