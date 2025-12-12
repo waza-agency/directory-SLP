@@ -28,106 +28,119 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-sm">
-      <div className="bg-gradient-to-r from-primary to-secondary h-1 animate-pulse-slow"></div>
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-background/95">
+      <div className="bg-gradient-to-r from-primary to-secondary h-0.5"></div>
 
-      <div className="bg-background/95 shadow-elegant border-b border-gray-100/50 relative z-20">
-        <div className="container-responsive flex justify-between items-center py-5">
-          <Link href="/" className="flex items-center hover-scale transition-transform duration-200">
-            <Image
-              src="/images/logo.jpeg"
-              alt="SLP Descubre Logo"
-              width={600}
-              height={60}
-              className="h-20 w-auto"
-            />
-          </Link>
+      <div className="shadow-sm border-b border-gray-100/50">
+        <div className="container-responsive">
+          <div className="flex justify-between items-center py-3">
+            <Link
+              href="/"
+              className="flex items-center transition-transform duration-200 hover:scale-105"
+            >
+              <Image
+                src="/images/logo.jpeg"
+                alt="SLP Descubre Logo"
+                width={480}
+                height={48}
+                className="h-12 w-auto"
+                priority
+              />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <HeaderNavigation />
+            {/* Desktop Navigation */}
+            <HeaderNavigation />
 
-          {/* Search Bar */}
-          <HeaderSearch />
+            {/* Search Bar */}
+            <HeaderSearch />
 
-          {/* Desktop Auth */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <HeaderUserMenu user={user} signOut={signOut} />
-            <LanguageSwitcher variant="desktop" />
+            {/* Desktop Auth & Language */}
+            <div className="hidden lg:flex items-center gap-3">
+              <HeaderUserMenu user={user} signOut={signOut} />
+              <LanguageSwitcher variant="desktop" />
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden text-gray-600 hover:text-primary transition-all duration-200 p-2 rounded-lg hover:bg-gray-50 active:scale-95 focus-ring"
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 transition-transform duration-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-gray-500 hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-gray-100 focus-ring"
-            onClick={toggleMenu}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white shadow-elegant border-t border-gray-100 animate-slide-down">
-          <nav className="container-responsive py-4 space-y-2">
+        <div className="lg:hidden bg-white shadow-lg border-t border-gray-100 animate-fadeInUp">
+          <nav className="container-responsive py-3 space-y-1 max-h-[calc(100vh-60px)] overflow-y-auto">
             <Link
               href="/"
               onClick={closeMenu}
-              className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.home')}
             </Link>
             <Link
               href="/places"
               onClick={closeMenu}
-              className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.explore')}
             </Link>
             <Link
               href="/blog"
               onClick={closeMenu}
-              className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.blog')}
             </Link>
             <Link
               href="/about"
               onClick={closeMenu}
-              className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.about')}
             </Link>
             <Link
               href="/faq"
               onClick={closeMenu}
-              className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.faq')}
             </Link>
             <Link
               href="/contact"
               onClick={closeMenu}
-              className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.contact')}
             </Link>
 
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-3 border-t border-gray-100">
               <LanguageSwitcher variant="mobile" />
             </div>
 
             {user ? (
-              <div className="pt-4 border-t border-gray-200 space-y-2">
+              <div className="pt-3 border-t border-gray-100 space-y-1">
                 <Link
                   href="/account"
                   onClick={closeMenu}
-                  className="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+                  className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
                 >
                   {t('nav.dashboard')}
                 </Link>
@@ -137,24 +150,24 @@ export default function Header() {
                     closeMenu();
                     router.push('/');
                   }}
-                  className="w-full text-left py-3 px-4 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-150"
+                  className="w-full text-left py-2.5 px-3 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-150 active:scale-98 font-medium"
                 >
                   {t('nav.signout')}
                 </button>
               </div>
             ) : (
-              <div className="pt-4 border-t border-gray-200 space-y-2">
+              <div className="pt-3 border-t border-gray-100 space-y-2">
                 <Link
                   href="/signin"
                   onClick={closeMenu}
-                  className="block py-3 px-4 text-center text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-150"
+                  className="block py-2.5 px-3 text-center text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-150 active:scale-98 font-medium"
                 >
                   {t('nav.signin')}
                 </Link>
                 <Link
                   href="/signup"
                   onClick={closeMenu}
-                  className="block py-3 px-4 text-center bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors duration-150"
+                  className="block py-2.5 px-3 text-center bg-primary hover:bg-primary-dark text-white rounded-lg transition-all duration-150 active:scale-98 font-semibold shadow-sm"
                 >
                   {t('nav.getStarted')}
                 </Link>

@@ -1,53 +1,47 @@
 import { memo } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
 const HeaderNavigation = memo(function HeaderNavigation() {
   const { t } = useTranslation('common');
+  const router = useRouter();
+
+  const navItems = [
+    { href: '/', label: t('nav.home') },
+    { href: '/places', label: t('nav.explore') },
+    { href: '/blog', label: t('nav.blog') },
+    { href: '/about', label: t('nav.about') },
+    { href: '/faq', label: t('nav.faq') },
+    { href: '/contact', label: t('nav.contact') },
+  ];
+
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return router.pathname === '/';
+    }
+    return router.pathname.startsWith(path);
+  };
 
   return (
-    <nav className="hidden lg:flex items-center space-x-10">
-      <Link
-        href="/"
-        className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
-      >
-        {t('nav.home')}
-      </Link>
-
-      <Link
-        href="/places"
-        className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
-      >
-        {t('nav.explore')}
-      </Link>
-
-      <Link
-        href="/blog"
-        className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
-      >
-        {t('nav.blog')}
-      </Link>
-
-      <Link
-        href="/about"
-        className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
-      >
-        {t('nav.about')}
-      </Link>
-
-      <Link
-        href="/faq"
-        className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
-      >
-        {t('nav.faq')}
-      </Link>
-
-      <Link
-        href="/contact"
-        className="nav-link text-gray-700 hover:text-primary transition-all duration-200 text-base font-medium relative py-2 hover:scale-105"
-      >
-        {t('nav.contact')}
-      </Link>
+    <nav className="hidden lg:flex items-center gap-1">
+      {navItems.map(({ href, label }) => (
+        <Link
+          key={href}
+          href={href}
+          className={`
+            nav-link px-3 py-1.5 rounded-lg text-sm font-medium
+            transition-all duration-200 relative
+            ${isActive(href)
+              ? 'text-primary bg-primary/5'
+              : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+            }
+            focus-ring
+          `}
+        >
+          {label}
+        </Link>
+      ))}
     </nav>
   );
 });
