@@ -919,3 +919,52 @@ git pull origin main
 docker-compose build
 docker-compose up -d
 ```
+
+---
+
+## [2025-12-11] Feature: Facebook Lead Ads → Beehiiv Webhook Integration
+
+**Descripción:**
+Implementación de webhook directo para recibir leads de Facebook Lead Ads y agregarlos automáticamente a Beehiiv como suscriptores, sin necesidad de servicios terceros como Zapier o Make.
+
+**Archivos creados:**
+- `src/pages/api/newsletter/facebook-lead-webhook.ts` - Endpoint de webhook
+- `docs/facebook-lead-ads-setup.md` - Guía de configuración paso a paso
+
+**Archivos modificados:**
+- `.env.example` - Agregadas variables de Beehiiv y Facebook
+
+**Funcionalidad del webhook:**
+
+1. **Verificación (GET):**
+   - Responde al challenge de Facebook para validar el webhook
+   - Usa `FACEBOOK_WEBHOOK_VERIFY_TOKEN` para autenticación
+
+2. **Recepción de leads (POST):**
+   - Recibe notificaciones de nuevos leads
+   - Obtiene datos completos del lead via Graph API
+   - Extrae email y nombre del formulario
+
+3. **Integración con Beehiiv:**
+   - Agrega suscriptor con `utm_source: facebook_ads`
+   - Agrega suscriptor con `utm_medium: lead_ad`
+   - Activa envío de welcome email automático
+
+**Variables de entorno requeridas:**
+```env
+FACEBOOK_WEBHOOK_VERIFY_TOKEN=your_verify_token
+FACEBOOK_ACCESS_TOKEN=your_page_access_token
+```
+
+**URL del webhook:** `https://www.sanluisway.com/api/newsletter/facebook-lead-webhook`
+
+**Resultado:** ✅ Exitoso
+- Webhook creado y listo para configurar en Facebook
+- Documentación completa de setup incluida
+- Sin dependencias de terceros (Zapier, Make, etc.)
+
+**Próximos pasos:**
+1. Configurar webhook en Facebook App Dashboard
+2. Obtener Page Access Token con permisos `leads_retrieval`
+3. Suscribir página al evento `leadgen`
+4. Probar con Lead Ads Testing Tool
