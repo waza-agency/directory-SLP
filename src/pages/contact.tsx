@@ -1,6 +1,8 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useState, useRef, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import ReCAPTCHA from 'react-google-recaptcha';
 import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
