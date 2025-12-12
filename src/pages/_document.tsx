@@ -13,6 +13,7 @@ export default function Document(props: DocumentProps) {
         />
         <meta name="google-site-verification" content="s4k5V8dAkvDb3Dv15SNozffS7noII7qQAsUXJfnALOU" />
         <meta name="google-adsense-account" content="ca-pub-7339948154887436" />
+        <meta name="facebook-domain-verification" content="eduke3sgsk7rzqsqwyc9xrk4fu13k2" />
 
         {/* Hreflang tags for international SEO */}
         <link rel="alternate" hrefLang="en" href="https://www.sanluisway.com" />
