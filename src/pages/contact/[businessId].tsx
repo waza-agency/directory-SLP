@@ -94,7 +94,7 @@ export default function BusinessContactPage({ businessListing }: ContactPageProp
         body: JSON.stringify({
           ...data,
           service: `Business Contact: ${businessName}`,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           businessId: businessListing.id,
           businessName: businessName,
           businessTitle: businessListing.title,

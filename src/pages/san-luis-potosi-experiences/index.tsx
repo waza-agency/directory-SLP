@@ -105,7 +105,7 @@ export default function LocalExperiences({ recaptchaSiteKey }: { recaptchaSiteKe
         body: JSON.stringify({
           ...formData,
           recaptchaToken: recaptchaValue,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           subject: 'Local Experiences Inquiry',
         }),
       });

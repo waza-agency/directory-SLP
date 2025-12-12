@@ -504,10 +504,10 @@ export default function Advertise() {
                 </Link>
                 <span className="text-gray-400">•</span>
                 <a
-                  href="mailto:info@sanluisway.com"
+                  href="mailto:sanluisway@waza.baby"
                   className="inline-flex items-center text-primary hover:text-primary-dark font-semibold"
                 >
-                  info@sanluisway.com
+                  sanluisway@waza.baby
                 </a>
               </div>
             </div>

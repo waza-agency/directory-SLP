@@ -91,7 +91,7 @@ function App({ Component, pageProps }: AppProps) {
               "contactPoint": {
                 "@type": "ContactPoint",
                 "contactType": "Customer Service",
-                "email": "info@sanluisway.com",
+                "email": "sanluisway@waza.baby",
                 "areaServed": "MX",
                 "availableLanguage": ["English", "Spanish"]
               }

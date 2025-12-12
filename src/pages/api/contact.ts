@@ -243,8 +243,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
-  // Always use info@sanluisway.com for all outgoing emails
-  const businessEmail = 'info@sanluisway.com';
+  // Always use sanluisway@waza.baby for all outgoing emails
+  const businessEmail = 'sanluisway@waza.baby';
   // In development, use the verified email for Resend
   const actualEmailTo = process.env.NODE_ENV === 'development' ? 'santiago@waza.baby' : businessEmail;
 

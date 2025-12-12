@@ -105,7 +105,7 @@ export default function FamilySupportServices({ recaptchaSiteKey }: { recaptchaS
         body: JSON.stringify({
           ...formData,
           recaptchaToken: recaptchaValue,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           subject: 'Family Support Inquiry',
         }),
       });

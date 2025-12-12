@@ -104,7 +104,7 @@ export default function HousingServices({ recaptchaSiteKey }: { recaptchaSiteKey
         body: JSON.stringify({
           ...formData,
           recaptchaToken: recaptchaValue,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           subject: 'Housing Services Inquiry',
         }),
       });

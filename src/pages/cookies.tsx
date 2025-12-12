@@ -187,7 +187,7 @@ export default function CookiePolicy() {
                   If you have questions about our use of cookies, please contact us:
                 </p>
                 <div className="bg-gray-50 rounded-lg p-4 mt-4">
-                  <p className="text-gray-700"><strong>Email:</strong> info@sanluisway.com</p>
+                  <p className="text-gray-700"><strong>Email:</strong> sanluisway@waza.baby</p>
                   <p className="text-gray-700"><strong>Website:</strong> <Link href="/contact" className="text-primary hover:text-primary-dark">Contact Form</Link></p>
                 </div>
               </section>

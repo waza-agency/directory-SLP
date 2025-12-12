@@ -94,7 +94,7 @@ export default function FAQPage() {
         },
         {
           question: 'How can I contact San Luis Way?',
-          answer: 'You can reach us via email at info@sanluisway.com or through our contact form. For quick questions, DM us on Instagram @sanluisway. We typically respond within 24-48 hours.'
+          answer: 'You can reach us via email at sanluisway@waza.baby or through our contact form. For quick questions, DM us on Instagram @sanluisway. We typically respond within 24-48 hours.'
         },
         {
           question: 'Are you on social media?',

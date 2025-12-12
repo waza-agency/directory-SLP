@@ -105,7 +105,7 @@ export default function WellnessServicesPage({ recaptchaSiteKey }: { recaptchaSi
         body: JSON.stringify({
           ...formData,
           recaptchaToken: recaptchaValue,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           subject: 'Wellness Service Inquiry',
         }),
       });

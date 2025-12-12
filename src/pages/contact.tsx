@@ -74,7 +74,7 @@ export default function Contact() {
         body: JSON.stringify({
           ...data,
           service: data.subject,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           recaptchaToken: recaptchaValue
         }),
       });

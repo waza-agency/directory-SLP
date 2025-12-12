@@ -156,7 +156,7 @@ export default function CulturalTours() {
         },
         body: JSON.stringify({
           ...formData,
-          to: 'info@sanluisway.com',
+          to: 'sanluisway@waza.baby',
           subject: 'Cultural Tour Inquiry',
           recaptchaToken: recaptchaValue
         }),
@@ -201,8 +201,8 @@ export default function CulturalTours() {
       if (form) {
         form.addEventListener('submit', (e) => {
           const data = new FormData(form);
-          if (data.get('destination') !== 'info@sanluisway.com') {
-            throw new Error('Contact form does not send to info@sanluisway.com');
+          if (data.get('destination') !== 'sanluisway@waza.baby') {
+            throw new Error('Contact form does not send to sanluisway@waza.baby');
           }
         });
       }
