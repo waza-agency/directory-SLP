@@ -4,6 +4,33 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Feature: Collaboration Banner + Newsletter Banner Fix
+
+**Descripción:**
+1. Nuevo banner de colaboración invitando a usuarios a contribuir a la plataforma colectiva
+2. Corrección del banner de newsletter (hero variant) que mostraba estilos rotos
+
+**Archivos creados/modificados:**
+- `src/components/CollaborationBanner.tsx` - Nuevo componente de banner de colaboración
+- `src/components/NewsletterBanner.tsx` - Corregido el hero variant con gradiente azul correcto
+- `src/pages/index.tsx` - Agregado CollaborationBanner antes del CTA final
+
+**Características del CollaborationBanner:**
+1. Diseño amigable con icono de comunidad
+2. Texto bilingüe (EN + ES)
+3. Botón de contacto prominente
+4. Gradiente suave slate/blue como fondo
+5. Card blanca con sombra para destacar
+
+**Correcciones del NewsletterBanner:**
+1. Hero variant ahora usa gradiente azul/indigo correcto
+2. Padding reducido de py-20 a py-16
+3. Texto "San Luis Potosí" ahora en línea con span
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-12] Feature: Beta Banner Discreto en Homepage
 
 **Descripción:**

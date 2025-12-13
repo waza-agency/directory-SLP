@@ -46,50 +46,54 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
     }
   };
 
-  // Hero Banner - Large, prominent with animated gradient
+  // Hero Banner - Large, prominent with gradient background
   if (variant === 'hero') {
     return (
-      <section className={`relative overflow-hidden py-20 px-4 ${className}`}>
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-terracotta via-orange-500 to-amber-500" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
+      <section className={`relative overflow-hidden py-16 px-4 bg-gradient-to-br from-primary via-blue-600 to-indigo-700 ${className}`}>
+        {/* Pattern overlay */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+            backgroundSize: '32px 32px'
+          }} />
+        </div>
 
         {/* Decorative circles */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-48 h-48 bg-amber-300/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-400/20 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
 
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6 border border-white/30">
-            <SparklesIcon className="w-4 h-4" />
+            <EnvelopeIcon className="w-4 h-4" />
             Free Weekly Newsletter
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Your Insider Guide to<br />
-            <span className="text-amber-200">San Luis Potosí</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            Your Insider Guide to{' '}
+            <span className="text-amber-300">San Luis Potosí</span>
           </h2>
 
-          <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
             Practical tips and useful info to navigate the city like a local — delivered every week.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-8 text-white/90">
-            <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
-              <CalendarDaysIcon className="w-5 h-5" />
+          <div className="flex flex-wrap justify-center gap-3 mb-8 text-sm">
+            <span className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+              <CalendarDaysIcon className="w-4 h-4" />
               Weekly Events
             </span>
-            <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
-              <MapPinIcon className="w-5 h-5" />
+            <span className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+              <MapPinIcon className="w-4 h-4" />
               Local Gems
             </span>
-            <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
-              <SparklesIcon className="w-5 h-5" />
+            <span className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white">
+              <SparklesIcon className="w-4 h-4" />
               Practical Info
             </span>
           </div>
 
-          <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
                 value={email}
@@ -101,7 +105,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-all duration-300 disabled:opacity-50 shadow-lg hover:shadow-xl hover:scale-105"
+                className="px-8 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-all duration-300 disabled:opacity-50 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap"
               >
                 {status === 'loading' ? (
                   <span className="flex items-center gap-2">

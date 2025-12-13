@@ -16,6 +16,7 @@ import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import BetaBanner from '@/components/BetaBanner';
+import CollaborationBanner from '@/components/CollaborationBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -1080,6 +1081,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* NEWSLETTER HERO BANNER */}
         <NewsletterBanner variant="hero" />
+
+        {/* COLLABORATION BANNER */}
+        <CollaborationBanner />
 
         {/* FINAL CTA - Elegant Call to Action */}
         <section id="cta-001" className="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
