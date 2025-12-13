@@ -4,6 +4,47 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 93c00b6e - 2025-12-13
+
+**Mensaje:** feat: Update Leonora Carrington blog post images to local files
+
+**Archivos creados:**
+- scripts/update-leonora-images-final.js
+
+**Archivos modificados:**
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Actualización de todas las imágenes del blog post de Leonora Carrington para usar archivos locales en lugar de URLs de Unsplash.
+
+**Cambios realizados:**
+
+1. **scripts/update-leonora-images-final.js (creado):**
+   - Script Node.js para actualizar el post en Supabase
+   - Conexión a Supabase usando variables de entorno
+   - Actualiza campos: image_url, content_en, content
+   - Mapeo de 7 imágenes locales al contenido HTML
+
+2. **Base de datos Supabase actualizada:**
+   - Tabla `posts`, slug: `leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism`
+   - image_url actualizado a imagen principal local
+   - Contenido en inglés y español con rutas de imágenes locales
+
+3. **Imágenes locales utilizadas:**
+   - leonora_principal.jpg
+   - leonora_surrealism.webp
+   - San Luis Potosí's dramatic landscapes...webp
+   - museo-Leonora-Carrinton.webp
+   - centro de las artes.jpeg
+   - Xilitla-de-los-mejores-destinos-en-Mexico.jpg
+   - las pozas pools-xilitla.webp
+
+**Propósito/Razón:**
+Mejorar la confiabilidad y velocidad de carga del blog post usando imágenes locales en lugar de depender de un servicio externo (Unsplash).
+
+---
+
 ## Commit: 5082a676 - 2025-12-10
 
 **Mensaje:** chore: Migrate deployment to Netlify
