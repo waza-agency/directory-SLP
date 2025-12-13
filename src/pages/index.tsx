@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, Suspense, lazy, useMemo } from 'react';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -17,6 +17,7 @@ import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
+import GlitchText from '@/components/common/GlitchText';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -84,6 +85,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const { t } = useTranslation('common');
   const { locale } = useRouter();
+
+  const glitchWords = useMemo(() => [
+    t('homepage.hero.glitchWords.word1'),
+    t('homepage.hero.glitchWords.word2'),
+    t('homepage.hero.glitchWords.word3'),
+    t('homepage.hero.glitchWords.word4'),
+    t('homepage.hero.glitchWords.word5'),
+  ], [t]);
 
   // Outdoor activities data
   const outdoorActivities = [
@@ -247,7 +256,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
               {/* Elegant Typography */}
               <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-[1.1] animate-slide-up tracking-tight">
-                {t('homepage.hero.title1')}<br />
+                {t('homepage.hero.titlePrefix')} <GlitchText words={glitchWords} className="text-primary" /> {t('homepage.hero.titleSuffix')}<br />
                 <span className="text-primary italic">{t('homepage.hero.title2')}</span>
               </h1>
 

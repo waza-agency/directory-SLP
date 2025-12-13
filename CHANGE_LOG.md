@@ -4,6 +4,57 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Feature: Animated GlitchText in Homepage Hero
+
+**Descripcion:**
+Implementacion de texto animado con efecto glitch/signal noise en el hero del homepage. La palabra "Refined/Refinada" ahora alterna con otras palabras positivas relacionadas con el contexto de la pagina.
+
+**Archivos creados:**
+- `src/components/common/GlitchText.tsx` - Componente de texto animado con efecto glitch
+
+**Archivos modificados:**
+- `src/pages/index.tsx` - Integracion del componente GlitchText en el hero section
+- `public/locales/en/common.json` - Agregadas traducciones para palabras alternativas
+- `public/locales/es/common.json` - Agregadas traducciones para palabras alternativas
+
+**Palabras que rotan:**
+| Ingles | Espanol |
+|--------|---------|
+| Refined | Refinada |
+| Elegant | Elegante |
+| Extraordinary | Extraordinaria |
+| Authentic | Autentica |
+| Curated | Curada |
+
+**Caracteristicas del efecto glitch:**
+- Animacion con framer-motion para transiciones suaves
+- Efecto de distorsion RGB usando colores del tema (Primary #FFCB05, Secondary #00007A)
+- Clip-path para crear efecto de "señal rota"
+- Skew y text-shadow para dar sensacion de interferencia
+- Transicion con blur para entrada/salida de palabras
+- Intervalo de 3.5 segundos entre cambios de palabra
+
+**Cambios en traducciones:**
+```json
+// Antes:
+"title1": "Your Refined Life in"
+
+// Despues:
+"titlePrefix": "Your",
+"titleSuffix": "Life in",
+"glitchWords": {
+  "word1": "Refined",
+  "word2": "Elegant",
+  "word3": "Extraordinary",
+  "word4": "Authentic",
+  "word5": "Curated"
+}
+```
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Fix & Redesign: Factchecks Page
 
 **Descripción:**
