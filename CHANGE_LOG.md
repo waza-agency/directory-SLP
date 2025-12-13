@@ -4,6 +4,24 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-12] Update: Página de Fact-Checks Bilingüe
+
+**Descripción:**
+La página de fact-checks ahora muestra ambos idiomas: inglés como idioma principal y español siempre visible para las secciones importantes de metodología y colaboración.
+
+**Archivo modificado:**
+- `src/pages/blog/factchecks/index.tsx`
+
+**Cambios implementados:**
+1. Inglés como idioma principal para todos los elementos de UI
+2. Secciones de metodología y colaboración siempre visibles en ambos idiomas
+3. Separación visual clara entre ambos idiomas con líneas divisorias
+4. Tono profesional e institucional en ambos idiomas
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-12] Update: Página de Fact-Checks con Metodología IA y Colaboración
 
 **Descripción:**
