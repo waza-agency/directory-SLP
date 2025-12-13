@@ -4,6 +4,41 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Feature: TodayInSLP Daily Dashboard Module
+
+**Descripcion:**
+Nuevo modulo "Lo Que Debes Saber Hoy" / "What You Need to Know Today" que muestra informacion diaria relevante para los usuarios justo despues del hero en el homepage.
+
+**Archivos creados:**
+- `src/components/TodayInSLP.tsx` - Componente dashboard con informacion diaria
+
+**Archivos modificados:**
+- `src/pages/index.tsx` - Integracion del componente despues del hero
+- `public/locales/en/common.json` - Traducciones en ingles
+- `public/locales/es/common.json` - Traducciones en espanol
+
+**Secciones del dashboard:**
+
+| Seccion | Informacion |
+|---------|-------------|
+| Fecha | Fecha actual formateada segun locale (13 diciembre 2025) |
+| Clima | Temperatura, humedad, viento con icono dinamico |
+| Trafico | Estado del flujo vehicular y alertas activas |
+| Eventos | Contador de eventos del dia con link a /events |
+| Tip del Dia | Noticia/tip diario en formato bilingue |
+
+**Caracteristicas tecnicas:**
+- Diseño responsivo: 4 columnas en desktop, 2 en mobile
+- Header con gradiente secondary y location badge
+- Iconos de Heroicons para cada seccion
+- Footer con hora de actualizacion y link "Ver mas"
+- Soporte completo i18n (EN/ES)
+- Hover effects en cada seccion
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Feature: Animated GlitchText in Homepage Hero
 
 **Descripcion:**
