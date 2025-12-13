@@ -92,6 +92,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
     t('homepage.hero.glitchWords.word3'),
     t('homepage.hero.glitchWords.word4'),
     t('homepage.hero.glitchWords.word5'),
+    t('homepage.hero.glitchWords.word6'),
   ], [t]);
 
   // Outdoor activities data
