@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import SEO from '@/components/common/SEO';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function CommunityPage() {
 
@@ -257,9 +258,10 @@ export default function CommunityPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 };
