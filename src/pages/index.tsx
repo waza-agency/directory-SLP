@@ -93,6 +93,14 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
     t('homepage.hero.glitchWords.word4'),
     t('homepage.hero.glitchWords.word5'),
     t('homepage.hero.glitchWords.word6'),
+    t('homepage.hero.glitchWords.word7'),
+    t('homepage.hero.glitchWords.word8'),
+    t('homepage.hero.glitchWords.word9'),
+    t('homepage.hero.glitchWords.word10'),
+    t('homepage.hero.glitchWords.word11'),
+    t('homepage.hero.glitchWords.word12'),
+    t('homepage.hero.glitchWords.word13'),
+    t('homepage.hero.glitchWords.word14'),
   ], [t]);
 
   // Outdoor activities data
