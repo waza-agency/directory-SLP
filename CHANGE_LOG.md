@@ -4,6 +4,66 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-12] Feature: Fact-Check Reports System for Blog
+
+**Descripción:**
+Implementación de un sistema de fact-checking transparente para los artículos del blog. Los lectores ahora pueden acceder a reportes detallados de verificación de datos para cada artículo publicado.
+
+**Archivos creados:**
+- `public/factchecks/mining-history-baroque-architecture.md` - Reporte de verificación del artículo de historia minera
+- `public/factchecks/fdi-job-market-foreign-professionals.md` - Reporte de verificación del artículo de FDI
+- `src/pages/blog/factchecks/index.tsx` - Página índice de fact-checks
+- `src/pages/blog/factchecks/[slug].tsx` - Página dinámica para renderizar reportes individuales
+
+**Funcionalidad implementada:**
+
+1. **Página índice (`/blog/factchecks`):**
+   - Lista todos los fact-checks disponibles
+   - Muestra reliability score con badge de color
+   - Contadores de claims (TRUE, PARTIALLY TRUE, UNVERIFIABLE)
+   - Descripción de metodología
+   - Links a reportes individuales
+
+2. **Páginas de reportes individuales:**
+   - Renderizado de markdown con estilos profesionales
+   - Verdicts con color-coding (verde=TRUE, amarillo=PARTIAL, gris=UNVERIFIABLE)
+   - Tablas responsive
+   - Links a fuentes primarias
+   - Navegación entre fact-checks y blog
+
+3. **Reportes de verificación creados:**
+   - **Mining History article:** 18 claims, 7.5/10 reliability
+   - **FDI article:** 22 claims, 8.5/10 reliability
+
+**Resultado:** ✅ Exitoso
+- Build completado sin errores
+- Páginas accesibles en `/blog/factchecks`
+- Reportes renderizados con markdown styling
+- SEO optimizado con ClaimReview structured data
+
+---
+
+## [2025-12-12] Fix: Corregir contenido de la sección Huasteca en blog post
+
+**Descripción:**
+Corrección del blog post "San Luis Potosí: Historia Minera, Arquitectura Barroca y el Legado Cultural" para eliminar imágenes faltantes y corregir terminología sobre pueblos indígenas.
+
+**Cambios realizados:**
+1. Eliminada imagen de la Cascada de Tamul (tamul-waterfall.jpg) - imagen faltante
+2. Eliminada imagen del río turquesa (rio-huasteca-turquesa.jpg) - imagen faltante
+3. Corregido "Náhuatl" → "Nahua/Nahuas" cuando se refiere al pueblo (Náhuatl es el idioma, Nahua/Nahuas son las personas)
+
+**Archivos modificados:**
+- `scripts/expand-huasteca-section.js` - Actualizado contenido fuente
+- Base de datos: blog_posts (contenido actualizado via script)
+
+**Archivos creados:**
+- `scripts/fix-huasteca-content.js` - Script para aplicar correcciones
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-10] Chore: Migrar deploy a Netlify
 
 **Descripción:**
