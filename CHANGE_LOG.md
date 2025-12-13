@@ -4,6 +4,53 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Feature: Blog Carousel on Homepage
+
+**Descripción:**
+Agregado carrusel de blog posts en la página principal para promover el contenido del blog con posts que van cambiando automáticamente.
+
+**Archivos creados/modificados:**
+- `src/components/BlogCarousel.tsx` (nuevo - 210 líneas)
+- `src/pages/index.tsx` (modificado)
+- `public/locales/en/common.json` (traducción agregada)
+- `public/locales/es/common.json` (traducción agregada)
+
+**Características:**
+1. **Carrusel Auto-rotativo:**
+   - Posts cambian automáticamente cada 5 segundos
+   - Pausa al interactuar manualmente
+   - Navegación con flechas izquierda/derecha
+   - Indicadores de puntos (dots) para navegación directa
+
+2. **Featured Image Grande:**
+   - Imagen destacada con aspect ratio 4:3
+   - Badge de categoría superpuesto
+   - Overlay gradiente elegante
+   - Hover effect con scale suave
+
+3. **Contenido del Post:**
+   - Fecha de publicación formateada
+   - Tiempo de lectura estimado
+   - Título con hover effect
+   - Excerpt con line-clamp
+   - Botón "Read Article" con hover
+
+4. **Mini Cards Row:**
+   - 4 cards pequeñas debajo del carrusel
+   - Indican el post activo con ring
+   - Clickeables para navegar al post
+   - Muestran título truncado y fecha
+
+5. **Ubicación:**
+   - Después de la sección de Brands
+   - Antes de los Practical Guides
+   - Solo se muestra si hay posts disponibles
+
+**Estado:** ✅ Exitoso
+**Commit:** b321fc5d
+
+---
+
 ## [2025-12-13] Refactor: Simplified Blog Layout with Category Navbar
 
 **Descripción:**
