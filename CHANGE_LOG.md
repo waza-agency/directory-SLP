@@ -4,6 +4,33 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Update: Leonora Carrington Blog Post Images
+
+**Descripción:**
+Actualizadas todas las imágenes del blog post de Leonora Carrington de URLs de Unsplash a imágenes locales almacenadas en el proyecto.
+
+**Archivos creados/modificados:**
+- `scripts/update-leonora-images-final.js` (nuevo - script de actualización)
+- Base de datos Supabase: tabla `posts`, registro del post de Leonora Carrington
+
+**Imágenes actualizadas:**
+1. **Imagen principal:** `/images/blog/leonora carrington/leonora_principal.jpg`
+2. **Sección Surrealism:** `/images/blog/leonora carrington/leonora_surrealism.webp`
+3. **Paisajes SLP:** `/images/blog/leonora carrington/San Luis Potosí's dramatic landscapes and rich history attracted many Surrealist artists.webp`
+4. **Museo Leonora:** `/images/blog/leonora carrington/museo-Leonora-Carrinton.webp`
+5. **Centro de las Artes:** `/images/blog/leonora carrington/centro de las artes.jpeg`
+6. **Xilitla:** `/images/blog/leonora carrington/Xilitla-de-los-mejores-destinos-en-Mexico.jpg`
+7. **Las Pozas:** `/images/blog/leonora carrington/las pozas pools-xilitla.webp`
+
+**Cambios realizados:**
+- Actualizado campo `image_url` con imagen principal local
+- Actualizado campo `content_en` (contenido en inglés) con todas las rutas de imágenes locales
+- Actualizado campo `content` (contenido en español) con todas las rutas de imágenes locales
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Feature: Blog Carousel on Homepage
 
 **Descripción:**
