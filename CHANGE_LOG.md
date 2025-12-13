@@ -4,6 +4,120 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Feature: Professional Magazine-Style Blog Redesign
+
+**Descripcion:**
+Rediseño completo de la página de índice del blog (/blog) con un layout profesional estilo editorial/magazine que mejora drásticamente la experiencia de usuario y la discoverabilidad de contenido.
+
+**Archivo modificado:**
+- `src/pages/blog/index.tsx` (504 líneas)
+
+**Características principales implementadas:**
+
+1. **Featured Post Hero (Hero Grande)**
+   - Card horizontal 60/40 (imagen-contenido) para el primer post
+   - Imagen con gradiente overlay y transiciones suaves
+   - Badge de categoría con backdrop-blur
+   - Título grande con font-display (Crimson Pro)
+   - Metadata: fecha formateada, tiempo de lectura estimado
+   - Hover effects: scale en imagen, color change en título
+
+2. **Layout Sidebar (70/30)**
+   - Main content: 8 columnas (lg:col-span-8)
+   - Sidebar sticky: 4 columnas (lg:col-span-4)
+   - Sidebar con posicionamiento sticky top-8
+   - Responsive: sidebar below content en mobile
+
+3. **Sidebar Widgets:**
+   - **Search Box:** Input con icono, filtrado en tiempo real
+   - **Category Filter:** Botones con conteo de posts, estado activo
+   - **Popular Posts:** Mini cards con imagen 20x20 y hover
+   - **Tags Cloud:** Tags con conteo, hover effects
+   - **Newsletter CTA:** Compact signup widget con gradiente
+
+4. **Category Silos:**
+   - Posts agrupados por categoría cuando no hay filtro
+   - Header con título y "View More" link
+   - Grid 3 columnas por silo
+   - Máximo 3 posts por silo visible
+
+5. **Post Cards Mejoradas:**
+   - Imagen aspect-ratio 16/9 con overlay gradiente
+   - Category badge con color-coding personalizado
+   - Hover: -translate-y-1, shadow-card-hover, scale-110 en imagen
+   - Line-clamp para títulos (2 líneas) y excerpts (2 líneas)
+   - Metadata: fecha + tiempo de lectura con iconos
+
+6. **Sistema de Colores por Categoría:**
+   - Culture & History: Purple (bg-purple-100, text-purple-700)
+   - Food & Dining: Orange (bg-orange-100, text-orange-700)
+   - Expat Life: Blue (bg-blue-100, text-blue-700)
+   - Things to Do: Green (bg-green-100, text-green-700)
+   - Travel: Pink (bg-pink-100, text-pink-700)
+
+**Funcionalidad implementada:**
+
+- **Búsqueda en tiempo real:** Filtra por título y excerpt
+- **Filtrado por categoría:** Click en sidebar actualiza contenido
+- **Estimación de tiempo de lectura:** 200 palabras/minuto
+- **Tags agregation:** Extrae y cuenta tags de todos los posts
+- **Posts populares:** Top 5 posts en sidebar
+- **Grouping por categoría:** useMemo para performance
+- **Estado reactivo:** useState para search query y selected category
+
+**Componentes creados:**
+
+```typescript
+function FeaturedPostHero({ post }) // Hero card grande
+function PostCard({ post, index }) // Card estándar
+function MiniPostCard({ post }) // Card compacta para sidebar
+function CategorySilo({ title, posts, viewMoreHref }) // Silo de categoría
+```
+
+**Visual Polish:**
+
+- Background gradiente: from-gray-50 to-white
+- Shadow system: shadow-card, shadow-elegant, shadow-card-hover
+- Transiciones: duration-300 (hovers), duration-500 (hero), duration-700 (imagen hero)
+- Font-display para headings grandes
+- Backdrop blur en badges
+- Line-clamp para truncado
+- Rounded corners: rounded-2xl, rounded-3xl
+- Compact fact-check banner (reducido de grande a compacto)
+
+**Performance:**
+
+- useMemo para filtrado y agrupación
+- ISR con revalidate: 300 (5 minutos)
+- Optimización de re-renders con memoization
+- Lazy loading de imágenes (Next.js Image)
+
+**SEO mantenido:**
+
+- Structured data completo (Blog, BlogPosting)
+- Meta tags optimizados
+- Canonical URLs
+- Open Graph tags
+
+**Design System:**
+
+- Colors: primary (#FFCB05), secondary (#00007A)
+- Shadows: shadow-card, shadow-elegant, shadow-card-hover
+- Spacing consistente: p-6, p-8, py-12, mb-6, mb-12
+- Typography: font-display para titles, sans para body
+
+**Responsive:**
+
+- Mobile: grid-cols-1, sidebar after content
+- Tablet: grid-cols-2 para posts
+- Desktop: grid-cols-3 para silos, 12-column layout
+
+**Estado:** ✅ Exitoso
+**Commit:** 6f870d7d
+**Build:** Compilado sin errores (425 páginas generadas)
+
+---
+
 ## [2025-12-13] Fact-Check: Leonora Carrington Article Comprehensive Verification
 
 **Descripcion:**
