@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 // import { CartProvider } from '@/lib/cart-context'; // MARKETPLACE DISABLED
 import React from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
@@ -99,6 +100,20 @@ function App({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
+
+      {/* Google Ads (gtag.js) */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=AW-17635572319"
+        strategy="afterInteractive"
+      />
+      <Script id="google-ads" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-17635572319');
+        `}
+      </Script>
 
       <ErrorBoundary>
         <SessionContextProvider
