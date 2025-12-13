@@ -15,6 +15,7 @@ import { logger } from '@/lib/logger';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
+import BetaBanner from '@/components/BetaBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -209,6 +210,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       />
 
       <main className="min-h-screen">
+
+        {/* BETA BANNER */}
+        <BetaBanner />
 
         {/* HERO SECTION - Full Screen Immersive */}
         <section id="hero-001" className="relative h-screen min-h-[700px] max-h-[1000px] flex items-center overflow-hidden bg-gray-900">
