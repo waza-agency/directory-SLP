@@ -4,6 +4,141 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Fix: Remove All Fake Social Proof Numbers
+
+**Descripción:**
+Eliminados todos los números falsos de "social proof" del sitio para mantener honestidad con los lectores.
+
+**Archivos modificados:**
+- `src/pages/about.tsx` - Eliminada sección de stats falsos (500+ Members, 50+ Partners, etc.)
+- `src/components/NewsletterBanner.tsx` - "Join 500+ Readers" → "Subscribe Now"
+- `src/pages/subscribe.tsx` - Removido "500+" del meta y hero
+- `src/pages/index.tsx` - Eliminada sección Trust Indicators con números falsos
+- `src/lib/newsletter-generator.ts` - "Join 500+ readers" → "Join our community"
+
+**Cambios:**
+| Antes | Después |
+|-------|---------|
+| "Join 500+ Readers" | "Subscribe Now" |
+| "Join 500+ readers" | "Join our community" |
+| Stats section con números falsos | Eliminada completamente |
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] Feature: Leonora Carrington Blog Post Images
+
+**Descripción:**
+Agregadas imágenes locales al blog post de Leonora Carrington, reemplazando placeholders de Unsplash.
+
+**Post actualizado:**
+- ID: `d2ea0f05-5324-4ced-ad37-19b322be66e1`
+- Slug: `leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism`
+
+**Imágenes agregadas (6 en contenido + 1 principal):**
+
+| Imagen | Sección | Uso |
+|--------|---------|-----|
+| `leonora_principal.jpg` | - | Imagen principal del post (image_url) |
+| `leonora_surrealism.webp` | Sección 1 | ¿Quién Fue Leonora Carrington? |
+| `San Luis Potosí's dramatic landscapes...webp` | Sección 2 | Su Conexión con San Luis Potosí |
+| `museo-Leonora-Carrinton.webp` | Sección 3 | El Museo Leonora Carrington |
+| `centro de las artes.jpeg` | Sección 4 | Centro de las Artes |
+| `Xilitla-de-los-mejores-destinos-en-Mexico.jpg` | Sección 5 | Xilitla y Las Pozas (principal) |
+| `las pozas pools-xilitla.webp` | Sección 5 | Las Pozas (pozas naturales) |
+
+**Captions actualizados:**
+- Cada imagen ahora tiene caption en español relevante al contexto
+
+**Créditos:**
+- No se encontró metadata de autor en las imágenes
+
+**Archivos creados:**
+- `scripts/update-leonora-images.js` - Script para actualizar el post
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] Fix: Places Page Missing Images
+
+**Descripción:**
+Corregido el problema donde muchos lugares en /places no mostraban sus fotos.
+
+**Causa del problema:**
+- 11 lugares tenían rutas de imagen incorrectas en la base de datos
+- Las rutas apuntaban a archivos con extensiones incorrectas (ej: `.jpg` cuando el archivo era `.webp` o `.png`)
+
+**Archivos modificados:**
+- `src/pages/places/index.tsx` - Agregado componente PlaceImage con fallback
+- Base de datos: Actualizadas 11 rutas de imagen_url
+
+**Correcciones en base de datos:**
+- `rainy-day-activities.jpg` → `activities-rainy-day.jpg` (1 lugar)
+- `sports-fitness.jpg` → `sports-fitness.webp` (4 lugares)
+- `restaurants-with-playgrounds.jpg` → `restaurants-with-playgrounds.png` (2 lugares)
+- `easy-parking-spots.jpg` → `easy-parking-spots.png` (2 lugares)
+- `local-organic-products.jpg` → `local-organic-products.jpeg` (2 lugares)
+
+**Mejoras en frontend:**
+- Nuevo componente `PlaceImage` con manejo de errores
+- Fallback automático a `/images/cultura-1.jpg` si una imagen falla
+- Todas las tarjetas de lugares ahora muestran imagen (ya no hay condicional)
+- Fondo gris claro mientras carga la imagen
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] Feature: Beta Banner on All Pages with Scroll Hide
+
+**Descripción:**
+Agregado el banner de versión beta a todas las páginas del sitio. El banner desaparece automáticamente cuando el usuario hace scroll.
+
+**Archivos modificados:**
+- `src/components/BetaBanner.tsx` - Agregada funcionalidad de ocultar al hacer scroll
+- `src/components/Layout.tsx` - Agregado BetaBanner al layout principal
+
+**Cambios técnicos:**
+- Nuevo estado `isScrolled` que detecta cuando scrollY > 50px
+- Event listener de scroll con `{ passive: true }` para mejor rendimiento
+- Transición suave con `transition-all duration-300`
+- Animación de `max-h-24` a `max-h-0` y `opacity-100` a `opacity-0`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] Fix: About Page Fake Stats + Subscription i18n
+
+**Descripción:**
+1. Eliminadas estadísticas falsas de la página About (500+ miembros, 50+ negocios, 5+ años de experiencia)
+2. Corregido problema de i18n en página de suscripción de negocios
+
+**Archivos modificados:**
+- `src/pages/about.tsx` - Eliminado array de stats y sección Stats Section
+- `src/pages/business/subscription.tsx` - Agregado serverSideTranslations a getServerSideProps
+
+**Problema 1:**
+- La página About mostraba estadísticas falsas (500+ Community Members, 50+ Partner Businesses, etc.)
+- Estos números no son reales y daban información incorrecta
+
+**Solución 1:**
+- Eliminado el array `stats` y toda la sección "Stats Section - Trust Indicators"
+
+**Problema 2:**
+- La página /business/subscription mostraba códigos de i18n en lugar de texto traducido en Header/Footer
+- Causado por falta de configuración de serverSideTranslations
+
+**Solución 2:**
+- Importado `GetServerSideProps` y `serverSideTranslations`
+- Agregado `getServerSideProps` con configuración de traducciones
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Fix: Community Page i18n Translations
 
 **Descripción:**
