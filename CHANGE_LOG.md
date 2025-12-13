@@ -4,6 +4,25 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-12] Update: Página de Fact-Checks con Metodología IA y Colaboración
+
+**Descripción:**
+Actualización de la página de fact-checks para explicar el uso de tecnología de IA y agentes especializados, además de invitar a la comunidad a colaborar con información verificada.
+
+**Archivo modificado:**
+- `src/pages/blog/factchecks/index.tsx`
+
+**Cambios implementados:**
+1. Nueva sección "Nuestra Metodología" explicando el uso de IA y agentes especializados
+2. Nueva sección "Colabora con Nosotros" para invitar a contribuciones
+3. Traducción completa de la interfaz al español
+4. Iconos descriptivos para cada sección
+5. Enlace directo a página de contacto para colaboradores
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-12] Feature: Fact-Check Reports System for Blog
 
 **Descripción:**
