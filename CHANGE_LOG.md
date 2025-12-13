@@ -4,7 +4,50 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
-## [2025-12-13] Feature: Professional Magazine-Style Blog Redesign
+## [2025-12-13] Refactor: Simplified Blog Layout with Category Navbar
+
+**Descripción:**
+Simplificación del layout del blog con navbar de categorías horizontal y tarjetas limpias. Se restauró el disclaimer de facts original y se eliminó el sidebar complejo.
+
+**Archivo modificado:**
+- `src/pages/blog/index.tsx` (297 líneas)
+
+**Cambios realizados:**
+
+1. **Disclaimer de Facts Restaurado:**
+   - Texto original "Our Commitment to Accuracy" restaurado
+   - Layout completo con icono, título, descripción y link
+
+2. **Featured Post Hero Mejorado:**
+   - Imagen full-height (450-500px) con overlay gradiente
+   - Contenido superpuesto en la parte inferior
+   - Badge de categoría, título grande, excerpt, metadata
+   - Efecto hover con scale suave
+
+3. **Navbar de Categorías:**
+   - Filtros horizontales centrados (pills/botones)
+   - "All Posts" + categorías dinámicas
+   - Colores por categoría (purple, orange, blue, green, pink)
+   - Estado activo con bg-secondary
+
+4. **Tarjetas de Posts Limpias:**
+   - Grid 3 columnas en desktop, 2 en tablet, 1 en mobile
+   - Imagen con aspect ratio, overlay gradiente
+   - Badge de categoría con color-coding
+   - Título, excerpt, fecha, tiempo de lectura
+   - Hover: elevación (-translate-y-1), shadow, scale en imagen
+
+5. **Eliminado:**
+   - Sidebar complejo con search, popular posts, tags
+   - Silos de categorías verticales
+   - Layout 70/30 confuso
+
+**Estado:** ✅ Exitoso
+**Commit:** 5a6038f5
+
+---
+
+## [2025-12-13] Feature: Professional Magazine-Style Blog Redesign (Revertido)
 
 **Descripcion:**
 Rediseño completo de la página de índice del blog (/blog) con un layout profesional estilo editorial/magazine que mejora drásticamente la experiencia de usuario y la discoverabilidad de contenido.
