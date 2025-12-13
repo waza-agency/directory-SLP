@@ -122,7 +122,7 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
                   but we're committed to getting it right.
                 </p>
                 <Link
-                  href="/factchecks"
+                  href="/blog/factchecks"
                   className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors"
                 >
                   View our fact-check reports

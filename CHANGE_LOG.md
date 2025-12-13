@@ -4,6 +4,42 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Fix & Redesign: Factchecks Page
+
+**Descripción:**
+1. Corregido el enlace incorrecto desde la página del blog
+2. Rediseño completo de la página de fact-checks
+
+**Bug corregido:**
+- `src/pages/blog/index.tsx`: `/factchecks` → `/blog/factchecks`
+
+**Rediseño de UI (`src/pages/blog/factchecks/index.tsx`):**
+
+| Sección | Mejoras |
+|---------|---------|
+| Hero | Gradiente azul-índigo, icono animado, estadísticas (reportes, claims, transparencia) |
+| Score Legend | Nueva sección visual con rangos de colores y explicaciones bilingües |
+| Metodología | Layout de 3 columnas con iconos (AI Analysis, Source Verification, Scoring) |
+| Cards | Barra de gradiente, badges mejorados, grid de estadísticas con iconos |
+| Colaboración | Banner destacado con gradiente amber, CTA con hover effects |
+
+**Características técnicas:**
+- Animaciones con Framer Motion
+- Iconos consistentes de Heroicons
+- Diseño responsive mantenido
+- Soporte bilingüe (EN primario, ES secundario)
+- Transiciones suaves en hover
+
+**Banner de herramientas propias:**
+- Nuevo banner destacado en la sección de metodología
+- Enfatiza que las herramientas de IA son desarrolladas internamente
+- Menciona la colaboración con waza.baby (con link)
+- Texto bilingüe explicando la mejora continua de algoritmos
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Fix: Remove All Fake Social Proof Numbers
 
 **Descripción:**
