@@ -3,12 +3,12 @@ import { XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 
 export default function BetaBanner() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const dismissed = localStorage.getItem('betaBannerDismissed');
     const dismissedDate = localStorage.getItem('betaBannerDismissedDate');
 
-    // Show banner again after 7 days
     if (dismissed && dismissedDate) {
       const daysSinceDismissed = (Date.now() - parseInt(dismissedDate)) / (1000 * 60 * 60 * 24);
       if (daysSinceDismissed < 7) {
@@ -17,6 +17,15 @@ export default function BetaBanner() {
     }
 
     setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleDismiss = () => {
@@ -28,7 +37,11 @@ export default function BetaBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-b border-amber-200">
+    <div
+      className={`bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-b border-amber-200 transition-all duration-300 overflow-hidden ${
+        isScrolled ? 'max-h-0 opacity-0 py-0' : 'max-h-24 opacity-100'
+      }`}
+    >
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-1 min-w-0">

@@ -5,6 +5,8 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 /**
  * DEVELOPER NOTE:
@@ -441,3 +443,11 @@ const SubscriptionPage = () => {
 };
 
 export default SubscriptionPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+    },
+  };
+};

@@ -1,15 +1,40 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+const PLACEHOLDER_IMAGE = '/images/placeholder-place.jpg';
+
 interface PlacesPageProps {
   places: Place[];
   featuredPlaces: Place[];
 }
+
+const PlaceImage = ({ src, alt, className, sizes }: { src: string; alt: string; className?: string; sizes?: string }) => {
+  const [imgSrc, setImgSrc] = useState(src);
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    if (!hasError) {
+      setHasError(true);
+      setImgSrc('/images/cultura-1.jpg');
+    }
+  };
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      className={className || 'object-cover'}
+      sizes={sizes}
+      onError={handleError}
+    />
+  );
+};
 
 const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -125,17 +150,14 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredPlaces.map((place) => (
                   <div key={place.id} className="bg-white rounded-xl p-6 shadow-elegant hover:shadow-lg transition-shadow">
-                    {place.image_url && (
-                      <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
-                        <Image
-                          src={place.image_url}
-                          alt={place.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                    )}
+                    <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-100">
+                      <PlaceImage
+                        src={place.image_url || '/images/cultura-1.jpg'}
+                        alt={place.name}
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-semibold text-xl text-gray-900">{place.name}</h3>
                       <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium capitalize">
@@ -235,17 +257,14 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPlaces.map((place) => (
                   <div key={place.id} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                    {place.image_url && (
-                      <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden">
-                        <Image
-                          src={place.image_url}
-                          alt={place.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                    )}
+                    <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden bg-gray-100">
+                      <PlaceImage
+                        src={place.image_url || '/images/cultura-1.jpg'}
+                        alt={place.name}
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="font-semibold text-lg text-gray-900 flex-1">{place.name}</h3>
                       <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs ml-2 capitalize">

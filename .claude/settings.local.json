@@ -44,7 +44,13 @@
       "Bash(git -C \"/c/Users/sango/Waza/San Luis Way/directory-SLP\" status --short)",
       "Bash(git -C \"/c/Users/sango/Waza/San Luis Way/directory-SLP\" diff CHANGE_LOG.md)",
       "Bash(git -C \"/c/Users/sango/Waza/San Luis Way/directory-SLP\" diff --cached CHANGE_LOG.md)",
-      "Bash(git -C \"/c/Users/sango/Waza/San Luis Way/directory-SLP\" diff --cached --name-status)"
+      "Bash(git -C \"/c/Users/sango/Waza/San Luis Way/directory-SLP\" diff --cached --name-status)",
+      "Bash(git hash-object:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git show:*)",
+      "Bash(for file in *)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(exiftool:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

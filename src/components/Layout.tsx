@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import LoadingIndicator from './LoadingIndicator';
+import BetaBanner from './BetaBanner';
 
 interface TranslationsObject {
   [key: string]: string | TranslationsObject;
@@ -62,9 +63,11 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      <BetaBanner />
+
       {/* Decorative top pleca */}
       <div className="slp-pleca"></div>
-      
+
       <LoadingIndicator />
       <Header />
       
