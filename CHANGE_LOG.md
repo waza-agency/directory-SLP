@@ -4,6 +4,42 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-12] Feature: Cost of Living 2025 Fact-Check Report
+
+**Descripción:**
+Verificación exhaustiva del artículo "Cost of Living in San Luis Potosí 2025" con análisis de 24 afirmaciones sobre costos de vida, vivienda, alimentos, salud y comparaciones con otras ciudades.
+
+**Archivo creado:**
+- `public/factchecks/cost-of-living-2025.md` - Reporte de verificación completo
+
+**Resultados de verificación:**
+- 15 afirmaciones VERDADERAS
+- 7 PARCIALMENTE VERDADERAS
+- 0 FALSAS
+- 2 NO VERIFICABLES
+- Puntuación de confiabilidad: 8.5/10
+
+**Categorías verificadas:**
+1. Presupuestos mensuales ($800-$1,500)
+2. Costos de vivienda por colonia (Lomas, Polanco, Centro Histórico)
+3. Precios de alimentos (tacos, menú del día, restaurantes)
+4. Costos de salud (IMSS, seguro privado, consultas, MRI)
+5. Medicamentos (70-90% más baratos que EE.UU.)
+6. Escenarios de presupuesto (económico, medio, lujoso)
+7. Comparaciones con ciudades (CDMX, San Miguel, Querétaro)
+8. Ahorro vs ciudades estadounidenses (60-70%)
+
+**Fuentes consultadas:**
+- 40+ fuentes independientes incluyendo investigación gubernamental (NIH, RAND)
+- Bases de datos de costo de vida (Numbeo, Expatistan)
+- Proveedores de seguros médicos (Pacific Prime)
+- Listados de bienes raíces
+- Guías para expatriados
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-12] Update: Página de Fact-Checks Bilingüe
 
 **Descripción:**
