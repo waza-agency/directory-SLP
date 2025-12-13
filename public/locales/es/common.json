@@ -504,5 +504,22 @@
         "description": "Preferimos menos lugares de alta calidad que un directorio infinito sin filtro"
       }
     }
+  },
+  "todayInSLP": {
+    "title": "Lo Que Debes Saber Hoy",
+    "weather": "Clima",
+    "humidity": "Humedad",
+    "wind": "Viento",
+    "traffic": "Tráfico",
+    "trafficNormal": "Flujo Normal",
+    "trafficSlow": "Tráfico Lento",
+    "noAlerts": "Sin alertas en la ciudad",
+    "alerts": "alertas activas",
+    "events": "Eventos Hoy",
+    "eventsCount": "eventos",
+    "viewEvents": "Ver todos los eventos →",
+    "tipOfDay": "Tip del Día",
+    "updatedAt": "Actualizado a las",
+    "seeMore": "Ver más"
   }
 }

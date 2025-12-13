@@ -50,7 +50,9 @@
       "Bash(git show:*)",
       "Bash(for file in *)",
       "Bash(do echo \"=== $file ===\")",
-      "Bash(exiftool:*)"
+      "Bash(exiftool:*)",
+      "WebFetch(domain:localhost)",
+      "SlashCommand(/factcheck)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -18,6 +18,7 @@ import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
 import GlitchText from '@/components/common/GlitchText';
+import TodayInSLP from '@/components/TodayInSLP';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -301,6 +302,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             </div>
           </div>
         </section>
+
+        {/* TODAY IN SLP - Daily Dashboard */}
+        <TodayInSLP />
 
         {/* LIFESTYLE BENEFITS - Why SLP */}
         <section id="benefits-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
