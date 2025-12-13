@@ -4,6 +4,158 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-12] Feature: Beta Banner Discreto en Homepage
+
+**Descripción:**
+Banner bilingüe discreto que informa a los usuarios que el proyecto está en versión beta, agradeciendo su paciencia mientras se mejora el sitio.
+
+**Archivos creados/modificados:**
+- `src/components/BetaBanner.tsx` - Nuevo componente de banner beta
+- `src/pages/index.tsx` - Agregado el banner al homepage
+
+**Características:**
+1. Diseño discreto en tonos ámbar
+2. Texto bilingüe (inglés primario, español secundario)
+3. Dismissable con persistencia en localStorage (7 días)
+4. Enlace a página de contacto para retroalimentación
+5. Diseño responsivo (texto más corto en móvil)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-12] Content: Leonora Carrington & Centro de las Artes Blog Post
+
+**Descripción:**
+Nuevo artículo de blog estilo "Deep Dive" sobre la conexión de Leonora Carrington con San Luis Potosí y el Museo Leonora Carrington en el Centro de las Artes.
+
+**Archivos creados:**
+- `scripts/publish-leonora-carrington-post.js` - Script de publicación del post
+
+**Contenido del artículo:**
+- Biografía completa de Leonora Carrington (1917-2011)
+- Su conexión especial con Real de Catorce y Cerro de San Pedro
+- Historia y descripción del Museo Leonora Carrington (inaugurado 2018)
+- Historia del Centro de las Artes (antigua penitenciaría panóptica)
+- Conexión con Xilitla, Las Pozas y Edward James
+- Guía de visita con itinerario sugerido
+- Contenido bilingüe completo (ES + EN)
+
+**Características:**
+- Formato Deep Dive con tabla de contenidos
+- 8+ imágenes de Unsplash
+- Múltiples componentes visuales (blockquotes, stats, callouts)
+- SEO optimizado con tags relevantes
+- CTA hacia atracciones culturales
+
+**URL del post:** `/blog/leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism`
+
+**Estado:** ✅ Publicado exitosamente en Supabase
+
+---
+
+## [2025-12-12] Design: About Page Redesign - Professional & Confidence-Inspiring
+
+**Descripción:**
+Rediseño completo de la página About con enfoque en profesionalismo, confianza y legibilidad mejorada. Implementación de patrones de diseño modernos con mejor jerarquía visual y experiencia de usuario.
+
+**Archivo modificado:**
+- `src/pages/about.tsx` - Rediseño completo de layout y componentes visuales
+
+**Mejoras implementadas:**
+
+**1. Hero Section Mejorado:**
+- Altura optimizada: 60vh con límites min/max para mejor experiencia
+- Gradiente sofisticado de overlay (from-gray-900/90 via-gray-900/70 to-gray-900/90)
+- Badge con backdrop-blur y border glassmorphism
+- Título más grande (text-5xl md:text-7xl) con mejor leading
+- Subtítulo mejorado (text-xl md:text-2xl) con más contraste
+- SVG wave decorativa en la parte inferior para transición suave
+
+**2. Nueva Sección de Stats (Trust Indicators):**
+- Grid responsivo 2 columnas móvil, 4 en desktop
+- Números grandes (text-4xl md:text-5xl) con font-serif
+- Hover effects con transición de color a primary
+- Stats: 500+ Members, 50+ Partners, 100+ Events, 5+ Years
+
+**3. Mission Section - Layout de Dos Columnas:**
+- Grid lg:grid-cols-2 para mejor uso del espacio
+- Columna izquierda: contenido con badge, headline grande, texto y checklist
+- Columna derecha: imagen destacada con floating badge
+- Floating badge con "We Love Potosino Culture" y gradient icon
+- Checkmarks con iconos en círculos primary/20
+- Mejor jerarquía tipográfica (text-4xl md:text-5xl headlines)
+
+**4. Values Section - Diseño de Cards Moderno:**
+- Cards con gradient bars superiores (2px height)
+- Iconos con gradient backgrounds (blue, amber, emerald)
+- Hover effects: -translate-y-1, scale-110 en íconos
+- Shadow card a shadow-card-hover en hover
+- Mejor spacing interno (p-8)
+- Titles con font-serif y hover:text-primary
+
+**5. Cultural Passion Banner Mejorado:**
+- Full-width banner con gradient from-secondary
+- Elementos decorativos circulares con opacity-10
+- Badge con glassmorphism
+- Grid 3 columnas con íconos grandes (w-20 h-20)
+- Iconos con backdrop-blur y border border-white/20
+- Texto más grande y mejor legibilidad (text-xl md:text-2xl)
+
+**6. Partner Brands - Enhanced Cards:**
+- Cards más altas (h-40 logo container)
+- Hover effect más pronunciado: -translate-y-2
+- Category badges mejorados (px-4 py-1.5, uppercase, tracking-wider)
+- Link hover effect con gap animation (hover:gap-3)
+- Arrow con translate-x en hover
+
+**7. CTA Section - Premium Design:**
+- Card con rounded-3xl y shadow-elegant
+- Decorative gradient bar superior (from-primary via-amber-400 to-orange-500)
+- Padding generoso (p-12 md:p-16)
+- Botones rounded-full con hover:scale-105
+- Iconos integrados en botones
+- Hover effects: bg-primary-dark, shadow-xl
+
+**Mejoras de UX/UI:**
+- Spacing consistente: py-24 md:py-32 para secciones
+- Container padding: px-6 md:px-12 lg:px-20
+- Badges con uppercase tracking-wider
+- Transitions suaves: duration-300, duration-500
+- Hover states en todos los elementos interactivos
+- Typography hierarchy clara: text-sm badges, text-xl descriptions, text-4xl md:text-5xl headlines
+- Gradientes sutiles para backgrounds: from-white to-gray-50
+
+**Responsive Design:**
+- Grid adaptativo: grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+- Typography responsivo en todos los headings
+- Hero height con min/max bounds
+- Mobile-first approach mantenido
+
+**Design System Adherence:**
+- Uso de shadows predefinidos: shadow-card, shadow-elegant
+- Colors del sistema: primary, secondary, gray scales
+- Font families: font-serif para headings, sans para body
+- Border radius: rounded-2xl, rounded-3xl, rounded-full
+- Transiciones estándar: duration-300, duration-500
+
+**Impacto Visual:**
+- Más profesional y pulido
+- Mayor confianza por stats y trust indicators
+- Mejor legibilidad con spacing generoso
+- Jerarquía visual clara
+- Elementos interactivos más engaging
+- Design moderno alineado con best practices 2025
+
+**Resultado:** ✅ Exitoso
+- About page completamente rediseñada
+- Mejor conversión esperada por CTA mejorado
+- Mobile y desktop optimizados
+- Mantiene todo el contenido original
+- 100% compatible con design system existente
+
+---
+
 ## [2025-12-12] Feature: Cost of Living 2025 Fact-Check Report
 
 **Descripción:**
