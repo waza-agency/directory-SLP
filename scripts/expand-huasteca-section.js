@@ -55,9 +55,9 @@ const expandedHuastecaES = `
 
 <p class="mb-4"><strong>Puente de Dios:</strong> Una formación rocosa natural donde el río pasa por debajo de un arco de piedra, creando pozas de agua turquesa rodeadas de vegetación tropical.</p>
 
-<h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Cultura Teenek y Náhuatl</h3>
+<h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Cultura Teenek y Nahua</h3>
 
-<p class="mb-4">La Huasteca es hogar de dos pueblos originarios: los Teenek (huastecos) y los Náhuatl de la Sierra. Estas comunidades mantienen vivas tradiciones ancestrales:</p>
+<p class="mb-4">La Huasteca es hogar de dos pueblos originarios: los Teenek (huastecos) y los Nahuas de la Sierra. Estas comunidades mantienen vivas tradiciones ancestrales:</p>
 
 <ul class="list-disc pl-6 mb-4 space-y-2">
   <li><strong>Danza de los Voladores:</strong> Ritual prehispánico donde danzantes descienden desde un poste de 30 metros, girando en espiral</li>
@@ -87,16 +87,6 @@ const expandedHuastecaES = `
 <p class="mb-4"><strong>Ciudad Valles:</strong> La ciudad más grande de la región y centro logístico para explorar la Huasteca. Ofrece hoteles, restaurantes y servicios turísticos.</p>
 
 <p class="mb-4"><strong>Tamasopo:</strong> Pueblo tranquilo conocido por sus cascadas y la producción de piloncillo (azúcar de caña).</p>
-
-<figure class="my-8">
-  <img src="https://gvjvbvjubmjxqwpcinib.supabase.co/storage/v1/object/public/blog-images/historia-slp/tamul-waterfall.jpg" alt="Cascada de Tamul, la más alta de San Luis Potosí" class="w-full rounded-lg shadow-lg" />
-  <figcaption class="text-sm text-gray-600 mt-2 text-center">La Cascada de Tamul, con 105 metros de altura, es el tesoro natural más impresionante de la Huasteca Potosina. Foto: Corazón de Xoconostle</figcaption>
-</figure>
-
-<figure class="my-8">
-  <img src="https://gvjvbvjubmjxqwpcinib.supabase.co/storage/v1/object/public/blog-images/historia-slp/rio-huasteca-turquesa.jpg" alt="Río turquesa de la Huasteca Potosina" class="w-full rounded-lg shadow-lg" />
-  <figcaption class="text-sm text-gray-600 mt-2 text-center">Los ríos de aguas turquesa son característicos de la Huasteca Potosina, resultado de la alta concentración de minerales</figcaption>
-</figure>
 
 <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Consejos para Visitantes</h3>
 
@@ -155,9 +145,9 @@ const expandedHuastecaEN = `
 
 <p class="mb-4"><strong>God's Bridge (Puente de Dios):</strong> A natural rock formation where the river passes under a stone arch, creating turquoise water pools surrounded by tropical vegetation.</p>
 
-<h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Teenek and Náhuatl Culture</h3>
+<h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Teenek and Nahua Culture</h3>
 
-<p class="mb-4">The Huasteca is home to two indigenous peoples: the Teenek (Huastecos) and the Náhuatl of the Sierra. These communities keep ancestral traditions alive:</p>
+<p class="mb-4">The Huasteca is home to two indigenous peoples: the Teenek (Huastecos) and the Nahuas of the Sierra. These communities keep ancestral traditions alive:</p>
 
 <ul class="list-disc pl-6 mb-4 space-y-2">
   <li><strong>Dance of the Flyers (Danza de los Voladores):</strong> Pre-Hispanic ritual where dancers descend from a 30-meter pole, spinning in a spiral</li>
@@ -187,16 +177,6 @@ const expandedHuastecaEN = `
 <p class="mb-4"><strong>Ciudad Valles:</strong> The largest city in the region and logistics hub for exploring the Huasteca. It offers hotels, restaurants, and tourist services.</p>
 
 <p class="mb-4"><strong>Tamasopo:</strong> A quiet town known for its waterfalls and piloncillo (cane sugar) production.</p>
-
-<figure class="my-8">
-  <img src="https://gvjvbvjubmjxqwpcinib.supabase.co/storage/v1/object/public/blog-images/historia-slp/tamul-waterfall.jpg" alt="Tamul Waterfall, the highest in San Luis Potosí" class="w-full rounded-lg shadow-lg" />
-  <figcaption class="text-sm text-gray-600 mt-2 text-center">Tamul Waterfall, at 105 meters high, is the most impressive natural treasure of the Huasteca Potosina. Photo: Corazón de Xoconostle</figcaption>
-</figure>
-
-<figure class="my-8">
-  <img src="https://gvjvbvjubmjxqwpcinib.supabase.co/storage/v1/object/public/blog-images/historia-slp/rio-huasteca-turquesa.jpg" alt="Turquoise river of the Huasteca Potosina" class="w-full rounded-lg shadow-lg" />
-  <figcaption class="text-sm text-gray-600 mt-2 text-center">The turquoise rivers are characteristic of the Huasteca Potosina, a result of high mineral concentration</figcaption>
-</figure>
 
 <h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Tips for Visitors</h3>
 

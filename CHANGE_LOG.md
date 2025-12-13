@@ -4,6 +4,26 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Fix: Community Page i18n Translations
+
+**Descripción:**
+Corregido el problema donde el Header y Footer de la página /community mostraban las etiquetas de código en lugar del texto traducido.
+
+**Archivos modificados:**
+- `src/pages/community.tsx` - Agregado serverSideTranslations a getStaticProps
+
+**Problema:**
+- El Header y Footer mostraban claves de traducción (ej: `common:nav.home`) en lugar del texto real
+- Causado por falta de configuración de i18n en getStaticProps
+
+**Solución:**
+- Importado `serverSideTranslations` de next-i18next
+- Agregado `...(await serverSideTranslations(locale ?? 'es', ['common']))` a props
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Feature: Collaboration Banner + Newsletter Banner Fix
 
 **Descripción:**
