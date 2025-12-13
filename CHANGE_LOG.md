@@ -4,6 +4,42 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Fact-Check: Leonora Carrington Article Comprehensive Verification
+
+**Descripcion:**
+Reporte exhaustivo de verificación de hechos para el artículo sobre Leonora Carrington, el Museo Leonora Carrington en San Luis Potosí, y su conexión con la región. Verificación de 26 claims con 45+ fuentes consultadas.
+
+**Archivos creados:**
+- `public/factchecks/leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism.md` - Reporte completo de fact-check
+
+**Resultados de verificación:**
+- **Overall Reliability Score:** 9.2/10
+- **Total Claims Analyzed:** 26
+- **Verified TRUE:** 23 claims
+- **PARTIALLY TRUE:** 2 claims
+- **UNVERIFIABLE:** 1 claim
+- **Confidence Level:** High
+
+**Categorías verificadas:**
+1. Datos biográficos de Leonora Carrington (1917-2011)
+2. Información del Museo Leonora Carrington (apertura: 22 marzo 2018)
+3. Real de Catorce (túnel 2.3km, elevación 2,750m)
+4. Cerro de San Pedro (descubrimiento oro 1592, distancia 20km)
+5. Centro de las Artes (arquitecto Carlos Suárez Fiallo, 1890-1999)
+6. Las Pozas Xilitla (36 estructuras, Monumento Artístico 2012)
+
+**Fuentes consultadas:**
+- Tier 1: UNESCO, sitios oficiales de museos, bases de datos gubernamentales
+- Tier 2: Wikipedia con citaciones, Tate Gallery, Art UK
+- Tier 3: Publicaciones académicas (Academia.edu, ResearchGate)
+- Tier 4: Medios establecidos y guías de viaje verificadas
+- Tier 5: Mapas de elevación y calculadores de distancia
+
+**Estado:** ✅ Exitoso
+**Commit:** ff4a91c7
+
+---
+
 ## [2025-12-13] Feature: TodayInSLP Daily Dashboard Module
 
 **Descripcion:**
