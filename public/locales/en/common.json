@@ -521,5 +521,9 @@
     "tipOfDay": "Tip of the Day",
     "updatedAt": "Updated at",
     "seeMore": "See more"
+  },
+  "blog": {
+    "title": "From the Blog",
+    "subtitle": "Stories, tips, and insights for life in San Luis Potosí"
   }
 }

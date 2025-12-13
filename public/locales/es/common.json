@@ -521,5 +521,9 @@
     "tipOfDay": "Tip del Día",
     "updatedAt": "Actualizado a las",
     "seeMore": "Ver más"
+  },
+  "blog": {
+    "title": "Del Blog",
+    "subtitle": "Historias, consejos e información para vivir en San Luis Potosí"
   }
 }

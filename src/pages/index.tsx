@@ -19,6 +19,8 @@ import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
 import GlitchText from '@/components/common/GlitchText';
 import TodayInSLP from '@/components/TodayInSLP';
+import BlogCarousel from '@/components/BlogCarousel';
+import { getBlogPosts } from '@/lib/blog';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -31,6 +33,7 @@ interface HomeProps {
   events: Event[];
   featuredAdvertisers?: any[];
   featuredBrands?: any[];
+  blogPosts?: any[];
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -61,12 +64,16 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     // Fetch featured brands
     const featuredBrandsData = await getRandomPotosinoBrands(6);
 
+    // Fetch blog posts for carousel
+    const blogPostsData = await getBlogPosts();
+
     return {
       props: {
         ...(await serverSideTranslations(locale ?? 'es', ['common'])),
         events: events || [],
         featuredAdvertisers,
         featuredBrands: featuredBrandsData || [],
+        blogPosts: blogPostsData.slice(0, 6) || [],
       },
     };
   } catch (error) {
@@ -77,12 +84,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         events: [],
         featuredAdvertisers: [],
         featuredBrands: [],
+        blogPosts: [],
       },
     };
   }
 };
 
-export default function Home({ events = [], featuredAdvertisers = [], featuredBrands = [] }: HomeProps) {
+export default function Home({ events = [], featuredAdvertisers = [], featuredBrands = [], blogPosts = [] }: HomeProps) {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const { t } = useTranslation('common');
   const { locale } = useRouter();
@@ -1071,6 +1079,15 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
           <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
         </div>
+
+        {/* BLOG CAROUSEL - From the Blog */}
+        {blogPosts.length > 0 && (
+          <BlogCarousel
+            posts={blogPosts}
+            title={t('blog.title', 'From the Blog')}
+            subtitle={t('blog.subtitle', 'Stories, tips, and insights for life in San Luis Potosí')}
+          />
+        )}
 
         {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
         <section id="practical-001" className="py-32 bg-white">
