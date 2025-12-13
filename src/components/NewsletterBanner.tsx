@@ -120,7 +120,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                     <CheckCircleIcon className="w-5 h-5" />
                     Joined!
                   </span>
-                ) : 'Join 500+ Readers'}
+                ) : 'Subscribe Now'}
               </button>
             </div>
             {message && (
@@ -362,7 +362,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               )}
             </form>
 
-            <p className="text-gray-500 text-sm mt-6">Join 500+ readers. No spam, ever.</p>
+            <p className="text-gray-500 text-sm mt-6">Join our community. No spam, ever.</p>
           </div>
         </div>
       </div>

@@ -1126,23 +1126,6 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
                 </Link>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="mt-16 pt-12 border-t border-white/10">
-                <div className="grid grid-cols-3 gap-8">
-                  <div>
-                    <div className="text-4xl font-bold text-primary mb-2">500+</div>
-                    <div className="text-sm text-gray-400">{t('homepage.cta.stats.businesses')}</div>
-                  </div>
-                  <div>
-                    <div className="text-4xl font-bold text-primary mb-2">1,000+</div>
-                    <div className="text-sm text-gray-400">{t('homepage.cta.stats.members')}</div>
-                  </div>
-                  <div>
-                    <div className="text-4xl font-bold text-primary mb-2">#2</div>
-                    <div className="text-sm text-gray-400">{t('homepage.cta.stats.ranking')}</div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>

@@ -138,7 +138,7 @@ export default function SubscribePage() {
         <title>Subscribe to San Luis Way Weekly | Free Newsletter</title>
         <meta
           name="description"
-          content="Join 500+ expats and locals who get the best of San Luis Potosí delivered every Monday. Events, news, restaurants, and insider tips. Free."
+          content="Join expats and locals who get the best of San Luis Potosí delivered every Monday. Events, news, restaurants, and insider tips. Free."
         />
         <meta property="og:title" content="San Luis Way Weekly Newsletter" />
         <meta property="og:description" content="Your weekly guide to life in San Luis Potosí. Events, news, restaurants, day trips, and expat tips." />
@@ -163,7 +163,7 @@ export default function SubscribePage() {
                 </h1>
 
                 <p className="text-xl md:text-2xl opacity-90 mb-8">
-                  Join 500+ expats and locals who get the best of SLP delivered every Monday.
+                  Join expats and locals who get the best of SLP delivered every Monday.
                 </p>
 
                 {/* Benefits */}

@@ -660,7 +660,7 @@ export const NEWSLETTER_TEMPLATE = `
                 [CTA_BUTTON_LABEL]
               </a>
               <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin: 20px 0 0 0;">
-                Join 500+ readers discovering the best of San Luis Potosí
+                Join our community discovering the best of San Luis Potosí
               </p>
             </td>
           </tr>
