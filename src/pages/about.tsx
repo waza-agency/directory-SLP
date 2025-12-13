@@ -64,12 +64,6 @@ export default function AboutPage() {
     }
   ];
 
-  const stats = [
-    { number: '500+', label: 'Community Members' },
-    { number: '50+', label: 'Partner Businesses' },
-    { number: '100+', label: 'Cultural Events' },
-    { number: '5+', label: 'Years Experience' }
-  ];
 
   return (
     <>
@@ -121,24 +115,6 @@ export default function AboutPage() {
             <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-12 md:h-20">
               <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
             </svg>
-          </div>
-        </section>
-
-        {/* Stats Section - Trust Indicators */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center group">
-                  <div className="mb-3">
-                    <span className="font-serif text-4xl md:text-5xl font-bold text-gray-900 group-hover:text-primary transition-colors duration-300">
-                      {stat.number}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 font-medium">{stat.label}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
