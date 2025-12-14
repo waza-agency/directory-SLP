@@ -4,6 +4,44 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 12d77d68 - 2025-12-13
+
+**Mensaje:** feat: Enhanced morning dashboard with real SLP data and news
+
+**Archivos modificados:**
+- src/components/TodayInSLP.tsx
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Rediseño completo del componente TodayInSLP para convertirlo en un "morning dashboard" que los usuarios revisen cada día con su café.
+
+**Cambios realizados:**
+
+1. **Quick Stats Grid:**
+   - Tarjeta de clima con temp actual, min/max, UV, sunrise/sunset
+   - Tipo de cambio USD/MXN ($20.15) con indicador de tendencia
+   - Precios de gasolina en SLP (Magna $23.81, Premium $25.32, Diesel $26.35)
+   - Reloj en tiempo real con timezone CST
+
+2. **Sección de Noticias:**
+   - 3 noticias reales de SLP (Diciembre 2025)
+   - Categorías con colores: Seguridad, Cultura, Infraestructura
+   - Fuentes: Potosí Noticias, Líder Empresarial, Plano Informativo
+   - Bilingüe completo
+
+3. **Diseño:**
+   - Tarjetas con gradientes distintivos por tipo de información
+   - Layout responsive
+   - Tip del día (iluminación navideña Centro Histórico)
+
+**Propósito/Razón:**
+- Crear un "morning routine" para usuarios expats en SLP
+- Información práctica diaria (tipo de cambio, gasolina, clima)
+- Noticias locales relevantes para la comunidad
+
+---
+
 ## Commit: fd667771 - 2025-12-13
 
 **Mensaje:** feat: Add Places/Services toggle on explore page
