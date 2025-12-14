@@ -4,6 +4,37 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: fd667771 - 2025-12-13
+
+**Mensaje:** feat: Add Places/Services toggle on explore page
+
+**Archivos modificados:**
+- src/pages/places/index.tsx
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Agregado toggle para alternar entre "Places" y "Services" en la página `/places`, permitiendo a los usuarios ver tanto lugares como servicios desde una sola interfaz.
+
+**Cambios realizados:**
+
+1. **src/pages/places/index.tsx:**
+   - Importado tipo `Service` y iconos de Heroicons
+   - Agregado estado `activeTab` para controlar vista actual
+   - Toggle en hero section con botones Places/Services
+   - Colores dinámicos (naranja para places, verde para services)
+   - Toggle secundario en sección de directorio con conteo de items
+   - Contenido dinámico (títulos, descripciones, featured items)
+   - Filtrado independiente por tab
+   - getStaticProps actualizado para traer services de Supabase
+
+**Propósito/Razón:**
+- Los servicios tenían su propia página separada pero no eran fácilmente accesibles
+- Consolidar places y services en una sola interfaz mejora la UX
+- Los usuarios pueden comparar y explorar ambos tipos de contenido
+
+---
+
 ## Commit: ceef95b7 - 2025-12-13
 
 **Mensaje:** refactor: Reorganize homepage sections for value-first UX
