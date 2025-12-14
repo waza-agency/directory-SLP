@@ -14,7 +14,9 @@ import {
   ArrowTrendingDownIcon,
   ClockIcon,
   FireIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  TruckIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 
 interface NewsItem {
@@ -94,6 +96,13 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     magna: 23.81,
     premium: 25.32,
     diesel: 26.35
+  };
+
+  // Traffic and alerts status
+  const trafficStatus = {
+    status: 'normal' as 'normal' | 'moderate' | 'heavy',
+    alerts: 0,
+    lastUpdate: '07:30'
   };
 
   // Current news - Updated regularly with real SLP news
@@ -207,7 +216,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
         </div>
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
 
           {/* Weather Card */}
           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-100">
@@ -287,6 +296,42 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               {todayEvents.length > 0 ? `${todayEvents.length} ${locale === 'es' ? 'eventos hoy' : 'events today'}` : (locale === 'es' ? 'Ver calendario' : 'View calendar')}
             </Link>
           </div>
+
+          {/* Traffic & Alerts Card */}
+          <div className="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-2xl p-5 border border-cyan-100">
+            <div className="flex items-start justify-between mb-3">
+              <TruckIcon className="w-10 h-10 text-cyan-600" />
+              <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                trafficStatus.status === 'normal'
+                  ? 'bg-green-100 text-green-700'
+                  : trafficStatus.status === 'moderate'
+                  ? 'bg-yellow-100 text-yellow-700'
+                  : 'bg-red-100 text-red-700'
+              }`}>
+                {trafficStatus.status === 'normal'
+                  ? (locale === 'es' ? 'Normal' : 'Normal')
+                  : trafficStatus.status === 'moderate'
+                  ? (locale === 'es' ? 'Moderado' : 'Moderate')
+                  : (locale === 'es' ? 'Pesado' : 'Heavy')
+                }
+              </span>
+            </div>
+            <div className="flex items-center gap-2 mb-1">
+              <CheckCircleIcon className="w-6 h-6 text-green-500" />
+              <p className="text-lg font-bold text-gray-900">
+                {trafficStatus.alerts === 0
+                  ? (locale === 'es' ? 'Sin alertas' : 'No alerts')
+                  : `${trafficStatus.alerts} ${locale === 'es' ? 'alertas' : 'alerts'}`
+                }
+              </p>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">
+              {locale === 'es' ? 'Tráfico y alertas' : 'Traffic & alerts'}
+            </p>
+            <p className="text-xs text-gray-500">
+              {locale === 'es' ? `Actualizado: ${trafficStatus.lastUpdate}` : `Updated: ${trafficStatus.lastUpdate}`}
+            </p>
+          </div>
         </div>
 
         {/* News Section */}
@@ -353,13 +398,50 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           </div>
         </div>
 
-        {/* Source Attribution */}
-        <p className="text-center text-xs text-gray-400 mt-4">
-          {locale === 'es'
-            ? 'Fuentes: Banxico, Profeco, medios locales de SLP'
-            : 'Sources: Banxico, Profeco, local SLP media'
-          }
-        </p>
+        {/* Official Sources */}
+        <div className="mt-6 bg-white rounded-xl border border-gray-100 p-4">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 text-center">
+            {locale === 'es' ? 'Fuentes Oficiales' : 'Official Sources'}
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="https://twitter.com/RGC_Mx" target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+              @RGC_Mx
+            </a>
+            <a href="https://twitter.com/SLPMunicipio" target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
+              <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+              @SLPMunicipio
+            </a>
+            <a href="https://twitter.com/sspc_slp" target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
+              <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+              @sspc_slp
+            </a>
+            <a href="https://turismo.slp.gob.mx" target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
+              <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+              {locale === 'es' ? 'Turismo SLP' : 'Tourism SLP'}
+            </a>
+            <a href="https://twitter.com/sedecoslp" target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
+              <span className="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
+              @sedecoslp
+            </a>
+            <a href="https://twitter.com/COPARMEX_SLP" target="_blank" rel="noopener noreferrer"
+               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
+              <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+              @COPARMEX_SLP
+            </a>
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-3">
+            {locale === 'es'
+              ? 'Datos: Banxico, Profeco, medios locales'
+              : 'Data: Banxico, Profeco, local media'
+            }
+          </p>
+        </div>
 
       </div>
     </section>
