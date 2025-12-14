@@ -9,8 +9,7 @@ import {
   NewspaperIcon,
   MapPinIcon,
   ClockIcon,
-  TruckIcon,
-  CheckCircleIcon
+  TruckIcon
 } from '@heroicons/react/24/outline';
 import type { WeatherData, ExchangeRate } from '@/lib/api/dashboard-data';
 
@@ -83,13 +82,6 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       month: 'long',
       day: 'numeric'
     });
-  };
-
-  // Traffic status (could be enhanced with real API later)
-  const trafficStatus = {
-    status: 'normal' as 'normal' | 'moderate' | 'heavy',
-    alerts: 0,
-    lastUpdate: currentTime || '--:--'
   };
 
   /*
@@ -235,40 +227,39 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             </Link>
           </div>
 
-          {/* Traffic & Alerts Card */}
-          <div className="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-2xl p-5 border border-cyan-100">
-            <div className="flex items-start justify-between mb-3">
-              <TruckIcon className="w-10 h-10 text-cyan-600" />
-              <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                trafficStatus.status === 'normal'
-                  ? 'bg-green-100 text-green-700'
-                  : trafficStatus.status === 'moderate'
-                  ? 'bg-yellow-100 text-yellow-700'
-                  : 'bg-red-100 text-red-700'
-              }`}>
-                {trafficStatus.status === 'normal'
-                  ? (locale === 'es' ? 'Normal' : 'Normal')
-                  : trafficStatus.status === 'moderate'
-                  ? (locale === 'es' ? 'Moderado' : 'Moderate')
-                  : (locale === 'es' ? 'Pesado' : 'Heavy')
-                }
+          {/* Traffic Map Card */}
+          <div className="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-2xl p-3 border border-cyan-100 overflow-hidden">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <TruckIcon className="w-5 h-5 text-cyan-600" />
+                <span className="text-sm font-semibold text-gray-900">
+                  {locale === 'es' ? 'Tráfico' : 'Traffic'}
+                </span>
+              </div>
+              <span className="text-xs font-medium text-cyan-600 bg-cyan-100 px-2 py-0.5 rounded-full">
+                {locale === 'es' ? 'En vivo' : 'Live'}
               </span>
             </div>
-            <div className="flex items-center gap-2 mb-1">
-              <CheckCircleIcon className="w-6 h-6 text-green-500" />
-              <p className="text-lg font-bold text-gray-900">
-                {trafficStatus.alerts === 0
-                  ? (locale === 'es' ? 'Sin alertas' : 'No alerts')
-                  : `${trafficStatus.alerts} ${locale === 'es' ? 'alertas' : 'alerts'}`
-                }
-              </p>
+            <div className="relative rounded-xl overflow-hidden h-28 mb-2">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29340.5!2d-100.9855!3d22.1565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1702500000000!5m2!1ses!2smx"
+                className="absolute inset-0 w-full h-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="San Luis Potosí Traffic Map"
+              />
             </div>
-            <p className="text-sm text-gray-600 mb-2">
-              {locale === 'es' ? 'Tráfico y alertas' : 'Traffic & alerts'}
-            </p>
-            <p className="text-xs text-gray-500">
-              {locale === 'es' ? `Actualizado: ${trafficStatus.lastUpdate}` : `Updated: ${trafficStatus.lastUpdate}`}
-            </p>
+            <a
+              href="https://www.google.com/maps/@22.1565,-100.9855,14z/data=!5m1!1e1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1 w-full py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium rounded-lg transition-colors"
+            >
+              {locale === 'es' ? 'Ver tráfico en vivo' : 'View live traffic'}
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </div>
 
