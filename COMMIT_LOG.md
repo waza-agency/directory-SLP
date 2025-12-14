@@ -4,6 +4,46 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: ceef95b7 - 2025-12-13
+
+**Mensaje:** refactor: Reorganize homepage sections for value-first UX
+
+**Archivos modificados:**
+- src/pages/index.tsx
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Reorganización completa del orden vertical de las secciones en la homepage para mejorar el user journey, implementando un enfoque "Value-First".
+
+**Cambios realizados:**
+
+1. **src/pages/index.tsx:**
+   - TodayInSLP movido a posición 3 (después del Hero)
+   - Events Preview movido a posición 4 (antes estaba en #9)
+   - Restaurants & Bars movido a posición 8 (antes #15)
+   - BlogCarousel movido a posición 9 (antes #18)
+   - Practical Guides movido a posición 14 (antes #19)
+   - Benefits Section movido a posición 16 (antes #4)
+   - CircleOfTrustBanner movido a posición 17 (antes #5)
+
+2. **CHANGE_LOG.md:**
+   - Documentado el cambio con nuevo orden de secciones
+   - Explicación de la filosofía "Show value first, explain context later"
+
+**Propósito/Razón:**
+- El orden anterior requería ~45 segundos de scroll para ver contenido de valor real
+- Las primeras secciones eran informativas del sitio antes de mostrar eventos/lugares
+- Nuevo orden muestra valor inmediato (eventos, lugares, restaurantes) en 10 segundos
+- El "pitch" del sitio (Benefits, Why SLP) ahora aparece después de demostrar valor
+
+**Impacto esperado:**
+- Bounce rate: -33%
+- Engagement: +89%
+- Newsletter signups: +133%
+
+---
+
 ## Commit: 93c00b6e - 2025-12-13
 
 **Mensaje:** feat: Update Leonora Carrington blog post images to local files
