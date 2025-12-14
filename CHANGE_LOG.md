@@ -4,6 +4,39 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Feature: Traffic & Alerts Card + Official Sources
+
+**Descripción:**
+Ampliación del morning dashboard con una 5ta tarjeta de Tráfico y Alertas, y sección de Fuentes Oficiales con enlaces a cuentas gubernamentales y empresariales.
+
+**Archivos modificados:**
+- `src/components/TodayInSLP.tsx`
+
+**Nuevas características:**
+
+1. **Tarjeta de Tráfico y Alertas:**
+   - Estado de tráfico (Normal/Moderado/Pesado)
+   - Contador de alertas activas en la ciudad
+   - Hora de última actualización
+   - Indicadores visuales con colores
+
+2. **Sección de Fuentes Oficiales:**
+   - @RGC_Mx (Gobernador Ricardo Gallardo)
+   - @SLPMunicipio (Municipio de San Luis Potosí)
+   - @sspc_slp (Seguridad Pública)
+   - Turismo SLP (turismo.slp.gob.mx)
+   - @sedecoslp (Secretaría de Economía)
+   - @COPARMEX_SLP (Empresarios)
+
+3. **Ajuste de Grid:**
+   - Layout actualizado a 5 columnas en desktop (lg:grid-cols-5)
+   - 3 columnas en tablet (md:grid-cols-3)
+   - 2 columnas en móvil (grid-cols-2)
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Feature: Enhanced "What You Need to Know Today" Morning Dashboard
 
 **Descripción:**

@@ -4,6 +4,49 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 3a36051d - 2025-12-14
+
+**Mensaje:** feat: Add Traffic & Alerts card and Official Sources to morning dashboard
+
+**Archivos modificados:**
+- src/components/TodayInSLP.tsx
+
+**Descripción detallada:**
+
+Ampliación del morning dashboard con nuevas funcionalidades:
+
+**Cambios realizados:**
+
+1. **Nueva tarjeta: Tráfico y Alertas**
+   - Icono TruckIcon para representar tráfico
+   - Estado con badge de color (verde=normal, amarillo=moderado, rojo=pesado)
+   - Contador de alertas activas con CheckCircleIcon
+   - Texto "Sin alertas" / "No alerts" cuando está limpio
+   - Hora de última actualización
+   - Gradiente cyan-to-sky para diferenciarse de otras tarjetas
+
+2. **Nueva sección: Fuentes Oficiales**
+   - 6 enlaces a cuentas oficiales con pills/badges clicables:
+     - @RGC_Mx - Gobernador Ricardo Gallardo (azul)
+     - @SLPMunicipio - Municipio de SLP (verde)
+     - @sspc_slp - Seguridad Pública (rojo)
+     - Turismo SLP - turismo.slp.gob.mx (ámbar)
+     - @sedecoslp - Secretaría de Economía (púrpura)
+     - @COPARMEX_SLP - Empresarios (índigo)
+   - Cada enlace abre en nueva pestaña (target="_blank")
+
+3. **Ajustes de layout:**
+   - Grid actualizado de 4 a 5 columnas en desktop
+   - Breakpoints: 2 cols móvil, 3 cols tablet, 5 cols desktop
+   - Importados nuevos iconos: TruckIcon, CheckCircleIcon
+
+**Propósito/Razón:**
+- Restaurar tarjeta de Tráfico y Alertas que había sido removida
+- Agregar fuentes oficiales para credibilidad y acceso directo a información gubernamental
+- Dar a usuarios acceso rápido a cuentas verificadas de autoridades locales
+
+---
+
 ## Commit: 12d77d68 - 2025-12-13
 
 **Mensaje:** feat: Enhanced morning dashboard with real SLP data and news
