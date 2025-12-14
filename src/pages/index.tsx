@@ -314,196 +314,6 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* TODAY IN SLP - Daily Dashboard */}
         <TodayInSLP />
 
-        {/* LIFESTYLE BENEFITS - Why SLP */}
-        <section id="benefits-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
-
-            {/* Section Header */}
-            <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.benefits.badge')}</span>
-              <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                {t('homepage.benefits.title')}
-              </h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                {t('homepage.benefits.description')}
-              </p>
-            </div>
-
-            {/* Benefits Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-
-              {/* Benefit 1 */}
-              <div className="group relative bg-white rounded-3xl p-10 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2">
-                <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                  </svg>
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.affordable.title')}</h3>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  {t('homepage.benefits.affordable.description')}
-                </p>
-                <div className="border-t border-gray-100 pt-4 mt-4">
-                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.affordable.detail')}</p>
-                </div>
-              </div>
-
-              {/* Benefit 2 */}
-              <div className="group relative bg-white rounded-3xl p-10 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2">
-                <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <HeartIcon className="w-6 h-6 text-white" strokeWidth={2} />
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.culture.title')}</h3>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  {t('homepage.benefits.culture.description')}
-                </p>
-                <div className="border-t border-gray-100 pt-4 mt-4">
-                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.culture.detail')}</p>
-                </div>
-              </div>
-
-              {/* Benefit 3 */}
-              <div className="group relative bg-white rounded-3xl p-10 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2">
-                <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <UserGroupIcon className="w-6 h-6 text-white" strokeWidth={2} />
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.community.title')}</h3>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  {t('homepage.benefits.community.description')}
-                </p>
-                <div className="border-t border-gray-100 pt-4 mt-4">
-                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.community.detail')}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Recognition Banner */}
-            <div className="mt-20 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-3xl p-10 border border-primary/20">
-              <div className="flex items-center gap-6 flex-wrap">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
-                    <MegaphoneIcon className="w-8 h-8 text-white" />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-2">
-                    {t('homepage.benefits.recognition.title')}
-                  </h3>
-                  <p className="text-gray-700 text-lg">
-                    {t('homepage.benefits.recognition.description')}
-                  </p>
-                </div>
-                <Link
-                  href="/about#rankings"
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
-                >
-                  {t('homepage.benefits.recognition.cta')}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CIRCLE OF TRUST BANNER */}
-        <CircleOfTrustBanner />
-
-        {/* Ad Placement 1 */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
-          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
-        </div>
-
-        {/* FEATURED PLACES - Editorial Style */}
-        <section id="places-001" className="py-32 bg-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
-
-            {/* Section Header */}
-            <div className="flex justify-between items-end mb-16">
-              <div className="max-w-2xl">
-                <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.places.badge')}</span>
-                <h2 className="font-serif text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                  {t('homepage.places.title')}
-                </h2>
-                <p className="text-xl text-gray-600">
-                  {t('homepage.places.description')}
-                </p>
-              </div>
-              <Link
-                href="/places"
-                className="hidden md:inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-primary transition-colors group"
-              >
-                {t('homepage.places.viewAll')}
-                <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-
-            {/* Places Grid - Editorial Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-              {/* Featured Place Card Template */}
-              {featuredAdvertisers.slice(0, 3).map((place, index) => (
-                <article key={place.id} className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                  <div className="relative h-72 overflow-hidden">
-                    <Image
-                      src={place.imageUrl}
-                      alt={place.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    {/* Floating Badge */}
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
-                      <span className="text-xs font-semibold text-gray-900">{t('homepage.places.featured')}</span>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="font-serif text-2xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
-                      {place.name}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed mb-4 line-clamp-2">
-                      {place.description}
-                    </p>
-                    <Link
-                      href={place.ctaUrl}
-                      className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
-                    >
-                      {t('homepage.places.discoverMore')}
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            {/* Mobile View All Link */}
-            <div className="mt-12 text-center md:hidden">
-              <Link
-                href="/places"
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all"
-              >
-                {t('homepage.places.viewAll')}
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Ad Placement 2 */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
-          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
-        </div>
-
         {/* EVENTS PREVIEW - Magazine Style - Only show if there are events */}
         {events.length > 0 && (
           <section id="events-001" className="py-32 bg-white">
@@ -629,14 +439,282 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </section>
         )}
 
-        {/* Ad Placement 3 */}
+        {/* Ad Placement 1 */}
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
           <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
         </div>
 
-        {/* NEWSLETTER BANNER - Mid Content */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20">
-          <NewsletterBanner variant="mid-content" />
+        {/* FEATURED PLACES - Editorial Style */}
+        <section id="places-001" className="py-32 bg-white">
+          <div className="container mx-auto px-6 md:px-12 lg:px-20">
+
+            {/* Section Header */}
+            <div className="flex justify-between items-end mb-16">
+              <div className="max-w-2xl">
+                <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.places.badge')}</span>
+                <h2 className="font-serif text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                  {t('homepage.places.title')}
+                </h2>
+                <p className="text-xl text-gray-600">
+                  {t('homepage.places.description')}
+                </p>
+              </div>
+              <Link
+                href="/places"
+                className="hidden md:inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-primary transition-colors group"
+              >
+                {t('homepage.places.viewAll')}
+                <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Places Grid - Editorial Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+              {/* Featured Place Card Template */}
+              {featuredAdvertisers.slice(0, 3).map((place, index) => (
+                <article key={place.id} className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                  <div className="relative h-72 overflow-hidden">
+                    <Image
+                      src={place.imageUrl}
+                      alt={place.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Floating Badge */}
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                      <span className="text-xs font-semibold text-gray-900">{t('homepage.places.featured')}</span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="font-serif text-2xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
+                      {place.name}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed mb-4 line-clamp-2">
+                      {place.description}
+                    </p>
+                    <Link
+                      href={place.ctaUrl}
+                      className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
+                    >
+                      {t('homepage.places.discoverMore')}
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            {/* Mobile View All Link */}
+            <div className="mt-12 text-center md:hidden">
+              <Link
+                href="/places"
+                className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all"
+              >
+                {t('homepage.places.viewAll')}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Ad Placement 2 */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
+          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
+        </div>
+
+        {/* RESTAURANTS & BARS - Culinary Excellence */}
+        <section id="dining-001" className="py-32 bg-white">
+          <div className="container mx-auto px-6 md:px-12 lg:px-20">
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.dining.badge')}</span>
+              <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                {t('homepage.dining.title')}
+              </h2>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                {t('homepage.dining.description')}
+              </p>
+            </div>
+
+            {/* Dining Categories Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+              {/* Traditional Restaurants */}
+              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src="/images/restaurants-and-bars/traditional-restaurants.jpg"
+                    alt={t('homepage.dining.traditional.title')}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.traditional.title')}</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {t('homepage.dining.traditional.description')}
+                  </p>
+                  <Link href="/traditional-cuisine" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    {t('homepage.dining.traditional.link')} →
+                  </Link>
+                </div>
+              </article>
+
+              {/* Modern Dining */}
+              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src="/images/restaurants-and-bars/modern-restaurants.webp"
+                    alt={t('homepage.dining.modern.title')}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.modern.title')}</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {t('homepage.dining.modern.description')}
+                  </p>
+                  <Link href="/modern-dining" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    {t('homepage.dining.modern.link')} →
+                  </Link>
+                </div>
+              </article>
+
+              {/* Cocktail Bars */}
+              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src="/images/restaurants-and-bars/cocktail-bars.webp"
+                    alt={t('homepage.dining.cocktails.title')}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.cocktails.title')}</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {t('homepage.dining.cocktails.description')}
+                  </p>
+                  <Link href="/category/cocktail-bars" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    {t('homepage.dining.cocktails.link')} →
+                  </Link>
+                </div>
+              </article>
+
+              {/* Terraces */}
+              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src="/images/restaurants-and-bars/terraces.webp"
+                    alt={t('homepage.dining.terraces.title')}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.terraces.title')}</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {t('homepage.dining.terraces.description')}
+                  </p>
+                  <Link href="/category/terraces" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    {t('homepage.dining.terraces.link')} →
+                  </Link>
+                </div>
+              </article>
+
+              {/* Cantinas */}
+              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src="/images/restaurants-and-bars/cantinas.jpg"
+                    alt={t('homepage.dining.cantinas.title')}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.cantinas.title')}</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {t('homepage.dining.cantinas.description')}
+                  </p>
+                  <Link href="/category/cantinas" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    {t('homepage.dining.cantinas.link')} →
+                  </Link>
+                </div>
+              </article>
+
+              {/* Live Music */}
+              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src="/images/restaurants-and-bars/live-music.jpg"
+                    alt={t('homepage.dining.liveMusic.title')}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.liveMusic.title')}</h3>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {t('homepage.dining.liveMusic.description')}
+                  </p>
+                  <Link href="/category/live-music" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    {t('homepage.dining.liveMusic.link')} →
+                  </Link>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* BLOG CAROUSEL - From the Blog */}
+        {blogPosts.length > 0 && (
+          <BlogCarousel
+            posts={blogPosts}
+            title={t('blog.title', 'From the Blog')}
+            subtitle={t('blog.subtitle', 'Stories, tips, and insights for life in San Luis Potosí')}
+          />
+        )}
+
+        {/* Ad Placement 3 */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
+          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
         </div>
 
         {/* CULTURAL HERITAGE - Traditions & History */}
@@ -836,172 +914,31 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* PARQUE TANGAMANGA BANNER */}
         <TangamangaBanner />
 
-        {/* RESTAURANTS & BARS - Culinary Excellence */}
-        <section id="dining-001" className="py-32 bg-white">
+        {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
+        <section id="practical-001" className="py-32 bg-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.dining.badge')}</span>
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.practical.badge')}</span>
               <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                {t('homepage.dining.title')}
+                {t('homepage.practical.title')}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed">
-                {t('homepage.dining.description')}
+                {t('homepage.practical.description')}
               </p>
             </div>
 
-            {/* Dining Categories Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-              {/* Traditional Restaurants */}
-              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/restaurants-and-bars/traditional-restaurants.jpg"
-                    alt={t('homepage.dining.traditional.title')}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.traditional.title')}</h3>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {t('homepage.dining.traditional.description')}
-                  </p>
-                  <Link href="/traditional-cuisine" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    {t('homepage.dining.traditional.link')} →
-                  </Link>
-                </div>
-              </article>
-
-              {/* Modern Dining */}
-              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/restaurants-and-bars/modern-restaurants.webp"
-                    alt={t('homepage.dining.modern.title')}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.modern.title')}</h3>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {t('homepage.dining.modern.description')}
-                  </p>
-                  <Link href="/modern-dining" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    {t('homepage.dining.modern.link')} →
-                  </Link>
-                </div>
-              </article>
-
-              {/* Cocktail Bars */}
-              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/restaurants-and-bars/cocktail-bars.webp"
-                    alt={t('homepage.dining.cocktails.title')}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.cocktails.title')}</h3>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {t('homepage.dining.cocktails.description')}
-                  </p>
-                  <Link href="/category/cocktail-bars" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    {t('homepage.dining.cocktails.link')} →
-                  </Link>
-                </div>
-              </article>
-
-              {/* Terraces */}
-              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/restaurants-and-bars/terraces.webp"
-                    alt={t('homepage.dining.terraces.title')}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.terraces.title')}</h3>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {t('homepage.dining.terraces.description')}
-                  </p>
-                  <Link href="/category/terraces" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    {t('homepage.dining.terraces.link')} →
-                  </Link>
-                </div>
-              </article>
-
-              {/* Cantinas */}
-              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/restaurants-and-bars/cantinas.jpg"
-                    alt={t('homepage.dining.cantinas.title')}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.cantinas.title')}</h3>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {t('homepage.dining.cantinas.description')}
-                  </p>
-                  <Link href="/category/cantinas" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    {t('homepage.dining.cantinas.link')} →
-                  </Link>
-                </div>
-              </article>
-
-              {/* Live Music */}
-              <article className="group relative bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-1">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src="/images/restaurants-and-bars/live-music.jpg"
-                    alt={t('homepage.dining.liveMusic.title')}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="font-serif text-2xl font-bold text-white">{t('homepage.dining.liveMusic.title')}</h3>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {t('homepage.dining.liveMusic.description')}
-                  </p>
-                  <Link href="/category/live-music" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                    {t('homepage.dining.liveMusic.link')} →
-                  </Link>
-                </div>
-              </article>
+            {/* Practical Guides Carousel */}
+            <div className="mb-12">
+              <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse rounded-lg" />}>
+                <ImageCarousel
+                  items={practicalGuides}
+                  itemsPerView={3}
+                  height="h-64"
+                  autoPlay={false}
+                  interval={0} // Disable auto-scroll for practical guides
+                />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -1075,48 +1012,111 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </div>
         </section>
 
+        {/* LIFESTYLE BENEFITS - Why SLP */}
+        <section id="benefits-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
+          <div className="container mx-auto px-6 md:px-12 lg:px-20">
+
+            {/* Section Header */}
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.benefits.badge')}</span>
+              <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                {t('homepage.benefits.title')}
+              </h2>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                {t('homepage.benefits.description')}
+              </p>
+            </div>
+
+            {/* Benefits Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+
+              {/* Benefit 1 */}
+              <div className="group relative bg-white rounded-3xl p-10 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2">
+                <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                  </svg>
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.affordable.title')}</h3>
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                  {t('homepage.benefits.affordable.description')}
+                </p>
+                <div className="border-t border-gray-100 pt-4 mt-4">
+                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.affordable.detail')}</p>
+                </div>
+              </div>
+
+              {/* Benefit 2 */}
+              <div className="group relative bg-white rounded-3xl p-10 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2">
+                <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                  <HeartIcon className="w-6 h-6 text-white" strokeWidth={2} />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.culture.title')}</h3>
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                  {t('homepage.benefits.culture.description')}
+                </p>
+                <div className="border-t border-gray-100 pt-4 mt-4">
+                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.culture.detail')}</p>
+                </div>
+              </div>
+
+              {/* Benefit 3 */}
+              <div className="group relative bg-white rounded-3xl p-10 shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-2">
+                <div className="absolute -top-6 left-10 w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                  <UserGroupIcon className="w-6 h-6 text-white" strokeWidth={2} />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4 mt-6">{t('homepage.benefits.community.title')}</h3>
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                  {t('homepage.benefits.community.description')}
+                </p>
+                <div className="border-t border-gray-100 pt-4 mt-4">
+                  <p className="text-sm text-gray-500 font-medium">{t('homepage.benefits.community.detail')}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Recognition Banner */}
+            <div className="mt-20 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-3xl p-10 border border-primary/20">
+              <div className="flex items-center gap-6 flex-wrap">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+                    <MegaphoneIcon className="w-8 h-8 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-2">
+                    {t('homepage.benefits.recognition.title')}
+                  </h3>
+                  <p className="text-gray-700 text-lg">
+                    {t('homepage.benefits.recognition.description')}
+                  </p>
+                </div>
+                <Link
+                  href="/about#rankings"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-lg"
+                >
+                  {t('homepage.benefits.recognition.cta')}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CIRCLE OF TRUST BANNER */}
+        <CircleOfTrustBanner />
+
         {/* Ad Placement 4 */}
         <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
           <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
         </div>
 
-        {/* BLOG CAROUSEL - From the Blog */}
-        {blogPosts.length > 0 && (
-          <BlogCarousel
-            posts={blogPosts}
-            title={t('blog.title', 'From the Blog')}
-            subtitle={t('blog.subtitle', 'Stories, tips, and insights for life in San Luis Potosí')}
-          />
-        )}
-
-        {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
-        <section id="practical-001" className="py-32 bg-white">
-          <div className="container mx-auto px-6 md:px-12 lg:px-20">
-            {/* Section Header */}
-            <div className="text-center max-w-3xl mx-auto mb-20">
-              <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.practical.badge')}</span>
-              <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                {t('homepage.practical.title')}
-              </h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                {t('homepage.practical.description')}
-              </p>
-            </div>
-
-            {/* Practical Guides Carousel */}
-            <div className="mb-12">
-              <Suspense fallback={<div className="h-64 bg-gray-100 animate-pulse rounded-lg" />}>
-                <ImageCarousel
-                  items={practicalGuides}
-                  itemsPerView={3}
-                  height="h-64"
-                  autoPlay={false}
-                  interval={0} // Disable auto-scroll for practical guides
-                />
-              </Suspense>
-            </div>
-          </div>
-        </section>
+        {/* NEWSLETTER BANNER - Mid Content */}
+        <div className="container mx-auto px-6 md:px-12 lg:px-20">
+          <NewsletterBanner variant="mid-content" />
+        </div>
 
         {/* NEWSLETTER HERO BANNER */}
         <NewsletterBanner variant="hero" />
