@@ -4,6 +4,94 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-13] Fix: Responsive Design for Family Weekend Blog Post Activity Cards
+
+**Descripción:**
+Corregido el diseño responsive de las tarjetas de actividades en el blog post de fin de semana familiar. Los títulos de las actividades ahora son legibles en dispositivos móviles.
+
+**Problema original:**
+- Los títulos de actividades como "GoKartMania", "Kidiverso", "El Almacén del Bife" etc. no eran legibles en pantallas pequeñas debido a que todos los elementos del header estaban en una sola línea.
+
+**Solución implementada:**
+- Reestructurado el layout del header de cada tarjeta de actividad
+- El título ahora se muestra en su propia línea debajo de los badges de hora/duración/precio
+- Tamaños de texto responsive (text-xl en móvil, text-2xl en desktop)
+- Padding responsive (px-4 en móvil, px-6 en desktop)
+- Badges con tamaños responsive (text-xs en móvil, text-sm en desktop)
+
+**Tarjetas corregidas:**
+1. Breakfast at El Meson de San Pascual
+2. Parque Tangamanga I
+3. GoKartMania SLP
+4. Dinner at La Parroquia Avenida
+5. Museo Laberinto de las Ciencias y las Artes
+6. Lunch at El Almacén del Bife
+7. Kidiverso Trampoline Park
+8. Family Bowling at Alboa
+9. Ciclovía Dominical
+10. Rancho La Estación
+
+**Cambios adicionales:**
+- Eliminadas referencias a Chuck E. Cheese (ya cerrado en SLP)
+- Actualizado budget "All-Out Fun" con "Rancho La Estación activities" en lugar de arcade credits
+
+**Archivo modificado:**
+- `family-weekend-itinerary-post.html`
+
+**Estado:** ✅ Exitoso - Blog post actualizado en base de datos
+
+---
+
+## [2025-12-13] Feature: Places/Services Toggle on Explore Page
+
+**Descripción:**
+Agregado toggle para alternar entre "Places" y "Services" en la página `/places`. Los usuarios ahora pueden ver tanto lugares como servicios desde una sola página con un toggle visual.
+
+**Archivos modificados:**
+- `src/pages/places/index.tsx`
+
+**Características implementadas:**
+1. **Toggle en Hero:**
+   - Botones "Places" y "Services" con iconos
+   - Cambio de color de fondo según tab activo (naranja para Places, verde para Services)
+   - Animaciones suaves de transición
+
+2. **Toggle Secundario:**
+   - Toggle adicional en la sección de directorio completo
+   - Muestra conteo de items por categoría (Places: X, Services: Y)
+
+3. **Contenido Dinámico:**
+   - Hero, títulos y descripciones cambian según el tab activo
+   - Featured section muestra lugares o servicios destacados
+   - Grid muestra el contenido filtrado correspondiente
+   - Categorías de filtro cambian según el tab activo
+
+4. **Datos:**
+   - Se traen tanto `places` como `services` desde Supabase
+   - Featured items de ambas tablas
+   - Reseteo de filtros al cambiar de tab
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] UX: Random Featured Post on Blog Page
+
+**Descripción:**
+El post destacado (featured post) en la página del blog ahora se selecciona aleatoriamente cada vez que un usuario carga la página, en lugar de mostrar siempre el más reciente.
+
+**Cambios técnicos:**
+- Agregado `useEffect` para seleccionar índice aleatorio al montar el componente
+- El featured post cambia también cuando el usuario filtra por categoría
+- Los demás posts se muestran en el grid excluyendo el featured seleccionado
+
+**Archivo modificado:**
+- `src/pages/blog/index.tsx`
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Blog: Family Weekend Itinerary Post Published
 
 **Descripción:**
