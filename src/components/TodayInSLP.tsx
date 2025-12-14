@@ -308,7 +308,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             100% { transform: translateX(-50%); }
           }
           .animate-marquee {
-            animation: marquee 45s linear infinite;
+            animation: marquee 25s linear infinite;
           }
           .animate-marquee:hover {
             animation-play-state: paused;
