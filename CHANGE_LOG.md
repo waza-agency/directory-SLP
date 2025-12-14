@@ -2171,3 +2171,41 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 - Finishers.com, CarrerasMexico.com
 
 **Resultado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Agregados 9 Nuevos Lugares Locales a la Base de Datos
+
+**Descripción:** Búsqueda profunda de restaurantes, bares, cafeterías y lugares de entretenimiento locales
+
+**Archivos afectados:**
+- `src/pages/api/add-new-places.ts` (nuevo)
+- `src/pages/api/list-places.ts` (nuevo)
+
+**Lugares agregados (9 nuevos):**
+
+### Restaurantes (2):
+- Natal Cocina de Origen - Alta cocina mexicana, Centro Histórico
+- Casa Altero - Alta cocina mexicana, Trendy Plaza
+
+### Bares y Cervecerías (3):
+- 7 Barrios Cervecería - Cervecería artesanal local (desde 2010)
+- La Piquería Mezcalería - Mezcalería, Plaza Aranzazú
+- Absenta Speakeasy - Bar secreto Top 100 México, Casa H
+
+### Cafeterías (3):
+- Capital Coffee - Café de especialidad, Centro Histórico
+- Arandela Barra de Café - Tostadores locales
+- Dulce Amor Café - Café artesanal (desde 2019)
+
+### Entretenimiento (1):
+- 500 Noches - Bar con trova en vivo
+
+**Criterios de selección:**
+- 100% negocios locales (sin franquicias internacionales)
+- Verificados en Google, TripAdvisor, Foursquare
+- Respaldados por listas editoriales (LíderLife, México Desconocido, TimeOut)
+
+**Estado final:** 127 lugares en la base de datos
+
+**Resultado:** ✅ Exitoso
