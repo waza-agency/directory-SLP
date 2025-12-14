@@ -8,13 +8,11 @@ import {
   CalendarDaysIcon,
   NewspaperIcon,
   MapPinIcon,
-  ArrowTrendingUpIcon,
-  ArrowTrendingDownIcon,
   ClockIcon,
-  FireIcon,
   TruckIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
+import type { WeatherData, ExchangeRate } from '@/lib/api/dashboard-data';
 
 interface TodayEvent {
   id: string;
@@ -33,7 +31,30 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [currentTime, setCurrentTime] = useState<string>('');
   const [currencyIndex, setCurrencyIndex] = useState(0);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRate[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch dashboard data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/dashboard-data');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.weather) setWeather(data.weather);
+          if (data.exchangeRates?.length) setExchangeRates(data.exchangeRates);
+        }
+      } catch (error) {
+        console.error('Failed to fetch dashboard data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Time and currency rotation
   useEffect(() => {
     setCurrentDate(new Date());
     const updateTime = () => {
@@ -47,13 +68,13 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     updateTime();
     const timeInterval = setInterval(updateTime, 60000);
     const currencyInterval = setInterval(() => {
-      setCurrencyIndex(prev => (prev + 1) % 5);
+      setCurrencyIndex(prev => (prev + 1) % (exchangeRates.length || 5));
     }, 4000);
     return () => {
       clearInterval(timeInterval);
       clearInterval(currencyInterval);
     };
-  }, [locale]);
+  }, [locale, exchangeRates.length]);
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString(locale === 'es' ? 'es-MX' : 'en-US', {
@@ -64,65 +85,19 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     });
   };
 
-  // Real weather data for SLP in December (typical conditions)
-  const weatherData = {
-    temp: 16,
-    tempMin: 7,
-    tempMax: 22,
-    condition: 'sunny',
-    humidity: 35,
-    uvIndex: 6,
-    sunrise: '07:12',
-    sunset: '17:58'
-  };
-
-  // Multiple exchange rates (updated periodically)
-  const exchangeRates = [
-    { code: 'USD', symbol: '$', name: 'Dólar', nameEn: 'US Dollar', rate: 20.15, trend: 'down' as const, change: -0.12, flag: '🇺🇸' },
-    { code: 'EUR', symbol: '€', name: 'Euro', nameEn: 'Euro', rate: 21.25, trend: 'up' as const, change: 0.08, flag: '🇪🇺' },
-    { code: 'GBP', symbol: '£', name: 'Libra', nameEn: 'Pound', rate: 25.45, trend: 'stable' as const, change: 0.02, flag: '🇬🇧' },
-    { code: 'JPY', symbol: '¥', name: 'Yen', nameEn: 'Yen', rate: 0.134, trend: 'down' as const, change: -0.003, flag: '🇯🇵' },
-    { code: 'CNY', symbol: '¥', name: 'Yuan', nameEn: 'Yuan', rate: 2.78, trend: 'up' as const, change: 0.04, flag: '🇨🇳' }
-  ];
-  const currentCurrency = exchangeRates[currencyIndex];
-
-  // Gas prices in SLP (December 2025)
-  const gasPrices = {
-    magna: 23.81,
-    premium: 25.32,
-    diesel: 26.35
-  };
-
-  // Traffic and alerts status
+  // Traffic status (could be enhanced with real API later)
   const trafficStatus = {
     status: 'normal' as 'normal' | 'moderate' | 'heavy',
     alerts: 0,
-    lastUpdate: '07:30'
+    lastUpdate: currentTime || '--:--'
   };
 
   /*
    * NEWS SOURCES (for internal reference - not displayed to users)
-   * When updating headlines, consult these sources:
-   *
-   * Official Government:
-   * - @RGC_Mx (Governor Ricardo Gallardo)
-   * - @SLPMunicipio (Municipality of SLP)
-   * - @sspc_slp (State Security)
-   * - turismo.slp.gob.mx (Tourism Secretary)
-   * - @sedecoslp (Economy Secretary)
-   *
-   * Business:
-   * - @COPARMEX_SLP (Business chamber)
-   *
-   * Local Media:
-   * - Líder Empresarial
-   * - Plano Informativo
-   * - El Sol de San Luis
-   * - Potosí Noticias
-   * - Pulso SLP
-   *
-   * CONTENT POLICY: Only positive/neutral news.
-   * NO: crimes, violence, arrests, accidents, deaths
+   * Official: @RGC_Mx, @SLPMunicipio, @sspc_slp, turismo.slp.gob.mx, @sedecoslp
+   * Business: @COPARMEX_SLP
+   * Media: Líder Empresarial, Plano Informativo, El Sol de San Luis, Potosí Noticias, Pulso SLP
+   * CONTENT POLICY: Only positive/neutral news. NO: crimes, violence, arrests, accidents
    */
   const tickerHeadlines = [
     { id: '1', text: locale === 'es' ? 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre al Centro de Convenciones' : 'ECOM Expocomic San Luis 2025 arrives Dec 18-19 at Convention Center' },
@@ -137,15 +112,19 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     es: "Tip de diciembre: La iluminación navideña del Centro Histórico estará hasta el 6 de enero. ¡Mejor después de las 7pm!"
   };
 
-  const getWeatherIcon = () => {
-    switch (weatherData.condition) {
-      case 'sunny':
-        return <SunIcon className="w-10 h-10 text-amber-500" />;
+  const getWeatherIcon = (condition?: string) => {
+    switch (condition) {
       case 'cloudy':
         return <CloudIcon className="w-10 h-10 text-gray-400" />;
+      case 'rainy':
+        return <CloudIcon className="w-10 h-10 text-blue-400" />;
       default:
         return <SunIcon className="w-10 h-10 text-amber-500" />;
     }
+  };
+
+  const currentCurrency = exchangeRates[currencyIndex] || {
+    code: 'USD', symbol: '$', name: 'Dólar', nameEn: 'US Dollar', rate: 0, flag: '🇺🇸'
   };
 
   return (
@@ -165,77 +144,77 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
         </div>
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 
           {/* Weather Card */}
           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-100">
             <div className="flex items-start justify-between mb-3">
-              {getWeatherIcon()}
-              <span className="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">
-                UV {weatherData.uvIndex}
-              </span>
+              {getWeatherIcon(weather?.condition)}
+              {weather && (
+                <span className="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">
+                  UV {weather.uvIndex}
+                </span>
+              )}
             </div>
-            <p className="text-4xl font-bold text-gray-900 mb-1">{weatherData.temp}°C</p>
-            <p className="text-sm text-gray-600 mb-2">
-              {locale === 'es' ? 'Despejado' : 'Clear'}
-            </p>
-            <div className="flex items-center gap-3 text-xs text-gray-500">
-              <span>↓ {weatherData.tempMin}°</span>
-              <span>↑ {weatherData.tempMax}°</span>
-              <span>💧 {weatherData.humidity}%</span>
-            </div>
-            <div className="mt-3 pt-3 border-t border-amber-200/50 flex justify-between text-xs text-gray-500">
-              <span>🌅 {weatherData.sunrise}</span>
-              <span>🌇 {weatherData.sunset}</span>
-            </div>
+            {isLoading ? (
+              <div className="animate-pulse">
+                <div className="h-10 bg-amber-200/50 rounded w-20 mb-2"></div>
+                <div className="h-4 bg-amber-200/50 rounded w-16"></div>
+              </div>
+            ) : weather ? (
+              <>
+                <p className="text-4xl font-bold text-gray-900 mb-1">{weather.temp}°C</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {locale === 'es' ? weather.conditionEs : weather.conditionEn}
+                </p>
+                <div className="flex items-center gap-3 text-xs text-gray-500">
+                  <span>↓ {weather.tempMin}°</span>
+                  <span>↑ {weather.tempMax}°</span>
+                  <span>💧 {weather.humidity}%</span>
+                </div>
+                <div className="mt-3 pt-3 border-t border-amber-200/50 flex justify-between text-xs text-gray-500">
+                  <span>🌅 {weather.sunrise}</span>
+                  <span>🌇 {weather.sunset}</span>
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-gray-500">{locale === 'es' ? 'No disponible' : 'Not available'}</p>
+            )}
           </div>
 
-          {/* Exchange Rate Card - Multi-currency rotation */}
+          {/* Exchange Rate Card */}
           <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-100 overflow-hidden">
             <div className="flex items-start justify-between mb-3">
               <span className="text-3xl">{currentCurrency.flag}</span>
-              <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
-                currentCurrency.trend === 'down' ? 'bg-green-100 text-green-700' :
-                currentCurrency.trend === 'up' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'
-              }`}>
-                {currentCurrency.trend === 'down' ? (
-                  <ArrowTrendingDownIcon className="w-3 h-3" />
-                ) : currentCurrency.trend === 'up' ? (
-                  <ArrowTrendingUpIcon className="w-3 h-3" />
-                ) : null}
-                {Math.abs(currentCurrency.change).toFixed(currentCurrency.code === 'JPY' ? 3 : 2)}
-              </div>
-            </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1 transition-all duration-300">
-              ${currentCurrency.rate.toFixed(currentCurrency.code === 'JPY' ? 3 : 2)}
-            </p>
-            <p className="text-sm text-gray-600 mb-2">{currentCurrency.code} → MXN</p>
-            <div className="flex items-center justify-between">
-              <p className="text-xs text-gray-500">
-                {locale === 'es' ? currentCurrency.name : currentCurrency.nameEn}
-              </p>
-              <div className="flex gap-1">
-                {exchangeRates.map((_, idx) => (
-                  <span key={idx} className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currencyIndex ? 'bg-emerald-500' : 'bg-gray-300'}`} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Gas Prices Card */}
-          <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-5 border border-rose-100">
-            <div className="flex items-start justify-between mb-3">
-              <FireIcon className="w-10 h-10 text-rose-500" />
-              <span className="text-xs font-medium text-rose-600 bg-rose-100 px-2 py-1 rounded-full">
-                {locale === 'es' ? 'Por litro' : 'Per liter'}
+              <span className="text-xs font-medium text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">
+                {locale === 'es' ? 'En vivo' : 'Live'}
               </span>
             </div>
-            <p className="text-2xl font-bold text-gray-900 mb-1">${gasPrices.magna.toFixed(2)}</p>
-            <p className="text-sm text-gray-600 mb-2">Magna</p>
-            <div className="flex items-center gap-3 text-xs text-gray-500">
-              <span>Premium ${gasPrices.premium.toFixed(2)}</span>
-              <span>Diesel ${gasPrices.diesel.toFixed(2)}</span>
-            </div>
+            {isLoading ? (
+              <div className="animate-pulse">
+                <div className="h-8 bg-emerald-200/50 rounded w-24 mb-2"></div>
+                <div className="h-4 bg-emerald-200/50 rounded w-20"></div>
+              </div>
+            ) : exchangeRates.length > 0 ? (
+              <>
+                <p className="text-3xl font-bold text-gray-900 mb-1 transition-all duration-300">
+                  ${currentCurrency.rate.toFixed(currentCurrency.code === 'JPY' ? 3 : 2)}
+                </p>
+                <p className="text-sm text-gray-600 mb-2">{currentCurrency.code} → MXN</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    {locale === 'es' ? currentCurrency.name : currentCurrency.nameEn}
+                  </p>
+                  <div className="flex gap-1">
+                    {exchangeRates.map((_, idx) => (
+                      <span key={idx} className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currencyIndex ? 'bg-emerald-500' : 'bg-gray-300'}`} />
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-gray-500">{locale === 'es' ? 'No disponible' : 'Not available'}</p>
+            )}
           </div>
 
           {/* Time & Events Card */}
@@ -310,7 +289,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           </div>
         </div>
 
-        {/* News Ticker - Scrolling Marquee */}
+        {/* News Ticker */}
         <div className="bg-gradient-to-r from-secondary to-secondary-light rounded-2xl shadow-lg overflow-hidden">
           <div className="flex items-center">
             <div className="flex-shrink-0 bg-white/20 px-4 py-3 flex items-center gap-2">
