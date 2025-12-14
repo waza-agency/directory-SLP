@@ -127,10 +127,9 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const tickerHeadlines = [
     { id: '1', text: locale === 'es' ? 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre al Centro de Convenciones' : 'ECOM Expocomic San Luis 2025 arrives Dec 18-19 at Convention Center' },
     { id: '2', text: locale === 'es' ? 'Nuevo hospital IMSS-Bienestar iniciará construcción en 2026 para SLP' : 'New IMSS-Bienestar hospital construction begins 2026 for SLP' },
-    { id: '3', text: locale === 'es' ? 'Iluminación navideña del Centro Histórico estará hasta el 6 de enero' : 'Historic Center Christmas lights display runs until January 6' },
-    { id: '4', text: locale === 'es' ? 'SLP entre los 10 mejores destinos turísticos de México para 2025' : 'SLP among top 10 tourist destinations in Mexico for 2025' },
-    { id: '5', text: locale === 'es' ? 'Inversión extranjera en SLP crece 15% en el último trimestre' : 'Foreign investment in SLP grows 15% in last quarter' },
-    { id: '6', text: locale === 'es' ? 'Festival de la Luz 2025: más de 50 eventos culturales en diciembre' : 'Festival of Light 2025: over 50 cultural events in December' }
+    { id: '3', text: locale === 'es' ? 'SLP entre los 10 mejores destinos turísticos de México para 2025' : 'SLP among top 10 tourist destinations in Mexico for 2025' },
+    { id: '4', text: locale === 'es' ? 'Inversión extranjera en SLP crece 15% en el último trimestre' : 'Foreign investment in SLP grows 15% in last quarter' },
+    { id: '5', text: locale === 'es' ? 'Festival de la Luz 2025: más de 50 eventos culturales en diciembre' : 'Festival of Light 2025: over 50 cultural events in December' }
   ];
 
   const dailyTip = {
