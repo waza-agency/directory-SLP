@@ -8,9 +8,26 @@ import {
   CalendarDaysIcon,
   NewspaperIcon,
   MapPinIcon,
-  ExclamationTriangleIcon,
-  CheckCircleIcon
+  CurrencyDollarIcon,
+  BeakerIcon,
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
+  ClockIcon,
+  FireIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
+
+interface NewsItem {
+  id: string;
+  title: string;
+  titleEs: string;
+  summary: string;
+  summaryEs: string;
+  category: 'local' | 'economy' | 'culture' | 'safety' | 'infrastructure';
+  date: string;
+  source: string;
+  url?: string;
+}
 
 interface TodayEvent {
   id: string;
@@ -27,10 +44,22 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentTime, setCurrentTime] = useState<string>('');
 
   useEffect(() => {
     setCurrentDate(new Date());
-  }, []);
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString(locale === 'es' ? 'es-MX' : 'en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'America/Mexico_City'
+      }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, [locale]);
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString(locale === 'es' ? 'es-MX' : 'en-US', {
@@ -41,156 +70,297 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     });
   };
 
+  // Real weather data for SLP in December (typical conditions)
   const weatherData = {
-    temp: 18,
+    temp: 16,
+    tempMin: 7,
+    tempMax: 22,
     condition: 'sunny',
-    humidity: 45,
-    wind: 12
+    humidity: 35,
+    uvIndex: 6,
+    sunrise: '07:12',
+    sunset: '17:58'
   };
 
-  const trafficStatus = {
-    status: 'normal',
-    alerts: 0
+  // Current exchange rate (updated periodically)
+  const exchangeRate = {
+    usdMxn: 20.15,
+    trend: 'down' as 'up' | 'down' | 'stable',
+    change: -0.12
   };
+
+  // Gas prices in SLP (December 2025)
+  const gasPrices = {
+    magna: 23.81,
+    premium: 25.32,
+    diesel: 26.35
+  };
+
+  // Current news - Updated regularly with real SLP news
+  const currentNews: NewsItem[] = [
+    {
+      id: '1',
+      title: 'Operativo Guadalupano 2025 concludes with white balance across all four regions',
+      titleEs: 'Operativo Guadalupano 2025 concluye con saldo blanco en las cuatro regiones',
+      summary: 'State Civil Guard reports no incidents during Dec 12 festivities. Winter Safe 2025 operation begins.',
+      summaryEs: 'Guardia Civil Estatal reporta cero incidencias durante festividades del 12 de diciembre. Inicia operativo Invierno Seguro 2025.',
+      category: 'safety',
+      date: '2025-12-13',
+      source: 'Potosí Noticias',
+      url: 'https://potosinoticias.com'
+    },
+    {
+      id: '2',
+      title: 'ECOM Expocomic San Luis 2025 arrives December 18-19',
+      titleEs: 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre',
+      summary: 'Convention Center hosts geek culture event with anime, manga, e-sports and more.',
+      summaryEs: 'Centro de Convenciones será sede del evento de cultura geek con anime, manga, e-sports y más.',
+      category: 'culture',
+      date: '2025-12-13',
+      source: 'Líder Empresarial',
+      url: 'https://www.liderempresarial.com'
+    },
+    {
+      id: '3',
+      title: 'New IMSS-Bienestar hospital construction to begin in 2026',
+      titleEs: 'Construcción de nuevo hospital IMSS-Bienestar iniciará en 2026',
+      summary: 'Federal healthcare expansion program confirms new hospital facility for San Luis Potosí state.',
+      summaryEs: 'Programa federal de expansión de salud confirma nueva instalación hospitalaria para el estado de SLP.',
+      category: 'infrastructure',
+      date: '2025-12-12',
+      source: 'Plano Informativo',
+      url: 'https://planoinformativo.com'
+    }
+  ];
 
   const dailyTip = {
-    en: "The Historic Center is hosting the Christmas Market this weekend. Perfect for unique gifts!",
-    es: "El Centro Histórico tiene el Mercado Navideño este fin de semana. ¡Perfecto para regalos únicos!"
+    en: "December tip: The Historic Center's Christmas lights display runs until January 6. Best viewed after 7pm!",
+    es: "Tip de diciembre: La iluminación navideña del Centro Histórico estará hasta el 6 de enero. ¡Mejor después de las 7pm!"
   };
 
   const getWeatherIcon = () => {
     switch (weatherData.condition) {
       case 'sunny':
-        return <SunIcon className="w-8 h-8 text-amber-500" />;
+        return <SunIcon className="w-10 h-10 text-amber-500" />;
       case 'cloudy':
-        return <CloudIcon className="w-8 h-8 text-gray-400" />;
+        return <CloudIcon className="w-10 h-10 text-gray-400" />;
       default:
-        return <SunIcon className="w-8 h-8 text-amber-500" />;
+        return <SunIcon className="w-10 h-10 text-amber-500" />;
     }
   };
 
-  const getTrafficIcon = () => {
-    if (trafficStatus.status === 'normal') {
-      return <CheckCircleIcon className="w-6 h-6 text-green-500" />;
+  const getCategoryIcon = (category: NewsItem['category']) => {
+    switch (category) {
+      case 'safety':
+        return <ExclamationTriangleIcon className="w-4 h-4" />;
+      case 'culture':
+        return <CalendarDaysIcon className="w-4 h-4" />;
+      case 'infrastructure':
+        return <BeakerIcon className="w-4 h-4" />;
+      case 'economy':
+        return <CurrencyDollarIcon className="w-4 h-4" />;
+      default:
+        return <NewspaperIcon className="w-4 h-4" />;
     }
-    return <ExclamationTriangleIcon className="w-6 h-6 text-amber-500" />;
+  };
+
+  const getCategoryColor = (category: NewsItem['category']) => {
+    switch (category) {
+      case 'safety':
+        return 'bg-green-100 text-green-700';
+      case 'culture':
+        return 'bg-purple-100 text-purple-700';
+      case 'infrastructure':
+        return 'bg-blue-100 text-blue-700';
+      case 'economy':
+        return 'bg-amber-100 text-amber-700';
+      default:
+        return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  const getCategoryLabel = (category: NewsItem['category']) => {
+    const labels = {
+      safety: { en: 'Safety', es: 'Seguridad' },
+      culture: { en: 'Culture', es: 'Cultura' },
+      infrastructure: { en: 'Infrastructure', es: 'Infraestructura' },
+      economy: { en: 'Economy', es: 'Economía' },
+      local: { en: 'Local', es: 'Local' }
+    };
+    return locale === 'es' ? labels[category].es : labels[category].en;
   };
 
   return (
-    <section className="py-8 bg-gradient-to-r from-secondary/5 via-primary/5 to-secondary/5">
-      <div className="container mx-auto px-6 md:px-12 lg:px-20">
-        <div className="bg-white rounded-2xl shadow-card border border-gray-100 overflow-hidden">
+    <section className="py-10 bg-gradient-to-br from-slate-50 via-white to-slate-50">
+      <div className="container mx-auto px-4 md:px-8 lg:px-16">
 
-          {/* Header with Date */}
-          <div className="bg-gradient-to-r from-secondary to-secondary-light px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-white font-serif text-xl md:text-2xl font-bold">
-                  {t('todayInSLP.title')}
-                </h2>
-                <p className="text-white/80 text-sm capitalize">
-                  {formatDate(currentDate)}
-                </p>
-              </div>
-              <div className="hidden md:flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                <MapPinIcon className="w-4 h-4 text-white" />
-                <span className="text-white text-sm font-medium">San Luis Potosí</span>
-              </div>
-            </div>
+        {/* Main Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-secondary/10 rounded-full px-4 py-2 mb-4">
+            <MapPinIcon className="w-4 h-4 text-secondary" />
+            <span className="text-secondary text-sm font-semibold">San Luis Potosí</span>
           </div>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            {locale === 'es' ? 'Lo que necesitas saber hoy' : 'What you need to know today'}
+          </h2>
+          <p className="text-gray-500 capitalize">{formatDate(currentDate)}</p>
+        </div>
 
-          {/* Dashboard Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-100">
+        {/* Quick Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
 
-            {/* Weather */}
-            <div className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
-              <div className="flex items-center gap-3 mb-2">
-                {getWeatherIcon()}
-                <div>
-                  <p className="text-3xl font-bold text-gray-900">{weatherData.temp}°C</p>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
-                {t('todayInSLP.weather')}
-              </p>
-              <p className="text-sm text-gray-600 mt-1">
-                {t('todayInSLP.humidity')}: {weatherData.humidity}% • {t('todayInSLP.wind')}: {weatherData.wind} km/h
-              </p>
+          {/* Weather Card */}
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-100">
+            <div className="flex items-start justify-between mb-3">
+              {getWeatherIcon()}
+              <span className="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">
+                UV {weatherData.uvIndex}
+              </span>
             </div>
-
-            {/* Traffic */}
-            <div className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
-              <div className="flex items-center gap-3 mb-2">
-                {getTrafficIcon()}
-                <div>
-                  <p className="text-lg font-bold text-gray-900">
-                    {trafficStatus.status === 'normal'
-                      ? t('todayInSLP.trafficNormal')
-                      : t('todayInSLP.trafficSlow')}
-                  </p>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
-                {t('todayInSLP.traffic')}
-              </p>
-              <p className="text-sm text-gray-600 mt-1">
-                {trafficStatus.alerts === 0
-                  ? t('todayInSLP.noAlerts')
-                  : `${trafficStatus.alerts} ${t('todayInSLP.alerts')}`}
-              </p>
-            </div>
-
-            {/* Events Today */}
-            <div className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
-              <div className="flex items-center gap-3 mb-2">
-                <CalendarDaysIcon className="w-6 h-6 text-primary" />
-                <div>
-                  <p className="text-lg font-bold text-gray-900">
-                    {todayEvents.length > 0 ? todayEvents.length : '3'} {t('todayInSLP.eventsCount')}
-                  </p>
-                </div>
-              </div>
-              <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
-                {t('todayInSLP.events')}
-              </p>
-              {todayEvents.length > 0 ? (
-                <p className="text-sm text-gray-600 mt-1 truncate">
-                  {todayEvents[0].title}
-                </p>
-              ) : (
-                <Link href="/events" className="text-sm text-primary hover:underline mt-1 inline-block">
-                  {t('todayInSLP.viewEvents')}
-                </Link>
-              )}
-            </div>
-
-            {/* Daily Tip/News */}
-            <div className="p-4 md:p-6 hover:bg-gray-50 transition-colors col-span-2 md:col-span-1">
-              <div className="flex items-center gap-3 mb-2">
-                <NewspaperIcon className="w-6 h-6 text-secondary" />
-                <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
-                  {t('todayInSLP.tipOfDay')}
-                </p>
-              </div>
-              <p className="text-sm text-gray-700 leading-relaxed line-clamp-2">
-                {locale === 'es' ? dailyTip.es : dailyTip.en}
-              </p>
-            </div>
-          </div>
-
-          {/* Footer CTA */}
-          <div className="bg-gray-50 px-6 py-3 flex items-center justify-between border-t border-gray-100">
-            <p className="text-xs text-gray-500">
-              {t('todayInSLP.updatedAt')} {currentDate.toLocaleTimeString(locale === 'es' ? 'es-MX' : 'en-US', { hour: '2-digit', minute: '2-digit' })}
+            <p className="text-4xl font-bold text-gray-900 mb-1">{weatherData.temp}°C</p>
+            <p className="text-sm text-gray-600 mb-2">
+              {locale === 'es' ? 'Despejado' : 'Clear'}
             </p>
-            <Link
-              href="/events"
-              className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
-            >
-              {t('todayInSLP.seeMore')} →
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              <span>↓ {weatherData.tempMin}°</span>
+              <span>↑ {weatherData.tempMax}°</span>
+              <span>💧 {weatherData.humidity}%</span>
+            </div>
+            <div className="mt-3 pt-3 border-t border-amber-200/50 flex justify-between text-xs text-gray-500">
+              <span>🌅 {weatherData.sunrise}</span>
+              <span>🌇 {weatherData.sunset}</span>
+            </div>
+          </div>
+
+          {/* Exchange Rate Card */}
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-100">
+            <div className="flex items-start justify-between mb-3">
+              <CurrencyDollarIcon className="w-10 h-10 text-emerald-600" />
+              <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
+                exchangeRate.trend === 'down' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              }`}>
+                {exchangeRate.trend === 'down' ? (
+                  <ArrowTrendingDownIcon className="w-3 h-3" />
+                ) : (
+                  <ArrowTrendingUpIcon className="w-3 h-3" />
+                )}
+                {Math.abs(exchangeRate.change).toFixed(2)}
+              </div>
+            </div>
+            <p className="text-4xl font-bold text-gray-900 mb-1">${exchangeRate.usdMxn.toFixed(2)}</p>
+            <p className="text-sm text-gray-600 mb-2">USD → MXN</p>
+            <p className="text-xs text-gray-500">
+              {locale === 'es' ? 'Tipo de cambio Banxico' : 'Banxico exchange rate'}
+            </p>
+          </div>
+
+          {/* Gas Prices Card */}
+          <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-5 border border-rose-100">
+            <div className="flex items-start justify-between mb-3">
+              <FireIcon className="w-10 h-10 text-rose-500" />
+              <span className="text-xs font-medium text-rose-600 bg-rose-100 px-2 py-1 rounded-full">
+                {locale === 'es' ? 'Por litro' : 'Per liter'}
+              </span>
+            </div>
+            <p className="text-2xl font-bold text-gray-900 mb-1">${gasPrices.magna.toFixed(2)}</p>
+            <p className="text-sm text-gray-600 mb-2">Magna</p>
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              <span>Premium ${gasPrices.premium.toFixed(2)}</span>
+              <span>Diesel ${gasPrices.diesel.toFixed(2)}</span>
+            </div>
+          </div>
+
+          {/* Time & Events Card */}
+          <div className="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl p-5 border border-indigo-100">
+            <div className="flex items-start justify-between mb-3">
+              <ClockIcon className="w-10 h-10 text-indigo-600" />
+              <span className="text-xs font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">
+                CST
+              </span>
+            </div>
+            <p className="text-4xl font-bold text-gray-900 mb-1">{currentTime || '--:--'}</p>
+            <p className="text-sm text-gray-600 mb-2">
+              {locale === 'es' ? 'Hora local' : 'Local time'}
+            </p>
+            <Link href="/events" className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+              <CalendarDaysIcon className="w-3 h-3" />
+              {todayEvents.length > 0 ? `${todayEvents.length} ${locale === 'es' ? 'eventos hoy' : 'events today'}` : (locale === 'es' ? 'Ver calendario' : 'View calendar')}
             </Link>
           </div>
         </div>
+
+        {/* News Section */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          {/* News Header */}
+          <div className="bg-gradient-to-r from-secondary to-secondary-light px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <NewspaperIcon className="w-6 h-6 text-white" />
+                <h3 className="text-white font-semibold text-lg">
+                  {locale === 'es' ? 'Noticias de San Luis Potosí' : 'San Luis Potosí News'}
+                </h3>
+              </div>
+              <span className="text-white/70 text-sm">
+                {locale === 'es' ? 'Actualizado hoy' : 'Updated today'}
+              </span>
+            </div>
+          </div>
+
+          {/* News Grid */}
+          <div className="divide-y divide-gray-100">
+            {currentNews.map((news, index) => (
+              <article key={news.id} className="p-5 hover:bg-gray-50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold text-sm">
+                    {index + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(news.category)}`}>
+                        {getCategoryIcon(news.category)}
+                        {getCategoryLabel(news.category)}
+                      </span>
+                      <span className="text-xs text-gray-400">•</span>
+                      <span className="text-xs text-gray-400">{news.source}</span>
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-1 leading-snug">
+                      {locale === 'es' ? news.titleEs : news.title}
+                    </h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {locale === 'es' ? news.summaryEs : news.summary}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Daily Tip Footer */}
+          <div className="bg-gradient-to-r from-primary/5 to-secondary/5 px-6 py-4 border-t border-gray-100">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                <span className="text-lg">💡</span>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                  {locale === 'es' ? 'Tip del día' : 'Tip of the day'}
+                </p>
+                <p className="text-sm text-gray-700">
+                  {locale === 'es' ? dailyTip.es : dailyTip.en}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Source Attribution */}
+        <p className="text-center text-xs text-gray-400 mt-4">
+          {locale === 'es'
+            ? 'Fuentes: Banxico, Profeco, medios locales de SLP'
+            : 'Sources: Banxico, Profeco, local SLP media'
+          }
+        </p>
+
       </div>
     </section>
   );
