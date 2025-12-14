@@ -43,25 +43,21 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
   const apiKey = process.env.OPENWEATHERMAP_API_KEY;
 
   if (!apiKey) {
-    console.warn('OpenWeatherMap API key not configured');
+    console.warn('OpenWeatherMap API key not configured. Add OPENWEATHERMAP_API_KEY to .env');
     return null;
   }
 
   try {
-    // Current weather
-    const currentRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${SLP_LAT}&lon=${SLP_LON}&units=metric&appid=${apiKey}`
-    );
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${SLP_LAT}&lon=${SLP_LON}&units=metric&appid=${apiKey}`;
+    const currentRes = await fetch(url);
 
-    if (!currentRes.ok) throw new Error('Weather API error');
+    if (!currentRes.ok) {
+      const errorText = await currentRes.text();
+      console.error('Weather API error:', currentRes.status, errorText);
+      throw new Error(`Weather API error: ${currentRes.status}`);
+    }
 
     const current = await currentRes.json();
-
-    // UV Index (separate endpoint)
-    const uvRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/uvi?lat=${SLP_LAT}&lon=${SLP_LON}&appid=${apiKey}`
-    );
-    const uvData = uvRes.ok ? await uvRes.json() : { value: 0 };
 
     // Map weather condition
     const weatherMain = current.weather[0]?.main?.toLowerCase() || 'clear';
@@ -94,6 +90,17 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
       });
     };
 
+    // Estimate UV index based on weather and time (UV API is deprecated)
+    const now = new Date();
+    const hour = now.getHours();
+    const isClear = condition === 'sunny';
+    let uvIndex = 0;
+    if (hour >= 10 && hour <= 16) {
+      uvIndex = isClear ? 7 : 4; // Higher UV during midday if clear
+    } else if (hour >= 7 && hour <= 18) {
+      uvIndex = isClear ? 4 : 2;
+    }
+
     return {
       temp: Math.round(current.main.temp),
       tempMin: Math.round(current.main.temp_min),
@@ -102,7 +109,7 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
       conditionEs,
       conditionEn,
       humidity: current.main.humidity,
-      uvIndex: Math.round(uvData.value || 0),
+      uvIndex,
       sunrise: formatTime(current.sys.sunrise),
       sunset: formatTime(current.sys.sunset),
       icon: current.weather[0]?.icon || '01d'
