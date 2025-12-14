@@ -4,6 +4,40 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Feature: Multi-Currency Rotation + News Ticker
+
+**Descripción:**
+Mejoras significativas al morning dashboard con rotación de múltiples monedas y cintillo de noticias estilo canal de TV.
+
+**Archivos modificados:**
+- `src/components/TodayInSLP.tsx`
+
+**Nuevas características:**
+
+1. **Rotación de Monedas (5 divisas):**
+   - 🇺🇸 USD (Dólar) - $20.15
+   - 🇪🇺 EUR (Euro) - $21.25
+   - 🇬🇧 GBP (Libra) - $25.45
+   - 🇯🇵 JPY (Yen) - $0.134
+   - 🇨🇳 CNY (Yuan) - $2.78
+   - Rota automáticamente cada 4 segundos
+   - Indicadores de puntos para mostrar moneda actual
+
+2. **News Ticker (Cintillo de Noticias):**
+   - Scrolling marquee estilo canales de TV
+   - 6 noticias positivas/neutrales de fuentes oficiales
+   - Se pausa al pasar el mouse
+   - Fuentes: @RGC_Mx, @SLPMunicipio, @sedecoslp, Turismo SLP
+
+3. **Política de Contenido:**
+   - Solo noticias positivas o neutrales
+   - Sin crímenes, violencia, arrestos ni accidentes
+   - Enfoque en cultura, economía, turismo e infraestructura
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-14] Feature: Traffic & Alerts Card + Official Sources
 
 **Descripción:**

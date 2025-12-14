@@ -4,6 +4,51 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: af7aa09c - 2025-12-14
+
+**Mensaje:** feat: Multi-currency rotation and news ticker for morning dashboard
+
+**Archivos modificados:**
+- src/components/TodayInSLP.tsx
+
+**Descripción detallada:**
+
+Mejoras significativas al morning dashboard con dos funcionalidades principales:
+
+**Cambios realizados:**
+
+1. **Rotación de Múltiples Monedas:**
+   - Array de 5 divisas: USD, EUR, GBP, JPY, CNY
+   - Cada moneda incluye: código, símbolo, nombre, tasa, tendencia, cambio, bandera emoji
+   - Estado `currencyIndex` que rota cada 4 segundos
+   - Tarjeta muestra bandera, tasa actual, tendencia con color
+   - Indicadores de puntos para mostrar qué moneda está activa
+   - Formato especial para JPY (3 decimales)
+
+2. **News Ticker (Cintillo):**
+   - Reemplazo de grid de noticias por marquee scrolling
+   - CSS animation `marquee` de 45 segundos
+   - Duplicación de headlines para efecto continuo
+   - Se pausa al hover para lectura
+   - 6 noticias positivas/neutrales de fuentes oficiales
+
+3. **Política de Contenido:**
+   - Eliminadas noticias de seguridad/operativos
+   - Solo cultura, economía, turismo, infraestructura
+   - Fuentes: @RGC_Mx, @SLPMunicipio, @sedecoslp, Turismo SLP
+
+4. **Limpieza de código:**
+   - Removida interface NewsItem (ya no necesaria)
+   - Removidas funciones getCategoryIcon/Color/Label
+   - Limpiados imports no usados
+
+**Propósito/Razón:**
+- Mostrar información de monedas relevantes para expats (USD, EUR, etc.)
+- Crear experiencia tipo TV news con ticker de noticias
+- Mantener contenido positivo/neutral sin crímenes ni violencia
+
+---
+
 ## Commit: 3a36051d - 2025-12-14
 
 **Mensaje:** feat: Add Traffic & Alerts card and Official Sources to morning dashboard
