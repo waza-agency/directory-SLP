@@ -100,14 +100,37 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     lastUpdate: '07:30'
   };
 
-  // News ticker headlines - Positive/neutral news only (no crime, violence, or accidents)
+  /*
+   * NEWS SOURCES (for internal reference - not displayed to users)
+   * When updating headlines, consult these sources:
+   *
+   * Official Government:
+   * - @RGC_Mx (Governor Ricardo Gallardo)
+   * - @SLPMunicipio (Municipality of SLP)
+   * - @sspc_slp (State Security)
+   * - turismo.slp.gob.mx (Tourism Secretary)
+   * - @sedecoslp (Economy Secretary)
+   *
+   * Business:
+   * - @COPARMEX_SLP (Business chamber)
+   *
+   * Local Media:
+   * - Líder Empresarial
+   * - Plano Informativo
+   * - El Sol de San Luis
+   * - Potosí Noticias
+   * - Pulso SLP
+   *
+   * CONTENT POLICY: Only positive/neutral news.
+   * NO: crimes, violence, arrests, accidents, deaths
+   */
   const tickerHeadlines = [
-    { id: '1', text: locale === 'es' ? 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre al Centro de Convenciones' : 'ECOM Expocomic San Luis 2025 arrives Dec 18-19 at Convention Center', source: 'Líder Empresarial' },
-    { id: '2', text: locale === 'es' ? 'Nuevo hospital IMSS-Bienestar iniciará construcción en 2026 para SLP' : 'New IMSS-Bienestar hospital construction begins 2026 for SLP', source: 'Plano Informativo' },
-    { id: '3', text: locale === 'es' ? 'Iluminación navideña del Centro Histórico estará hasta el 6 de enero' : 'Historic Center Christmas lights display runs until January 6', source: '@SLPMunicipio' },
-    { id: '4', text: locale === 'es' ? 'SLP entre los 10 mejores destinos turísticos de México para 2025' : 'SLP among top 10 tourist destinations in Mexico for 2025', source: 'Turismo SLP' },
-    { id: '5', text: locale === 'es' ? 'Inversión extranjera en SLP crece 15% en el último trimestre' : 'Foreign investment in SLP grows 15% in last quarter', source: '@sedecoslp' },
-    { id: '6', text: locale === 'es' ? 'Festival de la Luz 2025: más de 50 eventos culturales en diciembre' : 'Festival of Light 2025: over 50 cultural events in December', source: '@RGC_Mx' }
+    { id: '1', text: locale === 'es' ? 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre al Centro de Convenciones' : 'ECOM Expocomic San Luis 2025 arrives Dec 18-19 at Convention Center' },
+    { id: '2', text: locale === 'es' ? 'Nuevo hospital IMSS-Bienestar iniciará construcción en 2026 para SLP' : 'New IMSS-Bienestar hospital construction begins 2026 for SLP' },
+    { id: '3', text: locale === 'es' ? 'Iluminación navideña del Centro Histórico estará hasta el 6 de enero' : 'Historic Center Christmas lights display runs until January 6' },
+    { id: '4', text: locale === 'es' ? 'SLP entre los 10 mejores destinos turísticos de México para 2025' : 'SLP among top 10 tourist destinations in Mexico for 2025' },
+    { id: '5', text: locale === 'es' ? 'Inversión extranjera en SLP crece 15% en el último trimestre' : 'Foreign investment in SLP grows 15% in last quarter' },
+    { id: '6', text: locale === 'es' ? 'Festival de la Luz 2025: más de 50 eventos culturales en diciembre' : 'Festival of Light 2025: over 50 cultural events in December' }
   ];
 
   const dailyTip = {
@@ -302,7 +325,6 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                 {[...tickerHeadlines, ...tickerHeadlines].map((headline, idx) => (
                   <span key={`${headline.id}-${idx}`} className="inline-flex items-center mx-8">
                     <span className="text-white font-medium">{headline.text}</span>
-                    <span className="text-white/60 ml-2 text-sm">— {headline.source}</span>
                     <span className="mx-6 text-white/40">•</span>
                   </span>
                 ))}
@@ -323,51 +345,6 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             animation-play-state: paused;
           }
         `}</style>
-
-        {/* Official Sources */}
-        <div className="mt-6 bg-white rounded-xl border border-gray-100 p-4">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 text-center">
-            {locale === 'es' ? 'Fuentes Oficiales' : 'Official Sources'}
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a href="https://twitter.com/RGC_Mx" target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
-              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-              @RGC_Mx
-            </a>
-            <a href="https://twitter.com/SLPMunicipio" target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-              @SLPMunicipio
-            </a>
-            <a href="https://twitter.com/sspc_slp" target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-              @sspc_slp
-            </a>
-            <a href="https://turismo.slp.gob.mx" target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
-              <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-              {locale === 'es' ? 'Turismo SLP' : 'Tourism SLP'}
-            </a>
-            <a href="https://twitter.com/sedecoslp" target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
-              <span className="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
-              @sedecoslp
-            </a>
-            <a href="https://twitter.com/COPARMEX_SLP" target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 rounded-full text-xs text-gray-600 transition-colors">
-              <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
-              @COPARMEX_SLP
-            </a>
-          </div>
-          <p className="text-center text-xs text-gray-400 mt-3">
-            {locale === 'es'
-              ? 'Datos: Banxico, Profeco, medios locales'
-              : 'Data: Banxico, Profeco, local media'
-            }
-          </p>
-        </div>
 
       </div>
     </section>
