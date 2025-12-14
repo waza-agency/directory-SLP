@@ -2096,3 +2096,34 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 2. Obtener Page Access Token con permisos `leads_retrieval`
 3. Suscribir página al evento `leadgen`
 4. Probar con Lead Ads Testing Tool
+
+---
+
+## [2025-12-14] Depuración de Base de Datos de Eventos
+
+**Descripción:** Limpieza de eventos pasados en Supabase
+
+**Archivos afectados:**
+- `src/pages/api/cleanup-past-events.ts` (nuevo)
+
+**Cambios realizados:**
+- Creado endpoint API para gestionar limpieza de eventos pasados
+- Eliminados 14 eventos con fecha anterior al 14 de diciembre 2025:
+  - Ha*Ash (27 sep 2025)
+  - La Gusana Ciega and Odisseo (27 sep 2025)
+  - Intocable (4 oct 2025)
+  - TecnoMedic 2025 (7 oct 2025)
+  - Alejandro Sanz (16 oct 2025)
+  - Enjambre (24 oct 2025)
+  - Christian Nodal (25 oct 2025)
+  - Camilo Séptimo (8 nov 2025)
+  - Julieta Venegas (14 nov 2025)
+  - Edén Muñoz (21 nov 2025)
+  - Manuel Medrano (21 nov 2025)
+  - Alejandro Fernández (29 nov 2025)
+  - Sistema de Entretenimiento Concert (30 nov 2025)
+  - Tiamat Gothic Metal Concert (4 dic 2025)
+
+**Estado final:** 62 eventos activos en la base de datos
+
+**Resultado:** ✅ Exitoso
