@@ -2127,3 +2127,47 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 **Estado final:** 62 eventos activos en la base de datos
 
 **Resultado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Agregados 13 Nuevos Eventos a la Base de Datos
+
+**Descripción:** Búsqueda profunda en línea y agregado de eventos futuros en todas las categorías
+
+**Archivos afectados:**
+- `src/pages/api/add-new-events.ts` (nuevo)
+
+**Eventos agregados (13 nuevos):**
+
+### Música/Conciertos:
+- Carlos Rivera en Concierto - 7 febrero 2026, Arena Potosí
+- Ricardo Montaner "El Último Regreso Tour" - 8 mayo 2026, Arena Potosí
+
+### Arte y Cultura:
+- Pastorela Navideña (Compañía de Teatro Galindo) - 14-22 dic 2025, Teatro de la Paz
+- 31 Minutos "Radio Guaripolo Tour" - 30 marzo 2026, Teatro de la Paz
+- Feria del Cristo de Matehuala - 6-15 enero 2026
+- Fiestas de San Sebastián - 20 enero 2026, Venado
+- Fiesta de Nuestro Padre Jesús - 6 marzo 2026, Salinas
+- Fiesta de San José - 19 marzo 2026, múltiples municipios
+- Fiesta de San Antonio de Padua - 13 junio 2026
+- Fiesta de San Juan Bautista - 24 junio 2026, Coxcatlán
+
+### Wellness:
+- Retiro de Yoga Año Nuevo (Satyarupa Yoga) - 28 dic 2025 al 2 enero 2026, Huasteca Potosina
+
+### Deportes:
+- 5K Carrera del Día de la Mujer - 8 marzo 2026
+
+### Congresos/Negocios:
+- ExpoTecnomedic 2026 - 10-13 marzo 2026, Centro de Negocios Potosí
+
+**Estado final:** 75 eventos activos en la base de datos
+
+**Fuentes consultadas:**
+- Songkick, Bandsintown, eticket.mx
+- Turismo SLP, México es Cultura
+- Zona Turística, Visita San Luis Potosí
+- Finishers.com, CarrerasMexico.com
+
+**Resultado:** ✅ Exitoso
