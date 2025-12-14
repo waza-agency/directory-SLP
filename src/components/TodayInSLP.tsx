@@ -8,28 +8,13 @@ import {
   CalendarDaysIcon,
   NewspaperIcon,
   MapPinIcon,
-  CurrencyDollarIcon,
-  BeakerIcon,
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
   ClockIcon,
   FireIcon,
-  ExclamationTriangleIcon,
   TruckIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
-
-interface NewsItem {
-  id: string;
-  title: string;
-  titleEs: string;
-  summary: string;
-  summaryEs: string;
-  category: 'local' | 'economy' | 'culture' | 'safety' | 'infrastructure';
-  date: string;
-  source: string;
-  url?: string;
-}
 
 interface TodayEvent {
   id: string;
@@ -47,6 +32,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const { locale } = useRouter();
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [currentTime, setCurrentTime] = useState<string>('');
+  const [currencyIndex, setCurrencyIndex] = useState(0);
 
   useEffect(() => {
     setCurrentDate(new Date());
@@ -59,8 +45,14 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       }));
     };
     updateTime();
-    const interval = setInterval(updateTime, 60000);
-    return () => clearInterval(interval);
+    const timeInterval = setInterval(updateTime, 60000);
+    const currencyInterval = setInterval(() => {
+      setCurrencyIndex(prev => (prev + 1) % 5);
+    }, 4000);
+    return () => {
+      clearInterval(timeInterval);
+      clearInterval(currencyInterval);
+    };
   }, [locale]);
 
   const formatDate = (date: Date) => {
@@ -84,12 +76,15 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     sunset: '17:58'
   };
 
-  // Current exchange rate (updated periodically)
-  const exchangeRate = {
-    usdMxn: 20.15,
-    trend: 'down' as 'up' | 'down' | 'stable',
-    change: -0.12
-  };
+  // Multiple exchange rates (updated periodically)
+  const exchangeRates = [
+    { code: 'USD', symbol: '$', name: 'Dólar', nameEn: 'US Dollar', rate: 20.15, trend: 'down' as const, change: -0.12, flag: '🇺🇸' },
+    { code: 'EUR', symbol: '€', name: 'Euro', nameEn: 'Euro', rate: 21.25, trend: 'up' as const, change: 0.08, flag: '🇪🇺' },
+    { code: 'GBP', symbol: '£', name: 'Libra', nameEn: 'Pound', rate: 25.45, trend: 'stable' as const, change: 0.02, flag: '🇬🇧' },
+    { code: 'JPY', symbol: '¥', name: 'Yen', nameEn: 'Yen', rate: 0.134, trend: 'down' as const, change: -0.003, flag: '🇯🇵' },
+    { code: 'CNY', symbol: '¥', name: 'Yuan', nameEn: 'Yuan', rate: 2.78, trend: 'up' as const, change: 0.04, flag: '🇨🇳' }
+  ];
+  const currentCurrency = exchangeRates[currencyIndex];
 
   // Gas prices in SLP (December 2025)
   const gasPrices = {
@@ -105,41 +100,14 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     lastUpdate: '07:30'
   };
 
-  // Current news - Updated regularly with real SLP news
-  const currentNews: NewsItem[] = [
-    {
-      id: '1',
-      title: 'Operativo Guadalupano 2025 concludes with white balance across all four regions',
-      titleEs: 'Operativo Guadalupano 2025 concluye con saldo blanco en las cuatro regiones',
-      summary: 'State Civil Guard reports no incidents during Dec 12 festivities. Winter Safe 2025 operation begins.',
-      summaryEs: 'Guardia Civil Estatal reporta cero incidencias durante festividades del 12 de diciembre. Inicia operativo Invierno Seguro 2025.',
-      category: 'safety',
-      date: '2025-12-13',
-      source: 'Potosí Noticias',
-      url: 'https://potosinoticias.com'
-    },
-    {
-      id: '2',
-      title: 'ECOM Expocomic San Luis 2025 arrives December 18-19',
-      titleEs: 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre',
-      summary: 'Convention Center hosts geek culture event with anime, manga, e-sports and more.',
-      summaryEs: 'Centro de Convenciones será sede del evento de cultura geek con anime, manga, e-sports y más.',
-      category: 'culture',
-      date: '2025-12-13',
-      source: 'Líder Empresarial',
-      url: 'https://www.liderempresarial.com'
-    },
-    {
-      id: '3',
-      title: 'New IMSS-Bienestar hospital construction to begin in 2026',
-      titleEs: 'Construcción de nuevo hospital IMSS-Bienestar iniciará en 2026',
-      summary: 'Federal healthcare expansion program confirms new hospital facility for San Luis Potosí state.',
-      summaryEs: 'Programa federal de expansión de salud confirma nueva instalación hospitalaria para el estado de SLP.',
-      category: 'infrastructure',
-      date: '2025-12-12',
-      source: 'Plano Informativo',
-      url: 'https://planoinformativo.com'
-    }
+  // News ticker headlines - Positive/neutral news only (no crime, violence, or accidents)
+  const tickerHeadlines = [
+    { id: '1', text: locale === 'es' ? 'ECOM Expocomic San Luis 2025 llega el 18 y 19 de diciembre al Centro de Convenciones' : 'ECOM Expocomic San Luis 2025 arrives Dec 18-19 at Convention Center', source: 'Líder Empresarial' },
+    { id: '2', text: locale === 'es' ? 'Nuevo hospital IMSS-Bienestar iniciará construcción en 2026 para SLP' : 'New IMSS-Bienestar hospital construction begins 2026 for SLP', source: 'Plano Informativo' },
+    { id: '3', text: locale === 'es' ? 'Iluminación navideña del Centro Histórico estará hasta el 6 de enero' : 'Historic Center Christmas lights display runs until January 6', source: '@SLPMunicipio' },
+    { id: '4', text: locale === 'es' ? 'SLP entre los 10 mejores destinos turísticos de México para 2025' : 'SLP among top 10 tourist destinations in Mexico for 2025', source: 'Turismo SLP' },
+    { id: '5', text: locale === 'es' ? 'Inversión extranjera en SLP crece 15% en el último trimestre' : 'Foreign investment in SLP grows 15% in last quarter', source: '@sedecoslp' },
+    { id: '6', text: locale === 'es' ? 'Festival de la Luz 2025: más de 50 eventos culturales en diciembre' : 'Festival of Light 2025: over 50 cultural events in December', source: '@RGC_Mx' }
   ];
 
   const dailyTip = {
@@ -156,47 +124,6 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       default:
         return <SunIcon className="w-10 h-10 text-amber-500" />;
     }
-  };
-
-  const getCategoryIcon = (category: NewsItem['category']) => {
-    switch (category) {
-      case 'safety':
-        return <ExclamationTriangleIcon className="w-4 h-4" />;
-      case 'culture':
-        return <CalendarDaysIcon className="w-4 h-4" />;
-      case 'infrastructure':
-        return <BeakerIcon className="w-4 h-4" />;
-      case 'economy':
-        return <CurrencyDollarIcon className="w-4 h-4" />;
-      default:
-        return <NewspaperIcon className="w-4 h-4" />;
-    }
-  };
-
-  const getCategoryColor = (category: NewsItem['category']) => {
-    switch (category) {
-      case 'safety':
-        return 'bg-green-100 text-green-700';
-      case 'culture':
-        return 'bg-purple-100 text-purple-700';
-      case 'infrastructure':
-        return 'bg-blue-100 text-blue-700';
-      case 'economy':
-        return 'bg-amber-100 text-amber-700';
-      default:
-        return 'bg-gray-100 text-gray-700';
-    }
-  };
-
-  const getCategoryLabel = (category: NewsItem['category']) => {
-    const labels = {
-      safety: { en: 'Safety', es: 'Seguridad' },
-      culture: { en: 'Culture', es: 'Cultura' },
-      infrastructure: { en: 'Infrastructure', es: 'Infraestructura' },
-      economy: { en: 'Economy', es: 'Economía' },
-      local: { en: 'Local', es: 'Local' }
-    };
-    return locale === 'es' ? labels[category].es : labels[category].en;
   };
 
   return (
@@ -241,26 +168,36 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             </div>
           </div>
 
-          {/* Exchange Rate Card */}
-          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-100">
+          {/* Exchange Rate Card - Multi-currency rotation */}
+          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-100 overflow-hidden">
             <div className="flex items-start justify-between mb-3">
-              <CurrencyDollarIcon className="w-10 h-10 text-emerald-600" />
+              <span className="text-3xl">{currentCurrency.flag}</span>
               <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
-                exchangeRate.trend === 'down' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                currentCurrency.trend === 'down' ? 'bg-green-100 text-green-700' :
+                currentCurrency.trend === 'up' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'
               }`}>
-                {exchangeRate.trend === 'down' ? (
+                {currentCurrency.trend === 'down' ? (
                   <ArrowTrendingDownIcon className="w-3 h-3" />
-                ) : (
+                ) : currentCurrency.trend === 'up' ? (
                   <ArrowTrendingUpIcon className="w-3 h-3" />
-                )}
-                {Math.abs(exchangeRate.change).toFixed(2)}
+                ) : null}
+                {Math.abs(currentCurrency.change).toFixed(currentCurrency.code === 'JPY' ? 3 : 2)}
               </div>
             </div>
-            <p className="text-4xl font-bold text-gray-900 mb-1">${exchangeRate.usdMxn.toFixed(2)}</p>
-            <p className="text-sm text-gray-600 mb-2">USD → MXN</p>
-            <p className="text-xs text-gray-500">
-              {locale === 'es' ? 'Tipo de cambio Banxico' : 'Banxico exchange rate'}
+            <p className="text-3xl font-bold text-gray-900 mb-1 transition-all duration-300">
+              ${currentCurrency.rate.toFixed(currentCurrency.code === 'JPY' ? 3 : 2)}
             </p>
+            <p className="text-sm text-gray-600 mb-2">{currentCurrency.code} → MXN</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-gray-500">
+                {locale === 'es' ? currentCurrency.name : currentCurrency.nameEn}
+              </p>
+              <div className="flex gap-1">
+                {exchangeRates.map((_, idx) => (
+                  <span key={idx} className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === currencyIndex ? 'bg-emerald-500' : 'bg-gray-300'}`} />
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Gas Prices Card */}
@@ -334,69 +271,58 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           </div>
         </div>
 
-        {/* News Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-          {/* News Header */}
-          <div className="bg-gradient-to-r from-secondary to-secondary-light px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <NewspaperIcon className="w-6 h-6 text-white" />
-                <h3 className="text-white font-semibold text-lg">
-                  {locale === 'es' ? 'Noticias de San Luis Potosí' : 'San Luis Potosí News'}
-                </h3>
-              </div>
-              <span className="text-white/70 text-sm">
-                {locale === 'es' ? 'Actualizado hoy' : 'Updated today'}
-              </span>
+        {/* Daily Tip Card */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-5 mb-4">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+              <span className="text-xl">💡</span>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-1">
+                {locale === 'es' ? 'Tip del día' : 'Tip of the day'}
+              </p>
+              <p className="text-gray-700">
+                {locale === 'es' ? dailyTip.es : dailyTip.en}
+              </p>
             </div>
           </div>
+        </div>
 
-          {/* News Grid */}
-          <div className="divide-y divide-gray-100">
-            {currentNews.map((news, index) => (
-              <article key={news.id} className="p-5 hover:bg-gray-50 transition-colors">
-                <div className="flex items-start gap-4">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold text-sm">
-                    {index + 1}
+        {/* News Ticker - Scrolling Marquee */}
+        <div className="bg-gradient-to-r from-secondary to-secondary-light rounded-2xl shadow-lg overflow-hidden">
+          <div className="flex items-center">
+            <div className="flex-shrink-0 bg-white/20 px-4 py-3 flex items-center gap-2">
+              <NewspaperIcon className="w-5 h-5 text-white" />
+              <span className="text-white font-bold text-sm whitespace-nowrap">
+                {locale === 'es' ? 'NOTICIAS SLP' : 'SLP NEWS'}
+              </span>
+            </div>
+            <div className="flex-1 overflow-hidden py-3">
+              <div className="animate-marquee whitespace-nowrap flex">
+                {[...tickerHeadlines, ...tickerHeadlines].map((headline, idx) => (
+                  <span key={`${headline.id}-${idx}`} className="inline-flex items-center mx-8">
+                    <span className="text-white font-medium">{headline.text}</span>
+                    <span className="text-white/60 ml-2 text-sm">— {headline.source}</span>
+                    <span className="mx-6 text-white/40">•</span>
                   </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(news.category)}`}>
-                        {getCategoryIcon(news.category)}
-                        {getCategoryLabel(news.category)}
-                      </span>
-                      <span className="text-xs text-gray-400">•</span>
-                      <span className="text-xs text-gray-400">{news.source}</span>
-                    </div>
-                    <h4 className="font-semibold text-gray-900 mb-1 leading-snug">
-                      {locale === 'es' ? news.titleEs : news.title}
-                    </h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {locale === 'es' ? news.summaryEs : news.summary}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Daily Tip Footer */}
-          <div className="bg-gradient-to-r from-primary/5 to-secondary/5 px-6 py-4 border-t border-gray-100">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="text-lg">💡</span>
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                  {locale === 'es' ? 'Tip del día' : 'Tip of the day'}
-                </p>
-                <p className="text-sm text-gray-700">
-                  {locale === 'es' ? dailyTip.es : dailyTip.en}
-                </p>
+                ))}
               </div>
             </div>
           </div>
         </div>
+
+        <style jsx>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            animation: marquee 45s linear infinite;
+          }
+          .animate-marquee:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
 
         {/* Official Sources */}
         <div className="mt-6 bg-white rounded-xl border border-gray-100 p-4">
