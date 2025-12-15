@@ -301,6 +301,90 @@ export async function getPublicationStats(): Promise<{
 }
 
 /**
+ * Publish a post (change status from draft to confirmed/published)
+ */
+export async function publishPost(
+  postId: string
+): Promise<{ success: boolean; post?: BeehiivPost; error?: string }> {
+  try {
+    const response = await fetch(
+      `${BEEHIIV_API_BASE}/publications/${getPublicationId()}/posts/${postId}`,
+      {
+        method: 'PATCH',
+        headers: getHeaders(),
+        body: JSON.stringify({
+          status: 'confirmed',
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error('Beehiiv publishPost error:', result);
+      return { success: false, error: result.message || 'Failed to publish post' };
+    }
+
+    return { success: true, post: result.data };
+  } catch (error) {
+    console.error('Beehiiv publishPost exception:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
+/**
+ * Create and immediately publish a newsletter post
+ */
+export async function createAndPublishPost(
+  title: string,
+  htmlContent: string,
+  options?: {
+    subtitle?: string;
+    audience?: 'all' | 'premium' | 'free';
+  }
+): Promise<{ success: boolean; post?: BeehiivPost; error?: string }> {
+  try {
+    const response = await fetch(
+      `${BEEHIIV_API_BASE}/publications/${getPublicationId()}/posts`,
+      {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({
+          title,
+          subtitle: options?.subtitle,
+          status: 'confirmed',
+          content: {
+            free: {
+              web: htmlContent,
+              email: htmlContent,
+            },
+          },
+          audience: options?.audience || 'all',
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error('Beehiiv createAndPublishPost error:', result);
+      return { success: false, error: result.message || 'Failed to publish post' };
+    }
+
+    return { success: true, post: result.data };
+  } catch (error) {
+    console.error('Beehiiv createAndPublishPost exception:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
+/**
  * Bulk import subscribers to Beehiiv
  */
 export async function bulkImportSubscribers(

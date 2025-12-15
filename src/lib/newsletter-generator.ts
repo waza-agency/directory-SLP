@@ -19,16 +19,21 @@ function getSupabaseClient() {
 }
 
 export function getCurrentNewsletterDates(referenceDate = new Date()) {
-  const nextMonday = startOfWeek(addDays(referenceDate, 7), { weekStartsOn: 1 });
-  const weekEnd = endOfWeek(nextMonday, { weekStartsOn: 1 });
+  // Always use fresh current date to ensure accuracy
+  const now = new Date();
+  console.log(`Newsletter date calculation - Current date: ${now.toISOString()}`);
+
+  // Get the Monday of the current week (the week we're in right now)
+  const currentWeekMonday = startOfWeek(now, { weekStartsOn: 1 });
+  const currentWeekSunday = endOfWeek(now, { weekStartsOn: 1 });
 
   return {
-    currentDate: format(referenceDate, 'MMMM d, yyyy'),
-    weekStartDate: nextMonday,
-    weekEndDate: weekEnd,
-    weekStartIso: nextMonday.toISOString(),
-    weekEndIso: weekEnd.toISOString(),
-    dateRangeStr: `${format(nextMonday, 'MMMM d')} - ${format(weekEnd, 'MMMM d, yyyy')}`,
+    currentDate: format(now, 'MMMM d, yyyy'),
+    weekStartDate: currentWeekMonday,
+    weekEndDate: currentWeekSunday,
+    weekStartIso: currentWeekMonday.toISOString(),
+    weekEndIso: currentWeekSunday.toISOString(),
+    dateRangeStr: `${format(currentWeekMonday, 'MMMM d')} - ${format(currentWeekSunday, 'MMMM d, yyyy')}`,
   };
 }
 
@@ -40,7 +45,11 @@ const model = genAI.getGenerativeModel({
     {
       googleSearch: {}
     }
-  ]
+  ],
+  generationConfig: {
+    maxOutputTokens: 16384,
+    temperature: 0.7,
+  }
 });
 
 // Initialize OpenAI as fallback
@@ -74,19 +83,19 @@ async function generateWithOpenAI(prompt: string): Promise<string> {
   return response.choices[0]?.message?.content || '';
 }
 
-// Exact HTML Template from Style Guide
+// Simplified footer HTML for Beehiiv compatibility (no gradients, no box-shadow)
 export const CLOSING_AND_FOOTER_HTML = `
-          <!-- EXPLORE SAN LUIS WAY - Promotional Section -->
+          <!-- EXPLORE SAN LUIS WAY -->
           <tr>
-            <td class="section" style="padding: 30px; background-color: #F0F9FF;">
+            <td style="padding: 30px; background-color: #F0F9FF;">
               <h2 style="font-size: 18px; color: #1F2937; margin: 0 0 20px 0; text-align: center;">
                 🗺️ Explore More on San Luis Way
               </h2>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td width="33%" style="text-align: center; padding: 10px;">
                     <a href="https://www.sanluisway.com/events" style="text-decoration: none;">
-                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">🎭</span>
                         <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Events</p>
                       </div>
@@ -94,7 +103,7 @@ export const CLOSING_AND_FOOTER_HTML = `
                   </td>
                   <td width="33%" style="text-align: center; padding: 10px;">
                     <a href="https://www.sanluisway.com/blog" style="text-decoration: none;">
-                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">📖</span>
                         <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Blog</p>
                       </div>
@@ -102,7 +111,7 @@ export const CLOSING_AND_FOOTER_HTML = `
                   </td>
                   <td width="33%" style="text-align: center; padding: 10px;">
                     <a href="https://www.sanluisway.com/directory" style="text-decoration: none;">
-                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">📍</span>
                         <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Directory</p>
                       </div>
@@ -112,7 +121,7 @@ export const CLOSING_AND_FOOTER_HTML = `
                 <tr>
                   <td width="33%" style="text-align: center; padding: 10px;">
                     <a href="https://www.sanluisway.com/outdoors" style="text-decoration: none;">
-                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">🌿</span>
                         <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Outdoors</p>
                       </div>
@@ -120,7 +129,7 @@ export const CLOSING_AND_FOOTER_HTML = `
                   </td>
                   <td width="33%" style="text-align: center; padding: 10px;">
                     <a href="https://www.sanluisway.com/restaurants" style="text-decoration: none;">
-                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">🍽️</span>
                         <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Restaurants</p>
                       </div>
@@ -128,7 +137,7 @@ export const CLOSING_AND_FOOTER_HTML = `
                   </td>
                   <td width="33%" style="text-align: center; padding: 10px;">
                     <a href="https://www.sanluisway.com/services" style="text-decoration: none;">
-                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                      <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">🛠️</span>
                         <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Services</p>
                       </div>
@@ -141,18 +150,18 @@ export const CLOSING_AND_FOOTER_HTML = `
 
           <!-- CLOSING -->
           <tr>
-            <td class="section" style="padding: 30px; text-align: center; background-color: #F9FAFB;">
+            <td style="padding: 30px; text-align: center; background-color: #F9FAFB;">
               <p style="font-size: 17px; color: #1F2937; margin: 0 0 15px 0; font-weight: 500;">That's a wrap for this week! 🎬</p>
               <p style="font-size: 15px; color: #4B5563; margin: 0 0 12px 0;">Got a tip, event, or story we should know about?</p>
               <p style="font-size: 15px; color: #C75B39; margin: 0 0 20px 0; font-weight: bold;">👉 Just hit reply - we read every message!</p>
               <p style="font-size: 14px; color: #6B7280; margin: 0 0 25px 0;">Love this newsletter? <strong>Forward it to a friend</strong> who's curious about SLP life.</p>
 
-              <!-- Social Links - Enhanced -->
+              <!-- Social Links -->
               <p style="font-size: 13px; color: #6B7280; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px;">Follow Us</p>
               <div style="margin-bottom: 25px;">
-                <a href="https://www.sanluisway.com" style="display: inline-block; margin: 0 8px; padding: 10px 15px; background-color: #FFFFFF; border-radius: 8px; color: #1F2937; text-decoration: none; font-size: 13px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">🌐 Website</a>
-                <a href="https://www.instagram.com/sanluisway/" style="display: inline-block; margin: 0 8px; padding: 10px 15px; background-color: #FFFFFF; border-radius: 8px; color: #1F2937; text-decoration: none; font-size: 13px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">📸 Instagram</a>
-                <a href="https://www.tiktok.com/@sanluisway" style="display: inline-block; margin: 0 8px; padding: 10px 15px; background-color: #FFFFFF; border-radius: 8px; color: #1F2937; text-decoration: none; font-size: 13px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">🎵 TikTok</a>
+                <a href="https://www.sanluisway.com" style="display: inline-block; margin: 0 8px; padding: 10px 15px; background-color: #FFFFFF; border-radius: 8px; border: 1px solid #E5E7EB; color: #1F2937; text-decoration: none; font-size: 13px; font-weight: 500;">🌐 Website</a>
+                <a href="https://www.instagram.com/sanluisway/" style="display: inline-block; margin: 0 8px; padding: 10px 15px; background-color: #FFFFFF; border-radius: 8px; border: 1px solid #E5E7EB; color: #1F2937; text-decoration: none; font-size: 13px; font-weight: 500;">📸 Instagram</a>
+                <a href="https://www.tiktok.com/@sanluisway" style="display: inline-block; margin: 0 8px; padding: 10px 15px; background-color: #FFFFFF; border-radius: 8px; border: 1px solid #E5E7EB; color: #1F2937; text-decoration: none; font-size: 13px; font-weight: 500;">🎵 TikTok</a>
               </div>
 
               <p style="font-size: 18px; color: #1F2937; margin: 0;">
@@ -165,20 +174,20 @@ export const CLOSING_AND_FOOTER_HTML = `
           <!-- FOOTER -->
           <tr>
             <td style="padding: 25px 30px; background-color: #1F2937; text-align: center;">
-              <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="120" style="max-width: 120px; height: auto; margin-bottom: 15px; opacity: 0.9;">
-              <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 0 0 10px 0;">
+              <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="120" style="max-width: 120px; height: auto; margin-bottom: 15px;">
+              <p style="color: #CCCCCC; font-size: 13px; margin: 0 0 10px 0;">
                 San Luis Way | Your guide to life in San Luis Potosí
               </p>
-              <p style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0 0 10px 0;">
+              <p style="color: #AAAAAA; font-size: 12px; margin: 0 0 10px 0;">
                 SanLuisWay.com keeps expats and locals connected to the stories, spots, and services that define the city.
               </p>
-              <p style="color: rgba(255,255,255,0.6); font-size: 12px; margin: 0 0 15px 0;">
+              <p style="color: #999999; font-size: 12px; margin: 0 0 15px 0;">
                 San Luis Potosí, México
               </p>
               <p style="margin: 0;">
-                <a href="[UNSUBSCRIBE_URL]" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: underline;">Unsubscribe</a>
-                <span style="color: rgba(255,255,255,0.4); margin: 0 10px;">|</span>
-                <a href="[PREFERENCES_URL]" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: underline;">Update Preferences</a>
+                <a href="[UNSUBSCRIBE_URL]" style="color: #999999; font-size: 12px; text-decoration: underline;">Unsubscribe</a>
+                <span style="color: #666666; margin: 0 10px;">|</span>
+                <a href="[PREFERENCES_URL]" style="color: #999999; font-size: 12px; text-decoration: underline;">Update Preferences</a>
               </p>
             </td>
           </tr>
@@ -318,21 +327,21 @@ export const NEWSLETTER_TEMPLATE = `
     <tr>
       <td align="center" style="padding: 20px 10px;">
 
-        <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border-radius: 12px; overflow: hidden;">
 
           <!-- HEADER -->
           <tr>
-            <td style="background: linear-gradient(135deg, #C75B39 0%, #FFCB05 100%); padding: 30px; text-align: center;">
+            <td style="background-color: #C75B39; padding: 30px; text-align: center;">
               <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="200" style="max-width: 200px; height: auto;">
               <h1 style="color: #FFFFFF; font-family: Georgia, serif; font-size: 28px; margin: 20px 0 5px 0;">San Luis Way Weekly</h1>
-              <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0;">Your digest of Potosino life</p>
-              <p style="color: rgba(255,255,255,0.8); font-size: 13px; margin: 10px 0 0 0; font-weight: bold;">[WEEK_DATE_RANGE]</p>
+              <p style="color: #EEEEEE; font-size: 14px; margin: 0;">Your digest of Potosino life</p>
+              <p style="color: #DDDDDD; font-size: 13px; margin: 10px 0 0 0; font-weight: bold;">[WEEK_DATE_RANGE]</p>
             </td>
           </tr>
 
           <!-- OPENING HOOK -->
           <tr>
-            <td class="section" style="padding: 30px;">
+            <td style="padding: 30px;">
               <p style="font-size: 16px; line-height: 1.7;">Hey there! 👋</p>
               <p style="font-size: 16px; line-height: 1.7;">[OPENING_HOOK_TEXT]</p>
               <img
@@ -343,11 +352,11 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
-          <!-- WEATHER & ENVIRONMENT (New Pillar 2) -->
+          <!-- WEATHER & ENVIRONMENT -->
           <tr>
-            <td class="section section-alt" style="background-color: #F0F9FF; padding: 20px 30px;">
+            <td style="background-color: #F0F9FF; padding: 20px 30px;">
               <h2 style="font-size: 18px; color: #0C4A6E; margin-bottom: 10px;">
-                <span class="emoji">🌦️</span> Weather Watch
+                🌦️ Weather Watch
               </h2>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
@@ -362,14 +371,14 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- NEWS SECTION -->
           <tr>
-            <td class="section section-alt" style="background-color: #FEF2F2;">
+            <td style="background-color: #FEF2F2; padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                <span class="emoji">📰</span> The Week in SLP
+                📰 The Week in SLP
               </h2>
               <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">What you need to know</p>
 
               <!-- News Item 1 -->
-              <div class="card news-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
                 <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_1]</h3>
                 <!-- Optional Image for News 1 -->
                 <!-- <img src="[NEWS_IMAGE_1]" style="width: 100%; border-radius: 4px; margin-bottom: 10px;"> -->
@@ -378,7 +387,7 @@ export const NEWSLETTER_TEMPLATE = `
               </div>
 
               <!-- News Item 2 -->
-              <div class="card news-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
                 <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_2]</h3>
                 <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[NEWS_SUMMARY_2]</p>
                 <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_2]</p>
@@ -398,16 +407,16 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- TOP PICKS -->
           <tr>
-            <td class="section" style="padding: 30px;">
+            <td style="padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                <span class="emoji">🌟</span> This Week's Top Picks
+                🌟 This Week's Top Picks
               </h2>
 
               <!-- Event 1 -->
-              <div class="card event-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <span class="tag" style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_1]</span>
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <span style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_1]</span>
                 <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_1]</h3>
-                <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
                   📅 [DATE_TIME_1] &nbsp;|&nbsp; 📍 [VENUE_1]
                 </p>
                 <img
@@ -424,10 +433,10 @@ export const NEWSLETTER_TEMPLATE = `
               </div>
 
               <!-- Event 2 -->
-              <div class="card event-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <span class="tag" style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_2]</span>
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                <span style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_2]</span>
                 <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_2]</h3>
-                <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
                   📅 [DATE_TIME_2] &nbsp;|&nbsp; 📍 [VENUE_2]
                 </p>
                 <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_2]</p>
@@ -439,10 +448,10 @@ export const NEWSLETTER_TEMPLATE = `
               </div>
 
               <!-- Event 3 -->
-              <div class="card event-card" style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-                <span class="tag" style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_3]</span>
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                <span style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_3]</span>
                 <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_3]</h3>
-                <p class="meta" style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
+                <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
                   📅 [DATE_TIME_3] &nbsp;|&nbsp; 📍 [VENUE_3]
                 </p>
                 <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_3]</p>
@@ -454,16 +463,16 @@ export const NEWSLETTER_TEMPLATE = `
               </div>
 
               <div style="text-align: center;">
-                <a href="https://www.sanluisway.com/events" class="btn" style="display: inline-block; padding: 12px 24px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">See All Events →</a>
+                <a href="https://www.sanluisway.com/events" style="display: inline-block; padding: 12px 24px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">See All Events →</a>
               </div>
             </td>
           </tr>
 
           <!-- MORE THIS WEEK -->
           <tr>
-            <td class="section section-alt" style="background-color: #F9FAFB; padding: 30px;">
+            <td style="background-color: #F9FAFB; padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                <span class="emoji">🎭</span> More This Week
+                🎭 More This Week
               </h2>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -497,11 +506,11 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
-          <!-- DID YOU KNOW? (New Pillar 4) -->
+          <!-- DID YOU KNOW? -->
           <tr>
-            <td class="section" style="padding: 30px; background-color: #FFFBEB;">
+            <td style="padding: 30px; background-color: #FFFBEB;">
               <h2 style="font-size: 20px; color: #92400E; margin-bottom: 15px;">
-                <span class="emoji">🧠</span> Did You Know?
+                🧠 Did You Know?
               </h2>
               <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[FACT_TITLE]</h3>
               <p style="font-size: 14px; color: #78350F; margin: 0;">[FACT_BODY]</p>
@@ -510,9 +519,9 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- AROUND TOWN -->
           <tr>
-            <td class="section" style="padding: 30px;">
+            <td style="padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                <span class="emoji">🏙️</span> Around Town
+                🏙️ Around Town
               </h2>
               <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">What's new in the city</p>
 
@@ -532,9 +541,9 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- WEEKEND ESCAPE -->
           <tr>
-            <td class="section section-alt" style="background-color: #F0FDF4; padding: 30px;">
+            <td style="background-color: #F0FDF4; padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-                <span class="emoji">🌿</span> Weekend Escape
+                🌿 Weekend Escape
               </h2>
               <h3 style="font-size: 18px; color: #166534; margin: 0 0 15px 0;">[DESTINATION_NAME]</h3>
               <img
@@ -549,9 +558,9 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- COMING UP -->
           <tr>
-            <td class="section" style="padding: 30px;">
+            <td style="padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                <span class="emoji">📅</span> Coming Up
+                📅 Coming Up
               </h2>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px;">
                 <tr>
@@ -593,22 +602,11 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
-          <!-- MEME OF THE WEEK (New Pillar 6) -->
-          <tr>
-            <td class="section" style="padding: 20px 30px; text-align: center; background-color: #FFFFFF;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-                <span class="emoji">😂</span> Potosino Humor
-              </h2>
-              <!-- <img src="[MEME_IMAGE_URL]" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;"> -->
-              <p style="font-size: 14px; color: #4B5563; font-style: italic;">[MEME_DESCRIPTION_OR_JOKE]</p>
-            </td>
-          </tr>
-
           <!-- PRO TIP -->
           <tr>
-            <td class="section" style="padding: 30px; background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);">
+            <td style="padding: 30px; background-color: #FEF3C7;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-                <span class="emoji">💡</span> Expat Pro Tip
+                💡 Expat Pro Tip
               </h2>
               <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[TIP_TITLE]</h3>
               <p style="font-size: 14px; color: #4B5563; margin: 0;">[2-3 sentences with practical advice]</p>
@@ -617,14 +615,14 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- FROM THE BLOG - Featured Articles -->
           <tr>
-            <td class="section" style="padding: 30px;">
+            <td style="padding: 30px;">
               <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 5px;">
-                <span class="emoji">📖</span> From the Blog
+                📖 From the Blog
               </h2>
               <p style="font-size: 14px; color: #6B7280; margin: 0 0 20px 0;">Fresh reads from San Luis Way</p>
 
               <!-- Featured Post -->
-              <div style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-radius: 12px; padding: 25px; margin-bottom: 15px;">
+              <div style="background-color: #FEF3C7; border-radius: 12px; padding: 25px; margin-bottom: 15px;">
                 <span style="display: inline-block; padding: 4px 10px; background-color: #C75B39; color: #FFFFFF; border-radius: 12px; font-size: 11px; font-weight: bold; margin-bottom: 12px;">FEATURED</span>
                 <h3 style="font-size: 18px; color: #1F2937; margin: 0 0 12px 0;">[BLOG_POST_TITLE]</h3>
                 <p style="font-size: 14px; color: #4B5563; margin: 0 0 18px 0; line-height: 1.6;">[ONE_SENTENCE_TEASER]</p>
@@ -647,19 +645,19 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
-          <!-- CALL TO ACTION - Engaging -->
+          <!-- CALL TO ACTION -->
           <tr>
-            <td class="section section-alt" style="background: linear-gradient(135deg, #C75B39 0%, #E07A5F 100%); text-align: center; padding: 40px 30px;">
+            <td style="background-color: #C75B39; text-align: center; padding: 40px 30px;">
               <h2 style="font-size: 24px; color: #FFFFFF; margin-bottom: 15px;">
                 [CTA_TITLE]
               </h2>
-              <p style="font-size: 16px; color: rgba(255,255,255,0.9); margin: 0 0 25px 0; line-height: 1.6;">
+              <p style="font-size: 16px; color: #EEEEEE; margin: 0 0 25px 0; line-height: 1.6;">
                 [CTA_BODY]
               </p>
-              <a href="[CTA_BUTTON_LINK]" style="display: inline-block; padding: 14px 32px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+              <a href="[CTA_BUTTON_LINK]" style="display: inline-block; padding: 14px 32px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
                 [CTA_BUTTON_LABEL]
               </a>
-              <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin: 20px 0 0 0;">
+              <p style="font-size: 13px; color: #CCCCCC; margin: 20px 0 0 0;">
                 Join our community discovering the best of San Luis Potosí
               </p>
             </td>
@@ -676,6 +674,128 @@ export const NEWSLETTER_TEMPLATE = `
 </body>
 </html>
 `;
+
+// Function to clean HTML for Beehiiv compatibility
+function cleanHtmlForBeehiiv(html: string): string {
+  let cleaned = html;
+
+  // Remove markdown code blocks anywhere in the content
+  cleaned = cleaned.replace(/```html\s*/gi, '');
+  cleaned = cleaned.replace(/```\s*/gi, '');
+
+  // Remove unreplaced placeholders (text in square brackets that looks like a template variable)
+  cleaned = cleaned.replace(/\[(?:NEWS_|EVENT_|BLOG_|LINK_|DATE_|CATEGORY_|VENUE_|COST_|FACT_|TIP_|CTA_|WEATHER_|QUICK_HIT_|PREVIEW_|HERO_|TOP_PICK_|ESCAPE_|NEW_PLACE_|DESTINATION_|UPCOMING_|IMPACT_)[A-Z0-9_]+\]/g, '');
+
+  // Remove generic placeholders like [EVENT], [DATE], [ADDRESS], etc.
+  cleaned = cleaned.replace(/\[(?:EVENT|DATE|ADDRESS|DESCRIPTION|LINK|PRACTICAL_CITY_UPDATE)\]/g, '');
+
+  // Remove template instruction comments
+  cleaned = cleaned.replace(/\[[\d-]+ sentences[^\]]*\]/g, '');
+  cleaned = cleaned.replace(/\[[^\]]*what it is[^\]]*\]/gi, '');
+  cleaned = cleaned.replace(/\[[^\]]*why check it out[^\]]*\]/gi, '');
+
+  // Remove lines that only contain "→ Why it matters:" with no content
+  cleaned = cleaned.replace(/<p[^>]*>→ Why it matters:\s*<\/p>/gi, '');
+
+  // Remove empty list items
+  cleaned = cleaned.replace(/<li[^>]*>\s*<\/li>/gi, '');
+
+  // Remove DOCTYPE, html, head, and style tags
+  cleaned = cleaned.replace(/<!DOCTYPE[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<html[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<\/html>/gi, '');
+  cleaned = cleaned.replace(/<head>[\s\S]*?<\/head>/gi, '');
+  cleaned = cleaned.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+  cleaned = cleaned.replace(/<body[^>]*>/gi, '');
+  cleaned = cleaned.replace(/<\/body>/gi, '');
+
+  // Remove MS Office conditional comments
+  cleaned = cleaned.replace(/<!--\[if mso\]>[\s\S]*?<!\[endif\]-->/gi, '');
+  cleaned = cleaned.replace(/<!--\[if[^\]]*\]>[\s\S]*?<!\[endif\]-->/gi, '');
+
+  // Remove class attributes (Beehiiv doesn't use them without <style>)
+  cleaned = cleaned.replace(/\s+class="[^"]*"/gi, '');
+
+  // Remove role="presentation" attributes
+  cleaned = cleaned.replace(/\s+role="presentation"/gi, '');
+
+  // Replace linear-gradient backgrounds with solid colors
+  cleaned = cleaned.replace(/background:\s*linear-gradient\([^)]*#C75B39[^)]*\)/gi, 'background-color: #C75B39');
+  cleaned = cleaned.replace(/background:\s*linear-gradient\([^)]*#FEF3C7[^)]*\)/gi, 'background-color: #FEF3C7');
+  cleaned = cleaned.replace(/background:\s*linear-gradient\([^)]*\)/gi, 'background-color: #F9FAFB');
+
+  // Remove box-shadow (not well supported)
+  cleaned = cleaned.replace(/box-shadow:[^;]+;/gi, '');
+
+  // Clean up links with placeholder URLs (href containing brackets or placeholder text)
+  cleaned = cleaned.replace(/<a[^>]*href=["'][^"']*\[[^\]]+\][^"']*["'][^>]*>([^<]*)<\/a>/gi, '$1');
+
+  // Remove "More info →" links that point to placeholder URLs
+  cleaned = cleaned.replace(/<a[^>]*href=["']#["'][^>]*>[^<]*<\/a>/gi, '');
+
+  // Remove empty lines and trim
+  cleaned = cleaned.replace(/^\s*[\r\n]/gm, '');
+  cleaned = cleaned.trim();
+
+  return cleaned;
+}
+
+// Function to validate and clean URLs in HTML
+function validateAndCleanUrls(html: string): string {
+  let cleaned = html;
+
+  // Allowed domains for external links
+  const allowedDomains = [
+    'sanluisway.com',
+    'www.sanluisway.com',
+    'facebook.com',
+    'instagram.com',
+    'twitter.com',
+    'tiktok.com',
+    'google.com',
+    'maps.google.com',
+    'ticketmaster.com.mx',
+    'superboletos.com',
+    'eventbrite.com',
+    'eventbrite.com.mx',
+  ];
+
+  // Find all href attributes and validate them
+  const hrefRegex = /href=["']([^"']+)["']/gi;
+  cleaned = cleaned.replace(hrefRegex, (match, url) => {
+    // Allow anchor links and mailto
+    if (url.startsWith('#') || url.startsWith('mailto:')) {
+      return match;
+    }
+
+    // Allow sanluisway.com URLs
+    if (url.includes('sanluisway.com')) {
+      return match;
+    }
+
+    // Check if URL is from allowed domains
+    try {
+      const urlObj = new URL(url);
+      const isAllowed = allowedDomains.some(domain =>
+        urlObj.hostname === domain || urlObj.hostname.endsWith('.' + domain)
+      );
+      if (isAllowed) {
+        return match;
+      }
+    } catch {
+      // Invalid URL - replace with events page
+    }
+
+    // For unverified external links, replace with our events page
+    return 'href="https://www.sanluisway.com/events"';
+  });
+
+  // Remove any remaining placeholder-looking links (containing brackets or suspicious patterns)
+  cleaned = cleaned.replace(/href=["'][^"']*(?:\[|\]|example\.com|placeholder|test\.com)[^"']*["']/gi,
+    'href="https://www.sanluisway.com/events"');
+
+  return cleaned;
+}
 
 // Function to inject the footer into generated HTML
 function injectFooterIntoNewsletter(html: string): string {
@@ -710,12 +830,26 @@ export async function generateWeeklyNewsletter() {
     .from('events')
     .select('*')
     .gte('start_date', dates.weekStartIso)
-    .lte('start_date', addDays(dates.weekEndDate, 14).toISOString())
+    .lte('start_date', dates.weekEndIso)
     .order('start_date', { ascending: true });
 
   const eventsList = events?.map(e =>
     `- ${e.title} (${format(new Date(e.start_date), 'MMM d')}) @ ${e.location}`
   ).join('\n') || 'No specific DB events.';
+
+  console.log('1.5. Fetching real blog posts from DB...');
+  const { data: blogPosts } = await supabase
+    .from('blog_posts')
+    .select('slug, title, title_en, excerpt, excerpt_en, category')
+    .eq('status', 'published')
+    .order('published_at', { ascending: false })
+    .limit(10);
+
+  const blogPostsList = blogPosts?.map(post => {
+    const title = post.title_en || post.title;
+    const excerpt = post.excerpt_en || post.excerpt;
+    return `- "${title}" (${post.category || 'general'}) - URL: https://www.sanluisway.com/blog/${post.slug}\n  Excerpt: ${excerpt}`;
+  }).join('\n\n') || 'No blog posts available.';
 
   console.log('2. 🧠 Performing Deep Research with Gemini Grounding...');
 
@@ -724,6 +858,8 @@ export async function generateWeeklyNewsletter() {
 
     TASK: Create a comprehensive weekly digest for San Luis Potosí, Mexico for the week of ${dateRangeStr}.
     Use today's date: ${dates.currentDate} so the newsletter reflects the current context.
+
+    **CRITICAL: Only include events, news, and information relevant to ${dateRangeStr}. Do NOT include events from previous weeks or future weeks beyond this date range. This is a weekly newsletter - readers only need information for THIS specific week.**
 
     I need information in these 5 areas:
 
@@ -782,7 +918,7 @@ export async function generateWeeklyNewsletter() {
     SECTION 3: EVENTS & ENTERTAINMENT
     ═══════════════════════════════════════════════════════════
 
-    Search for events happening ${dateRangeStr} + preview next 2 weeks:
+    Search for events happening ONLY during ${dateRangeStr} (this week only, do NOT include events from other weeks):
 
     CATEGORIES:
     1. CULTURE: festivals, traditions, museum exhibitions, cultural celebrations
@@ -854,18 +990,7 @@ export async function generateWeeklyNewsletter() {
     - Why readers should care
 
     ═══════════════════════════════════════════════════════════
-    SECTION 6: MEME / HUMOR
-    ═══════════════════════════════════════════════════════════
-
-    Search for "memes San Luis Potosí", "chistes potosinos", or relate to a current event (e.g. cold weather, traffic).
-
-    FORMAT:
-    - Title: "Meme of the Week" or "Potosino Humor"
-    - Description: Text describing the humorous situation or meme image.
-    - Image URL: Link to a relevant funny image if found (or use a placeholder).
-
-    ═══════════════════════════════════════════════════════════
-    SECTION 7: EXPLORE & DISCOVER
+    SECTION 6: EXPLORE & DISCOVER
     ═══════════════════════════════════════════════════════════
 
     Search for regional tourism and outdoor activities:
@@ -914,15 +1039,26 @@ export async function generateWeeklyNewsletter() {
     - **EXPAND** all summaries. News items should be 4-5 sentences long. Event descriptions should be detailed.
     - Replace [WEATHER_SUMMARY] with a 7-day outlook (temps, rain) and [WEATHER_TIP] with a recommendation.
     - Replace [FACT_TITLE] and [FACT_BODY] with the curious fact found.
-    - Replace [MEME_DESCRIPTION] with a text description of a funny situation or meme relevant to SLP (e.g. about the weather, Enchiladas Potosinas, traffic).
-    - Replace [HERO_IMAGE_URL] and [HERO_IMAGE_ALT] with a hero image that captures the week's story along with accessible alt text.
-    - Replace [TOP_PICK_IMAGE_URL] and [TOP_PICK_IMAGE_ALT] with a striking image for the lead event card and descriptive alt text.
-    - Replace [ESCAPE_IMAGE_URL] and [ESCAPE_IMAGE_ALT] with the photo used in the Weekend Escape section plus alt text.
-    - Provide actual URLs (not placeholders) for the images and cite the source if available; duplicates of the same URL are okay if two images are themed differently.
+    - **IMPORTANT: REMOVE ALL IMAGE TAGS** - Do not include any <img> tags in the output. Images cause loading issues in emails. Remove the hero image, event images, and escape images sections completely.
     - Ensure the "Why it matters" section explains the local impact clearly.
     - Replace [QUICK_HIT_1], [QUICK_HIT_2], [QUICK_HIT_3] with the practical updates found.
-    - Replace [BLOG_POST_TITLE], [ONE_SENTENCE_TEASER], and [BLOG_POST_URL] with a promoted blog post worth reading.
-    - Craft the CTA content ([CTA_TITLE], [CTA_BODY], [CTA_BUTTON_LABEL], [CTA_BUTTON_LINK]) as a bold invitation to read the blog or take another high-value action.
+    - For the BLOG section, you MUST use ONLY these real blog posts from our database:
+    ${blogPostsList}
+
+    Select one of the above posts as the featured blog post. Use ONLY the exact URLs provided above - DO NOT invent or modify URLs.
+
+    - For event links ([LINK_1], [LINK_2], [LINK_3]), either:
+      a) Use a real, verified link from your search results
+      b) Or link to https://www.sanluisway.com/events (our events page)
+      DO NOT invent fake event URLs.
+
+    - Craft the CTA content with these values:
+      - CTA_TITLE: "Discover More of San Luis Potosí"
+      - CTA_BODY: "From hidden gems to local favorites, explore everything the city has to offer"
+      - CTA_BUTTON_LABEL: "Visit San Luis Way"
+      - CTA_BUTTON_LINK: https://www.sanluisway.com
+
+    - CRITICAL: Replace ALL placeholders in square brackets with actual content. If you cannot find information for a section, write relevant generic content instead of leaving placeholders.
     - IMPORTANT: Do NOT generate any closing section, footer, social links, or "Hasta la próxima" signature. Stop after the CTA section. The closing/footer will be added automatically by the system.
 
     HTML TEMPLATE:
@@ -964,6 +1100,14 @@ export async function generateWeeklyNewsletter() {
   // This ensures the footer is ALWAYS included exactly as defined, regardless of AI output
   console.log('4. 📧 Injecting standardized footer and closing section...');
   htmlContent = injectFooterIntoNewsletter(htmlContent);
+
+  // Clean HTML for Beehiiv compatibility (remove <style>, <head>, class attributes)
+  console.log('5. 🧹 Cleaning HTML for Beehiiv compatibility...');
+  htmlContent = cleanHtmlForBeehiiv(htmlContent);
+
+  // Validate and clean URLs
+  console.log('6. 🔗 Validating and cleaning URLs...');
+  htmlContent = validateAndCleanUrls(htmlContent);
 
   return {
     subject: `San Luis Way Weekly | ${dateRangeStr}`,

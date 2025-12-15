@@ -25,6 +25,13 @@ interface BeehiivResult {
   edit_url?: string;
 }
 
+interface GeneratedNewsletter {
+  id?: string;
+  subject: string;
+  preview_text: string;
+  html_content?: string;
+}
+
 export default function NewsletterAdminPage() {
   const [adminKey, setAdminKey] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,6 +48,8 @@ export default function NewsletterAdminPage() {
   const [generating, setGenerating] = useState(false);
   const [beehiivResult, setBeehiivResult] = useState<BeehiivResult | null>(null);
   const [generationMessage, setGenerationMessage] = useState('');
+  const [generatedNewsletter, setGeneratedNewsletter] = useState<GeneratedNewsletter | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const fetchSubscribers = useCallback(async () => {
     setLoading(true);
@@ -100,11 +109,13 @@ export default function NewsletterAdminPage() {
   }, []);
 
   const handleGenerate = async () => {
-    if (!confirm('This will use AI to generate a newsletter draft in Beehiiv. It may take 30-60 seconds. Continue?')) return;
+    if (!confirm('This will use AI to generate a newsletter. It may take 30-60 seconds. Continue?')) return;
 
     setGenerating(true);
     setBeehiivResult(null);
     setGenerationMessage('');
+    setGeneratedNewsletter(null);
+    setCopied(false);
 
     try {
       const res = await fetch('/api/newsletter/generate', {
@@ -115,9 +126,10 @@ export default function NewsletterAdminPage() {
 
       if (res.ok) {
         setSubject(data.newsletter?.subject || '');
-        setHtmlContent('');
+        setHtmlContent(data.newsletter?.html_content || '');
         setBeehiivResult(data.beehiiv);
         setGenerationMessage(data.message);
+        setGeneratedNewsletter(data.newsletter);
       } else {
         throw new Error(data.message || 'Failed to generate');
       }
@@ -125,6 +137,23 @@ export default function NewsletterAdminPage() {
       alert('Error generating newsletter: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
     setGenerating(false);
+  };
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   if (!isAuthenticated) {
@@ -356,30 +385,92 @@ export default function NewsletterAdminPage() {
                   </button>
                 </div>
 
-                {/* Success Message with Beehiiv Link */}
-                {beehiivResult && (
-                  <div className={`mb-8 p-6 rounded-lg ${beehiivResult.success ? 'bg-green-50 border border-green-200' : 'bg-yellow-50 border border-yellow-200'}`}>
-                    <h3 className="font-bold text-lg mb-2">
-                      {beehiivResult.success ? 'Draft Created Successfully!' : 'Draft Created with Issues'}
-                    </h3>
+                {/* Success Message with Content */}
+                {generatedNewsletter && (
+                  <div className="mb-8 p-6 rounded-lg bg-green-50 border border-green-200">
+                    <h3 className="font-bold text-lg mb-2">Newsletter Generated!</h3>
                     <p className="text-gray-700 mb-4">{generationMessage}</p>
 
-                    {subject && (
-                      <p className="text-sm text-gray-600 mb-4">
-                        <strong>Subject:</strong> {subject}
-                      </p>
-                    )}
+                    {/* Subject with copy button */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Subject Line:</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={subject}
+                          readOnly
+                          className="flex-1 px-3 py-2 border rounded-lg bg-white"
+                        />
+                        <button
+                          onClick={() => copyToClipboard(subject)}
+                          className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
 
-                    {beehiivResult.edit_url && (
+                    {/* Preview Text */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Preview Text:</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={generatedNewsletter.preview_text}
+                          readOnly
+                          className="flex-1 px-3 py-2 border rounded-lg bg-white"
+                        />
+                        <button
+                          onClick={() => copyToClipboard(generatedNewsletter.preview_text)}
+                          className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Copy HTML button */}
+                    <div className="flex gap-3 mb-6">
+                      <button
+                        onClick={() => copyToClipboard(htmlContent)}
+                        className={`px-6 py-3 rounded-lg font-bold transition ${
+                          copied
+                            ? 'bg-green-500 text-white'
+                            : 'bg-terracotta text-white hover:bg-terracotta/90'
+                        }`}
+                      >
+                        {copied ? 'Copied!' : 'Copy HTML Content'}
+                      </button>
                       <a
-                        href={beehiivResult.edit_url}
+                        href="https://app.beehiiv.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block px-6 py-3 bg-yellow-500 text-black rounded-lg font-bold hover:bg-yellow-400 transition"
+                        className="px-6 py-3 bg-yellow-500 text-black rounded-lg font-bold hover:bg-yellow-400 transition"
                       >
-                        Open in Beehiiv to Edit & Send
+                        Open Beehiiv Dashboard
                       </a>
-                    )}
+                    </div>
+
+                    {/* HTML Preview */}
+                    <div className="border rounded-lg overflow-hidden">
+                      <div className="bg-gray-100 px-4 py-2 border-b flex justify-between items-center">
+                        <span className="text-sm font-medium">HTML Preview</span>
+                        <button
+                          onClick={() => copyToClipboard(htmlContent)}
+                          className={`px-4 py-1 rounded text-sm font-medium transition ${
+                            copied
+                              ? 'bg-green-500 text-white'
+                              : 'bg-terracotta text-white hover:bg-terracotta/90'
+                          }`}
+                        >
+                          {copied ? '✓ Copied!' : '📋 Copy HTML'}
+                        </button>
+                      </div>
+                      <div
+                        className="p-4 bg-white max-h-96 overflow-y-auto"
+                        dangerouslySetInnerHTML={{ __html: htmlContent }}
+                      />
+                    </div>
                   </div>
                 )}
 
@@ -387,11 +478,12 @@ export default function NewsletterAdminPage() {
                 <div className="bg-gray-50 rounded-lg p-6">
                   <h3 className="font-bold mb-4">How it works:</h3>
                   <ol className="list-decimal list-inside space-y-2 text-gray-600">
-                    <li>Click &quot;Generate Newsletter with AI&quot; to create a draft</li>
+                    <li>Click &quot;Generate Newsletter with AI&quot; to create content</li>
                     <li>The AI searches for news, events, and information about San Luis Potosí</li>
-                    <li>A draft is created directly in your Beehiiv account</li>
-                    <li>Click the link to open Beehiiv and review/edit the content</li>
-                    <li>Send the newsletter from Beehiiv&apos;s dashboard</li>
+                    <li>Copy the subject line, preview text, and HTML content</li>
+                    <li>Open Beehiiv and create a new post</li>
+                    <li>Paste the content using the HTML editor mode</li>
+                    <li>Review, edit if needed, and send!</li>
                   </ol>
 
                   <div className="mt-6 pt-6 border-t">

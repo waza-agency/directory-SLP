@@ -62,11 +62,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       success: true,
       message: beehiivResult.success
         ? 'Draft created in Beehiiv! Open the link to edit and send.'
-        : 'Draft saved locally. Beehiiv creation failed - check logs.',
+        : 'Newsletter generated! Copy the content below to paste in Beehiiv.',
       newsletter: {
         id: newsletter?.id,
         subject,
         preview_text: previewText,
+        html_content,
       },
       beehiiv: {
         success: beehiivResult.success,

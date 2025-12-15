@@ -4,6 +4,90 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-15] Update: Living Guide Hero Image with Expat Infographic
+
+**Descripcion:**
+Actualizada la imagen hero de la pagina Living Guide con una infografia comprehensiva para expats.
+
+**Cambios realizados:**
+- Agregada imagen `expat-guide-infographic.png` a `/public/images/`
+- Rediseñada seccion hero para mostrar la infografia completa (no como fondo)
+- Nuevo diseño con gradiente terracotta y la imagen centrada con sombra
+- Imagen muestra informacion sobre: costo de vida, vecindarios, salud, cultura, etc.
+
+**Archivos modificados:**
+- `src/pages/living-guide.tsx`
+- `public/images/expat-guide-infographic.png` (nuevo)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-15] Fix: Newsletter Output Cleanup - Remove Code/Placeholders and Fake Links
+
+**Descripcion:**
+Corregidos varios problemas en el generador de newsletter que causaban que algunos campos aparecieran como codigo o placeholders sin reemplazar, y que se incluyeran links a posts inexistentes.
+
+**Problemas resueltos:**
+1. Campos mostrando placeholders como `[NEWS_HEADLINE_1]`, `[BLOG_POST_URL]`, etc.
+2. Links a posts de blog inexistentes (URLs inventadas por la IA)
+3. Links a eventos externos no verificados
+4. Bloques de codigo markdown apareciendo en el output
+
+**Cambios realizados:**
+- Mejorada funcion `cleanHtmlForBeehiiv()` para:
+  - Eliminar bloques de codigo markdown (```) en cualquier parte del contenido
+  - Eliminar placeholders no reemplazados con patron `[PLACEHOLDER_NAME]`
+  - Limpiar elementos HTML vacios y lineas sin contenido
+  - Remover links con URLs de placeholder
+
+- Agregada funcion `validateAndCleanUrls()` que:
+  - Valida que las URLs externas sean de dominios permitidos
+  - Reemplaza URLs no verificadas con link a `/events`
+  - Elimina links con patrones sospechosos
+
+- Actualizado el prompt de generacion para:
+  - Obtener posts reales del blog desde la base de datos
+  - Incluir lista de posts reales con URLs verificadas para la seccion "From the Blog"
+  - Instruir a la IA a usar solo URLs reales o fallback a sanluisway.com/events
+  - Valores fijos para la seccion CTA
+
+**Archivos modificados:**
+- `src/lib/newsletter-generator.ts`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-15] Feat: Newsletter Admin UI Improvements for Manual Beehiiv Flow
+
+**Descripción:**
+Actualizada la página de admin de newsletter para mostrar el contenido HTML generado por IA y permitir copiarlo fácilmente a Beehiiv. La API de Posts de Beehiiv requiere plan Scale ($99/mes), por lo que implementamos un flujo manual optimizado.
+
+**Cambios realizados:**
+- Modificado `/api/newsletter/generate.ts` para devolver el HTML content en la respuesta
+- Actualizado `/admin/newsletter.tsx` con nueva UI que muestra:
+  - Campo de Subject Line con botón de copiar
+  - Campo de Preview Text con botón de copiar
+  - Botón principal "Copy HTML Content"
+  - Preview visual del HTML generado
+  - Link directo a Beehiiv Dashboard
+- Agregadas funciones `publishPost()` y `createAndPublishPost()` en `beehiiv-service.ts` (para uso futuro con plan Scale)
+- Limpiadas referencias a Zapier en `.claude/settings.local.json`
+- Actualizadas instrucciones de uso en la UI
+
+**Archivos modificados:**
+- `src/pages/admin/newsletter.tsx`
+- `src/pages/api/newsletter/generate.ts`
+- `src/lib/beehiiv-service.ts`
+- `.claude/settings.local.json`
+
+**Estado:** ✅ Exitoso
+
+**Nota:** El email `sanluisway@waza.baby` ya está suscrito y activo en Beehiiv. Para enviar newsletters automáticamente via API, se requiere plan Scale de Beehiiv.
+
+---
+
 ## [2025-12-15] Fix: Weather Section Showing Unavailable
 
 **Descripción:**

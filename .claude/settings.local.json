@@ -13,12 +13,7 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(node scripts/update-cafes-post-images.js:*)",
-      "WebFetch(domain:help.zapier.com)",
-      "WebFetch(domain:zapier.com)",
       "WebSearch",
-      "Bash(claude mcp add:*)",
-      "WebFetch(domain:community.zapier.com)",
-      "mcp__zapier__beehiiv_list_all_subscribers",
       "Bash(node scripts/add-facebook-leads-to-beehiiv.js:*)",
       "WebFetch(domain:unsplash.com)",
       "mcp__playwright__browser_navigate",
@@ -66,7 +61,9 @@
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Add 9 new local places to database\n\nAdded local businesses across categories:\n- Restaurants: Natal Cocina de Origen, Casa Altero\n- Bars: 7 Barrios Cervecería, La Piquería Mezcalería, Absenta Speakeasy\n- Cafes: Capital Coffee, Arandela Barra de Café, Dulce Amor Café\n- Entertainment: 500 Noches\n\nAll places verified via Google, TripAdvisor, and editorial sources.\nDatabase now contains 127 places.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
       "WebFetch(domain:www.tripadvisor.com)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Redesign subscribe page for higher conversion\n\n- Simplified form: removed name field, email only\n- Added social proof badge: \"Join 2,847+ readers\"\n- Added urgency: \"Next issue: Monday, [date]\" dynamic badge\n- Improved CTAs: \"Get Monday 's Issue\" instead of generic \"Subscribe\"\n- Added glow/pulse animation on form for visual focus\n- Added fade-in animations on page load\n- Streamlined benefits to 4 key items\n- Added trust badges: \"Free forever\", \"No credit card\", \"Unsubscribe anytime\"\n- Removed testimonials section for cleaner funnel\n- Updated micro-copy for persuasion\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
-      "WebFetch(domain:www.numbeo.com)"
+      "WebFetch(domain:www.numbeo.com)",
+      "Bash(git checkout:*)",
+      "WebFetch(domain:www.artepotosino.org)"
     ]
   },
   "enableAllProjectMcpServers": true,

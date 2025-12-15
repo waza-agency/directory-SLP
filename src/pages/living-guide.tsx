@@ -259,24 +259,25 @@ export default function LivingGuidePage() {
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
-        <section className="relative h-[40vh] min-h-[300px] bg-secondary">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/cultura-1.jpg"
-              alt="San Luis Potosí lifestyle"
-              fill
-              className="object-cover opacity-50"
-              priority
-            />
-          </div>
-          <div className="relative container mx-auto px-4 h-full flex items-center">
-            <div className="max-w-2xl">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <section className="bg-gradient-to-b from-terracotta to-terracotta/90 py-8">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
                 Living in San Luis Potosí
               </h1>
-              <p className="text-white text-lg">
-                Your guide to culture, lifestyle, and daily life in SLP
+              <p className="text-white/90 text-lg">
+                Your comprehensive guide to expat life in SLP
               </p>
+            </div>
+            <div className="relative w-full max-w-5xl mx-auto">
+              <Image
+                src="/images/expat-guide-infographic.png"
+                alt="Living in San Luis Potosí - Comprehensive Expat Guide Infographic"
+                width={2752}
+                height={1536}
+                className="w-full h-auto rounded-xl shadow-2xl"
+                priority
+              />
             </div>
           </div>
         </section>
