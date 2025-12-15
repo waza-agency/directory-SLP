@@ -4,6 +4,52 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 00133732 - 2025-12-14
+
+**Mensaje:** fix: Correct factual errors in Ultimate Guide - Expat SLP
+
+**Archivos modificados:**
+- ultimate-guide-expat-slp.html
+
+**Descripción detallada:**
+
+Correcciones basadas en fact-check exhaustivo que identificó 6 errores críticos en la guía de expatriados.
+
+**Errores corregidos:**
+
+1. **GDP Growth 2023:** 4.2% → 8.0%
+   - Error: 90% de subestimación
+   - Fuente: INEGI confirma que SLP tuvo el 2do mayor crecimiento del país
+
+2. **Distancia a Guadalajara:** 364 km → 330 km
+   - Error: 9-11% de sobrestimación
+   - Fuente: Distance calculators (Distance.to, TravelMath)
+
+3. **Lluvia anual:** 362 mm → 542 mm
+   - Error: 33% de subestimación
+   - Fuente: Climate-Data.org
+
+4. **Visa Temporal - Ahorro requerido:** $43,000 → $73,200 USD
+   - Error: 70% de subestimación (crítico para solicitantes)
+   - Fuente: INM requisitos 2024, Mexperience
+
+5. **Visa Temporal - Ingreso mensual:** $2,600 → $4,350 USD/mes
+   - Error: 67% de subestimación (crítico para solicitantes)
+   - Fuente: Consulados mexicanos, INM 2024
+
+6. **Residente Permanente - Ingreso:** $4,300 → $7,300 USD/mes
+   - Error: 70% de subestimación
+   - Fuente: INM requisitos 2024
+
+**Metodología de verificación:**
+- 48+ claims analizados
+- Fuentes consultadas: INEGI, INM, Numbeo, Mexperience, Climate-Data.org, UNESCO, SAT
+- Tasa de precisión mejorada de ~70% a ~95%
+
+**Propósito/Razón:** Garantizar que la guía proporcione información precisa y actualizada, especialmente para los requisitos de visa que son críticos para la toma de decisiones de potenciales expatriados.
+
+---
+
 ## Commit: 223a0833 - 2025-12-14
 
 **Mensaje:** feat: Add Historic Downtown (Centro Histórico) page

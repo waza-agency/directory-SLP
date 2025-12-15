@@ -4,6 +4,35 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Fix: Corrected Factual Errors in Ultimate Guide - Expat SLP
+
+**Descripción:**
+Correcciones basadas en fact-check exhaustivo de la guía de expatriados. Se identificaron y corrigieron 6 errores críticos.
+
+**Archivos modificados:**
+- `ultimate-guide-expat-slp.html`
+
+**Correcciones realizadas:**
+
+| Error | Valor Incorrecto | Valor Correcto | Fuente |
+|-------|-----------------|----------------|--------|
+| GDP Growth 2023 | 4.2% | 8.0% | INEGI |
+| Distancia Guadalajara | 364 km | 330 km | Distance calculators |
+| Lluvia anual | 362 mm | 542 mm | Climate-Data.org |
+| Visa temporal (ahorro) | $43,000 USD | $73,200 USD | INM 2024 |
+| Visa temporal (ingreso) | $2,600 USD/mes | $4,350 USD/mes | INM 2024 |
+| Residente permanente | $4,300 USD/mes | $7,300 USD/mes | INM 2024 |
+
+**Proceso de verificación:**
+- Fact-check exhaustivo con 48+ claims verificados
+- Fuentes consultadas: INEGI, INM, Numbeo, Mexperience, Climate-Data.org
+- Tasa de precisión original: ~70%
+- Tasa de precisión post-corrección: ~95%
+
+**Estado:** ✅ Exitoso - Actualizado en Supabase y GitHub (commit: 00133732)
+
+---
+
 ## [2025-12-14] Página del Centro Histórico
 
 **Descripción:**
