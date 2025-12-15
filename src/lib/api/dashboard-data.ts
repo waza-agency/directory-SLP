@@ -37,14 +37,74 @@ export interface DashboardData {
 }
 
 /**
+ * Get seasonal fallback weather data for San Luis Potosí
+ * Based on historical averages for the region
+ */
+function getSeasonalFallbackWeather(): WeatherData {
+  const now = new Date();
+  const month = now.getMonth(); // 0-11
+  const hour = now.getHours();
+
+  // Seasonal averages for SLP (semi-arid climate)
+  // Winter (Dec-Feb): 8-20°C, dry
+  // Spring (Mar-May): 12-28°C, dry
+  // Summer (Jun-Sep): 15-25°C, rainy season
+  // Fall (Oct-Nov): 10-22°C, transitional
+
+  let temp: number, tempMin: number, tempMax: number;
+  let condition: WeatherData['condition'] = 'sunny';
+  let conditionEs = 'Despejado';
+  let conditionEn = 'Clear';
+
+  if (month >= 11 || month <= 1) {
+    // Winter
+    temp = 14; tempMin = 8; tempMax = 20;
+  } else if (month >= 2 && month <= 4) {
+    // Spring
+    temp = 20; tempMin = 12; tempMax = 28;
+  } else if (month >= 5 && month <= 8) {
+    // Summer (rainy season)
+    temp = 20; tempMin = 15; tempMax = 25;
+    condition = 'cloudy';
+    conditionEs = 'Parcialmente nublado';
+    conditionEn = 'Partly cloudy';
+  } else {
+    // Fall
+    temp = 16; tempMin = 10; tempMax = 22;
+  }
+
+  // Estimate UV index
+  let uvIndex = 0;
+  if (hour >= 10 && hour <= 16) {
+    uvIndex = condition === 'sunny' ? 7 : 4;
+  } else if (hour >= 7 && hour <= 18) {
+    uvIndex = condition === 'sunny' ? 4 : 2;
+  }
+
+  return {
+    temp,
+    tempMin,
+    tempMax,
+    condition,
+    conditionEs,
+    conditionEn,
+    humidity: month >= 5 && month <= 8 ? 65 : 45,
+    uvIndex,
+    sunrise: '07:15',
+    sunset: '18:00',
+    icon: condition === 'sunny' ? '01d' : '02d'
+  };
+}
+
+/**
  * Fetch weather data from OpenWeatherMap API
  */
 export async function fetchWeatherData(): Promise<WeatherData | null> {
   const apiKey = process.env.OPENWEATHERMAP_API_KEY;
 
   if (!apiKey) {
-    console.warn('OpenWeatherMap API key not configured. Add OPENWEATHERMAP_API_KEY to .env');
-    return null;
+    console.warn('OpenWeatherMap API key not configured. Using seasonal fallback data.');
+    return getSeasonalFallbackWeather();
   }
 
   try {
@@ -54,7 +114,7 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
     if (!currentRes.ok) {
       const errorText = await currentRes.text();
       console.error('Weather API error:', currentRes.status, errorText);
-      throw new Error(`Weather API error: ${currentRes.status}`);
+      return getSeasonalFallbackWeather();
     }
 
     const current = await currentRes.json();
@@ -116,7 +176,7 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
     };
   } catch (error) {
     console.error('Error fetching weather data:', error);
-    return null;
+    return getSeasonalFallbackWeather();
   }
 }
 
