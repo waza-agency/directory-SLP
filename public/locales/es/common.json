@@ -596,7 +596,14 @@
     },
     "nightlife": {
       "title": "Entretenimiento y Vida Nocturna",
-      "text": "Cuando el sol se pone, el Centro Histórico se transforma. Las plazas se iluminan, los músicos callejeros aparecen, y los bares abren sus puertas. Desde conciertos en el Teatro de la Paz hasta noches de jazz en patios coloniales, el centro ofrece entretenimiento para todos los gustos. Los fines de semana, las calles peatonales se llenan de vida con eventos culturales, ferias gastronómicas y presentaciones artísticas."
+      "text": "Cuando el sol se pone, el Centro Histórico se transforma. Las plazas se iluminan, los músicos callejeros aparecen, y los bares abren sus puertas. Desde conciertos en el Teatro de la Paz hasta noches de jazz en patios coloniales, el centro ofrece entretenimiento para todos los gustos. Los fines de semana, las calles peatonales se llenan de vida con eventos culturales, ferias gastronómicas y presentaciones artísticas.",
+      "tourTitle": "Tour de Copas en el Centro",
+      "tourText": "Una de las mejores experiencias nocturnas es recorrer la zona de bares a pie. En un radio de pocas cuadras encuentras:",
+      "spot1": "El Ricardito - Bar clásico con ambiente local auténtico",
+      "spot2": "Rockabilly - Rock, buena música y vibra retro",
+      "spot3": "Las Bóvedas - Espacio único en arquitectura histórica",
+      "spot4": "Toxic - Ambiente alternativo y fiestero",
+      "tourTip": "Todos están a minutos caminando, perfecto para un bar crawl seguro y divertido."
     },
     "shopping": {
       "title": "Compras y Artesanías",

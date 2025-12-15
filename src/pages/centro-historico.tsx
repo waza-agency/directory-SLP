@@ -304,7 +304,7 @@ export default function CentroHistorico() {
                 <MusicalNoteIcon className="w-6 h-6 text-amber-600" />
                 <h2 className="text-2xl font-bold">{t('centroHistorico.nightlife.title')}</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
                 <p className="text-lg text-gray-700 leading-relaxed">
                   {t('centroHistorico.nightlife.text')}
                 </p>
@@ -316,6 +316,33 @@ export default function CentroHistorico() {
                     className="object-cover object-center"
                   />
                 </div>
+              </div>
+
+              {/* Bar Crawl Section */}
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200">
+                <h3 className="text-xl font-semibold mb-3">{t('centroHistorico.nightlife.tourTitle')}</h3>
+                <p className="text-gray-700 mb-4">{t('centroHistorico.nightlife.tourText')}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+                    <span className="text-gray-700">{t('centroHistorico.nightlife.spot1')}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+                    <span className="text-gray-700">{t('centroHistorico.nightlife.spot2')}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+                    <span className="text-gray-700">{t('centroHistorico.nightlife.spot3')}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+                    <span className="text-gray-700">{t('centroHistorico.nightlife.spot4')}</span>
+                  </div>
+                </div>
+                <p className="text-sm text-amber-700 font-medium italic">
+                  {t('centroHistorico.nightlife.tourTip')}
+                </p>
               </div>
             </section>
 
