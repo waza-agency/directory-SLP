@@ -43,6 +43,45 @@ export default function ParqueTangamanga() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Description */}
           <div className="lg:col-span-2 space-y-12">
+            {/* Quick Navigation */}
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <h2 className="text-xl font-semibold mb-4 text-gray-800">Navegación Rápida</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <a href="#zoo" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🦁</span>
+                  <span className="text-sm font-medium">Zoo</span>
+                </a>
+                <a href="#planetario" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🌌</span>
+                  <span className="text-sm font-medium">Planetario</span>
+                </a>
+                <a href="#museo" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🔬</span>
+                  <span className="text-sm font-medium">Museo</span>
+                </a>
+                <a href="#splash" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">💦</span>
+                  <span className="text-sm font-medium">Acuario</span>
+                </a>
+                <a href="#teatro" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🎭</span>
+                  <span className="text-sm font-medium">Teatro</span>
+                </a>
+                <a href="#ecomuseo" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🏛️</span>
+                  <span className="text-sm font-medium">EcoMuseo</span>
+                </a>
+                <a href="#jardin-japones" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🌸</span>
+                  <span className="text-sm font-medium">Jardín Japonés</span>
+                </a>
+                <a href="#jardin-botanico" className="flex items-center space-x-2 p-3 rounded-lg hover:bg-green-50 transition-colors border border-gray-200">
+                  <span className="text-2xl">🌿</span>
+                  <span className="text-sm font-medium">Jardín Botánico</span>
+                </a>
+              </div>
+            </div>
+
             {/* Ranking Highlight */}
             <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
               <div className="flex items-center justify-center space-x-4 mb-4">
@@ -343,6 +382,328 @@ export default function ParqueTangamanga() {
                       <li>{t('tangamanga.activities.family6')}</li>
                     </ul>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Zoo Section */}
+            <section id="zoo" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🦁</span>
+                <h2 className="text-2xl font-bold">Zoológico de Tangamanga</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El zoológico del Parque Tangamanga alberga una variada colección de especies nativas y exóticas. Es uno de los atractivos más visitados del parque, especialmente por familias con niños.
+                  </p>
+                  <h3 className="font-semibold mb-2">Principales Especies:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Felinos: leones, tigres, jaguares</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Primates: monos araña, capuchinos</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Aves: guacamayas, tucanes, águilas</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Reptiles: cocodrilos, serpientes, tortugas</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Horarios</h4>
+                    <p className="text-sm text-gray-700">Mar-Dom: 10AM-5PM</p>
+                    <p className="text-sm text-gray-500">Lunes cerrado</p>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Entrada</h4>
+                    <p className="text-sm text-gray-700">Costo adicional al ingreso del parque</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Planetarium Section */}
+            <section id="planetario" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🌌</span>
+                <h2 className="text-2xl font-bold">Planetario</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El planetario del Parque Tangamanga ofrece proyecciones astronómicas inmersivas en una cúpula de alta tecnología. Es ideal para escolares y familias interesadas en la astronomía.
+                  </p>
+                  <h3 className="font-semibold mb-2">Experiencias:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Proyecciones del sistema solar</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Documentales espaciales</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Talleres de astronomía para niños</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Observaciones nocturnas especiales</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Funciones</h4>
+                  <p className="text-sm text-gray-700 mb-2">Horarios variables - consultar programación</p>
+                  <p className="text-sm text-gray-700">Se recomienda reservar para grupos escolares</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Science Museum Section */}
+            <section id="museo" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🔬</span>
+                <h2 className="text-2xl font-bold">Museo de Ciencia</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El Museo de Ciencia cuenta con exhibiciones interactivas que hacen del aprendizaje una experiencia divertida para todas las edades.
+                  </p>
+                  <h3 className="font-semibold mb-2">Salas:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-purple-600 mt-1">•</span>
+                      <span>Física y mecánica</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-purple-600 mt-1">•</span>
+                      <span>Biología y ecología</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-purple-600 mt-1">•</span>
+                      <span>Química experimental</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-purple-600 mt-1">•</span>
+                      <span>Tecnología y robótica</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-purple-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Actividades</h4>
+                  <p className="text-sm text-gray-700 mb-2">Talleres educativos los fines de semana</p>
+                  <p className="text-sm text-gray-700">Experimentos en vivo</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Tangamanga Splash Section */}
+            <section id="splash" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">💦</span>
+                <h2 className="text-2xl font-bold">Tangamanga Splash - Parque Acuático</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El parque acuático Tangamanga Splash es el lugar perfecto para refrescarse durante los días calurosos de San Luis Potosí. Cuenta con toboganes, albercas y áreas especiales para niños.
+                  </p>
+                  <h3 className="font-semibold mb-2">Atracciones:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Toboganes de alta velocidad</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Albercas de olas</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Área infantil con juegos acuáticos</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>Río lento para relajación</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Información Importante</h4>
+                  <p className="text-sm text-gray-700 mb-2">Temporada: Marzo a Octubre</p>
+                  <p className="text-sm text-gray-700 mb-2">Costo: Entrada separada del parque</p>
+                  <p className="text-sm text-gray-700">Incluye: Vestidores y casilleros</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Teatro Carlos Amador Section */}
+            <section id="teatro" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🎭</span>
+                <h2 className="text-2xl font-bold">Teatro Carlos Amador</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El Teatro Carlos Amador es el principal foro cultural del Parque Tangamanga, con capacidad para más de 1,000 personas. Presenta una amplia variedad de eventos culturales durante todo el año.
+                  </p>
+                  <h3 className="font-semibold mb-2">Eventos:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-600 mt-1">•</span>
+                      <span>Conciertos de música clásica y popular</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-600 mt-1">•</span>
+                      <span>Obras de teatro y ballet</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-600 mt-1">•</span>
+                      <span>Festivales culturales</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-600 mt-1">•</span>
+                      <span>Eventos comunitarios</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-amber-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Programación</h4>
+                  <p className="text-sm text-gray-700 mb-2">Consulta la cartelera mensual en el sitio oficial del parque</p>
+                  <p className="text-sm text-gray-700">Muchos eventos son gratuitos</p>
+                </div>
+              </div>
+            </section>
+
+            {/* EcoMuseum Section */}
+            <section id="ecomuseo" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🏛️</span>
+                <h2 className="text-2xl font-bold">EcoMuseo Tangamanga</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    Ubicado en los edificios históricos de la antigua Hacienda de la Tenería (1609), el EcoMuseo preserva la historia y el patrimonio cultural de la región.
+                  </p>
+                  <h3 className="font-semibold mb-2">Exhibiciones:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-800 mt-1">•</span>
+                      <span>Historia de la Hacienda de la Tenería</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-800 mt-1">•</span>
+                      <span>Proceso tradicional de curtido de pieles</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-800 mt-1">•</span>
+                      <span>Vida en las haciendas potosinas</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-amber-800 mt-1">•</span>
+                      <span>Arquitectura colonial preservada</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-amber-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Visitas</h4>
+                  <p className="text-sm text-gray-700 mb-2">Entrada gratuita</p>
+                  <p className="text-sm text-gray-700 mb-2">Tours guiados disponibles</p>
+                  <p className="text-sm text-gray-700">Perfecto para aprender sobre la historia local</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Japanese Garden Section */}
+            <section id="jardin-japones" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🌸</span>
+                <h2 className="text-2xl font-bold">Jardín Japonés</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El Jardín Japonés es un oasis de tranquilidad con arquitectura tradicional japonesa, puentes ornamentales, estanques con carpas koi y vegetación cuidadosamente seleccionada.
+                  </p>
+                  <h3 className="font-semibold mb-2">Características:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-pink-600 mt-1">•</span>
+                      <span>Puentes tradicionales de madera</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-pink-600 mt-1">•</span>
+                      <span>Estanque con carpas koi</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-pink-600 mt-1">•</span>
+                      <span>Linternas de piedra (tōrō)</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-pink-600 mt-1">•</span>
+                      <span>Plantas ornamentales asiáticas</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-pink-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Ideal Para</h4>
+                  <p className="text-sm text-gray-700 mb-2">Fotografía</p>
+                  <p className="text-sm text-gray-700 mb-2">Meditación y relajación</p>
+                  <p className="text-sm text-gray-700">Caminatas contemplativas</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Botanical Garden Section */}
+            <section id="jardin-botanico" className="bg-white rounded-xl p-8 shadow-lg scroll-mt-20">
+              <div className="flex items-center space-x-3 mb-6">
+                <span className="text-4xl">🌿</span>
+                <h2 className="text-2xl font-bold">Jardín Botánico</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-4">
+                    El Jardín Botánico del Parque Tangamanga alberga una extraordinaria colección de especies endémicas del desierto mexicano y la región potosina, así como plantas exóticas de diversas partes del mundo.
+                  </p>
+                  <h3 className="font-semibold mb-2">Colecciones:</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Cactáceas y suculentas del desierto potosino</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Plantas medicinales tradicionales</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Orquídeas y bromelias</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-green-600 mt-1">•</span>
+                      <span>Invernadero con plantas tropicales</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 p-6 rounded-lg">
+                  <h4 className="font-semibold mb-3">Educación</h4>
+                  <p className="text-sm text-gray-700 mb-2">Talleres de jardinería</p>
+                  <p className="text-sm text-gray-700 mb-2">Programas de conservación</p>
+                  <p className="text-sm text-gray-700">Tours educativos para escuelas</p>
                 </div>
               </div>
             </section>
