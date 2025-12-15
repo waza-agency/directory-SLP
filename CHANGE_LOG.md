@@ -4,6 +4,25 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-15] Fix: Weather Section Showing Unavailable
+
+**Descripción:**
+La sección de clima en "What you need to know today" mostraba "No disponible" en producción porque la API key de OpenWeatherMap no estaba configurada en Netlify.
+
+**Solución:**
+- Agregada función `getSeasonalFallbackWeather()` que retorna datos estimados basados en promedios históricos de SLP
+- El clima ahora muestra estimaciones estacionales en lugar de "No disponible"
+- Fallback basado en patrones climáticos del clima semi-árido de SLP por mes
+
+**Archivos modificados:**
+- `src/lib/api/dashboard-data.ts`
+
+**Estado:** ✅ Exitoso
+
+**Nota:** Para obtener datos en tiempo real, agregar `OPENWEATHERMAP_API_KEY` en las variables de entorno de Netlify.
+
+---
+
 ## [2025-12-14] Feat: Add Homepage Disclaimer Section
 
 **Descripción:**
