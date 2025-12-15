@@ -11,6 +11,7 @@ import SEO from '@/components/common/SEO';
 import { getBlogPostsBySlugs } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
+import CentroHistoricoBanner from '@/components/CentroHistoricoBanner';
 import { logger } from '@/lib/logger';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
@@ -913,6 +914,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* PARQUE TANGAMANGA BANNER */}
         <TangamangaBanner />
+
+        {/* CENTRO HISTORICO BANNER */}
+        <CentroHistoricoBanner />
 
         {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
         <section id="practical-001" className="py-32 bg-white">

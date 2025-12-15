@@ -525,5 +525,122 @@
   "blog": {
     "title": "From the Blog",
     "subtitle": "Stories, tips, and insights for life in San Luis Potosí"
+  },
+  "centroHistoricoBanner": {
+    "badge": "Heart of the City",
+    "title": "Historic Downtown",
+    "description": "Discover the colonial heart of San Luis Potosí: majestic plazas, 16th-century architecture, legendary cantinas, charming restaurants, and a vibrant cultural life that will captivate you.",
+    "cta": "Explore Downtown"
+  },
+  "centroHistorico": {
+    "seo": {
+      "title": "Historic Downtown San Luis Potosí | Complete Expat Guide",
+      "description": "Explore the Historic Downtown of San Luis Potosí: history, colonial architecture, best restaurants, bars, markets, and hidden gems. Your complete expat guide."
+    },
+    "title": "Historic Downtown",
+    "subtitle": "The Colonial Heart of San Luis Potosí - Where History Comes Alive",
+    "badge": "Cultural Heritage",
+    "quickInfo": {
+      "location": "Location",
+      "locationValue": "City Center",
+      "bestTime": "Best Time",
+      "bestTimeValue": "Mornings & Sunsets",
+      "safety": "Safety",
+      "safetyValue": "Very Safe Zone",
+      "founded": "Founded"
+    },
+    "history": {
+      "title": "History & Heritage",
+      "cathedralAlt": "San Luis Potosí Cathedral",
+      "originsTitle": "Colonial Origins",
+      "originsText": "Founded in 1592, San Luis Potosí was born thanks to the region's mining wealth. The Historic Downtown preserves the essence of over four centuries of history, with baroque, neoclassical, and colonial buildings that narrate the grandeur of New Spain.",
+      "architectureTitle": "Exceptional Architecture",
+      "architectureText": "The Historic Downtown is an open-air museum with over 1,500 catalogued historic buildings. The pink quarry stone, characteristic of the city, adorns the facades of temples, mansions, and government buildings. Every street reveals architectural treasures that transport you to another era.",
+      "todayTitle": "A Living Downtown",
+      "todayText": "Far from being a frozen museum, the Historic Downtown pulses with life. Cafés in colonial courtyards, contemporary art galleries in 18th-century buildings, and gourmet restaurants in old mansions create a unique fusion between past and present."
+    },
+    "pointsOfInterest": {
+      "title": "Points of Interest",
+      "landmarksTitle": "Must-See Landmarks",
+      "landmark1": "Plaza de Armas - The heart of the city with its kiosk and gardens",
+      "landmark2": "Metropolitan Cathedral - 17th-century baroque jewel",
+      "landmark3": "Teatro de la Paz - One of Mexico's most beautiful theaters",
+      "landmark4": "Temple of Carmen - Churrigueresque masterpiece",
+      "landmark5": "Government Palace - Living history with Fernando Leal murals",
+      "museumsTitle": "Museums & Culture",
+      "museum1": "National Mask Museum - Unique collection in Mexico",
+      "museum2": "Federico Silva Museum - Contemporary art in the Old Hacienda",
+      "museum3": "Viceroyalty Museum - Colonial history",
+      "museum4": "Arts Center - Exhibitions and workshops"
+    },
+    "gastronomy": {
+      "title": "Gastronomy & Nightlife",
+      "intro": "The Historic Downtown is a gastronomic paradise where tradition and innovation meet. From century-old cantinas to author cuisine restaurants, every corner offers a memorable culinary experience.",
+      "restaurantsTitle": "Featured Restaurants",
+      "restaurant1": "La Virreina - Potosino cuisine in colonial setting",
+      "restaurant2": "Cielo Tinto - Rooftop with cathedral views",
+      "restaurant3": "Café Pacífico - Classic since 1943",
+      "restaurant4": "La Oruga y la Cebada - Author cuisine",
+      "restaurant5": "Restaurante 1913 - Fine Mexican dining",
+      "barsTitle": "Bars & Cantinas",
+      "bar1": "La Gran Vía - Historic cantina since 1940",
+      "bar2": "Bar Progreso - Craft cocktails",
+      "bar3": "La Posadita - Mezcal and bohemian vibe",
+      "bar4": "Catrina Rooftop - Terrace with panoramic views",
+      "bar5": "El Callejón del Beso - Bar in historic alley",
+      "marketsTitle": "Traditional Markets",
+      "market1": "Mercado Hidalgo - The main market since 1906",
+      "market2": "Mercado República - Crafts and street food",
+      "market3": "Sunday Tianguis - Antiques and curiosities",
+      "market4": "Mercado 16 de Septiembre - Fresh produce"
+    },
+    "nightlife": {
+      "title": "Entertainment & Nightlife",
+      "text": "When the sun sets, the Historic Downtown transforms. The plazas light up, street musicians appear, and bars open their doors. From concerts at Teatro de la Paz to jazz nights in colonial courtyards, downtown offers entertainment for all tastes. On weekends, pedestrian streets fill with life through cultural events, food fairs, and artistic performances."
+    },
+    "shopping": {
+      "title": "Shopping & Crafts",
+      "artisansTitle": "Potosino Crafts",
+      "artisansText": "The Historic Downtown is the best place to find authentic regional crafts. From the famous Santa María del Río rebozo to high-quality leatherwork, each piece tells a story of artisanal tradition.",
+      "item1": "Santa María del Río Rebozos - Century-old textile tradition",
+      "item2": "Leatherwork and leather goods - Belts, bags, saddles",
+      "item3": "Traditional sweets - Queso de tuna, charamuscas, glorias",
+      "item4": "Ceramics and talavera - Unique decorative pieces"
+    },
+    "hiddenGems": {
+      "title": "Downtown Secrets",
+      "intro": "Beyond the tourist sites, the Historic Downtown holds secrets that only locals know. Here we reveal some of our favorites.",
+      "gem1Title": "Callejón del Cardo",
+      "gem1Text": "A hidden passage with art galleries and bohemian cafés. Perfect for a quiet afternoon of exploration.",
+      "gem2Title": "Colonial Courtyards",
+      "gem2Text": "Many buildings preserve spectacular interior courtyards. Enter to admire fountains, gardens, and intimate architecture.",
+      "gem3Title": "Golden Hour",
+      "gem3Text": "At sunset, the pink quarry stone glows with warm tones. The best time for photography at Plaza de Armas.",
+      "gem4Title": "Sundays Downtown",
+      "gem4Text": "Streets close to traffic. Families, cyclists, and pedestrians take over the streets in a festive atmosphere."
+    },
+    "practical": {
+      "title": "Practical Information",
+      "gettingThere": "Getting There",
+      "gettingThereText": "Uber and taxi are the most comfortable options. Downtown is very walkable once you arrive.",
+      "parking": "Parking",
+      "parkingText": "Several public parking lots around downtown. Avoid pedestrian streets.",
+      "safetyInfo": "Safety",
+      "safetyInfoText": "The Historic Downtown is one of the safest areas in the city, with constant patrol and good lighting."
+    },
+    "tips": {
+      "title": "Visitor Tips",
+      "tip1": "Wear comfortable shoes - streets are cobblestone",
+      "tip2": "Visit on weekdays to avoid crowds",
+      "tip3": "Sundays have fewer cars and more pedestrian life",
+      "tip4": "Bring cash for markets and street vendors",
+      "tip5": "Ask locals for recommendations - they're very friendly",
+      "tip6": "Explore the alleys - that's where the hidden gems are"
+    },
+    "cta": {
+      "title": "Ready to Explore?",
+      "text": "Discover more recommended places in the Historic Downtown and throughout the city.",
+      "button": "View All Places"
+    }
   }
 }

@@ -4,6 +4,46 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 223a0833 - 2025-12-14
+
+**Mensaje:** feat: Add Historic Downtown (Centro Histórico) page
+
+**Archivos creados:**
+- src/pages/centro-historico.tsx - Página completa del Centro Histórico
+- src/components/CentroHistoricoBanner.tsx - Banner promocional
+
+**Archivos modificados:**
+- src/pages/index.tsx - Agregado CentroHistoricoBanner después de TangamangaBanner
+- public/locales/es/common.json - Traducciones en español
+- public/locales/en/common.json - Traducciones en inglés
+- CHANGE_LOG.md - Actualizado con registro del cambio
+
+**Descripción detallada:**
+
+Creación de una página dedicada al Centro Histórico de San Luis Potosí, presentándolo como una super atracción con vida cultural propia, segura y divertida para extranjeros.
+
+**Estructura de la página:**
+1. Hero Section - Con badge de patrimonio cultural e imagen prominente
+2. Quick Info Cards - Ubicación, mejor momento para visitar, seguridad, año de fundación
+3. Historia y Patrimonio - Orígenes coloniales, arquitectura, vida actual
+4. Puntos de Interés - Monumentos imperdibles y museos
+5. Gastronomía - Restaurantes destacados, bares/cantinas, mercados tradicionales
+6. Vida Nocturna - Entretenimiento y actividades nocturnas
+7. Compras y Artesanías - Productos locales y artesanías potosinas
+8. Secretos del Centro - Joyas escondidas que solo los locales conocen
+9. Información Práctica - Cómo llegar, estacionamiento, seguridad
+10. Tips para Visitantes - Consejos prácticos
+11. Sidebar - Información práctica, tips y CTA
+
+**Propósito/Razón:**
+- Crear contenido atractivo para expatriados y turistas
+- Posicionar el Centro Histórico como una atracción principal
+- Enfatizar la seguridad y ambiente acogedor de la zona
+- Proporcionar información útil sobre restaurantes, bares y mercados
+- Revelar lugares secretos que hacen especial la visita
+
+---
+
 ## Commit: 667fa47d - 2025-12-14
 
 **Mensaje:** feat: Add Ultimate Guide - Living in San Luis Potosí as an Expat

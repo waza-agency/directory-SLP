@@ -4,6 +4,42 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Página del Centro Histórico
+
+**Descripción:**
+Creación de una página dedicada al Centro Histórico de San Luis Potosí, presentándolo como una super atracción con vida cultural propia, segura y divertida para extranjeros. Incluye historia, puntos de interés, recomendaciones de restaurantes, bares, mercados y lugares secretos.
+
+**Archivos creados:**
+- `src/pages/centro-historico.tsx` - Página completa del Centro Histórico
+- `src/components/CentroHistoricoBanner.tsx` - Banner promocional para el Home
+- `public/images/centro-historico/` - Carpeta para imágenes
+
+**Archivos modificados:**
+- `src/pages/index.tsx` - Agregado import y CentroHistoricoBanner después de TangamangaBanner
+- `public/locales/es/common.json` - Traducciones en español para Centro Histórico
+- `public/locales/en/common.json` - Traducciones en inglés para Centro Histórico
+
+**Secciones de la página:**
+1. Hero con badge de patrimonio cultural
+2. Quick Info cards (ubicación, mejor momento, seguridad, fundación)
+3. Historia y patrimonio (orígenes, arquitectura, vida actual)
+4. Puntos de interés (monumentos y museos)
+5. Gastronomía (restaurantes, bares, mercados)
+6. Vida nocturna y entretenimiento
+7. Compras y artesanías
+8. Secretos del centro (joyas escondidas)
+9. Información práctica (cómo llegar, estacionamiento, seguridad)
+10. Tips para visitantes
+
+**Imágenes requeridas:**
+- hero.jpg, banner.jpg, cathedral.jpg, plaza-armas.jpg
+- museums.jpg, restaurants.jpg, bars.jpg, markets.jpg
+- nightlife.jpg, shopping.jpg
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-14] Blog SEO Optimization: Code & Database Updates
 
 **Descripción:**

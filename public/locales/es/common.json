@@ -525,5 +525,122 @@
   "blog": {
     "title": "Del Blog",
     "subtitle": "Historias, consejos e información para vivir en San Luis Potosí"
+  },
+  "centroHistoricoBanner": {
+    "badge": "Corazón de la Ciudad",
+    "title": "Centro Histórico",
+    "description": "Descubre el corazón colonial de San Luis Potosí: plazas majestuosas, arquitectura del siglo XVI, cantinas legendarias, restaurantes con encanto y una vida cultural vibrante que te enamorará.",
+    "cta": "Explorar el Centro"
+  },
+  "centroHistorico": {
+    "seo": {
+      "title": "Centro Histórico de San Luis Potosí | Guía Completa para Expatriados",
+      "description": "Explora el Centro Histórico de San Luis Potosí: historia, arquitectura colonial, mejores restaurantes, bares, mercados y lugares secretos. Tu guía completa para expatriados."
+    },
+    "title": "Centro Histórico",
+    "subtitle": "El Corazón Colonial de San Luis Potosí - Donde la Historia Cobra Vida",
+    "badge": "Patrimonio Cultural",
+    "quickInfo": {
+      "location": "Ubicación",
+      "locationValue": "Centro de la Ciudad",
+      "bestTime": "Mejor Momento",
+      "bestTimeValue": "Mañanas y Atardeceres",
+      "safety": "Seguridad",
+      "safetyValue": "Zona Muy Segura",
+      "founded": "Fundación"
+    },
+    "history": {
+      "title": "Historia y Patrimonio",
+      "cathedralAlt": "Catedral de San Luis Potosí",
+      "originsTitle": "Orígenes Coloniales",
+      "originsText": "Fundada en 1592, San Luis Potosí nació gracias a la riqueza minera de la región. El Centro Histórico conserva la esencia de más de cuatro siglos de historia, con edificios barrocos, neoclásicos y coloniales que narran la grandeza de la Nueva España.",
+      "architectureTitle": "Arquitectura Excepcional",
+      "architectureText": "El Centro Histórico es un museo al aire libre con más de 1,500 edificios históricos catalogados. La cantera rosa, característica de la ciudad, adorna fachadas de templos, casonas y edificios gubernamentales. Cada calle revela tesoros arquitectónicos que transportan a otra época.",
+      "todayTitle": "Un Centro Vivo",
+      "todayText": "Lejos de ser un museo congelado, el Centro Histórico pulsa con vida. Cafés en patios coloniales, galerías de arte contemporáneo en edificios del siglo XVIII, y restaurantes gourmet en antiguas casonas crean una fusión única entre pasado y presente."
+    },
+    "pointsOfInterest": {
+      "title": "Puntos de Interés",
+      "landmarksTitle": "Monumentos Imperdibles",
+      "landmark1": "Plaza de Armas - El corazón de la ciudad con su kiosco y jardines",
+      "landmark2": "Catedral Metropolitana - Joya barroca del siglo XVII",
+      "landmark3": "Teatro de la Paz - Uno de los teatros más bellos de México",
+      "landmark4": "Templo del Carmen - Obra maestra del churrigueresco",
+      "landmark5": "Palacio de Gobierno - Historia viva con murales de Fernando Leal",
+      "museumsTitle": "Museos y Cultura",
+      "museum1": "Museo Nacional de la Máscara - Colección única en México",
+      "museum2": "Museo Federico Silva - Arte contemporáneo en la Antigua Hacienda",
+      "museum3": "Museo del Virreinato - Historia colonial",
+      "museum4": "Centro de las Artes - Exposiciones y talleres"
+    },
+    "gastronomy": {
+      "title": "Gastronomía y Vida Nocturna",
+      "intro": "El Centro Histórico es un paraíso gastronómico donde tradición y vanguardia se encuentran. Desde cantinas centenarias hasta restaurantes de autor, cada esquina ofrece una experiencia culinaria memorable.",
+      "restaurantsTitle": "Restaurantes Destacados",
+      "restaurant1": "La Virreina - Cocina potosina en ambiente colonial",
+      "restaurant2": "Cielo Tinto - Rooftop con vista a la catedral",
+      "restaurant3": "Café Pacífico - Clásico desde 1943",
+      "restaurant4": "La Oruga y la Cebada - Cocina de autor",
+      "restaurant5": "Restaurante 1913 - Alta cocina mexicana",
+      "barsTitle": "Bares y Cantinas",
+      "bar1": "La Gran Vía - Cantina histórica desde 1940",
+      "bar2": "Bar Progreso - Cocktails de autor",
+      "bar3": "La Posadita - Mezcal y ambiente bohemio",
+      "bar4": "Catrina Rooftop - Terraza con vista panorámica",
+      "bar5": "El Callejón del Beso - Bar en callejón histórico",
+      "marketsTitle": "Mercados Tradicionales",
+      "market1": "Mercado Hidalgo - El mercado principal desde 1906",
+      "market2": "Mercado República - Artesanías y antojitos",
+      "market3": "Tianguis de los Domingos - Antigüedades y curiosidades",
+      "market4": "Mercado 16 de Septiembre - Productos frescos"
+    },
+    "nightlife": {
+      "title": "Entretenimiento y Vida Nocturna",
+      "text": "Cuando el sol se pone, el Centro Histórico se transforma. Las plazas se iluminan, los músicos callejeros aparecen, y los bares abren sus puertas. Desde conciertos en el Teatro de la Paz hasta noches de jazz en patios coloniales, el centro ofrece entretenimiento para todos los gustos. Los fines de semana, las calles peatonales se llenan de vida con eventos culturales, ferias gastronómicas y presentaciones artísticas."
+    },
+    "shopping": {
+      "title": "Compras y Artesanías",
+      "artisansTitle": "Artesanías Potosinas",
+      "artisansText": "El Centro Histórico es el mejor lugar para encontrar artesanías auténticas de la región. Desde el famoso rebozo de Santa María del Río hasta la talabartería de alta calidad, cada pieza cuenta una historia de tradición artesanal.",
+      "item1": "Rebozos de Santa María del Río - Tradición textil centenaria",
+      "item2": "Talabartería y artículos de piel - Cinturones, bolsas, sillas de montar",
+      "item3": "Dulces típicos - Queso de tuna, charamuscas, glorias",
+      "item4": "Cerámica y talavera - Piezas decorativas únicas"
+    },
+    "hiddenGems": {
+      "title": "Secretos del Centro",
+      "intro": "Más allá de los sitios turísticos, el Centro Histórico guarda secretos que solo los locales conocen. Aquí te revelamos algunos de nuestros favoritos.",
+      "gem1Title": "Callejón del Cardo",
+      "gem1Text": "Un pasaje escondido con galerías de arte y cafés bohemios. Perfecto para una tarde tranquila explorando.",
+      "gem2Title": "Los Patios Coloniales",
+      "gem2Text": "Muchos edificios conservan patios interiores espectaculares. Entra a admirar fuentes, jardines y arquitectura íntima.",
+      "gem3Title": "La Hora Dorada",
+      "gem3Text": "Al atardecer, la cantera rosa brilla con tonos cálidos. El mejor momento para fotografía en Plaza de Armas.",
+      "gem4Title": "Domingos en el Centro",
+      "gem4Text": "Las calles se cierran al tráfico. Familias, ciclistas y peatones toman las calles en un ambiente festivo."
+    },
+    "practical": {
+      "title": "Información Práctica",
+      "gettingThere": "Cómo Llegar",
+      "gettingThereText": "Uber y taxi son las opciones más cómodas. El centro es muy caminable una vez que llegas.",
+      "parking": "Estacionamiento",
+      "parkingText": "Varios estacionamientos públicos alrededor del centro. Evita las calles peatonales.",
+      "safetyInfo": "Seguridad",
+      "safetyInfoText": "El Centro Histórico es una de las zonas más seguras de la ciudad, con patrullaje constante y buena iluminación."
+    },
+    "tips": {
+      "title": "Tips para Visitantes",
+      "tip1": "Usa zapatos cómodos - las calles son de piedra",
+      "tip2": "Visita entre semana para evitar multitudes",
+      "tip3": "Los domingos hay menos coches y más vida peatonal",
+      "tip4": "Lleva efectivo para mercados y vendedores ambulantes",
+      "tip5": "Pide recomendaciones a los locales - son muy amables",
+      "tip6": "Explora los callejones - ahí están las joyas escondidas"
+    },
+    "cta": {
+      "title": "¿Listo para Explorar?",
+      "text": "Descubre más lugares recomendados en el Centro Histórico y toda la ciudad.",
+      "button": "Ver Todos los Lugares"
+    }
   }
 }
