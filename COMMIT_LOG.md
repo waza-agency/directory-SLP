@@ -4,7 +4,7 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
-## Commit: [pending] - 2025-12-14
+## Commit: 667fa47d - 2025-12-14
 
 **Mensaje:** feat: Add Ultimate Guide - Living in San Luis Potosí as an Expat
 

@@ -44,11 +44,15 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context)
 };
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
+  // Use dedicated SEO fields when available, fallback to title/excerpt
+  const seoTitle = post.metaTitle || post.title;
+  const seoDescription = post.metaDescription || post.excerpt;
+
   return (
     <>
       <SEO
-        title={post.title}
-        description={post.excerpt}
+        title={seoTitle}
+        description={seoDescription}
         keywords={post.tags?.join(', ')}
         ogImage={post.imageUrl || '/og-image.jpg'}
         ogType="article"
@@ -67,8 +71,8 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
-              "headline": post.title,
-              "description": post.excerpt,
+              "headline": seoTitle,
+              "description": seoDescription,
               "image": post.imageUrl || "https://www.sanluisway.com/og-image.jpg",
               "datePublished": post.publishedAt,
               "dateModified": post.createdAt,

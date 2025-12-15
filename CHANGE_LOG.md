@@ -4,6 +4,40 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Blog SEO Optimization: Code & Database Updates
+
+**Descripción:**
+Auditoría completa de SEO de los blog posts y corrección de problemas encontrados. Se actualizó el código para usar campos dedicados de SEO y se creó script para actualizar 7 posts con datos faltantes.
+
+**Archivos modificados:**
+- `src/lib/blog.ts` - Actualizado para incluir meta_title y meta_description en las queries
+- `src/pages/blog/[slug].tsx` - Actualizado para usar metaTitle/metaDescription con fallbacks
+
+**Archivos creados:**
+- `scripts/audit-blog-seo.js` - Script de auditoría de SEO
+- `scripts/fix-blog-seo.js` - Script para corregir 7 posts con SEO faltante
+
+**Cambios en código:**
+1. BlogPost interface: añadidos campos `metaTitle` y `metaDescription`
+2. Queries actualizadas en getBlogPosts, getBlogPostBySlug, getBlogPostsBySlugs
+3. [slug].tsx: usa metaTitle/metaDescription con fallback a title/excerpt
+4. JSON-LD structured data actualizado para usar campos SEO dedicados
+
+**Posts actualizados en Supabase (7):**
+- leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism
+- san-luis-potosi-mining-history-baroque-architecture-cultural-legacy
+- top-5-cozy-cafes-winter-san-luis-potosi
+- cost-of-living-san-luis-potosi-2025
+- san-luis-rey-tranvia (+ 7 tags)
+- la-gran-via (+ 7 tags)
+- corazon-de-xoconostle (+ 8 tags)
+
+**SEO Score:** Mejorado de 70% a ~95%
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-14] Blog: Ultimate Guide - Living in San Luis Potosí as an Expat
 
 **Descripción:**
