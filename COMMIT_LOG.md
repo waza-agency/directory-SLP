@@ -4,6 +4,152 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 5b13ee5c - 2025-12-14
+
+**Mensaje:** docs: Add internal linking & additional enhancements to Ultimate Guide
+
+**Archivos modificados:**
+- BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md
+
+**Descripción detallada:**
+
+Mejoras significativas al style guide de Ultimate Guide con dos nuevas secciones principales.
+
+**Sección 1: Internal Linking & Cross-References**
+- Contextual backlinks - links naturales cada 300-500 palabras
+- In-Context Resource Links Box - cajas de recursos relacionados mid-content
+- Section Cross-References - navegación interna entre secciones
+- Related Guides Section - template obligatorio al final del post
+- "You May Also Like" Inline Cards - cards de posts relacionados
+- Breadcrumbs - navegación jerárquica del sitio
+- Directory & Services Links - conexión con el directorio de lugares
+- Events & Community Links - conexión con eventos y newsletter
+- Tabla de guías de frecuencia de enlaces
+- Best practices para anchor text
+
+**Sección 2: Additional Enhancements**
+- Author Box - para credibilidad y autoridad
+- Newsletter CTA específico para Ultimate Guides
+- Social Sharing Bar - Facebook, Twitter, WhatsApp, copy link
+- Download/Save Options - print y bookmark
+- Back to Top Button - navegación flotante
+
+**Propósito/Razón:** Maximizar el SEO y la experiencia de usuario mediante internal linking estratégico y elementos que fomenten engagement y compartir contenido.
+
+---
+
+## Commit: f840ec63 - 2025-12-14
+
+**Mensaje:** docs: Add Ultimate Guide blog post style guide
+
+**Archivos modificados:**
+- BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md (nuevo archivo)
+
+**Descripción detallada:**
+
+Creación de guía de estilo completa para blog posts tipo "Ultimate Guide" - artículos extensos, exhaustivamente investigados y verificados.
+
+**Componentes principales:**
+
+1. **Reglas de verificación estrictas:**
+   - Jerarquía de fuentes (gobierno, académicas, organizaciones oficiales)
+   - Sistema de badges de verificación
+   - Requisito de citación inline y sección de referencias completa
+
+2. **Componentes de contenido:**
+   - Header de última actualización y verificación
+   - Tabla de contenidos comprensiva
+   - Resumen ejecutivo con puntos clave
+   - Quick Facts box con estadísticas citadas
+
+3. **Secciones How-To:**
+   - Templates de pasos con código de colores
+   - Requisitos previos y costos estimados
+   - Checklists de verificación de completitud
+   - Pro tips específicos por paso
+
+4. **Análisis y profundidad:**
+   - Bloques de análisis comparativo
+   - Tablas de datos con fuentes
+   - Key findings destacados
+
+5. **Sistema de referencias:**
+   - Citaciones inline con superíndice
+   - Bloques de atribución de fuentes
+   - Sección de referencias categorizada (gobierno, académicas, expertos)
+
+6. **Notas contextuales:**
+   - Definiciones de conceptos
+   - Contexto histórico
+   - Notas legales/regulatorias
+   - Advertencias y actualizaciones
+
+7. **Elementos de autoridad:**
+   - Citas de expertos verificados
+   - Panel de consenso de expertos
+
+8. **Navegación y UX:**
+   - Indicador de progreso
+   - Navegación entre secciones
+   - Jump navigation flotante
+
+**Especificaciones:**
+- Longitud: 5,000-15,000+ palabras
+- Fuentes: 15-30+ verificadas
+- Secciones How-To: 5-10 mínimo
+- FAQ: 15-30 preguntas
+- Actualizaciones: Trimestral mínimo
+
+**Propósito/Razón:** Crear un estándar para contenido de alta calidad que sirva como referencia definitiva, con énfasis absoluto en verificación de información y citación de fuentes oficiales.
+
+---
+
+## Commit: f7cbe4e2 - 2025-12-14
+
+**Mensaje:** feat: Redesign subscribe page for higher conversion
+
+**Archivos modificados:**
+- src/pages/subscribe.tsx
+
+**Descripción detallada:**
+
+Rediseño completo de la página de suscripción al newsletter para mejorar la tasa de conversión.
+
+**Cambios realizados:**
+
+1. **Simplificación del formulario:**
+   - Eliminado campo de nombre (solo email ahora)
+   - Reduce fricción para el usuario
+
+2. **Social Proof:**
+   - Badge "Join 2,847+ readers" visible arriba del fold
+   - Micro-copy: "Join 2,847+ happy readers"
+
+3. **Urgencia/FOMO:**
+   - Badge dinámico "Next issue: Monday, [fecha]"
+   - Función getNextMonday() calcula automáticamente
+
+4. **CTAs mejorados:**
+   - "Get Monday's Issue" en lugar de "Subscribe Free"
+   - Más específico y orientado a acción
+
+5. **Efectos visuales:**
+   - Glow/pulse animation en el formulario
+   - Fade-in animations al cargar la página
+   - Hover effects en cards
+
+6. **Trust elements:**
+   - Checkmarks: "Free forever", "No credit card", "Unsubscribe anytime"
+   - Badge de exclusividad en CTA final
+
+7. **Simplificación:**
+   - Eliminada sección de testimonios
+   - Beneficios reducidos a 4 items clave
+
+**Propósito/Razón:** Los usuarios visitaban la página pero no se suscribían. Se aplicaron técnicas de conversión para crear un funnel más efectivo.
+
+---
+
 ## Commit: af7aa09c - 2025-12-14
 
 **Mensaje:** feat: Multi-currency rotation and news ticker for morning dashboard

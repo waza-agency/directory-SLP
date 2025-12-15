@@ -4,6 +4,97 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Blog: Immigration Guide Post Published
+
+**Descripción:**
+Creación y publicación de guía completa sobre navegación del sistema migratorio mexicano desde San Luis Potosí.
+
+**Archivos creados:**
+- `blog-posts/navigating-mexican-immigration-system-slp.html` - Contenido del post
+- `scripts/publish-immigration-guide-post.js` - Script de publicación
+
+**Contenido del post:**
+- 10 secciones completas (entendimiento del sistema, tipos de visa, oficina INM SLP, documentación, proceso paso a paso, desafíos comunes, costos/timeline, tips, FAQ, recursos)
+- Tabla de contenidos hardcoded con navegación numerada
+- Internal links a: /expat-guide, /living-guide, /blog/costo-de-vida-san-luis-potosi-2025, /community, /faq, /newsletter, /contact
+- Sección de artículos relacionados (3 cards)
+- CTAs: Community join, Newsletter signup
+- Share buttons: Facebook, X, WhatsApp, Copy Link
+- Social follow: Instagram @sanluisway, TikTok @sanluisway
+- Sección de fuentes y referencias
+
+**Metadata:**
+- Slug: `navigating-mexican-immigration-system-slp`
+- Category: Expat Life
+- Tags: immigration, visa, residency, INM, bureaucracy, legal, expat guide, documentation
+
+**Estado:** ✅ Exitoso - Publicado en Supabase
+
+---
+
+## [2025-12-14] Docs: Ultimate Guide - Internal Linking & Enhancements
+
+**Descripción:**
+Mejoras al style guide de Ultimate Guide añadiendo sección completa de internal linking y elementos adicionales de engagement.
+
+**Archivos modificados:**
+- `BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md`
+
+**Nuevas secciones:**
+
+1. **Internal Linking & Cross-References:**
+   - Templates para contextual backlinks (cada 300-500 palabras)
+   - In-Context Resource Links Box
+   - Related Guides Section (obligatorio al final)
+   - Breadcrumbs navigation
+   - Directory & Services Links
+   - Events & Community Links
+   - Tabla de frecuencia de enlaces
+   - Best practices de anchor text
+
+2. **Additional Enhancements:**
+   - Author Box para autoridad
+   - Newsletter CTA específico
+   - Social Sharing Bar
+   - Download/Save Options
+   - Back to Top Button
+
+**Estado:** Exitoso
+
+---
+
+## [2025-12-14] Docs: Ultimate Guide Blog Post Style Guide
+
+**Descripción:**
+Creación de guía de estilo completa para blog posts tipo "Ultimate Guide" - artículos extensivos, exhaustivamente investigados con énfasis en verificación de información.
+
+**Archivos creados:**
+- `BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md`
+
+**Componentes principales:**
+- Reglas de verificación estrictas con jerarquía de fuentes
+- Sistema de badges de verificación (Officially Verified, Expert Verified, Multi-Source)
+- Header de última actualización obligatorio
+- Tabla de contenidos comprensiva y resumen ejecutivo
+- Templates de secciones How-To paso a paso con colores
+- Bloques de análisis comparativo y datos
+- Sistema completo de citas y referencias inline
+- Notas contextuales (definiciones, contexto histórico, notas legales)
+- Citas de expertos y panel de consenso
+- Navegación con indicador de progreso
+- Ejemplo completo de implementación
+
+**Especificaciones del formato:**
+- Longitud: 5,000-15,000+ palabras
+- Fuentes verificadas: 15-30+ mínimo
+- Secciones How-To: 5-10 requeridas
+- FAQ: 15-30 preguntas
+- Frecuencia de actualización: Trimestral mínimo
+
+**Estado:** Exitoso
+
+---
+
 ## [2025-12-14] Feature: Multi-Currency Rotation + News Ticker
 
 **Descripción:**

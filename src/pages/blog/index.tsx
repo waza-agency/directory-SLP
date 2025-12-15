@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { BlogPost, getBlogPosts } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
@@ -127,6 +127,7 @@ function FeaturedPost({ post }: { post: BlogPost }) {
 
 export default function BlogIndexPage({ posts }: BlogIndexProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [featuredIndex, setFeaturedIndex] = useState<number>(0);
 
   const categories = useMemo(() => {
     const cats = new Set<string>();
@@ -141,8 +142,16 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
     return posts.filter(post => post.category === selectedCategory);
   }, [posts, selectedCategory]);
 
-  const featuredPost = filteredPosts[0];
-  const otherPosts = filteredPosts.slice(1);
+  // Randomly select featured post on page load
+  useEffect(() => {
+    if (filteredPosts.length > 0) {
+      const randomIndex = Math.floor(Math.random() * filteredPosts.length);
+      setFeaturedIndex(randomIndex);
+    }
+  }, [filteredPosts.length, selectedCategory]);
+
+  const featuredPost = filteredPosts[featuredIndex];
+  const otherPosts = filteredPosts.filter((_, index) => index !== featuredIndex);
 
   return (
     <>
