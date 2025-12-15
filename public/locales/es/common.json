@@ -644,6 +644,42 @@
       "tip5": "Pide recomendaciones a los locales - son muy amables",
       "tip6": "Explora los callejones - ahí están las joyas escondidas"
     },
+    "funFacts": {
+      "title": "Datos Curiosos",
+      "fact1": "El Centro Histórico tiene más de 1,500 edificios catalogados como patrimonio histórico.",
+      "fact2": "La cantera rosa que adorna los edificios se extrae de canteras locales y es única en México.",
+      "fact3": "Benito Juárez estableció aquí la capital de México en 1863 durante la intervención francesa.",
+      "fact4": "El Teatro de la Paz fue inaugurado en 1894 y es considerado uno de los más bellos de América Latina."
+    },
+    "cafes": {
+      "title": "Cafés para Descansar",
+      "intro": "Después de caminar, estos cafés son perfectos para recargar energías:",
+      "cafe1": "Café Pacífico - Clásico e histórico",
+      "cafe2": "El Rincón Huasteco - Café con sabor local",
+      "cafe3": "Corazón de Xoconostle - Especialidad en postres",
+      "cafe4": "Café Cortao - Ambiente moderno y acogedor"
+    },
+    "events": {
+      "title": "Eventos Anuales",
+      "event1Title": "Festival de San Luis",
+      "event1Date": "Agosto - Feria regional con música y gastronomía",
+      "event2Title": "Semana Santa",
+      "event2Date": "Marzo/Abril - Procesiones del silencio",
+      "event3Title": "Día de Muertos",
+      "event3Date": "Noviembre - Altares y celebraciones",
+      "event4Title": "Festival de las Luces",
+      "event4Date": "Diciembre - Iluminación navideña",
+      "event5Title": "Viernes de Dolores",
+      "event5Date": "Cuaresma - Tradición única de altares"
+    },
+    "streets": {
+      "title": "Calles Peatonales",
+      "intro": "Las mejores calles para caminar y explorar sin coches:",
+      "street1": "Calle Hidalgo - La arteria principal",
+      "street2": "Jardín Guerrero - Plaza con cafés",
+      "street3": "Callejón de San Francisco - Ambiente bohemio",
+      "street4": "Plaza del Carmen - Rodeada de historia"
+    },
     "cta": {
       "title": "¿Listo para Explorar?",
       "text": "Descubre más lugares recomendados en el Centro Histórico y toda la ciudad.",

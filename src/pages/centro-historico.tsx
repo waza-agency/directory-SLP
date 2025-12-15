@@ -497,6 +497,104 @@ export default function CentroHistorico() {
               </ul>
             </div>
 
+            {/* Fun Facts */}
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold mb-6">{t('centroHistorico.funFacts.title')}</h3>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl">🏛️</span>
+                  <p className="text-sm text-gray-600">{t('centroHistorico.funFacts.fact1')}</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl">🪨</span>
+                  <p className="text-sm text-gray-600">{t('centroHistorico.funFacts.fact2')}</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl">👑</span>
+                  <p className="text-sm text-gray-600">{t('centroHistorico.funFacts.fact3')}</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <span className="text-2xl">🎭</span>
+                  <p className="text-sm text-gray-600">{t('centroHistorico.funFacts.fact4')}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Best Cafes */}
+            <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-8 border border-amber-200">
+              <h3 className="text-xl font-bold mb-4">{t('centroHistorico.cafes.title')}</h3>
+              <p className="text-sm text-gray-600 mb-4">{t('centroHistorico.cafes.intro')}</p>
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-600">☕</span>
+                  <span className="text-sm font-medium">{t('centroHistorico.cafes.cafe1')}</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-600">☕</span>
+                  <span className="text-sm font-medium">{t('centroHistorico.cafes.cafe2')}</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-600">☕</span>
+                  <span className="text-sm font-medium">{t('centroHistorico.cafes.cafe3')}</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-600">☕</span>
+                  <span className="text-sm font-medium">{t('centroHistorico.cafes.cafe4')}</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Annual Events */}
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-xl font-bold mb-6">{t('centroHistorico.events.title')}</h3>
+              <div className="space-y-4">
+                <div className="border-l-4 border-amber-500 pl-4">
+                  <h4 className="font-semibold text-sm">{t('centroHistorico.events.event1Title')}</h4>
+                  <p className="text-xs text-gray-500">{t('centroHistorico.events.event1Date')}</p>
+                </div>
+                <div className="border-l-4 border-amber-500 pl-4">
+                  <h4 className="font-semibold text-sm">{t('centroHistorico.events.event2Title')}</h4>
+                  <p className="text-xs text-gray-500">{t('centroHistorico.events.event2Date')}</p>
+                </div>
+                <div className="border-l-4 border-amber-500 pl-4">
+                  <h4 className="font-semibold text-sm">{t('centroHistorico.events.event3Title')}</h4>
+                  <p className="text-xs text-gray-500">{t('centroHistorico.events.event3Date')}</p>
+                </div>
+                <div className="border-l-4 border-amber-500 pl-4">
+                  <h4 className="font-semibold text-sm">{t('centroHistorico.events.event4Title')}</h4>
+                  <p className="text-xs text-gray-500">{t('centroHistorico.events.event4Date')}</p>
+                </div>
+                <div className="border-l-4 border-amber-500 pl-4">
+                  <h4 className="font-semibold text-sm">{t('centroHistorico.events.event5Title')}</h4>
+                  <p className="text-xs text-gray-500">{t('centroHistorico.events.event5Date')}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Pedestrian Streets */}
+            <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-xl p-8 text-white">
+              <h3 className="text-xl font-bold mb-4">{t('centroHistorico.streets.title')}</h3>
+              <p className="text-sm text-amber-100 mb-4">{t('centroHistorico.streets.intro')}</p>
+              <ul className="space-y-2">
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-200">→</span>
+                  <span className="text-sm">{t('centroHistorico.streets.street1')}</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-200">→</span>
+                  <span className="text-sm">{t('centroHistorico.streets.street2')}</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-200">→</span>
+                  <span className="text-sm">{t('centroHistorico.streets.street3')}</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <span className="text-amber-200">→</span>
+                  <span className="text-sm">{t('centroHistorico.streets.street4')}</span>
+                </li>
+              </ul>
+            </div>
+
             {/* CTA Card */}
             <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-amber-200">
               <h3 className="text-xl font-bold mb-4">{t('centroHistorico.cta.title')}</h3>

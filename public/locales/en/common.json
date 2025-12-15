@@ -644,6 +644,42 @@
       "tip5": "Ask locals for recommendations - they're very friendly",
       "tip6": "Explore the alleys - that's where the hidden gems are"
     },
+    "funFacts": {
+      "title": "Fun Facts",
+      "fact1": "The Historic Downtown has over 1,500 buildings catalogued as historical heritage.",
+      "fact2": "The pink quarry stone that adorns the buildings is extracted from local quarries and is unique to Mexico.",
+      "fact3": "Benito Juárez established Mexico's capital here in 1863 during the French intervention.",
+      "fact4": "Teatro de la Paz was inaugurated in 1894 and is considered one of the most beautiful theaters in Latin America."
+    },
+    "cafes": {
+      "title": "Cafés to Rest",
+      "intro": "After walking, these cafés are perfect to recharge:",
+      "cafe1": "Café Pacífico - Classic and historic",
+      "cafe2": "El Rincón Huasteco - Local flavor coffee",
+      "cafe3": "Corazón de Xoconostle - Dessert specialty",
+      "cafe4": "Café Cortao - Modern and cozy atmosphere"
+    },
+    "events": {
+      "title": "Annual Events",
+      "event1Title": "Festival de San Luis",
+      "event1Date": "August - Regional fair with music and gastronomy",
+      "event2Title": "Holy Week",
+      "event2Date": "March/April - Silent processions",
+      "event3Title": "Day of the Dead",
+      "event3Date": "November - Altars and celebrations",
+      "event4Title": "Festival of Lights",
+      "event4Date": "December - Christmas illumination",
+      "event5Title": "Viernes de Dolores",
+      "event5Date": "Lent - Unique altar tradition"
+    },
+    "streets": {
+      "title": "Pedestrian Streets",
+      "intro": "The best streets to walk and explore car-free:",
+      "street1": "Calle Hidalgo - The main artery",
+      "street2": "Jardín Guerrero - Plaza with cafés",
+      "street3": "Callejón de San Francisco - Bohemian atmosphere",
+      "street4": "Plaza del Carmen - Surrounded by history"
+    },
     "cta": {
       "title": "Ready to Explore?",
       "text": "Discover more recommended places in the Historic Downtown and throughout the city.",
