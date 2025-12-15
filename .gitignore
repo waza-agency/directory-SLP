@@ -46,3 +46,35 @@ debug_output.json
 # netlify
 .netlify
 /.netlify/
+
+# Auto-added by swet
+.git/
+.svn/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.env.*
+venv/
+env/
+.venv/
+Thumbs.db
+.pytest_cache/
+htmlcov/
+.coverage
+coverage/
+.nyc_output/
+dist/
+build/
+.next/
+.nuxt/
+.output/
+.turbo/
+.parcel-cache/
+.pnpm-debug.log*
+*.tmp
+*.temp
+.idea/
+.vscode/
+*.swp
+*.swo
