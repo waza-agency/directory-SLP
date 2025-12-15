@@ -11,11 +11,13 @@ import {
   CameraIcon,
   StarIcon,
   ShieldCheckIcon,
-  HeartIcon
+  HeartIcon,
+  ArrowRightIcon
 } from '@heroicons/react/24/outline';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import SEO from '@/components/common/SEO';
+import { motion } from 'framer-motion';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -63,57 +65,137 @@ export default function CentroHistorico() {
         </div>
       </section>
 
+      {/* Intro Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="relative -mt-20 z-10"
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-amber-100">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center">
+                <HeartIcon className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                  {t('centroHistorico.intro.title')}
+                </h2>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  {t('centroHistorico.intro.paragraph1')}
+                </p>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  {t('centroHistorico.intro.paragraph2')}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-100">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-gradient-to-br from-amber-50 to-orange-50 transition-all cursor-default"
+              >
+                <div className="text-3xl font-bold text-amber-600 mb-1">1,500+</div>
+                <div className="text-sm text-gray-600">{t('centroHistorico.intro.stat1')}</div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-gradient-to-br from-amber-50 to-orange-50 transition-all cursor-default"
+              >
+                <div className="text-3xl font-bold text-amber-600 mb-1">430+</div>
+                <div className="text-sm text-gray-600">{t('centroHistorico.intro.stat2')}</div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="text-center p-4 rounded-lg bg-gradient-to-br from-amber-50 to-orange-50 transition-all cursor-default"
+              >
+                <div className="text-3xl font-bold text-amber-600 mb-1">1592</div>
+                <div className="text-sm text-gray-600">{t('centroHistorico.intro.stat3')}</div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 mt-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Description */}
           <div className="lg:col-span-2 space-y-12">
             {/* Quick Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-lg">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                whileHover={{ y: -4, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+                className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 group cursor-default"
+              >
                 <div className="flex items-center space-x-3">
-                  <div className="bg-amber-100 p-2 rounded-lg">
+                  <div className="bg-gradient-to-br from-amber-100 to-amber-200 p-2 rounded-lg group-hover:scale-110 transition-transform duration-300">
                     <MapPinIcon className="w-5 h-5 text-amber-600" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">{t('centroHistorico.quickInfo.location')}</p>
-                    <p className="font-semibold text-sm">{t('centroHistorico.quickInfo.locationValue')}</p>
+                    <p className="font-semibold text-sm text-gray-900">{t('centroHistorico.quickInfo.locationValue')}</p>
                   </div>
                 </div>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-lg">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                whileHover={{ y: -4, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+                className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 group cursor-default"
+              >
                 <div className="flex items-center space-x-3">
-                  <div className="bg-amber-100 p-2 rounded-lg">
+                  <div className="bg-gradient-to-br from-amber-100 to-amber-200 p-2 rounded-lg group-hover:scale-110 transition-transform duration-300">
                     <ClockIcon className="w-5 h-5 text-amber-600" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">{t('centroHistorico.quickInfo.bestTime')}</p>
-                    <p className="font-semibold text-sm">{t('centroHistorico.quickInfo.bestTimeValue')}</p>
+                    <p className="font-semibold text-sm text-gray-900">{t('centroHistorico.quickInfo.bestTimeValue')}</p>
                   </div>
                 </div>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-lg">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                whileHover={{ y: -4, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+                className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 group cursor-default"
+              >
                 <div className="flex items-center space-x-3">
-                  <div className="bg-amber-100 p-2 rounded-lg">
+                  <div className="bg-gradient-to-br from-amber-100 to-amber-200 p-2 rounded-lg group-hover:scale-110 transition-transform duration-300">
                     <ShieldCheckIcon className="w-5 h-5 text-amber-600" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">{t('centroHistorico.quickInfo.safety')}</p>
-                    <p className="font-semibold text-sm">{t('centroHistorico.quickInfo.safetyValue')}</p>
+                    <p className="font-semibold text-sm text-gray-900">{t('centroHistorico.quickInfo.safetyValue')}</p>
                   </div>
                 </div>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-lg">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                whileHover={{ y: -4, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+                className="bg-white rounded-xl p-6 shadow-lg transition-all duration-300 group cursor-default"
+              >
                 <div className="flex items-center space-x-3">
-                  <div className="bg-amber-100 p-2 rounded-lg">
+                  <div className="bg-gradient-to-br from-amber-100 to-amber-200 p-2 rounded-lg group-hover:scale-110 transition-transform duration-300">
                     <BuildingLibraryIcon className="w-5 h-5 text-amber-600" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">{t('centroHistorico.quickInfo.founded')}</p>
-                    <p className="font-semibold text-sm">1592</p>
+                    <p className="font-semibold text-sm text-gray-900">1592</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* History Section */}
@@ -609,6 +691,111 @@ export default function CentroHistorico() {
           </div>
         </div>
       </div>
+
+      {/* Closing CTA Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-600 via-amber-700 to-orange-700 py-20 md:py-28">
+        <div className="absolute inset-0 bg-[url('/patterns/topography.svg')] opacity-10"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-500 rounded-full blur-3xl opacity-20 translate-y-1/2 -translate-x-1/2"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-6"
+            >
+              <SparklesIcon className="w-4 h-4" />
+              {t('centroHistorico.closing.badge')}
+            </motion.div>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              {t('centroHistorico.closing.title')}
+            </h2>
+
+            <p className="text-xl md:text-2xl text-amber-50 mb-8 leading-relaxed">
+              {t('centroHistorico.closing.description')}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href="/places"
+                  className="group inline-flex items-center gap-2 bg-white text-amber-700 px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                >
+                  {t('centroHistorico.closing.primaryCta')}
+                  <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href="/blog"
+                  className="group inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-amber-700 transition-all duration-300"
+                >
+                  {t('centroHistorico.closing.secondaryCta')}
+                  <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-16 pt-12 border-t border-white/20"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <motion.div
+                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                    transition={{ duration: 0.5 }}
+                    className="text-4xl mb-3"
+                  >
+                    🏛️
+                  </motion.div>
+                  <p className="text-white text-sm">
+                    {t('centroHistorico.closing.feature1')}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <motion.div
+                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                    transition={{ duration: 0.5 }}
+                    className="text-4xl mb-3"
+                  >
+                    🍽️
+                  </motion.div>
+                  <p className="text-white text-sm">
+                    {t('centroHistorico.closing.feature2')}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <motion.div
+                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                    transition={{ duration: 0.5 }}
+                    className="text-4xl mb-3"
+                  >
+                    🎭
+                  </motion.div>
+                  <p className="text-white text-sm">
+                    {t('centroHistorico.closing.feature3')}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }

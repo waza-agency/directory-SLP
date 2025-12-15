@@ -540,6 +540,14 @@
     "title": "Historic Downtown",
     "subtitle": "The Colonial Heart of San Luis Potosí - Where History Comes Alive",
     "badge": "Cultural Heritage",
+    "intro": {
+      "title": "Welcome to the Heart of San Luis Potosí",
+      "paragraph1": "The Historic Downtown is much more than a collection of old buildings: it's the living soul of the city. Every plaza, every alley, every pink quarry facade tells a story dating back over four centuries.",
+      "paragraph2": "Here, past and present coexist in perfect harmony. While admiring the majesty of colonial architecture, you can savor specialty coffee in an 18th-century courtyard, explore contemporary art galleries, or enjoy the city's finest gastronomy.",
+      "stat1": "Historic Buildings",
+      "stat2": "Years of History",
+      "stat3": "Year Founded"
+    },
     "quickInfo": {
       "location": "Location",
       "locationValue": "City Center",
@@ -684,6 +692,16 @@
       "title": "Ready to Explore?",
       "text": "Discover more recommended places in the Historic Downtown and throughout the city.",
       "button": "View All Places"
+    },
+    "closing": {
+      "badge": "Start Your Adventure",
+      "title": "The Historic Downtown Awaits",
+      "description": "Walk cobblestone streets that have witnessed centuries of history. Discover why the Historic Downtown is the beating heart of San Luis Potosí.",
+      "primaryCta": "Explore All Places",
+      "secondaryCta": "Read More on the Blog",
+      "feature1": "Stunning Colonial Architecture",
+      "feature2": "World-Class Gastronomy",
+      "feature3": "Vibrant Cultural Life"
     }
   }
 }

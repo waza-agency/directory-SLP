@@ -540,6 +540,14 @@
     "title": "Centro Histórico",
     "subtitle": "El Corazón Colonial de San Luis Potosí - Donde la Historia Cobra Vida",
     "badge": "Patrimonio Cultural",
+    "intro": {
+      "title": "Bienvenido al Corazón de San Luis Potosí",
+      "paragraph1": "El Centro Histórico es mucho más que un conjunto de edificios antiguos: es el alma viviente de la ciudad. Cada plaza, cada callejón, cada fachada de cantera rosa cuenta una historia que se remonta a más de cuatro siglos.",
+      "paragraph2": "Aquí, el pasado y el presente conviven en perfecta armonía. Mientras admiras la majestuosidad de la arquitectura colonial, puedes saborear un café de especialidad en un patio del siglo XVIII, explorar galerías de arte contemporáneo o disfrutar de la mejor gastronomía de la ciudad.",
+      "stat1": "Edificios Históricos",
+      "stat2": "Años de Historia",
+      "stat3": "Año de Fundación"
+    },
     "quickInfo": {
       "location": "Ubicación",
       "locationValue": "Centro de la Ciudad",
@@ -684,6 +692,16 @@
       "title": "¿Listo para Explorar?",
       "text": "Descubre más lugares recomendados en el Centro Histórico y toda la ciudad.",
       "button": "Ver Todos los Lugares"
+    },
+    "closing": {
+      "badge": "Comienza tu Aventura",
+      "title": "El Centro Histórico te Espera",
+      "description": "Camina por calles empedradas que han sido testigo de siglos de historia. Descubre por qué el Centro Histórico es el corazón que late con más fuerza en San Luis Potosí.",
+      "primaryCta": "Explorar Todos los Lugares",
+      "secondaryCta": "Leer Más en el Blog",
+      "feature1": "Arquitectura Colonial Impresionante",
+      "feature2": "Gastronomía de Clase Mundial",
+      "feature3": "Vida Cultural Vibrante"
     }
   }
 }
