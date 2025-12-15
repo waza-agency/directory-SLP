@@ -4,6 +4,60 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: [pending] - 2025-12-14
+
+**Mensaje:** feat: Add Ultimate Guide - Living in San Luis Potosí as an Expat
+
+**Archivos modificados:**
+- ultimate-guide-expat-slp.html (nuevo - contenido del post)
+- scripts/publish-ultimate-guide-expat.js (nuevo - script de publicación)
+- CHANGE_LOG.md (actualizado)
+- COMMIT_LOG.md (actualizado)
+
+**Descripción detallada:**
+
+Creación de la primera "Ultimate Guide" del sitio: guía completa para expatriados sobre vivir en San Luis Potosí.
+
+**Estructura del contenido (~10,000 palabras):**
+1. Verification Header - Badge de última actualización y fuentes citadas
+2. Table of Contents - Navegación completa a todas las secciones
+3. Executive Summary - Key takeaways y números rápidos
+4. Why San Luis Potosí - Historia, ubicación estratégica, economía
+5. Quick Facts Box - Población, altitud, clima, zona horaria
+6. Visa & Immigration - Tipos de visa, proceso paso a paso, requisitos financieros
+7. Cost of Living - Comparativas, tablas de precios, 3 niveles de presupuesto
+8. Neighborhoods - 4 colonias detalladas con pros/cons
+9. Healthcare - IMSS vs privado, hospitales, estrategia dual
+10. Banking - Requisitos, comparativa de bancos, transferencias
+11. Transportation - MetroRed, Uber, taxis, conducir
+12. Internet & Phone - Providers y planes
+13. Safety - Índices comparativos, tips
+14. FAQ - 12 preguntas frecuentes expandibles
+15. Sources - 11 referencias oficiales
+
+**Fuentes verificadas:**
+- INM (Instituto Nacional de Migración) - requisitos de visa
+- INEGI - estadísticas de población y economía
+- Numbeo - cost of living index December 2024
+- IMSS - costos de seguro público
+- SAT - información fiscal
+- SMN - datos climáticos
+- UNESCO - patrimonio cultural
+
+**Características técnicas:**
+- HTML semántico con Tailwind CSS
+- Verification badges para credibilidad
+- Tablas responsive con overflow
+- Accordions para FAQs
+- Cards para neighborhoods
+- Progress bars para comparativas visuales
+- Contextual notes (tips, warnings, definitions)
+- Step-by-step how-to sections
+
+**Propósito/Razón:** Crear contenido autoritative de alto valor SEO que posicione a San Luis Way como recurso definitivo para expatriados considerando mudarse a SLP. El formato Ultimate Guide está diseñado para generar backlinks y engagement prolongado.
+
+---
+
 ## Commit: 5b13ee5c - 2025-12-14
 
 **Mensaje:** docs: Add internal linking & additional enhancements to Ultimate Guide

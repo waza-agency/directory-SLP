@@ -4,6 +4,44 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Blog: Ultimate Guide - Living in San Luis Potosí as an Expat
+
+**Descripción:**
+Creación y publicación de la guía definitiva para expatriados sobre vivir en San Luis Potosí. Artículo extenso (~10,000 palabras) con información verificada de fuentes oficiales.
+
+**Archivos creados:**
+- `ultimate-guide-expat-slp.html` - Contenido HTML completo
+- `scripts/publish-ultimate-guide-expat.js` - Script de publicación
+
+**Contenido del post:**
+- 11 secciones principales: Executive Summary, Why SLP, Quick Facts, Visa & Immigration, Cost of Living, Neighborhoods, Healthcare, Banking, Transportation, Internet & Phone, Safety
+- Verificación Header con badges de fuentes citadas
+- Tabla de contenidos interactiva
+- Tablas comparativas: visas, costos, bancos, hospitales, internet providers
+- 3 niveles de presupuesto mensual: Budget ($800-1,000), Comfortable ($1,200-1,800), Premium ($2,500+)
+- How-to detallado: proceso de visa temporal (6 pasos)
+- 4 neighborhoods destacados: Lomas, Centro Histórico, Tangamanga, Zona Industrial
+- 12+ FAQs con respuestas expandibles
+- Sección de fuentes con 11 referencias oficiales (INM, INEGI, Numbeo, IMSS, SAT, UNESCO)
+- Related Guides section con 4 links internos
+- CTA final para newsletter
+
+**Metadata:**
+- Slug: `ultimate-guide-living-san-luis-potosi-expat`
+- Category: Ultimate Guides
+- Tags: expat guide, living abroad, moving to Mexico, cost of living, visa Mexico, healthcare, IMSS, neighborhoods, banking, safety, digital nomad, retirement
+
+**Verificación de datos:**
+- Costos de vida: Numbeo December 2024
+- Requisitos de visa: INM (Instituto Nacional de Migración)
+- Población: INEGI 2024 (1.29M metro, 2.87M estado)
+- Healthcare: IMSS costos 2024
+- Clima: SMN (Servicio Meteorológico Nacional)
+
+**Estado:** ✅ Exitoso - Publicado en Supabase
+
+---
+
 ## [2025-12-14] Blog: Immigration Guide Post Published
 
 **Descripción:**
