@@ -4,6 +4,29 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 0a413466 - 2025-12-14
+
+**Mensaje:** feat: Add homepage disclaimer section
+
+**Archivos modificados:**
+- src/pages/index.tsx
+- public/locales/en/common.json
+- public/locales/es/common.json
+
+**Descripción detallada:**
+
+Se agregó una sección de disclaimer en la parte inferior de la homepage, antes del CTA final, explicando la naturaleza independiente de San Luis Way.
+
+**Contenido del disclaimer (EN):**
+> San Luis Way is created by locals who love this city. Our goal is to help newcomers navigate San Luis Potosí and discover the culture we cherish. The businesses and services featured here are personal recommendations based on our own positive experiences — we are not affiliated with, employed by, or financially connected to any of them. While we strive to provide accurate and helpful information, San Luis Way is not responsible for the products, services, or experiences provided by third parties.
+
+**Contenido del disclaimer (ES):**
+> San Luis Way es creada por locales que aman esta ciudad. Nuestro objetivo es ayudar a los recién llegados a navegar San Luis Potosí y descubrir la cultura que tanto apreciamos. Los negocios y servicios que aparecen aquí son recomendaciones personales basadas en nuestras propias experiencias positivas — no estamos afiliados, empleados ni tenemos conexión financiera con ninguno de ellos. Aunque nos esforzamos por proporcionar información precisa y útil, San Luis Way no se hace responsable de los productos, servicios o experiencias proporcionados por terceros.
+
+**Propósito/Razón:** Proporcionar transparencia a los usuarios sobre la naturaleza de las recomendaciones del sitio, dejar claro que no hay relación comercial con los negocios listados, y limitar responsabilidad legal.
+
+---
+
 ## Commit: 00133732 - 2025-12-14
 
 **Mensaje:** fix: Correct factual errors in Ultimate Guide - Expat SLP

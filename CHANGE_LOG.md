@@ -4,6 +4,25 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-14] Feat: Add Homepage Disclaimer Section
+
+**Descripción:**
+Se agregó una sección de disclaimer en la parte inferior de la homepage explicando que San Luis Way es una guía independiente creada por locales, que las recomendaciones son basadas en experiencias personales positivas, y que no hay afiliación comercial con los negocios recomendados.
+
+**Archivos modificados:**
+- `src/pages/index.tsx`
+- `public/locales/en/common.json`
+- `public/locales/es/common.json`
+
+**Cambios realizados:**
+- Agregada sección de disclaimer con ID `disclaimer-001` antes del CTA final
+- Agregadas traducciones en inglés y español para el texto del disclaimer
+- Diseño sutil con fondo gris claro y tipografía pequeña que no distrae del contenido principal
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-14] Fix: Corrected Factual Errors in Ultimate Guide - Expat SLP
 
 **Descripción:**
