@@ -48,7 +48,7 @@ export default function CentroHistorico() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 pb-28 md:pb-32">
             <div className="container mx-auto">
               <span className="inline-flex items-center gap-2 bg-amber-500/90 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
                 <StarIcon className="w-4 h-4" />
