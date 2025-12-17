@@ -4,6 +4,180 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-16] Internationalization: Arte Potosino Blog Post - Full English Version
+
+**Descripción:**
+Internacionalización completa del artículo "Potosino Art: A 3,000-Year Journey of Creativity". El post ahora muestra inglés por defecto con URL y contenido completamente en inglés.
+
+**Cambios realizados:**
+1. **Creado archivo de contenido en inglés:** `blog-drafts/arte-potosino-deep-dive-en.html`
+2. **Actualizado script de publicación** para cargar ambos idiomas
+3. **Slug actualizado a inglés:**
+   - ❌ Antes: `arte-potosino-historia-artistas-escultura-pintura-san-luis-potosi`
+   - ✅ Ahora: `potosino-art-history-artists-sculpture-painting-san-luis-potosi`
+4. **Base de datos actualizada:**
+   - `content` = Contenido en español
+   - `content_en` = Contenido en inglés (mostrado por defecto)
+5. **Meta tags actualizados a inglés:**
+   - `meta_title`: "Potosino Art: Complete History of Art in San Luis Potosí | Artists & Crafts"
+   - `meta_description`: "Discover 3,000 years of Potosino art..."
+6. **Tags actualizados a inglés** para mejor SEO internacional
+7. **Post antiguo eliminado** y nuevo creado con ID: `02914979-9f25-4d93-8a58-f26bd0f317fd`
+
+**Archivos creados/modificados:**
+- `blog-drafts/arte-potosino-deep-dive-en.html` (nuevo - 890 líneas)
+- `scripts/publish-arte-potosino-post.js` (actualizado)
+- Supabase `blog_posts` table (registro recreado)
+
+**Nueva URL:** `/blog/potosino-art-history-artists-sculpture-painting-san-luis-potosi`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Update: Immigration Guide Blog Post - Year Update 2024 → 2025
+
+**Descripción:**
+Actualización del artículo "The Bureaucracy Challenge: How to Navigate Mexico's Immigration System from SLP" para reflejar el año 2025.
+
+**Cambios realizados:**
+1. **Badge "Verified & Updated":** December 2024 → December 2025
+2. **Economic Solvency Requirements:** Encabezado actualizado a 2025
+3. **Expected Costs:** Encabezado actualizado a 2025
+4. **Verify Before You Go note:** December 2024 → December 2025
+5. **UMA reference:** 2024 → 2025
+6. **Last updated footer:** December 2024 → December 16, 2025
+7. **Meta title:** "Visa & Residency 2024" → "Visa & Residency 2025"
+
+**Archivos modificados:**
+- `blog-posts/navigating-mexican-immigration-system-slp.html`
+- `scripts/publish-immigration-guide-post.js`
+- Supabase `blog_posts` table (registro actualizado)
+
+**URL:** `/blog/navigating-mexican-immigration-system-slp`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Publish: Arte Potosino Deep Dive Blog Post
+
+**Descripción:**
+Publicación del artículo completo "Arte Potosino: Un Viaje de 3,000 Años de Creatividad" en el blog de San Luis Way.
+
+**Detalles de publicación:**
+- **Slug:** `arte-potosino-historia-artistas-escultura-pintura-san-luis-potosi`
+- **Categoría:** Culture
+- **ID en Supabase:** `ae07fd37-a2af-4bbf-936d-ab78086eabf5`
+- **URL:** `/blog/arte-potosino-historia-artistas-escultura-pintura-san-luis-potosi`
+
+**Contenido del artículo:**
+1. Introducción + nota editorial sobre arte tradicional
+2. Arte Prehispánico: Los Huastecos y sus Maestros Escultores
+3. Tamtoc: La Capital del Arte Huasteco
+4. El Arte Textil: Los Rebozos de Santa María del Río
+5. Artesanías Indígenas: Pames, Teenek y Wixárika
+6. Artistas Potosinos del Siglo XX
+7. Arte Contemporáneo: Nuevas Generaciones
+8. Dónde Ver Arte Potosino Hoy
+
+**Tags:** arte, cultura, artistas potosinos, arte huasteco, escultura, pintura, artesanías, rebozo, teenek, wixárika, San Luis Potosí
+
+**Archivos creados/modificados:**
+- `scripts/publish-arte-potosino-post.js` (nuevo)
+- Supabase `blog_posts` table (nuevo registro)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Fix: Fact-Check Corrections for Arte Potosino Blog
+
+**Descripción:**
+Correcciones realizadas tras fact-check exhaustivo del artículo "Arte Potosino Deep Dive". Se identificaron y corrigieron errores factuales.
+
+**Correcciones realizadas:**
+
+1. **Venus de Tamtoc - Peso incorrecto (CRÍTICO):**
+   - ❌ ANTES: "Pesa aproximadamente 6 toneladas"
+   - ✅ AHORA: "Mide aproximadamente 50 cm de ancho por poco más de un metro de alto, y fue descubierta en 2005"
+   - MOTIVO: Las 6 toneladas correspondían al Monumento 32 (Megalito de la Sacerdotisa), no a la Venus
+
+2. **Entrada Tamtoc - Precio desactualizado (3 instancias):**
+   - ❌ ANTES: "$75 MXN general"
+   - ✅ AHORA: "Entrada GRATUITA desde la reapertura de diciembre 2024. Solo domingos 9:00-18:00 hrs"
+   - MOTIVO: Desde la reapertura del 29 dic 2024, el INAH estableció entrada gratuita
+
+3. **CAPO - Fecha de lanzamiento incorrecta:**
+   - ❌ ANTES: "En diciembre de 2024, el gobierno lanzó el CAPO"
+   - ✅ AHORA: "El CAPO es un instrumento de consulta que a diciembre de 2024 registra cerca de 400 artistas"
+   - MOTIVO: El CAPO ya existía desde 2023; en dic 2024 solo alcanzó los 400 registros
+
+**Verificaciones confirmadas (sin cambios necesarios):**
+- ✅ Adolescente Huasteco: 145 cm, Walter Staub 1917
+- ✅ Premio Nacional Reboceros 2001
+- ✅ Fernando Leal murales 1943
+- ✅ Oswaldo Barra Cunningham murales Palacio Gobierno 1961-1991
+- ✅ Exhibición París 2021 (Quai Branly)
+- ✅ 503 artistas en SIC
+
+**Archivos modificados:**
+- `blog-drafts/arte-potosino-deep-dive.html`
+
+**Fuentes de verificación:**
+- INAH (comunicado reapertura Tamtoc dic 2024)
+- Museo Nacional de Antropología
+- Secretaría de Cultura
+- Sistema de Información Cultural
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Update: Expanded Indigenous Artesanía Sections + Wixárika Art in Arte Potosino Blog
+
+**Descripción:**
+Expandida significativamente la sección 4 "Artesanías Indígenas" del blog post "Arte Potosino Deep Dive":
+1. Contenido detallado sobre artesanía Teenek (bordado, textiles, cestería)
+2. Nueva sección completa sobre Arte Wixárika (Huichol) y su conexión con Wirikuta
+3. Nota editorial en introducción aclarando enfoque en arte tradicional
+
+**Contenido Teenek agregado:**
+- **El Dhayemlaab:** Descripción del quexquémitl como "microcosmos textil" sagrado
+- **Los Tres Bordados Esenciales:** Maamlaabo, Wajudh, Miim T'sa Baal
+- **Significado de los Colores:** Rosa, Verde, Rojo, Naranja
+- **El Petob:** Tocado de estambre que indica estado civil
+- **Indumentaria Completa:** Dhayemlaab, Petob, Lacbé, Talega
+- **Cestería:** Principal artesanía teenek
+
+**Contenido Wixárika agregado:**
+- **Wirikuta:** Explicación de Real de Catorce como lugar sagrado wixárika
+- **Arte de Chaquira:** Técnica de cuentas de vidrio sobre cera de Campeche
+- **Tsikuri:** "Ojos de Dios" y su simbolismo protector
+- **Simbolismo:** Peyote, Venado, Maíz, Águila
+- **El Color del Peyote:** Origen de la paleta de colores vibrantes
+- **Dónde encontrar:** Guía práctica para comprar arte wixárika en SLP
+
+**Otros cambios:**
+- Nota editorial en introducción: enfoque en arte tradicional, próximamente escena contemporánea
+- Actualizada tabla de contenidos: "Pames, Teenek y Wixárika"
+- Actualizado título de sección 4
+
+**Archivos modificados:**
+- `blog-drafts/arte-potosino-deep-dive.html`
+
+**Fuentes agregadas:**
+- SIC - Bordado punto de cruz de Tamaletón
+- México Desconocido - Bordados Teenek
+- Plano Informativo - El Dhayemlaab
+- El Universal SLP - Bordado Teenek en Fenapo
+- Artesanías de México - Arte Huichol Wixárika
+- Arte Wixárika - Tradición y Color
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-15] Update: Living Guide Hero Image with Expat Infographic
 
 **Descripcion:**

@@ -44,7 +44,7 @@ const postData = {
   status: "published",
   published_at: new Date().toISOString(),
   created_at: new Date().toISOString(),
-  meta_title: "Guide to Mexico Immigration from SLP | Visa & Residency 2024",
+  meta_title: "Guide to Mexico Immigration from SLP | Visa & Residency 2025",
   meta_description: "Complete guide to navigating Mexico's immigration system from San Luis Potosí. Step-by-step visa process, INM office info, costs, timeline & insider tips for expats."
 };
 
