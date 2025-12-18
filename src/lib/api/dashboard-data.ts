@@ -1,11 +1,17 @@
 /**
  * Dashboard Data API utilities
- * Fetches real-time weather and exchange rate data for the TodayInSLP component
+ * Fetches real-time weather, exchange rate, and news headline data for TodayInSLP
  */
+
+import { createClient } from '@supabase/supabase-js';
 
 // San Luis Potosí coordinates
 const SLP_LAT = 22.1565;
 const SLP_LON = -100.9855;
+
+// Supabase client for fetching headlines
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export interface WeatherData {
   temp: number;
@@ -30,9 +36,17 @@ export interface ExchangeRate {
   flag: string;
 }
 
+export interface NewsHeadline {
+  id: string;
+  textEs: string;
+  textEn: string;
+  source: string | null;
+}
+
 export interface DashboardData {
   weather: WeatherData | null;
   exchangeRates: ExchangeRate[];
+  headlines: NewsHeadline[];
   lastUpdated: string;
 }
 
@@ -214,17 +228,72 @@ export async function fetchExchangeRates(): Promise<ExchangeRate[]> {
 }
 
 /**
+ * Fetch news headlines from Supabase
+ */
+export async function fetchHeadlines(): Promise<NewsHeadline[]> {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('Supabase not configured for headlines');
+    return getDefaultHeadlines();
+  }
+
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const now = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from('news_headlines')
+      .select('id, text_es, text_en, source')
+      .eq('active', true)
+      .or(`expires_at.is.null,expires_at.gt.${now}`)
+      .order('priority', { ascending: true })
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    if (error) {
+      console.error('Error fetching headlines:', error);
+      return getDefaultHeadlines();
+    }
+
+    if (!data || data.length === 0) {
+      return getDefaultHeadlines();
+    }
+
+    return data.map(h => ({
+      id: h.id,
+      textEs: h.text_es,
+      textEn: h.text_en,
+      source: h.source
+    }));
+  } catch (error) {
+    console.error('Error fetching headlines:', error);
+    return getDefaultHeadlines();
+  }
+}
+
+/**
+ * Default headlines fallback
+ */
+function getDefaultHeadlines(): NewsHeadline[] {
+  return [
+    { id: '1', textEs: 'Bienvenido a San Luis Way - Tu guía definitiva de San Luis Potosí', textEn: 'Welcome to San Luis Way - Your definitive guide to San Luis Potosí', source: null },
+    { id: '2', textEs: 'Descubre los mejores lugares, eventos y experiencias de SLP', textEn: 'Discover the best places, events, and experiences in SLP', source: null }
+  ];
+}
+
+/**
  * Fetch all dashboard data
  */
 export async function fetchDashboardData(): Promise<DashboardData> {
-  const [weather, exchangeRates] = await Promise.all([
+  const [weather, exchangeRates, headlines] = await Promise.all([
     fetchWeatherData(),
-    fetchExchangeRates()
+    fetchExchangeRates(),
+    fetchHeadlines()
   ]);
 
   return {
     weather,
     exchangeRates,
+    headlines,
     lastUpdated: new Date().toISOString()
   };
 }

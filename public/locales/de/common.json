@@ -1,0 +1,711 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "explore": "Entdecken",
+    "blog": "Blog",
+    "about": "Über uns",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "signIn": "Anmelden",
+    "signin": "Anmelden",
+    "signUp": "Registrieren",
+    "signOut": "Abmelden",
+    "signout": "Abmelden",
+    "myAccount": "Mein Konto",
+    "myOrders": "Meine Bestellungen",
+    "getStarted": "Jetzt starten",
+    "searchPlaceholder": "Orte, Veranstaltungen suchen...",
+    "searching": "Suchen",
+    "dashboard": "Dashboard",
+    "settings": "Einstellungen"
+  },
+  "categories": {
+    "cultural": "KULTUR",
+    "places": "ORTE",
+    "events": "VERANSTALTUNGEN",
+    "services": "DIENSTLEISTUNGEN",
+    "new": "NEU"
+  },
+  "search": {
+    "placeholder": "Orte, Veranstaltungen suchen...",
+    "noResults": "Keine Orte gefunden",
+    "loading": "Laden..."
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español",
+    "de": "Deutsch",
+    "ja": "日本語",
+    "zh": "中文",
+    "select": "Sprache"
+  },
+  "footer": {
+    "description": "Ihr umfassender Führer zur Entdeckung des reichen kulturellen Erbes und der lebendigen Gemeinschaft von San Luis Potosí. Wir helfen Auswanderern, sich in der kulturellen Landschaft der Stadt zurechtzufinden, mit ausgewählten Empfehlungen und lokalen Einblicken.",
+    "quickLinks": "Schnelllinks",
+    "history": "Geschichte",
+    "festivals": "Feste",
+    "musicDance": "Musik & Tanz",
+    "resources": "Ressourcen",
+    "expatGuide": "Expat-Führer",
+    "livingGuide": "Wohnführer",
+    "newsletter": "Newsletter",
+    "contactUs": "Kontaktieren Sie uns",
+    "contactForm": "Kontaktformular",
+    "copyright": "© {year} SLP Descubre. Alle Rechte vorbehalten.",
+    "privacyPolicy": "Datenschutz",
+    "termsOfService": "Nutzungsbedingungen",
+    "cookiePolicy": "Cookie-Richtlinie",
+    "sitemap": "Sitemap",
+    "madeWith": "Erstellt mit",
+    "by": "von",
+    "otherProjects": "Andere Projekte von Waza:",
+    "wazaSlogan": "Wir sind WAZA. Und wir programmieren eine coolere Welt."
+  },
+  "account": {
+    "title": "Konto"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "submit": "Absenden",
+    "readMore": "Mehr lesen",
+    "viewAll": "Alle anzeigen"
+  },
+  "forms": {
+    "yourName": "Ihr Name",
+    "emailAddress": "E-Mail-Adresse",
+    "message": "Nachricht",
+    "sending": "Wird gesendet...",
+    "sendInquiry": "Anfrage senden",
+    "sendRequest": "Anfrage senden",
+    "sendMessage": "Nachricht senden",
+    "thankYou": "Vielen Dank für Ihre Anfrage!",
+    "weWillContact": "Wir haben Ihre Anfrage erhalten und werden Sie in Kürze kontaktieren.",
+    "recaptchaError": "Bitte vervollständigen Sie das reCAPTCHA oder versuchen Sie es später erneut."
+  },
+  "services": {
+    "ourServices": "Unsere Dienstleistungen"
+  },
+  "wellness": {
+    "pageTitle": "Gesundheit & Wellness | San Luis Way",
+    "metaDescription": "Ganzheitliche Wellness-Dienstleistungen für Auswanderer in San Luis Potosí, einschließlich psychischer Gesundheit, Fitness und Ernährungsberatung.",
+    "heroTitle": "Gesundheit & Wellness",
+    "heroDescription": "Ihr Führer für Gesundheit und Wellness in San Luis Potosí. Zugang zu hochwertiger Gesundheitsversorgung, Fitnessstudios und psychologischer Unterstützung.",
+    "contactTitle": "Kontaktieren Sie uns für Wellness-Unterstützung",
+    "messagePlaceholder": "Erzählen Sie uns von Ihren Wellness-Zielen...",
+    "mentalHealth": "Psychologische Unterstützung",
+    "mentalHealthDesc": "Zugang zu Therapeuten und Beratern",
+    "fitness": "Fitness & Erholung",
+    "fitnessDesc": "Fitnessstudios, Personal Trainer und Sportvereine finden",
+    "holistic": "Ganzheitliche Gesundheit",
+    "holisticDesc": "Yoga, Meditation, Akupunktur und mehr",
+    "nutrition": "Ernährungsberatung",
+    "nutritionDesc": "Kontakt zu Ernährungswissenschaftlern und Diätassistenten",
+    "support": "Unterstützungsnetzwerke",
+    "supportDesc": "Wellness-Gruppen und Communities beitreten",
+    "coaching": "Gesundheitscoaching",
+    "coachingDesc": "Persönliches Coaching zur Erreichung Ihrer Gesundheitsziele"
+  },
+  "petCare": {
+    "pageTitle": "Haustierpflege | San Luis Way",
+    "metaDescription": "Komplette Haustierpflege für Auswanderer in San Luis Potosí, einschließlich Tierarzt, Pflege, Betreuung und Umzugsunterstützung.",
+    "heroTitle": "Haustierpflege-Dienstleistungen",
+    "heroDescription": "Umfassende und liebevolle Pflege für Ihre geliebten Haustiere. Von Pflege bis Tierarztleistungen - wir sind für Sie da.",
+    "contactTitle": "Kontaktieren Sie uns für Haustierpflege",
+    "messagePlaceholder": "Erzählen Sie uns von Ihrem Haustier und den benötigten Dienstleistungen...",
+    "veterinary": "Tierärztliche Leistungen",
+    "veterinaryDesc": "Zugang zu vertrauenswürdigen Tierärzten und Notfallversorgung",
+    "sitting": "Haustierbetreuung & Pension",
+    "sittingDesc": "Zuverlässige Betreuung für Ihre Haustiere, wenn Sie verreisen",
+    "grooming": "Fellpflege",
+    "groomingDesc": "Professionelle Pflege, damit Ihr Haustier immer gut aussieht",
+    "training": "Training & Verhalten",
+    "trainingDesc": "Expertentraining für einen wohlerzogenen Begleiter",
+    "relocation": "Haustierumzug",
+    "relocationDesc": "Unterstützung beim nationalen und internationalen Haustiertransport",
+    "insurance": "Haustierversicherung",
+    "insuranceDesc": "Die besten Versicherungsoptionen für Ihr Haustier finden"
+  },
+  "homeServices": {
+    "pageTitle": "Hausdienstleistungen | San Luis Way - Zuverlässige Hausunterstützung",
+    "metaDescription": "Umfassende Hausdienstleistungen in San Luis Potosí, einschließlich Reparaturen, Reinigung, Versorgungseinrichtung und Handwerkersuche.",
+    "heroTitle": "Hausdienstleistungen",
+    "heroDescription": "Zuverlässige und professionelle Hausdienstleistungen für ein einfacheres Leben. Von Wartung bis Reinigung - wir kümmern uns darum.",
+    "contactTitle": "Hausdienstleistungen anfragen",
+    "messagePlaceholder": "Bitte beschreiben Sie die benötigten Dienstleistungen...",
+    "repairs": "Allgemeine Reparaturen & Wartung",
+    "repairsDesc": "Sanitär, Elektrik, Tischlerei und Gerätereparaturen.",
+    "cleaning": "Professionelle Reinigung",
+    "cleaningDesc": "Geplante Grundreinigung, Ein-/Auszugsreinigung und regelmäßige Haushaltsführung.",
+    "utilities": "Versorgungseinrichtung & -verwaltung",
+    "utilitiesDesc": "Unterstützung bei Strom, Wasser, Gas und Rechnungszahlungen.",
+    "internet": "Internet & Kommunikation",
+    "internetDesc": "Installation von Internet, Fernsehen und Telefonleitungen.",
+    "painting": "Malen & Dekorieren",
+    "paintingDesc": "Innen-/Außenmalerei, Tapezieren und Designberatung.",
+    "contractors": "Geprüfte Handwerkersuche",
+    "contractorsDesc": "Vertrauenswürdige Fachleute für Renovierungen und Installationen finden.",
+    "security": "Haussicherheit",
+    "securityDesc": "Alarmanlageinstallation, Kameraeinrichtung und Sicherheitsbewertungen.",
+    "pest": "Schädlingsbekämpfung",
+    "pestDesc": "Sichere und wirksame Lösungen für alle häufigen Haushaltsschädlinge.",
+    "moving": "Umzug & Lagerung",
+    "movingDesc": "Lokale Umzugshilfe und sichere Lagerlösungen."
+  },
+  "familySupport": {
+    "pageTitle": "Familienunterstützung | San Luis Way",
+    "metaDescription": "Umfassende Unterstützung für Auswandererfamilien in San Luis Potosí, einschließlich Kinderbetreuung, Bildung und Gemeinschaftsintegration.",
+    "heroTitle": "Familienunterstützungsdienste",
+    "heroDescription": "Finden Sie die Ressourcen, die Ihre Familie braucht, um in San Luis Potosí zu gedeihen. Von Kinderbetreuung bis Bildung - wir sind hier, um zu helfen.",
+    "contactTitle": "Kontaktieren Sie uns für Familienunterstützung",
+    "messagePlaceholder": "Erzählen Sie uns von den Bedürfnissen Ihrer Familie...",
+    "childcare": "Kinderbetreuung",
+    "childcareDesc": "Vertrauenswürdige Babysitter und Kindermädchen finden",
+    "education": "Bildungsunterstützung",
+    "educationDesc": "Zugang zu Nachhilfe und Bildungsressourcen",
+    "activities": "Familienaktivitäten",
+    "activitiesDesc": "Familienfreundliche Veranstaltungen und Aktivitäten entdecken",
+    "workshops": "Eltern-Workshops",
+    "workshopsDesc": "Workshops zum Elternsein in einer neuen Kultur besuchen",
+    "supportGroups": "Selbsthilfegruppen",
+    "supportGroupsDesc": "Mit anderen Auswandererfamilien zur Unterstützung verbinden",
+    "healthcare": "Gesundheitsnavigation",
+    "healthcareDesc": "Hilfe bei der Suche nach Kinderärzten und Hausärzten"
+  },
+  "homepage": {
+    "hero": {
+      "badge": "Vertraut von 1.000+ Auswanderern",
+      "titlePrefix": "Ihr",
+      "titleSuffix": "Leben in",
+      "glitchWords": {
+        "word1": "Raffiniert",
+        "word2": "Ruhig",
+        "word3": "Glücklich",
+        "word4": "Lieblich",
+        "word5": "Gourmet",
+        "word6": "Traum",
+        "word7": "Golf",
+        "word8": "Läufer",
+        "word9": "Musik",
+        "word10": "Feinschmecker",
+        "word11": "Kunst",
+        "word12": "Zen",
+        "word13": "Aktiv",
+        "word14": "Kulturell"
+      },
+      "title2": "San Luis Potosí",
+      "description": "Entdecken Sie einen anspruchsvollen Lebensstil, wo kolonialer Charme auf modernen Komfort trifft. Ihr kuratierter Führer zum Leben, Entdecken und Gedeihen in Mexikos verstecktem Juwel.",
+      "cta1": "Erkunden starten",
+      "cta2": "Orte ansehen"
+    },
+    "benefits": {
+      "badge": "Warum San Luis Potosí",
+      "title": "Ein erfülltes Leben",
+      "description": "Erleben Sie die perfekte Mischung aus Erschwinglichkeit, Kultur und Lebensqualität in Mexikos zweitbester Stadt",
+      "affordable": {
+        "title": "Erschwingliche Exzellenz",
+        "description": "Genießen Sie einen anspruchsvollen Lebensstil zu einem Bruchteil der Kosten. Qualitätswohnen, Gastronomie und Dienstleistungen, die das Budget nicht sprengen.",
+        "detail": "Durchschnittliche monatliche Kosten: 1.200-2.000$"
+      },
+      "culture": {
+        "title": "Reiches kulturelles Erbe",
+        "description": "Tauchen Sie ein in Jahrhunderte von Geschichte, Kolonialarchitektur und lebendigen Traditionen, die jeden Tag besonders machen.",
+        "detail": "UNESCO-Welterbe in der Nähe"
+      },
+      "community": {
+        "title": "Einladende Gemeinschaft",
+        "description": "Schließen Sie sich einer wachsenden Expat-Gemeinschaft an und erleben Sie authentische mexikanische Gastfreundschaft und herzliche lokale Verbindungen.",
+        "detail": "1.000+ aktive Expat-Mitglieder"
+      },
+      "recognition": {
+        "title": "Mexikos 2. beste Stadt zum Leben",
+        "description": "Von IMCO anerkannt für Lebensqualität, Sicherheit und Möglichkeiten",
+        "cta": "Mehr erfahren"
+      }
+    },
+    "places": {
+      "badge": "Kuratierte Erlebnisse",
+      "title": "Versteckte Juwelen entdecken",
+      "description": "Handverlesen von Einheimischen und Auswanderern, die die Stadt am besten kennen",
+      "viewAll": "Alle Orte ansehen",
+      "featured": "Empfohlen",
+      "discoverMore": "Mehr entdecken"
+    },
+    "events": {
+      "badge": "Was los ist",
+      "title": "Kulturkalender",
+      "description": "Von Kunstausstellungen bis zu traditionellen Festen",
+      "viewAll": "Alle Veranstaltungen ansehen",
+      "until": "Bis"
+    },
+    "culture": {
+      "badge": "Kulturelles Erbe",
+      "title": "Traditionen & Geschichte",
+      "description": "Entdecken Sie San Luis Potosís reiches kulturelles Erbe und Traditionen, die diese Stadt wirklich besonders machen",
+      "history": {
+        "title": "Historisches Erbe",
+        "description": "Entdecken Sie die Kolonialarchitektur und historische Bedeutung dieser UNESCO-nahen Stadt"
+      },
+      "festivals": {
+        "title": "Kulturfestivals",
+        "description": "Ganzjährige Feiern und traditionelle Veranstaltungen, die die Gemeinschaft zusammenbringen"
+      },
+      "language": {
+        "title": "Lokale Sprache",
+        "description": "Spanisch-Lernressourcen und kulturelle Nuancen zur Integration"
+      },
+      "viewCalendar": "Veranstaltungskalender ansehen",
+      "bookTour": "Kulturtour buchen",
+      "colonialArch": "Kolonialarchitektur",
+      "traditionalFestivals": "Traditionelle Feste",
+      "localArtisans": "Lokale Kunsthandwerker"
+    },
+    "outdoors": {
+      "badge": "Jenseits der Stadt",
+      "title": "Naturwunder erwarten Sie",
+      "description": "Von mystischen Geisterstädten bis zu tropischen Wasserfällen - entdecken Sie die außergewöhnlichen Landschaften rund um San Luis Potosí",
+      "cta": "Alle Abenteuer erkunden",
+      "hiking": {
+        "title": "Wanderwege",
+        "description": "Erkunden Sie malerische Bergpfade und Naturlandschaften",
+        "linkText": "Wege finden",
+        "badge": "Abenteuer"
+      },
+      "camping": {
+        "title": "Campingplätze",
+        "description": "Entdecken Sie wunderschöne Campingplätze in der Sierra Madre Oriental",
+        "linkText": "Plätze ansehen",
+        "badge": "Natur"
+      },
+      "realCatorce": {
+        "title": "Real de Catorce",
+        "description": "Besuchen Sie diese historische Geisterstadt und UNESCO-Welterbestätte",
+        "linkText": "Besuch planen",
+        "badge": "Historisch"
+      },
+      "mediaLuna": {
+        "title": "Media Luna",
+        "description": "Kristallklares Wasser perfekt zum Schwimmen und Schnorcheln",
+        "linkText": "Mehr erfahren",
+        "badge": "Schwimmen"
+      },
+      "huasteca": {
+        "title": "Huasteca Potosina",
+        "description": "Tropisches Paradies mit Wasserfällen und Dschungelabenteuern",
+        "linkText": "Erkunden",
+        "badge": "Wasserfälle"
+      },
+      "xilitla": {
+        "title": "Xilitla",
+        "description": "Surreale Gärten und architektonische Wunder im Nebelwald",
+        "linkText": "Entdecken",
+        "badge": "Surreal"
+      }
+    },
+    "dining": {
+      "badge": "Kulinarische Szene",
+      "title": "Genießen Sie die Aromen",
+      "description": "Von traditioneller Potosino-Küche bis zu modernen Fusionsrestaurants und trendigen Cocktailbars",
+      "traditional": {
+        "title": "Traditionelle Küche",
+        "description": "Authentische Potosino-Restaurants mit Enchiladas Potosinas, Zacahuil und regionalen Spezialitäten",
+        "link": "Traditionelles erkunden"
+      },
+      "modern": {
+        "title": "Modernes Dining",
+        "description": "Zeitgenössische Restaurants mit Fusionsküche, Farm-to-Table-Erlebnissen und innovativen Kreationen",
+        "link": "Moderne Lokale ansehen"
+      },
+      "cocktails": {
+        "title": "Cocktailbars",
+        "description": "Trendige Bars mit Craft-Cocktails, lokalem Mezcal und lebhaftem Nachtleben",
+        "link": "Ihre Bar finden"
+      },
+      "terraces": {
+        "title": "Dachterrassen",
+        "description": "Atemberaubende Rooftop-Locations mit Panoramablick und Dining im Freien",
+        "link": "Terrassen ansehen"
+      },
+      "cantinas": {
+        "title": "Cantinas",
+        "description": "Authentische Cantinas mit traditioneller Atmosphäre, kostenlosen Botanas und Mariachi",
+        "link": "Cantinas besuchen"
+      },
+      "liveMusic": {
+        "title": "Live-Musik",
+        "description": "Veranstaltungsorte mit Live-Aufführungen von Jazz bis Rock, Mariachi bis Elektronik",
+        "link": "Live-Musik finden"
+      }
+    },
+    "brands": {
+      "badge": "Made in SLP",
+      "title": "Potosino-Marken",
+      "description": "Authentische Marken aus San Luis Potosí, die lokale Kreativität und Handwerkskunst zeigen",
+      "discoverBrand": "Marke entdecken",
+      "exploreAll": "Alle Marken erkunden"
+    },
+    "practical": {
+      "badge": "Nützliche Ressourcen",
+      "title": "Praktische Führer",
+      "description": "Wichtige Informationen für Familien und das tägliche Leben in San Luis Potosí",
+      "family": {
+        "title": "Familienaktivitäten",
+        "description": "Spaß mit Kindern in San Luis Potosí",
+        "badge": "Familie"
+      },
+      "rainyDay": {
+        "title": "Regentag-Aktivitäten",
+        "description": "Indoor-Spaß bei schlechtem Wetter",
+        "badge": "Indoor"
+      },
+      "playgrounds": {
+        "title": "Restaurants mit Spielplätzen",
+        "description": "Esslokale, wo Kinder sicher spielen können",
+        "badge": "Gastronomie"
+      },
+      "healthcare": {
+        "title": "Englischsprachige Gesundheitsversorgung",
+        "description": "Medizinische Dienste für die internationale Gemeinschaft",
+        "badge": "Gesundheit"
+      },
+      "markets": {
+        "title": "Internationale Märkte",
+        "description": "Wo man importierte Waren und Spezialitäten findet",
+        "badge": "Einkaufen"
+      },
+      "parking": {
+        "title": "Einfache Parkplätze",
+        "description": "Parkführer für das Stadtzentrum",
+        "badge": "Praktisch"
+      }
+    },
+    "cta": {
+      "title1": "Bereit, Ihre",
+      "title2": "San Luis Potosí Reise zu beginnen?",
+      "description": "Schließen Sie sich unserer Gemeinschaft von Auswanderern und Reisenden an, die die Kunst des Lebens in Mexikos verstecktem Juwel entdecken",
+      "assistance": "Persönliche Beratung erhalten",
+      "community": "Der Gemeinschaft beitreten",
+      "stats": {
+        "businesses": "Verifizierte Unternehmen",
+        "members": "Aktive Mitglieder",
+        "ranking": "Beste Stadt in Mexiko"
+      }
+    },
+    "disclaimer": {
+      "title": "Unabhängiger Führer:",
+      "text": "San Luis Way wurde von Einheimischen erstellt, die diese Stadt lieben. Unser Ziel ist es, Neuankömmlingen zu helfen, San Luis Potosí zu navigieren und die Kultur zu entdecken, die wir schätzen. Die hier vorgestellten Unternehmen und Dienstleistungen sind persönliche Empfehlungen basierend auf unseren eigenen positiven Erfahrungen — wir sind nicht mit ihnen verbunden, bei ihnen angestellt oder finanziell mit ihnen verbunden. Obwohl wir uns bemühen, genaue und hilfreiche Informationen bereitzustellen, ist San Luis Way nicht verantwortlich für Produkte, Dienstleistungen oder Erfahrungen, die von Dritten angeboten werden."
+    }
+  },
+  "tangamanga": {
+    "title": "Tangamanga-Park",
+    "subtitle": "Die grüne Lunge von San Luis Potosí - Wo Natur auf Abenteuer trifft",
+    "hours": "Öffnungszeiten",
+    "hoursMon": "Mo: 6-11 Uhr",
+    "hoursTueSun": "Di-So: 6-20 Uhr",
+    "admission": "Eintritt",
+    "freeEntry": "Kostenloser Eintritt",
+    "location": "Standort",
+    "size": "Größe",
+    "hectares": "420+ Hektar",
+    "history": {
+      "title": "Geschichte & kulturelle Bedeutung",
+      "meaningTitle": "Die Bedeutung von \"Tangamanga\"",
+      "meaningText": "Der Name \"Tangamanga\" stammt aus der Huachichil-Sprache, einem indigenen Volk, das einst die Region bewohnte. Er bedeutet \"Treffpunkt\" oder \"Ort der Versammlung\" und spiegelt die Rolle des Parks als zentraler sozialer und kultureller Mittelpunkt der Gemeinschaft wider.",
+      "creationTitle": "Entstehung und Entwicklung",
+      "creationText": "Der 1980 eingeweihte Tangamanga-Park wurde als Teil eines ehrgeizigen Stadtentwicklungsprojekts geschaffen, um Grünflächen für Erholung und Freizeit zu bieten. Das Projekt war eine Antwort auf den wachsenden Bedarf an öffentlichen Räumen in San Luis Potosí, da die Stadt eine rasche Urbanisierung erlebte.",
+      "impactTitle": "Kulturelle Bedeutung",
+      "impactText": "Im Laufe der Jahre ist der Tangamanga-Park zu viel mehr als nur einer Grünfläche geworden. Er hat sich zu einem grundlegenden Treffpunkt für die Potosino-Gemeinschaft entwickelt und beherbergt unzählige kulturelle Veranstaltungen, Festivals und Gemeinschaftsaktivitäten."
+    },
+    "attractions": {
+      "title": "Hauptattraktionen",
+      "naturalTitle": "Naturräume",
+      "natural1": "Botanischer Garten mit vielfältigen Pflanzenarten",
+      "natural2": "Künstlicher See für Bootsfahrten",
+      "natural3": "Wege zum Wandern und Radfahren",
+      "natural4": "Picknickplätze und Grills",
+      "sportsTitle": "Sportanlagen",
+      "sports1": "Sportplätze (Fußball, Volleyball, Basketball)",
+      "sports2": "Skatepark",
+      "sports3": "Laufstrecken",
+      "sports4": "Kletterbereich"
+    },
+    "activities": {
+      "title": "Aktivitäten & Veranstaltungen",
+      "sportsTitle": "Sport",
+      "sports1": "Outdoor-Yoga-Kurse",
+      "sports2": "Lauf- und Wandergruppen",
+      "sports3": "Zumba- und Tanzkurse",
+      "sports4": "Mannschaftssporttraining",
+      "sports5": "Klettern",
+      "cultureTitle": "Kultur",
+      "culture1": "Freiluft-Theateraufführungen",
+      "culture2": "Konzerte im Amphitheater",
+      "culture3": "Kunstausstellungen",
+      "culture4": "Umweltbildungs-Workshops",
+      "culture5": "Kulturfestivals",
+      "familyTitle": "Familie",
+      "family1": "Kinderspielplatz",
+      "family2": "Bootsfahrten auf dem See",
+      "family3": "Führungen durch den botanischen Garten",
+      "family4": "Umweltbildungsaktivitäten",
+      "family5": "Familienfeste"
+    },
+    "biodiversity": {
+      "title": "Biodiversität",
+      "text": "Der Park beherbergt eine reiche Vielfalt an Flora und Fauna. Auf seinen mehr als 420 Hektar finden Sie verschiedene Arten einheimischer Bäume, Zug- und Standvögel sowie kleine Säugetiere und Reptilien. Der botanische Garten ist besonders wichtig für die Erhaltung endemischer Arten der Region."
+    },
+    "services": {
+      "title": "Dienstleistungen",
+      "parking": "Parkplatz",
+      "restrooms": "Toiletten",
+      "food": "Imbissstände",
+      "bikeRental": "Fahrradverleih"
+    },
+    "tips": {
+      "title": "Besuchertipps",
+      "tip1": "Sonnenschutz und Wasser mitbringen",
+      "tip2": "Bequeme Schuhe tragen",
+      "tip3": "Am Wochenende früh ankommen",
+      "tip4": "Veranstaltungskalender prüfen",
+      "tip5": "Ausgewiesene Bereiche respektieren",
+      "tip6": "Keinen Müll hinterlassen"
+    }
+  },
+  "circleOfTrust": {
+    "badge": "Unser Versprechen",
+    "title": "Der Vertrauenskreis",
+    "description1": "Alles, was wir auf San Luis Way empfehlen, ist",
+    "highlight": "sicher und von Einheimischen empfohlen",
+    "description2": "Wir sind kein generisches Verzeichnis - wir sind eine kuratierte Gemeinschaft von Orten, die wir kennen und denen wir vertrauen.",
+    "description3": "Jeder Ort auf unserer Plattform wurde",
+    "highlight2": "besucht, getestet und genehmigt",
+    "description4": "von Einheimischen. Wir akzeptieren nicht jedes Unternehmen - nur solche, die unseren Standards für Qualität, Service und Authentizität entsprechen.",
+    "stats": {
+      "verified": "Verifiziert",
+      "randomPlaces": "Zufällige Orte",
+      "first": "Erste"
+    },
+    "features": {
+      "curatedByLocals": {
+        "title": "Von Einheimischen kuratiert",
+        "description": "Jede Empfehlung kommt von jemandem, der in SLP lebt und die Stadt kennt"
+      },
+      "safetyGuaranteed": {
+        "title": "Sicherheit garantiert",
+        "description": "Nur Orte in sicheren Zonen mit gutem Ruf in der Gemeinschaft"
+      },
+      "qualityOverQuantity": {
+        "title": "Qualität vor Quantität",
+        "description": "Wir bevorzugen weniger hochwertige Orte als ein endloses ungefiltertes Verzeichnis"
+      }
+    }
+  },
+  "todayInSLP": {
+    "title": "Was Sie heute wissen müssen",
+    "weather": "Wetter",
+    "humidity": "Luftfeuchtigkeit",
+    "wind": "Wind",
+    "traffic": "Verkehr",
+    "trafficNormal": "Normaler Fluss",
+    "trafficSlow": "Langsamer Verkehr",
+    "noAlerts": "Keine Warnungen in der Stadt",
+    "alerts": "aktive Warnungen",
+    "events": "Veranstaltungen heute",
+    "eventsCount": "Veranstaltungen",
+    "viewEvents": "Alle Veranstaltungen ansehen →",
+    "tipOfDay": "Tipp des Tages",
+    "updatedAt": "Aktualisiert um",
+    "seeMore": "Mehr sehen"
+  },
+  "blog": {
+    "title": "Aus dem Blog",
+    "subtitle": "Geschichten, Tipps und Einblicke ins Leben in San Luis Potosí"
+  },
+  "centroHistoricoBanner": {
+    "badge": "Herz der Stadt",
+    "title": "Historisches Zentrum",
+    "description": "Entdecken Sie das koloniale Herz von San Luis Potosí: majestätische Plätze, Architektur aus dem 16. Jahrhundert, legendäre Cantinas, charmante Restaurants und ein lebendiges Kulturleben, das Sie verzaubern wird.",
+    "cta": "Zentrum erkunden"
+  },
+  "centroHistorico": {
+    "seo": {
+      "title": "Historisches Zentrum San Luis Potosí | Kompletter Expat-Führer",
+      "description": "Erkunden Sie das historische Zentrum von San Luis Potosí: Geschichte, Kolonialarchitektur, beste Restaurants, Bars, Märkte und versteckte Juwelen. Ihr kompletter Expat-Führer."
+    },
+    "title": "Historisches Zentrum",
+    "subtitle": "Das koloniale Herz von San Luis Potosí - Wo Geschichte lebendig wird",
+    "badge": "Kulturerbe",
+    "intro": {
+      "title": "Willkommen im Herzen von San Luis Potosí",
+      "paragraph1": "Das historische Zentrum ist viel mehr als eine Sammlung alter Gebäude: Es ist die lebendige Seele der Stadt. Jeder Platz, jede Gasse, jede rosa Steinquader-Fassade erzählt eine Geschichte, die über vier Jahrhunderte zurückreicht.",
+      "paragraph2": "Hier koexistieren Vergangenheit und Gegenwart in perfekter Harmonie. Während Sie die Majestät der Kolonialarchitektur bewundern, können Sie Spezialitätenkaffee in einem Innenhof aus dem 18. Jahrhundert genießen, zeitgenössische Kunstgalerien erkunden oder die beste Gastronomie der Stadt erleben.",
+      "stat1": "Historische Gebäude",
+      "stat2": "Jahre Geschichte",
+      "stat3": "Gründungsjahr"
+    },
+    "quickInfo": {
+      "location": "Standort",
+      "locationValue": "Stadtzentrum",
+      "bestTime": "Beste Zeit",
+      "bestTimeValue": "Morgens & Sonnenuntergänge",
+      "safety": "Sicherheit",
+      "safetyValue": "Sehr sichere Zone",
+      "founded": "Gegründet"
+    },
+    "history": {
+      "title": "Geschichte & Erbe",
+      "cathedralAlt": "Kathedrale von San Luis Potosí",
+      "originsTitle": "Koloniale Ursprünge",
+      "originsText": "1592 gegründet, entstand San Luis Potosí dank des Bergbaureichtums der Region. Das historische Zentrum bewahrt die Essenz von über vier Jahrhunderten Geschichte, mit barocken, neoklassizistischen und kolonialen Gebäuden, die von der Größe Neuspaniens erzählen.",
+      "architectureTitle": "Außergewöhnliche Architektur",
+      "architectureText": "Das historische Zentrum ist ein Freilichtmuseum mit über 1.500 katalogisierten historischen Gebäuden. Der rosa Steinquader, charakteristisch für die Stadt, schmückt die Fassaden von Tempeln, Herrenhäusern und Regierungsgebäuden. Jede Straße offenbart architektonische Schätze, die Sie in eine andere Ära versetzen.",
+      "todayTitle": "Ein lebendiges Zentrum",
+      "todayText": "Weit davon entfernt, ein eingefrorenes Museum zu sein, pulsiert das historische Zentrum vor Leben. Cafés in kolonialen Innenhöfen, zeitgenössische Kunstgalerien in Gebäuden aus dem 18. Jahrhundert und Gourmetrestaurants in alten Herrenhäusern schaffen eine einzigartige Fusion zwischen Vergangenheit und Gegenwart."
+    },
+    "pointsOfInterest": {
+      "title": "Sehenswürdigkeiten",
+      "landmarksTitle": "Unbedingt sehen",
+      "landmark1": "Plaza de Armas - Das Herz der Stadt mit seinem Kiosk und Gärten",
+      "landmark2": "Metropolitankathedrale - Barockes Juwel aus dem 17. Jahrhundert",
+      "landmark3": "Teatro de la Paz - Eines der schönsten Theater Mexikos",
+      "landmark4": "Carmen-Kirche - Churriguereskes Meisterwerk",
+      "landmark5": "Regierungspalast - Lebendige Geschichte mit Fernando Leal Wandmalereien",
+      "museumsTitle": "Museen & Kultur",
+      "museum1": "Nationales Maskenmuseum - Einzigartige Sammlung in Mexiko",
+      "museum2": "Federico Silva Museum - Zeitgenössische Kunst in der Alten Hacienda",
+      "museum3": "Vizekönigliches Museum - Kolonialgeschichte",
+      "museum4": "Kunstzentrum - Ausstellungen und Workshops"
+    },
+    "gastronomy": {
+      "title": "Gastronomie & Nachtleben",
+      "intro": "Das historische Zentrum ist ein gastronomisches Paradies, wo Tradition und Innovation aufeinandertreffen. Von jahrhundertealten Cantinas bis zu Autorenküche-Restaurants bietet jede Ecke ein unvergessliches kulinarisches Erlebnis.",
+      "restaurantsTitle": "Empfohlene Restaurants",
+      "restaurant1": "La Gran Vía - Traditionelle Küche und historisches Ambiente seit 1940",
+      "restaurant2": "Café Pacífico - Klassiker seit 1943",
+      "restaurant3": "La Oruga y la Cebada - Autorenküche",
+      "restaurant4": "Restaurante 1913 - Feine mexikanische Küche",
+      "restaurant5": "La Posadita - Mexikanische Küche und Bohème-Atmosphäre",
+      "barsTitle": "Bars & Cantinas",
+      "bar1": "Chau! Resto - Cocktails und moderne Atmosphäre",
+      "bar2": "Bar Atómico - Kreative Cocktails im Zentrum",
+      "bar3": "Bar Progreso - Craft-Cocktails",
+      "bar4": "Catrina Rooftop - Terrasse mit Panoramablick",
+      "bar5": "El Callejón del Beso - Bar in historischer Gasse",
+      "marketsTitle": "Traditionelle Märkte",
+      "market1": "Mercado Hidalgo - Der Hauptmarkt seit 1906",
+      "market2": "Mercado República - Kunsthandwerk und Street Food",
+      "market3": "Sonntags-Tianguis - Antiquitäten und Kuriositäten",
+      "market4": "Mercado 16 de Septiembre - Frische Produkte"
+    },
+    "nightlife": {
+      "title": "Unterhaltung & Nachtleben",
+      "text": "Wenn die Sonne untergeht, verwandelt sich das historische Zentrum. Die Plätze leuchten auf, Straßenmusiker erscheinen und Bars öffnen ihre Türen. Von Konzerten im Teatro de la Paz bis zu Jazz-Nächten in kolonialen Innenhöfen bietet das Zentrum Unterhaltung für jeden Geschmack. An Wochenenden füllen sich die Fußgängerstraßen mit Leben durch kulturelle Veranstaltungen, Gastronomiemessen und künstlerische Aufführungen.",
+      "tourTitle": "Bar-Tour durchs Zentrum",
+      "tourText": "Eine der besten Nachtleben-Erfahrungen ist die Bar-Zone zu Fuß zu erkunden. Innerhalb weniger Blocks finden Sie:",
+      "spot1": "El Ricardito - Beste Vinyl- und Musikbar der Stadt, klein aber unglaubliche Atmosphäre",
+      "spot2": "Rockabilly - Rockmusik und Retro-Atmosphäre",
+      "spot3": "Las Bóvedas - Einzigartiger Raum in historischer Architektur",
+      "spot4": "Toxic - Alternative und Party-Atmosphäre",
+      "tourTip": "Alles zu Fuß erreichbar, perfekt für eine sichere und unterhaltsame Bar-Tour."
+    },
+    "shopping": {
+      "title": "Einkaufen & Kunsthandwerk",
+      "artisansTitle": "Potosino-Kunsthandwerk",
+      "artisansText": "Das historische Zentrum ist der beste Ort, um authentisches regionales Kunsthandwerk zu finden. Vom berühmten Santa María del Río Rebozo bis zu hochwertigem Lederhandwerk erzählt jedes Stück eine Geschichte handwerklicher Tradition.",
+      "item1": "Santa María del Río Rebozos - Jahrhundertealte Textiltradition",
+      "item2": "Lederarbeiten und Lederwaren - Gürtel, Taschen, Sättel",
+      "item3": "Traditionelle Süßigkeiten - Queso de tuna, Charamuscas, Glorias",
+      "item4": "Keramik und Talavera - Einzigartige Dekorationsstücke"
+    },
+    "hiddenGems": {
+      "title": "Geheimnisse des Zentrums",
+      "intro": "Jenseits der touristischen Orte birgt das historische Zentrum Geheimnisse, die nur Einheimische kennen. Hier enthüllen wir einige unserer Favoriten.",
+      "gem1Title": "Callejón del Cardo",
+      "gem1Text": "Ein versteckter Durchgang mit Kunstgalerien und Bohème-Cafés. Perfekt für einen ruhigen Nachmittag der Erkundung.",
+      "gem2Title": "Koloniale Innenhöfe",
+      "gem2Text": "Viele Gebäude bewahren spektakuläre Innenhöfe. Treten Sie ein, um Brunnen, Gärten und intime Architektur zu bewundern.",
+      "gem3Title": "Goldene Stunde",
+      "gem3Text": "Bei Sonnenuntergang leuchtet der rosa Steinquader in warmen Tönen. Die beste Zeit für Fotografie an der Plaza de Armas.",
+      "gem4Title": "Sonntage im Zentrum",
+      "gem4Text": "Straßen werden für Verkehr gesperrt. Familien, Radfahrer und Fußgänger übernehmen die Straßen in festlicher Atmosphäre."
+    },
+    "practical": {
+      "title": "Praktische Informationen",
+      "gettingThere": "Anreise",
+      "gettingThereText": "Uber und Taxi sind die bequemsten Optionen. Das Zentrum ist sehr gut zu Fuß erkundbar, sobald Sie ankommen.",
+      "parking": "Parken",
+      "parkingText": "Mehrere öffentliche Parkplätze rund um das Zentrum. Fußgängerstraßen meiden.",
+      "safetyInfo": "Sicherheit",
+      "safetyInfoText": "Das historische Zentrum ist eine der sichersten Gegenden der Stadt, mit ständiger Patrouille und guter Beleuchtung."
+    },
+    "tips": {
+      "title": "Besuchertipps",
+      "tip1": "Bequeme Schuhe tragen - Straßen sind gepflastert",
+      "tip2": "Wochentags besuchen, um Menschenmengen zu vermeiden",
+      "tip3": "Sonntags weniger Autos und mehr Fußgängerleben",
+      "tip4": "Bargeld für Märkte und Straßenverkäufer mitbringen",
+      "tip5": "Einheimische nach Empfehlungen fragen - sie sind sehr freundlich",
+      "tip6": "Die Gassen erkunden - dort sind die versteckten Juwelen"
+    },
+    "funFacts": {
+      "title": "Interessante Fakten",
+      "fact1": "Das historische Zentrum hat über 1.500 als Kulturerbe katalogisierte Gebäude.",
+      "fact2": "Der rosa Steinquader, der die Gebäude schmückt, wird aus lokalen Steinbrüchen gewonnen und ist einzigartig in Mexiko.",
+      "fact3": "Benito Juárez etablierte hier 1863 während der französischen Intervention Mexikos Hauptstadt.",
+      "fact4": "Das Teatro de la Paz wurde 1894 eingeweiht und gilt als eines der schönsten Theater Lateinamerikas."
+    },
+    "cafes": {
+      "title": "Cafés zum Ausruhen",
+      "intro": "Nach dem Spaziergang sind diese Cafés perfekt zum Aufladen:",
+      "cafe1": "Café Pacífico - Klassiker seit 1943",
+      "cafe2": "Barista del Portal - Spezialitätenkaffee",
+      "cafe3": "Café La Parroquia - Potosino-Tradition",
+      "cafe4": "Cocolatte - Handwerkliche Schokolade und Kaffee"
+    },
+    "events": {
+      "title": "Jährliche Veranstaltungen",
+      "event1Title": "Festival de San Luis",
+      "event1Date": "August - Regionale Messe mit Musik und Gastronomie",
+      "event2Title": "Heilige Woche",
+      "event2Date": "März/April - Stille Prozessionen",
+      "event3Title": "Tag der Toten",
+      "event3Date": "November - Altäre und Feiern",
+      "event4Title": "Lichterfest",
+      "event4Date": "Dezember - Weihnachtsbeleuchtung",
+      "event5Title": "Viernes de Dolores",
+      "event5Date": "Fastenzeit - Einzigartige Altar-Tradition"
+    },
+    "streets": {
+      "title": "Fußgängerstraßen",
+      "intro": "Die besten Straßen zum autofrei Spazieren und Erkunden:",
+      "street1": "Calle Hidalgo - Die Hauptader",
+      "street2": "Jardín Guerrero - Platz mit Cafés",
+      "street3": "Callejón de San Francisco - Bohème-Atmosphäre",
+      "street4": "Plaza del Carmen - Von Geschichte umgeben"
+    },
+    "cta": {
+      "title": "Bereit zum Erkunden?",
+      "text": "Entdecken Sie mehr empfohlene Orte im historischen Zentrum und in der ganzen Stadt.",
+      "button": "Alle Orte ansehen"
+    },
+    "closing": {
+      "badge": "Starten Sie Ihr Abenteuer",
+      "title": "Das historische Zentrum wartet",
+      "description": "Gehen Sie über gepflasterte Straßen, die Zeugen von Jahrhunderten Geschichte waren. Entdecken Sie, warum das historische Zentrum das schlagende Herz von San Luis Potosí ist.",
+      "primaryCta": "Alle Orte erkunden",
+      "secondaryCta": "Mehr im Blog lesen",
+      "feature1": "Atemberaubende Kolonialarchitektur",
+      "feature2": "Weltklasse-Gastronomie",
+      "feature3": "Lebendiges Kulturleben"
+    }
+  }
+}

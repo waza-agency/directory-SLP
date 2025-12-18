@@ -63,7 +63,11 @@
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Redesign subscribe page for higher conversion\n\n- Simplified form: removed name field, email only\n- Added social proof badge: \"Join 2,847+ readers\"\n- Added urgency: \"Next issue: Monday, [date]\" dynamic badge\n- Improved CTAs: \"Get Monday 's Issue\" instead of generic \"Subscribe\"\n- Added glow/pulse animation on form for visual focus\n- Added fade-in animations on page load\n- Streamlined benefits to 4 key items\n- Added trust badges: \"Free forever\", \"No credit card\", \"Unsubscribe anytime\"\n- Removed testimonials section for cleaner funnel\n- Updated micro-copy for persuasion\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
       "WebFetch(domain:www.numbeo.com)",
       "Bash(git checkout:*)",
-      "WebFetch(domain:www.artepotosino.org)"
+      "WebFetch(domain:www.artepotosino.org)",
+      "Bash(node scripts/publish-arte-potosino-post.js:*)",
+      "Bash(node scripts/publish-immigration-guide-post.js:*)",
+      "Bash(node -e:*)",
+      "Bash(mkdir:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

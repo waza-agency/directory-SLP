@@ -4,6 +4,63 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-17] Update: Centro Histórico Page Images
+
+**Descripción:**
+Actualización de todas las imágenes de la página Centro Histórico y el banner del home con nuevas fotografías de alta calidad.
+
+**Archivos modificados:**
+- `src/pages/centro-historico.tsx` (9 imágenes actualizadas)
+- `src/components/CentroHistoricoBanner.tsx` (1 imagen actualizada)
+
+**Imágenes agregadas en `/public/images/blog/centro-san-luis/`:**
+- `hero-Centro-Historico.jpg` - Hero principal de la página
+- `Metropolitan_Cathedral_-_San_Luis_Potosi_-_Mexico_.jpg` - Catedral
+- `point-of-interest-teatro-de-la-paz.jpg` - Teatro de la Paz
+- `Museo-Laberinto-de-las-Ciencias-y-las-Artes.jpg` - Museo Laberinto
+- `resaturante-san-luis-potosi.jpg` - Restaurantes
+- `bars-san-luis-potosi.jpg` - Bares
+- `Mercado-Hidalgo-san-luis-potosi.jpg` - Mercado Hidalgo
+- `nightlife-san-luis-potosi.jpeg` - Vida nocturna
+- `tiendas-artesanias-san-luis-potosi.jpeg` - Tiendas/Artesanías
+- `centro-san-luis-potosi-home.jpg` - Banner del home
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-17] Feature: Automated News Headlines Ticker
+
+**Descripción:**
+Implementación de sistema automático para actualizar las noticias del ticker en la homepage cada 4 horas.
+
+**Cambios realizados:**
+1. **Nueva tabla Supabase:** `news_headlines` con campos para ES/EN, source, priority, expires_at
+2. **API actualizada:** `dashboard-data.ts` ahora incluye headlines desde Supabase
+3. **Componente actualizado:** `TodayInSLP.tsx` usa headlines dinámicas del API
+4. **Cron job:** Endpoint `/api/cron/update-headlines` para actualización automática
+5. **Vercel cron:** `vercel.json` configurado para ejecutar cada 4 horas
+6. **Script manual:** `scripts/update-headlines.js` para actualizaciones manuales
+
+**Archivos creados:**
+- `scripts/create-news-headlines-table.sql` (SQL para crear tabla)
+- `src/pages/api/cron/update-headlines.ts` (cron endpoint)
+- `vercel.json` (configuración cron)
+- `scripts/update-headlines.js` (script manual)
+
+**Archivos modificados:**
+- `src/types/supabase.ts` (tipos de tabla)
+- `src/lib/api/dashboard-data.ts` (fetch headlines)
+- `src/components/TodayInSLP.tsx` (usar headlines del API)
+
+**Variables de entorno requeridas:**
+- `CRON_SECRET` (para seguridad del cron)
+- `NEWS_API_KEY` (opcional, para NewsAPI.org)
+
+**Estado:** ⏳ Pendiente crear tabla en Supabase
+
+---
+
 ## [2025-12-16] Internationalization: Arte Potosino Blog Post - Full English Version
 
 **Descripción:**
@@ -2733,3 +2790,38 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 **Estado final:** 127 lugares en la base de datos
 
 **Resultado:** ✅ Exitoso
+
+
+---
+
+## [2025-12-17] Agregar idioma alemán para internacionalización
+
+**Descripción:** Se agregó soporte completo para el idioma alemán (de) como tercer idioma del sitio, sumándose al inglés y español existentes.
+
+**Archivos creados:**
+- `public/locales/de/common.json` - Archivo de traducciones al alemán (~710 líneas)
+
+**Archivos modificados:**
+- `next-i18next.config.js` - Agregado 'de' al array de locales
+- `src/components/LanguageSwitcher.tsx` - Agregada bandera 🇩🇪 y nombre "Deutsch"
+- `src/pages/_document.tsx` - Agregado hreflang tag para alemán + español
+
+**Cambios realizados:**
+1. Creación del archivo de traducción alemán con todas las secciones:
+   - Navegación, categorías, búsqueda
+   - Footer, formularios, servicios
+   - Wellness, Pet Care, Home Services, Family Support
+   - Homepage completa (hero, benefits, places, events, culture, outdoors, dining, brands, practical, CTA)
+   - Tangamanga Park
+   - Circle of Trust
+   - Today in SLP
+   - Blog
+   - Centro Histórico Banner y página completa
+
+2. Configuración i18n actualizada para reconocer el locale 'de'
+
+3. LanguageSwitcher actualizado con la bandera alemana y nombre del idioma
+
+4. SEO internacional mejorado con hreflang tags para los tres idiomas
+
+**Resultado:** ✅ Exitoso - Build completado sin errores

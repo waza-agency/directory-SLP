@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/update-headlines",
+      "schedule": "0 */4 * * *"
+    }
+  ]
+}

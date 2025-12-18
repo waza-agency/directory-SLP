@@ -28,7 +28,7 @@ export default function CentroHistoricoBanner() {
           </div>
           <div className="flex-1 relative h-64 md:h-96">
             <Image
-              src="/images/centro-historico/banner.jpg"
+              src="/images/blog/centro-san-luis/centro-san-luis-potosi-home.jpg"
               alt={t('centroHistoricoBanner.title')}
               fill
               className="object-cover rounded-lg shadow-xl"

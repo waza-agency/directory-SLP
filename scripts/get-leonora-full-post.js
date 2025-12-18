@@ -29,4 +29,4 @@ async function getFullPost() {
   console.log('- Content length:', data.content?.length, 'characters');
 }
 
-getFullPost().catch(console.error);
+getFullPost().cah(console.error);

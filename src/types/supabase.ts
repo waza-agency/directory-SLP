@@ -231,6 +231,44 @@ export interface Database {
           updated_at?: string
         }
       }
+      news_headlines: {
+        Row: {
+          id: string
+          text_es: string
+          text_en: string
+          source: string | null
+          source_url: string | null
+          active: boolean
+          priority: number
+          created_at: string
+          updated_at: string
+          expires_at: string | null
+        }
+        Insert: {
+          id?: string
+          text_es: string
+          text_en: string
+          source?: string | null
+          source_url?: string | null
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+          expires_at?: string | null
+        }
+        Update: {
+          id?: string
+          text_es?: string
+          text_en?: string
+          source?: string | null
+          source_url?: string | null
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+          expires_at?: string | null
+        }
+      }
     }
     Views: {
       [_ in never]: never

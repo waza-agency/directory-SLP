@@ -5,11 +5,13 @@ import { useState, useRef, useEffect } from 'react';
 const languageFlags: Record<string, string> = {
   en: '🇺🇸',
   es: '🇲🇽',
+  de: '🇩🇪',
 };
 
 const languageNames: Record<string, string> = {
   en: 'English',
   es: 'Español',
+  de: 'Deutsch',
 };
 
 interface LanguageSwitcherProps {

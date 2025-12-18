@@ -41,7 +41,7 @@ export default function CentroHistorico() {
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full">
         <Image
-          src="/images/centro-historico/hero.jpg"
+          src="/images/blog/centro-san-luis/hero-Centro-Historico.jpg"
           alt={t('centroHistorico.title')}
           fill
           className="object-cover object-center"
@@ -208,7 +208,7 @@ export default function CentroHistorico() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
                   <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden">
                     <Image
-                      src="/images/centro-historico/cathedral.jpg"
+                      src="/images/blog/centro-san-luis/Metropolitan_Cathedral_-_San_Luis_Potosi_-_Mexico_.jpg"
                       alt={t('centroHistorico.history.cathedralAlt')}
                       fill
                       className="object-cover object-center"
@@ -246,7 +246,7 @@ export default function CentroHistorico() {
                 <div>
                   <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden mb-6">
                     <Image
-                      src="/images/centro-historico/plaza-armas.jpg"
+                      src="/images/blog/centro-san-luis/point-of-interest-teatro-de-la-paz.jpg"
                       alt={t('centroHistorico.pointsOfInterest.landmarksTitle')}
                       fill
                       className="object-cover object-center"
@@ -279,7 +279,7 @@ export default function CentroHistorico() {
                 <div>
                   <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden mb-6">
                     <Image
-                      src="/images/centro-historico/museums.jpg"
+                      src="/images/blog/centro-san-luis/Museo-Laberinto-de-las-Ciencias-y-las-Artes.jpg"
                       alt={t('centroHistorico.pointsOfInterest.museumsTitle')}
                       fill
                       className="object-cover object-center"
@@ -321,7 +321,7 @@ export default function CentroHistorico() {
                 <div>
                   <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden mb-6">
                     <Image
-                      src="/images/centro-historico/restaurants.jpg"
+                      src="/images/blog/centro-san-luis/resaturante-san-luis-potosi.jpg"
                       alt={t('centroHistorico.gastronomy.restaurantsTitle')}
                       fill
                       className="object-cover object-center"
@@ -341,7 +341,7 @@ export default function CentroHistorico() {
                 <div>
                   <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden mb-6">
                     <Image
-                      src="/images/centro-historico/bars.jpg"
+                      src="/images/blog/centro-san-luis/bars-san-luis-potosi.jpg"
                       alt={t('centroHistorico.gastronomy.barsTitle')}
                       fill
                       className="object-cover object-center"
@@ -361,7 +361,7 @@ export default function CentroHistorico() {
                 <div>
                   <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden mb-6">
                     <Image
-                      src="/images/centro-historico/markets.jpg"
+                      src="/images/blog/centro-san-luis/Mercado-Hidalgo-san-luis-potosi.jpg"
                       alt={t('centroHistorico.gastronomy.marketsTitle')}
                       fill
                       className="object-cover object-center"
@@ -392,7 +392,7 @@ export default function CentroHistorico() {
                 </p>
                 <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
                   <Image
-                    src="/images/centro-historico/nightlife.jpg"
+                    src="/images/blog/centro-san-luis/nightlife-san-luis-potosi.jpeg"
                     alt={t('centroHistorico.nightlife.title')}
                     fill
                     className="object-cover object-center"
@@ -437,7 +437,7 @@ export default function CentroHistorico() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
                 <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden">
                   <Image
-                    src="/images/centro-historico/shopping.jpg"
+                    src="/images/blog/centro-san-luis/tiendas-artesanias-san-luis-potosi.jpeg"
                     alt={t('centroHistorico.shopping.title')}
                     fill
                     className="object-cover object-center"
