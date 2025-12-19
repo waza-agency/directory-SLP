@@ -6,6 +6,13 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+/**
+ * Performs an SEO audit of blog posts and prints per-post findings and an aggregated summary to the console.
+ *
+ * Fetches rows from the `blog_posts` table and checks each post for presence and quality of key SEO fields:
+ * meta_title, meta_description, tags, image_url, excerpt, category, and title length. Emits a list of issues
+ * per post, counts by issue category, and an overall SEO score with a brief qualitative assessment.
+ */
 async function auditBlogSEO() {
   console.log('🔍 Auditing Blog Posts SEO...\n');
 

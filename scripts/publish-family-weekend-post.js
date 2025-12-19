@@ -52,6 +52,14 @@ const postData = {
   meta_description: "Itinerario completo de 2 días para familias: Tangamanga, go-karts, museo interactivo, trampolines, boliche, Ciclovía y restaurantes con área de juegos en SLP."
 };
 
+/**
+ * Publish or update the family weekend itinerary blog post in the Supabase `blog_posts` table.
+ *
+ * If a post with the same slug exists, updates that record; otherwise inserts a new record.
+ * On failure the function logs the error and terminates the process with exit code 1.
+ *
+ * @returns {Object} The created or updated blog post record.
+ */
 async function publishPost() {
   console.log('Publishing family weekend itinerary post...');
   console.log('Slug:', postData.slug);
