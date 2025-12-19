@@ -44,10 +44,17 @@ const postData = {
   status: "published",
   published_at: new Date().toISOString(),
   created_at: new Date().toISOString(),
-  meta_title: "Guide to Mexico Immigration from SLP | Visa & Residency 2025",
+  meta_title: "Guide to Mexico Immigration from SLP | Visa & Residency 2024",
   meta_description: "Complete guide to navigating Mexico's immigration system from San Luis Potosí. Step-by-step visa process, INM office info, costs, timeline & insider tips for expats."
 };
 
+/**
+ * Publish or update the immigration guide blog post identified by postData.slug.
+ *
+ * If a post with the slug exists, it will be updated; otherwise a new post will be inserted.
+ * On error the process logs the error and exits with code 1.
+ * @returns {Object} The created or updated blog post record.
+ */
 async function publishPost() {
   console.log('Publishing immigration guide post...');
   console.log('Slug:', postData.slug);

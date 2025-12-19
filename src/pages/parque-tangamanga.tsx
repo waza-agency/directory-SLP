@@ -12,6 +12,15 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   };
 };
 
+/**
+ * Page component that renders the Parque Tangamanga informational layout.
+ *
+ * Renders a hero image and a multi-section content area (ranking highlight, quick info cards,
+ * history, attractions, activities, biodiversity, sustainability) alongside a sidebar with services
+ * and tips. Text and image alt text are sourced from the 'common' translation namespace.
+ *
+ * @returns The React element for the Parque Tangamanga page
+ */
 export default function ParqueTangamanga() {
   const { t } = useTranslation('common');
 
