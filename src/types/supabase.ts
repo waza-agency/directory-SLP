@@ -269,6 +269,56 @@ export interface Database {
           expires_at?: string | null
         }
       }
+      community_news: {
+        Row: {
+          id: string
+          title_es: string
+          title_en: string
+          summary_es: string
+          summary_en: string
+          category: 'social' | 'community' | 'culture' | 'local'
+          image_url: string | null
+          source: string | null
+          priority: number
+          active: boolean
+          published_at: string
+          expires_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title_es: string
+          title_en: string
+          summary_es: string
+          summary_en: string
+          category?: 'social' | 'community' | 'culture' | 'local'
+          image_url?: string | null
+          source?: string | null
+          priority?: number
+          active?: boolean
+          published_at?: string
+          expires_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title_es?: string
+          title_en?: string
+          summary_es?: string
+          summary_en?: string
+          category?: 'social' | 'community' | 'culture' | 'local'
+          image_url?: string | null
+          source?: string | null
+          priority?: number
+          active?: boolean
+          published_at?: string
+          expires_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

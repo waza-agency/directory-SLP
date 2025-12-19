@@ -9,9 +9,13 @@ import {
   NewspaperIcon,
   MapPinIcon,
   ClockIcon,
-  TruckIcon
+  TruckIcon,
+  UserGroupIcon,
+  HeartIcon,
+  SparklesIcon,
+  BuildingOfficeIcon
 } from '@heroicons/react/24/outline';
-import type { WeatherData, ExchangeRate, NewsHeadline } from '@/lib/api/dashboard-data';
+import type { WeatherData, ExchangeRate, NewsHeadline, CommunityNews } from '@/lib/api/dashboard-data';
 
 interface TodayEvent {
   id: string;
@@ -33,6 +37,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate[]>([]);
   const [headlines, setHeadlines] = useState<NewsHeadline[]>([]);
+  const [communityNews, setCommunityNews] = useState<CommunityNews[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch dashboard data from API
@@ -45,6 +50,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           if (data.weather) setWeather(data.weather);
           if (data.exchangeRates?.length) setExchangeRates(data.exchangeRates);
           if (data.headlines?.length) setHeadlines(data.headlines);
+          if (data.communityNews?.length) setCommunityNews(data.communityNews);
         }
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error);
@@ -100,13 +106,41 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
         text: locale === 'es' ? h.textEs : h.textEn
       }))
     : [
-        { id: '1', text: locale === 'es' ? 'Cargando noticias...' : 'Loading news...' }
+        { id: '1', text: t('todayInSLP.loadingNews') }
       ];
 
-  const dailyTip = {
-    en: "December tip: The Historic Center's Christmas lights display runs until January 6. Best viewed after 7pm!",
-    es: "Tip de diciembre: La iluminación navideña del Centro Histórico estará hasta el 6 de enero. ¡Mejor después de las 7pm!"
-  };
+  const dailyTip = t('todayInSLP.dailyTip');
+
+  // Default community news fallback
+  const defaultCommunityNews: CommunityNews[] = [
+    {
+      id: '1',
+      titleEs: 'Mercado Tangamanga celebra su 5to aniversario',
+      titleEn: 'Tangamanga Market celebrates 5th anniversary',
+      summaryEs: 'El mercado artesanal más querido de SLP festeja con actividades especiales este fin de semana.',
+      summaryEn: "SLP's beloved artisan market celebrates with special activities this weekend.",
+      category: 'community',
+      publishedAt: new Date().toISOString()
+    },
+    {
+      id: '2',
+      titleEs: 'Nueva ruta ciclista conecta Lomas con el Centro',
+      titleEn: 'New bike route connects Lomas to Downtown',
+      summaryEs: 'La ciclovía de 8km promete facilitar el transporte sustentable en la ciudad.',
+      summaryEn: 'The 8km bike lane promises to facilitate sustainable transportation in the city.',
+      category: 'local',
+      publishedAt: new Date().toISOString()
+    },
+    {
+      id: '3',
+      titleEs: 'Voluntarios limpian el Parque de Morales',
+      titleEn: 'Volunteers clean up Morales Park',
+      summaryEs: 'Más de 200 ciudadanos participaron en la jornada de limpieza comunitaria.',
+      summaryEn: 'Over 200 citizens participated in the community cleanup day.',
+      category: 'social',
+      publishedAt: new Date().toISOString()
+    }
+  ];
 
   const getWeatherIcon = (condition?: string) => {
     switch (condition) {
@@ -134,7 +168,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             <span className="text-secondary text-sm font-semibold">San Luis Potosí</span>
           </div>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            {locale === 'es' ? 'Lo que necesitas saber hoy' : 'What you need to know today'}
+            {t('todayInSLP.title')}
           </h2>
           <p className="text-gray-500 capitalize">{formatDate(currentDate)}</p>
         </div>
@@ -174,7 +208,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                 </div>
               </>
             ) : (
-              <p className="text-sm text-gray-500">{locale === 'es' ? 'No disponible' : 'Not available'}</p>
+              <p className="text-sm text-gray-500">{t('todayInSLP.notAvailable')}</p>
             )}
           </div>
 
@@ -183,7 +217,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             <div className="flex items-start justify-between mb-3">
               <span className="text-3xl">{currentCurrency.flag}</span>
               <span className="text-xs font-medium text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">
-                {locale === 'es' ? 'En vivo' : 'Live'}
+                {t('todayInSLP.live')}
               </span>
             </div>
             {isLoading ? (
@@ -209,7 +243,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                 </div>
               </>
             ) : (
-              <p className="text-sm text-gray-500">{locale === 'es' ? 'No disponible' : 'Not available'}</p>
+              <p className="text-sm text-gray-500">{t('todayInSLP.notAvailable')}</p>
             )}
           </div>
 
@@ -223,11 +257,11 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             </div>
             <p className="text-4xl font-bold text-gray-900 mb-1">{currentTime || '--:--'}</p>
             <p className="text-sm text-gray-600 mb-2">
-              {locale === 'es' ? 'Hora local' : 'Local time'}
+              {t('todayInSLP.localTime')}
             </p>
             <Link href="/events" className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-medium">
               <CalendarDaysIcon className="w-3 h-3" />
-              {todayEvents.length > 0 ? `${todayEvents.length} ${locale === 'es' ? 'eventos hoy' : 'events today'}` : (locale === 'es' ? 'Ver calendario' : 'View calendar')}
+              {todayEvents.length > 0 ? `${todayEvents.length} ${t('todayInSLP.eventsToday')}` : t('todayInSLP.viewCalendar')}
             </Link>
           </div>
 
@@ -237,11 +271,11 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               <div className="flex items-center gap-2">
                 <TruckIcon className="w-5 h-5 text-cyan-600" />
                 <span className="text-sm font-semibold text-gray-900">
-                  {locale === 'es' ? 'Tráfico' : 'Traffic'}
+                  {t('todayInSLP.traffic')}
                 </span>
               </div>
               <span className="text-xs font-medium text-cyan-600 bg-cyan-100 px-2 py-0.5 rounded-full">
-                {locale === 'es' ? 'En vivo' : 'Live'}
+                {t('todayInSLP.live')}
               </span>
             </div>
             <div className="relative rounded-xl overflow-hidden h-28 mb-2">
@@ -259,7 +293,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-1 w-full py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium rounded-lg transition-colors"
             >
-              {locale === 'es' ? 'Ver tráfico en vivo' : 'View live traffic'}
+              {t('todayInSLP.viewLiveTraffic')}
               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
@@ -275,10 +309,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             </div>
             <div>
               <p className="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-1">
-                {locale === 'es' ? 'Tip del día' : 'Tip of the day'}
+                {t('todayInSLP.tipOfDay')}
               </p>
               <p className="text-gray-700">
-                {locale === 'es' ? dailyTip.es : dailyTip.en}
+                {dailyTip}
               </p>
             </div>
           </div>
@@ -290,7 +324,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             <div className="flex-shrink-0 bg-white/20 px-4 py-3 flex items-center gap-2">
               <NewspaperIcon className="w-5 h-5 text-white" />
               <span className="text-white font-bold text-sm whitespace-nowrap">
-                {locale === 'es' ? 'NOTICIAS SLP' : 'SLP NEWS'}
+                {t('todayInSLP.slpNews')}
               </span>
             </div>
             <div className="flex-1 overflow-hidden py-3">
@@ -303,6 +337,54 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Community News Section */}
+        <div className="mt-6">
+          <div className="flex items-center gap-2 mb-4">
+            <UserGroupIcon className="w-5 h-5 text-secondary" />
+            <h3 className="font-semibold text-gray-800">
+              {t('todayInSLP.communityLife')}
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {(communityNews.length > 0 ? communityNews : defaultCommunityNews).map((news) => (
+              <div
+                key={news.id}
+                className="bg-white rounded-xl p-4 shadow-md border border-gray-100 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
+                    news.category === 'social' ? 'bg-rose-100' :
+                    news.category === 'community' ? 'bg-emerald-100' :
+                    news.category === 'culture' ? 'bg-violet-100' :
+                    'bg-blue-100'
+                  }`}>
+                    {news.category === 'social' && <HeartIcon className="w-5 h-5 text-rose-600" />}
+                    {news.category === 'community' && <UserGroupIcon className="w-5 h-5 text-emerald-600" />}
+                    {news.category === 'culture' && <SparklesIcon className="w-5 h-5 text-violet-600" />}
+                    {news.category === 'local' && <BuildingOfficeIcon className="w-5 h-5 text-blue-600" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className={`text-xs font-semibold uppercase tracking-wider ${
+                      news.category === 'social' ? 'text-rose-600' :
+                      news.category === 'community' ? 'text-emerald-600' :
+                      news.category === 'culture' ? 'text-violet-600' :
+                      'text-blue-600'
+                    }`}>
+                      {t(`todayInSLP.${news.category}`)}
+                    </span>
+                    <h4 className="font-semibold text-gray-900 text-sm mt-1 line-clamp-2">
+                      {locale === 'es' ? news.titleEs : news.titleEn}
+                    </h4>
+                    <p className="text-gray-600 text-xs mt-1 line-clamp-2">
+                      {locale === 'es' ? news.summaryEs : news.summaryEn}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

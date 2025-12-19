@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { EnvelopeIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'next-i18next';
 
 interface NewsletterSignupProps {
   variant?: 'footer' | 'inline' | 'modal';
@@ -10,6 +11,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
   variant = 'footer',
   className = ''
 }) => {
+  const { t } = useTranslation('common');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
@@ -19,7 +21,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
     if (!email || !email.includes('@')) {
       setStatus('error');
-      setMessage('Please enter a valid email address');
+      setMessage(t('newsletter.invalidEmail'));
       return;
     }
 
@@ -40,10 +42,10 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
       setStatus('success');
       setMessage(data.alreadySubscribed
-        ? 'You\'re already subscribed!'
+        ? t('newsletter.alreadySubscribed')
         : data.resubscribed
-          ? 'Welcome back! You\'ve been resubscribed.'
-          : 'Thanks for subscribing! Check your inbox for a welcome email.');
+          ? t('newsletter.welcomeBack')
+          : t('newsletter.thankYou'));
       setEmail('');
 
       setTimeout(() => {
@@ -53,7 +55,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
     } catch (error) {
       setStatus('error');
-      setMessage(error instanceof Error ? error.message : 'Oops! Something went wrong. Please try again.');
+      setMessage(error instanceof Error ? error.message : t('newsletter.errorGeneric'));
     }
   };
 
@@ -66,10 +68,10 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
         <div className="max-w-md">
           <h3 className="text-lg font-semibold text-white mb-2 flex items-center">
             <EnvelopeIcon className="h-5 w-5 mr-2" />
-            Stay in the Loop
+            {t('newsletter.stayInLoop')}
           </h3>
           <p className="text-gray-300 text-sm mb-4">
-            Get weekly updates on new places, events, and expat tips delivered to your inbox.
+            {t('newsletter.weeklyUpdates')}
           </p>
         </div>
       )}
@@ -77,10 +79,10 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       {inlineStyles && (
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            Join 1,000+ Expats
+            {t('newsletter.joinExpats')}
           </h2>
           <p className="text-lg text-gray-600">
-            Get the best of San Luis Potosí delivered weekly
+            {t('newsletter.bestOfSLP')}
           </p>
         </div>
       )}
@@ -95,7 +97,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="your.email@example.com"
+            placeholder={t('newsletter.emailPlaceholder')}
             className={`
               w-full px-4 py-3 rounded-lg border
               ${footerStyles ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-300 text-gray-900'}
@@ -121,7 +123,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
             ${status === 'loading' ? 'animate-pulse' : ''}
           `}
         >
-          {status === 'loading' ? 'Subscribing...' : status === 'success' ? 'Subscribed!' : 'Subscribe'}
+          {status === 'loading' ? t('newsletter.subscribing') : status === 'success' ? t('newsletter.subscribed') : t('newsletter.subscribe')}
         </button>
       </form>
 
@@ -143,7 +145,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
       {footerStyles && (
         <p className="text-xs text-gray-400 mt-3">
-          We respect your privacy. Unsubscribe at any time.
+          {t('newsletter.privacyNote')}
         </p>
       )}
     </div>

@@ -67,7 +67,8 @@
       "Bash(node scripts/publish-arte-potosino-post.js:*)",
       "Bash(node scripts/publish-immigration-guide-post.js:*)",
       "Bash(node -e:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm install:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

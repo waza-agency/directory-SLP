@@ -4,6 +4,134 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-18] Feature: Blog Internationalization Complete
+
+**Descripción:**
+Internacionalización completa de todas las páginas del blog y componentes relacionados para soportar inglés, español y alemán.
+
+**Archivos modificados:**
+- `src/pages/blog/index.tsx` - i18n para SEO, hero, categorías, badges, fechas
+- `src/pages/blog/[slug].tsx` - i18n para etiquetas
+- `src/pages/blog/factchecks/index.tsx` - i18n completo del sistema de fact-checking
+- `src/components/NewsletterBanner.tsx` - i18n para todas las variantes (hero, mid-content, sticky, minimal, blog-end)
+- `public/locales/en/common.json` - Nuevas claves blog.*, factchecks.*, newsletterBanner.*
+- `public/locales/es/common.json` - Traducciones en español
+- `public/locales/de/common.json` - Traducciones en alemán
+
+**Nuevas claves de traducción:**
+- `blog.*` - Títulos SEO, hero, badges, categorías, mensajes
+- `factchecks.*` - Sistema completo de fact-checking (scores, metodología, colaboración)
+- `newsletterBanner.*` - Todas las variantes del banner de newsletter
+
+**Características:**
+- Fechas formateadas según locale (en-US, es-MX, de-DE)
+- Subcomponentes refactorizados para recibir función `t()` como parámetro
+- Eliminado enfoque bilingüe (EN/ES lado a lado) en favor de i18n apropiado
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-18] Feature: Complete German (de) Internationalization
+
+**Descripción:**
+Implementación completa del idioma alemán (de) para internacionalización del sitio. Incluye configuración del sistema i18n, todas las traducciones, y actualización de componentes con texto hardcodeado.
+
+**Características:**
+- Nuevo idioma alemán disponible en el selector de idiomas con bandera 🇩🇪
+- Traducciones completas de todo el contenido del sitio
+- Fechas formateadas según locale (de-DE para alemán)
+- hreflang tags para SEO internacional
+
+**Archivos creados:**
+- `public/locales/de/common.json` (~810 líneas de traducciones alemanas)
+
+**Archivos modificados:**
+- `next-i18next.config.js` - Agregado 'de' a locales
+- `src/components/LanguageSwitcher.tsx` - Agregado alemán con bandera
+- `src/pages/_document.tsx` - Agregado hreflang para alemán
+- `public/locales/en/common.json` - Nuevas claves de traducción
+- `public/locales/es/common.json` - Nuevas claves de traducción
+- `src/components/PlaceCard.tsx` - i18n para "Featured" y "View Details"
+- `src/components/PlaceModal.tsx` - i18n para tabs y mensajes
+- `src/components/ServiceCards.tsx` - i18n completo del componente
+- `src/components/NewsletterSignup.tsx` - i18n completo del componente
+- `src/components/TodayInSLP.tsx` - i18n para dashboard de noticias
+- `src/components/BlogCarousel.tsx` - i18n y fechas según locale
+
+**Nuevas claves de traducción agregadas:**
+- `placeCard.*` - Tarjetas de lugares
+- `placeModal.*` - Modal de detalles de lugar
+- `serviceCards.*` - Tarjetas de servicios
+- `newsletter.*` - Formulario de suscripción
+- `todayInSLP.*` - Dashboard "What you need to know today"
+- `blogCarousel.*` - Carrusel de blog
+- `betaBanner.*` - Banner de versión beta
+- `categories.*` - Categorías de noticias
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-18] Feature: AI-Powered News Updates
+
+**Descripción:**
+Sistema automatizado que usa Claude AI para generar y actualizar noticias del cintillo y noticias comunitarias cada 4 horas.
+
+**Características:**
+- Claude AI genera 3 noticias comunitarias + 5 titulares para el cintillo
+- Noticias realistas y positivas sobre San Luis Potosí
+- Actualización automática cada 4 horas via Netlify Scheduled Functions
+- Fallback a noticias por defecto si la IA falla
+- Soporte bilingüe ES/EN
+
+**Archivos creados/modificados:**
+- `src/pages/api/cron/update-headlines.ts` (integración con Anthropic API)
+- `netlify/functions/scheduled-news-update.ts` (función scheduled de Netlify)
+- `netlify.toml` (configuración del cron cada 4 horas)
+
+**Variables de entorno requeridas (Netlify):**
+- `ANTHROPIC_API_KEY` - API key de Anthropic para Claude
+- `CRON_SECRET` - Secret para autenticar llamadas del cron
+
+**Endpoint:**
+- `/api/cron/update-headlines` - Ejecuta la actualización de noticias
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-17] Feature: Community News Section in Dashboard
+
+**Descripción:**
+Nueva sección de noticias comunitarias/sociales en el dashboard "What you need to know today" del home. Muestra 3 noticias enfocadas en vida comunitaria, eventos sociales, cultura y noticias locales positivas.
+
+**Características:**
+- 3 tarjetas de noticias con categorías visuales (Social, Community, Culture, Local)
+- Iconos y colores diferenciados por categoría
+- Soporte bilingüe ES/EN
+- Sistema de fallback con noticias por defecto
+- Actualización cada 4 horas (integrado con sistema de cron existente)
+
+**Archivos creados:**
+- `scripts/create-community-news-table.sql` (SQL para crear tabla en Supabase)
+- `scripts/update-community-news.js` (Script manual para actualizar noticias)
+
+**Archivos modificados:**
+- `src/lib/api/dashboard-data.ts` (Nuevo tipo CommunityNews + fetchCommunityNews)
+- `src/components/TodayInSLP.tsx` (Nueva sección visual de noticias comunitarias)
+- `src/types/supabase.ts` (Tipos para tabla community_news)
+
+**Categorías disponibles:**
+- `social` - Noticias sociales (color rosa)
+- `community` - Noticias comunitarias (color verde)
+- `culture` - Noticias culturales (color violeta)
+- `local` - Noticias locales (color azul)
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-17] Update: Centro Histórico Page Images
 
 **Descripción:**

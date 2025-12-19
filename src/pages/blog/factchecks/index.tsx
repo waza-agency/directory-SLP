@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import { motion } from 'framer-motion';
 import {
   CheckCircleIcon,
@@ -90,23 +91,23 @@ export const getStaticProps: GetStaticProps<FactChecksPageProps> = async ({ loca
   };
 };
 
-function ScoreBadge({ score }: { score: string }) {
+function ScoreBadge({ score, t }: { score: string; t: (key: string) => string }) {
   const numericScore = parseFloat(score);
   let colorClass = 'bg-gray-100 text-gray-800 ring-gray-200';
-  let label = 'Unknown';
+  let labelKey = 'factchecks.unreliable';
 
   if (numericScore >= 8) {
     colorClass = 'bg-gradient-to-r from-green-50 to-emerald-50 text-green-800 ring-green-200';
-    label = 'Highly Reliable';
+    labelKey = 'factchecks.highlyReliable';
   } else if (numericScore >= 6) {
     colorClass = 'bg-gradient-to-r from-yellow-50 to-amber-50 text-yellow-800 ring-yellow-200';
-    label = 'Moderately Reliable';
+    labelKey = 'factchecks.moderatelyReliable';
   } else if (numericScore >= 4) {
     colorClass = 'bg-gradient-to-r from-orange-50 to-red-50 text-orange-800 ring-orange-200';
-    label = 'Low Reliability';
+    labelKey = 'factchecks.lowReliability';
   } else if (numericScore > 0) {
     colorClass = 'bg-gradient-to-r from-red-50 to-pink-50 text-red-800 ring-red-200';
-    label = 'Unreliable';
+    labelKey = 'factchecks.unreliable';
   }
 
   return (
@@ -114,12 +115,12 @@ function ScoreBadge({ score }: { score: string }) {
       <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold ring-2 ${colorClass}`}>
         {score}/10
       </span>
-      <span className="text-xs text-gray-500 font-medium">{label}</span>
+      <span className="text-xs text-gray-500 font-medium">{t(labelKey)}</span>
     </div>
   );
 }
 
-function FactCheckCard({ factcheck, index }: { factcheck: FactCheck; index: number }) {
+function FactCheckCard({ factcheck, index, t }: { factcheck: FactCheck; index: number; t: (key: string) => string }) {
   const percentage = factcheck.totalClaims > 0
     ? Math.round((factcheck.trueCount / factcheck.totalClaims) * 100)
     : 0;
@@ -141,12 +142,12 @@ function FactCheckCard({ factcheck, index }: { factcheck: FactCheck; index: numb
                 <h2 className="text-xl font-bold text-gray-900 line-clamp-2 flex-1 group-hover:text-blue-600 transition-colors">
                   {factcheck.title}
                 </h2>
-                <ScoreBadge score={factcheck.reliabilityScore} />
+                <ScoreBadge score={factcheck.reliabilityScore} t={t} />
               </div>
 
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-5">
                 <DocumentMagnifyingGlassIcon className="w-4 h-4" />
-                <span>Verified: {factcheck.verificationDate}</span>
+                <span>{t('factchecks.verified')}: {factcheck.verificationDate}</span>
               </div>
 
               <div className="grid grid-cols-3 gap-3 mb-5">
@@ -154,21 +155,21 @@ function FactCheckCard({ factcheck, index }: { factcheck: FactCheck; index: numb
                   <CheckCircleIcon className="w-5 h-5 text-green-600 flex-shrink-0" />
                   <div className="flex flex-col">
                     <span className="text-lg font-bold text-green-700">{factcheck.trueCount}</span>
-                    <span className="text-xs text-green-600">True</span>
+                    <span className="text-xs text-green-600">{t('factchecks.true')}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-50 border border-yellow-100">
                   <ShieldCheckIcon className="w-5 h-5 text-yellow-600 flex-shrink-0" />
                   <div className="flex flex-col">
                     <span className="text-lg font-bold text-yellow-700">{factcheck.partiallyTrueCount}</span>
-                    <span className="text-xs text-yellow-600">Partial</span>
+                    <span className="text-xs text-yellow-600">{t('factchecks.partial')}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50 border border-gray-200">
                   <MagnifyingGlassIcon className="w-5 h-5 text-gray-500 flex-shrink-0" />
                   <div className="flex flex-col">
                     <span className="text-lg font-bold text-gray-700">{factcheck.unverifiableCount}</span>
-                    <span className="text-xs text-gray-600">Unclear</span>
+                    <span className="text-xs text-gray-600">{t('factchecks.unclear')}</span>
                   </div>
                 </div>
               </div>
@@ -178,15 +179,15 @@ function FactCheckCard({ factcheck, index }: { factcheck: FactCheck; index: numb
                   <ChartBarIcon className="w-5 h-5 text-gray-400" />
                   <div>
                     <div className="text-sm font-semibold text-gray-900">
-                      {factcheck.totalClaims} claims analyzed
+                      {factcheck.totalClaims} {t('factchecks.claimsAnalyzed')}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {percentage}% verified true
+                      {percentage}% {t('factchecks.verifiedTrue')}
                     </div>
                   </div>
                 </div>
                 <span className="text-sm text-blue-600 font-semibold group-hover:gap-2 flex items-center gap-1 transition-all">
-                  Read report
+                  {t('factchecks.readReport')}
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -200,7 +201,7 @@ function FactCheckCard({ factcheck, index }: { factcheck: FactCheck; index: numb
   );
 }
 
-function ReliabilityLegend() {
+function ReliabilityLegend({ t }: { t: (key: string) => string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -210,96 +211,56 @@ function ReliabilityLegend() {
     >
       <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
         <LightBulbIcon className="w-6 h-6 text-blue-600" />
-        Reliability Score Guide
+        {t('factchecks.reliabilityGuide')}
       </h3>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">English</h4>
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-green-800">8-10</span>
-              </div>
-              <span className="text-sm text-gray-700">Highly Reliable - Most claims verified with primary sources</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-yellow-800">6-7.9</span>
-              </div>
-              <span className="text-sm text-gray-700">Moderately Reliable - Some claims need additional verification</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-orange-800">4-5.9</span>
-              </div>
-              <span className="text-sm text-gray-700">Low Reliability - Multiple unverified claims</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-red-800">&lt;4</span>
-              </div>
-              <span className="text-sm text-gray-700">Unreliable - Majority of claims cannot be verified</span>
-            </div>
+      <div className="space-y-2">
+        <div className="flex items-center gap-3">
+          <div className="w-16 h-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-lg flex items-center justify-center">
+            <span className="text-xs font-bold text-green-800">8-10</span>
           </div>
+          <span className="text-sm text-gray-700">{t('factchecks.highlyReliable')} - {t('factchecks.highlyReliableDesc')}</span>
         </div>
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">Español</h4>
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-green-800">8-10</span>
-              </div>
-              <span className="text-sm text-gray-700">Alta Confiabilidad - Mayoría verificada con fuentes primarias</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-yellow-800">6-7.9</span>
-              </div>
-              <span className="text-sm text-gray-700">Confiabilidad Moderada - Algunas afirmaciones requieren verificación</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-orange-800">4-5.9</span>
-              </div>
-              <span className="text-sm text-gray-700">Baja Confiabilidad - Múltiples afirmaciones sin verificar</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-8 bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs font-bold text-red-800">&lt;4</span>
-              </div>
-              <span className="text-sm text-gray-700">No Confiable - Mayoría de afirmaciones no verificables</span>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="w-16 h-8 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-lg flex items-center justify-center">
+            <span className="text-xs font-bold text-yellow-800">6-7.9</span>
           </div>
+          <span className="text-sm text-gray-700">{t('factchecks.moderatelyReliable')} - {t('factchecks.moderatelyReliableDesc')}</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-16 h-8 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg flex items-center justify-center">
+            <span className="text-xs font-bold text-orange-800">4-5.9</span>
+          </div>
+          <span className="text-sm text-gray-700">{t('factchecks.lowReliability')} - {t('factchecks.lowReliabilityDesc')}</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-16 h-8 bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-lg flex items-center justify-center">
+            <span className="text-xs font-bold text-red-800">&lt;4</span>
+          </div>
+          <span className="text-sm text-gray-700">{t('factchecks.unreliable')} - {t('factchecks.unreliableDesc')}</span>
         </div>
       </div>
     </motion.div>
   );
 }
 
-function MethodologyCard() {
+function MethodologyCard({ t }: { t: (key: string) => string }) {
   const steps = [
     {
       icon: BeakerIcon,
-      titleEn: 'AI-Powered Analysis',
-      titleEs: 'Análisis con IA',
-      descEn: 'Specialized AI agents scan and analyze current web information',
-      descEs: 'Agentes de IA especializados escanean y analizan información web actual',
+      titleKey: 'factchecks.aiAnalysis',
+      descKey: 'factchecks.aiAnalysisDesc',
       color: 'blue'
     },
     {
       icon: MagnifyingGlassIcon,
-      titleEn: 'Source Verification',
-      titleEs: 'Verificación de Fuentes',
-      descEn: 'Each claim is checked against government data, academic sources, and reputable outlets',
-      descEs: 'Cada afirmación se verifica con datos gubernamentales, fuentes académicas y medios reconocidos',
+      titleKey: 'factchecks.sourceVerification',
+      descKey: 'factchecks.sourceVerificationDesc',
       color: 'purple'
     },
     {
       icon: ChartBarIcon,
-      titleEn: 'Scoring & Reports',
-      titleEs: 'Puntuación e Informes',
-      descEn: 'Comprehensive reports with reliability scores and primary source links',
-      descEs: 'Informes completos con puntuaciones de confiabilidad y enlaces a fuentes primarias',
+      titleKey: 'factchecks.scoringReports',
+      descKey: 'factchecks.scoringReportsDesc',
       color: 'indigo'
     }
   ];
@@ -314,9 +275,8 @@ function MethodologyCard() {
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5">
         <h2 className="text-2xl font-bold text-white flex items-center gap-3">
           <BeakerIcon className="w-7 h-7" />
-          Our Methodology
+          {t('factchecks.methodology')}
         </h2>
-        <p className="text-blue-100 mt-1">Nuestra Metodología</p>
       </div>
 
       {/* Proprietary AI Tools Banner */}
@@ -329,18 +289,11 @@ function MethodologyCard() {
           </div>
           <div className="flex-1">
             <p className="text-sm text-indigo-900 leading-relaxed">
-              <strong>Our AI verification tools are developed in-house</strong> by the San Luis Way team in collaboration with{' '}
+              <strong>{t('factchecks.proprietaryTools')}</strong> {t('factchecks.proprietaryToolsDesc')}{' '}
               <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="font-semibold text-purple-700 hover:text-purple-900 underline decoration-purple-300 hover:decoration-purple-500 transition-colors">
                 waza.baby
               </a>
-              . We continuously improve our algorithms to ensure more accurate and comprehensive fact-checking.
-            </p>
-            <p className="text-sm text-indigo-700 mt-2 leading-relaxed">
-              <strong>Nuestras herramientas de verificación con IA son desarrolladas internamente</strong> por el equipo de San Luis Way en colaboración con{' '}
-              <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="font-semibold text-purple-700 hover:text-purple-900 underline decoration-purple-300 hover:decoration-purple-500 transition-colors">
-                waza.baby
-              </a>
-              . Mejoramos continuamente nuestros algoritmos para asegurar una verificación más precisa y completa.
+              . {t('factchecks.proprietaryToolsContinue')}
             </p>
           </div>
         </div>
@@ -361,10 +314,8 @@ function MethodologyCard() {
                 <div className={`w-12 h-12 bg-${step.color}-600 rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
                   <step.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1">{step.titleEn}</h3>
-                <h4 className="text-sm font-semibold text-gray-600 mb-2">{step.titleEs}</h4>
-                <p className="text-sm text-gray-700 mb-2">{step.descEn}</p>
-                <p className="text-sm text-gray-600">{step.descEs}</p>
+                <h3 className="font-bold text-gray-900 mb-2">{t(step.titleKey)}</h3>
+                <p className="text-sm text-gray-700">{t(step.descKey)}</p>
               </div>
             </motion.div>
           ))}
@@ -374,7 +325,7 @@ function MethodologyCard() {
   );
 }
 
-function CollaborationBanner() {
+function CollaborationBanner({ t }: { t: (key: string) => string }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -391,36 +342,20 @@ function CollaborationBanner() {
           </div>
           <div className="flex-1">
             <h2 className="text-2xl font-bold text-amber-900 mb-3">
-              Collaborate With Us / Colabora con Nosotros
+              {t('factchecks.collaborate')}
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <p className="text-amber-800 mb-3 leading-relaxed">
-                  We acknowledge that some historical or statistical data cannot always be verified with absolute certainty.
-                  Information about San Luis Potosí is constantly evolving.
-                </p>
-                <p className="text-amber-800 mb-4 leading-relaxed">
-                  If you have <strong>verified information, primary sources, or official documentation</strong>,
-                  we would love to hear from you. We are committed to building the most complete and accurate information base about our region.
-                </p>
-              </div>
-              <div>
-                <p className="text-amber-800 mb-3 leading-relaxed">
-                  Reconocemos que algunos datos históricos o estadísticos no siempre pueden verificarse con certeza absoluta.
-                  La información sobre San Luis Potosí está en constante evolución.
-                </p>
-                <p className="text-amber-800 mb-4 leading-relaxed">
-                  Si cuentas con <strong>información verificada, fuentes primarias o documentación oficial</strong>,
-                  nos encantaría escucharte. Estamos comprometidos con construir la base de información más completa y precisa sobre nuestra región.
-                </p>
-              </div>
-            </div>
+            <p className="text-amber-800 mb-3 leading-relaxed">
+              {t('factchecks.collaborateIntro')}
+            </p>
+            <p className="text-amber-800 mb-4 leading-relaxed">
+              {t('factchecks.collaborateAction')}
+            </p>
 
             <Link href="/contact" legacyBehavior>
               <a className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                 <UsersIcon className="w-5 h-5" />
-                Contact us to collaborate / Contáctanos para colaborar
+                {t('factchecks.contactCollaborate')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -434,11 +369,13 @@ function CollaborationBanner() {
 }
 
 export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
+  const { t } = useTranslation('common');
+
   return (
     <>
       <SEO
-        title="Fact-Check Reports | San Luis Way"
-        description="Transparent fact-checking using AI agents. We verify claims with primary sources and welcome community collaboration to build the most accurate information about San Luis Potosí."
+        title={t('factchecks.seoTitle')}
+        description={t('factchecks.seoDescription')}
         keywords="fact check, verification, sources, transparency, san luis potosi, AI, artificial intelligence"
       />
 
@@ -484,37 +421,30 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
               </motion.div>
 
               <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-                Fact-Check Reports
-                <span className="block text-2xl md:text-3xl font-semibold text-blue-200 mt-3">
-                  Informes de Verificación
-                </span>
+                {t('factchecks.heroTitle')}
               </h1>
 
               <p className="text-xl md:text-2xl text-blue-100 mb-4 leading-relaxed">
-                Transparency matters. Truth matters.
+                {t('factchecks.heroTagline')}
               </p>
               <p className="text-lg md:text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
-                We verify every claim in our articles using AI-powered analysis and share our sources
-                so you can check them yourself. Because credibility is built on evidence, not promises.
+                {t('factchecks.heroDescription')}
               </p>
 
               <div className="flex flex-wrap justify-center gap-6 mt-10">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/20">
                   <div className="text-3xl font-bold text-white">{factchecks.length}</div>
-                  <div className="text-sm text-blue-200">Reports Published</div>
-                  <div className="text-xs text-blue-300">Informes Publicados</div>
+                  <div className="text-sm text-blue-200">{t('factchecks.reportsPublished')}</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/20">
                   <div className="text-3xl font-bold text-white">
                     {factchecks.reduce((acc, fc) => acc + fc.totalClaims, 0)}
                   </div>
-                  <div className="text-sm text-blue-200">Claims Verified</div>
-                  <div className="text-xs text-blue-300">Afirmaciones Verificadas</div>
+                  <div className="text-sm text-blue-200">{t('factchecks.claimsVerified')}</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/20">
                   <div className="text-3xl font-bold text-white">100%</div>
-                  <div className="text-sm text-blue-200">Transparency</div>
-                  <div className="text-xs text-blue-300">Transparencia</div>
+                  <div className="text-sm text-blue-200">{t('factchecks.transparency')}</div>
                 </div>
               </div>
             </motion.div>
@@ -524,9 +454,9 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
         {/* Main Content */}
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="max-w-6xl mx-auto">
-            <ReliabilityLegend />
-            <MethodologyCard />
-            <CollaborationBanner />
+            <ReliabilityLegend t={t} />
+            <MethodologyCard t={t} />
+            <CollaborationBanner t={t} />
 
             {/* Fact Check Reports Section */}
             <div className="mb-12">
@@ -537,15 +467,14 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
                 className="text-center mb-10"
               >
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Published Reports
+                  {t('factchecks.publishedReports')}
                 </h2>
-                <p className="text-gray-600">Informes Publicados</p>
               </motion.div>
 
               {factchecks.length > 0 ? (
                 <div className="grid gap-6">
                   {factchecks.map((factcheck, index) => (
-                    <FactCheckCard key={factcheck.slug} factcheck={factcheck} index={index} />
+                    <FactCheckCard key={factcheck.slug} factcheck={factcheck} index={index} t={t} />
                   ))}
                 </div>
               ) : (
@@ -555,8 +484,8 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
                   className="text-center py-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl border-2 border-dashed border-gray-300"
                 >
                   <DocumentMagnifyingGlassIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-xl text-gray-600 mb-2">No fact-check reports available yet.</p>
-                  <p className="text-gray-500">Check back soon for verified content.</p>
+                  <p className="text-xl text-gray-600 mb-2">{t('factchecks.noReportsYet')}</p>
+                  <p className="text-gray-500">{t('factchecks.checkBackSoon')}</p>
                 </motion.div>
               )}
             </div>
@@ -572,7 +501,7 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
                   <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
-                  Back to Blog / Volver al Blog
+                  {t('factchecks.backToBlog')}
                 </a>
               </Link>
             </motion.div>

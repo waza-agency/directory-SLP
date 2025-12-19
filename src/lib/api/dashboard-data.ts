@@ -43,10 +43,23 @@ export interface NewsHeadline {
   source: string | null;
 }
 
+export interface CommunityNews {
+  id: string;
+  titleEs: string;
+  titleEn: string;
+  summaryEs: string;
+  summaryEn: string;
+  category: 'social' | 'community' | 'culture' | 'local';
+  imageUrl?: string;
+  source?: string;
+  publishedAt: string;
+}
+
 export interface DashboardData {
   weather: WeatherData | null;
   exchangeRates: ExchangeRate[];
   headlines: NewsHeadline[];
+  communityNews: CommunityNews[];
   lastUpdated: string;
 }
 
@@ -281,19 +294,106 @@ function getDefaultHeadlines(): NewsHeadline[] {
 }
 
 /**
+ * Fetch community news from Supabase
+ * Social and community-focused news for the dashboard
+ */
+export async function fetchCommunityNews(): Promise<CommunityNews[]> {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('Supabase not configured for community news');
+    return getDefaultCommunityNews();
+  }
+
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const now = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from('community_news')
+      .select('id, title_es, title_en, summary_es, summary_en, category, image_url, source, published_at')
+      .eq('active', true)
+      .or(`expires_at.is.null,expires_at.gt.${now}`)
+      .order('priority', { ascending: true })
+      .order('published_at', { ascending: false })
+      .limit(3);
+
+    if (error) {
+      console.error('Error fetching community news:', error);
+      return getDefaultCommunityNews();
+    }
+
+    if (!data || data.length === 0) {
+      return getDefaultCommunityNews();
+    }
+
+    return data.map(n => ({
+      id: n.id,
+      titleEs: n.title_es,
+      titleEn: n.title_en,
+      summaryEs: n.summary_es,
+      summaryEn: n.summary_en,
+      category: n.category,
+      imageUrl: n.image_url,
+      source: n.source,
+      publishedAt: n.published_at
+    }));
+  } catch (error) {
+    console.error('Error fetching community news:', error);
+    return getDefaultCommunityNews();
+  }
+}
+
+/**
+ * Default community news fallback
+ */
+function getDefaultCommunityNews(): CommunityNews[] {
+  const now = new Date().toISOString();
+  return [
+    {
+      id: '1',
+      titleEs: 'Mercado Tangamanga celebra su 5to aniversario',
+      titleEn: 'Tangamanga Market celebrates 5th anniversary',
+      summaryEs: 'El mercado artesanal más querido de SLP festeja con actividades especiales este fin de semana.',
+      summaryEn: 'SLP\'s beloved artisan market celebrates with special activities this weekend.',
+      category: 'community',
+      publishedAt: now
+    },
+    {
+      id: '2',
+      titleEs: 'Nueva ruta ciclista conecta Lomas con el Centro',
+      titleEn: 'New bike route connects Lomas to Downtown',
+      summaryEs: 'La ciclovía de 8km promete facilitar el transporte sustentable en la ciudad.',
+      summaryEn: 'The 8km bike lane promises to facilitate sustainable transportation in the city.',
+      category: 'local',
+      publishedAt: now
+    },
+    {
+      id: '3',
+      titleEs: 'Voluntarios limpian el Parque de Morales',
+      titleEn: 'Volunteers clean up Morales Park',
+      summaryEs: 'Más de 200 ciudadanos participaron en la jornada de limpieza comunitaria.',
+      summaryEn: 'Over 200 citizens participated in the community cleanup day.',
+      category: 'social',
+      publishedAt: now
+    }
+  ];
+}
+
+/**
  * Fetch all dashboard data
  */
 export async function fetchDashboardData(): Promise<DashboardData> {
-  const [weather, exchangeRates, headlines] = await Promise.all([
+  const [weather, exchangeRates, headlines, communityNews] = await Promise.all([
     fetchWeatherData(),
     fetchExchangeRates(),
-    fetchHeadlines()
+    fetchHeadlines(),
+    fetchCommunityNews()
   ]);
 
   return {
     weather,
     exchangeRates,
     headlines,
+    communityNews,
     lastUpdated: new Date().toISOString()
   };
 }

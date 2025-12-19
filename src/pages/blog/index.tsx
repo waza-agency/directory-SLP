@@ -7,6 +7,8 @@ import { BlogPost, getBlogPosts } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { ShieldCheckIcon, SparklesIcon, ClockIcon } from '@heroicons/react/24/outline';
 
 interface BlogIndexProps {
@@ -39,9 +41,10 @@ function estimateReadTime(content: string): number {
   return Math.ceil(words / wordsPerMinute);
 }
 
-function BlogCard({ post }: { post: BlogPost }) {
+function BlogCard({ post, locale, minReadText }: { post: BlogPost; locale: string; minReadText: string }) {
   const readTime = estimateReadTime(post.content);
   const colors = post.category ? CATEGORY_COLORS[post.category] : null;
+  const dateLocale = locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US';
 
   return (
     <Link href={`/blog/${post.slug}`} legacyBehavior>
@@ -68,10 +71,10 @@ function BlogCard({ post }: { post: BlogPost }) {
           </h2>
           <p className="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
           <div className="flex items-center gap-4 text-sm text-gray-500">
-            <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            <span>{new Date(post.publishedAt).toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
             <span className="flex items-center gap-1">
               <ClockIcon className="w-4 h-4" />
-              {readTime} min read
+              {readTime} {minReadText}
             </span>
           </div>
         </div>
@@ -80,9 +83,10 @@ function BlogCard({ post }: { post: BlogPost }) {
   );
 }
 
-function FeaturedPost({ post }: { post: BlogPost }) {
+function FeaturedPost({ post, locale, minReadText }: { post: BlogPost; locale: string; minReadText: string }) {
   const readTime = estimateReadTime(post.content);
   const colors = post.category ? CATEGORY_COLORS[post.category] : null;
+  const dateLocale = locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US';
 
   return (
     <Link href={`/blog/${post.slug}`} legacyBehavior>
@@ -111,10 +115,10 @@ function FeaturedPost({ post }: { post: BlogPost }) {
                 {post.excerpt}
               </p>
               <div className="flex items-center gap-4 text-white/80 text-sm">
-                <span>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                <span>{new Date(post.publishedAt).toLocaleDateString(dateLocale, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 <span className="flex items-center gap-1">
                   <ClockIcon className="w-4 h-4" />
-                  {readTime} min read
+                  {readTime} {minReadText}
                 </span>
               </div>
             </div>
@@ -126,6 +130,8 @@ function FeaturedPost({ post }: { post: BlogPost }) {
 }
 
 export default function BlogIndexPage({ posts }: BlogIndexProps) {
+  const { t } = useTranslation('common');
+  const { locale } = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState<number>(0);
 
@@ -156,8 +162,8 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
   return (
     <>
       <SEO
-        title="Expat Blog & Living Guide"
-        description="Discover insider tips, local recommendations, and expat experiences in San Luis Potosí. From finding apartments to the best tacos - we've got you covered."
+        title={t('blog.seoTitle')}
+        description={t('blog.seoDescription')}
         keywords="san luis potosi blog, expat blog mexico, living in slp, expat guide, mexico relocation, expat tips"
       />
 
@@ -198,15 +204,13 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <SparklesIcon className="w-4 h-4" />
-              Your Guide to SLP
+              {t('blog.badge')}
             </div>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Stories, Tips & Local Insights
+              {t('blog.heroTitle')}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Whether you're planning your move, settling in, or just curious about life in San Luis Potosí —
-              we're here to help you navigate it all. Real talk, practical advice, and the inside scoop
-              from people who've been there.
+              {t('blog.heroDescription')}
             </p>
           </div>
 
@@ -218,17 +222,15 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
                   <ShieldCheckIcon className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 mb-2">Our Commitment to Accuracy</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t('blog.accuracyTitle')}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                    We take facts seriously. Our articles go through a verification process where key claims
-                    are cross-referenced with official sources, local data, and expert input. We're not perfect,
-                    but we're committed to getting it right.
+                    {t('blog.accuracyDescription')}
                   </p>
                   <Link
                     href="/blog/factchecks"
                     className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors"
                   >
-                    View our fact-check reports
+                    {t('blog.viewFactChecks')}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -249,7 +251,7 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                 }`}
               >
-                All Posts
+                {t('blog.allPosts')}
               </button>
               {categories.map(category => {
                 const colors = CATEGORY_COLORS[category];
@@ -276,7 +278,7 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
           {/* Featured Post */}
           {featuredPost && (
             <div className="max-w-5xl mx-auto mb-12">
-              <FeaturedPost post={featuredPost} />
+              <FeaturedPost post={featuredPost} locale={locale || 'en'} minReadText={t('blog.minRead')} />
             </div>
           )}
 
@@ -285,13 +287,13 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {otherPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} />
+                  <BlogCard key={post.id} post={post} locale={locale || 'en'} minReadText={t('blog.minRead')} />
                 ))}
               </div>
             </div>
           ) : (
             filteredPosts.length === 0 && (
-              <p className="text-center text-lg text-gray-500 py-12">No blog posts found. Check back later!</p>
+              <p className="text-center text-lg text-gray-500 py-12">{t('blog.noPostsFound')}</p>
             )
           )}
 
