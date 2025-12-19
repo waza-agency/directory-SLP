@@ -1,9 +1,9 @@
-import { schedule } from '@netlify/functions';
-
-const SITE_URL = process.env.URL || process.env.DEPLOY_URL || 'http://localhost:3000';
-const CRON_SECRET = process.env.CRON_SECRET;
+const { schedule } = require('@netlify/functions');
 
 const handler = async () => {
+  const SITE_URL = process.env.URL || process.env.DEPLOY_URL || 'https://www.sanluisway.com';
+  const CRON_SECRET = process.env.CRON_SECRET;
+
   console.log('Running scheduled news update...');
 
   try {
@@ -32,4 +32,4 @@ const handler = async () => {
 };
 
 // Run every 4 hours: "0 */4 * * *"
-export const main = schedule('0 */4 * * *', handler);
+exports.handler = schedule('0 */4 * * *', handler);
