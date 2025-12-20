@@ -100,6 +100,19 @@ export default function ResourcesHubPage() {
         </svg>
       ),
     },
+    {
+      id: 'family-guide',
+      title: 'Ultimate Family Life Guide',
+      description: 'Complete guide for families: schools, parks, pediatric care, childcare, sports activities, and family-friendly neighborhoods.',
+      image: '/images/cultura-1.jpg',
+      href: '/resources/family-guide',
+      color: 'from-pink-600 to-purple-500',
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -214,11 +227,11 @@ export default function ResourcesHubPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'Is SLP Safe?', href: '/resources/safety-guide' },
-                  { label: 'Emergency Numbers', href: '/resources/expat-guide#emergency' },
+                  { label: 'Family Life', href: '/resources/family-guide' },
                   { label: 'Schools & Education', href: '/resources/school-guide' },
                   { label: 'Hospitals & Clinics', href: '/resources/health-guide' },
                   { label: 'Neighborhoods', href: '/resources/neighborhoods-san-luis-potosi' },
-                  { label: 'Local Food', href: '/resources/living-guide#food' },
+                  { label: 'Kids Activities', href: '/resources/family-guide#parks' },
                   { label: 'Transportation', href: '/resources/expat-guide#transportation' },
                   { label: 'Banking', href: '/resources/expat-guide#banking' },
                 ].map((link) => (
