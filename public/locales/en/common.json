@@ -2,6 +2,8 @@
   "nav": {
     "home": "Home",
     "explore": "Explore",
+    "resources": "Resources",
+    "spouseHub": "Spouse Hub",
     "blog": "Blog",
     "about": "About",
     "faq": "FAQ",
@@ -909,6 +911,99 @@
     "noReportsYet": "No fact-check reports available yet.",
     "checkBackSoon": "Check back soon for verified content.",
     "backToBlog": "Back to Blog"
+  },
+  "spouseHub": {
+    "seo": {
+      "title": "Spouse Hub - Resources for Accompanying Partners | San Luis Way",
+      "description": "You're not alone. Resources, community, and opportunities for trailing spouses and accompanying partners in San Luis Potosí. Find activities, volunteering, mom groups, and work ideas."
+    },
+    "badge": "For Trailing Spouses & Accompanying Partners",
+    "hero": {
+      "title": "You're Not Alone",
+      "greeting": "Dear Friend,",
+      "paragraph1": "We see you. The one who left your career, your friends, your entire support system behind. The one who puts on a brave face while your partner goes to work and you're left wondering:",
+      "question": "What now?",
+      "paragraph2": "Moving to San Luis Potosí wasn't your dream — it was a decision made for your family. And that's incredibly brave, even when it doesn't feel like it.",
+      "paragraph3": "The first months are hard. The loneliness is real. But here's what we know:",
+      "highlight": "hundreds of spouses have walked this path before you, and they found their way.",
+      "paragraph4": "Not just survived — but built meaningful lives, deep friendships, and even new careers here.",
+      "closing": "This page is for you. Everything you need to start building your life in SLP.",
+      "signature": "— With love, from those who've been there"
+    },
+    "stats": {
+      "spouses": "Expat spouses in SLP",
+      "groups": "Active support groups",
+      "activities": "Activities & classes",
+      "possibilities": "Possibilities for you"
+    },
+    "tabs": {
+      "activities": "Activities & Classes",
+      "volunteer": "Volunteering",
+      "moms": "Mom Groups",
+      "work": "Work & Business",
+      "stories": "Success Stories"
+    },
+    "activities": {
+      "title": "Activities & Classes",
+      "subtitle": "Fill your days with things that bring you joy. These are tried and tested by expat spouses in SLP.",
+      "fitnessWellness": "Fitness & Wellness",
+      "artsCreativity": "Arts & Creativity",
+      "languageCulture": "Language & Culture",
+      "proTipTitle": "Pro Tip from Fellow Spouses",
+      "proTip": "Don't wait until you feel ready. Sign up for something — anything — in your first week. The activity itself matters less than showing up consistently. That's how you build a routine and meet people. I started with yoga knowing zero Spanish, and my classmates became my first friends here.",
+      "proTipAuthor": "— Lisa, 2 years in SLP"
+    },
+    "volunteer": {
+      "title": "Volunteering Opportunities",
+      "subtitle": "Find purpose while giving back. Volunteering is one of the fastest ways to feel connected and valued.",
+      "englishOk": "English OK",
+      "timeCommitment": "Time commitment",
+      "whyTitle": "Why Volunteering Transforms Your Experience",
+      "why1": "Gives you purpose and structure to your week",
+      "why2": "Forces you to practice Spanish in meaningful contexts",
+      "why3": "Connects you with like-minded, compassionate people",
+      "why4": "Looks great on your resume if you return to work",
+      "why5": "Helps you see beyond the expat bubble"
+    },
+    "momGroups": {
+      "title": "Expat Mom Groups",
+      "subtitle": "Your tribe is waiting. These groups are lifelines for expat mothers — for playdates, advice, venting, and friendship.",
+      "members": "members",
+      "howToJoinTitle": "How to Join",
+      "howToJoinIntro": "Most groups are private for safety reasons. Here's how to connect:",
+      "join1": "Ask at Colegio Terranova if your kids attend — they can connect you",
+      "join2": "Search Facebook for \"Expats in San Luis Potosí\" and request to join",
+      "join3": "Ask your partner's HR department — they often have spouse networks",
+      "join4": "Contact us and we'll help facilitate introductions"
+    },
+    "work": {
+      "title": "Work & Business Ideas",
+      "subtitle": "You don't have to put your career on hold. Many spouses have built thriving businesses and careers from SLP.",
+      "visaWarningTitle": "Important: Work Visa Considerations",
+      "visaWarning": "Your dependent visa may not allow formal employment in Mexico. However, you CAN: work remotely for non-Mexican companies, freelance internationally, start an online business, or volunteer. Consult an immigration lawyer for your specific situation before pursuing local employment.",
+      "remoteWork": "Remote Work",
+      "localOpportunities": "Local Opportunities",
+      "entrepreneurship": "Entrepreneurship",
+      "where": "Where"
+    },
+    "stories": {
+      "title": "Success Stories",
+      "subtitle": "Real stories from spouses who found their path in San Luis Potosí. If they did it, so can you.",
+      "yearsInSLP": "years in SLP",
+      "ctaTitle": "Your Story Could Be Here",
+      "ctaText": "Every success story started with someone feeling exactly like you do now. Take the first step. Join a group. Sign up for a class. Say yes.",
+      "shareStory": "Share Your Story →"
+    },
+    "cta": {
+      "title": "Ready to Start Your Journey?",
+      "subtitle": "You've already done the hardest part — you moved. Now it's time to build the life you deserve here. We're here to help every step of the way.",
+      "connect": "Connect With Us",
+      "community": "Join the Community"
+    },
+    "resourceCard": {
+      "title": "Spouse Hub",
+      "description": "You're not alone. Resources, community, activities, volunteering, mom groups, and work ideas for accompanying partners in SLP."
+    }
   },
   "newsletterBanner": {
     "freeWeekly": "Free Weekly Newsletter",

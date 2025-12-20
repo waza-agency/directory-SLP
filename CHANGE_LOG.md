@@ -4,10 +4,368 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
-## [2025-12-18] Feature: Blog Internationalization Complete
+## [2025-12-19] Feature: Places Internationalization (ES/DE)
 
 **Descripción:**
-Internacionalización completa de todas las páginas del blog y componentes relacionados para soportar inglés, español y alemán.
+Implementación completa de internacionalización para los lugares (places) en la base de datos, soportando inglés (base), español y alemán.
+
+**Cambios realizados:**
+
+1. **Base de datos (Supabase):**
+   - Agregadas columnas: `name_es`, `description_es`, `name_de`, `description_de`
+   - 127 lugares traducidos automáticamente a español y alemán (254 traducciones)
+
+2. **`src/lib/supabase.ts`:**
+   - Agregado tipo `SupportedLocale` exportado
+   - Agregado helper `getLocalizedField()` para obtener traducciones con fallback
+   - Modificado `mapPlaceData()` para soportar locale
+   - Actualizadas funciones: `getPlaces`, `getFeaturedPlaces`, `getPlaceById`, `searchPlaces`, `getRandomPlaces`, `getPotosinoBrands`
+
+3. **Scripts creados:**
+   - `scripts/add-places-i18n-fields.sql` - SQL para agregar columnas
+   - `scripts/add-places-i18n-simple.sql` - Versión simplificada
+   - `scripts/translate-places.js` - Script de traducción automática con Claude API
+
+4. **Fix adicional:**
+   - `src/components/Map.tsx` - Corregido error de sintaxis pre-existente (línea 31)
+
+**Archivos modificados:**
+- `src/lib/supabase.ts`
+- `src/components/Map.tsx`
+
+**Archivos creados:**
+- `scripts/add-places-i18n-fields.sql`
+- `scripts/add-places-i18n-simple.sql`
+- `scripts/translate-places.js`
+
+**Estado:** ✅ Exitoso | Build: Passed | Traducciones: 254
+
+---
+
+## [2025-12-19] Feature: Spouse Hub - Resources for Accompanying Partners (Complete i18n)
+
+**Descripción:**
+Nueva página estratégica `/spouse-hub` dedicada a trailing spouses (cónyuges acompañantes). Un diferenciador clave que habla directamente a una audiencia desatendida pero valiosa. Implementación completa con internacionalización EN/ES/DE.
+
+**Contenido incluido:**
+1. **Welcome Letter:** Carta empática "You're Not Alone" / "No Estás Sola" / "Du Bist Nicht Allein"
+2. **Activities & Classes (12 actividades):** Yoga, Pilates, Painting, Spanish classes, etc.
+3. **Volunteering (6 oportunidades):** Casa Hogar, Cruz Roja, Animal Shelters, etc.
+4. **Mom Groups (4 grupos):** SLP International Moms, German-Speaking, Japanese Community, Terranova Parents
+5. **Work & Business Ideas (12 ideas):** Remote work, Local opportunities, Entrepreneurship
+6. **Success Stories (4 historias):** Sarah (USA), Anna (Germany), Yuki (Japan), María José (Spain)
+
+**Características:**
+- Hero con carta empática y gradiente rosa-púrpura
+- Navegación con tabs interactivas
+- Quick stats: 500+ spouses, 15+ groups, 50+ activities
+- Badges "English OK" en oportunidades de voluntariado
+- CTA con links a Contact y Community
+- **Internacionalización completa** (EN/ES/DE)
+- **Integrado en Resources Hub** como primera guía destacada
+- **Agregado a navegación principal** con badge "New" en rosa/púrpura
+- Link en menú móvil y desktop
+
+**Archivos creados/modificados:**
+- `src/pages/spouse-hub.tsx` - Página principal con i18n
+- `public/locales/en/common.json` - Traducciones inglés
+- `public/locales/es/common.json` - Traducciones español
+- `public/locales/de/common.json` - Traducciones alemán
+- `src/pages/resources/index.tsx` - Agregada tarjeta Spouse Hub
+- `src/components/Header.tsx` - Link en menú móvil
+- `src/components/header/HeaderNavigation.tsx` - Link en navegación desktop
+
+**Estado:** ✅ Exitoso | Build: 6.08 kB | i18n: EN/ES/DE
+
+---
+
+## [2025-12-19] Enhancement: Ultimate Neighborhoods Guide - Complete Rewrite
+
+**Descripción:**
+Reescritura completa de la página `/resources/neighborhoods-san-luis-potosi` con contenido exhaustivo del archivo `neighborhoods-slp-guide.html`.
+
+**Contenido incluido:**
+- Executive Summary con estadísticas clave y precios
+- Quick Stats: 4 métricas (USD avg rent, cost vs CDMX, price increase, IB schools)
+- **7 vecindarios detallados:**
+  1. Lomas del Tecnológico (#1 Expat Choice)
+  2. Privadas del Pedregal (Near Schools)
+  3. Villa Magna & Los Lagos (Luxury)
+  4. Centro Histórico (Best Value)
+  5. Tangamanga (Family Friendly)
+  6. Near Industrial Zone (Short Commute)
+  7. Soledad de Graciano Sánchez (Budget)
+- Cada vecindario incluye: badges, precios, pros/cons, who lives here, highlights
+- Tabla comparativa de 7 vecindarios con ratings de estrellas
+- **How-To Guide:** 7 pasos para rentar en SLP
+- **FAQ:** 15 preguntas frecuentes
+- **Sources:** 12 fuentes verificadas (INEGI, IBO, Lamudi, etc.)
+- Agregada tarjeta en Resources Hub con gradiente púrpura
+
+**Archivos modificados:**
+- `src/pages/resources/neighborhoods-san-luis-potosi.tsx` - Reescrito completamente
+- `src/pages/resources/index.tsx` - Agregada tarjeta de neighborhoods
+
+**Estado:** ✅ Exitoso | Build: 10.8 kB (neighborhoods) | 3.06 kB (resources index)
+
+---
+
+## [2025-12-19] Fix: Resources Hub - Homogenized Card Overlays
+
+**Descripción:**
+Homologación de los gradientes de color en las tarjetas del Resources Hub para que todas tengan el mismo estilo visual.
+
+**Cambios realizados:**
+- Living Guide: `from-terracotta to-terracotta/80` → `from-orange-700 to-orange-500`
+- Expat Guide: `from-secondary to-secondary/80` → `from-teal-700 to-teal-500`
+- School Guide: (sin cambios) `from-blue-600 to-blue-500`
+- Health Guide: (sin cambios) `from-emerald-600 to-emerald-500`
+
+**Archivo modificado:**
+- `src/pages/resources/index.tsx`
+
+**Estado:** ✅ Exitoso | Build compilado correctamente
+
+---
+
+## [2025-12-19] Fix: School Guide - Localization (Spanish to English)
+
+**Descripción:**
+Corrección de textos en español que aparecían cuando el idioma seleccionado era inglés en las tarjetas de escuelas.
+
+**Cambios realizados:**
+- Badge "Destacado" → "Featured"
+- Niveles escolares traducidos:
+  - "Preescolar - Preparatoria" → "Preschool - High School"
+  - "Primaria - Preparatoria" → "Elementary - High School"
+  - "Preescolar - Secundaria" → "Preschool - Middle School"
+  - "Primaria" → "Elementary"
+  - "Secundaria - Preparatoria" → "Middle School - High School"
+- Colegiatura "MXN/mes" → "MXN/month"
+- Niveles de inglés:
+  - "Básico" → "Basic"
+  - "Intermedio" → "Intermediate"
+  - "Avanzado" → "Advanced"
+  - "Básico-Intermedio" → "Basic-Intermediate"
+  - "Intermedio-Avanzado" → "Intermediate-Advanced"
+
+**Archivo modificado:**
+- `src/pages/resources/school-guide.tsx`
+
+**Estado:** ✅ Exitoso | Build: 13.3 kB | 178 kB total
+
+---
+
+## [2025-12-19] Enhancement: School Guide - Added Terranova + Featured Schools
+
+**Descripción:**
+Actualización de la página School Guide para incluir Colegio Internacional Terranova y marcar escuelas destacadas.
+
+**Cambios realizados:**
+- Agregado Colegio Internacional Terranova a escuelas internacionales:
+  - IB World School con 3 programas (PYP, MYP, DP) - único en SLP
+  - 25 nacionalidades representadas
+  - Contacto: 444 841 6422
+  - Website: terranova.edu.mx
+- Marcado como **DESTACADO**:
+  - Colegio Internacional Terranova (escuelas internacionales)
+  - Instituto Miguel de Cervantes (escuelas privadas)
+- Badge visual dorado con "⭐ Destacado"
+- Borde amarillo (ring-2) para resaltar escuelas destacadas
+- Gradiente especial (yellow/amber/orange) para encabezados de destacados
+
+**Archivo modificado:**
+- `src/pages/resources/school-guide.tsx`
+
+**Estado:** ✅ Exitoso | Build: 13.1 kB | 177 kB total
+
+---
+
+## [2025-12-19] Enhancement: Ultimate Health Guide - Comprehensive Content
+
+**Descripción:**
+Reescritura completa de la página `/resources/health-guide` siguiendo el estilo Ultimate Guide con contenido exhaustivo sobre servicios de salud para expatriados.
+
+**Contenido incluido:**
+- Executive Summary con estadísticas clave (50-70% menor costo vs US)
+- Quick Stats: 6 métricas verificadas
+- 4 hospitales privados con información detallada:
+  - Hospital Lomas (Top Rated)
+  - Hospital Angeles (National Network)
+  - Star Médica (Advanced Tech)
+  - Christus Muguerza (Expat Friendly)
+- 3 hospitales públicos
+- 6 especialidades médicas con clínicas recomendadas
+- Sección de emergencias con todos los números importantes
+- **How-To Guide #1:** 6 pasos para visitar un hospital
+- **How-To Guide #2:** 7 pasos para obtener seguro médico
+- 7 opciones de seguros (3 públicos, 4 privados) con pros/cons
+- 4 farmacias principales con servicios y costos
+- 15 preguntas frecuentes detalladas
+- 10 fuentes verificadas con tipo (Government, Institution, Insurance)
+
+**Archivo modificado:**
+- `src/pages/resources/health-guide.tsx` - Reescritura completa ~1,000 líneas
+
+**Características técnicas:**
+- Navegación sticky con 10 secciones
+- Badges de color para hospitales (TOP RATED, EXPAT FRIENDLY, etc.)
+- Ratings con estrellas
+- Pros/Cons para cada opción de seguro
+- FAQ expandible con details/summary
+- Sources categorizados por tipo
+
+**Estado:** ✅ Exitoso | Build: 11.1 kB (antes 6.21 kB) | 175 kB total
+
+---
+
+## [2025-12-19] Feature: Neighborhoods Guide - Complete Expat Housing Guide
+
+**Descripción:**
+Creación de nueva página `/resources/neighborhoods-san-luis-potosi` con guía completa de vecindarios para expatriados en San Luis Potosí.
+
+**Contenido incluido:**
+- Executive Summary con métricas clave (rango de rentas, áreas cubiertas)
+- 7 perfiles completos de vecindarios:
+  - Lomas del Tecnológico (#1 Expat Choice)
+  - Privadas del Pedregal (Luxury Living)
+  - Villa Magna (Best Value)
+  - Centro Histórico (Cultural Hub)
+  - Near Tangamanga Park (Green Living)
+  - Near Industrial Zone (Convenience)
+  - Soledad de Graciano Sánchez (Budget Option)
+- Cada vecindario incluye:
+  - Safety score y Walk score
+  - Rango de rentas y precios de compra
+  - Pros y Contras detallados
+  - Ejemplos de rentas por tipo de propiedad
+  - Gastos mensuales típicos (electricidad, agua, gas, internet, HOA)
+  - Ubicaciones clave cercanas
+- Tabla comparativa de todos los vecindarios
+- How-To Guide: 7 pasos para rentar en SLP
+- 15 preguntas frecuentes
+- Sección de fuentes y referencias
+
+**Archivo creado:**
+- `src/pages/resources/neighborhoods-san-luis-potosi.tsx` - ~700 líneas de código
+
+**Características técnicas:**
+- Navegación sticky con scroll-to-section
+- Badges de color para identificar tipo de vecindario
+- Tablas responsivas de comparación
+- FAQ expandibles con details/summary
+- Links de navegación a otras guías
+
+**Estado:** ✅ Exitoso | Build: 9.86 kB | 174 kB total
+
+---
+
+## [2025-12-19] Enhancement: Ultimate School Guide - Comprehensive Content
+
+**Descripción:**
+Actualización completa de la página School Guide con contenido exhaustivo siguiendo el estilo de Ultimate Guide. La página ahora incluye información detallada sobre educación en San Luis Potosí para familias expatriadas.
+
+**Contenido agregado:**
+- Executive Summary con key takeaways para expats
+- Quick Stats (4,500+ escuelas, 15+ internacionales, 95.8% literacy rate)
+- Sistema educativo mexicano con equivalencias US/UK
+- 5 escuelas internacionales con detalles completos (costos, currículum, contacto, ratings)
+- 5 escuelas privadas con niveles de inglés y características
+- Sección de escuelas públicas con proceso de inscripción
+- 5 universidades principales (UASLP, Tec, UVM, UPSLP, UTAN)
+- How-To Guide: 6 pasos detallados para inscripción
+- Lista completa de documentos requeridos
+- Tabla comparativa de costos por tipo de escuela
+- Costos adicionales (uniformes, transporte, materiales)
+- 14 preguntas frecuentes detalladas
+- Structured data (JSON-LD) para SEO
+
+**Archivo modificado:**
+- `src/pages/resources/school-guide.tsx` - Reescritura completa con ~1,100 líneas de código
+
+**Características técnicas:**
+- Navegación sticky con scroll-to-section
+- Cards expandibles para FAQ
+- Tablas responsivas de costos
+- Badges de rating para escuelas
+- Gradientes de color para identificar secciones
+- Links externos a sitios web de instituciones
+
+**Estado:** ✅ Exitoso | Build: 13 kB | 177 kB total
+
+---
+
+## [2025-12-19] Feature: Resources Hub - Comprehensive Guides Section
+
+**Descripción:**
+Creación de un nuevo Resources Hub que centraliza todas las guías de información para expatriados y residentes en San Luis Potosí. Incluye reorganización de guías existentes y creación de nuevas guías especializadas.
+
+**Archivos creados:**
+- `src/pages/resources/index.tsx` - Página principal del Resources Hub con tarjetas de navegación a todas las guías
+- `src/pages/resources/living-guide.tsx` - Guía de vida cotidiana (migrada y mejorada)
+- `src/pages/resources/expat-guide.tsx` - Guía de esenciales para expats (migrada y mejorada)
+- `src/pages/resources/school-guide.tsx` - Nueva guía completa de escuelas (internacional, privada, pública, universidades)
+- `src/pages/resources/health-guide.tsx` - Nueva guía completa de servicios de salud (hospitales, clínicas, seguros, farmacias)
+
+**Archivos modificados:**
+- `src/components/header/HeaderNavigation.tsx` - Agregado enlace a Resources en navegación
+- `src/components/Header.tsx` - Agregado Resources al menú móvil
+- `public/locales/en/common.json` - Agregada traducción "resources": "Resources"
+- `public/locales/es/common.json` - Agregada traducción "resources": "Recursos"
+- `public/locales/de/common.json` - Agregada traducción "resources": "Ressourcen"
+- `next.config.js` - Agregadas redirecciones 301 de /living-guide y /expat-guide a nuevas URLs
+
+**Nuevas páginas:**
+- `/resources` - Hub principal con acceso a todas las guías
+- `/resources/living-guide` - Cultura, comida, compras, entretenimiento, deportes, clima, seguridad, idioma
+- `/resources/expat-guide` - Emergencias, salud, vivienda, transporte, banca, inmigración, educación, servicios
+- `/resources/school-guide` - Escuelas internacionales, privadas, públicas, universidades, proceso de inscripción, costos
+- `/resources/health-guide` - Hospitales públicos/privados, clínicas, especialistas, seguros, farmacias, wellness
+
+**Redirecciones SEO:**
+- `/living-guide` → `/resources/living-guide` (301)
+- `/expat-guide` → `/resources/expat-guide` (301)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-19] Feature: Blog Content Internationalization (Database Level)
+
+**Descripción:**
+Implementación de soporte multiidioma para el contenido de los blog posts a nivel de base de datos. El sistema ahora soporta contenido en inglés (base), español y alemán con fallback inteligente.
+
+**Archivos creados:**
+- `scripts/add-blog-i18n-fields.sql` - Script SQL para agregar campos de español y alemán
+
+**Archivos modificados:**
+- `src/lib/blog.ts` - Refactorizado para soportar locale con helper `getLocalizedField()`
+  - Nueva exportación `SupportedLocale` type
+  - `getBlogPosts(locale)` - Ahora acepta parámetro locale
+  - `getBlogPostBySlug(slug, locale)` - Ahora acepta parámetro locale
+  - `getBlogPostsBySlugs(slugs, locale)` - Ahora acepta parámetro locale
+- `src/pages/blog/index.tsx` - Pasa locale a getBlogPosts
+- `src/pages/blog/[slug].tsx` - Pasa locale a getBlogPostBySlug
+- `src/pages/index.tsx` - Pasa locale a getBlogPosts y getBlogPostsBySlugs
+
+**Sistema de fallback:**
+- Solicita idioma → Si no existe traducción → Usa inglés (base)
+
+**Campos de base de datos:**
+- Base (INGLÉS): `title`, `content`, `excerpt`, `meta_title`, `meta_description`
+- Español: `title_es`, `content_es`, `excerpt_es`, `meta_title_es`, `meta_description_es`
+- Alemán: `title_de`, `content_de`, `excerpt_de`, `meta_title_de`, `meta_description_de`
+
+**Nota:** Ejecutar `scripts/add-blog-i18n-fields.sql` en Supabase para agregar los campos de español y alemán.
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-18] Feature: Blog UI Internationalization
+
+**Descripción:**
+Internacionalización completa de todas las páginas del blog y componentes relacionados para soportar inglés, español y alemán (UI solamente).
 
 **Archivos modificados:**
 - `src/pages/blog/index.tsx` - i18n para SEO, hero, categorías, badges, fechas

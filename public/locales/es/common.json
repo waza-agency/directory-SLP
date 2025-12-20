@@ -2,6 +2,8 @@
   "nav": {
     "home": "Inicio",
     "explore": "Explorar",
+    "resources": "Recursos",
+    "spouseHub": "Spouse Hub",
     "blog": "Blog",
     "about": "Acerca de",
     "faq": "Preguntas Frecuentes",
@@ -909,6 +911,99 @@
     "noReportsYet": "Aún no hay informes de verificación disponibles.",
     "checkBackSoon": "Vuelve pronto para contenido verificado.",
     "backToBlog": "Volver al Blog"
+  },
+  "spouseHub": {
+    "seo": {
+      "title": "Spouse Hub - Recursos para Parejas Acompañantes | San Luis Way",
+      "description": "No estás sola. Recursos, comunidad y oportunidades para cónyuges acompañantes en San Luis Potosí. Encuentra actividades, voluntariado, grupos de mamás e ideas de trabajo."
+    },
+    "badge": "Para Cónyuges y Parejas Acompañantes",
+    "hero": {
+      "title": "No Estás Sola",
+      "greeting": "Querida amiga,",
+      "paragraph1": "Te vemos. La que dejó su carrera, sus amigos, todo su sistema de apoyo. La que pone cara valiente mientras tu pareja va al trabajo y tú te quedas preguntándote:",
+      "question": "¿Y ahora qué?",
+      "paragraph2": "Mudarte a San Luis Potosí no era tu sueño — fue una decisión tomada por tu familia. Y eso es increíblemente valiente, aunque no lo sienta así.",
+      "paragraph3": "Los primeros meses son difíciles. La soledad es real. Pero esto es lo que sabemos:",
+      "highlight": "cientos de cónyuges han recorrido este camino antes que tú, y encontraron su lugar.",
+      "paragraph4": "No solo sobrevivieron — construyeron vidas significativas, amistades profundas e incluso nuevas carreras aquí.",
+      "closing": "Esta página es para ti. Todo lo que necesitas para empezar a construir tu vida en SLP.",
+      "signature": "— Con cariño, de quienes ya pasaron por esto"
+    },
+    "stats": {
+      "spouses": "Cónyuges expat en SLP",
+      "groups": "Grupos de apoyo activos",
+      "activities": "Actividades y clases",
+      "possibilities": "Posibilidades para ti"
+    },
+    "tabs": {
+      "activities": "Actividades y Clases",
+      "volunteer": "Voluntariado",
+      "moms": "Grupos de Mamás",
+      "work": "Trabajo y Negocios",
+      "stories": "Historias de Éxito"
+    },
+    "activities": {
+      "title": "Actividades y Clases",
+      "subtitle": "Llena tus días con cosas que te traigan alegría. Probadas y aprobadas por cónyuges expat en SLP.",
+      "fitnessWellness": "Fitness y Bienestar",
+      "artsCreativity": "Artes y Creatividad",
+      "languageCulture": "Idioma y Cultura",
+      "proTipTitle": "Consejo de Otras Spouses",
+      "proTip": "No esperes a sentirte lista. Inscríbete en algo — lo que sea — en tu primera semana. La actividad en sí importa menos que presentarte consistentemente. Así es como construyes una rutina y conoces gente. Empecé con yoga sin saber nada de español, y mis compañeras de clase se convirtieron en mis primeras amigas aquí.",
+      "proTipAuthor": "— Lisa, 2 años en SLP"
+    },
+    "volunteer": {
+      "title": "Oportunidades de Voluntariado",
+      "subtitle": "Encuentra propósito mientras retribuyes. El voluntariado es una de las formas más rápidas de sentirte conectada y valorada.",
+      "englishOk": "Inglés OK",
+      "timeCommitment": "Compromiso de tiempo",
+      "whyTitle": "Por Qué el Voluntariado Transforma tu Experiencia",
+      "why1": "Te da propósito y estructura a tu semana",
+      "why2": "Te obliga a practicar español en contextos significativos",
+      "why3": "Te conecta con personas afines y compasivas",
+      "why4": "Se ve genial en tu currículum si vuelves a trabajar",
+      "why5": "Te ayuda a ver más allá de la burbuja expat"
+    },
+    "momGroups": {
+      "title": "Grupos de Mamás Expat",
+      "subtitle": "Tu tribu te espera. Estos grupos son salvavidas para madres expatriadas — para playdates, consejos, desahogarse y amistad.",
+      "members": "miembros",
+      "howToJoinTitle": "Cómo Unirse",
+      "howToJoinIntro": "La mayoría de los grupos son privados por seguridad. Así es como puedes conectar:",
+      "join1": "Pregunta en Colegio Terranova si tus hijos asisten — pueden conectarte",
+      "join2": "Busca en Facebook \"Expats in San Luis Potosí\" y solicita unirte",
+      "join3": "Pregunta al departamento de RH de tu pareja — a menudo tienen redes de cónyuges",
+      "join4": "Contáctanos y te ayudaremos a facilitar las presentaciones"
+    },
+    "work": {
+      "title": "Ideas de Trabajo y Negocios",
+      "subtitle": "No tienes que pausar tu carrera. Muchas cónyuges han construido negocios y carreras prósperas desde SLP.",
+      "visaWarningTitle": "Importante: Consideraciones de Visa de Trabajo",
+      "visaWarning": "Tu visa de dependiente puede no permitir empleo formal en México. Sin embargo, SÍ PUEDES: trabajar remotamente para empresas no mexicanas, hacer freelance internacional, iniciar un negocio en línea o ser voluntaria. Consulta a un abogado de inmigración para tu situación específica antes de buscar empleo local.",
+      "remoteWork": "Trabajo Remoto",
+      "localOpportunities": "Oportunidades Locales",
+      "entrepreneurship": "Emprendimiento",
+      "where": "Dónde"
+    },
+    "stories": {
+      "title": "Historias de Éxito",
+      "subtitle": "Historias reales de cónyuges que encontraron su camino en San Luis Potosí. Si ellas pudieron, tú también.",
+      "yearsInSLP": "años en SLP",
+      "ctaTitle": "Tu Historia Podría Estar Aquí",
+      "ctaText": "Cada historia de éxito comenzó con alguien sintiéndose exactamente como tú ahora. Da el primer paso. Únete a un grupo. Inscríbete en una clase. Di que sí.",
+      "shareStory": "Comparte Tu Historia →"
+    },
+    "cta": {
+      "title": "¿Lista para Empezar tu Viaje?",
+      "subtitle": "Ya hiciste lo más difícil — te mudaste. Ahora es momento de construir la vida que mereces aquí. Estamos aquí para ayudarte en cada paso.",
+      "connect": "Conecta con Nosotros",
+      "community": "Únete a la Comunidad"
+    },
+    "resourceCard": {
+      "title": "Spouse Hub",
+      "description": "No estás sola. Recursos, comunidad, actividades, voluntariado, grupos de mamás e ideas de trabajo para parejas acompañantes en SLP."
+    }
   },
   "newsletterBanner": {
     "freeWeekly": "Newsletter Semanal Gratuito",

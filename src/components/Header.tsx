@@ -103,6 +103,37 @@ export default function Header() {
               {t('nav.explore')}
             </Link>
             <Link
+              href="/resources"
+              onClick={closeMenu}
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
+            >
+              {t('nav.resources')}
+            </Link>
+            <Link
+              href="/spouse-hub"
+              onClick={closeMenu}
+              className="block py-2.5 px-3 text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-lg transition-all duration-150 active:scale-98 font-medium"
+            >
+              <span className="flex items-center gap-2">
+                {t('nav.spouseHub')}
+                <span className="px-1.5 py-0.5 text-[10px] font-bold bg-gradient-to-r from-rose-500 to-purple-500 text-white rounded-full uppercase">
+                  New
+                </span>
+              </span>
+            </Link>
+            <Link
+              href="/community"
+              onClick={closeMenu}
+              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
+            >
+              <span className="flex items-center gap-2">
+                {t('nav.community', 'Community')}
+                <span className="px-1.5 py-0.5 text-[10px] font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full uppercase">
+                  Soon
+                </span>
+              </span>
+            </Link>
+            <Link
               href="/blog"
               onClick={closeMenu}
               className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
@@ -115,13 +146,6 @@ export default function Header() {
               className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
             >
               {t('nav.about')}
-            </Link>
-            <Link
-              href="/faq"
-              onClick={closeMenu}
-              className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-lg transition-all duration-150 active:scale-98 font-medium"
-            >
-              {t('nav.faq')}
             </Link>
             <Link
               href="/contact"

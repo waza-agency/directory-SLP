@@ -2,6 +2,8 @@
   "nav": {
     "home": "Startseite",
     "explore": "Entdecken",
+    "resources": "Ressourcen",
+    "spouseHub": "Spouse Hub",
     "blog": "Blog",
     "about": "Über uns",
     "faq": "FAQ",
@@ -874,6 +876,99 @@
     "noReportsYet": "Noch keine Faktencheck-Berichte verfügbar.",
     "checkBackSoon": "Schauen Sie bald wieder vorbei für verifizierte Inhalte.",
     "backToBlog": "Zurück zum Blog"
+  },
+  "spouseHub": {
+    "seo": {
+      "title": "Spouse Hub - Ressourcen für Begleitende Partner | San Luis Way",
+      "description": "Du bist nicht allein. Ressourcen, Gemeinschaft und Möglichkeiten für begleitende Ehepartner in San Luis Potosí. Finde Aktivitäten, Freiwilligenarbeit, Müttergruppen und Arbeitsideen."
+    },
+    "badge": "Für Begleitende Ehepartner & Partner",
+    "hero": {
+      "title": "Du Bist Nicht Allein",
+      "greeting": "Liebe Freundin,",
+      "paragraph1": "Wir sehen dich. Die, die ihre Karriere, ihre Freunde, ihr gesamtes Unterstützungssystem zurückgelassen hat. Die, die tapfer lächelt, während dein Partner zur Arbeit geht und du dich fragst:",
+      "question": "Was jetzt?",
+      "paragraph2": "Der Umzug nach San Luis Potosí war nicht dein Traum — es war eine Entscheidung für deine Familie. Und das ist unglaublich mutig, auch wenn es sich nicht so anfühlt.",
+      "paragraph3": "Die ersten Monate sind schwer. Die Einsamkeit ist real. Aber das wissen wir:",
+      "highlight": "Hunderte von Ehepartnern sind diesen Weg vor dir gegangen und haben ihren Weg gefunden.",
+      "paragraph4": "Sie haben nicht nur überlebt — sie haben bedeutungsvolle Leben, tiefe Freundschaften und sogar neue Karrieren hier aufgebaut.",
+      "closing": "Diese Seite ist für dich. Alles, was du brauchst, um dein Leben in SLP aufzubauen.",
+      "signature": "— Mit Liebe, von denen, die es schon erlebt haben"
+    },
+    "stats": {
+      "spouses": "Expat-Ehepartner in SLP",
+      "groups": "Aktive Selbsthilfegruppen",
+      "activities": "Aktivitäten & Kurse",
+      "possibilities": "Möglichkeiten für dich"
+    },
+    "tabs": {
+      "activities": "Aktivitäten & Kurse",
+      "volunteer": "Freiwilligenarbeit",
+      "moms": "Müttergruppen",
+      "work": "Arbeit & Business",
+      "stories": "Erfolgsgeschichten"
+    },
+    "activities": {
+      "title": "Aktivitäten & Kurse",
+      "subtitle": "Fülle deine Tage mit Dingen, die dir Freude bereiten. Von Expat-Ehepartnern in SLP getestet und empfohlen.",
+      "fitnessWellness": "Fitness & Wellness",
+      "artsCreativity": "Kunst & Kreativität",
+      "languageCulture": "Sprache & Kultur",
+      "proTipTitle": "Profi-Tipp von Anderen Spouses",
+      "proTip": "Warte nicht, bis du dich bereit fühlst. Melde dich in deiner ersten Woche für etwas an — egal was. Die Aktivität selbst ist weniger wichtig als regelmäßig zu erscheinen. So baust du eine Routine auf und lernst Leute kennen. Ich habe mit Yoga angefangen, ohne ein Wort Spanisch zu können, und meine Klassenkameradinnen wurden meine ersten Freundinnen hier.",
+      "proTipAuthor": "— Lisa, 2 Jahre in SLP"
+    },
+    "volunteer": {
+      "title": "Freiwilligenarbeit",
+      "subtitle": "Finde Sinn, während du etwas zurückgibst. Freiwilligenarbeit ist einer der schnellsten Wege, sich verbunden und geschätzt zu fühlen.",
+      "englishOk": "Englisch OK",
+      "timeCommitment": "Zeitaufwand",
+      "whyTitle": "Warum Freiwilligenarbeit Deine Erfahrung Verändert",
+      "why1": "Gibt dir Sinn und Struktur für deine Woche",
+      "why2": "Zwingt dich, Spanisch in bedeutungsvollen Kontexten zu üben",
+      "why3": "Verbindet dich mit gleichgesinnten, mitfühlenden Menschen",
+      "why4": "Sieht gut in deinem Lebenslauf aus, wenn du zurück zur Arbeit gehst",
+      "why5": "Hilft dir, über die Expat-Blase hinaus zu sehen"
+    },
+    "momGroups": {
+      "title": "Expat-Müttergruppen",
+      "subtitle": "Dein Stamm wartet. Diese Gruppen sind Lebensretter für Expat-Mütter — für Spielverabredungen, Ratschläge, zum Dampf ablassen und für Freundschaft.",
+      "members": "Mitglieder",
+      "howToJoinTitle": "Wie Man Beitritt",
+      "howToJoinIntro": "Die meisten Gruppen sind aus Sicherheitsgründen privat. So kannst du dich verbinden:",
+      "join1": "Frag am Colegio Terranova, wenn deine Kinder dort sind — sie können dich verbinden",
+      "join2": "Suche auf Facebook nach \"Expats in San Luis Potosí\" und bitte um Aufnahme",
+      "join3": "Frag die Personalabteilung deines Partners — sie haben oft Netzwerke für Ehepartner",
+      "join4": "Kontaktiere uns und wir helfen bei der Vermittlung"
+    },
+    "work": {
+      "title": "Arbeits- & Business-Ideen",
+      "subtitle": "Du musst deine Karriere nicht auf Eis legen. Viele Ehepartner haben florierende Unternehmen und Karrieren von SLP aus aufgebaut.",
+      "visaWarningTitle": "Wichtig: Arbeitsvisum-Überlegungen",
+      "visaWarning": "Dein Abhängigenvisum erlaubt möglicherweise keine formelle Beschäftigung in Mexiko. Du KANNST jedoch: remote für nicht-mexikanische Unternehmen arbeiten, international freiberuflich arbeiten, ein Online-Geschäft starten oder ehrenamtlich arbeiten. Konsultiere einen Einwanderungsanwalt für deine spezifische Situation, bevor du eine lokale Beschäftigung suchst.",
+      "remoteWork": "Remote-Arbeit",
+      "localOpportunities": "Lokale Möglichkeiten",
+      "entrepreneurship": "Unternehmertum",
+      "where": "Wo"
+    },
+    "stories": {
+      "title": "Erfolgsgeschichten",
+      "subtitle": "Echte Geschichten von Ehepartnern, die ihren Weg in San Luis Potosí gefunden haben. Wenn sie es geschafft haben, kannst du es auch.",
+      "yearsInSLP": "Jahre in SLP",
+      "ctaTitle": "Deine Geschichte Könnte Hier Stehen",
+      "ctaText": "Jede Erfolgsgeschichte begann mit jemandem, der sich genau so fühlte wie du jetzt. Mach den ersten Schritt. Tritt einer Gruppe bei. Melde dich für einen Kurs an. Sag ja.",
+      "shareStory": "Teile Deine Geschichte →"
+    },
+    "cta": {
+      "title": "Bereit, Deine Reise zu Beginnen?",
+      "subtitle": "Du hast bereits das Schwierigste getan — du bist umgezogen. Jetzt ist es Zeit, das Leben aufzubauen, das du hier verdienst. Wir sind hier, um dir bei jedem Schritt zu helfen.",
+      "connect": "Verbinde Dich Mit Uns",
+      "community": "Tritt Der Community Bei"
+    },
+    "resourceCard": {
+      "title": "Spouse Hub",
+      "description": "Du bist nicht allein. Ressourcen, Gemeinschaft, Aktivitäten, Freiwilligenarbeit, Müttergruppen und Arbeitsideen für begleitende Partner in SLP."
+    }
   },
   "newsletterBanner": {
     "freeWeekly": "Kostenloser Wöchentlicher Newsletter",
