@@ -131,7 +131,7 @@ export default function SpouseHubPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-rose-600 via-purple-600 to-indigo-700"></div>
           <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"></div>
 
-          <div className="relative container mx-auto px-4 py-20 max-w-4xl text-center">
+          <div className="relative container mx-auto px-4 py-16 md:py-24 max-w-3xl text-center">
             <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white/90 text-sm font-medium mb-6">
               {t('spouseHub.badge')}
             </span>
@@ -140,25 +140,23 @@ export default function SpouseHubPage() {
               {t('spouseHub.hero.title')}
             </h1>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-left max-w-2xl mx-auto">
-              <p className="text-xl text-white/95 leading-relaxed mb-4">
-                {t('spouseHub.hero.greeting')}
-              </p>
-              <p className="text-lg text-white/90 leading-relaxed mb-4">
-                {t('spouseHub.hero.paragraph1')} <em>&ldquo;{t('spouseHub.hero.question')}&rdquo;</em>
-              </p>
-              <p className="text-lg text-white/90 leading-relaxed mb-4">
-                {t('spouseHub.hero.paragraph2')}
-              </p>
-              <p className="text-lg text-white/90 leading-relaxed mb-4">
-                {t('spouseHub.hero.paragraph3')} <strong className="text-white">{t('spouseHub.hero.highlight')}</strong> {t('spouseHub.hero.paragraph4')}
-              </p>
-              <p className="text-lg text-white/90 leading-relaxed">
-                {t('spouseHub.hero.closing')}
-              </p>
-              <p className="text-right text-white/80 mt-6 italic">
-                {t('spouseHub.hero.signature')}
-              </p>
+            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+              {t('spouseHub.hero.subtitle')}
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-3">
+              <span className="px-4 py-2 bg-white/15 rounded-full text-white text-sm">
+                {t('spouseHub.tabs.activities')}
+              </span>
+              <span className="px-4 py-2 bg-white/15 rounded-full text-white text-sm">
+                {t('spouseHub.tabs.volunteer')}
+              </span>
+              <span className="px-4 py-2 bg-white/15 rounded-full text-white text-sm">
+                {t('spouseHub.tabs.moms')}
+              </span>
+              <span className="px-4 py-2 bg-white/15 rounded-full text-white text-sm">
+                {t('spouseHub.tabs.work')}
+              </span>
             </div>
           </div>
         </section>

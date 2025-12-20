@@ -920,21 +920,7 @@
     "badge": "For Trailing Spouses & Accompanying Partners",
     "hero": {
       "title": "You're Not Alone",
-      "greeting": "Dear Friend,",
-      "paragraph1": "We see you. The one who left your career, your friends, your entire support system behind. The one who puts on a brave face while your partner goes to work and you're left wondering:",
-      "question": "What now?",
-      "paragraph2": "Moving to San Luis Potosí wasn't your dream — it was a decision made for your family. And that's incredibly brave, even when it doesn't feel like it.",
-      "paragraph3": "The first months are hard. The loneliness is real. But here's what we know:",
-      "highlight": "hundreds of spouses have walked this path before you, and they found their way.",
-      "paragraph4": "Not just survived — but built meaningful lives, deep friendships, and even new careers here.",
-      "closing": "This page is for you. Everything you need to start building your life in SLP.",
-      "signature": "— With love, from those who've been there"
-    },
-    "stats": {
-      "spouses": "Expat spouses in SLP",
-      "groups": "Active support groups",
-      "activities": "Activities & classes",
-      "possibilities": "Possibilities for you"
+      "subtitle": "Activities, community, and opportunities for accompanying partners in San Luis Potosí. Everything you need to build your life here."
     },
     "tabs": {
       "activities": "Activities & Classes",

@@ -920,21 +920,7 @@
     "badge": "Para Cónyuges y Parejas Acompañantes",
     "hero": {
       "title": "No Estás Sola",
-      "greeting": "Querida amiga,",
-      "paragraph1": "Te vemos. La que dejó su carrera, sus amigos, todo su sistema de apoyo. La que pone cara valiente mientras tu pareja va al trabajo y tú te quedas preguntándote:",
-      "question": "¿Y ahora qué?",
-      "paragraph2": "Mudarte a San Luis Potosí no era tu sueño — fue una decisión tomada por tu familia. Y eso es increíblemente valiente, aunque no lo sienta así.",
-      "paragraph3": "Los primeros meses son difíciles. La soledad es real. Pero esto es lo que sabemos:",
-      "highlight": "cientos de cónyuges han recorrido este camino antes que tú, y encontraron su lugar.",
-      "paragraph4": "No solo sobrevivieron — construyeron vidas significativas, amistades profundas e incluso nuevas carreras aquí.",
-      "closing": "Esta página es para ti. Todo lo que necesitas para empezar a construir tu vida en SLP.",
-      "signature": "— Con cariño, de quienes ya pasaron por esto"
-    },
-    "stats": {
-      "spouses": "Cónyuges expat en SLP",
-      "groups": "Grupos de apoyo activos",
-      "activities": "Actividades y clases",
-      "possibilities": "Posibilidades para ti"
+      "subtitle": "Actividades, comunidad y oportunidades para parejas acompañantes en San Luis Potosí. Todo lo que necesitas para construir tu vida aquí."
     },
     "tabs": {
       "activities": "Actividades y Clases",
