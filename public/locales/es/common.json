@@ -922,6 +922,10 @@
       "title": "No Estás Sola",
       "subtitle": "Actividades, comunidad y oportunidades para parejas acompañantes en San Luis Potosí. Todo lo que necesitas para construir tu vida aquí."
     },
+    "notice": {
+      "title": "¡Próximamente!",
+      "description": "Esta sección está en desarrollo. Estaremos implementando estas actividades y recursos en los próximos meses."
+    },
     "tabs": {
       "activities": "Actividades y Clases",
       "volunteer": "Voluntariado",

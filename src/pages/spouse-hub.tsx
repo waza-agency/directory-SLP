@@ -161,6 +161,18 @@ export default function SpouseHubPage() {
           </div>
         </section>
 
+        {/* Development Notice */}
+        <section className="bg-amber-50 border-b border-amber-200">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-center gap-3 text-amber-800">
+              <span className="text-xl">🚧</span>
+              <p className="text-sm md:text-base text-center">
+                <strong>{t('spouseHub.notice.title')}</strong> {t('spouseHub.notice.description')}
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Navigation Tabs */}
         <nav className="sticky top-0 z-40 bg-white border-b shadow-sm">
           <div className="container mx-auto px-4">

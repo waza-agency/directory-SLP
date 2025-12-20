@@ -922,6 +922,10 @@
       "title": "You're Not Alone",
       "subtitle": "Activities, community, and opportunities for accompanying partners in San Luis Potosí. Everything you need to build your life here."
     },
+    "notice": {
+      "title": "Coming Soon!",
+      "description": "This section is under development. We'll be implementing these activities and resources in the coming months."
+    },
     "tabs": {
       "activities": "Activities & Classes",
       "volunteer": "Volunteering",
