@@ -4,6 +4,46 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-19] Feature: Safety Guide - "Is San Luis Potosí Safe?"
+
+**Descripción:**
+Nueva guía de seguridad completa que responde a la pregunta "How safe is San Luis Potosí?" con datos verificados de múltiples fuentes oficiales.
+
+**Contenido incluido:**
+1. **Overview** - Clasificación US State Dept (Level 2), contexto general
+2. **Crime Statistics** - Índices Numbeo, comparativa con CDMX, tendencias 2024
+3. **Local Perception** - Datos INEGI ENSU/ENVIPE, evolución 2023-2024
+4. **Safe Neighborhoods** - Lomas, Polanco, Del Valle, La Loma, Centro
+5. **Expat Experience** - Testimonios reales de foros de expatriados
+6. **Practical Tips** - Consejos para vida diaria, noche, housing, driving
+7. **Emergency Contacts** - Números de emergencia completos
+8. **FAQ** - 6 preguntas frecuentes con respuestas detalladas
+9. **Sources** - 5 fuentes verificadas citadas
+
+**Datos clave presentados:**
+- Crime Index: 52.63 (menor que CDMX: 66.75)
+- Safety Index: 47.37 (mayor que CDMX: 33.25)
+- Homicidios ↓53% en 2024
+- Percepción inseguridad: 65.5% (mejorando desde 73% en 2023)
+- Ranking: 27 de 91 ciudades INEGI
+
+**Fuentes citadas:**
+- US State Department Travel Advisory
+- INEGI ENVIPE 2024 San Luis Potosí
+- Numbeo Crime Index
+- Expat Forum, TripAdvisor testimonials
+- Mexico Relocation Guide
+
+**Archivos creados:**
+- `src/pages/resources/safety-guide.tsx`
+
+**Archivos modificados:**
+- `src/pages/resources/index.tsx` - Agregada tarjeta Safety Guide
+
+**Estado:** ✅ Exitoso | Build: 6.89 kB
+
+---
+
 ## [2025-12-19] Feature: Places Internationalization (ES/DE)
 
 **Descripción:**
