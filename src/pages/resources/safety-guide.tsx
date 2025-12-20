@@ -50,7 +50,7 @@ export default function SafetyGuidePage() {
     },
     {
       q: 'What about drug-related violence?',
-      a: 'SLP has low frequency of random violence (81% never encounter it). Drug-related crime exists but typically doesn\'t affect residents who aren\'t involved. Homicides dropped 53% in 2024.'
+      a: 'SLP has low frequency of random violence (81% never encounter it). Drug-related crime exists but typically doesn\'t affect residents who aren\'t involved. Homicides dropped 39% in first half of 2025, and SLP ranks among the 10 safest states for homicides nationally.'
     },
     {
       q: 'Is Uber/taxi safe?',
@@ -76,7 +76,7 @@ export default function SafetyGuidePage() {
             <div className="flex items-center gap-2 text-emerald-400 text-sm mb-4">
               <span className="px-3 py-1 bg-emerald-500/20 rounded-full">Verified Guide</span>
               <span>•</span>
-              <span>Last updated: December 2024</span>
+              <span>Last updated: December 2025</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Is San Luis Potosí Safe?
@@ -89,10 +89,10 @@ export default function SafetyGuidePage() {
                 Level 2: Exercise Caution
               </span>
               <span className="px-4 py-2 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium">
-                Safer than Mexico City
+                Top 10 Safest States
               </span>
               <span className="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium">
-                Homicides ↓53% in 2024
+                Homicides ↓39% in 2025
               </span>
             </div>
           </div>
@@ -106,10 +106,10 @@ export default function SafetyGuidePage() {
                 <span className="text-2xl">✅</span> The Short Answer
               </h2>
               <p className="text-emerald-800 leading-relaxed">
-                <strong>San Luis Potosí is moderately safe</strong> — safer than Mexico City and many major Mexican cities,
-                but requires standard urban precautions. The US State Department classifies it as Level 2 (Exercise Increased Caution)
-                with <strong>no travel restrictions</strong>. Most expats report feeling safe, and crime has been declining in 2024.
-                Stick to recommended neighborhoods, take normal precautions at night, and you&apos;ll likely have no issues.
+                <strong>San Luis Potosí is moderately safe</strong> — ranked among Mexico&apos;s top 10 safest states for homicides,
+                and safer than Mexico City and Guadalajara. The US State Department classifies it as Level 2 (Exercise Increased Caution)
+                with <strong>no travel restrictions</strong>. Homicides dropped 39% in the first half of 2025, and the capital saw a 50% reduction.
+                Perception of insecurity remains above national average but is improving. Take standard urban precautions and you&apos;ll likely have no issues.
               </p>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function SafetyGuidePage() {
                   <div className="bg-gray-50 rounded-xl p-6 text-center">
                     <p className="text-4xl font-bold text-emerald-600 mb-2">52.63</p>
                     <p className="text-gray-600 text-sm">Crime Index (Numbeo)</p>
-                    <p className="text-xs text-gray-500 mt-1">Lower is better</p>
+                    <p className="text-xs text-gray-500 mt-1">Lower is better • Similar to NYC</p>
                   </div>
                   <div className="bg-gray-50 rounded-xl p-6 text-center">
                     <p className="text-4xl font-bold text-blue-600 mb-2">47.37</p>
@@ -190,14 +190,14 @@ export default function SafetyGuidePage() {
                     <p className="text-xs text-gray-500 mt-1">Higher is better</p>
                   </div>
                   <div className="bg-gray-50 rounded-xl p-6 text-center">
-                    <p className="text-4xl font-bold text-green-600 mb-2">↓53%</p>
-                    <p className="text-gray-600 text-sm">Homicide Decline 2024</p>
-                    <p className="text-xs text-gray-500 mt-1">vs same period prior year</p>
+                    <p className="text-4xl font-bold text-green-600 mb-2">↓39%</p>
+                    <p className="text-gray-600 text-sm">Homicide Decline H1 2025</p>
+                    <p className="text-xs text-gray-500 mt-1">142 vs 235 same period 2024</p>
                   </div>
                   <div className="bg-gray-50 rounded-xl p-6 text-center">
-                    <p className="text-4xl font-bold text-purple-600 mb-2">27th</p>
-                    <p className="text-gray-600 text-sm">National Ranking</p>
-                    <p className="text-xs text-gray-500 mt-1">of 91 cities surveyed by INEGI</p>
+                    <p className="text-4xl font-bold text-purple-600 mb-2">Top 10</p>
+                    <p className="text-gray-600 text-sm">Safest States (Homicides)</p>
+                    <p className="text-xs text-gray-500 mt-1">Mexico Evalúa 2025</p>
                   </div>
                 </div>
 
@@ -268,36 +268,36 @@ export default function SafetyGuidePage() {
                 </p>
 
                 <div className="bg-blue-50 rounded-xl p-6 mb-6">
-                  <h3 className="font-bold text-blue-900 mb-4">INEGI ENSU Survey Results (2024)</h3>
+                  <h3 className="font-bold text-blue-900 mb-4">INEGI ENSU Survey Results (2025)</h3>
                   <ul className="space-y-3 text-blue-800">
                     <li className="flex items-start gap-2">
                       <span className="text-emerald-500 mt-1">✓</span>
-                      <span><strong>65.5% perception of insecurity</strong> (September 2024) — down from 73% in late 2023</span>
+                      <span><strong>70.9% perception of insecurity</strong> (Q3 2025) — improved 4 points from Q2&apos;s 74.8%</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-emerald-500 mt-1">✓</span>
-                      <span><strong>8% improvement</strong> in perceived safety compared to 2023</span>
+                      <span><strong>Ranked 33rd of 91 cities</strong> — middle of the pack nationally (improved from #26)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-emerald-500 mt-1">✓</span>
-                      <span><strong>Ranked 27th of 91 cities</strong> — middle of the pack nationally</span>
+                      <span><strong>Capital: -50% homicides</strong> in 2025 — lowest since October 2016</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-amber-500 mt-1">!</span>
-                      <span>Still above national average (58.6% feel insecure nationally)</span>
+                      <span>Still above national average (63% feel insecure nationally)</span>
                     </li>
                   </ul>
                   <p className="text-sm text-blue-600 mt-4">
-                    Source: <a href="https://www.inegi.org.mx/contenidos/programas/envipe/2024/doc/envipe2024_slp.pdf" target="_blank" rel="noopener noreferrer" className="underline">INEGI ENVIPE 2024 San Luis Potosí</a>
+                    Source: <a href="https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2025/ensu/ENSU20205_10_RR.pdf" target="_blank" rel="noopener noreferrer" className="underline">INEGI ENSU Q3 2025</a>
                   </p>
                 </div>
 
-                <h3 className="text-xl font-semibold mb-4">Trend: Improving Over Time</h3>
+                <h3 className="text-xl font-semibold mb-4">Trend: Mixed but Improving</h3>
                 <p className="text-gray-700">
-                  The key takeaway from INEGI data is that <strong>San Luis Potosí is improving</strong>.
-                  The city showed one of only four significant decreases in perception of insecurity nationally
-                  between December 2023 and September 2024. Local government effectiveness is rated at 40.4% —
-                  above the national average of 30.6%.
+                  Perception of insecurity rose in early 2025 (to 74.8% in Q2) but has since improved to 70.9% in Q3.
+                  Meanwhile, <strong>actual crime is declining significantly</strong>: homicides down 39% statewide and 50% in the capital.
+                  The gap between perception and reality suggests media coverage may influence feelings more than actual risk.
+                  Mayor Enrique Galindo reports 23 points of improvement in security perception over his 4-year term.
                 </p>
               </section>
 
@@ -561,11 +561,12 @@ export default function SafetyGuidePage() {
               <section className="bg-slate-100 rounded-2xl p-8">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">Sources & References</h2>
                 <ul className="text-sm text-gray-600 space-y-2">
-                  <li>1. <a href="https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/mexico-travel-advisory.html" target="_blank" rel="noopener noreferrer" className="underline">US State Department Mexico Travel Advisory (2024)</a></li>
-                  <li>2. <a href="https://www.inegi.org.mx/contenidos/programas/envipe/2024/doc/envipe2024_slp.pdf" target="_blank" rel="noopener noreferrer" className="underline">INEGI ENVIPE 2024 - San Luis Potosí</a></li>
-                  <li>3. <a href="https://www.numbeo.com/crime/in/San-Luis-Potosi" target="_blank" rel="noopener noreferrer" className="underline">Numbeo Crime Index - San Luis Potosí</a></li>
-                  <li>4. <a href="https://www.liderempresarial.com/san-luis-potosi-es-mas-seguro-en-2024-que-en-2023-inegi/" target="_blank" rel="noopener noreferrer" className="underline">Líder Empresarial - SLP Safety 2024</a></li>
-                  <li>5. <a href="https://mexicorelocationguide.com/living-in-san-luis-potosi-the-city-most-expats-are-missing-out-on/" target="_blank" rel="noopener noreferrer" className="underline">Mexico Relocation Guide - Living in SLP</a></li>
+                  <li>1. <a href="https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/mexico-travel-advisory.html" target="_blank" rel="noopener noreferrer" className="underline">US State Department Mexico Travel Advisory (Aug 2025)</a></li>
+                  <li>2. <a href="https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2025/ensu/ENSU20205_10_RR.pdf" target="_blank" rel="noopener noreferrer" className="underline">INEGI ENSU Q3 2025 - Perception Survey</a></li>
+                  <li>3. <a href="https://elheraldoslp.com.mx/new/2025/07/21/homicidios-dolosos-disminuyen-39-2-en-slp-durante-primer-semestre-de-2025/" target="_blank" rel="noopener noreferrer" className="underline">El Heraldo SLP - Homicide Statistics H1 2025</a></li>
+                  <li>4. <a href="https://seguridad.slp.gob.mx/noticias/2025/8/19/san-luis-potosí-de-las-entidades-más-seguras-del-país/" target="_blank" rel="noopener noreferrer" className="underline">SLP Security Ministry - Top 10 Safest States 2025</a></li>
+                  <li>5. <a href="https://www.numbeo.com/crime/in/San-Luis-Potosi" target="_blank" rel="noopener noreferrer" className="underline">Numbeo Crime Index - San Luis Potosí 2025</a></li>
+                  <li>6. <a href="https://mexicorelocationguide.com/living-in-san-luis-potosi-the-city-most-expats-are-missing-out-on/" target="_blank" rel="noopener noreferrer" className="underline">Mexico Relocation Guide - Expat Experiences</a></li>
                 </ul>
               </section>
 
