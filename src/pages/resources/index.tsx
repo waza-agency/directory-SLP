@@ -20,19 +20,6 @@ export default function ResourcesHubPage() {
 
   const guides: GuideCard[] = [
     {
-      id: 'spouse-hub',
-      title: t('spouseHub.resourceCard.title', 'Spouse Hub'),
-      description: t('spouseHub.resourceCard.description', 'You\'re not alone. Resources, community, activities, volunteering, mom groups, and work ideas for accompanying partners in SLP.'),
-      image: '/images/cultura-1.jpg',
-      href: '/spouse-hub',
-      color: 'from-rose-600 to-purple-600',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      ),
-    },
-    {
       id: 'living-guide',
       title: 'Ultimate Living Guide',
       description: 'Your comprehensive guide to daily life in San Luis Potosí. Culture, food, shopping, entertainment, and everything you need to thrive.',
@@ -226,14 +213,14 @@ export default function ResourcesHubPage() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Spouse Hub', href: '/spouse-hub', highlight: true },
+                  { label: 'Is SLP Safe?', href: '/resources/safety-guide' },
                   { label: 'Emergency Numbers', href: '/resources/expat-guide#emergency' },
                   { label: 'Schools & Education', href: '/resources/school-guide' },
                   { label: 'Hospitals & Clinics', href: '/resources/health-guide' },
-                  { label: 'Cost of Living', href: '/blog/costo-de-vida-san-luis-potosi-2025' },
+                  { label: 'Neighborhoods', href: '/resources/neighborhoods-san-luis-potosi' },
                   { label: 'Local Food', href: '/resources/living-guide#food' },
                   { label: 'Transportation', href: '/resources/expat-guide#transportation' },
-                  { label: 'Mom Groups', href: '/spouse-hub#moms' },
+                  { label: 'Banking', href: '/resources/expat-guide#banking' },
                 ].map((link) => (
                   <Link
                     key={link.label}
