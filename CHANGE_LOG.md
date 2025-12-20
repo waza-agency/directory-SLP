@@ -58,7 +58,6 @@ Nueva página estratégica `/spouse-hub` dedicada a trailing spouses (cónyuges 
 **Características:**
 - Hero con carta empática y gradiente rosa-púrpura
 - Navegación con tabs interactivas
-- Quick stats: 500+ spouses, 15+ groups, 50+ activities
 - Badges "English OK" en oportunidades de voluntariado
 - CTA con links a Contact y Community
 - **Internacionalización completa** (EN/ES/DE)

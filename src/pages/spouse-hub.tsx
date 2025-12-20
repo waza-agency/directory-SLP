@@ -163,30 +163,6 @@ export default function SpouseHubPage() {
           </div>
         </section>
 
-        {/* Quick Stats */}
-        <section className="py-12 bg-white border-b">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="p-4">
-                <p className="text-4xl font-bold text-rose-600 mb-2">500+</p>
-                <p className="text-gray-600 text-sm">{t('spouseHub.stats.spouses')}</p>
-              </div>
-              <div className="p-4">
-                <p className="text-4xl font-bold text-purple-600 mb-2">15+</p>
-                <p className="text-gray-600 text-sm">{t('spouseHub.stats.groups')}</p>
-              </div>
-              <div className="p-4">
-                <p className="text-4xl font-bold text-indigo-600 mb-2">50+</p>
-                <p className="text-gray-600 text-sm">{t('spouseHub.stats.activities')}</p>
-              </div>
-              <div className="p-4">
-                <p className="text-4xl font-bold text-pink-600 mb-2">∞</p>
-                <p className="text-gray-600 text-sm">{t('spouseHub.stats.possibilities')}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Navigation Tabs */}
         <nav className="sticky top-0 z-40 bg-white border-b shadow-sm">
           <div className="container mx-auto px-4">
