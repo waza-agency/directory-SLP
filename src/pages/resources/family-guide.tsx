@@ -271,7 +271,7 @@ export default function FamilyGuidePage() {
     {
       sport: 'Swimming',
       icon: '🏊',
-      venues: ['Club La Loma', 'Tangamanga II Pools', 'YMCA SLP', 'Aquazone'],
+      venues: ['Swim Kids', 'Club La Loma', 'Tangamanga II Pools', 'YMCA SLP'],
       ages: '3 years+',
       cost: '$600 - $1,500 MXN/month',
       popularity: 'High',
@@ -307,6 +307,22 @@ export default function FamilyGuidePage() {
       ages: '3 years+',
       cost: '$600 - $1,500 MXN/month',
       popularity: 'High (especially girls)',
+    },
+    {
+      sport: 'Parkour',
+      icon: '🏃',
+      venues: ['VertiGo Parkour Academy'],
+      ages: '6 years+',
+      cost: '$800 - $1,500 MXN/month',
+      popularity: 'Growing',
+    },
+    {
+      sport: 'Mountain Biking',
+      icon: '🚵',
+      venues: ['Parque Tangamanga I', 'Parque Tangamanga II'],
+      ages: '6 years+',
+      cost: '$600 - $1,200 MXN/month',
+      popularity: 'Medium',
     },
   ];
 
