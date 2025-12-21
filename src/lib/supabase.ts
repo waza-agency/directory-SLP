@@ -2,6 +2,19 @@ import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types/supabase'
 import { logger } from './logger'
 
+// Supported locales for internationalization
+export type SupportedLocale = 'en' | 'es' | 'de';
+
+// Helper to get localized content with fallback to English (base)
+function getLocalizedField(data: Record<string, unknown>, field: string, locale: SupportedLocale): string {
+  if (locale === 'en') {
+    return (data[field] || '') as string;
+  }
+  const localizedValue = data[`${field}_${locale}`];
+  if (localizedValue) return localizedValue as string;
+  return (data[field] || '') as string;
+}
+
 // Ensure environment variables are loaded or use development fallbacks
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -19,9 +32,9 @@ logger.log('Supabase client initialized');
 const isDev = process.env.NODE_ENV !== 'production';
 
 // Helper function to map database place data to Place interface
-const mapPlaceData = (place: any) => ({
+const mapPlaceData = (place: any, locale: SupportedLocale = 'en') => ({
   id: place.id,
-  name: place.name,
+  name: getLocalizedField(place, 'name', locale),
   category: place.category,
   address: place.address || '',
   city: place.city || null,
@@ -30,7 +43,7 @@ const mapPlaceData = (place: any) => ({
   instagram: place.instagram || null,
   latitude: place.latitude || null,
   longitude: place.longitude || null,
-  description: place.description || '',
+  description: getLocalizedField(place, 'description', locale),
   imageUrl: place.image_url || null,
   hours: place.hours || null,
   featured: Boolean(place.featured),
@@ -42,7 +55,7 @@ const mapPlaceData = (place: any) => ({
 });
 
 // Helper functions for common operations
-export const getPlaces = async () => {
+export const getPlaces = async (locale: SupportedLocale = 'en') => {
   if (isDev) {
     logger.log('DEV MODE: Using mock data for getPlaces');
     return [];
@@ -55,10 +68,10 @@ export const getPlaces = async () => {
 
   if (error) throw error
 
-  return data.map(mapPlaceData);
+  return data.map(place => mapPlaceData(place, locale));
 }
 
-export const getFeaturedPlaces = async () => {
+export const getFeaturedPlaces = async (locale: SupportedLocale = 'en') => {
   const { data, error } = await supabase
     .from('places')
     .select("*")
@@ -67,7 +80,7 @@ export const getFeaturedPlaces = async () => {
 
   if (error) throw error
 
-  return data.map(mapPlaceData);
+  return data.map(place => mapPlaceData(place, locale));
 }
 
 // Helper function to filter events by date consistently across all pages
@@ -191,7 +204,7 @@ export const getFeaturedPhotos = async () => {
   return data
 }
 
-export const getPlaceById = async (id: string) => {
+export const getPlaceById = async (id: string, locale: SupportedLocale = 'en') => {
   try {
     logger.log('Fetching place with ID:', id);
 
@@ -235,7 +248,7 @@ export const getPlaceById = async (id: string) => {
       return null;
     }
 
-    const mappedPlace = mapPlaceData(data);
+    const mappedPlace = mapPlaceData(data, locale);
     logger.log('Mapped place data:', mappedPlace);
     return mappedPlace;
   } catch (error) {
@@ -259,7 +272,7 @@ export const getEventById = async (id: string) => {
   return data
 }
 
-export const getPotosinoBrands = async () => {
+export const getPotosinoBrands = async (locale: SupportedLocale = 'en') => {
   const { data, error } = await supabase
     .from('places')
     .select("*")
@@ -270,10 +283,10 @@ export const getPotosinoBrands = async () => {
 
   if (error) throw error;
 
-  return data.map(mapPlaceData);
+  return data.map(place => mapPlaceData(place, locale));
 }
 
-export const searchPlaces = async (searchTerm: string, category?: string) => {
+export const searchPlaces = async (searchTerm: string, category?: string, locale: SupportedLocale = 'en') => {
   logger.log('Search request with:', { searchTerm, category });
 
   let query = supabase
@@ -300,14 +313,14 @@ export const searchPlaces = async (searchTerm: string, category?: string) => {
 
   logger.log(`Found ${data.length} places in database`);
 
-  const mappedData = data.map(mapPlaceData);
+  const mappedData = data.map(place => mapPlaceData(place, locale));
 
   logger.log(`Returning ${mappedData.length} mapped places`);
   return mappedData;
 }
 
 // Get random places from the database
-export const getRandomPlaces = async (limit: number = 16) => {
+export const getRandomPlaces = async (limit: number = 16, locale: SupportedLocale = 'en') => {
   try {
     // First, get the total count of places
     const { count, error: countError } = await supabase
@@ -342,7 +355,7 @@ export const getRandomPlaces = async (limit: number = 16) => {
     const randomPlaces = shuffled.slice(0, limit);
     logger.log(`Returning ${randomPlaces.length} random places`);
 
-    return randomPlaces.map(mapPlaceData);
+    return randomPlaces.map(place => mapPlaceData(place, locale));
   } catch (error) {
     logger.error('Error getting random places:', error);
     throw error;

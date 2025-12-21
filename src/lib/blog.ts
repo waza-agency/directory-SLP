@@ -16,6 +16,24 @@ export interface BlogPost {
   metaDescription?: string;
 }
 
+export type SupportedLocale = 'en' | 'es' | 'de';
+
+// Helper to get localized content with fallback to English (base)
+// Structure: base fields (title, content, excerpt) = English, _es = Spanish, _de = German
+function getLocalizedField(post: Record<string, unknown>, field: string, locale: SupportedLocale): string {
+  // English is the base language (no suffix)
+  if (locale === 'en') {
+    return (post[field] || '') as string;
+  }
+
+  // For es/de, try localized field first, fallback to English (base)
+  const localizedValue = post[`${field}_${locale}`];
+  if (localizedValue) return localizedValue as string;
+
+  // Fallback to English (base)
+  return (post[field] || '') as string;
+}
+
 // --- Supabase Client Initialization ---
 let supabase: SupabaseClient | null = null;
 
@@ -40,14 +58,15 @@ function getSupabaseClient(): SupabaseClient {
 
 /**
  * Fetches all published blog posts, ordered by publication date.
+ * @param {SupportedLocale} locale - The locale for content (en, es, de). Defaults to 'en'.
  * @returns {Promise<BlogPost[]>} A promise that resolves to an array of blog posts.
  */
-export async function getBlogPosts(): Promise<BlogPost[]> {
+export async function getBlogPosts(locale: SupportedLocale = 'en'): Promise<BlogPost[]> {
   try {
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en, meta_title, meta_description')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
@@ -61,15 +80,18 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     }
 
     return data.map((post) => ({
-      ...post,
-      title: post.title_en || post.title,
-      content: post.content_en || post.content,
-      excerpt: post.excerpt_en || post.excerpt,
+      id: post.id,
+      slug: post.slug,
+      title: getLocalizedField(post, 'title', locale),
+      content: getLocalizedField(post, 'content', locale),
+      excerpt: getLocalizedField(post, 'excerpt', locale),
       imageUrl: post.image_url,
+      category: post.category,
       publishedAt: post.published_at,
       createdAt: post.created_at,
-      metaTitle: post.meta_title,
-      metaDescription: post.meta_description,
+      tags: post.tags,
+      metaTitle: getLocalizedField(post, 'meta_title', locale),
+      metaDescription: getLocalizedField(post, 'meta_description', locale),
     }));
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
@@ -81,9 +103,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 /**
  * Fetches a single blog post by its slug.
  * @param {string} slug - The slug of the blog post to fetch.
+ * @param {SupportedLocale} locale - The locale for content (en, es, de). Defaults to 'en'.
  * @returns {Promise<BlogPost | null>} A promise that resolves to the blog post or null if not found.
  */
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getBlogPostBySlug(slug: string, locale: SupportedLocale = 'en'): Promise<BlogPost | null> {
   if (!slug) {
     console.error('getBlogPostBySlug: Slug is required.');
     return null;
@@ -93,13 +116,13 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en, meta_title, meta_description')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de')
       .eq('slug', slug)
       .eq('status', 'published')
       .single();
 
     if (error) {
-      if (error.code === 'PGRST116') { // PostgREST error for "exact one row not found"
+      if (error.code === 'PGRST116') {
         console.warn(`Blog post with slug "${slug}" not found.`);
       } else {
         console.error(`Error fetching post by slug "${slug}":`, error.message);
@@ -112,15 +135,18 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     }
 
     return {
-      ...data,
-      title: data.title_en || data.title,
-      content: data.content_en || data.content,
-      excerpt: data.excerpt_en || data.excerpt,
+      id: data.id,
+      slug: data.slug,
+      title: getLocalizedField(data, 'title', locale),
+      content: getLocalizedField(data, 'content', locale),
+      excerpt: getLocalizedField(data, 'excerpt', locale),
       imageUrl: data.image_url,
+      category: data.category,
       publishedAt: data.published_at,
       createdAt: data.created_at,
-      metaTitle: data.meta_title,
-      metaDescription: data.meta_description,
+      tags: data.tags,
+      metaTitle: getLocalizedField(data, 'meta_title', locale),
+      metaDescription: getLocalizedField(data, 'meta_description', locale),
     };
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
@@ -132,9 +158,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 /**
  * Fetches multiple blog posts by their slugs.
  * @param {string[]} slugs - An array of slugs to fetch.
+ * @param {SupportedLocale} locale - The locale for content (en, es, de). Defaults to 'en'.
  * @returns {Promise<BlogPost[]>} A promise that resolves to an array of blog posts.
  */
-export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> {
+export async function getBlogPostsBySlugs(slugs: string[], locale: SupportedLocale = 'en'): Promise<BlogPost[]> {
   if (!slugs || slugs.length === 0) {
     console.error('getBlogPostsBySlugs: Slugs array is required.');
     return [];
@@ -144,7 +171,7 @@ export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en, meta_title, meta_description')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de')
       .in('slug', slugs)
       .eq('status', 'published');
 
@@ -158,15 +185,18 @@ export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> 
     }
 
     return data.map((post) => ({
-      ...post,
-      title: post.title_en || post.title,
-      content: post.content_en || post.content,
-      excerpt: post.excerpt_en || post.excerpt,
+      id: post.id,
+      slug: post.slug,
+      title: getLocalizedField(post, 'title', locale),
+      content: getLocalizedField(post, 'content', locale),
+      excerpt: getLocalizedField(post, 'excerpt', locale),
       imageUrl: post.image_url,
+      category: post.category,
       publishedAt: post.published_at,
       createdAt: post.created_at,
-      metaTitle: post.meta_title,
-      metaDescription: post.meta_description,
+      tags: post.tags,
+      metaTitle: getLocalizedField(post, 'meta_title', locale),
+      metaDescription: getLocalizedField(post, 'meta_description', locale),
     }));
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';

@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { BlogPost, getBlogPosts, getBlogPostBySlug } from '@/lib/blog';
+import { BlogPost, getBlogPosts, getBlogPostBySlug, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import NewsletterBanner from '@/components/NewsletterBanner';
@@ -27,7 +27,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context) => {
   const slug = context.params?.slug as string;
   const locale = context.locale;
-  const post = await getBlogPostBySlug(slug);
+  const blogLocale = (locale || 'en') as SupportedLocale;
+  const post = await getBlogPostBySlug(slug, blogLocale);
 
   if (!post) {
     return {

@@ -276,7 +276,7 @@ export default function SafetyGuidePage() {
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-emerald-500 mt-1">✓</span>
-                      <span><strong>Ranked 33rd of 91 cities</strong> — middle of the pack nationally (improved from #26)</span>
+                      <span><strong>Ranked 34th of 91 cities</strong> — middle of the pack nationally</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-emerald-500 mt-1">✓</span>

@@ -117,19 +117,20 @@ const nextConfig = {
       },
     ];
   },
-  // Temporarily disable rewrites
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/sitemap.xml',
-  //       destination: '/api/sitemap',
-  //     },
-  //     {
-  //       source: '/robots.txt',
-  //       destination: '/api/robots',
-  //     }
-  //   ];
-  // },
+  async redirects() {
+    return [
+      {
+        source: '/living-guide',
+        destination: '/resources/living-guide',
+        permanent: true,
+      },
+      {
+        source: '/expat-guide',
+        destination: '/resources/expat-guide',
+        permanent: true,
+      },
+    ];
+  },
   env: {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },

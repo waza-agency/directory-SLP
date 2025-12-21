@@ -3,44 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS community_news (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  title_es TEXT NOT NULL,
-  title_en TEXT NOT NULL,
-  summary_es TEXT NOT NULL,
-  summary_en TEXT NOT NULL,
-  category TEXT NOT NULL DEFAULT 'community' CHECK (category IN ('social', 'community', 'culture', 'local')),
-  image_url TEXT,
-  source TEXT,
-  priority INTEGER DEFAULT 10,
-  active BOOLEAN DEFAULT true,
-  published_at TIMESTAMPTZ DEFAULT NOW(),
-  expires_at TIMESTAMPTZ,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Create index for faster queries
-CREATE INDEX IF NOT EXISTS idx_community_news_active ON community_news(active);
-CREATE INDEX IF NOT EXISTS idx_community_news_priority ON community_news(priority);
-CREATE INDEX IF NOT EXISTS idx_community_news_published ON community_news(published_at DESC);
-
--- Enable Row Level Security
-ALTER TABLE community_news ENABLE ROW LEVEL SECURITY;
-
--- Policy: Allow public read access to active news
-CREATE POLICY "Allow public read access to community news"
-  ON community_news
-  FOR SELECT
-  USING (active = true AND (expires_at IS NULL OR expires_at > NOW()));
-
--- Insert sample community news
-INSERT INTO community_news (title_es, title_en, summary_es, summary_en, category, priority) VALUES
-(
-  'Mercado Tangamanga celebra su 5to aniversario',
-  'Tangamanga Market celebrates 5th anniversary',
-  'El mercado artesanal más querido de SLP festeja con actividades especiales este fin de semana.',
-  'SLP''s beloved artisan market celebrates with special activities this weekend.',
-  'community',
-  1
+  title_es TEXT NOT NULL,ya esta 
 ),
 (
   'Nueva ruta ciclista conecta Lomas con el Centro',

@@ -28,7 +28,7 @@ export default function Map({ places, selectedPlace, onPlaceSelect }: MapProps) 
     if (!mapRef.current) return;
     
     // Load Google Maps script
-    const googleMapsScript = document.createElemen"DEFAULT";
+    const googleMapsScript = document.createElement('script');
     googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
     googleMapsScript.async = true;
     googleMapsScript.defer = true;

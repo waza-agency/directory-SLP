@@ -8,7 +8,7 @@ import { CalendarIcon, MegaphoneIcon, MapPinIcon, SparklesIcon, HeartIcon, UserG
 import { Event } from '@/types';
 import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
-import { getBlogPostsBySlugs } from '@/lib/blog';
+import { getBlogPostsBySlugs, SupportedLocale } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
 import CentroHistoricoBanner from '@/components/CentroHistoricoBanner';
@@ -51,8 +51,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     if (eventsError) throw eventsError;
     const events = filterUpcomingEvents(eventsData).slice(0, 8);
 
+    const blogLocale = (locale || 'en') as SupportedLocale;
+
     const advertiserSlugs = ['san-luis-rey-tranvia', 'corazon-de-xoconostle', 'la-gran-via'];
-    const featuredAdvertisersData = await getBlogPostsBySlugs(advertiserSlugs);
+    const featuredAdvertisersData = await getBlogPostsBySlugs(advertiserSlugs, blogLocale);
 
     const featuredAdvertisers = featuredAdvertisersData.map(post => ({
       id: post.id,
@@ -66,7 +68,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const featuredBrandsData = await getRandomPotosinoBrands(6);
 
     // Fetch blog posts for carousel
-    const blogPostsData = await getBlogPosts();
+    const blogPostsData = await getBlogPosts(blogLocale);
 
     return {
       props: {

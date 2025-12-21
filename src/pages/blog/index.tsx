@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useMemo, useEffect } from 'react';
-import { BlogPost, getBlogPosts } from '@/lib/blog';
+import { BlogPost, getBlogPosts, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -16,7 +16,8 @@ interface BlogIndexProps {
 }
 
 export const getStaticProps: GetStaticProps<BlogIndexProps> = async ({ locale }) => {
-  const posts = await getBlogPosts();
+  const blogLocale = (locale || 'en') as SupportedLocale;
+  const posts = await getBlogPosts(blogLocale);
 
   return {
     props: {

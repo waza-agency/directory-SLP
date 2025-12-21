@@ -68,7 +68,9 @@
       "Bash(node scripts/publish-immigration-guide-post.js:*)",
       "Bash(node -e:*)",
       "Bash(mkdir:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "mcp__playwright__browser_take_screenshot",
+      "Skill(factcheck)"
     ]
   },
   "enableAllProjectMcpServers": true,

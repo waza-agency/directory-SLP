@@ -248,6 +248,78 @@ export default function ResourcesHubPage() {
           </div>
         </section>
 
+        {/* Fact-Check Notice */}
+        <section className="py-12 bg-emerald-50 border-y border-emerald-200">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex flex-col md:flex-row items-start gap-6">
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-emerald-900 mb-4">
+                    Compromiso con la Precisión | Commitment to Accuracy
+                  </h3>
+
+                  {/* Bilingual Content Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    {/* Spanish */}
+                    <div className="bg-white/60 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-lg">🇲🇽</span>
+                        <span className="font-semibold text-emerald-900">Español</span>
+                      </div>
+                      <p className="text-emerald-800 text-sm mb-2">
+                        Todas nuestras guías pasan por un riguroso proceso de verificación. Utilizamos fuentes oficiales e investigación académica para asegurar la exactitud.
+                      </p>
+                      <p className="text-emerald-700 text-sm">
+                        <strong>¿Encontraste un error?</strong> Queremos saberlo. Reporta cualquier información incorrecta y la corregiremos de inmediato.
+                      </p>
+                    </div>
+
+                    {/* English */}
+                    <div className="bg-white/60 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-lg">🇺🇸</span>
+                        <span className="font-semibold text-emerald-900">English</span>
+                      </div>
+                      <p className="text-emerald-800 text-sm mb-2">
+                        All our guides undergo rigorous fact-checking. We use official sources and academic research to ensure accuracy.
+                      </p>
+                      <p className="text-emerald-700 text-sm">
+                        <strong>Found an error?</strong> We want to know. Report any incorrect information and we&apos;ll fix it immediately.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3">
+                    <Link
+                      href="/blog/factchecks"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                      </svg>
+                      Ver Reportes / View Reports
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-emerald-300 text-emerald-700 rounded-lg hover:bg-emerald-50 transition-colors text-sm font-medium"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      Reportar Error / Report Error
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-primary to-secondary">
           <div className="container mx-auto px-4 text-center">
