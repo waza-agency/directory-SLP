@@ -18,22 +18,38 @@ function getSupabaseClient() {
   return supabaseClient;
 }
 
-export function getCurrentNewsletterDates(referenceDate = new Date()) {
-  // Always use fresh current date to ensure accuracy
+export function getCurrentNewsletterDates() {
+  // Always use fresh current date/time to ensure accuracy
   const now = new Date();
-  console.log(`Newsletter date calculation - Current date: ${now.toISOString()}`);
 
-  // Get the Monday of the current week (the week we're in right now)
-  const currentWeekMonday = startOfWeek(now, { weekStartsOn: 1 });
-  const currentWeekSunday = endOfWeek(now, { weekStartsOn: 1 });
+  // Get current time in Mexico City timezone for accurate local time
+  const mexicoCityTime = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Mexico_City',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).format(now);
+
+  console.log(`Newsletter generation timestamp: ${now.toISOString()}`);
+  console.log(`Mexico City local time: ${mexicoCityTime}`);
+
+  // Use TODAY as start date and 7 days from now as end date
+  const startDate = now;
+  const endDate = addDays(now, 7);
 
   return {
     currentDate: format(now, 'MMMM d, yyyy'),
-    weekStartDate: currentWeekMonday,
-    weekEndDate: currentWeekSunday,
-    weekStartIso: currentWeekMonday.toISOString(),
-    weekEndIso: currentWeekSunday.toISOString(),
-    dateRangeStr: `${format(currentWeekMonday, 'MMMM d')} - ${format(currentWeekSunday, 'MMMM d, yyyy')}`,
+    currentDateTime: format(now, 'MMMM d, yyyy \'at\' h:mm a'),
+    weekStartDate: startDate,
+    weekEndDate: endDate,
+    weekStartIso: startDate.toISOString(),
+    weekEndIso: endDate.toISOString(),
+    dateRangeStr: `${format(startDate, 'MMMM d')} - ${format(endDate, 'MMMM d, yyyy')}`,
+    todayFormatted: format(now, 'EEEE, MMMM d, yyyy'),
+    mexicoCityLocalTime: mexicoCityTime,
   };
 }
 
@@ -645,6 +661,9 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
+          <!-- COMUNIDAD SECTION (Custom Content) -->
+          <!-- COMUNIDAD_PLACEHOLDER -->
+
           <!-- CALL TO ACTION -->
           <tr>
             <td style="background-color: #C75B39; text-align: center; padding: 40px 30px;">
@@ -855,15 +874,41 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     return `- "${title}" (${post.category || 'general'}) - URL: https://www.sanluisway.com/blog/${post.slug}\n  Excerpt: ${excerpt}`;
   }).join('\n\n') || 'No blog posts available.';
 
+  console.log('1.6. Fetching previously used "Did You Know?" facts...');
+  const { data: usedFacts } = await supabase
+    .from('newsletter_facts')
+    .select('fact_title, fact_body')
+    .order('used_at', { ascending: false })
+    .limit(50);
+
+  const usedFactsList = usedFacts?.map(f => `- ${f.fact_title}: ${f.fact_body.substring(0, 100)}...`).join('\n') || '';
+
   console.log('2. 🧠 Performing Deep Research with Gemini Grounding...');
 
   const prompt = `
     You are the editor of "San Luis Way Weekly".
 
-    TASK: Create a comprehensive weekly digest for San Luis Potosí, Mexico for the week of ${dateRangeStr}.
-    Use today's date: ${dates.currentDate} so the newsletter reflects the current context.
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  CRITICAL DATE/TIME CONTEXT - READ THIS FIRST                   ║
+    ╠══════════════════════════════════════════════════════════════════╣
+    ║  TODAY'S DATE: ${dates.todayFormatted}
+    ║  GENERATION TIME: ${dates.currentDateTime}
+    ║  MEXICO CITY LOCAL TIME: ${dates.mexicoCityLocalTime}
+    ║  NEWSLETTER COVERS: ${dateRangeStr} (NEXT 7 DAYS)
+    ╚══════════════════════════════════════════════════════════════════╝
 
-    **CRITICAL: Only include events, news, and information relevant to ${dateRangeStr}. Do NOT include events from previous weeks or future weeks beyond this date range. This is a weekly newsletter - readers only need information for THIS specific week.**
+    TASK: Create a comprehensive weekly digest for San Luis Potosí, Mexico.
+
+    **ABSOLUTELY CRITICAL DATE REQUIREMENTS:**
+    1. TODAY is ${dates.todayFormatted} - use this as your reference point
+    2. Search for events happening FROM TODAY through ${format(dates.weekEndDate, 'MMMM d, yyyy')}
+    3. DO NOT include any events that have ALREADY PASSED (before today)
+    4. Only recommend activities for the NEXT 7 DAYS starting from TODAY
+    5. When searching, always include the current year (2025) in your queries
+
+    Example: If today is December 21, 2025:
+    ✓ Include: Events on December 21, 22, 23, 24, 25, 26, 27, 28
+    ✗ Exclude: Events on December 15, 16, 17, 18, 19, 20 (already passed)
 
     I need information in these 5 areas:
 
@@ -919,10 +964,18 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - Recommendation: (e.g. "Bring a jacket," "High UV warning")
 
     ═══════════════════════════════════════════════════════════
-    SECTION 3: EVENTS & ENTERTAINMENT
+    SECTION 3: EVENTS & ENTERTAINMENT (NEXT 7 DAYS ONLY)
     ═══════════════════════════════════════════════════════════
 
-    Search for events happening ONLY during ${dateRangeStr} (this week only, do NOT include events from other weeks):
+    **REMINDER: Today is ${dates.todayFormatted}**
+
+    Search for events happening ONLY from ${format(dates.weekStartDate, 'MMMM d')} through ${format(dates.weekEndDate, 'MMMM d, yyyy')}.
+
+    IMPORTANT SEARCH TIPS:
+    - Use search queries like "eventos San Luis Potosí diciembre 2025" or "que hacer en SLP esta semana"
+    - Search for "Navidad San Luis Potosí 2025" for Christmas events
+    - Check for "posadas", "conciertos", "teatro" happening THIS WEEK
+    - DO NOT include events from last week or events that already happened
 
     CATEGORIES:
     1. CULTURE: festivals, traditions, museum exhibitions, cultural celebrations
@@ -956,13 +1009,28 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     ${eventsList}
 
     ═══════════════════════════════════════════════════════════
-    SECTION 4: DID YOU KNOW? (Curious Fact)
+    SECTION 4: DID YOU KNOW? (Curious Fact) - MUST BE UNIQUE
     ═══════════════════════════════════════════════════════════
 
     Search for "datos curiosos San Luis Potosí", "leyendas San Luis Potosí", or "historia San Luis Potosí".
 
+    **CRITICAL: DO NOT REPEAT ANY OF THESE PREVIOUSLY USED FACTS:**
+    ${usedFactsList || 'No previous facts recorded yet.'}
+
+    You MUST choose a DIFFERENT fact from the ones listed above. Some topics to explore:
+    - Mining history (Real de Catorce, Cerro de San Pedro)
+    - Colonial architecture and churches
+    - Famous potosinos (Manuel José Othón, Ponciano Arriaga)
+    - Traditional cuisine (enchiladas potosinas, gorditas, queso de tuna)
+    - Local festivals and traditions
+    - Natural wonders (Huasteca Potosina, Tamtoc archaeological site)
+    - Local legends and myths
+    - Historical events (beyond being Mexico's capital)
+    - Cultural traditions (Xantolo, danza de los voladores)
+    - Local wildlife and ecosystems
+
     FORMAT:
-    - Title: Catchy header
+    - Title: Catchy header (this will be saved to avoid repetition)
     - Fact: 3-4 sentences explaining the historical or cultural fact.
 
     ═══════════════════════════════════════════════════════════
@@ -1040,20 +1108,42 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
     ${customContent ? `
     ═══════════════════════════════════════════════════════════
-    SECTION 7: CUSTOM CONTENT FROM EDITOR (MUST INCLUDE)
+    SECTION 7: COMUNIDAD (CUSTOM CONTENT - MANDATORY)
     ═══════════════════════════════════════════════════════════
 
-    The newsletter editor has provided the following custom content that MUST be included in the newsletter.
-    Integrate this content naturally into appropriate sections. This could be:
-    - Promotions or discounts → Add in a dedicated "Special Offers" section or integrate with relevant sections
-    - Announcements → Include in "Around Town" or create a highlighted box
-    - Sponsor messages → Add tastefully near the CTA or in a dedicated sponsor section
-    - Community messages → Include in the opening or closing sections
+    The newsletter editor has provided custom content that MUST appear in a dedicated "Comunidad" section.
+
+    **CRITICAL INSTRUCTIONS:**
+    1. You MUST create a "Comunidad" section using the HTML template below
+    2. Replace <!-- COMUNIDAD_PLACEHOLDER --> with the generated Comunidad HTML
+    3. Adapt the content naturally to match the newsletter's friendly tone
+    4. Preserve ALL key information: dates, discount codes, names, links, prices
+    5. This section should feel like community news, not an advertisement
 
     CUSTOM CONTENT TO INCLUDE:
     ${customContent}
 
-    IMPORTANT: This content is from the editor and must appear in the final newsletter. Adapt the tone and formatting to match the newsletter style, but preserve all key information (dates, codes, names, links).
+    COMUNIDAD SECTION HTML TO USE (replace <!-- COMUNIDAD_PLACEHOLDER -->):
+    <tr>
+      <td style="padding: 30px; background-color: #FDF4FF;">
+        <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+          🤝 Comunidad
+        </h2>
+        <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">From our community to yours</p>
+
+        <!-- Add your adapted content here as card(s) with this style: -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E9D5FF; border-left: 4px solid #A855F7; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+          <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #7C3AED;">[ADAPTED_TITLE]</h3>
+          <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[ADAPTED_CONTENT]</p>
+          <!-- If there's a link or code, add: -->
+          <p style="margin: 0; font-size: 14px;">
+            <span style="background-color: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 4px; font-weight: bold;">[CODE_OR_HIGHLIGHT]</span>
+          </p>
+        </div>
+      </td>
+    </tr>
+
+    You can add multiple cards if there are multiple items in the custom content.
     ` : ''}
 
     INSTRUCTIONS:
@@ -1130,6 +1220,28 @@ export async function generateWeeklyNewsletter(customContent?: string) {
   // Validate and clean URLs
   console.log('6. 🔗 Validating and cleaning URLs...');
   htmlContent = validateAndCleanUrls(htmlContent);
+
+  // Extract and save the "Did You Know?" fact to avoid repetition
+  console.log('7. 💾 Extracting and saving "Did You Know?" fact...');
+  try {
+    const factTitleMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
+    const factBodyMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+
+    if (factTitleMatch && factBodyMatch) {
+      const factTitle = factTitleMatch[1].trim();
+      const factBody = factBodyMatch[1].trim();
+
+      if (factTitle && factBody && factTitle.length > 3 && factBody.length > 20) {
+        await supabase.from('newsletter_facts').insert({
+          fact_title: factTitle,
+          fact_body: factBody,
+        });
+        console.log(`   ✅ Saved fact: "${factTitle.substring(0, 50)}..."`);
+      }
+    }
+  } catch (factError) {
+    console.error('   ⚠️ Could not save fact (non-critical):', factError);
+  }
 
   return {
     subject: `San Luis Way Weekly | ${dateRangeStr}`,

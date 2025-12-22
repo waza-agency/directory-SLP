@@ -328,7 +328,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               </span>
             </div>
             <div className="flex-1 overflow-hidden py-3">
-              <div className="animate-marquee whitespace-nowrap flex">
+              <div
+                className="animate-marquee whitespace-nowrap flex"
+                style={{ animationDuration: `${Math.max(tickerHeadlines.length * 6, 30)}s` }}
+              >
                 {[...tickerHeadlines, ...tickerHeadlines].map((headline, idx) => (
                   <span key={`${headline.id}-${idx}`} className="inline-flex items-center mx-8">
                     <span className="text-white font-medium">{headline.text}</span>

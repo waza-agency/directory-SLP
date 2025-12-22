@@ -16,6 +16,8 @@ interface Newsletter {
   status: string;
   created_at: string;
   sent_at?: string;
+  html_content?: string;
+  preview_text?: string;
   stats?: { sent: number; failed: number };
 }
 
@@ -51,6 +53,7 @@ export default function NewsletterAdminPage() {
   const [generationMessage, setGenerationMessage] = useState('');
   const [generatedNewsletter, setGeneratedNewsletter] = useState<GeneratedNewsletter | null>(null);
   const [copied, setCopied] = useState(false);
+  const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
 
   const fetchSubscribers = useCallback(async () => {
     setLoading(true);
@@ -331,7 +334,7 @@ export default function NewsletterAdminPage() {
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Subject</th>
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Status</th>
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Created</th>
-                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Sent</th>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y">
@@ -351,13 +354,64 @@ export default function NewsletterAdminPage() {
                           <td className="px-4 py-3 text-sm text-gray-500">
                             {new Date(nl.created_at).toLocaleDateString()}
                           </td>
-                          <td className="px-4 py-3 text-sm text-gray-500">
-                            {nl.sent_at ? new Date(nl.sent_at).toLocaleDateString() : '-'}
+                          <td className="px-4 py-3 text-sm">
+                            <button
+                              onClick={() => setSelectedNewsletter(nl)}
+                              className="px-3 py-1 text-sm bg-indigo-100 text-indigo-700 rounded hover:bg-indigo-200"
+                            >
+                              View
+                            </button>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                )}
+
+                {/* Newsletter Preview Modal */}
+                {selectedNewsletter && (
+                  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+                      <div className="p-4 border-b flex justify-between items-center bg-gray-50">
+                        <div>
+                          <h3 className="font-bold text-lg">{selectedNewsletter.subject}</h3>
+                          <p className="text-sm text-gray-500">
+                            Created: {new Date(selectedNewsletter.created_at).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <div className="flex gap-2">
+                          {selectedNewsletter.html_content && (
+                            <button
+                              onClick={() => {
+                                copyToClipboard(selectedNewsletter.html_content || '');
+                              }}
+                              className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                                copied ? 'bg-green-500 text-white' : 'bg-terracotta text-white hover:bg-terracotta/90'
+                              }`}
+                            >
+                              {copied ? '✓ Copied!' : 'Copy HTML'}
+                            </button>
+                          )}
+                          <button
+                            onClick={() => setSelectedNewsletter(null)}
+                            className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                      <div className="flex-1 overflow-y-auto p-4">
+                        {selectedNewsletter.html_content ? (
+                          <div
+                            className="newsletter-preview"
+                            dangerouslySetInnerHTML={{ __html: selectedNewsletter.html_content }}
+                          />
+                        ) : (
+                          <p className="text-gray-500 text-center py-8">No HTML content available for this newsletter.</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             )}
@@ -371,24 +425,24 @@ export default function NewsletterAdminPage() {
                     Click the button below to generate a newsletter draft using AI. The draft will be created directly in Beehiiv where you can edit and send it.
                   </p>
 
-                  {/* Custom Content Section */}
-                  <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                    <label htmlFor="customContent" className="block text-sm font-semibold text-amber-800 mb-2">
-                      Custom Content (Optional)
+                  {/* Custom Content Section - Comunidad */}
+                  <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                    <label htmlFor="customContent" className="block text-sm font-semibold text-purple-800 mb-2">
+                      🤝 Comunidad Section (Optional)
                     </label>
-                    <p className="text-sm text-amber-700 mb-3">
-                      Add promotions, announcements, or special messages you want included in the newsletter. The AI will adapt and integrate this content naturally.
+                    <p className="text-sm text-purple-700 mb-3">
+                      Add promotions, announcements, or special messages. These will appear in a dedicated <strong>&quot;Comunidad&quot;</strong> section in the newsletter, styled to feel like community news.
                     </p>
                     <textarea
                       id="customContent"
                       value={customContent}
                       onChange={(e) => setCustomContent(e.target.value)}
-                      placeholder="Example:&#10;- 20% off at Café Tulum this weekend with code SLWAY20&#10;- Join our community meetup next Saturday at Plaza de Armas&#10;- Special thanks to our sponsors: Restaurant X, Service Y"
-                      className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-h-[120px] text-sm"
+                      placeholder="Example:&#10;- 20% off at Café Tulum this weekend with code SLWAY20&#10;- Join our community meetup next Saturday at Plaza de Armas at 5pm&#10;- Special thanks to our sponsors: Restaurant X, Service Y&#10;- New yoga classes at Centro Cultural - first class free!"
+                      className="w-full px-4 py-3 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-h-[120px] text-sm"
                       rows={5}
                     />
-                    <p className="text-xs text-amber-600 mt-2">
-                      Tip: Be specific! Include dates, discount codes, locations, and any details readers need.
+                    <p className="text-xs text-purple-600 mt-2">
+                      💡 Tip: Be specific! Include dates, discount codes, locations, and any details readers need. The AI will adapt your content to match the newsletter&apos;s friendly tone.
                     </p>
                   </div>
 

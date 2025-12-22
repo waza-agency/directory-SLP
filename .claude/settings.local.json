@@ -72,7 +72,8 @@
       "mcp__playwright__browser_take_screenshot",
       "Skill(factcheck)",
       "Bash(node scripts/import-beehiiv-leads.js:*)",
-      "Bash(node scripts/import-leads-dual.js:*)"
+      "Bash(node scripts/import-leads-dual.js:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat\\(newsletter\\): Improve generation with Comunidad section and date fixes\n\n- Add dedicated \"Comunidad\" section for custom content with purple styling\n- Fix date calculation to use NEXT 7 days instead of current calendar week\n- Add newsletter_facts table to track used \"Did You Know?\" facts\n- Prevent repetition of curious facts across newsletter generations\n- Add newsletter history UI with preview modal\n- Improve prompt with explicit date/time context for AI\n- Add Mexico City timezone support for accurate local time\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   },
   "enableAllProjectMcpServers": true,
