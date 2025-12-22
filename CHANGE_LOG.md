@@ -4,6 +4,44 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-21] Feature: Newsletter Generator Improvements
+
+**Descripción:**
+Mejoras significativas al sistema de generación de newsletters con nueva sección "Comunidad", corrección de fechas y sistema para evitar repetición de datos curiosos.
+
+**Cambios realizados:**
+
+1. **Nueva sección "Comunidad"**
+   - Sección dedicada para contenido personalizado (promociones, anuncios, mensajes)
+   - Estilo púrpura distintivo para diferenciarla del resto del contenido
+   - La IA adapta el contenido al tono del newsletter
+
+2. **Corrección de cálculo de fechas**
+   - Antes: Usaba semana calendario (lunes-domingo de la semana actual)
+   - Ahora: Usa los PRÓXIMOS 7 días a partir de la fecha de generación
+   - Añadido soporte de zona horaria de México City
+   - Prompt mejorado con fecha/hora explícita para la IA
+
+3. **Sistema de datos curiosos no repetidos**
+   - Nueva tabla `newsletter_facts` para guardar datos usados
+   - El generador consulta los últimos 50 datos y los pasa a la IA
+   - Los datos se guardan automáticamente después de cada generación
+   - Lista de temas sugeridos para variedad
+
+4. **UI de historial de newsletters**
+   - Pestaña "Newsletters" ahora tiene botón "View" en cada fila
+   - Modal para ver el contenido HTML completo
+   - Botón para copiar HTML desde el historial
+
+**Archivos modificados:**
+- `src/lib/newsletter-generator.ts` - Lógica de generación y fechas
+- `src/pages/admin/newsletter.tsx` - UI de admin con historial
+- `supabase/migrations/20251221000000_add_newsletter_facts.sql` - Nueva tabla
+
+**Estado:** ✅ Exitoso (commit 18344d33)
+
+---
+
 ## [2025-12-19] Feature: Ultimate Family Life Guide
 
 **Descripción:**

@@ -4,6 +4,57 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 18344d33 - 2025-12-21
+
+**Mensaje:** feat(newsletter): Improve generation with Comunidad section and date fixes
+
+**Archivos modificados:**
+- src/lib/newsletter-generator.ts
+- src/pages/admin/newsletter.tsx
+- supabase/migrations/20251221000000_add_newsletter_facts.sql
+
+**Descripción detallada:**
+
+Se realizaron mejoras significativas al sistema de generación de newsletters:
+
+1. **Sección "Comunidad"**
+   - Nueva sección dedicada para contenido personalizado del editor
+   - Template HTML con estilo púrpura distintivo
+   - Placeholder `<!-- COMUNIDAD_PLACEHOLDER -->` en el template
+   - La IA adapta promociones, anuncios y mensajes al tono del newsletter
+
+2. **Corrección de fechas**
+   - Función `getCurrentNewsletterDates()` ahora usa fecha actual + 7 días
+   - Antes usaba `startOfWeek/endOfWeek` que daba la semana calendario
+   - Añadido soporte de zona horaria de México City
+   - Nuevos campos: `todayFormatted`, `currentDateTime`, `mexicoCityLocalTime`
+
+3. **Sistema de datos curiosos**
+   - Nueva tabla `newsletter_facts` con campos: id, fact_title, fact_body, newsletter_id, used_at
+   - Query para obtener últimos 50 datos usados
+   - Regex para extraer título y cuerpo del HTML generado
+   - Auto-guardado después de cada generación
+
+4. **Prompt mejorado**
+   - Box visual con fecha/hora actual
+   - Instrucciones explícitas: "TODAY is December 21, 2025"
+   - Ejemplos claros de qué incluir y excluir
+   - Lista de temas sugeridos para datos curiosos
+
+5. **UI de historial**
+   - Estado `selectedNewsletter` para newsletter seleccionado
+   - Modal con vista previa HTML
+   - Botón "Copy HTML" desde el historial
+   - Interfaz mejorada con columna "Actions"
+
+**Propósito/Razón:**
+- El contenido personalizado se perdía o aparecía en secciones incorrectas
+- Los newsletters recomendaban eventos pasados (semana 15-21 cuando era día 21)
+- El dato curioso "SLP fue capital de México" se repetía constantemente
+- Los usuarios no podían consultar newsletters anteriores
+
+---
+
 ## Commit: 0a413466 - 2025-12-14
 
 **Mensaje:** feat: Add homepage disclaimer section
