@@ -82,10 +82,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   } catch (error) {
     console.error('Generation Error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorStack = error instanceof Error ? error.stack : '';
+    console.error('Error details:', { message: errorMessage, stack: errorStack });
+
     return res.status(500).json({
       success: false,
       message: 'Failed to generate newsletter',
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: errorMessage,
+      details: process.env.NODE_ENV === 'development' ? errorStack : undefined
     });
   }
 }

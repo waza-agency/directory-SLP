@@ -54,6 +54,23 @@ function getPublicationId(): string {
   return process.env.BEEHIIV_PUBLICATION_ID || '';
 }
 
+async function safeParseJson<T>(response: Response): Promise<T> {
+  const text = await response.text();
+
+  // Check if response is HTML (error page)
+  if (text.trim().startsWith('<') || text.trim().toLowerCase().startsWith('<!doctype')) {
+    console.error('Beehiiv API returned HTML instead of JSON:', text.substring(0, 200));
+    throw new Error(`Beehiiv API error: received HTML response (status ${response.status})`);
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch (e) {
+    console.error('Failed to parse Beehiiv response:', text.substring(0, 200));
+    throw new Error(`Invalid JSON response from Beehiiv: ${text.substring(0, 100)}`);
+  }
+}
+
 /**
  * Add a subscriber to Beehiiv
  */
@@ -68,6 +85,10 @@ export async function addSubscriber(
   }
 ): Promise<{ success: boolean; subscriber?: BeehiivSubscriber; error?: string }> {
   try {
+    if (!process.env.BEEHIIV_API_KEY || !getPublicationId()) {
+      return { success: false, error: 'Beehiiv API not configured' };
+    }
+
     const response = await fetch(
       `${BEEHIIV_API_BASE}/publications/${getPublicationId()}/subscriptions`,
       {
@@ -85,7 +106,7 @@ export async function addSubscriber(
       }
     );
 
-    const result = await response.json();
+    const result = await safeParseJson<{ data: BeehiivSubscriber; message?: string }>(response);
 
     if (!response.ok) {
       console.error('Beehiiv addSubscriber error:', result);
@@ -221,6 +242,16 @@ export async function createPost(
   }
 ): Promise<{ success: boolean; post?: BeehiivPost; error?: string }> {
   try {
+    // Validate API credentials
+    if (!process.env.BEEHIIV_API_KEY) {
+      console.error('BEEHIIV_API_KEY is not set');
+      return { success: false, error: 'Beehiiv API key not configured' };
+    }
+    if (!getPublicationId()) {
+      console.error('BEEHIIV_PUBLICATION_ID is not set');
+      return { success: false, error: 'Beehiiv publication ID not configured' };
+    }
+
     const response = await fetch(
       `${BEEHIIV_API_BASE}/publications/${getPublicationId()}/posts`,
       {
@@ -241,7 +272,7 @@ export async function createPost(
       }
     );
 
-    const result = await response.json();
+    const result = await safeParseJson<{ data: BeehiivPost; message?: string }>(response);
 
     if (!response.ok) {
       console.error('Beehiiv createPost error:', result);

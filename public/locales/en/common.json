@@ -829,6 +829,22 @@
     "nextPost": "Next post",
     "goToSlide": "Go to slide"
   },
+  "blogCategories": {
+    "Adventure Travel": "Adventure Travel",
+    "Historia y Cultura": "History & Culture",
+    "Food & Drink": "Food & Drink",
+    "Ultimate Guides": "Ultimate Guides",
+    "Housing": "Housing",
+    "Restaurants": "Restaurants",
+    "Relocation": "Relocation",
+    "Expat Guide": "Expat Guide",
+    "expat-life": "Expat Life",
+    "Arte y Cultura": "Art & Culture",
+    "Guías y Itinerarios": "Guides & Itineraries",
+    "Expat Life": "Expat Life",
+    "Tours": "Tours",
+    "Culture": "Culture"
+  },
   "todayInSLP": {
     "title": "What you need to know today",
     "localTime": "Local time",

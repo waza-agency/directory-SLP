@@ -116,7 +116,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                 {currentPost.category && (
                   <div className="absolute top-6 left-6">
                     <span className="inline-block px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-gray-900">
-                      {currentPost.category}
+                      {t(`blogCategories.${currentPost.category}`, currentPost.category)}
                     </span>
                   </div>
                 )}

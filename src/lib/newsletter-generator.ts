@@ -360,11 +360,6 @@ export const NEWSLETTER_TEMPLATE = `
             <td style="padding: 30px;">
               <p style="font-size: 16px; line-height: 1.7;">Hey there! 👋</p>
               <p style="font-size: 16px; line-height: 1.7;">[OPENING_HOOK_TEXT]</p>
-              <img
-                src="[HERO_IMAGE_URL]"
-                alt="[HERO_IMAGE_ALT]"
-                style="width: 100%; border-radius: 12px; margin-top: 20px;"
-              />
             </td>
           </tr>
 
@@ -435,11 +430,6 @@ export const NEWSLETTER_TEMPLATE = `
                 <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
                   📅 [DATE_TIME_1] &nbsp;|&nbsp; 📍 [VENUE_1]
                 </p>
-                <img
-                  src="[TOP_PICK_IMAGE_URL]"
-                  alt="[TOP_PICK_IMAGE_ALT]"
-                  style="width: 100%; border-radius: 8px; margin-bottom: 12px;"
-                />
                 <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_1]</p>
                 <p style="margin: 0; font-size: 13px;">
                   <span style="color: #059669; font-weight: bold;">💰 [COST_1]</span>
@@ -562,11 +552,6 @@ export const NEWSLETTER_TEMPLATE = `
                 🌿 Weekend Escape
               </h2>
               <h3 style="font-size: 18px; color: #166534; margin: 0 0 15px 0;">[DESTINATION_NAME]</h3>
-              <img
-                src="[ESCAPE_IMAGE_URL]"
-                alt="[ESCAPE_IMAGE_ALT]"
-                style="width: 100%; border-radius: 8px; margin-bottom: 15px;"
-              />
               <p style="font-size: 14px; color: #4B5563; margin: 0 0 15px 0;">[3-4 sentences about a day trip idea, Huasteca update, or regional attraction. Include practical info.]</p>
               <a href="https://www.sanluisway.com/outdoors" style="color: #166534; font-weight: bold; font-size: 14px;">Explore more day trips →</a>
             </td>
@@ -816,6 +801,145 @@ function validateAndCleanUrls(html: string): string {
   return cleaned;
 }
 
+// Function to rewrite custom content in a friendly tone using AI
+async function rewriteContentInFriendlyTone(customContent: string): Promise<{ title: string; body: string; cta?: string }> {
+  if (!customContent || !customContent.trim()) {
+    return { title: '', body: '' };
+  }
+
+  const rewritePrompt = `
+You are the friendly editor of "San Luis Way Weekly", a newsletter for expats and locals in San Luis Potosí, México.
+
+Rewrite the following content in a warm, friendly, conversational tone. Make it sound like a friend sharing a tip, not a corporate announcement.
+
+ORIGINAL CONTENT:
+${customContent}
+
+INSTRUCTIONS:
+1. Create an engaging TITLE (short, catchy, with an emoji)
+2. Rewrite the BODY in a friendly tone (2-3 sentences max)
+3. If there's a discount code, special offer, or call-to-action, include it as CTA
+4. Keep ALL specific details: dates, prices, codes, names, addresses
+5. Write in English
+
+Return ONLY valid JSON in this exact format (no markdown, no code blocks):
+{"title":"Your catchy title here","body":"Your friendly rewritten content here.","cta":"CODE123 or special offer if any"}
+
+If there's no special code/offer, set cta to null.
+`;
+
+  try {
+    const rewriteModel = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!).getGenerativeModel({
+      model: "gemini-2.0-flash",
+      generationConfig: { maxOutputTokens: 500, temperature: 0.7 }
+    });
+
+    const result = await rewriteModel.generateContent(rewritePrompt);
+    const response = await result.response;
+    let text = response.text().trim();
+
+    // Clean up response - remove markdown code blocks if present
+    text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
+
+    const parsed = JSON.parse(text);
+    return {
+      title: parsed.title || '🤝 Community Update',
+      body: parsed.body || customContent,
+      cta: parsed.cta || undefined
+    };
+  } catch (error) {
+    console.error('Error rewriting content:', error);
+    // Fallback to original content if AI fails
+    return {
+      title: '🤝 Community Update',
+      body: customContent,
+      cta: undefined
+    };
+  }
+}
+
+// Function to generate Comunidad section HTML from rewritten content
+function generateComunidadSection(title: string, body: string, cta?: string): string {
+  if (!body || !body.trim()) {
+    return '';
+  }
+
+  const ctaHtml = cta
+    ? `<p style="margin: 15px 0 0 0; font-size: 14px;"><span style="background-color: #F3E8FF; color: #7C3AED; padding: 6px 14px; border-radius: 4px; font-weight: bold;">${cta}</span></p>`
+    : '';
+
+  return `
+          <!-- COMUNIDAD SECTION - CUSTOM CONTENT -->
+          <tr>
+            <td style="padding: 30px; background-color: #FDF4FF;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+                🤝 Comunidad
+              </h2>
+              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">From our community to yours</p>
+              <div style="background-color: #FFFFFF; border: 1px solid #E9D5FF; border-left: 4px solid #A855F7; border-radius: 8px; padding: 20px;">
+                <h3 style="font-size: 16px; margin: 0 0 12px 0; color: #7C3AED;">${title}</h3>
+                <p style="margin: 0; font-size: 14px; color: #4B5563; line-height: 1.7;">${body}</p>
+                ${ctaHtml}
+              </div>
+            </td>
+          </tr>
+`;
+}
+
+// Function to inject Comunidad section into newsletter HTML
+async function injectComunidadSection(html: string, customContent: string): Promise<string> {
+  if (!customContent || !customContent.trim()) {
+    return html;
+  }
+
+  // Rewrite content in friendly tone using AI
+  console.log('   🎨 Rewriting custom content in friendly tone...');
+  const { title, body, cta } = await rewriteContentInFriendlyTone(customContent);
+  console.log(`   ✅ Rewritten: "${title.substring(0, 30)}..."`);
+
+  const comunidadHtml = generateComunidadSection(title, body, cta);
+
+  // Try to find the placeholder first
+  if (html.includes('<!-- COMUNIDAD_PLACEHOLDER -->')) {
+    return html.replace('<!-- COMUNIDAD_PLACEHOLDER -->', comunidadHtml);
+  }
+
+  // Try to inject before the CTA section
+  const ctaPattern = /(<tr>\s*<td[^>]*background-color:\s*#C75B39[^>]*>[\s\S]*?Discover More)/i;
+  if (ctaPattern.test(html)) {
+    return html.replace(ctaPattern, comunidadHtml + '\n          $1');
+  }
+
+  // Try to inject after "From the Blog" section
+  const blogPattern = /(📖 From the Blog[\s\S]*?<\/td>\s*<\/tr>)/i;
+  if (blogPattern.test(html)) {
+    return html.replace(blogPattern, '$1\n' + comunidadHtml);
+  }
+
+  // Fallback: inject before closing </table>
+  const tableClosePattern = /(<\/table>\s*<\/td>\s*<\/tr>\s*<\/table>)/i;
+  if (tableClosePattern.test(html)) {
+    return html.replace(tableClosePattern, comunidadHtml + '\n          $1');
+  }
+
+  console.log('⚠️ Could not find injection point for Comunidad section');
+  return html;
+}
+
+// Function to remove all images from HTML
+function removeAllImages(html: string): string {
+  // Remove <img> tags completely
+  let cleaned = html.replace(/<img[^>]*>/gi, '');
+
+  // Remove empty image containers that might be left
+  cleaned = cleaned.replace(/<div[^>]*>\s*<\/div>/gi, '');
+
+  // Remove hero image placeholder rows if empty
+  cleaned = cleaned.replace(/<tr>\s*<td[^>]*>\s*<\/td>\s*<\/tr>/gi, '');
+
+  return cleaned;
+}
+
 // Function to inject the footer into generated HTML
 function injectFooterIntoNewsletter(html: string): string {
   // Try to find the placeholder first
@@ -876,31 +1000,61 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
   console.log('1.6. Fetching previously used content to avoid repetition...');
 
-  // Fetch used facts
-  const { data: usedFacts } = await supabase
-    .from('newsletter_facts')
-    .select('fact_title, fact_body')
-    .order('used_at', { ascending: false })
-    .limit(50);
-  const usedFactsList = usedFacts?.map(f => `- ${f.fact_title}`).join('\n') || '';
+  // Fetch used facts (with error handling for missing tables)
+  let usedFactsList = '';
+  let usedTipsList = '';
+  let usedPlacesList = '';
+  let factsCount = 0, tipsCount = 0, placesCount = 0;
 
-  // Fetch used tips
-  const { data: usedTips } = await supabase
-    .from('newsletter_tips')
-    .select('tip_title, tip_body')
-    .order('used_at', { ascending: false })
-    .limit(50);
-  const usedTipsList = usedTips?.map(t => `- ${t.tip_title}`).join('\n') || '';
+  try {
+    const { data: usedFacts, error: factsError } = await supabase
+      .from('newsletter_facts')
+      .select('fact_title, fact_body')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!factsError && usedFacts) {
+      usedFactsList = usedFacts.map(f => `- ${f.fact_title}`).join('\n');
+      factsCount = usedFacts.length;
+    } else if (factsError) {
+      console.log('   ⚠️ newsletter_facts table not available:', factsError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch facts:', e);
+  }
 
-  // Fetch used places
-  const { data: usedPlaces } = await supabase
-    .from('newsletter_places')
-    .select('place_name, place_address')
-    .order('used_at', { ascending: false })
-    .limit(50);
-  const usedPlacesList = usedPlaces?.map(p => `- ${p.place_name}`).join('\n') || '';
+  try {
+    const { data: usedTips, error: tipsError } = await supabase
+      .from('newsletter_tips')
+      .select('tip_title, tip_body')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!tipsError && usedTips) {
+      usedTipsList = usedTips.map(t => `- ${t.tip_title}`).join('\n');
+      tipsCount = usedTips.length;
+    } else if (tipsError) {
+      console.log('   ⚠️ newsletter_tips table not available:', tipsError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch tips:', e);
+  }
 
-  console.log(`   Found: ${usedFacts?.length || 0} facts, ${usedTips?.length || 0} tips, ${usedPlaces?.length || 0} places used previously`);
+  try {
+    const { data: usedPlaces, error: placesError } = await supabase
+      .from('newsletter_places')
+      .select('place_name, place_address')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!placesError && usedPlaces) {
+      usedPlacesList = usedPlaces.map(p => `- ${p.place_name}`).join('\n');
+      placesCount = usedPlaces.length;
+    } else if (placesError) {
+      console.log('   ⚠️ newsletter_places table not available:', placesError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch places:', e);
+  }
+
+  console.log(`   Found: ${factsCount} facts, ${tipsCount} tips, ${placesCount} places used previously`);
 
   console.log('2. 🧠 Performing Deep Research with Gemini Grounding...');
 
@@ -908,7 +1062,23 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     You are the editor of "San Luis Way Weekly".
 
     ╔══════════════════════════════════════════════════════════════════╗
-    ║  CRITICAL DATE/TIME CONTEXT - READ THIS FIRST                   ║
+    ║  ⚠️⚠️⚠️ CRITICAL GEOGRAPHIC CONSTRAINT ⚠️⚠️⚠️                    ║
+    ╠══════════════════════════════════════════════════════════════════╣
+    ║  THIS NEWSLETTER IS EXCLUSIVELY FOR:                            ║
+    ║                                                                  ║
+    ║  🇲🇽 SAN LUIS POTOSÍ CITY, SAN LUIS POTOSÍ STATE, MEXICO 🇲🇽     ║
+    ║                                                                  ║
+    ║  ❌ NOT San Luis, Arizona, USA                                   ║
+    ║  ❌ NOT San Luis Obispo, California, USA                         ║
+    ║  ❌ NOT San Luis, Colorado, USA                                  ║
+    ║  ❌ NOT any other "San Luis" in the world                        ║
+    ║                                                                  ║
+    ║  ALL content must be about SAN LUIS POTOSÍ, MEXICO ONLY.        ║
+    ║  If you find events in USA or other countries, EXCLUDE them.    ║
+    ╚══════════════════════════════════════════════════════════════════╝
+
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  CRITICAL DATE/TIME CONTEXT                                      ║
     ╠══════════════════════════════════════════════════════════════════╣
     ║  TODAY'S DATE: ${dates.todayFormatted}
     ║  GENERATION TIME: ${dates.currentDateTime}
@@ -916,7 +1086,16 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     ║  NEWSLETTER COVERS: ${dateRangeStr} (NEXT 7 DAYS)
     ╚══════════════════════════════════════════════════════════════════╝
 
-    TASK: Create a comprehensive weekly digest for San Luis Potosí, Mexico.
+    TASK: Create a comprehensive weekly digest for San Luis Potosí CITY, MEXICO.
+
+    **GEOGRAPHIC VERIFICATION FOR EVERY ITEM:**
+    Before including ANY event, news, or place, verify it is located in:
+    - San Luis Potosí city (capital of SLP state)
+    - Or nearby areas in SLP state (Soledad de Graciano Sánchez, etc.)
+    - Or the Huasteca Potosina region of Mexico
+
+    If an event mentions Arizona, California, Texas, or any US state → EXCLUDE IT.
+    If prices are in USD instead of MXN (pesos mexicanos) → EXCLUDE IT.
 
     **ABSOLUTELY CRITICAL DATE REQUIREMENTS:**
     1. TODAY is ${dates.todayFormatted} - use this as your reference point
@@ -991,10 +1170,13 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     Search for events happening ONLY from ${format(dates.weekStartDate, 'MMMM d')} through ${format(dates.weekEndDate, 'MMMM d, yyyy')}.
 
     IMPORTANT SEARCH TIPS:
-    - Use search queries like "eventos San Luis Potosí diciembre 2025" or "que hacer en SLP esta semana"
-    - Search for "Navidad San Luis Potosí 2025" for Christmas events
-    - Check for "posadas", "conciertos", "teatro" happening THIS WEEK
+    - Use search queries like "eventos San Luis Potosí México diciembre 2025"
+    - Search for "que hacer en SLP México esta semana"
+    - Search for "Navidad San Luis Potosí México 2025" for Christmas events
+    - Check for "posadas", "conciertos", "teatro" in SLP México happening THIS WEEK
+    - ALWAYS add "México" to your search to avoid US results
     - DO NOT include events from last week or events that already happened
+    - VERIFY each result is in MEXICO, not USA
 
     CATEGORIES:
     1. CULTURE: festivals, traditions, museum exhibitions, cultural celebrations
@@ -1160,54 +1342,27 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - US/Canadian consulate announcements
 
     ${customContent ? `
-    ═══════════════════════════════════════════════════════════
-    ⚠️⚠️⚠️ COMUNIDAD SECTION - MANDATORY - READ CAREFULLY ⚠️⚠️⚠️
-    ═══════════════════════════════════════════════════════════
-
-    **THE EDITOR PROVIDED THIS EXACT CONTENT THAT MUST APPEAR IN THE NEWSLETTER:**
-
-    ╔════════════════════════════════════════════════════════════╗
-    ${customContent}
-    ╚════════════════════════════════════════════════════════════╝
-
-    **YOU MUST:**
-    1. Copy the information above (promotions, discounts, announcements)
-    2. Rewrite it in a friendly, engaging tone
-    3. Keep ALL specific details: dates, codes, percentages, names, addresses
-    4. Insert it in the Comunidad section
-
-    **EXAMPLE:**
-    If the editor wrote: "20% off at Café Luna this weekend, code LUNA20"
-
-    Your output should be:
-    <tr>
-      <td style="padding: 30px; background-color: #FDF4FF;">
-        <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">🤝 Comunidad</h2>
-        <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">From our community to yours</p>
-        <div style="background-color: #FFFFFF; border: 1px solid #E9D5FF; border-left: 4px solid #A855F7; border-radius: 8px; padding: 20px;">
-          <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #7C3AED;">☕ Special Deal at Café Luna!</h3>
-          <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">Our friends at Café Luna are offering San Luis Way readers an exclusive 20% discount this weekend! Perfect for your Saturday morning coffee run.</p>
-          <p style="margin: 0; font-size: 14px;"><span style="background-color: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 4px; font-weight: bold;">Use code: LUNA20</span></p>
-        </div>
-      </td>
-    </tr>
-
-    **NOW DO THE SAME WITH THE ACTUAL CONTENT PROVIDED ABOVE.**
-    Replace <!-- COMUNIDAD_PLACEHOLDER --> with your generated Comunidad HTML.
-
+    NOTE: A Comunidad section with custom content will be added automatically.
+    Do NOT generate a Comunidad section - it will be injected programmatically.
     ` : ''}
 
     ═══════════════════════════════════════════════════════════
     FINAL INSTRUCTIONS - READ CAREFULLY
     ═══════════════════════════════════════════════════════════
 
+    🚨 **GEOGRAPHIC CHECK - VERIFY BEFORE INCLUDING:**
+    ✓ Is this event/place in San Luis Potosí, MEXICO? → Include it
+    ✗ Is this in Arizona, California, Texas, or USA? → EXCLUDE IT
+    ✗ Is the price in USD ($)? → EXCLUDE IT (should be MXN pesos)
+    ✗ Does the address include a US state abbreviation (AZ, CA, TX)? → EXCLUDE IT
+
     **REQUIRED SPECIFIC DETAILS FOR ALL CONTENT:**
     Every event, place, and recommendation MUST include:
     ✓ Exact DATE (e.g., "Saturday, December 23")
     ✓ Exact TIME (e.g., "7:00 PM - 10:00 PM")
-    ✓ Full ADDRESS or at least neighborhood (e.g., "Av. Carranza 500, Centro")
-    ✓ PRICE/COST when applicable (e.g., "$150 MXN", "Free entry")
-    ✓ Contact info when available (phone, Instagram, website)
+    ✓ Full ADDRESS in SAN LUIS POTOSÍ, MEXICO (e.g., "Av. Carranza 500, Centro, SLP")
+    ✓ PRICE/COST in MEXICAN PESOS (e.g., "$150 MXN", "Entrada libre")
+    ✓ Contact info when available (phone with +52 country code, Instagram, website)
 
     DO NOT use vague phrases like "this weekend" or "coming soon" - use SPECIFIC dates.
 
@@ -1221,8 +1376,13 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - Replace [WEATHER_SUMMARY] with 7-day outlook (e.g., "Mostly sunny, 18-25°C, chance of rain Thursday")
     - Replace [FACT_TITLE] and [FACT_BODY] with a NEW curious fact (not from the used list)
     - Replace [TIP_TITLE] with a NEW pro tip title (not from the used list)
-    - **REMOVE ALL <img> TAGS** - Images cause loading issues in emails
-    ${customContent ? '- **REPLACE <!-- COMUNIDAD_PLACEHOLDER --> with the Comunidad section HTML**' : ''}
+
+    ⛔ **ABSOLUTELY NO IMAGES** ⛔
+    - Do NOT include ANY <img> tags in the output
+    - Do NOT add image URLs or image placeholders
+    - Do NOT reference [HERO_IMAGE_URL], [TOP_PICK_IMAGE_URL], [ESCAPE_IMAGE_URL] or any image placeholders
+    - Remove any <img> sections from the template - just skip them entirely
+    - ALL image content will be stripped - do not waste tokens generating it
 
     **BLOG SECTION - USE ONLY THESE REAL POSTS:**
     ${blogPostsList}
@@ -1243,6 +1403,21 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - Do NOT generate footer/closing - it's added automatically
     - Stop after the CTA section
 
+    ═══════════════════════════════════════════════════════════
+    ✅ PRE-FLIGHT CHECKLIST (VERIFY BEFORE SUBMITTING)
+    ═══════════════════════════════════════════════════════════
+
+    □ All events are in SAN LUIS POTOSÍ, MÉXICO (not USA)
+    □ All prices are in MXN (Mexican pesos), not USD
+    □ All addresses are in México, not Arizona/California/Texas
+    □ No US phone numbers (should be +52 for México)
+    □ All dates are within ${dateRangeStr}
+    □ NO <img> tags in the output
+    □ [PLACEHOLDER] text has been replaced with real content
+    □ Weather is for San Luis Potosí, México
+
+    If ANY item fails this check, FIX IT before returning the HTML.
+
     HTML TEMPLATE:
     ${NEWSLETTER_TEMPLATE}
 
@@ -1251,15 +1426,41 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
   let htmlContent = '';
 
+  // Validate API key before attempting generation
+  if (!process.env.GOOGLE_API_KEY) {
+    console.error('❌ GOOGLE_API_KEY is not set');
+    throw new Error('GOOGLE_API_KEY environment variable is required');
+  }
+
   try {
+    console.log('2.5. 🔑 Using Gemini API with key starting with:', process.env.GOOGLE_API_KEY?.substring(0, 8) + '...');
+
     // Try Gemini first
     const result = await model.generateContent(prompt);
     const response = await result.response;
     htmlContent = response.text();
-    console.log('3. ✅ Gemini generation successful');
 
-  } catch (geminiError) {
-    console.error("Gemini Generation Error:", geminiError);
+    // Check if response looks like an HTML error page
+    if (htmlContent.trim().toLowerCase().startsWith('<html') || htmlContent.trim().toLowerCase().startsWith('<!doctype')) {
+      if (htmlContent.includes('error') || htmlContent.includes('Error') || htmlContent.length < 1000) {
+        console.error('⚠️ Gemini returned what looks like an HTML error page');
+        throw new Error('Gemini returned an HTML error page instead of newsletter content');
+      }
+    }
+
+    console.log('3. ✅ Gemini generation successful, content length:', htmlContent.length);
+
+  } catch (geminiError: unknown) {
+    const errorMessage = geminiError instanceof Error ? geminiError.message : String(geminiError);
+    console.error("Gemini Generation Error:", errorMessage);
+
+    // Log more details if available
+    if (geminiError && typeof geminiError === 'object') {
+      const errObj = geminiError as Record<string, unknown>;
+      if (errObj.status) console.error('Status:', errObj.status);
+      if (errObj.statusText) console.error('Status Text:', errObj.statusText);
+      if (errObj.response) console.error('Response:', errObj.response);
+    }
 
     // Fallback to OpenAI
     if (openai) {
@@ -1268,27 +1469,39 @@ export async function generateWeeklyNewsletter(customContent?: string) {
         console.log('4. ✅ OpenAI fallback successful');
       } catch (openaiError) {
         console.error("OpenAI Fallback Error:", openaiError);
-        throw new Error("Both Gemini and OpenAI failed to generate newsletter");
+        throw new Error(`Both Gemini and OpenAI failed. Gemini error: ${errorMessage}`);
       }
     } else {
-      throw new Error("Gemini failed and OpenAI not configured. Add OPENAI_API_KEY to .env");
+      throw new Error(`Gemini failed: ${errorMessage}. Add OPENAI_API_KEY to .env as fallback`);
     }
   }
 
   // Clean up markdown code fences if present
   htmlContent = htmlContent.replace(/^```html\n?/i, '').replace(/^```\n?/, '').replace(/\n?```$/i, '');
 
+  // REMOVE ALL IMAGES - This is done FIRST to ensure no images slip through
+  console.log('4. 🖼️ Removing all images from newsletter...');
+  htmlContent = removeAllImages(htmlContent);
+
+  // INJECT COMUNIDAD SECTION - Programmatically inject custom content
+  // This GUARANTEES the custom content appears, regardless of what AI generated
+  if (customContent) {
+    console.log('4.5. 🤝 Injecting Comunidad section with custom content...');
+    htmlContent = await injectComunidadSection(htmlContent, customContent);
+    console.log('   ✅ Comunidad section injected successfully');
+  }
+
   // IMPORTANT: Inject the standardized footer/closing section
   // This ensures the footer is ALWAYS included exactly as defined, regardless of AI output
-  console.log('4. 📧 Injecting standardized footer and closing section...');
+  console.log('5. 📧 Injecting standardized footer and closing section...');
   htmlContent = injectFooterIntoNewsletter(htmlContent);
 
   // Clean HTML for Beehiiv compatibility (remove <style>, <head>, class attributes)
-  console.log('5. 🧹 Cleaning HTML for Beehiiv compatibility...');
+  console.log('6. 🧹 Cleaning HTML for Beehiiv compatibility...');
   htmlContent = cleanHtmlForBeehiiv(htmlContent);
 
   // Validate and clean URLs
-  console.log('6. 🔗 Validating and cleaning URLs...');
+  console.log('7. 🔗 Validating and cleaning URLs...');
   htmlContent = validateAndCleanUrls(htmlContent);
 
   // Extract and save content to avoid repetition in future newsletters

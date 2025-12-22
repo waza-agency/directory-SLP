@@ -42,7 +42,7 @@ function estimateReadTime(content: string): number {
   return Math.ceil(words / wordsPerMinute);
 }
 
-function BlogCard({ post, locale, minReadText }: { post: BlogPost; locale: string; minReadText: string }) {
+function BlogCard({ post, locale, minReadText, translateCategory }: { post: BlogPost; locale: string; minReadText: string; translateCategory: (cat: string) => string }) {
   const readTime = estimateReadTime(post.content);
   const colors = post.category ? CATEGORY_COLORS[post.category] : null;
   const dateLocale = locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US';
@@ -61,7 +61,7 @@ function BlogCard({ post, locale, minReadText }: { post: BlogPost; locale: strin
           {post.category && colors && (
             <div className="absolute top-4 left-4">
               <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text} border ${colors.border}`}>
-                {post.category}
+                {translateCategory(post.category)}
               </span>
             </div>
           )}
@@ -84,7 +84,7 @@ function BlogCard({ post, locale, minReadText }: { post: BlogPost; locale: strin
   );
 }
 
-function FeaturedPost({ post, locale, minReadText }: { post: BlogPost; locale: string; minReadText: string }) {
+function FeaturedPost({ post, locale, minReadText, translateCategory }: { post: BlogPost; locale: string; minReadText: string; translateCategory: (cat: string) => string }) {
   const readTime = estimateReadTime(post.content);
   const colors = post.category ? CATEGORY_COLORS[post.category] : null;
   const dateLocale = locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US';
@@ -106,7 +106,7 @@ function FeaturedPost({ post, locale, minReadText }: { post: BlogPost; locale: s
             <div className="max-w-3xl">
               {post.category && colors && (
                 <span className={`inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4 ${colors.bg} ${colors.text} border ${colors.border}`}>
-                  {post.category}
+                  {translateCategory(post.category)}
                 </span>
               )}
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
@@ -135,6 +135,10 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
   const { locale } = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState<number>(0);
+
+  const translateCategory = (category: string): string => {
+    return t(`blogCategories.${category}`, category);
+  };
 
   const categories = useMemo(() => {
     const cats = new Set<string>();
@@ -269,7 +273,7 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
                           : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                     }`}
                   >
-                    {category}
+                    {translateCategory(category)}
                   </button>
                 );
               })}
@@ -279,7 +283,7 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
           {/* Featured Post */}
           {featuredPost && (
             <div className="max-w-5xl mx-auto mb-12">
-              <FeaturedPost post={featuredPost} locale={locale || 'en'} minReadText={t('blog.minRead')} />
+              <FeaturedPost post={featuredPost} locale={locale || 'en'} minReadText={t('blog.minRead')} translateCategory={translateCategory} />
             </div>
           )}
 
@@ -288,7 +292,7 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {otherPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} locale={locale || 'en'} minReadText={t('blog.minRead')} />
+                  <BlogCard key={post.id} post={post} locale={locale || 'en'} minReadText={t('blog.minRead')} translateCategory={translateCategory} />
                 ))}
               </div>
             </div>

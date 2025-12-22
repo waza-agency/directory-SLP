@@ -130,7 +130,17 @@ export default function NewsletterAdminPage() {
         },
         body: JSON.stringify({ customContent: customContent.trim() || undefined })
       });
-      const data = await res.json();
+
+      // Safely parse response - handle HTML error pages
+      const responseText = await res.text();
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        // If response is not JSON (e.g., HTML error page), show the first part
+        console.error('Non-JSON response:', responseText.substring(0, 500));
+        throw new Error(`Server error (status ${res.status}). Check server logs for details.`);
+      }
 
       if (res.ok) {
         setSubject(data.newsletter?.subject || '');
@@ -139,7 +149,7 @@ export default function NewsletterAdminPage() {
         setGenerationMessage(data.message);
         setGeneratedNewsletter(data.newsletter);
       } else {
-        throw new Error(data.message || 'Failed to generate');
+        throw new Error(data.error || data.message || 'Failed to generate');
       }
     } catch (error) {
       alert('Error generating newsletter: ' + (error instanceof Error ? error.message : 'Unknown error'));

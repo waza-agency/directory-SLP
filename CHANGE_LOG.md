@@ -4,6 +4,61 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-22] Fix: Blog Posts Base Language Correction
+
+**Descripción:**
+Corrección de blog posts que tenían el idioma base incorrecto (español en lugar de inglés). El contenido base debe ser siempre en inglés, con traducciones en `_es` y `_de`.
+
+**Problema detectado:**
+- Algunos posts tenían contenido en español en campos base (title, excerpt, content)
+- El contenido en inglés estaba incorrectamente en los campos `_es`
+- Afectaba la visualización cuando se navegaba el sitio en inglés
+
+**Correcciones:**
+1. **Script de corrección:** `scripts/fix-blog-i18n.js`
+   - Detecta posts con español en campos base
+   - Intercambia contenido cuando ES está en base y EN en `_es`
+   - Traduce contenido cuando ambos campos tienen español
+
+2. **Posts corregidos (7 total):**
+   - `potosino-art-history-artists-sculpture-painting-san-luis-potosi`
+   - `cost-of-living-san-luis-potosi-2025`
+   - `fin-de-semana-familiar-san-luis-potosi-parques-go-karts-ninos`
+   - `leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism`
+   - `san-luis-potosi-mining-history-baroque-architecture-cultural-legacy`
+   - `corazon-de-xoconostle`
+   - `la-gran-via`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-21] Feature: Blog Categories Internationalization (ES/DE)
+
+**Descripción:**
+Internacionalización de las categorías del blog para mostrar traducciones en español y alemán.
+
+**Cambios realizados:**
+
+1. **Traducciones agregadas a los archivos de locale:**
+   - `public/locales/en/common.json` - Claves `blogCategories.*`
+   - `public/locales/es/common.json` - Traducciones en español
+   - `public/locales/de/common.json` - Traducciones en alemán
+
+2. **Componentes actualizados:**
+   - `src/components/BlogCarousel.tsx` - Usa `t()` para traducir categorías
+   - `src/pages/blog/index.tsx` - Función `translateCategory()` y props actualizados
+
+**Categorías traducidas:**
+- Adventure Travel → Viajes de Aventura (ES), Abenteuerreisen (DE)
+- Food & Drink → Comida y Bebida (ES), Essen & Trinken (DE)
+- Housing → Vivienda (ES), Wohnen (DE)
+- Expat Life → Vida de Expatriado (ES), Expat-Leben (DE)
+
+**Estado:** ✅ Exitoso | Build: Passed
+
+---
+
 ## [2025-12-21] Feature: Newsletter Content Tracking & Specificity
 
 **Descripción:**

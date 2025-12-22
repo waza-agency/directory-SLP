@@ -794,6 +794,22 @@
     "nextPost": "Nächster Beitrag",
     "goToSlide": "Zur Folie gehen"
   },
+  "blogCategories": {
+    "Adventure Travel": "Abenteuerreisen",
+    "Historia y Cultura": "Geschichte & Kultur",
+    "Food & Drink": "Essen & Trinken",
+    "Ultimate Guides": "Ultimative Guides",
+    "Housing": "Wohnen",
+    "Restaurants": "Restaurants",
+    "Relocation": "Umzug",
+    "Expat Guide": "Expat-Leitfaden",
+    "expat-life": "Expat-Leben",
+    "Arte y Cultura": "Kunst & Kultur",
+    "Guías y Itinerarios": "Reiseführer & Routen",
+    "Expat Life": "Expat-Leben",
+    "Tours": "Touren",
+    "Culture": "Kultur"
+  },
   "todayInSLP": {
     "title": "Was Sie heute wissen müssen",
     "localTime": "Ortszeit",
