@@ -1053,39 +1053,45 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - Fact: 3-4 sentences explaining the historical or cultural fact.
 
     ═══════════════════════════════════════════════════════════
-    SECTION 5: CITY LIFE & LIFESTYLE - NEW PLACES (NO REPETITION)
+    SECTION 5: AROUND TOWN - RECENTLY OPENED PLACES ONLY
     ═══════════════════════════════════════════════════════════
 
-    Search for lifestyle news and updates. Focus on places that opened in the LAST 2-3 MONTHS.
+    **⚠️ CRITICAL: This section is ONLY for places that OPENED IN 2024 or 2025.**
 
-    **CRITICAL: DO NOT REPEAT ANY OF THESE PREVIOUSLY FEATURED PLACES:**
+    DO NOT feature established restaurants/cafes that have been open for years.
+    We need FRESH discoveries - places that opened in the last 6 months maximum.
+
+    **PREVIOUSLY FEATURED (DO NOT REPEAT):**
     ${usedPlacesList || 'No previous places recorded yet.'}
 
-    You MUST feature DIFFERENT places from the ones listed above.
+    **HOW TO FIND RECENTLY OPENED PLACES:**
+    Search queries to use:
+    - "inauguración restaurante San Luis Potosí 2025"
+    - "nuevo café SLP diciembre 2025"
+    - "apertura negocio San Luis Potosí noviembre 2025"
+    - "recién abierto San Luis Potosí"
+    - Instagram: #nuevoenslp #aaboraenslp #slpnuevo
 
-    TOPICS TO SEARCH:
-    - "nuevos restaurantes San Luis Potosí 2025"
-    - "aperturas cafeterías SLP diciembre 2025"
-    - "nuevos negocios San Luis Potosí"
-    - New shops, boutiques, or services
-    - Market schedules and highlights
-    - Pop-up events or temporary installations
+    **VERIFICATION:**
+    Before including a place, verify it opened recently by:
+    - Checking their Instagram for "gran apertura" or opening posts
+    - Looking for news articles about their inauguration
+    - Confirming opening date is 2024 or 2025
 
-    **REQUIRED DETAILS FOR EACH PLACE:**
-    - Full name of the place
-    - Exact address or neighborhood
-    - Opening hours (if available)
-    - Type of cuisine/products/services
-    - Price range ($$, $$$, etc.)
-    - Instagram handle or website
-    - What makes it special
+    **IF YOU CANNOT FIND A RECENTLY OPENED PLACE:**
+    Instead of featuring an old establishment, write about:
+    - A pop-up event or temporary installation
+    - A seasonal menu launch at a restaurant
+    - A renovation or new location of an existing business
+    - A trending spot that's gaining popularity
 
-    SOURCES:
-    - Instagram food bloggers in SLP
-    - Google Maps new places
-    - Local Facebook groups
-    - TripAdvisor recent reviews
-    - Yelp SLP
+    **REQUIRED INFO:**
+    - Name + OPENING DATE (month/year they opened)
+    - Address
+    - Hours
+    - What they offer
+    - Price range
+    - Instagram/contact
 
     FORMAT:
     - What's new/noteworthy
@@ -1155,40 +1161,39 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
     ${customContent ? `
     ═══════════════════════════════════════════════════════════
-    ⚠️⚠️⚠️ SECTION 7: COMUNIDAD - THIS IS MANDATORY ⚠️⚠️⚠️
+    ⚠️⚠️⚠️ COMUNIDAD SECTION - MANDATORY - READ CAREFULLY ⚠️⚠️⚠️
     ═══════════════════════════════════════════════════════════
 
-    **YOU MUST ADD THIS SECTION TO THE NEWSLETTER. DO NOT SKIP IT.**
+    **THE EDITOR PROVIDED THIS EXACT CONTENT THAT MUST APPEAR IN THE NEWSLETTER:**
 
-    The editor provided this content that MUST be included:
-    ────────────────────────────────────────
+    ╔════════════════════════════════════════════════════════════╗
     ${customContent}
-    ────────────────────────────────────────
+    ╚════════════════════════════════════════════════════════════╝
 
-    **HOW TO ADD THE COMUNIDAD SECTION:**
+    **YOU MUST:**
+    1. Copy the information above (promotions, discounts, announcements)
+    2. Rewrite it in a friendly, engaging tone
+    3. Keep ALL specific details: dates, codes, percentages, names, addresses
+    4. Insert it in the Comunidad section
 
-    Find this line in the template:
-    <!-- COMUNIDAD_PLACEHOLDER -->
+    **EXAMPLE:**
+    If the editor wrote: "20% off at Café Luna this weekend, code LUNA20"
 
-    Replace it ENTIRELY with this HTML (adapt the content from above):
-
+    Your output should be:
     <tr>
       <td style="padding: 30px; background-color: #FDF4FF;">
         <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">🤝 Comunidad</h2>
         <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">From our community to yours</p>
-        <div style="background-color: #FFFFFF; border: 1px solid #E9D5FF; border-left: 4px solid #A855F7; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-          <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #7C3AED;">[WRITE ADAPTED TITLE HERE]</h3>
-          <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[WRITE ADAPTED CONTENT HERE - preserve all dates, codes, prices]</p>
-          <p style="margin: 0; font-size: 14px;"><span style="background-color: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 4px; font-weight: bold;">[DISCOUNT CODE OR HIGHLIGHT IF ANY]</span></p>
+        <div style="background-color: #FFFFFF; border: 1px solid #E9D5FF; border-left: 4px solid #A855F7; border-radius: 8px; padding: 20px;">
+          <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #7C3AED;">☕ Special Deal at Café Luna!</h3>
+          <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">Our friends at Café Luna are offering San Luis Way readers an exclusive 20% discount this weekend! Perfect for your Saturday morning coffee run.</p>
+          <p style="margin: 0; font-size: 14px;"><span style="background-color: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 4px; font-weight: bold;">Use code: LUNA20</span></p>
         </div>
       </td>
     </tr>
 
-    **CHECKLIST:**
-    ✓ Did you include the 🤝 Comunidad header?
-    ✓ Did you adapt the custom content naturally?
-    ✓ Did you preserve ALL specific details (dates, codes, prices, names)?
-    ✓ Is the section placed BEFORE the CTA (terracotta section)?
+    **NOW DO THE SAME WITH THE ACTUAL CONTENT PROVIDED ABOVE.**
+    Replace <!-- COMUNIDAD_PLACEHOLDER --> with your generated Comunidad HTML.
 
     ` : ''}
 
