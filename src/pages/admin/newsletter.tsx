@@ -45,6 +45,7 @@ export default function NewsletterAdminPage() {
   // Send form state
   const [subject, setSubject] = useState('');
   const [htmlContent, setHtmlContent] = useState('');
+  const [customContent, setCustomContent] = useState('');
   const [generating, setGenerating] = useState(false);
   const [beehiivResult, setBeehiivResult] = useState<BeehiivResult | null>(null);
   const [generationMessage, setGenerationMessage] = useState('');
@@ -120,7 +121,11 @@ export default function NewsletterAdminPage() {
     try {
       const res = await fetch('/api/newsletter/generate', {
         method: 'POST',
-        headers: { 'x-admin-key': adminKey }
+        headers: {
+          'x-admin-key': adminKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ customContent: customContent.trim() || undefined })
       });
       const data = await res.json();
 
@@ -362,9 +367,30 @@ export default function NewsletterAdminPage() {
               <div className="p-6">
                 <div className="mb-8">
                   <h2 className="text-xl font-bold mb-2">Generate Newsletter with AI</h2>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-600 mb-4">
                     Click the button below to generate a newsletter draft using AI. The draft will be created directly in Beehiiv where you can edit and send it.
                   </p>
+
+                  {/* Custom Content Section */}
+                  <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                    <label htmlFor="customContent" className="block text-sm font-semibold text-amber-800 mb-2">
+                      Custom Content (Optional)
+                    </label>
+                    <p className="text-sm text-amber-700 mb-3">
+                      Add promotions, announcements, or special messages you want included in the newsletter. The AI will adapt and integrate this content naturally.
+                    </p>
+                    <textarea
+                      id="customContent"
+                      value={customContent}
+                      onChange={(e) => setCustomContent(e.target.value)}
+                      placeholder="Example:&#10;- 20% off at Café Tulum this weekend with code SLWAY20&#10;- Join our community meetup next Saturday at Plaza de Armas&#10;- Special thanks to our sponsors: Restaurant X, Service Y"
+                      className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-h-[120px] text-sm"
+                      rows={5}
+                    />
+                    <p className="text-xs text-amber-600 mt-2">
+                      Tip: Be specific! Include dates, discount codes, locations, and any details readers need.
+                    </p>
+                  </div>
 
                   <button
                     onClick={handleGenerate}

@@ -19,8 +19,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    const { customContent } = req.body || {};
     console.log('Admin triggered newsletter generation...');
-    const { subject, html_content, date_range } = await generateWeeklyNewsletter();
+    if (customContent) {
+      console.log('Custom content provided:', customContent.substring(0, 100) + '...');
+    }
+    const { subject, html_content, date_range } = await generateWeeklyNewsletter(customContent);
     const previewText = `Your weekly guide to San Luis Potosí for ${date_range}`;
 
     // Create draft in Beehiiv (primary)

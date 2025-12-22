@@ -70,7 +70,9 @@
       "Bash(mkdir:*)",
       "Bash(npm install:*)",
       "mcp__playwright__browser_take_screenshot",
-      "Skill(factcheck)"
+      "Skill(factcheck)",
+      "Bash(node scripts/import-beehiiv-leads.js:*)",
+      "Bash(node scripts/import-leads-dual.js:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -820,10 +820,14 @@ function injectFooterIntoNewsletter(html: string): string {
   return html + CLOSING_AND_FOOTER_HTML;
 }
 
-export async function generateWeeklyNewsletter() {
+export async function generateWeeklyNewsletter(customContent?: string) {
   const dates = getCurrentNewsletterDates();
   const dateRangeStr = dates.dateRangeStr;
   const supabase = getSupabaseClient();
+
+  if (customContent) {
+    console.log('Custom content will be included in newsletter generation');
+  }
 
   console.log('1. Fetching events from DB...');
   const { data: events } = await supabase
@@ -1033,6 +1037,24 @@ export async function generateWeeklyNewsletter() {
     - Expat forums and Facebook groups
     - InterNations SLP
     - US/Canadian consulate announcements
+
+    ${customContent ? `
+    ═══════════════════════════════════════════════════════════
+    SECTION 7: CUSTOM CONTENT FROM EDITOR (MUST INCLUDE)
+    ═══════════════════════════════════════════════════════════
+
+    The newsletter editor has provided the following custom content that MUST be included in the newsletter.
+    Integrate this content naturally into appropriate sections. This could be:
+    - Promotions or discounts → Add in a dedicated "Special Offers" section or integrate with relevant sections
+    - Announcements → Include in "Around Town" or create a highlighted box
+    - Sponsor messages → Add tastefully near the CTA or in a dedicated sponsor section
+    - Community messages → Include in the opening or closing sections
+
+    CUSTOM CONTENT TO INCLUDE:
+    ${customContent}
+
+    IMPORTANT: This content is from the editor and must appear in the final newsletter. Adapt the tone and formatting to match the newsletter style, but preserve all key information (dates, codes, names, links).
+    ` : ''}
 
     INSTRUCTIONS:
     - Fill in the HTML template below with detailed information.
