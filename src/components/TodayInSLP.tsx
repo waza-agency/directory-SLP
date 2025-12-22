@@ -13,7 +13,9 @@ import {
   UserGroupIcon,
   HeartIcon,
   SparklesIcon,
-  BuildingOfficeIcon
+  BuildingOfficeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon
 } from '@heroicons/react/24/outline';
 import type { WeatherData, ExchangeRate, NewsHeadline, CommunityNews } from '@/lib/api/dashboard-data';
 
@@ -34,6 +36,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [currentTime, setCurrentTime] = useState<string>('');
   const [currencyIndex, setCurrencyIndex] = useState(0);
+  const [newsIndex, setNewsIndex] = useState(0);
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate[]>([]);
   const [headlines, setHeadlines] = useState<NewsHeadline[]>([]);
@@ -318,27 +321,58 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           </div>
         </div>
 
-        {/* News Ticker */}
-        <div className="bg-gradient-to-r from-secondary to-secondary-light rounded-2xl shadow-lg overflow-hidden">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 bg-white/20 px-4 py-3 flex items-center gap-2">
+        {/* News Carousel */}
+        <div className="bg-gradient-to-r from-secondary to-secondary-light rounded-2xl shadow-lg p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
               <NewspaperIcon className="w-5 h-5 text-white" />
-              <span className="text-white font-bold text-sm whitespace-nowrap">
+              <span className="text-white font-bold text-sm">
                 {t('todayInSLP.slpNews')}
               </span>
             </div>
-            <div className="flex-1 overflow-hidden py-3">
-              <div
-                className="animate-marquee whitespace-nowrap flex"
-                style={{ animationDuration: `${Math.max(tickerHeadlines.length * 6, 30)}s` }}
+            <div className="flex items-center gap-2">
+              <span className="text-white/70 text-sm">
+                {newsIndex + 1} / {tickerHeadlines.length}
+              </span>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-h-[80px] flex items-center">
+              <p className="text-white text-lg font-medium leading-relaxed">
+                {tickerHeadlines[newsIndex]?.text}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between mt-4">
+              <button
+                onClick={() => setNewsIndex(prev => prev === 0 ? tickerHeadlines.length - 1 : prev - 1)}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                aria-label="Previous news"
               >
-                {[...tickerHeadlines, ...tickerHeadlines].map((headline, idx) => (
-                  <span key={`${headline.id}-${idx}`} className="inline-flex items-center mx-8">
-                    <span className="text-white font-medium">{headline.text}</span>
-                    <span className="mx-6 text-white/40">•</span>
-                  </span>
+                <ChevronLeftIcon className="w-5 h-5 text-white" />
+              </button>
+
+              <div className="flex gap-2">
+                {tickerHeadlines.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setNewsIndex(idx)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      idx === newsIndex ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/60'
+                    }`}
+                    aria-label={`Go to news ${idx + 1}`}
+                  />
                 ))}
               </div>
+
+              <button
+                onClick={() => setNewsIndex(prev => prev === tickerHeadlines.length - 1 ? 0 : prev + 1)}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                aria-label="Next news"
+              >
+                <ChevronRightIcon className="w-5 h-5 text-white" />
+              </button>
             </div>
           </div>
         </div>
@@ -391,18 +425,6 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           </div>
         </div>
 
-        <style jsx>{`
-          @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          .animate-marquee {
-            animation: marquee 25s linear infinite;
-          }
-          .animate-marquee:hover {
-            animation-play-state: paused;
-          }
-        `}</style>
 
       </div>
     </section>

@@ -874,14 +874,33 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     return `- "${title}" (${post.category || 'general'}) - URL: https://www.sanluisway.com/blog/${post.slug}\n  Excerpt: ${excerpt}`;
   }).join('\n\n') || 'No blog posts available.';
 
-  console.log('1.6. Fetching previously used "Did You Know?" facts...');
+  console.log('1.6. Fetching previously used content to avoid repetition...');
+
+  // Fetch used facts
   const { data: usedFacts } = await supabase
     .from('newsletter_facts')
     .select('fact_title, fact_body')
     .order('used_at', { ascending: false })
     .limit(50);
+  const usedFactsList = usedFacts?.map(f => `- ${f.fact_title}`).join('\n') || '';
 
-  const usedFactsList = usedFacts?.map(f => `- ${f.fact_title}: ${f.fact_body.substring(0, 100)}...`).join('\n') || '';
+  // Fetch used tips
+  const { data: usedTips } = await supabase
+    .from('newsletter_tips')
+    .select('tip_title, tip_body')
+    .order('used_at', { ascending: false })
+    .limit(50);
+  const usedTipsList = usedTips?.map(t => `- ${t.tip_title}`).join('\n') || '';
+
+  // Fetch used places
+  const { data: usedPlaces } = await supabase
+    .from('newsletter_places')
+    .select('place_name, place_address')
+    .order('used_at', { ascending: false })
+    .limit(50);
+  const usedPlacesList = usedPlaces?.map(p => `- ${p.place_name}`).join('\n') || '';
+
+  console.log(`   Found: ${usedFacts?.length || 0} facts, ${usedTips?.length || 0} tips, ${usedPlaces?.length || 0} places used previously`);
 
   console.log('2. 🧠 Performing Deep Research with Gemini Grounding...');
 
@@ -1034,20 +1053,32 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - Fact: 3-4 sentences explaining the historical or cultural fact.
 
     ═══════════════════════════════════════════════════════════
-    SECTION 5: CITY LIFE & LIFESTYLE
+    SECTION 5: CITY LIFE & LIFESTYLE - NEW PLACES (NO REPETITION)
     ═══════════════════════════════════════════════════════════
 
-    Search for lifestyle news and updates:
+    Search for lifestyle news and updates. Focus on places that opened in the LAST 2-3 MONTHS.
 
-    TOPICS:
-    - New restaurant/cafe/bar openings in SLP
-    - Restaurant closings or relocations
-    - New shops or services
+    **CRITICAL: DO NOT REPEAT ANY OF THESE PREVIOUSLY FEATURED PLACES:**
+    ${usedPlacesList || 'No previous places recorded yet.'}
+
+    You MUST feature DIFFERENT places from the ones listed above.
+
+    TOPICS TO SEARCH:
+    - "nuevos restaurantes San Luis Potosí 2025"
+    - "aperturas cafeterías SLP diciembre 2025"
+    - "nuevos negocios San Luis Potosí"
+    - New shops, boutiques, or services
     - Market schedules and highlights
-    - Neighborhood developments
-    - Local business spotlights
-    - Seasonal specialties available
-    - Local trends and what's popular
+    - Pop-up events or temporary installations
+
+    **REQUIRED DETAILS FOR EACH PLACE:**
+    - Full name of the place
+    - Exact address or neighborhood
+    - Opening hours (if available)
+    - Type of cuisine/products/services
+    - Price range ($$, $$$, etc.)
+    - Instagram handle or website
+    - What makes it special
 
     SOURCES:
     - Instagram food bloggers in SLP
@@ -1085,20 +1116,36 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - National park announcements
 
     ═══════════════════════════════════════════════════════════
-    SECTION 5: EXPAT ESSENTIALS
+    SECTION 5: EXPAT ESSENTIALS & PRO TIP (NO REPETITION)
     ═══════════════════════════════════════════════════════════
 
-    Search for practical information:
+    Search for practical information AND create ONE unique "Expat Pro Tip".
 
-    TOPICS:
-    - Immigration/visa news affecting Mexico
-    - Currency exchange rates and trends
-    - New services useful for expats
-    - Healthcare updates
-    - Networking events for internationals
-    - Language exchange meetups
-    - Expat community gatherings
-    - Useful local tips
+    **CRITICAL: DO NOT REPEAT ANY OF THESE PREVIOUSLY USED TIPS:**
+    ${usedTipsList || 'No previous tips recorded yet.'}
+
+    You MUST provide a DIFFERENT tip from the ones listed above.
+
+    PRO TIP TOPICS TO EXPLORE (choose something NOT used before):
+    - How to get a Mexican driver's license in SLP
+    - Best money exchange spots (casas de cambio)
+    - How to set up utilities (CFE, Interapas, Telmex)
+    - Where to find English-speaking doctors/dentists
+    - How to use Uber/DiDi effectively in SLP
+    - Tips for navigating Mexican bureaucracy
+    - Best apps for living in Mexico
+    - How to find a good mechanic
+    - Tips for renting an apartment
+    - Where to find imported products
+    - How to deal with Telcel/Movistar
+    - Bank account tips for foreigners
+    - How to pay bills online
+    - Tips for grocery shopping
+    - Understanding Mexican holidays and customs
+
+    **REQUIRED FORMAT FOR PRO TIP:**
+    - Title: Specific, actionable header (e.g., "Getting Your Mexican Driver's License")
+    - Body: 3-4 sentences with SPECIFIC details (addresses, prices, phone numbers if possible)
 
     SOURCES:
     - INM (immigration) announcements
@@ -1108,70 +1155,88 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
     ${customContent ? `
     ═══════════════════════════════════════════════════════════
-    SECTION 7: COMUNIDAD (CUSTOM CONTENT - MANDATORY)
+    ⚠️⚠️⚠️ SECTION 7: COMUNIDAD - THIS IS MANDATORY ⚠️⚠️⚠️
     ═══════════════════════════════════════════════════════════
 
-    The newsletter editor has provided custom content that MUST appear in a dedicated "Comunidad" section.
+    **YOU MUST ADD THIS SECTION TO THE NEWSLETTER. DO NOT SKIP IT.**
 
-    **CRITICAL INSTRUCTIONS:**
-    1. You MUST create a "Comunidad" section using the HTML template below
-    2. Replace <!-- COMUNIDAD_PLACEHOLDER --> with the generated Comunidad HTML
-    3. Adapt the content naturally to match the newsletter's friendly tone
-    4. Preserve ALL key information: dates, discount codes, names, links, prices
-    5. This section should feel like community news, not an advertisement
-
-    CUSTOM CONTENT TO INCLUDE:
+    The editor provided this content that MUST be included:
+    ────────────────────────────────────────
     ${customContent}
+    ────────────────────────────────────────
 
-    COMUNIDAD SECTION HTML TO USE (replace <!-- COMUNIDAD_PLACEHOLDER -->):
+    **HOW TO ADD THE COMUNIDAD SECTION:**
+
+    Find this line in the template:
+    <!-- COMUNIDAD_PLACEHOLDER -->
+
+    Replace it ENTIRELY with this HTML (adapt the content from above):
+
     <tr>
       <td style="padding: 30px; background-color: #FDF4FF;">
-        <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-          🤝 Comunidad
-        </h2>
+        <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">🤝 Comunidad</h2>
         <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">From our community to yours</p>
-
-        <!-- Add your adapted content here as card(s) with this style: -->
         <div style="background-color: #FFFFFF; border: 1px solid #E9D5FF; border-left: 4px solid #A855F7; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-          <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #7C3AED;">[ADAPTED_TITLE]</h3>
-          <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[ADAPTED_CONTENT]</p>
-          <!-- If there's a link or code, add: -->
-          <p style="margin: 0; font-size: 14px;">
-            <span style="background-color: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 4px; font-weight: bold;">[CODE_OR_HIGHLIGHT]</span>
-          </p>
+          <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #7C3AED;">[WRITE ADAPTED TITLE HERE]</h3>
+          <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[WRITE ADAPTED CONTENT HERE - preserve all dates, codes, prices]</p>
+          <p style="margin: 0; font-size: 14px;"><span style="background-color: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 4px; font-weight: bold;">[DISCOUNT CODE OR HIGHLIGHT IF ANY]</span></p>
         </div>
       </td>
     </tr>
 
-    You can add multiple cards if there are multiple items in the custom content.
+    **CHECKLIST:**
+    ✓ Did you include the 🤝 Comunidad header?
+    ✓ Did you adapt the custom content naturally?
+    ✓ Did you preserve ALL specific details (dates, codes, prices, names)?
+    ✓ Is the section placed BEFORE the CTA (terracotta section)?
+
     ` : ''}
 
-    INSTRUCTIONS:
-    - Fill in the HTML template below with detailed information.
-    - **EXPAND** all summaries. News items should be 4-5 sentences long. Event descriptions should be detailed.
-    - Replace [WEATHER_SUMMARY] with a 7-day outlook (temps, rain) and [WEATHER_TIP] with a recommendation.
-    - Replace [FACT_TITLE] and [FACT_BODY] with the curious fact found.
-    - **IMPORTANT: REMOVE ALL IMAGE TAGS** - Do not include any <img> tags in the output. Images cause loading issues in emails. Remove the hero image, event images, and escape images sections completely.
-    - Ensure the "Why it matters" section explains the local impact clearly.
-    - Replace [QUICK_HIT_1], [QUICK_HIT_2], [QUICK_HIT_3] with the practical updates found.
-    - For the BLOG section, you MUST use ONLY these real blog posts from our database:
+    ═══════════════════════════════════════════════════════════
+    FINAL INSTRUCTIONS - READ CAREFULLY
+    ═══════════════════════════════════════════════════════════
+
+    **REQUIRED SPECIFIC DETAILS FOR ALL CONTENT:**
+    Every event, place, and recommendation MUST include:
+    ✓ Exact DATE (e.g., "Saturday, December 23")
+    ✓ Exact TIME (e.g., "7:00 PM - 10:00 PM")
+    ✓ Full ADDRESS or at least neighborhood (e.g., "Av. Carranza 500, Centro")
+    ✓ PRICE/COST when applicable (e.g., "$150 MXN", "Free entry")
+    ✓ Contact info when available (phone, Instagram, website)
+
+    DO NOT use vague phrases like "this weekend" or "coming soon" - use SPECIFIC dates.
+
+    **CONTENT REQUIREMENTS:**
+    - News items: 4-5 sentences with context and impact
+    - Event descriptions: Include what to expect, who it's for, and logistics
+    - Pro Tip: Specific, actionable advice with real details
+    - Weather: Include temperature range and specific days
+
+    **TEMPLATE INSTRUCTIONS:**
+    - Replace [WEATHER_SUMMARY] with 7-day outlook (e.g., "Mostly sunny, 18-25°C, chance of rain Thursday")
+    - Replace [FACT_TITLE] and [FACT_BODY] with a NEW curious fact (not from the used list)
+    - Replace [TIP_TITLE] with a NEW pro tip title (not from the used list)
+    - **REMOVE ALL <img> TAGS** - Images cause loading issues in emails
+    ${customContent ? '- **REPLACE <!-- COMUNIDAD_PLACEHOLDER --> with the Comunidad section HTML**' : ''}
+
+    **BLOG SECTION - USE ONLY THESE REAL POSTS:**
     ${blogPostsList}
+    Use ONLY the exact URLs above - DO NOT invent URLs.
 
-    Select one of the above posts as the featured blog post. Use ONLY the exact URLs provided above - DO NOT invent or modify URLs.
+    **LINKS:**
+    - For events: Use verified links from search OR https://www.sanluisway.com/events
+    - DO NOT invent fake URLs
 
-    - For event links ([LINK_1], [LINK_2], [LINK_3]), either:
-      a) Use a real, verified link from your search results
-      b) Or link to https://www.sanluisway.com/events (our events page)
-      DO NOT invent fake event URLs.
+    **CTA VALUES:**
+    - CTA_TITLE: "Discover More of San Luis Potosí"
+    - CTA_BODY: "From hidden gems to local favorites, explore everything the city has to offer"
+    - CTA_BUTTON_LABEL: "Visit San Luis Way"
+    - CTA_BUTTON_LINK: https://www.sanluisway.com
 
-    - Craft the CTA content with these values:
-      - CTA_TITLE: "Discover More of San Luis Potosí"
-      - CTA_BODY: "From hidden gems to local favorites, explore everything the city has to offer"
-      - CTA_BUTTON_LABEL: "Visit San Luis Way"
-      - CTA_BUTTON_LINK: https://www.sanluisway.com
-
-    - CRITICAL: Replace ALL placeholders in square brackets with actual content. If you cannot find information for a section, write relevant generic content instead of leaving placeholders.
-    - IMPORTANT: Do NOT generate any closing section, footer, social links, or "Hasta la próxima" signature. Stop after the CTA section. The closing/footer will be added automatically by the system.
+    **CRITICAL:**
+    - Replace ALL [PLACEHOLDER] text with real content
+    - Do NOT generate footer/closing - it's added automatically
+    - Stop after the CTA section
 
     HTML TEMPLATE:
     ${NEWSLETTER_TEMPLATE}
@@ -1221,8 +1286,10 @@ export async function generateWeeklyNewsletter(customContent?: string) {
   console.log('6. 🔗 Validating and cleaning URLs...');
   htmlContent = validateAndCleanUrls(htmlContent);
 
-  // Extract and save the "Did You Know?" fact to avoid repetition
-  console.log('7. 💾 Extracting and saving "Did You Know?" fact...');
+  // Extract and save content to avoid repetition in future newsletters
+  console.log('7. 💾 Extracting and saving content to prevent repetition...');
+
+  // Save "Did You Know?" fact
   try {
     const factTitleMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
     const factBodyMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
@@ -1236,11 +1303,52 @@ export async function generateWeeklyNewsletter(customContent?: string) {
           fact_title: factTitle,
           fact_body: factBody,
         });
-        console.log(`   ✅ Saved fact: "${factTitle.substring(0, 50)}..."`);
+        console.log(`   ✅ Saved fact: "${factTitle.substring(0, 40)}..."`);
       }
     }
-  } catch (factError) {
-    console.error('   ⚠️ Could not save fact (non-critical):', factError);
+  } catch (e) {
+    console.error('   ⚠️ Could not save fact:', e);
+  }
+
+  // Save "Expat Pro Tip"
+  try {
+    const tipTitleMatch = htmlContent.match(/💡 Expat Pro Tip[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
+    const tipBodyMatch = htmlContent.match(/💡 Expat Pro Tip[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+
+    if (tipTitleMatch && tipBodyMatch) {
+      const tipTitle = tipTitleMatch[1].trim();
+      const tipBody = tipBodyMatch[1].trim();
+
+      if (tipTitle && tipBody && tipTitle.length > 3 && tipBody.length > 20) {
+        await supabase.from('newsletter_tips').insert({
+          tip_title: tipTitle,
+          tip_body: tipBody,
+        });
+        console.log(`   ✅ Saved tip: "${tipTitle.substring(0, 40)}..."`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save tip:', e);
+  }
+
+  // Save "Now Open" place
+  try {
+    const placeMatch = htmlContent.match(/✨ NOW OPEN[\s\S]*?<h4[^>]*>([^<]+)<\/h4>[\s\S]*?<p[^>]*>([^<]+)<\/p>/i);
+
+    if (placeMatch) {
+      const placeName = placeMatch[1].trim();
+      const placeDesc = placeMatch[2].trim();
+
+      if (placeName && placeName.length > 2) {
+        await supabase.from('newsletter_places').insert({
+          place_name: placeName,
+          place_description: placeDesc,
+        });
+        console.log(`   ✅ Saved place: "${placeName.substring(0, 40)}..."`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save place:', e);
   }
 
   return {
