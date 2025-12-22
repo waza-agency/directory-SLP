@@ -4,6 +4,21 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-21] Feature: Newsletter Content Tracking & Specificity
+
+**Descripción:**
+Segunda ronda de mejoras: tracking de Pro Tips y lugares nuevos, instrucciones más claras para Comunidad, y requisitos de detalles específicos.
+
+**Cambios:**
+1. **Tracking de Pro Tips** - Nueva tabla `newsletter_tips`
+2. **Tracking de Places** - Nueva tabla `newsletter_places`
+3. **Comunidad mejorada** - Instrucciones más explícitas con checklist
+4. **Detalles requeridos** - Fechas, horarios, direcciones, precios específicos
+
+**Estado:** ✅ Exitoso (commit e1c55bd6)
+
+---
+
 ## [2025-12-21] Feature: Newsletter Generator Improvements
 
 **Descripción:**
