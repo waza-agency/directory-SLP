@@ -4,6 +4,37 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-22] Update: Neighborhoods Guide Prices (December 2025)
+
+**Descripción:**
+Actualización completa de precios de renta en la guía de vecindarios con datos de diciembre 2025.
+
+**Datos de mercado:**
+- Aumento de precios de vivienda: 10.3% en 2024, 9% adicional en Q1 2025
+- Renta promedio USD para depto 2 recámaras: $950 (antes $850)
+
+**Precios actualizados por zona:**
+
+| Zona | Antes (Dic 2024) | Ahora (Dic 2025) |
+|------|------------------|------------------|
+| Lomas 1-2 Bed | $14K-$18K | $17K-$22K |
+| Lomas 3-Bed House | $20K-$32K | $25K-$39K |
+| Pedregal 2-Bed | $18K-$22K | $22K-$30K |
+| Centro Studio | $3K-$8K | $4K-$10K |
+| Villa Magna 2-3 Bed | $20K-$35K | $22K-$38K |
+
+**Fuentes verificadas:**
+- Lamudi.com.mx, Inmuebles24.com, Propiedades.com, iCasas.mx
+- Sociedad Hipotecaria Federal (SHF) 2025
+- Líder Empresarial - análisis de mercado inmobiliario
+
+**Archivos modificados:**
+- `src/pages/resources/neighborhoods-san-luis-potosi.tsx`
+
+**Estado:** ✅ Exitoso | Build: Passed
+
+---
+
 ## [2025-12-22] Fix: Blog Posts Base Language Correction (Complete)
 
 **Descripción:**

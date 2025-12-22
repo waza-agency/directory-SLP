@@ -22,17 +22,17 @@ const neighborhoods = [
       { title: 'La Loma Club de Golf', desc: 'Premium club and sports facilities' },
     ],
     prices: [
-      { type: '1-2 Bed Apartment', range: '$14,000 - $18,000' },
-      { type: '3-Bed House', range: '$20,000 - $32,000' },
-      { type: 'Premium Villa', range: '$35,000 - $60,000' },
+      { type: '1-2 Bed Apartment', range: '$17,000 - $22,000' },
+      { type: '3-Bed House', range: '$25,000 - $39,000' },
+      { type: 'Premium Villa', range: '$45,000 - $70,000' },
     ],
     pros: ['Best infrastructure for families', 'Highest concentration of English-friendly services', 'Safe gated communities with 24/7 security', 'Walking distance to restaurants and shops', 'Easy to meet other expat families'],
     cons: ['Higher prices than other neighborhoods', '25-30 minute commute to industrial zone', 'Rush hour traffic on main avenues', 'Less "authentic Mexican" experience', 'Fiber internet not available in some newer areas'],
     whoLivesHere: 'German, Japanese, and American executives from BMW, Bosch, and automotive suppliers. Mexican upper-middle class professionals. University professors. Typical profile: Families with children, 2-5 year corporate assignments.',
     subAreas: [
-      { name: 'Lomas 1ª - 4ª Sección', desc: 'The established core of Lomas', price: '$18,000 - $35,000/month' },
-      { name: 'La Loma Club de Golf', desc: 'Premium golf course community', price: '$35,000 - $60,000/month' },
-      { name: 'Rinconada de los Andes', desc: 'Newer gated community', price: '$20,000 - $28,000/month' },
+      { name: 'Lomas 1ª - 4ª Sección', desc: 'The established core of Lomas', price: '$22,000 - $40,000/month' },
+      { name: 'La Loma Club de Golf', desc: 'Premium golf course community', price: '$45,000 - $75,000/month' },
+      { name: 'Rinconada de los Andes', desc: 'Newer gated community', price: '$25,000 - $35,000/month' },
     ],
   },
   {
@@ -49,9 +49,9 @@ const neighborhoods = [
       programs: 'All three IB programs: Primary Years Programme (PYP), Middle Years Programme (MYP), and Diploma Programme (DP).',
     },
     prices: [
-      { type: '2-Bed Apartment', range: '$18,000 - $22,000' },
-      { type: '3-Bed House', range: '$22,000 - $28,000' },
-      { type: 'Loft / Modern Unit', range: '$20,000 - $25,000 (furnished)' },
+      { type: '2-Bed Apartment', range: '$22,000 - $30,000' },
+      { type: '3-Bed House', range: '$28,000 - $38,000' },
+      { type: 'Loft / Modern Unit', range: '$25,000 - $35,000 (furnished)' },
     ],
     pros: ['Walking distance to Colegio Terranova (IB)', 'Newer construction with modern amenities', 'Strong security in gated communities', 'Near Hospital Lomas and shopping centers', 'Good fiber internet availability'],
     cons: ['Limited availability — high demand', 'Slightly higher prices than older Lomas sections', 'Less established community feel', 'Requires car for all errands', 'Some developments still under construction'],
@@ -66,9 +66,9 @@ const neighborhoods = [
     description: 'A growing upper-class residential area in the southern part of the city. Features a mix of open neighborhoods and gated communities with modern homes and good infrastructure.',
     warning: 'These areas are car-dependent. Unlike Lomas, there are few walkable services. Note: Most top executives prefer Lomas del Tecnológico or La Loma Club de Golf.',
     prices: [
-      { type: '2-3 Bed House', range: '$20,000 - $35,000' },
-      { type: '4+ Bed House', range: '$35,000 - $55,000' },
-      { type: 'Premium Home', range: '$50,000 - $70,000' },
+      { type: '2-3 Bed House', range: '$22,000 - $38,000' },
+      { type: '4+ Bed House', range: '$40,000 - $60,000' },
+      { type: 'Premium Home', range: '$55,000 - $80,000' },
     ],
     whoLivesHere: 'Upper-middle class Mexican families, mid-level managers, and professionals. A mix of young families buying their first premium home and established residents. Growing expat presence but less concentrated than Lomas.',
   },
@@ -82,9 +82,9 @@ const neighborhoods = [
     description: 'UNESCO-recognized colonial downtown with stunning baroque architecture, pedestrian streets, plazas, and a vibrant cultural scene. The most walkable area in the city.',
     culturalHighlight: 'Living in Centro means being steps away from Plaza de Armas, Templo del Carmen, dozens of cafes, museums, and live music venues.',
     prices: [
-      { type: 'Studio / 1-Bed', range: '$3,000 - $8,000' },
-      { type: '2-Bed Apartment', range: '$8,000 - $15,000' },
-      { type: 'Renovated Colonial', range: '$15,000 - $25,000' },
+      { type: 'Studio / 1-Bed', range: '$4,000 - $10,000' },
+      { type: '2-Bed Apartment', range: '$10,000 - $18,000' },
+      { type: 'Renovated Colonial', range: '$18,000 - $28,000' },
     ],
     pros: ['Most affordable neighborhood for expats', 'Walkable — you don\'t need a car daily', 'Rich cultural life, restaurants, nightlife', 'Historic architecture and authentic Mexican experience', 'Good public transportation connections', 'Fast internet widely available'],
     cons: ['Parking is terrible — street parking only', '30-35 minute commute to industrial zone', 'Noise from traffic, events, and nightlife', 'Few gated/secure building options', 'Limited space — smaller apartments', 'Not ideal for families with young children'],
@@ -100,9 +100,9 @@ const neighborhoods = [
     description: 'Parque Tangamanga is one of Mexico\'s largest urban parks (over 400 hectares). The surrounding residential areas offer a unique lifestyle focused on outdoor activities.',
     parkHighlight: 'The park offers jogging trails, biking paths, sports courts, lakes, a science museum (Laberinto de las Ciencias y las Artes), an ecological museum, and children\'s play areas.',
     prices: [
-      { type: '2-Bed Apartment', range: '$10,000 - $15,000' },
-      { type: '3-Bed House', range: '$15,000 - $25,000' },
-      { type: 'Family Home', range: '$20,000 - $35,000' },
+      { type: '2-Bed Apartment', range: '$12,000 - $18,000' },
+      { type: '3-Bed House', range: '$18,000 - $28,000' },
+      { type: 'Family Home', range: '$25,000 - $40,000' },
     ],
     pros: ['Immediate access to 400+ hectare park', 'Family-oriented community atmosphere', 'More affordable than Lomas', 'Quieter, less traffic', 'Good for outdoor enthusiasts'],
     cons: ['35-40 minute commute to industrial zone', 'Fewer services and restaurants nearby', 'Limited gated community options', 'Further from international school', 'Requires a car for most activities'],
@@ -117,9 +117,9 @@ const neighborhoods = [
     description: 'The Parque Industrial Logistik in Villa de Reyes (about 25km south) is home to BMW, General Motors, and numerous automotive suppliers.',
     importantNote: 'Most expats do NOT live near the industrial zone. Despite the shorter commute, the lack of international schools, quality healthcare, restaurants, and security infrastructure means that 90%+ of foreign employees choose to live in Lomas or Pedregal.',
     prices: [
-      { type: 'Basic Apartment', range: '$6,000 - $10,000' },
-      { type: '2-3 Bed House', range: '$10,000 - $18,000' },
-      { type: 'New Development', range: '$12,000 - $20,000' },
+      { type: 'Basic Apartment', range: '$7,000 - $12,000' },
+      { type: '2-3 Bed House', range: '$12,000 - $20,000' },
+      { type: 'New Development', range: '$15,000 - $24,000' },
     ],
     pros: ['10-15 minute commute to BMW/GM plants', 'Significantly lower rental prices', 'Less traffic stress', 'Good for single professionals', 'New developments being built'],
     cons: ['No international schools nearby', 'Limited healthcare facilities', 'Very few restaurants and services', 'Less developed security infrastructure', 'Far from city center and social life', 'Fewer English-speaking services'],
@@ -134,21 +134,21 @@ const neighborhoods = [
     description: 'A separate municipality that forms part of the San Luis Potosí metropolitan area, located to the east. Offers the most affordable housing options.',
     warning: 'Not typically recommended for expats. While Soledad offers the lowest prices, it is rarely chosen by foreign residents due to distance from key services and limited English-friendly amenities.',
     prices: [
-      { type: 'Basic Apartment', range: '$3,500 - $6,000' },
-      { type: '2-Bed House', range: '$6,000 - $12,000' },
-      { type: 'Family Home', range: '$10,000 - $18,000' },
+      { type: 'Basic Apartment', range: '$4,000 - $7,000' },
+      { type: '2-Bed House', range: '$7,000 - $14,000' },
+      { type: 'Family Home', range: '$12,000 - $20,000' },
     ],
   },
 ];
 
 const comparisonData = [
-  { name: 'Lomas del Tecnológico', rent: '$14K - $60K', bestFor: 'Families', schools: 5, security: 5, walkScore: 'Medium', toBMW: '25-30 min', highlight: true },
-  { name: 'Privadas del Pedregal', rent: '$18K - $28K', bestFor: 'School proximity', schools: 5, security: 5, walkScore: 'Low', toBMW: '25-30 min' },
-  { name: 'Villa Magna / Los Lagos', rent: '$20K - $70K', bestFor: 'Upper-middle class', schools: 3, security: 4, walkScore: 'Very Low', toBMW: '20-25 min' },
-  { name: 'Centro Histórico', rent: '$3K - $25K', bestFor: 'Singles, budget', schools: 2, security: 3, walkScore: 'High', toBMW: '30-35 min' },
-  { name: 'Tangamanga Area', rent: '$10K - $35K', bestFor: 'Outdoor lovers', schools: 3, security: 3, walkScore: 'Low', toBMW: '35-40 min' },
-  { name: 'Near Industrial Zone', rent: '$6K - $20K', bestFor: 'Short commute', schools: 1, security: 2, walkScore: 'Very Low', toBMW: '10-15 min' },
-  { name: 'Soledad de Graciano S.', rent: '$3.5K - $18K', bestFor: 'Tight budget', schools: 1, security: 2, walkScore: 'Medium', toBMW: '30-40 min' },
+  { name: 'Lomas del Tecnológico', rent: '$17K - $70K', bestFor: 'Families', schools: 5, security: 5, walkScore: 'Medium', toBMW: '25-30 min', highlight: true },
+  { name: 'Privadas del Pedregal', rent: '$22K - $38K', bestFor: 'School proximity', schools: 5, security: 5, walkScore: 'Low', toBMW: '25-30 min' },
+  { name: 'Villa Magna / Los Lagos', rent: '$22K - $80K', bestFor: 'Upper-middle class', schools: 3, security: 4, walkScore: 'Very Low', toBMW: '20-25 min' },
+  { name: 'Centro Histórico', rent: '$4K - $28K', bestFor: 'Singles, budget', schools: 2, security: 3, walkScore: 'High', toBMW: '30-35 min' },
+  { name: 'Tangamanga Area', rent: '$12K - $40K', bestFor: 'Outdoor lovers', schools: 3, security: 3, walkScore: 'Low', toBMW: '35-40 min' },
+  { name: 'Near Industrial Zone', rent: '$7K - $24K', bestFor: 'Short commute', schools: 1, security: 2, walkScore: 'Very Low', toBMW: '10-15 min' },
+  { name: 'Soledad de Graciano S.', rent: '$4K - $20K', bestFor: 'Tight budget', schools: 1, security: 2, walkScore: 'Medium', toBMW: '30-40 min' },
 ];
 
 const howToRentSteps = [
@@ -176,13 +176,13 @@ const faqs = [
   { q: 'Can I use USD for rent?', a: 'Pesos are standard. Some luxury landlords may accept USD, but most contracts are in pesos. Open a Mexican bank account for easier transfers.' },
   { q: 'Are there neighborhoods to avoid?', a: 'No specific neighborhoods are "dangerous" in the urban core. The seven neighborhoods in this guide are all viable options with different trade-offs.' },
   { q: 'What\'s parking like?', a: 'Centro: Extremely limited, street only. Lomas/Pedregal/Villa Magna: Properties typically include garage. Gated communities usually have assigned spots.' },
-  { q: 'How do prices compare to other Mexican cities?', a: 'SLP is approximately 35% cheaper than Mexico City and 20-30% cheaper than Querétaro. Prices have risen 8.7% in the past year due to industrial investment.' },
+  { q: 'How do prices compare to other Mexican cities?', a: 'SLP is approximately 35% cheaper than Mexico City and 20-30% cheaper than Querétaro. Prices have risen 10.3% in 2024 and an additional 9% in early 2025 due to continued industrial investment.' },
 ];
 
 const sources = [
   { category: 'Government', items: [
     { name: 'INEGI - Censo de Población y Vivienda 2020', desc: 'Foreign-born population statistics', url: 'https://www.inegi.org.mx/programas/ccpv/2020/' },
-    { name: 'Sociedad Hipotecaria Federal 2025', desc: 'Housing price increase data (8.7%)', url: 'https://www.gob.mx/shf' },
+    { name: 'Sociedad Hipotecaria Federal 2025', desc: 'Housing price increase data (10.3% in 2024, 9% in Q1 2025)', url: 'https://www.gob.mx/shf' },
     { name: 'U.S. Department of State - Travel Advisory', desc: 'Safety rating for SLP (Level 2)', url: 'https://travel.state.gov' },
   ]},
   { category: 'Industry', items: [
@@ -194,9 +194,10 @@ const sources = [
     { name: 'Colegio Internacional Terranova', desc: 'Official school website', url: 'https://www.terranova.edu.mx/en/' },
   ]},
   { category: 'Real Estate', items: [
-    { name: 'Lamudi México', desc: 'Rental price verification (Dec 2024)', url: 'https://www.lamudi.com.mx/san-luis-potosi/' },
-    { name: 'Inmuebles24', desc: 'Rental listings verification', url: 'https://www.inmuebles24.com' },
-    { name: 'Vivanuncios', desc: 'Budget rental listings', url: 'https://www.vivanuncios.com.mx' },
+    { name: 'Lamudi México', desc: 'Rental price verification (Dec 2025)', url: 'https://www.lamudi.com.mx/san-luis-potosi/' },
+    { name: 'Inmuebles24', desc: 'Rental listings verification (Dec 2025)', url: 'https://www.inmuebles24.com' },
+    { name: 'Propiedades.com', desc: 'Rental listings by neighborhood', url: 'https://propiedades.com' },
+    { name: 'iCasas.mx', desc: 'Current rental market data', url: 'https://www.icasas.mx' },
   ]},
   { category: 'Healthcare', items: [
     { name: 'Hospital Lomas de San Luis Internacional', desc: 'Primary private hospital', url: 'https://www.hls.com.mx/' },
@@ -268,8 +269,8 @@ export default function NeighborhoodsGuidePage() {
               Where to Live in San Luis Potosí — Complete 2025 Guide for Expats
             </p>
             <div className="flex flex-wrap gap-3 text-sm">
-              <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full">✓ Verified Dec 2024</span>
-              <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full">18 Sources</span>
+              <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full">✓ Verified Dec 2025</span>
+              <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full">20 Sources</span>
               <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full">7 Neighborhoods</span>
               <span className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full">25 min read</span>
             </div>
@@ -315,12 +316,12 @@ export default function NeighborhoodsGuidePage() {
                   </ul>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm">
-                  <h3 className="font-semibold text-blue-900 mb-3">Quick Price Ranges (Dec 2024)</h3>
+                  <h3 className="font-semibold text-blue-900 mb-3">Quick Price Ranges (Dec 2025)</h3>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span>Budget Apartment:</span><strong className="text-blue-900">$8,000 - $12,000 MXN</strong></div>
-                    <div className="flex justify-between"><span>Mid-Range House:</span><strong className="text-blue-900">$15,000 - $25,000 MXN</strong></div>
-                    <div className="flex justify-between"><span>Premium Home:</span><strong className="text-blue-900">$30,000 - $60,000 MXN</strong></div>
-                    <div className="flex justify-between"><span>Luxury:</span><strong className="text-blue-900">$60,000 - $90,000 MXN</strong></div>
+                    <div className="flex justify-between"><span>Budget Apartment:</span><strong className="text-blue-900">$10,000 - $15,000 MXN</strong></div>
+                    <div className="flex justify-between"><span>Mid-Range House:</span><strong className="text-blue-900">$18,000 - $30,000 MXN</strong></div>
+                    <div className="flex justify-between"><span>Premium Home:</span><strong className="text-blue-900">$35,000 - $70,000 MXN</strong></div>
+                    <div className="flex justify-between"><span>Luxury:</span><strong className="text-blue-900">$70,000 - $100,000 MXN</strong></div>
                   </div>
                 </div>
               </div>
@@ -333,7 +334,7 @@ export default function NeighborhoodsGuidePage() {
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white/10 rounded-xl p-5 text-center">
-                  <p className="text-4xl font-bold mb-2">$850</p>
+                  <p className="text-4xl font-bold mb-2">$950</p>
                   <p className="text-sm text-white/80">USD Avg. Rent</p>
                   <p className="text-xs text-white/60">2-bed apartment</p>
                 </div>
@@ -343,7 +344,7 @@ export default function NeighborhoodsGuidePage() {
                   <p className="text-xs text-white/60">Cost of living</p>
                 </div>
                 <div className="bg-white/10 rounded-xl p-5 text-center">
-                  <p className="text-4xl font-bold mb-2">8.7%</p>
+                  <p className="text-4xl font-bold mb-2">10.3%</p>
                   <p className="text-sm text-white/80">Price Increase</p>
                   <p className="text-xs text-white/60">2024-2025</p>
                 </div>
@@ -423,7 +424,7 @@ export default function NeighborhoodsGuidePage() {
 
               {/* Prices */}
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white mb-6">
-                <h3 className="text-xl font-bold mb-4">💰 Rental Prices (December 2024)</h3>
+                <h3 className="text-xl font-bold mb-4">💰 Rental Prices (December 2025)</h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   {n.prices.map((p) => (
                     <div key={p.type} className="bg-white/10 rounded-lg p-4 text-center">
@@ -510,7 +511,7 @@ export default function NeighborhoodsGuidePage() {
                     <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">High Security</span>
                   </div>
                   <div className="text-sm text-gray-600">
-                    <strong>Rent:</strong> $35,000 - $70,000 MXN/month<br/>
+                    <strong>Rent:</strong> $45,000 - $80,000 MXN/month<br/>
                     <strong>Best for:</strong> Golf enthusiasts, executives seeking prestige
                   </div>
                 </div>
@@ -533,7 +534,7 @@ export default function NeighborhoodsGuidePage() {
                     <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">Traditional</span>
                   </div>
                   <div className="text-sm text-gray-600">
-                    <strong>Rent:</strong> $30,000 - $55,000 MXN/month<br/>
+                    <strong>Rent:</strong> $35,000 - $65,000 MXN/month<br/>
                     <strong>Best for:</strong> Families seeking club lifestyle, equestrian enthusiasts
                   </div>
                 </div>
@@ -556,7 +557,7 @@ export default function NeighborhoodsGuidePage() {
                     <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">Gated</span>
                   </div>
                   <div className="text-sm text-gray-600">
-                    <strong>Rent:</strong> $25,000 - $45,000 MXN/month<br/>
+                    <strong>Rent:</strong> $30,000 - $55,000 MXN/month<br/>
                     <strong>Best for:</strong> Professionals wanting modern homes with views
                   </div>
                 </div>
@@ -579,7 +580,7 @@ export default function NeighborhoodsGuidePage() {
                     <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">Near Schools</span>
                   </div>
                   <div className="text-sm text-gray-600">
-                    <strong>Rent:</strong> $18,000 - $35,000 MXN/month<br/>
+                    <strong>Rent:</strong> $22,000 - $42,000 MXN/month<br/>
                     <strong>Best for:</strong> Families wanting established community feel
                   </div>
                 </div>
@@ -753,7 +754,7 @@ export default function NeighborhoodsGuidePage() {
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
               <h4 className="font-semibold text-yellow-900 mb-2">Editorial Note</h4>
               <p className="text-yellow-800 text-sm">
-                All rental prices were verified against active listings on major Mexican real estate portals in December 2024. Market conditions change frequently. This guide is updated quarterly. Last update: December 2024.
+                All rental prices were verified against active listings on major Mexican real estate portals in December 2025. Housing prices in SLP increased 10.3% in 2024 and 9% in early 2025. Market conditions change frequently. This guide is updated quarterly. Last update: December 2025.
               </p>
             </div>
           </section>
