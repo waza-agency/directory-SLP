@@ -4,32 +4,35 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
-## [2025-12-22] Fix: Blog Posts Base Language Correction
+## [2025-12-22] Fix: Blog Posts Base Language Correction (Complete)
 
 **Descripción:**
-Corrección de blog posts que tenían el idioma base incorrecto (español en lugar de inglés). El contenido base debe ser siempre en inglés, con traducciones en `_es` y `_de`.
+Corrección completa de TODOS los blog posts para asegurar que el idioma base sea inglés.
 
 **Problema detectado:**
-- Algunos posts tenían contenido en español en campos base (title, excerpt, content)
-- El contenido en inglés estaba incorrectamente en los campos `_es`
-- Afectaba la visualización cuando se navegaba el sitio en inglés
+- Varios posts tenían contenido en español en campos base (title, excerpt, content)
+- Algunos posts tenían traducciones rotas ("I notice the text you provided...")
+- Contenido mezclado entre campos base y _es
 
-**Correcciones:**
-1. **Script de corrección:** `scripts/fix-blog-i18n.js`
-   - Detecta posts con español en campos base
-   - Intercambia contenido cuando ES está en base y EN en `_es`
-   - Traduce contenido cuando ambos campos tienen español
+**Solución implementada:**
+1. **Script completo:** `scripts/fix-all-blog-posts.js`
+   - Detecta idioma de cada campo (título, excerpt, contenido)
+   - Identifica traducciones rotas/corruptas
+   - Traduce automáticamente contenido español a inglés
+   - Genera traducciones españolas faltantes
 
-2. **Posts corregidos (7 total):**
-   - `potosino-art-history-artists-sculpture-painting-san-luis-potosi`
-   - `cost-of-living-san-luis-potosi-2025`
-   - `fin-de-semana-familiar-san-luis-potosi-parques-go-karts-ninos`
-   - `leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism`
-   - `san-luis-potosi-mining-history-baroque-architecture-cultural-legacy`
-   - `corazon-de-xoconostle`
-   - `la-gran-via`
+2. **Correcciones manuales adicionales:**
+   - Posts con títulos rotos reparados
+   - Excerpts corruptos regenerados
+   - Traducciones _es completadas
 
-**Estado:** ✅ Exitoso
+**Posts corregidos (14 total - TODOS):**
+- Todos los 14 posts publicados ahora tienen:
+  - Título EN (base) + Título ES (_es)
+  - Excerpt EN (base) + Excerpt ES (_es)
+  - Content EN (base) + Content ES (_es)
+
+**Estado:** ✅ Exitoso - 100% de posts corregidos
 
 ---
 
