@@ -2,6 +2,7 @@ import React, { useState, Suspense, lazy, useMemo } from 'react';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import Script from 'next/script';
 import { Place } from '@/types';
 import Image from 'next/image';
 import { CalendarIcon, MegaphoneIcon, MapPinIcon, SparklesIcon, HeartIcon, UserGroupIcon } from '@heroicons/react/24/outline';
@@ -239,6 +240,31 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         keywords="San Luis Potosí, SLP, expat guide, luxury travel, Mexico living, cultural experiences, digital nomad"
         ogImage="/og-image.jpg"
       />
+
+      {/* Meta Pixel Code */}
+      <Script id="facebook-pixel" strategy="afterInteractive">
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1916912242550142');
+          fbq('track', 'PageView');
+        `}
+      </Script>
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src="https://www.facebook.com/tr?id=1916912242550142&ev=PageView&noscript=1"
+          alt=""
+        />
+      </noscript>
 
       <main className="min-h-screen">
 
