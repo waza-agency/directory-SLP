@@ -231,6 +231,94 @@ export interface Database {
           updated_at?: string
         }
       }
+      news_headlines: {
+        Row: {
+          id: string
+          text_es: string
+          text_en: string
+          source: string | null
+          source_url: string | null
+          active: boolean
+          priority: number
+          created_at: string
+          updated_at: string
+          expires_at: string | null
+        }
+        Insert: {
+          id?: string
+          text_es: string
+          text_en: string
+          source?: string | null
+          source_url?: string | null
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+          expires_at?: string | null
+        }
+        Update: {
+          id?: string
+          text_es?: string
+          text_en?: string
+          source?: string | null
+          source_url?: string | null
+          active?: boolean
+          priority?: number
+          created_at?: string
+          updated_at?: string
+          expires_at?: string | null
+        }
+      }
+      community_news: {
+        Row: {
+          id: string
+          title_es: string
+          title_en: string
+          summary_es: string
+          summary_en: string
+          category: 'social' | 'community' | 'culture' | 'local'
+          image_url: string | null
+          source: string | null
+          priority: number
+          active: boolean
+          published_at: string
+          expires_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title_es: string
+          title_en: string
+          summary_es: string
+          summary_en: string
+          category?: 'social' | 'community' | 'culture' | 'local'
+          image_url?: string | null
+          source?: string | null
+          priority?: number
+          active?: boolean
+          published_at?: string
+          expires_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title_es?: string
+          title_en?: string
+          summary_es?: string
+          summary_en?: string
+          category?: 'social' | 'community' | 'culture' | 'local'
+          image_url?: string | null
+          source?: string | null
+          priority?: number
+          active?: boolean
+          published_at?: string
+          expires_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

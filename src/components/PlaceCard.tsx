@@ -2,6 +2,7 @@ import { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 interface PlaceCardProps {
   place: Place;
@@ -11,6 +12,7 @@ interface PlaceCardProps {
 }
 
 export default function PlaceCard({ place, featured, onClick, isSelected }: PlaceCardProps) {
+  const { t } = useTranslation('common');
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -107,7 +109,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
           {place.featured && (
             <div className={`absolute top-4 right-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 rotate-3 -translate-y-1' : 'scale-100 rotate-0 translate-y-0'}`}>
               <span className="text-xs font-bold px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg backdrop-blur-sm border border-white/20 animate-pulse-slow">
-                ⭐ Featured
+                ⭐ {t('placeCard.featured')}
               </span>
             </div>
           )}
@@ -191,7 +193,7 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
         <div className="px-6 py-4 border-t border-gray-100 bg-gradient-to-r from-background-alt to-background transition-all duration-300 group-hover:from-primary/5 group-hover:to-secondary/5">
           <div className="flex justify-between items-center">
             <span className="text-base font-semibold text-secondary hover:text-primary transition-all duration-200">
-              View Details
+              {t('placeCard.viewDetails')}
             </span>
             <svg className={`w-5 h-5 text-secondary transition-all duration-300 ${isHovered ? 'translate-x-1 text-primary' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

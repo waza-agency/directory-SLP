@@ -1,5 +1,6 @@
 import { Place } from '@/types';
 import { useEffect } from 'react';
+import { useTranslation } from 'next-i18next';
 import PlaceImage from './PlaceImage';
 
 interface PlaceModalProps {
@@ -10,6 +11,8 @@ interface PlaceModalProps {
 }
 
 export default function PlaceModal({ place, onClose, activeTab = 'description', setActiveTab }: PlaceModalProps) {
+  const { t } = useTranslation('common');
+
   // Close on ESC key press
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -47,29 +50,29 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
         
         {/* Tabs */}
         <div className="flex border-b">
-          <button 
+          <button
             className={`px-4 py-2 ${activeTab === 'description' ? 'border-b-2 border-primary text-primary' : 'text-gray-600'}`}
             onClick={() => handleTabChange('description')}
           >
-            Description
+            {t('placeModal.description')}
           </button>
-          <button 
+          <button
             className={`px-4 py-2 ${activeTab === 'reviews' ? 'border-b-2 border-primary text-primary' : 'text-gray-600'}`}
             onClick={() => handleTabChange('reviews')}
           >
-            Reviews
+            {t('placeModal.reviews')}
           </button>
-          <button 
+          <button
             className={`px-4 py-2 ${activeTab === 'call' ? 'border-b-2 border-primary text-primary' : 'text-gray-600'}`}
             onClick={() => handleTabChange('call')}
           >
-            Call
+            {t('placeModal.call')}
           </button>
-          <button 
+          <button
             className={`px-4 py-2 ${activeTab === 'website' ? 'border-b-2 border-primary text-primary' : 'text-gray-600'}`}
             onClick={() => handleTabChange('website')}
           >
-            Website
+            {t('placeModal.website')}
           </button>
         </div>
         
@@ -97,14 +100,14 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
               <>
                 {place.description && (
                   <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Description</h3>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">{t('placeModal.description')}</h3>
                     <p className="text-gray-600">{place.description}</p>
                   </div>
                 )}
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-3">Contact Info</h3>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-3">{t('placeModal.contactInfo')}</h3>
                     
                     {place.address && (
                       <div className="flex items-start mb-3">
@@ -138,7 +141,7 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-primary hover:underline"
-                        >Visit Website</a>
+                        >{t('placeModal.visitWebsite')}</a>
                       </div>
                     )}
                     
@@ -159,7 +162,7 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
                   
                   {place.hours && (
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-3">Hours</h3>
+                      <h3 className="text-lg font-semibold text-gray-800 mb-3">{t('placeModal.hours')}</h3>
                       <div className="bg-gray-50 p-3 rounded-lg">
                         {place.hours.split.map((day, index) => (
                           <div key={index} className="mb-1 last:mb-0">
@@ -173,14 +176,14 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
                 
                 {place.latitude && place.longitude && (
                   <div className="mt-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-3">Location</h3>
-                    <a 
+                    <h3 className="text-lg font-semibold text-gray-800 mb-3">{t('placeModal.location')}</h3>
+                    <a
                       href={`https://www.google.com/maps/search/?api=1&query=${place.latitude},${place.longitude}`}
-                      target="_blank" 
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                     >
-                      View on Map
+                      {t('placeModal.viewOnMap')}
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -192,7 +195,7 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
             
             {activeTab === 'reviews' && (
               <div className="py-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Reviews</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('placeModal.reviews')}</h3>
                 {place.reviews && place.reviews.length > 0 ? (
                   <div className="space-y-4">
                     {place.reviews.map((review: { author: string; rating: number; text: string }, index: number) => (
@@ -206,19 +209,19 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500">No reviews available yet. Be the first to leave a review!</p>
+                  <p className="text-gray-500">{t('placeModal.noReviews')}</p>
                 )}
               </div>
             )}
             
             {activeTab === 'call' && (
               <div className="py-8 text-center">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact by Phone</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('placeModal.contactByPhone')}</h3>
                 {place.phone ? (
                   <>
-                    <p className="text-gray-600 mb-4">Ready to call? Click below to connect directly:</p>
-                    <a 
-                      href={`tel:${place.phone}`} 
+                    <p className="text-gray-600 mb-4">{t('placeModal.readyToCall')}</p>
+                    <a
+                      href={`tel:${place.phone}`}
                       className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors text-lg"
                     >
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,31 +231,31 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
                     </a>
                   </>
                 ) : (
-                  <p className="text-gray-500">No phone number available for this place.</p>
+                  <p className="text-gray-500">{t('placeModal.noPhone')}</p>
                 )}
               </div>
             )}
             
             {activeTab === 'website' && (
               <div className="py-8 text-center">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Visit Website</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('placeModal.visitWebsite')}</h3>
                 {place.website ? (
                   <>
-                    <p className="text-gray-600 mb-4">Click below to visit the official website:</p>
-                    <a 
-                      href={place.website} 
-                      target="_blank" 
+                    <p className="text-gray-600 mb-4">{t('placeModal.clickToVisit')}</p>
+                    <a
+                      href={place.website}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors text-lg"
                     >
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
-                      Visit Website
+                      {t('placeModal.visitWebsite')}
                     </a>
                   </>
                 ) : (
-                  <p className="text-gray-500">No website available for this place.</p>
+                  <p className="text-gray-500">{t('placeModal.noWebsite')}</p>
                 )}
               </div>
             )}

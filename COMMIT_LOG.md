@@ -70,6 +70,472 @@ Consolidación de toda la información del Parque Tangamanga y sus sub-atraccion
 
 ---
 
+## Commit: 0a413466 - 2025-12-14
+
+**Mensaje:** feat: Add homepage disclaimer section
+
+**Archivos modificados:**
+- src/pages/index.tsx
+- public/locales/en/common.json
+- public/locales/es/common.json
+
+**Descripción detallada:**
+
+Se agregó una sección de disclaimer en la parte inferior de la homepage, antes del CTA final, explicando la naturaleza independiente de San Luis Way.
+
+**Contenido del disclaimer (EN):**
+> San Luis Way is created by locals who love this city. Our goal is to help newcomers navigate San Luis Potosí and discover the culture we cherish. The businesses and services featured here are personal recommendations based on our own positive experiences — we are not affiliated with, employed by, or financially connected to any of them. While we strive to provide accurate and helpful information, San Luis Way is not responsible for the products, services, or experiences provided by third parties.
+
+**Contenido del disclaimer (ES):**
+> San Luis Way es creada por locales que aman esta ciudad. Nuestro objetivo es ayudar a los recién llegados a navegar San Luis Potosí y descubrir la cultura que tanto apreciamos. Los negocios y servicios que aparecen aquí son recomendaciones personales basadas en nuestras propias experiencias positivas — no estamos afiliados, empleados ni tenemos conexión financiera con ninguno de ellos. Aunque nos esforzamos por proporcionar información precisa y útil, San Luis Way no se hace responsable de los productos, servicios o experiencias proporcionados por terceros.
+
+**Propósito/Razón:** Proporcionar transparencia a los usuarios sobre la naturaleza de las recomendaciones del sitio, dejar claro que no hay relación comercial con los negocios listados, y limitar responsabilidad legal.
+
+---
+
+## Commit: 00133732 - 2025-12-14
+
+**Mensaje:** fix: Correct factual errors in Ultimate Guide - Expat SLP
+
+**Archivos modificados:**
+- ultimate-guide-expat-slp.html
+
+**Descripción detallada:**
+
+Correcciones basadas en fact-check exhaustivo que identificó 6 errores críticos en la guía de expatriados.
+
+**Errores corregidos:**
+
+1. **GDP Growth 2023:** 4.2% → 8.0%
+   - Error: 90% de subestimación
+   - Fuente: INEGI confirma que SLP tuvo el 2do mayor crecimiento del país
+
+2. **Distancia a Guadalajara:** 364 km → 330 km
+   - Error: 9-11% de sobrestimación
+   - Fuente: Distance calculators (Distance.to, TravelMath)
+
+3. **Lluvia anual:** 362 mm → 542 mm
+   - Error: 33% de subestimación
+   - Fuente: Climate-Data.org
+
+4. **Visa Temporal - Ahorro requerido:** $43,000 → $73,200 USD
+   - Error: 70% de subestimación (crítico para solicitantes)
+   - Fuente: INM requisitos 2024, Mexperience
+
+5. **Visa Temporal - Ingreso mensual:** $2,600 → $4,350 USD/mes
+   - Error: 67% de subestimación (crítico para solicitantes)
+   - Fuente: Consulados mexicanos, INM 2024
+
+6. **Residente Permanente - Ingreso:** $4,300 → $7,300 USD/mes
+   - Error: 70% de subestimación
+   - Fuente: INM requisitos 2024
+
+**Metodología de verificación:**
+- 48+ claims analizados
+- Fuentes consultadas: INEGI, INM, Numbeo, Mexperience, Climate-Data.org, UNESCO, SAT
+- Tasa de precisión mejorada de ~70% a ~95%
+
+**Propósito/Razón:** Garantizar que la guía proporcione información precisa y actualizada, especialmente para los requisitos de visa que son críticos para la toma de decisiones de potenciales expatriados.
+
+---
+
+## Commit: 223a0833 - 2025-12-14
+
+**Mensaje:** feat: Add Historic Downtown (Centro Histórico) page
+
+**Archivos creados:**
+- src/pages/centro-historico.tsx - Página completa del Centro Histórico
+- src/components/CentroHistoricoBanner.tsx - Banner promocional
+
+**Archivos modificados:**
+- src/pages/index.tsx - Agregado CentroHistoricoBanner después de TangamangaBanner
+- public/locales/es/common.json - Traducciones en español
+- public/locales/en/common.json - Traducciones en inglés
+- CHANGE_LOG.md - Actualizado con registro del cambio
+
+**Descripción detallada:**
+
+Creación de una página dedicada al Centro Histórico de San Luis Potosí, presentándolo como una super atracción con vida cultural propia, segura y divertida para extranjeros.
+
+**Estructura de la página:**
+1. Hero Section - Con badge de patrimonio cultural e imagen prominente
+2. Quick Info Cards - Ubicación, mejor momento para visitar, seguridad, año de fundación
+3. Historia y Patrimonio - Orígenes coloniales, arquitectura, vida actual
+4. Puntos de Interés - Monumentos imperdibles y museos
+5. Gastronomía - Restaurantes destacados, bares/cantinas, mercados tradicionales
+6. Vida Nocturna - Entretenimiento y actividades nocturnas
+7. Compras y Artesanías - Productos locales y artesanías potosinas
+8. Secretos del Centro - Joyas escondidas que solo los locales conocen
+9. Información Práctica - Cómo llegar, estacionamiento, seguridad
+10. Tips para Visitantes - Consejos prácticos
+11. Sidebar - Información práctica, tips y CTA
+
+**Propósito/Razón:**
+- Crear contenido atractivo para expatriados y turistas
+- Posicionar el Centro Histórico como una atracción principal
+- Enfatizar la seguridad y ambiente acogedor de la zona
+- Proporcionar información útil sobre restaurantes, bares y mercados
+- Revelar lugares secretos que hacen especial la visita
+
+---
+
+## Commit: 667fa47d - 2025-12-14
+
+**Mensaje:** feat: Add Ultimate Guide - Living in San Luis Potosí as an Expat
+
+**Archivos modificados:**
+- ultimate-guide-expat-slp.html (nuevo - contenido del post)
+- scripts/publish-ultimate-guide-expat.js (nuevo - script de publicación)
+- CHANGE_LOG.md (actualizado)
+- COMMIT_LOG.md (actualizado)
+
+**Descripción detallada:**
+
+Creación de la primera "Ultimate Guide" del sitio: guía completa para expatriados sobre vivir en San Luis Potosí.
+
+**Estructura del contenido (~10,000 palabras):**
+1. Verification Header - Badge de última actualización y fuentes citadas
+2. Table of Contents - Navegación completa a todas las secciones
+3. Executive Summary - Key takeaways y números rápidos
+4. Why San Luis Potosí - Historia, ubicación estratégica, economía
+5. Quick Facts Box - Población, altitud, clima, zona horaria
+6. Visa & Immigration - Tipos de visa, proceso paso a paso, requisitos financieros
+7. Cost of Living - Comparativas, tablas de precios, 3 niveles de presupuesto
+8. Neighborhoods - 4 colonias detalladas con pros/cons
+9. Healthcare - IMSS vs privado, hospitales, estrategia dual
+10. Banking - Requisitos, comparativa de bancos, transferencias
+11. Transportation - MetroRed, Uber, taxis, conducir
+12. Internet & Phone - Providers y planes
+13. Safety - Índices comparativos, tips
+14. FAQ - 12 preguntas frecuentes expandibles
+15. Sources - 11 referencias oficiales
+
+**Fuentes verificadas:**
+- INM (Instituto Nacional de Migración) - requisitos de visa
+- INEGI - estadísticas de población y economía
+- Numbeo - cost of living index December 2024
+- IMSS - costos de seguro público
+- SAT - información fiscal
+- SMN - datos climáticos
+- UNESCO - patrimonio cultural
+
+**Características técnicas:**
+- HTML semántico con Tailwind CSS
+- Verification badges para credibilidad
+- Tablas responsive con overflow
+- Accordions para FAQs
+- Cards para neighborhoods
+- Progress bars para comparativas visuales
+- Contextual notes (tips, warnings, definitions)
+- Step-by-step how-to sections
+
+**Propósito/Razón:** Crear contenido autoritative de alto valor SEO que posicione a San Luis Way como recurso definitivo para expatriados considerando mudarse a SLP. El formato Ultimate Guide está diseñado para generar backlinks y engagement prolongado.
+
+---
+
+## Commit: 5b13ee5c - 2025-12-14
+
+**Mensaje:** docs: Add internal linking & additional enhancements to Ultimate Guide
+
+**Archivos modificados:**
+- BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md
+
+**Descripción detallada:**
+
+Mejoras significativas al style guide de Ultimate Guide con dos nuevas secciones principales.
+
+**Sección 1: Internal Linking & Cross-References**
+- Contextual backlinks - links naturales cada 300-500 palabras
+- In-Context Resource Links Box - cajas de recursos relacionados mid-content
+- Section Cross-References - navegación interna entre secciones
+- Related Guides Section - template obligatorio al final del post
+- "You May Also Like" Inline Cards - cards de posts relacionados
+- Breadcrumbs - navegación jerárquica del sitio
+- Directory & Services Links - conexión con el directorio de lugares
+- Events & Community Links - conexión con eventos y newsletter
+- Tabla de guías de frecuencia de enlaces
+- Best practices para anchor text
+
+**Sección 2: Additional Enhancements**
+- Author Box - para credibilidad y autoridad
+- Newsletter CTA específico para Ultimate Guides
+- Social Sharing Bar - Facebook, Twitter, WhatsApp, copy link
+- Download/Save Options - print y bookmark
+- Back to Top Button - navegación flotante
+
+**Propósito/Razón:** Maximizar el SEO y la experiencia de usuario mediante internal linking estratégico y elementos que fomenten engagement y compartir contenido.
+
+---
+
+## Commit: f840ec63 - 2025-12-14
+
+**Mensaje:** docs: Add Ultimate Guide blog post style guide
+
+**Archivos modificados:**
+- BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md (nuevo archivo)
+
+**Descripción detallada:**
+
+Creación de guía de estilo completa para blog posts tipo "Ultimate Guide" - artículos extensos, exhaustivamente investigados y verificados.
+
+**Componentes principales:**
+
+1. **Reglas de verificación estrictas:**
+   - Jerarquía de fuentes (gobierno, académicas, organizaciones oficiales)
+   - Sistema de badges de verificación
+   - Requisito de citación inline y sección de referencias completa
+
+2. **Componentes de contenido:**
+   - Header de última actualización y verificación
+   - Tabla de contenidos comprensiva
+   - Resumen ejecutivo con puntos clave
+   - Quick Facts box con estadísticas citadas
+
+3. **Secciones How-To:**
+   - Templates de pasos con código de colores
+   - Requisitos previos y costos estimados
+   - Checklists de verificación de completitud
+   - Pro tips específicos por paso
+
+4. **Análisis y profundidad:**
+   - Bloques de análisis comparativo
+   - Tablas de datos con fuentes
+   - Key findings destacados
+
+5. **Sistema de referencias:**
+   - Citaciones inline con superíndice
+   - Bloques de atribución de fuentes
+   - Sección de referencias categorizada (gobierno, académicas, expertos)
+
+6. **Notas contextuales:**
+   - Definiciones de conceptos
+   - Contexto histórico
+   - Notas legales/regulatorias
+   - Advertencias y actualizaciones
+
+7. **Elementos de autoridad:**
+   - Citas de expertos verificados
+   - Panel de consenso de expertos
+
+8. **Navegación y UX:**
+   - Indicador de progreso
+   - Navegación entre secciones
+   - Jump navigation flotante
+
+**Especificaciones:**
+- Longitud: 5,000-15,000+ palabras
+- Fuentes: 15-30+ verificadas
+- Secciones How-To: 5-10 mínimo
+- FAQ: 15-30 preguntas
+- Actualizaciones: Trimestral mínimo
+
+**Propósito/Razón:** Crear un estándar para contenido de alta calidad que sirva como referencia definitiva, con énfasis absoluto en verificación de información y citación de fuentes oficiales.
+
+---
+
+## Commit: f7cbe4e2 - 2025-12-14
+
+**Mensaje:** feat: Redesign subscribe page for higher conversion
+
+**Archivos modificados:**
+- src/pages/subscribe.tsx
+
+**Descripción detallada:**
+
+Rediseño completo de la página de suscripción al newsletter para mejorar la tasa de conversión.
+
+**Cambios realizados:**
+
+1. **Simplificación del formulario:**
+   - Eliminado campo de nombre (solo email ahora)
+   - Reduce fricción para el usuario
+
+2. **Social Proof:**
+   - Badge "Join 2,847+ readers" visible arriba del fold
+   - Micro-copy: "Join 2,847+ happy readers"
+
+3. **Urgencia/FOMO:**
+   - Badge dinámico "Next issue: Monday, [fecha]"
+   - Función getNextMonday() calcula automáticamente
+
+4. **CTAs mejorados:**
+   - "Get Monday's Issue" en lugar de "Subscribe Free"
+   - Más específico y orientado a acción
+
+5. **Efectos visuales:**
+   - Glow/pulse animation en el formulario
+   - Fade-in animations al cargar la página
+   - Hover effects en cards
+
+6. **Trust elements:**
+   - Checkmarks: "Free forever", "No credit card", "Unsubscribe anytime"
+   - Badge de exclusividad en CTA final
+
+7. **Simplificación:**
+   - Eliminada sección de testimonios
+   - Beneficios reducidos a 4 items clave
+
+**Propósito/Razón:** Los usuarios visitaban la página pero no se suscribían. Se aplicaron técnicas de conversión para crear un funnel más efectivo.
+
+---
+
+## Commit: af7aa09c - 2025-12-14
+
+**Mensaje:** feat: Multi-currency rotation and news ticker for morning dashboard
+
+**Archivos modificados:**
+- src/components/TodayInSLP.tsx
+
+**Descripción detallada:**
+
+Mejoras significativas al morning dashboard con dos funcionalidades principales:
+
+**Cambios realizados:**
+
+1. **Rotación de Múltiples Monedas:**
+   - Array de 5 divisas: USD, EUR, GBP, JPY, CNY
+   - Cada moneda incluye: código, símbolo, nombre, tasa, tendencia, cambio, bandera emoji
+   - Estado `currencyIndex` que rota cada 4 segundos
+   - Tarjeta muestra bandera, tasa actual, tendencia con color
+   - Indicadores de puntos para mostrar qué moneda está activa
+   - Formato especial para JPY (3 decimales)
+
+2. **News Ticker (Cintillo):**
+   - Reemplazo de grid de noticias por marquee scrolling
+   - CSS animation `marquee` de 45 segundos
+   - Duplicación de headlines para efecto continuo
+   - Se pausa al hover para lectura
+   - 6 noticias positivas/neutrales de fuentes oficiales
+
+3. **Política de Contenido:**
+   - Eliminadas noticias de seguridad/operativos
+   - Solo cultura, economía, turismo, infraestructura
+   - Fuentes: @RGC_Mx, @SLPMunicipio, @sedecoslp, Turismo SLP
+
+4. **Limpieza de código:**
+   - Removida interface NewsItem (ya no necesaria)
+   - Removidas funciones getCategoryIcon/Color/Label
+   - Limpiados imports no usados
+
+**Propósito/Razón:**
+- Mostrar información de monedas relevantes para expats (USD, EUR, etc.)
+- Crear experiencia tipo TV news con ticker de noticias
+- Mantener contenido positivo/neutral sin crímenes ni violencia
+
+---
+
+## Commit: 3a36051d - 2025-12-14
+
+**Mensaje:** feat: Add Traffic & Alerts card and Official Sources to morning dashboard
+
+**Archivos modificados:**
+- src/components/TodayInSLP.tsx
+
+**Descripción detallada:**
+
+Ampliación del morning dashboard con nuevas funcionalidades:
+
+**Cambios realizados:**
+
+1. **Nueva tarjeta: Tráfico y Alertas**
+   - Icono TruckIcon para representar tráfico
+   - Estado con badge de color (verde=normal, amarillo=moderado, rojo=pesado)
+   - Contador de alertas activas con CheckCircleIcon
+   - Texto "Sin alertas" / "No alerts" cuando está limpio
+   - Hora de última actualización
+   - Gradiente cyan-to-sky para diferenciarse de otras tarjetas
+
+2. **Nueva sección: Fuentes Oficiales**
+   - 6 enlaces a cuentas oficiales con pills/badges clicables:
+     - @RGC_Mx - Gobernador Ricardo Gallardo (azul)
+     - @SLPMunicipio - Municipio de SLP (verde)
+     - @sspc_slp - Seguridad Pública (rojo)
+     - Turismo SLP - turismo.slp.gob.mx (ámbar)
+     - @sedecoslp - Secretaría de Economía (púrpura)
+     - @COPARMEX_SLP - Empresarios (índigo)
+   - Cada enlace abre en nueva pestaña (target="_blank")
+
+3. **Ajustes de layout:**
+   - Grid actualizado de 4 a 5 columnas en desktop
+   - Breakpoints: 2 cols móvil, 3 cols tablet, 5 cols desktop
+   - Importados nuevos iconos: TruckIcon, CheckCircleIcon
+
+**Propósito/Razón:**
+- Restaurar tarjeta de Tráfico y Alertas que había sido removida
+- Agregar fuentes oficiales para credibilidad y acceso directo a información gubernamental
+- Dar a usuarios acceso rápido a cuentas verificadas de autoridades locales
+
+---
+
+## Commit: 12d77d68 - 2025-12-13
+
+**Mensaje:** feat: Enhanced morning dashboard with real SLP data and news
+
+**Archivos modificados:**
+- src/components/TodayInSLP.tsx
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Rediseño completo del componente TodayInSLP para convertirlo en un "morning dashboard" que los usuarios revisen cada día con su café.
+
+**Cambios realizados:**
+
+1. **Quick Stats Grid:**
+   - Tarjeta de clima con temp actual, min/max, UV, sunrise/sunset
+   - Tipo de cambio USD/MXN ($20.15) con indicador de tendencia
+   - Precios de gasolina en SLP (Magna $23.81, Premium $25.32, Diesel $26.35)
+   - Reloj en tiempo real con timezone CST
+
+2. **Sección de Noticias:**
+   - 3 noticias reales de SLP (Diciembre 2025)
+   - Categorías con colores: Seguridad, Cultura, Infraestructura
+   - Fuentes: Potosí Noticias, Líder Empresarial, Plano Informativo
+   - Bilingüe completo
+
+3. **Diseño:**
+   - Tarjetas con gradientes distintivos por tipo de información
+   - Layout responsive
+   - Tip del día (iluminación navideña Centro Histórico)
+
+**Propósito/Razón:**
+- Crear un "morning routine" para usuarios expats en SLP
+- Información práctica diaria (tipo de cambio, gasolina, clima)
+- Noticias locales relevantes para la comunidad
+
+---
+
+## Commit: fd667771 - 2025-12-13
+
+**Mensaje:** feat: Add Places/Services toggle on explore page
+
+**Archivos modificados:**
+- src/pages/places/index.tsx
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Agregado toggle para alternar entre "Places" y "Services" en la página `/places`, permitiendo a los usuarios ver tanto lugares como servicios desde una sola interfaz.
+
+**Cambios realizados:**
+
+1. **src/pages/places/index.tsx:**
+   - Importado tipo `Service` y iconos de Heroicons
+   - Agregado estado `activeTab` para controlar vista actual
+   - Toggle en hero section con botones Places/Services
+   - Colores dinámicos (naranja para places, verde para services)
+   - Toggle secundario en sección de directorio con conteo de items
+   - Contenido dinámico (títulos, descripciones, featured items)
+   - Filtrado independiente por tab
+   - getStaticProps actualizado para traer services de Supabase
+
+**Propósito/Razón:**
+- Los servicios tenían su propia página separada pero no eran fácilmente accesibles
+- Consolidar places y services en una sola interfaz mejora la UX
+- Los usuarios pueden comparar y explorar ambos tipos de contenido
+
+---
+
 ## Commit: ceef95b7 - 2025-12-13
 
 **Mensaje:** refactor: Reorganize homepage sections for value-first UX

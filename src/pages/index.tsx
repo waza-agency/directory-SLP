@@ -11,6 +11,7 @@ import SEO from '@/components/common/SEO';
 import { getBlogPostsBySlugs } from '@/lib/blog';
 import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
+import CentroHistoricoBanner from '@/components/CentroHistoricoBanner';
 import { logger } from '@/lib/logger';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
@@ -914,6 +915,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* PARQUE TANGAMANGA BANNER */}
         <TangamangaBanner />
 
+        {/* CENTRO HISTORICO BANNER */}
+        <CentroHistoricoBanner />
+
         {/* FAMILY & PRACTICAL GUIDES - Useful Resources */}
         <section id="practical-001" className="py-32 bg-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
@@ -1123,6 +1127,18 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* COLLABORATION BANNER */}
         <CollaborationBanner />
+
+        {/* DISCLAIMER SECTION */}
+        <section id="disclaimer-001" className="py-12 bg-gray-50 border-t border-gray-100">
+          <div className="container mx-auto px-6 md:px-12 lg:px-20">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm text-gray-500 leading-relaxed">
+                <span className="font-semibold text-gray-600">{t('homepage.disclaimer.title')}</span>{' '}
+                {t('homepage.disclaimer.text')}
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* FINAL CTA - Elegant Call to Action */}
         <section id="cta-001" className="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">

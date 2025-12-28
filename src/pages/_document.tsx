@@ -17,6 +17,8 @@ export default function Document(props: DocumentProps) {
 
         {/* Hreflang tags for international SEO */}
         <link rel="alternate" hrefLang="en" href="https://www.sanluisway.com" />
+        <link rel="alternate" hrefLang="es" href="https://www.sanluisway.com/es" />
+        <link rel="alternate" hrefLang="de" href="https://www.sanluisway.com/de" />
         <link rel="alternate" hrefLang="x-default" href="https://www.sanluisway.com" />
 
         {/* Google Analytics */}

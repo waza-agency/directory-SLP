@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { EnvelopeIcon, XMarkIcon, SparklesIcon, CalendarDaysIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { useTranslation } from 'next-i18next';
 
 interface NewsletterBannerProps {
   variant?: 'hero' | 'mid-content' | 'sticky' | 'minimal' | 'blog-end';
@@ -13,6 +14,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
   className = '',
   onClose
 }) => {
+  const { t } = useTranslation('common');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
@@ -21,7 +23,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
     e.preventDefault();
     if (!email || !email.includes('@')) {
       setStatus('error');
-      setMessage('Please enter a valid email');
+      setMessage(t('newsletterBanner.invalidEmail'));
       return;
     }
 
@@ -37,12 +39,12 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
       if (!response.ok) throw new Error(data.message || 'Subscription failed');
 
       setStatus('success');
-      setMessage(data.alreadySubscribed ? "You're already subscribed!" : 'Welcome aboard! Check your inbox.');
+      setMessage(data.alreadySubscribed ? t('newsletterBanner.alreadySubscribed') : t('newsletterBanner.welcomeAboard'));
       setEmail('');
       setTimeout(() => { setStatus('idle'); setMessage(''); }, 5000);
     } catch (error) {
       setStatus('error');
-      setMessage(error instanceof Error ? error.message : 'Something went wrong');
+      setMessage(error instanceof Error ? error.message : t('newsletterBanner.somethingWrong'));
     }
   };
 
@@ -65,30 +67,30 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6 border border-white/30">
             <EnvelopeIcon className="w-4 h-4" />
-            Free Weekly Newsletter
+            {t('newsletterBanner.freeWeekly')}
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            Your Insider Guide to{' '}
+            {t('newsletterBanner.insiderGuide')}{' '}
             <span className="text-amber-300">San Luis Potosí</span>
           </h2>
 
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Practical tips and useful info to navigate the city like a local — delivered every week.
+            {t('newsletterBanner.practicalTips')}
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mb-8 text-sm">
             <span className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white">
               <CalendarDaysIcon className="w-4 h-4" />
-              Weekly Events
+              {t('newsletterBanner.weeklyEvents')}
             </span>
             <span className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white">
               <MapPinIcon className="w-4 h-4" />
-              Local Gems
+              {t('newsletterBanner.localGems')}
             </span>
             <span className="flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full text-white">
               <SparklesIcon className="w-4 h-4" />
-              Practical Info
+              {t('newsletterBanner.practicalInfo')}
             </span>
           </div>
 
@@ -98,7 +100,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                placeholder={t('newsletterBanner.enterEmail')}
                 className="flex-1 px-5 py-4 bg-white rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-300 shadow-lg"
                 disabled={status === 'loading' || status === 'success'}
               />
@@ -113,14 +115,14 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    Joining...
+                    {t('newsletterBanner.joining')}
                   </span>
                 ) : status === 'success' ? (
                   <span className="flex items-center gap-2">
                     <CheckCircleIcon className="w-5 h-5" />
-                    Joined!
+                    {t('newsletterBanner.joined')}
                   </span>
-                ) : 'Subscribe Now'}
+                ) : t('newsletterBanner.subscribeNow')}
               </button>
             </div>
             {message && (
@@ -129,7 +131,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               </p>
             )}
           </form>
-          <p className="text-white/60 text-sm mt-6">Every Sunday morning. No spam, unsubscribe anytime.</p>
+          <p className="text-white/60 text-sm mt-6">{t('newsletterBanner.everySunday')}</p>
         </div>
       </section>
     );
@@ -157,23 +159,23 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                 <EnvelopeIcon className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                Stay in the Loop
+                {t('newsletterBanner.stayInLoop')}
               </h3>
               <p className="text-gray-400 mb-2">
-                Get the <span className="text-terracotta font-semibold">SLP Weekly</span> — practical tips and useful info to navigate the city, plus events and local discoveries.
+                {t('newsletterBanner.slpWeeklyDesc')}
               </p>
               <div className="flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-500">
                 <span className="flex items-center gap-1">
                   <CheckCircleIcon className="w-4 h-4 text-green-500" />
-                  Free
+                  {t('newsletterBanner.free')}
                 </span>
                 <span className="flex items-center gap-1">
                   <CheckCircleIcon className="w-4 h-4 text-green-500" />
-                  Weekly
+                  {t('newsletterBanner.weekly')}
                 </span>
                 <span className="flex items-center gap-1">
                   <CheckCircleIcon className="w-4 h-4 text-green-500" />
-                  No spam
+                  {t('newsletterBanner.noSpam')}
                 </span>
               </div>
             </div>
@@ -202,9 +204,9 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                   ) : status === 'success' ? (
                     <span className="flex items-center gap-2">
                       <CheckCircleIcon className="w-5 h-5" />
-                      Done!
+                      {t('newsletterBanner.done')}
                     </span>
-                  ) : 'Subscribe'}
+                  ) : t('newsletterBanner.subscribe')}
                 </button>
               </form>
               {message && (
@@ -230,10 +232,10 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
             </div>
             <div>
               <p className="font-bold text-white">
-                Get the SLP Weekly
+                {t('newsletterBanner.getSlpWeekly')}
               </p>
               <p className="text-sm text-gray-400 hidden sm:block">
-                Practical city tips & local info every Sunday
+                {t('newsletterBanner.citytipsEvery')}
               </p>
             </div>
           </div>
@@ -252,7 +254,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               disabled={status === 'loading' || status === 'success'}
               className="px-6 py-2.5 bg-gradient-to-r from-terracotta to-amber-500 text-white font-semibold rounded-lg text-sm hover:from-terracotta/90 hover:to-amber-500/90 disabled:opacity-50 transition-all whitespace-nowrap"
             >
-              {status === 'success' ? '✓ Joined!' : 'Join Free'}
+              {status === 'success' ? `✓ ${t('newsletterBanner.joined')}` : t('newsletterBanner.joinFree')}
             </button>
             {onClose && (
               <button onClick={onClose} className="p-2.5 hover:bg-white/10 rounded-lg transition-colors">
@@ -275,8 +277,8 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               <EnvelopeIcon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="font-bold text-gray-900">SLP Weekly Newsletter</p>
-              <p className="text-sm text-gray-600">Practical tips to navigate the city</p>
+              <p className="font-bold text-gray-900">{t('newsletterBanner.slpWeeklyNewsletter')}</p>
+              <p className="text-sm text-gray-600">{t('newsletterBanner.practicalTipsNav')}</p>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="flex gap-2 w-full sm:w-auto">
@@ -284,7 +286,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              placeholder={t('newsletterBanner.email')}
               className="flex-1 sm:w-44 px-4 py-2.5 rounded-lg border-2 border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent"
               disabled={status === 'loading' || status === 'success'}
             />
@@ -293,7 +295,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               disabled={status === 'loading' || status === 'success'}
               className="px-5 py-2.5 bg-gradient-to-r from-terracotta to-amber-500 text-white font-semibold rounded-lg text-sm hover:from-terracotta/90 hover:to-amber-500/90 disabled:opacity-50 transition-all"
             >
-              {status === 'success' ? '✓' : 'Join'}
+              {status === 'success' ? '✓' : t('newsletterBanner.join')}
             </button>
           </form>
         </div>
@@ -321,10 +323,10 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
             </div>
 
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              Enjoyed this article?
+              {t('newsletterBanner.enjoyedArticle')}
             </h3>
             <p className="text-gray-400 mb-8">
-              Get practical tips to navigate the city, weekly events, and useful local info delivered to your inbox.
+              {t('newsletterBanner.enjoyedDesc')}
             </p>
 
             <form onSubmit={handleSubmit}>
@@ -350,9 +352,9 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
                   ) : status === 'success' ? (
                     <span className="flex items-center gap-2">
                       <CheckCircleIcon className="w-5 h-5" />
-                      Subscribed!
+                      {t('newsletterBanner.subscribed')}
                     </span>
-                  ) : 'Subscribe Free'}
+                  ) : t('newsletterBanner.subscribeFree')}
                 </button>
               </div>
               {message && (
@@ -362,7 +364,7 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               )}
             </form>
 
-            <p className="text-gray-500 text-sm mt-6">Join our community. No spam, ever.</p>
+            <p className="text-gray-500 text-sm mt-6">{t('newsletterBanner.joinCommunity')}</p>
           </div>
         </div>
       </div>

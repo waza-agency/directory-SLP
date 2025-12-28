@@ -12,6 +12,8 @@ export interface BlogPost {
   publishedAt: string;
   createdAt: string;
   tags?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 // --- Supabase Client Initialization ---
@@ -45,7 +47,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en, meta_title, meta_description')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
@@ -66,6 +68,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       imageUrl: post.image_url,
       publishedAt: post.published_at,
       createdAt: post.created_at,
+      metaTitle: post.meta_title,
+      metaDescription: post.meta_description,
     }));
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
@@ -89,7 +93,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en, meta_title, meta_description')
       .eq('slug', slug)
       .eq('status', 'published')
       .single();
@@ -115,6 +119,8 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       imageUrl: data.image_url,
       publishedAt: data.published_at,
       createdAt: data.created_at,
+      metaTitle: data.meta_title,
+      metaDescription: data.meta_description,
     };
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
@@ -138,7 +144,7 @@ export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_en, content_en, excerpt_en, meta_title, meta_description')
       .in('slug', slugs)
       .eq('status', 'published');
 
@@ -159,6 +165,8 @@ export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> 
       imageUrl: post.image_url,
       publishedAt: post.published_at,
       createdAt: post.created_at,
+      metaTitle: post.meta_title,
+      metaDescription: post.meta_description,
     }));
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';

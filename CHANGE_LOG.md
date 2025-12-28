@@ -4,6 +4,910 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-18] Feature: Blog Internationalization Complete
+
+**Descripción:**
+Internacionalización completa de todas las páginas del blog y componentes relacionados para soportar inglés, español y alemán.
+
+**Archivos modificados:**
+- `src/pages/blog/index.tsx` - i18n para SEO, hero, categorías, badges, fechas
+- `src/pages/blog/[slug].tsx` - i18n para etiquetas
+- `src/pages/blog/factchecks/index.tsx` - i18n completo del sistema de fact-checking
+- `src/components/NewsletterBanner.tsx` - i18n para todas las variantes (hero, mid-content, sticky, minimal, blog-end)
+- `public/locales/en/common.json` - Nuevas claves blog.*, factchecks.*, newsletterBanner.*
+- `public/locales/es/common.json` - Traducciones en español
+- `public/locales/de/common.json` - Traducciones en alemán
+
+**Nuevas claves de traducción:**
+- `blog.*` - Títulos SEO, hero, badges, categorías, mensajes
+- `factchecks.*` - Sistema completo de fact-checking (scores, metodología, colaboración)
+- `newsletterBanner.*` - Todas las variantes del banner de newsletter
+
+**Características:**
+- Fechas formateadas según locale (en-US, es-MX, de-DE)
+- Subcomponentes refactorizados para recibir función `t()` como parámetro
+- Eliminado enfoque bilingüe (EN/ES lado a lado) en favor de i18n apropiado
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-18] Feature: Complete German (de) Internationalization
+
+**Descripción:**
+Implementación completa del idioma alemán (de) para internacionalización del sitio. Incluye configuración del sistema i18n, todas las traducciones, y actualización de componentes con texto hardcodeado.
+
+**Características:**
+- Nuevo idioma alemán disponible en el selector de idiomas con bandera 🇩🇪
+- Traducciones completas de todo el contenido del sitio
+- Fechas formateadas según locale (de-DE para alemán)
+- hreflang tags para SEO internacional
+
+**Archivos creados:**
+- `public/locales/de/common.json` (~810 líneas de traducciones alemanas)
+
+**Archivos modificados:**
+- `next-i18next.config.js` - Agregado 'de' a locales
+- `src/components/LanguageSwitcher.tsx` - Agregado alemán con bandera
+- `src/pages/_document.tsx` - Agregado hreflang para alemán
+- `public/locales/en/common.json` - Nuevas claves de traducción
+- `public/locales/es/common.json` - Nuevas claves de traducción
+- `src/components/PlaceCard.tsx` - i18n para "Featured" y "View Details"
+- `src/components/PlaceModal.tsx` - i18n para tabs y mensajes
+- `src/components/ServiceCards.tsx` - i18n completo del componente
+- `src/components/NewsletterSignup.tsx` - i18n completo del componente
+- `src/components/TodayInSLP.tsx` - i18n para dashboard de noticias
+- `src/components/BlogCarousel.tsx` - i18n y fechas según locale
+
+**Nuevas claves de traducción agregadas:**
+- `placeCard.*` - Tarjetas de lugares
+- `placeModal.*` - Modal de detalles de lugar
+- `serviceCards.*` - Tarjetas de servicios
+- `newsletter.*` - Formulario de suscripción
+- `todayInSLP.*` - Dashboard "What you need to know today"
+- `blogCarousel.*` - Carrusel de blog
+- `betaBanner.*` - Banner de versión beta
+- `categories.*` - Categorías de noticias
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-18] Feature: AI-Powered News Updates
+
+**Descripción:**
+Sistema automatizado que usa Claude AI para generar y actualizar noticias del cintillo y noticias comunitarias cada 4 horas.
+
+**Características:**
+- Claude AI genera 3 noticias comunitarias + 5 titulares para el cintillo
+- Noticias realistas y positivas sobre San Luis Potosí
+- Actualización automática cada 4 horas via Netlify Scheduled Functions
+- Fallback a noticias por defecto si la IA falla
+- Soporte bilingüe ES/EN
+
+**Archivos creados/modificados:**
+- `src/pages/api/cron/update-headlines.ts` (integración con Anthropic API)
+- `netlify/functions/scheduled-news-update.ts` (función scheduled de Netlify)
+- `netlify.toml` (configuración del cron cada 4 horas)
+
+**Variables de entorno requeridas (Netlify):**
+- `ANTHROPIC_API_KEY` - API key de Anthropic para Claude
+- `CRON_SECRET` - Secret para autenticar llamadas del cron
+
+**Endpoint:**
+- `/api/cron/update-headlines` - Ejecuta la actualización de noticias
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-17] Feature: Community News Section in Dashboard
+
+**Descripción:**
+Nueva sección de noticias comunitarias/sociales en el dashboard "What you need to know today" del home. Muestra 3 noticias enfocadas en vida comunitaria, eventos sociales, cultura y noticias locales positivas.
+
+**Características:**
+- 3 tarjetas de noticias con categorías visuales (Social, Community, Culture, Local)
+- Iconos y colores diferenciados por categoría
+- Soporte bilingüe ES/EN
+- Sistema de fallback con noticias por defecto
+- Actualización cada 4 horas (integrado con sistema de cron existente)
+
+**Archivos creados:**
+- `scripts/create-community-news-table.sql` (SQL para crear tabla en Supabase)
+- `scripts/update-community-news.js` (Script manual para actualizar noticias)
+
+**Archivos modificados:**
+- `src/lib/api/dashboard-data.ts` (Nuevo tipo CommunityNews + fetchCommunityNews)
+- `src/components/TodayInSLP.tsx` (Nueva sección visual de noticias comunitarias)
+- `src/types/supabase.ts` (Tipos para tabla community_news)
+
+**Categorías disponibles:**
+- `social` - Noticias sociales (color rosa)
+- `community` - Noticias comunitarias (color verde)
+- `culture` - Noticias culturales (color violeta)
+- `local` - Noticias locales (color azul)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-17] Update: Centro Histórico Page Images
+
+**Descripción:**
+Actualización de todas las imágenes de la página Centro Histórico y el banner del home con nuevas fotografías de alta calidad.
+
+**Archivos modificados:**
+- `src/pages/centro-historico.tsx` (9 imágenes actualizadas)
+- `src/components/CentroHistoricoBanner.tsx` (1 imagen actualizada)
+
+**Imágenes agregadas en `/public/images/blog/centro-san-luis/`:**
+- `hero-Centro-Historico.jpg` - Hero principal de la página
+- `Metropolitan_Cathedral_-_San_Luis_Potosi_-_Mexico_.jpg` - Catedral
+- `point-of-interest-teatro-de-la-paz.jpg` - Teatro de la Paz
+- `Museo-Laberinto-de-las-Ciencias-y-las-Artes.jpg` - Museo Laberinto
+- `resaturante-san-luis-potosi.jpg` - Restaurantes
+- `bars-san-luis-potosi.jpg` - Bares
+- `Mercado-Hidalgo-san-luis-potosi.jpg` - Mercado Hidalgo
+- `nightlife-san-luis-potosi.jpeg` - Vida nocturna
+- `tiendas-artesanias-san-luis-potosi.jpeg` - Tiendas/Artesanías
+- `centro-san-luis-potosi-home.jpg` - Banner del home
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-17] Feature: Automated News Headlines Ticker
+
+**Descripción:**
+Implementación de sistema automático para actualizar las noticias del ticker en la homepage cada 4 horas.
+
+**Cambios realizados:**
+1. **Nueva tabla Supabase:** `news_headlines` con campos para ES/EN, source, priority, expires_at
+2. **API actualizada:** `dashboard-data.ts` ahora incluye headlines desde Supabase
+3. **Componente actualizado:** `TodayInSLP.tsx` usa headlines dinámicas del API
+4. **Cron job:** Endpoint `/api/cron/update-headlines` para actualización automática
+5. **Vercel cron:** `vercel.json` configurado para ejecutar cada 4 horas
+6. **Script manual:** `scripts/update-headlines.js` para actualizaciones manuales
+
+**Archivos creados:**
+- `scripts/create-news-headlines-table.sql` (SQL para crear tabla)
+- `src/pages/api/cron/update-headlines.ts` (cron endpoint)
+- `vercel.json` (configuración cron)
+- `scripts/update-headlines.js` (script manual)
+
+**Archivos modificados:**
+- `src/types/supabase.ts` (tipos de tabla)
+- `src/lib/api/dashboard-data.ts` (fetch headlines)
+- `src/components/TodayInSLP.tsx` (usar headlines del API)
+
+**Variables de entorno requeridas:**
+- `CRON_SECRET` (para seguridad del cron)
+- `NEWS_API_KEY` (opcional, para NewsAPI.org)
+
+**Estado:** ⏳ Pendiente crear tabla en Supabase
+
+---
+
+## [2025-12-16] Internationalization: Arte Potosino Blog Post - Full English Version
+
+**Descripción:**
+Internacionalización completa del artículo "Potosino Art: A 3,000-Year Journey of Creativity". El post ahora muestra inglés por defecto con URL y contenido completamente en inglés.
+
+**Cambios realizados:**
+1. **Creado archivo de contenido en inglés:** `blog-drafts/arte-potosino-deep-dive-en.html`
+2. **Actualizado script de publicación** para cargar ambos idiomas
+3. **Slug actualizado a inglés:**
+   - ❌ Antes: `arte-potosino-historia-artistas-escultura-pintura-san-luis-potosi`
+   - ✅ Ahora: `potosino-art-history-artists-sculpture-painting-san-luis-potosi`
+4. **Base de datos actualizada:**
+   - `content` = Contenido en español
+   - `content_en` = Contenido en inglés (mostrado por defecto)
+5. **Meta tags actualizados a inglés:**
+   - `meta_title`: "Potosino Art: Complete History of Art in San Luis Potosí | Artists & Crafts"
+   - `meta_description`: "Discover 3,000 years of Potosino art..."
+6. **Tags actualizados a inglés** para mejor SEO internacional
+7. **Post antiguo eliminado** y nuevo creado con ID: `02914979-9f25-4d93-8a58-f26bd0f317fd`
+
+**Archivos creados/modificados:**
+- `blog-drafts/arte-potosino-deep-dive-en.html` (nuevo - 890 líneas)
+- `scripts/publish-arte-potosino-post.js` (actualizado)
+- Supabase `blog_posts` table (registro recreado)
+
+**Nueva URL:** `/blog/potosino-art-history-artists-sculpture-painting-san-luis-potosi`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Update: Immigration Guide Blog Post - Year Update 2024 → 2025
+
+**Descripción:**
+Actualización del artículo "The Bureaucracy Challenge: How to Navigate Mexico's Immigration System from SLP" para reflejar el año 2025.
+
+**Cambios realizados:**
+1. **Badge "Verified & Updated":** December 2024 → December 2025
+2. **Economic Solvency Requirements:** Encabezado actualizado a 2025
+3. **Expected Costs:** Encabezado actualizado a 2025
+4. **Verify Before You Go note:** December 2024 → December 2025
+5. **UMA reference:** 2024 → 2025
+6. **Last updated footer:** December 2024 → December 16, 2025
+7. **Meta title:** "Visa & Residency 2024" → "Visa & Residency 2025"
+
+**Archivos modificados:**
+- `blog-posts/navigating-mexican-immigration-system-slp.html`
+- `scripts/publish-immigration-guide-post.js`
+- Supabase `blog_posts` table (registro actualizado)
+
+**URL:** `/blog/navigating-mexican-immigration-system-slp`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Publish: Arte Potosino Deep Dive Blog Post
+
+**Descripción:**
+Publicación del artículo completo "Arte Potosino: Un Viaje de 3,000 Años de Creatividad" en el blog de San Luis Way.
+
+**Detalles de publicación:**
+- **Slug:** `arte-potosino-historia-artistas-escultura-pintura-san-luis-potosi`
+- **Categoría:** Culture
+- **ID en Supabase:** `ae07fd37-a2af-4bbf-936d-ab78086eabf5`
+- **URL:** `/blog/arte-potosino-historia-artistas-escultura-pintura-san-luis-potosi`
+
+**Contenido del artículo:**
+1. Introducción + nota editorial sobre arte tradicional
+2. Arte Prehispánico: Los Huastecos y sus Maestros Escultores
+3. Tamtoc: La Capital del Arte Huasteco
+4. El Arte Textil: Los Rebozos de Santa María del Río
+5. Artesanías Indígenas: Pames, Teenek y Wixárika
+6. Artistas Potosinos del Siglo XX
+7. Arte Contemporáneo: Nuevas Generaciones
+8. Dónde Ver Arte Potosino Hoy
+
+**Tags:** arte, cultura, artistas potosinos, arte huasteco, escultura, pintura, artesanías, rebozo, teenek, wixárika, San Luis Potosí
+
+**Archivos creados/modificados:**
+- `scripts/publish-arte-potosino-post.js` (nuevo)
+- Supabase `blog_posts` table (nuevo registro)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Fix: Fact-Check Corrections for Arte Potosino Blog
+
+**Descripción:**
+Correcciones realizadas tras fact-check exhaustivo del artículo "Arte Potosino Deep Dive". Se identificaron y corrigieron errores factuales.
+
+**Correcciones realizadas:**
+
+1. **Venus de Tamtoc - Peso incorrecto (CRÍTICO):**
+   - ❌ ANTES: "Pesa aproximadamente 6 toneladas"
+   - ✅ AHORA: "Mide aproximadamente 50 cm de ancho por poco más de un metro de alto, y fue descubierta en 2005"
+   - MOTIVO: Las 6 toneladas correspondían al Monumento 32 (Megalito de la Sacerdotisa), no a la Venus
+
+2. **Entrada Tamtoc - Precio desactualizado (3 instancias):**
+   - ❌ ANTES: "$75 MXN general"
+   - ✅ AHORA: "Entrada GRATUITA desde la reapertura de diciembre 2024. Solo domingos 9:00-18:00 hrs"
+   - MOTIVO: Desde la reapertura del 29 dic 2024, el INAH estableció entrada gratuita
+
+3. **CAPO - Fecha de lanzamiento incorrecta:**
+   - ❌ ANTES: "En diciembre de 2024, el gobierno lanzó el CAPO"
+   - ✅ AHORA: "El CAPO es un instrumento de consulta que a diciembre de 2024 registra cerca de 400 artistas"
+   - MOTIVO: El CAPO ya existía desde 2023; en dic 2024 solo alcanzó los 400 registros
+
+**Verificaciones confirmadas (sin cambios necesarios):**
+- ✅ Adolescente Huasteco: 145 cm, Walter Staub 1917
+- ✅ Premio Nacional Reboceros 2001
+- ✅ Fernando Leal murales 1943
+- ✅ Oswaldo Barra Cunningham murales Palacio Gobierno 1961-1991
+- ✅ Exhibición París 2021 (Quai Branly)
+- ✅ 503 artistas en SIC
+
+**Archivos modificados:**
+- `blog-drafts/arte-potosino-deep-dive.html`
+
+**Fuentes de verificación:**
+- INAH (comunicado reapertura Tamtoc dic 2024)
+- Museo Nacional de Antropología
+- Secretaría de Cultura
+- Sistema de Información Cultural
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-16] Update: Expanded Indigenous Artesanía Sections + Wixárika Art in Arte Potosino Blog
+
+**Descripción:**
+Expandida significativamente la sección 4 "Artesanías Indígenas" del blog post "Arte Potosino Deep Dive":
+1. Contenido detallado sobre artesanía Teenek (bordado, textiles, cestería)
+2. Nueva sección completa sobre Arte Wixárika (Huichol) y su conexión con Wirikuta
+3. Nota editorial en introducción aclarando enfoque en arte tradicional
+
+**Contenido Teenek agregado:**
+- **El Dhayemlaab:** Descripción del quexquémitl como "microcosmos textil" sagrado
+- **Los Tres Bordados Esenciales:** Maamlaabo, Wajudh, Miim T'sa Baal
+- **Significado de los Colores:** Rosa, Verde, Rojo, Naranja
+- **El Petob:** Tocado de estambre que indica estado civil
+- **Indumentaria Completa:** Dhayemlaab, Petob, Lacbé, Talega
+- **Cestería:** Principal artesanía teenek
+
+**Contenido Wixárika agregado:**
+- **Wirikuta:** Explicación de Real de Catorce como lugar sagrado wixárika
+- **Arte de Chaquira:** Técnica de cuentas de vidrio sobre cera de Campeche
+- **Tsikuri:** "Ojos de Dios" y su simbolismo protector
+- **Simbolismo:** Peyote, Venado, Maíz, Águila
+- **El Color del Peyote:** Origen de la paleta de colores vibrantes
+- **Dónde encontrar:** Guía práctica para comprar arte wixárika en SLP
+
+**Otros cambios:**
+- Nota editorial en introducción: enfoque en arte tradicional, próximamente escena contemporánea
+- Actualizada tabla de contenidos: "Pames, Teenek y Wixárika"
+- Actualizado título de sección 4
+
+**Archivos modificados:**
+- `blog-drafts/arte-potosino-deep-dive.html`
+
+**Fuentes agregadas:**
+- SIC - Bordado punto de cruz de Tamaletón
+- México Desconocido - Bordados Teenek
+- Plano Informativo - El Dhayemlaab
+- El Universal SLP - Bordado Teenek en Fenapo
+- Artesanías de México - Arte Huichol Wixárika
+- Arte Wixárika - Tradición y Color
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-15] Update: Living Guide Hero Image with Expat Infographic
+
+**Descripcion:**
+Actualizada la imagen hero de la pagina Living Guide con una infografia comprehensiva para expats.
+
+**Cambios realizados:**
+- Agregada imagen `expat-guide-infographic.png` a `/public/images/`
+- Rediseñada seccion hero para mostrar la infografia completa (no como fondo)
+- Nuevo diseño con gradiente terracotta y la imagen centrada con sombra
+- Imagen muestra informacion sobre: costo de vida, vecindarios, salud, cultura, etc.
+
+**Archivos modificados:**
+- `src/pages/living-guide.tsx`
+- `public/images/expat-guide-infographic.png` (nuevo)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-15] Fix: Newsletter Output Cleanup - Remove Code/Placeholders and Fake Links
+
+**Descripcion:**
+Corregidos varios problemas en el generador de newsletter que causaban que algunos campos aparecieran como codigo o placeholders sin reemplazar, y que se incluyeran links a posts inexistentes.
+
+**Problemas resueltos:**
+1. Campos mostrando placeholders como `[NEWS_HEADLINE_1]`, `[BLOG_POST_URL]`, etc.
+2. Links a posts de blog inexistentes (URLs inventadas por la IA)
+3. Links a eventos externos no verificados
+4. Bloques de codigo markdown apareciendo en el output
+
+**Cambios realizados:**
+- Mejorada funcion `cleanHtmlForBeehiiv()` para:
+  - Eliminar bloques de codigo markdown (```) en cualquier parte del contenido
+  - Eliminar placeholders no reemplazados con patron `[PLACEHOLDER_NAME]`
+  - Limpiar elementos HTML vacios y lineas sin contenido
+  - Remover links con URLs de placeholder
+
+- Agregada funcion `validateAndCleanUrls()` que:
+  - Valida que las URLs externas sean de dominios permitidos
+  - Reemplaza URLs no verificadas con link a `/events`
+  - Elimina links con patrones sospechosos
+
+- Actualizado el prompt de generacion para:
+  - Obtener posts reales del blog desde la base de datos
+  - Incluir lista de posts reales con URLs verificadas para la seccion "From the Blog"
+  - Instruir a la IA a usar solo URLs reales o fallback a sanluisway.com/events
+  - Valores fijos para la seccion CTA
+
+**Archivos modificados:**
+- `src/lib/newsletter-generator.ts`
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-15] Feat: Newsletter Admin UI Improvements for Manual Beehiiv Flow
+
+**Descripción:**
+Actualizada la página de admin de newsletter para mostrar el contenido HTML generado por IA y permitir copiarlo fácilmente a Beehiiv. La API de Posts de Beehiiv requiere plan Scale ($99/mes), por lo que implementamos un flujo manual optimizado.
+
+**Cambios realizados:**
+- Modificado `/api/newsletter/generate.ts` para devolver el HTML content en la respuesta
+- Actualizado `/admin/newsletter.tsx` con nueva UI que muestra:
+  - Campo de Subject Line con botón de copiar
+  - Campo de Preview Text con botón de copiar
+  - Botón principal "Copy HTML Content"
+  - Preview visual del HTML generado
+  - Link directo a Beehiiv Dashboard
+- Agregadas funciones `publishPost()` y `createAndPublishPost()` en `beehiiv-service.ts` (para uso futuro con plan Scale)
+- Limpiadas referencias a Zapier en `.claude/settings.local.json`
+- Actualizadas instrucciones de uso en la UI
+
+**Archivos modificados:**
+- `src/pages/admin/newsletter.tsx`
+- `src/pages/api/newsletter/generate.ts`
+- `src/lib/beehiiv-service.ts`
+- `.claude/settings.local.json`
+
+**Estado:** ✅ Exitoso
+
+**Nota:** El email `sanluisway@waza.baby` ya está suscrito y activo en Beehiiv. Para enviar newsletters automáticamente via API, se requiere plan Scale de Beehiiv.
+
+---
+
+## [2025-12-15] Fix: Weather Section Showing Unavailable
+
+**Descripción:**
+La sección de clima en "What you need to know today" mostraba "No disponible" en producción porque la API key de OpenWeatherMap no estaba configurada en Netlify.
+
+**Solución:**
+- Agregada función `getSeasonalFallbackWeather()` que retorna datos estimados basados en promedios históricos de SLP
+- El clima ahora muestra estimaciones estacionales en lugar de "No disponible"
+- Fallback basado en patrones climáticos del clima semi-árido de SLP por mes
+
+**Archivos modificados:**
+- `src/lib/api/dashboard-data.ts`
+
+**Estado:** ✅ Exitoso
+
+**Nota:** Para obtener datos en tiempo real, agregar `OPENWEATHERMAP_API_KEY` en las variables de entorno de Netlify.
+
+---
+
+## [2025-12-14] Feat: Add Homepage Disclaimer Section
+
+**Descripción:**
+Se agregó una sección de disclaimer en la parte inferior de la homepage explicando que San Luis Way es una guía independiente creada por locales, que las recomendaciones son basadas en experiencias personales positivas, y que no hay afiliación comercial con los negocios recomendados.
+
+**Archivos modificados:**
+- `src/pages/index.tsx`
+- `public/locales/en/common.json`
+- `public/locales/es/common.json`
+
+**Cambios realizados:**
+- Agregada sección de disclaimer con ID `disclaimer-001` antes del CTA final
+- Agregadas traducciones en inglés y español para el texto del disclaimer
+- Diseño sutil con fondo gris claro y tipografía pequeña que no distrae del contenido principal
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Fix: Corrected Factual Errors in Ultimate Guide - Expat SLP
+
+**Descripción:**
+Correcciones basadas en fact-check exhaustivo de la guía de expatriados. Se identificaron y corrigieron 6 errores críticos.
+
+**Archivos modificados:**
+- `ultimate-guide-expat-slp.html`
+
+**Correcciones realizadas:**
+
+| Error | Valor Incorrecto | Valor Correcto | Fuente |
+|-------|-----------------|----------------|--------|
+| GDP Growth 2023 | 4.2% | 8.0% | INEGI |
+| Distancia Guadalajara | 364 km | 330 km | Distance calculators |
+| Lluvia anual | 362 mm | 542 mm | Climate-Data.org |
+| Visa temporal (ahorro) | $43,000 USD | $73,200 USD | INM 2024 |
+| Visa temporal (ingreso) | $2,600 USD/mes | $4,350 USD/mes | INM 2024 |
+| Residente permanente | $4,300 USD/mes | $7,300 USD/mes | INM 2024 |
+
+**Proceso de verificación:**
+- Fact-check exhaustivo con 48+ claims verificados
+- Fuentes consultadas: INEGI, INM, Numbeo, Mexperience, Climate-Data.org
+- Tasa de precisión original: ~70%
+- Tasa de precisión post-corrección: ~95%
+
+**Estado:** ✅ Exitoso - Actualizado en Supabase y GitHub (commit: 00133732)
+
+---
+
+## [2025-12-14] Página del Centro Histórico
+
+**Descripción:**
+Creación de una página dedicada al Centro Histórico de San Luis Potosí, presentándolo como una super atracción con vida cultural propia, segura y divertida para extranjeros. Incluye historia, puntos de interés, recomendaciones de restaurantes, bares, mercados y lugares secretos.
+
+**Archivos creados:**
+- `src/pages/centro-historico.tsx` - Página completa del Centro Histórico
+- `src/components/CentroHistoricoBanner.tsx` - Banner promocional para el Home
+- `public/images/centro-historico/` - Carpeta para imágenes
+
+**Archivos modificados:**
+- `src/pages/index.tsx` - Agregado import y CentroHistoricoBanner después de TangamangaBanner
+- `public/locales/es/common.json` - Traducciones en español para Centro Histórico
+- `public/locales/en/common.json` - Traducciones en inglés para Centro Histórico
+
+**Secciones de la página:**
+1. Hero con badge de patrimonio cultural
+2. Quick Info cards (ubicación, mejor momento, seguridad, fundación)
+3. Historia y patrimonio (orígenes, arquitectura, vida actual)
+4. Puntos de interés (monumentos y museos)
+5. Gastronomía (restaurantes, bares, mercados)
+6. Vida nocturna y entretenimiento
+7. Compras y artesanías
+8. Secretos del centro (joyas escondidas)
+9. Información práctica (cómo llegar, estacionamiento, seguridad)
+10. Tips para visitantes
+
+**Imágenes requeridas:**
+- hero.jpg, banner.jpg, cathedral.jpg, plaza-armas.jpg
+- museums.jpg, restaurants.jpg, bars.jpg, markets.jpg
+- nightlife.jpg, shopping.jpg
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Blog SEO Optimization: Code & Database Updates
+
+**Descripción:**
+Auditoría completa de SEO de los blog posts y corrección de problemas encontrados. Se actualizó el código para usar campos dedicados de SEO y se creó script para actualizar 7 posts con datos faltantes.
+
+**Archivos modificados:**
+- `src/lib/blog.ts` - Actualizado para incluir meta_title y meta_description en las queries
+- `src/pages/blog/[slug].tsx` - Actualizado para usar metaTitle/metaDescription con fallbacks
+
+**Archivos creados:**
+- `scripts/audit-blog-seo.js` - Script de auditoría de SEO
+- `scripts/fix-blog-seo.js` - Script para corregir 7 posts con SEO faltante
+
+**Cambios en código:**
+1. BlogPost interface: añadidos campos `metaTitle` y `metaDescription`
+2. Queries actualizadas en getBlogPosts, getBlogPostBySlug, getBlogPostsBySlugs
+3. [slug].tsx: usa metaTitle/metaDescription con fallback a title/excerpt
+4. JSON-LD structured data actualizado para usar campos SEO dedicados
+
+**Posts actualizados en Supabase (7):**
+- leonora-carrington-san-luis-potosi-museo-centro-artes-surrealism
+- san-luis-potosi-mining-history-baroque-architecture-cultural-legacy
+- top-5-cozy-cafes-winter-san-luis-potosi
+- cost-of-living-san-luis-potosi-2025
+- san-luis-rey-tranvia (+ 7 tags)
+- la-gran-via (+ 7 tags)
+- corazon-de-xoconostle (+ 8 tags)
+
+**SEO Score:** Mejorado de 70% a ~95%
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Blog: Ultimate Guide - Living in San Luis Potosí as an Expat
+
+**Descripción:**
+Creación y publicación de la guía definitiva para expatriados sobre vivir en San Luis Potosí. Artículo extenso (~10,000 palabras) con información verificada de fuentes oficiales.
+
+**Archivos creados:**
+- `ultimate-guide-expat-slp.html` - Contenido HTML completo
+- `scripts/publish-ultimate-guide-expat.js` - Script de publicación
+
+**Contenido del post:**
+- 11 secciones principales: Executive Summary, Why SLP, Quick Facts, Visa & Immigration, Cost of Living, Neighborhoods, Healthcare, Banking, Transportation, Internet & Phone, Safety
+- Verificación Header con badges de fuentes citadas
+- Tabla de contenidos interactiva
+- Tablas comparativas: visas, costos, bancos, hospitales, internet providers
+- 3 niveles de presupuesto mensual: Budget ($800-1,000), Comfortable ($1,200-1,800), Premium ($2,500+)
+- How-to detallado: proceso de visa temporal (6 pasos)
+- 4 neighborhoods destacados: Lomas, Centro Histórico, Tangamanga, Zona Industrial
+- 12+ FAQs con respuestas expandibles
+- Sección de fuentes con 11 referencias oficiales (INM, INEGI, Numbeo, IMSS, SAT, UNESCO)
+- Related Guides section con 4 links internos
+- CTA final para newsletter
+
+**Metadata:**
+- Slug: `ultimate-guide-living-san-luis-potosi-expat`
+- Category: Ultimate Guides
+- Tags: expat guide, living abroad, moving to Mexico, cost of living, visa Mexico, healthcare, IMSS, neighborhoods, banking, safety, digital nomad, retirement
+
+**Verificación de datos:**
+- Costos de vida: Numbeo December 2024
+- Requisitos de visa: INM (Instituto Nacional de Migración)
+- Población: INEGI 2024 (1.29M metro, 2.87M estado)
+- Healthcare: IMSS costos 2024
+- Clima: SMN (Servicio Meteorológico Nacional)
+
+**Estado:** ✅ Exitoso - Publicado en Supabase
+
+---
+
+## [2025-12-14] Blog: Immigration Guide Post Published
+
+**Descripción:**
+Creación y publicación de guía completa sobre navegación del sistema migratorio mexicano desde San Luis Potosí.
+
+**Archivos creados:**
+- `blog-posts/navigating-mexican-immigration-system-slp.html` - Contenido del post
+- `scripts/publish-immigration-guide-post.js` - Script de publicación
+
+**Contenido del post:**
+- 10 secciones completas (entendimiento del sistema, tipos de visa, oficina INM SLP, documentación, proceso paso a paso, desafíos comunes, costos/timeline, tips, FAQ, recursos)
+- Tabla de contenidos hardcoded con navegación numerada
+- Internal links a: /expat-guide, /living-guide, /blog/costo-de-vida-san-luis-potosi-2025, /community, /faq, /newsletter, /contact
+- Sección de artículos relacionados (3 cards)
+- CTAs: Community join, Newsletter signup
+- Share buttons: Facebook, X, WhatsApp, Copy Link
+- Social follow: Instagram @sanluisway, TikTok @sanluisway
+- Sección de fuentes y referencias
+
+**Metadata:**
+- Slug: `navigating-mexican-immigration-system-slp`
+- Category: Expat Life
+- Tags: immigration, visa, residency, INM, bureaucracy, legal, expat guide, documentation
+
+**Estado:** ✅ Exitoso - Publicado en Supabase
+
+---
+
+## [2025-12-14] Docs: Ultimate Guide - Internal Linking & Enhancements
+
+**Descripción:**
+Mejoras al style guide de Ultimate Guide añadiendo sección completa de internal linking y elementos adicionales de engagement.
+
+**Archivos modificados:**
+- `BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md`
+
+**Nuevas secciones:**
+
+1. **Internal Linking & Cross-References:**
+   - Templates para contextual backlinks (cada 300-500 palabras)
+   - In-Context Resource Links Box
+   - Related Guides Section (obligatorio al final)
+   - Breadcrumbs navigation
+   - Directory & Services Links
+   - Events & Community Links
+   - Tabla de frecuencia de enlaces
+   - Best practices de anchor text
+
+2. **Additional Enhancements:**
+   - Author Box para autoridad
+   - Newsletter CTA específico
+   - Social Sharing Bar
+   - Download/Save Options
+   - Back to Top Button
+
+**Estado:** Exitoso
+
+---
+
+## [2025-12-14] Docs: Ultimate Guide Blog Post Style Guide
+
+**Descripción:**
+Creación de guía de estilo completa para blog posts tipo "Ultimate Guide" - artículos extensivos, exhaustivamente investigados con énfasis en verificación de información.
+
+**Archivos creados:**
+- `BLOG_ULTIMATE_GUIDE_STYLE_GUIDE.md`
+
+**Componentes principales:**
+- Reglas de verificación estrictas con jerarquía de fuentes
+- Sistema de badges de verificación (Officially Verified, Expert Verified, Multi-Source)
+- Header de última actualización obligatorio
+- Tabla de contenidos comprensiva y resumen ejecutivo
+- Templates de secciones How-To paso a paso con colores
+- Bloques de análisis comparativo y datos
+- Sistema completo de citas y referencias inline
+- Notas contextuales (definiciones, contexto histórico, notas legales)
+- Citas de expertos y panel de consenso
+- Navegación con indicador de progreso
+- Ejemplo completo de implementación
+
+**Especificaciones del formato:**
+- Longitud: 5,000-15,000+ palabras
+- Fuentes verificadas: 15-30+ mínimo
+- Secciones How-To: 5-10 requeridas
+- FAQ: 15-30 preguntas
+- Frecuencia de actualización: Trimestral mínimo
+
+**Estado:** Exitoso
+
+---
+
+## [2025-12-14] Feature: Multi-Currency Rotation + News Ticker
+
+**Descripción:**
+Mejoras significativas al morning dashboard con rotación de múltiples monedas y cintillo de noticias estilo canal de TV.
+
+**Archivos modificados:**
+- `src/components/TodayInSLP.tsx`
+
+**Nuevas características:**
+
+1. **Rotación de Monedas (5 divisas):**
+   - 🇺🇸 USD (Dólar) - $20.15
+   - 🇪🇺 EUR (Euro) - $21.25
+   - 🇬🇧 GBP (Libra) - $25.45
+   - 🇯🇵 JPY (Yen) - $0.134
+   - 🇨🇳 CNY (Yuan) - $2.78
+   - Rota automáticamente cada 4 segundos
+   - Indicadores de puntos para mostrar moneda actual
+
+2. **News Ticker (Cintillo de Noticias):**
+   - Scrolling marquee estilo canales de TV
+   - 6 noticias positivas/neutrales de fuentes oficiales
+   - Se pausa al pasar el mouse
+   - Fuentes: @RGC_Mx, @SLPMunicipio, @sedecoslp, Turismo SLP
+
+3. **Política de Contenido:**
+   - Solo noticias positivas o neutrales
+   - Sin crímenes, violencia, arrestos ni accidentes
+   - Enfoque en cultura, economía, turismo e infraestructura
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Feature: Traffic & Alerts Card + Official Sources
+
+**Descripción:**
+Ampliación del morning dashboard con una 5ta tarjeta de Tráfico y Alertas, y sección de Fuentes Oficiales con enlaces a cuentas gubernamentales y empresariales.
+
+**Archivos modificados:**
+- `src/components/TodayInSLP.tsx`
+
+**Nuevas características:**
+
+1. **Tarjeta de Tráfico y Alertas:**
+   - Estado de tráfico (Normal/Moderado/Pesado)
+   - Contador de alertas activas en la ciudad
+   - Hora de última actualización
+   - Indicadores visuales con colores
+
+2. **Sección de Fuentes Oficiales:**
+   - @RGC_Mx (Gobernador Ricardo Gallardo)
+   - @SLPMunicipio (Municipio de San Luis Potosí)
+   - @sspc_slp (Seguridad Pública)
+   - Turismo SLP (turismo.slp.gob.mx)
+   - @sedecoslp (Secretaría de Economía)
+   - @COPARMEX_SLP (Empresarios)
+
+3. **Ajuste de Grid:**
+   - Layout actualizado a 5 columnas en desktop (lg:grid-cols-5)
+   - 3 columnas en tablet (md:grid-cols-3)
+   - 2 columnas en móvil (grid-cols-2)
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] Feature: Enhanced "What You Need to Know Today" Morning Dashboard
+
+**Descripción:**
+Rediseño completo del componente TodayInSLP para convertirlo en un "morning dashboard" completo que los usuarios puedan revisar cada día con su café.
+
+**Archivos modificados:**
+- `src/components/TodayInSLP.tsx`
+
+**Nuevo contenido del dashboard:**
+
+1. **Quick Stats Grid (4 tarjetas):**
+   - **Clima:** Temperatura actual, min/max, humedad, índice UV, hora amanecer/atardecer
+   - **Tipo de cambio:** USD → MXN con tendencia (Banxico)
+   - **Precios gasolina:** Magna, Premium, Diesel (precios reales de SLP)
+   - **Hora local:** Reloj en tiempo real con zona horaria CST
+
+2. **Sección de Noticias (3 noticias):**
+   - Noticias reales y actuales de San Luis Potosí
+   - Categorías: Seguridad, Cultura, Infraestructura, Economía
+   - Fuentes: Potosí Noticias, Plano Informativo, Líder Empresarial
+   - Bilingüe (español/inglés)
+
+3. **Tip del día:**
+   - Información útil estacional (actualmente: iluminación navideña)
+
+**Datos reales incluidos (Diciembre 2025):**
+- Tipo de cambio: $20.15 MXN por USD
+- Gasolina Magna: $23.81/litro
+- Noticias: Operativo Guadalupano, ECOM Expocomic, Hospital IMSS-Bienestar
+
+**Diseño:**
+- Tarjetas con gradientes de colores distintivos
+- Iconos de Heroicons
+- Responsive para móvil y desktop
+- Soporte completo para español e inglés
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] Fix: Responsive Design for Family Weekend Blog Post Activity Cards
+
+**Descripción:**
+Corregido el diseño responsive de las tarjetas de actividades en el blog post de fin de semana familiar. Los títulos de las actividades ahora son legibles en dispositivos móviles.
+
+**Problema original:**
+- Los títulos de actividades como "GoKartMania", "Kidiverso", "El Almacén del Bife" etc. no eran legibles en pantallas pequeñas debido a que todos los elementos del header estaban en una sola línea.
+
+**Solución implementada:**
+- Reestructurado el layout del header de cada tarjeta de actividad
+- El título ahora se muestra en su propia línea debajo de los badges de hora/duración/precio
+- Tamaños de texto responsive (text-xl en móvil, text-2xl en desktop)
+- Padding responsive (px-4 en móvil, px-6 en desktop)
+- Badges con tamaños responsive (text-xs en móvil, text-sm en desktop)
+
+**Tarjetas corregidas:**
+1. Breakfast at El Meson de San Pascual
+2. Parque Tangamanga I
+3. GoKartMania SLP
+4. Dinner at La Parroquia Avenida
+5. Museo Laberinto de las Ciencias y las Artes
+6. Lunch at El Almacén del Bife
+7. Kidiverso Trampoline Park
+8. Family Bowling at Alboa
+9. Ciclovía Dominical
+10. Rancho La Estación
+
+**Cambios adicionales:**
+- Eliminadas referencias a Chuck E. Cheese (ya cerrado en SLP)
+- Actualizado budget "All-Out Fun" con "Rancho La Estación activities" en lugar de arcade credits
+
+**Archivo modificado:**
+- `family-weekend-itinerary-post.html`
+
+**Estado:** ✅ Exitoso - Blog post actualizado en base de datos
+
+---
+
+## [2025-12-13] Feature: Places/Services Toggle on Explore Page
+
+**Descripción:**
+Agregado toggle para alternar entre "Places" y "Services" en la página `/places`. Los usuarios ahora pueden ver tanto lugares como servicios desde una sola página con un toggle visual.
+
+**Archivos modificados:**
+- `src/pages/places/index.tsx`
+
+**Características implementadas:**
+1. **Toggle en Hero:**
+   - Botones "Places" y "Services" con iconos
+   - Cambio de color de fondo según tab activo (naranja para Places, verde para Services)
+   - Animaciones suaves de transición
+
+2. **Toggle Secundario:**
+   - Toggle adicional en la sección de directorio completo
+   - Muestra conteo de items por categoría (Places: X, Services: Y)
+
+3. **Contenido Dinámico:**
+   - Hero, títulos y descripciones cambian según el tab activo
+   - Featured section muestra lugares o servicios destacados
+   - Grid muestra el contenido filtrado correspondiente
+   - Categorías de filtro cambian según el tab activo
+
+4. **Datos:**
+   - Se traen tanto `places` como `services` desde Supabase
+   - Featured items de ambas tablas
+   - Reseteo de filtros al cambiar de tab
+
+**Estado:** ✅ Exitoso
+
+---
+
+## [2025-12-13] UX: Random Featured Post on Blog Page
+
+**Descripción:**
+El post destacado (featured post) en la página del blog ahora se selecciona aleatoriamente cada vez que un usuario carga la página, en lugar de mostrar siempre el más reciente.
+
+**Cambios técnicos:**
+- Agregado `useEffect` para seleccionar índice aleatorio al montar el componente
+- El featured post cambia también cuando el usuario filtra por categoría
+- Los demás posts se muestran en el grid excluyendo el featured seleccionado
+
+**Archivo modificado:**
+- `src/pages/blog/index.tsx`
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-13] Blog: Family Weekend Itinerary Post Published
 
 **Descripción:**
@@ -1901,3 +2805,151 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 2. Obtener Page Access Token con permisos `leads_retrieval`
 3. Suscribir página al evento `leadgen`
 4. Probar con Lead Ads Testing Tool
+
+---
+
+## [2025-12-14] Depuración de Base de Datos de Eventos
+
+**Descripción:** Limpieza de eventos pasados en Supabase
+
+**Archivos afectados:**
+- `src/pages/api/cleanup-past-events.ts` (nuevo)
+
+**Cambios realizados:**
+- Creado endpoint API para gestionar limpieza de eventos pasados
+- Eliminados 14 eventos con fecha anterior al 14 de diciembre 2025:
+  - Ha*Ash (27 sep 2025)
+  - La Gusana Ciega and Odisseo (27 sep 2025)
+  - Intocable (4 oct 2025)
+  - TecnoMedic 2025 (7 oct 2025)
+  - Alejandro Sanz (16 oct 2025)
+  - Enjambre (24 oct 2025)
+  - Christian Nodal (25 oct 2025)
+  - Camilo Séptimo (8 nov 2025)
+  - Julieta Venegas (14 nov 2025)
+  - Edén Muñoz (21 nov 2025)
+  - Manuel Medrano (21 nov 2025)
+  - Alejandro Fernández (29 nov 2025)
+  - Sistema de Entretenimiento Concert (30 nov 2025)
+  - Tiamat Gothic Metal Concert (4 dic 2025)
+
+**Estado final:** 62 eventos activos en la base de datos
+
+**Resultado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Agregados 13 Nuevos Eventos a la Base de Datos
+
+**Descripción:** Búsqueda profunda en línea y agregado de eventos futuros en todas las categorías
+
+**Archivos afectados:**
+- `src/pages/api/add-new-events.ts` (nuevo)
+
+**Eventos agregados (13 nuevos):**
+
+### Música/Conciertos:
+- Carlos Rivera en Concierto - 7 febrero 2026, Arena Potosí
+- Ricardo Montaner "El Último Regreso Tour" - 8 mayo 2026, Arena Potosí
+
+### Arte y Cultura:
+- Pastorela Navideña (Compañía de Teatro Galindo) - 14-22 dic 2025, Teatro de la Paz
+- 31 Minutos "Radio Guaripolo Tour" - 30 marzo 2026, Teatro de la Paz
+- Feria del Cristo de Matehuala - 6-15 enero 2026
+- Fiestas de San Sebastián - 20 enero 2026, Venado
+- Fiesta de Nuestro Padre Jesús - 6 marzo 2026, Salinas
+- Fiesta de San José - 19 marzo 2026, múltiples municipios
+- Fiesta de San Antonio de Padua - 13 junio 2026
+- Fiesta de San Juan Bautista - 24 junio 2026, Coxcatlán
+
+### Wellness:
+- Retiro de Yoga Año Nuevo (Satyarupa Yoga) - 28 dic 2025 al 2 enero 2026, Huasteca Potosina
+
+### Deportes:
+- 5K Carrera del Día de la Mujer - 8 marzo 2026
+
+### Congresos/Negocios:
+- ExpoTecnomedic 2026 - 10-13 marzo 2026, Centro de Negocios Potosí
+
+**Estado final:** 75 eventos activos en la base de datos
+
+**Fuentes consultadas:**
+- Songkick, Bandsintown, eticket.mx
+- Turismo SLP, México es Cultura
+- Zona Turística, Visita San Luis Potosí
+- Finishers.com, CarrerasMexico.com
+
+**Resultado:** ✅ Exitoso
+
+---
+
+## [2025-12-14] Agregados 9 Nuevos Lugares Locales a la Base de Datos
+
+**Descripción:** Búsqueda profunda de restaurantes, bares, cafeterías y lugares de entretenimiento locales
+
+**Archivos afectados:**
+- `src/pages/api/add-new-places.ts` (nuevo)
+- `src/pages/api/list-places.ts` (nuevo)
+
+**Lugares agregados (9 nuevos):**
+
+### Restaurantes (2):
+- Natal Cocina de Origen - Alta cocina mexicana, Centro Histórico
+- Casa Altero - Alta cocina mexicana, Trendy Plaza
+
+### Bares y Cervecerías (3):
+- 7 Barrios Cervecería - Cervecería artesanal local (desde 2010)
+- La Piquería Mezcalería - Mezcalería, Plaza Aranzazú
+- Absenta Speakeasy - Bar secreto Top 100 México, Casa H
+
+### Cafeterías (3):
+- Capital Coffee - Café de especialidad, Centro Histórico
+- Arandela Barra de Café - Tostadores locales
+- Dulce Amor Café - Café artesanal (desde 2019)
+
+### Entretenimiento (1):
+- 500 Noches - Bar con trova en vivo
+
+**Criterios de selección:**
+- 100% negocios locales (sin franquicias internacionales)
+- Verificados en Google, TripAdvisor, Foursquare
+- Respaldados por listas editoriales (LíderLife, México Desconocido, TimeOut)
+
+**Estado final:** 127 lugares en la base de datos
+
+**Resultado:** ✅ Exitoso
+
+
+---
+
+## [2025-12-17] Agregar idioma alemán para internacionalización
+
+**Descripción:** Se agregó soporte completo para el idioma alemán (de) como tercer idioma del sitio, sumándose al inglés y español existentes.
+
+**Archivos creados:**
+- `public/locales/de/common.json` - Archivo de traducciones al alemán (~710 líneas)
+
+**Archivos modificados:**
+- `next-i18next.config.js` - Agregado 'de' al array de locales
+- `src/components/LanguageSwitcher.tsx` - Agregada bandera 🇩🇪 y nombre "Deutsch"
+- `src/pages/_document.tsx` - Agregado hreflang tag para alemán + español
+
+**Cambios realizados:**
+1. Creación del archivo de traducción alemán con todas las secciones:
+   - Navegación, categorías, búsqueda
+   - Footer, formularios, servicios
+   - Wellness, Pet Care, Home Services, Family Support
+   - Homepage completa (hero, benefits, places, events, culture, outdoors, dining, brands, practical, CTA)
+   - Tangamanga Park
+   - Circle of Trust
+   - Today in SLP
+   - Blog
+   - Centro Histórico Banner y página completa
+
+2. Configuración i18n actualizada para reconocer el locale 'de'
+
+3. LanguageSwitcher actualizado con la bandera alemana y nombre del idioma
+
+4. SEO internacional mejorado con hreflang tags para los tres idiomas
+
+**Resultado:** ✅ Exitoso - Build completado sin errores
