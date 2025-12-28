@@ -39,8 +39,12 @@ function getSupabaseClient(): SupabaseClient {
 // --- Data Fetching Functions ---
 
 /**
- * Fetches all published blog posts, ordered by publication date.
- * @returns {Promise<BlogPost[]>} A promise that resolves to an array of blog posts.
+ * Fetches published blog posts ordered by published date (newest first).
+ *
+ * Each returned post prefers English localized fields (`title_en`, `content_en`, `excerpt_en`) when present
+ * and maps database snake_case fields to camelCase (including `imageUrl`, `publishedAt`, `createdAt`, `metaTitle`, and `metaDescription`).
+ *
+ * @returns An array of BlogPost objects; returns an empty array if no posts are found or on failure.
  */
 export async function getBlogPosts(): Promise<BlogPost[]> {
   try {
@@ -79,9 +83,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 }
 
 /**
- * Fetches a single blog post by its slug.
- * @param {string} slug - The slug of the blog post to fetch.
- * @returns {Promise<BlogPost | null>} A promise that resolves to the blog post or null if not found.
+ * Retrieve a published blog post that matches the given slug.
+ *
+ * @param slug - The slug identifying the blog post.
+ * @returns The matching `BlogPost` with English title/content/excerpt preferred and database fields mapped to `imageUrl`, `publishedAt`, `createdAt`, `metaTitle`, and `metaDescription`, or `null` if no published post is found.
  */
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   if (!slug) {
@@ -130,9 +135,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 }
 
 /**
- * Fetches multiple blog posts by their slugs.
- * @param {string[]} slugs - An array of slugs to fetch.
- * @returns {Promise<BlogPost[]>} A promise that resolves to an array of blog posts.
+ * Fetches published blog posts that match the provided slugs.
+ *
+ * @param slugs - An array of post slugs to retrieve; if empty or falsy, the function returns an empty array.
+ * @returns An array of `BlogPost` objects for the matching published posts, or an empty array if none are found or an error occurs.
  */
 export async function getBlogPostsBySlugs(slugs: string[]): Promise<BlogPost[]> {
   if (!slugs || slugs.length === 0) {
