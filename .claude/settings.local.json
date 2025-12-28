@@ -48,7 +48,7 @@
       "Bash(git hash-object:*)",
       "Bash(git ls-tree:*)",
       "Bash(git show:*)",
-      "Bash(for file in *)",
+      "Bash(for file in :*)",
       "Bash(do echo \"=== $file ===\")",
       "Bash(exiftool:*)",
       "WebFetch(domain:localhost)",
