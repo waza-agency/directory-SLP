@@ -1074,6 +1074,16 @@ export async function generateWeeklyNewsletter(customContent?: string) {
   };
   const spanishMonth = monthsInSpanish[currentMonth] || currentMonth.toLowerCase();
 
+  // Calculate previous months dynamically to reject old content
+  const prevMonth1 = new Date(dates.weekStartDate);
+  prevMonth1.setMonth(prevMonth1.getMonth() - 1);
+  const prevMonth2 = new Date(dates.weekStartDate);
+  prevMonth2.setMonth(prevMonth2.getMonth() - 2);
+  const prevMonthName1 = format(prevMonth1, 'MMMM yyyy');
+  const prevMonthName2 = format(prevMonth2, 'MMMM yyyy');
+  const prevMonthSpanish1 = monthsInSpanish[format(prevMonth1, 'MMMM')] || format(prevMonth1, 'MMMM').toLowerCase();
+  const prevMonthSpanish2 = monthsInSpanish[format(prevMonth2, 'MMMM')] || format(prevMonth2, 'MMMM').toLowerCase();
+
   const prompt = `
     You are the editor of "San Luis Way Weekly".
 
@@ -1086,8 +1096,8 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     ║  📅 THIS NEWSLETTER COVERS: ${dateRangeStr}                              ║
     ║                                                                          ║
     ║  ⛔ REJECT ANY CONTENT FROM BEFORE ${currentMonth} ${currentYear}        ║
-    ║  ⛔ REJECT October 2025, November 2025, or any past dates               ║
-    ║  ⛔ REJECT "octubre", "noviembre" or any past Spanish month names       ║
+    ║  ⛔ REJECT ${prevMonthName1}, ${prevMonthName2}, or any past dates       ║
+    ║  ⛔ REJECT "${prevMonthSpanish1}", "${prevMonthSpanish2}" or past months ║
     ║                                                                          ║
     ║  When you search, ALWAYS add "${currentMonth} ${currentYear}" or        ║
     ║  "${spanishMonth} ${currentYear}" to your search queries!               ║
@@ -1212,8 +1222,8 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     Today is: ${dates.todayFormatted}
     Newsletter covers: ${dateRangeStr}
 
-    ⛔ IF YOU SEE AN EVENT FROM OCTOBER OR NOVEMBER - SKIP IT!
-    ⛔ IF THE DATE SAYS "octubre" or "noviembre" - IT'S OLD, SKIP IT!
+    ⛔ IF YOU SEE AN EVENT FROM ${prevMonthName1} OR ${prevMonthName2} - SKIP IT!
+    ⛔ IF THE DATE SAYS "${prevMonthSpanish1}" or "${prevMonthSpanish2}" - IT'S OLD, SKIP IT!
     ✅ ONLY include events happening in ${currentMonth} ${currentYear}
 
     🔍 REQUIRED SEARCH QUERIES (use these EXACT queries):
@@ -1226,7 +1236,7 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     IMPORTANT SEARCH TIPS:
     - ALWAYS include "${spanishMonth} ${currentYear}" in your search query
     - ALWAYS add "México" to your search to avoid US results
-    - DO NOT include events from past months (October, November, etc.)
+    - DO NOT include events from past months (${prevMonthName1}, ${prevMonthName2}, etc.)
     - VERIFY each result date is within ${dateRangeStr}
     - VERIFY each result is in MEXICO, not USA
 
@@ -1461,8 +1471,8 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
     🗓️ DATE VALIDATION (MOST IMPORTANT):
     □ All event dates are in ${currentMonth} ${currentYear}
-    □ NO events from October, November, or any past month
-    □ NO dates that say "octubre", "noviembre", or past Spanish months
+    □ NO events from ${prevMonthName1}, ${prevMonthName2}, or any past month
+    □ NO dates that say "${prevMonthSpanish1}", "${prevMonthSpanish2}", or past Spanish months
     □ All dates are within ${dateRangeStr}
     □ "Coming Up" section shows dates AFTER today (${dates.todayFormatted})
 
@@ -1477,7 +1487,7 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     □ [PLACEHOLDER] text has been replaced with real content
     □ Weather is for San Luis Potosí, México
 
-    🚨 If ANY event shows October/November/past dates → REMOVE IT
+    🚨 If ANY event shows ${prevMonthName1}/${prevMonthName2}/past dates → REMOVE IT
     🚨 If ANY item fails geographic check → REMOVE IT
 
     HTML TEMPLATE:
