@@ -1057,9 +1057,47 @@ export async function generateWeeklyNewsletter(customContent?: string) {
   console.log(`   Found: ${factsCount} facts, ${tipsCount} tips, ${placesCount} places used previously`);
 
   console.log('2. 🧠 Performing Deep Research with Gemini Grounding...');
+  console.log(`   📅 Newsletter date range: ${dateRangeStr}`);
+  console.log(`   📅 Today is: ${dates.todayFormatted}`);
+  console.log(`   📅 Current month: ${dates.weekStartDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`);
+
+  // Get current year and month for search queries
+  const currentYear = dates.weekStartDate.getFullYear();
+  const currentMonth = format(dates.weekStartDate, 'MMMM');
+  const currentMonthSpanish = format(dates.weekStartDate, 'MMMM', { locale: undefined }); // Will use default
+
+  // Map English months to Spanish for search queries
+  const monthsInSpanish: Record<string, string> = {
+    'January': 'enero', 'February': 'febrero', 'March': 'marzo', 'April': 'abril',
+    'May': 'mayo', 'June': 'junio', 'July': 'julio', 'August': 'agosto',
+    'September': 'septiembre', 'October': 'octubre', 'November': 'noviembre', 'December': 'diciembre'
+  };
+  const spanishMonth = monthsInSpanish[currentMonth] || currentMonth.toLowerCase();
 
   const prompt = `
     You are the editor of "San Luis Way Weekly".
+
+    ╔══════════════════════════════════════════════════════════════════════════╗
+    ║  🚨🚨🚨 ABSOLUTE DATE REQUIREMENT - READ THIS FIRST 🚨🚨🚨                 ║
+    ╠══════════════════════════════════════════════════════════════════════════╣
+    ║                                                                          ║
+    ║  📅 TODAY IS: ${dates.todayFormatted}                                    ║
+    ║  📅 CURRENT MONTH: ${currentMonth} ${currentYear}                        ║
+    ║  📅 THIS NEWSLETTER COVERS: ${dateRangeStr}                              ║
+    ║                                                                          ║
+    ║  ⛔ REJECT ANY CONTENT FROM BEFORE ${currentMonth} ${currentYear}        ║
+    ║  ⛔ REJECT October 2025, November 2025, or any past dates               ║
+    ║  ⛔ REJECT "octubre", "noviembre" or any past Spanish month names       ║
+    ║                                                                          ║
+    ║  When you search, ALWAYS add "${currentMonth} ${currentYear}" or        ║
+    ║  "${spanishMonth} ${currentYear}" to your search queries!               ║
+    ║                                                                          ║
+    ║  EXAMPLE SEARCHES:                                                       ║
+    ║  ✓ "eventos San Luis Potosí México ${spanishMonth} ${currentYear}"      ║
+    ║  ✓ "noticias SLP ${spanishMonth} ${currentYear}"                        ║
+    ║  ✓ "conciertos San Luis Potosí ${currentMonth} ${currentYear}"          ║
+    ║  ✗ "eventos San Luis Potosí" (NO - will return old results!)            ║
+    ╚══════════════════════════════════════════════════════════════════════════╝
 
     ╔══════════════════════════════════════════════════════════════════╗
     ║  ⚠️⚠️⚠️ CRITICAL GEOGRAPHIC CONSTRAINT ⚠️⚠️⚠️                    ║
@@ -1114,6 +1152,11 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     SECTION 1: LOCAL NEWS & HEADLINES
     ═══════════════════════════════════════════════════════════
 
+    🔍 REQUIRED SEARCH QUERIES (use these EXACT queries):
+    - "noticias San Luis Potosí ${spanishMonth} ${currentYear}"
+    - "últimas noticias SLP México ${spanishMonth} ${currentYear}"
+    - "San Luis Potosí noticias hoy ${currentYear}"
+
     Search for recent news (past 7 days) about San Luis Potosí:
 
     TOPICS:
@@ -1165,17 +1208,26 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     SECTION 3: EVENTS & ENTERTAINMENT (NEXT 7 DAYS ONLY)
     ═══════════════════════════════════════════════════════════
 
-    **REMINDER: Today is ${dates.todayFormatted}**
+    🚨 **CRITICAL DATE FILTER** 🚨
+    Today is: ${dates.todayFormatted}
+    Newsletter covers: ${dateRangeStr}
 
-    Search for events happening ONLY from ${format(dates.weekStartDate, 'MMMM d')} through ${format(dates.weekEndDate, 'MMMM d, yyyy')}.
+    ⛔ IF YOU SEE AN EVENT FROM OCTOBER OR NOVEMBER - SKIP IT!
+    ⛔ IF THE DATE SAYS "octubre" or "noviembre" - IT'S OLD, SKIP IT!
+    ✅ ONLY include events happening in ${currentMonth} ${currentYear}
+
+    🔍 REQUIRED SEARCH QUERIES (use these EXACT queries):
+    - "eventos San Luis Potosí México ${spanishMonth} ${currentYear}"
+    - "que hacer en SLP México ${spanishMonth} ${currentYear}"
+    - "conciertos San Luis Potosí ${spanishMonth} ${currentYear}"
+    - "teatro San Luis Potosí ${currentMonth} ${currentYear}"
+    - "agenda cultural SLP ${spanishMonth} ${currentYear}"
 
     IMPORTANT SEARCH TIPS:
-    - Use search queries like "eventos San Luis Potosí México diciembre 2025"
-    - Search for "que hacer en SLP México esta semana"
-    - Search for "Navidad San Luis Potosí México 2025" for Christmas events
-    - Check for "posadas", "conciertos", "teatro" in SLP México happening THIS WEEK
+    - ALWAYS include "${spanishMonth} ${currentYear}" in your search query
     - ALWAYS add "México" to your search to avoid US results
-    - DO NOT include events from last week or events that already happened
+    - DO NOT include events from past months (October, November, etc.)
+    - VERIFY each result date is within ${dateRangeStr}
     - VERIFY each result is in MEXICO, not USA
 
     CATEGORIES:
@@ -1407,16 +1459,26 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     ✅ PRE-FLIGHT CHECKLIST (VERIFY BEFORE SUBMITTING)
     ═══════════════════════════════════════════════════════════
 
+    🗓️ DATE VALIDATION (MOST IMPORTANT):
+    □ All event dates are in ${currentMonth} ${currentYear}
+    □ NO events from October, November, or any past month
+    □ NO dates that say "octubre", "noviembre", or past Spanish months
+    □ All dates are within ${dateRangeStr}
+    □ "Coming Up" section shows dates AFTER today (${dates.todayFormatted})
+
+    📍 GEOGRAPHIC VALIDATION:
     □ All events are in SAN LUIS POTOSÍ, MÉXICO (not USA)
     □ All prices are in MXN (Mexican pesos), not USD
     □ All addresses are in México, not Arizona/California/Texas
     □ No US phone numbers (should be +52 for México)
-    □ All dates are within ${dateRangeStr}
+
+    📝 CONTENT VALIDATION:
     □ NO <img> tags in the output
     □ [PLACEHOLDER] text has been replaced with real content
     □ Weather is for San Luis Potosí, México
 
-    If ANY item fails this check, FIX IT before returning the HTML.
+    🚨 If ANY event shows October/November/past dates → REMOVE IT
+    🚨 If ANY item fails geographic check → REMOVE IT
 
     HTML TEMPLATE:
     ${NEWSLETTER_TEMPLATE}
