@@ -4,6 +4,33 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-29] Feature: Newsletter Section Editor
+
+**Descripción:**
+Implementación de editor de secciones para el newsletter que permite regenerar secciones individuales sin tener que regenerar todo el newsletter.
+
+**Funcionalidad:**
+- Parser de secciones que detecta: Opening Hook, Weather, News, Events, Did You Know?, Around Town, Weekend Escape, Coming Up, Pro Tip, Blog, Comunidad
+- Regeneración individual de cada sección editable usando AI (Gemini 2.0 Flash)
+- Vista previa en vivo del newsletter completo
+- Guardar como borrador en base de datos
+- Exportar HTML a archivo
+- Botón "Edit" en tabla de newsletters históricos
+- Botón "Open Section Editor" después de generar un newsletter nuevo
+
+**Archivos creados:**
+- `src/lib/newsletter-sections.ts` - Lógica de parsing y regeneración
+- `src/pages/api/newsletter/regenerate-section.ts` - Endpoint API
+- `src/pages/api/newsletter/save.ts` - Endpoint para guardar borradores
+- `src/components/admin/NewsletterEditor.tsx` - Componente del editor
+
+**Archivos modificados:**
+- `src/pages/admin/newsletter.tsx` - Integración del editor
+
+**Estado:** ✅ Exitoso | Build: Passed
+
+---
+
 ## [2025-12-22] Update: Neighborhoods Guide Prices (December 2025)
 
 **Descripción:**

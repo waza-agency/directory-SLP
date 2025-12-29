@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SEO from '@/components/common/SEO';
+import dynamic from 'next/dynamic';
+
+const NewsletterEditor = dynamic(() => import('@/components/admin/NewsletterEditor'), { ssr: false });
 
 interface Subscriber {
   id: string;
@@ -54,6 +57,8 @@ export default function NewsletterAdminPage() {
   const [generatedNewsletter, setGeneratedNewsletter] = useState<GeneratedNewsletter | null>(null);
   const [copied, setCopied] = useState(false);
   const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
+  const [showEditor, setShowEditor] = useState(false);
+  const [editingNewsletter, setEditingNewsletter] = useState<{ id?: string; subject: string; html: string } | null>(null);
 
   const fetchSubscribers = useCallback(async () => {
     setLoading(true);
@@ -172,6 +177,69 @@ export default function NewsletterAdminPage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
+  };
+
+  const exportHtmlFile = (htmlContent: string, subject: string) => {
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const filename = subject
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+      .substring(0, 50);
+    link.href = url;
+    link.download = `${filename}.html`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleSaveNewsletter = async (html: string) => {
+    try {
+      const res = await fetch('/api/newsletter/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': adminKey
+        },
+        body: JSON.stringify({
+          id: editingNewsletter?.id,
+          subject: editingNewsletter?.subject || subject,
+          html_content: html,
+          status: 'draft'
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert('Newsletter saved successfully!');
+        // Update parent state with edited HTML
+        setHtmlContent(html);
+        if (generatedNewsletter) {
+          setGeneratedNewsletter({ ...generatedNewsletter, html_content: html });
+        }
+        if (editingNewsletter) {
+          setEditingNewsletter({ ...editingNewsletter, html });
+        }
+        fetchNewsletters();
+      } else {
+        alert('Failed to save: ' + (data.message || 'Unknown error'));
+      }
+    } catch (error) {
+      alert('Error saving newsletter');
+      console.error(error);
+    }
+  };
+
+  const openEditor = (newsletter: Newsletter | GeneratedNewsletter) => {
+    setEditingNewsletter({
+      id: newsletter.id,
+      subject: newsletter.subject,
+      html: newsletter.html_content || ''
+    });
+    setShowEditor(true);
   };
 
   if (!isAuthenticated) {
@@ -364,13 +432,29 @@ export default function NewsletterAdminPage() {
                           <td className="px-4 py-3 text-sm text-gray-500">
                             {new Date(nl.created_at).toLocaleDateString()}
                           </td>
-                          <td className="px-4 py-3 text-sm">
+                          <td className="px-4 py-3 text-sm flex gap-2">
                             <button
                               onClick={() => setSelectedNewsletter(nl)}
                               className="px-3 py-1 text-sm bg-indigo-100 text-indigo-700 rounded hover:bg-indigo-200"
                             >
                               View
                             </button>
+                            {nl.html_content && (
+                              <>
+                                <button
+                                  onClick={() => openEditor(nl)}
+                                  className="px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  onClick={() => exportHtmlFile(nl.html_content || '', nl.subject)}
+                                  className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200"
+                                >
+                                  Export
+                                </button>
+                              </>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -391,16 +475,24 @@ export default function NewsletterAdminPage() {
                         </div>
                         <div className="flex gap-2">
                           {selectedNewsletter.html_content && (
-                            <button
-                              onClick={() => {
-                                copyToClipboard(selectedNewsletter.html_content || '');
-                              }}
-                              className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                                copied ? 'bg-green-500 text-white' : 'bg-terracotta text-white hover:bg-terracotta/90'
-                              }`}
-                            >
-                              {copied ? '✓ Copied!' : 'Copy HTML'}
-                            </button>
+                            <>
+                              <button
+                                onClick={() => {
+                                  copyToClipboard(selectedNewsletter.html_content || '');
+                                }}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                                  copied ? 'bg-green-500 text-white' : 'bg-terracotta text-white hover:bg-terracotta/90'
+                                }`}
+                              >
+                                {copied ? '✓ Copied!' : 'Copy HTML'}
+                              </button>
+                              <button
+                                onClick={() => exportHtmlFile(selectedNewsletter.html_content || '', selectedNewsletter.subject)}
+                                className="px-4 py-2 rounded-lg text-sm font-medium bg-green-600 text-white hover:bg-green-700"
+                              >
+                                ⬇ Export HTML
+                              </button>
+                            </>
                           )}
                           <button
                             onClick={() => setSelectedNewsletter(null)}
@@ -564,6 +656,22 @@ export default function NewsletterAdminPage() {
                   </div>
                 )}
 
+                {/* Edit Sections Button */}
+                {generatedNewsletter && htmlContent && (
+                  <div className="mb-8 p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                    <h4 className="font-bold text-purple-800 mb-2">Want to edit specific sections?</h4>
+                    <p className="text-sm text-purple-700 mb-3">
+                      Open the section editor to regenerate individual sections like news, events, or tips without regenerating the entire newsletter.
+                    </p>
+                    <button
+                      onClick={() => openEditor(generatedNewsletter)}
+                      className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700"
+                    >
+                      Open Section Editor
+                    </button>
+                  </div>
+                )}
+
                 {/* Instructions */}
                 <div className="bg-gray-50 rounded-lg p-6">
                   <h3 className="font-bold mb-4">How it works:</h3>
@@ -592,6 +700,21 @@ export default function NewsletterAdminPage() {
           </div>
         </div>
       </div>
+
+      {/* Newsletter Section Editor Modal */}
+      {showEditor && editingNewsletter && (
+        <NewsletterEditor
+          htmlContent={editingNewsletter.html}
+          subject={editingNewsletter.subject}
+          adminKey={adminKey}
+          onSave={handleSaveNewsletter}
+          onExport={exportHtmlFile}
+          onClose={() => {
+            setShowEditor(false);
+            setEditingNewsletter(null);
+          }}
+        />
+      )}
     </>
   );
 }
