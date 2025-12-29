@@ -803,7 +803,10 @@ function validateAndCleanUrls(html: string): string {
 
 // Function to rewrite custom content in a friendly tone using AI
 async function rewriteContentInFriendlyTone(customContent: string): Promise<{ title: string; body: string; cta?: string }> {
+  console.log('   📝 rewriteContentInFriendlyTone called with:', customContent.substring(0, 100) + '...');
+
   if (!customContent || !customContent.trim()) {
+    console.log('   ⚠️ No custom content to rewrite');
     return { title: '', body: '' };
   }
 
@@ -834,22 +837,27 @@ If there's no special code/offer, set cta to null.
       generationConfig: { maxOutputTokens: 500, temperature: 0.7 }
     });
 
+    console.log('   🤖 Calling Gemini to rewrite content...');
     const result = await rewriteModel.generateContent(rewritePrompt);
     const response = await result.response;
     let text = response.text().trim();
+    console.log('   📄 Gemini response:', text.substring(0, 200) + '...');
 
     // Clean up response - remove markdown code blocks if present
     text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
 
     const parsed = JSON.parse(text);
+    console.log('   ✅ Parsed result - Title:', parsed.title, '| Body length:', parsed.body?.length || 0);
+
     return {
       title: parsed.title || '🤝 Community Update',
       body: parsed.body || customContent,
       cta: parsed.cta || undefined
     };
   } catch (error) {
-    console.error('Error rewriting content:', error);
+    console.error('   ❌ Error rewriting content:', error);
     // Fallback to original content if AI fails
+    console.log('   ⚠️ Using fallback - original content');
     return {
       title: '🤝 Community Update',
       body: customContent,
@@ -889,6 +897,7 @@ function generateComunidadSection(title: string, body: string, cta?: string): st
 // Function to inject Comunidad section into newsletter HTML
 async function injectComunidadSection(html: string, customContent: string): Promise<string> {
   if (!customContent || !customContent.trim()) {
+    console.log('   ⚠️ No custom content provided, skipping Comunidad section');
     return html;
   }
 
@@ -899,30 +908,77 @@ async function injectComunidadSection(html: string, customContent: string): Prom
 
   const comunidadHtml = generateComunidadSection(title, body, cta);
 
-  // Try to find the placeholder first
+  if (!comunidadHtml || !comunidadHtml.trim()) {
+    console.log('   ⚠️ Generated Comunidad HTML is empty');
+    return html;
+  }
+
+  console.log(`   📝 Comunidad HTML generated (${comunidadHtml.length} chars)`);
+
+  // Try multiple injection patterns in order of preference
+
+  // Pattern 1: Look for the placeholder comment
   if (html.includes('<!-- COMUNIDAD_PLACEHOLDER -->')) {
+    console.log('   ✅ Found COMUNIDAD_PLACEHOLDER, injecting there');
     return html.replace('<!-- COMUNIDAD_PLACEHOLDER -->', comunidadHtml);
   }
 
-  // Try to inject before the CTA section
-  const ctaPattern = /(<tr>\s*<td[^>]*background-color:\s*#C75B39[^>]*>[\s\S]*?Discover More)/i;
-  if (ctaPattern.test(html)) {
-    return html.replace(ctaPattern, comunidadHtml + '\n          $1');
+  // Pattern 2: Look for <!-- CALL TO ACTION --> comment
+  if (html.includes('<!-- CALL TO ACTION -->')) {
+    console.log('   ✅ Found CALL TO ACTION comment, injecting before it');
+    return html.replace('<!-- CALL TO ACTION -->', comunidadHtml + '\n\n          <!-- CALL TO ACTION -->');
   }
 
-  // Try to inject after "From the Blog" section
-  const blogPattern = /(📖 From the Blog[\s\S]*?<\/td>\s*<\/tr>)/i;
-  if (blogPattern.test(html)) {
-    return html.replace(blogPattern, '$1\n' + comunidadHtml);
+  // Pattern 3: Look for CTA section by background color #C75B39
+  const ctaByColorPattern = /(<tr>\s*<td[^>]*background-color:\s*#C75B39)/i;
+  if (ctaByColorPattern.test(html)) {
+    console.log('   ✅ Found CTA by background color, injecting before it');
+    return html.replace(ctaByColorPattern, comunidadHtml + '\n\n          $1');
   }
 
-  // Fallback: inject before closing </table>
-  const tableClosePattern = /(<\/table>\s*<\/td>\s*<\/tr>\s*<\/table>)/i;
-  if (tableClosePattern.test(html)) {
-    return html.replace(tableClosePattern, comunidadHtml + '\n          $1');
+  // Pattern 4: Look for "From the Blog" section and inject after it
+  const blogEndPattern = /(📖 From the Blog[\s\S]*?<\/div>\s*<\/td>\s*<\/tr>)/i;
+  if (blogEndPattern.test(html)) {
+    console.log('   ✅ Found From the Blog section, injecting after it');
+    return html.replace(blogEndPattern, '$1\n\n' + comunidadHtml);
   }
 
-  console.log('⚠️ Could not find injection point for Comunidad section');
+  // Pattern 5: Look for Pro Tip section and inject after it
+  const proTipEndPattern = /(💡 Expat Pro Tip[\s\S]*?<\/td>\s*<\/tr>)/i;
+  if (proTipEndPattern.test(html)) {
+    console.log('   ✅ Found Pro Tip section, injecting after it');
+    return html.replace(proTipEndPattern, '$1\n\n' + comunidadHtml);
+  }
+
+  // Pattern 6: Look for any section with terracotta/CTA background
+  const terracottaPattern = /(<tr>\s*<td[^>]*style="[^"]*background[^"]*#[Cc]75[Bb]39)/i;
+  if (terracottaPattern.test(html)) {
+    console.log('   ✅ Found terracotta section, injecting before it');
+    return html.replace(terracottaPattern, comunidadHtml + '\n\n          $1');
+  }
+
+  // Pattern 7: Fallback - inject before CLOSING_FOOTER_PLACEHOLDER
+  if (html.includes('<!-- CLOSING_FOOTER_PLACEHOLDER -->')) {
+    console.log('   ✅ Found CLOSING_FOOTER_PLACEHOLDER, injecting before it');
+    return html.replace('<!-- CLOSING_FOOTER_PLACEHOLDER -->', comunidadHtml + '\n\n          <!-- CLOSING_FOOTER_PLACEHOLDER -->');
+  }
+
+  // Pattern 8: Last resort - inject before the last </table>
+  const lastTablePattern = /(<\/table>\s*<\/td>\s*<\/tr>\s*<\/table>)/i;
+  if (lastTablePattern.test(html)) {
+    console.log('   ✅ Found closing table structure, injecting before it');
+    return html.replace(lastTablePattern, comunidadHtml + '\n\n          $1');
+  }
+
+  console.log('   ⚠️ Could not find ANY injection point for Comunidad section!');
+  console.log('   📄 HTML snippet (first 500 chars):', html.substring(0, 500));
+
+  // Absolute fallback - append before </body>
+  if (html.includes('</body>')) {
+    console.log('   ✅ Fallback: injecting before </body>');
+    return html.replace('</body>', comunidadHtml + '\n</body>');
+  }
+
   return html;
 }
 
