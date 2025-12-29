@@ -4,6 +4,41 @@
  */
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { format, addDays } from 'date-fns';
+
+// Helper to get current dates for prompts
+function getCurrentDates() {
+  const now = new Date();
+  const endDate = addDays(now, 7);
+
+  const currentYear = now.getFullYear();
+  const currentMonth = format(now, 'MMMM');
+
+  const monthsInSpanish: Record<string, string> = {
+    'January': 'enero', 'February': 'febrero', 'March': 'marzo', 'April': 'abril',
+    'May': 'mayo', 'June': 'junio', 'July': 'julio', 'August': 'agosto',
+    'September': 'septiembre', 'October': 'octubre', 'November': 'noviembre', 'December': 'diciembre'
+  };
+  const spanishMonth = monthsInSpanish[currentMonth] || currentMonth.toLowerCase();
+
+  // Calculate previous months
+  const prevMonth1 = new Date(now);
+  prevMonth1.setMonth(prevMonth1.getMonth() - 1);
+  const prevMonth2 = new Date(now);
+  prevMonth2.setMonth(prevMonth2.getMonth() - 2);
+
+  return {
+    todayFormatted: format(now, 'EEEE, MMMM d, yyyy'),
+    dateRange: `${format(now, 'MMMM d')} - ${format(endDate, 'MMMM d, yyyy')}`,
+    currentMonth,
+    currentYear,
+    spanishMonth,
+    prevMonthName1: format(prevMonth1, 'MMMM yyyy'),
+    prevMonthName2: format(prevMonth2, 'MMMM yyyy'),
+    prevMonthSpanish1: monthsInSpanish[format(prevMonth1, 'MMMM')] || format(prevMonth1, 'MMMM').toLowerCase(),
+    prevMonthSpanish2: monthsInSpanish[format(prevMonth2, 'MMMM')] || format(prevMonth2, 'MMMM').toLowerCase(),
+  };
+}
 
 export interface NewsletterSection {
   id: string;
@@ -209,6 +244,10 @@ export async function regenerateSection(
     throw new Error('GOOGLE_API_KEY is required');
   }
 
+  // Get current dates - calculated fresh each time
+  const dates = getCurrentDates();
+  console.log(`Regenerating section with dates: ${dates.todayFormatted}, range: ${dates.dateRange}`);
+
   const model = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY).getGenerativeModel({
     model: "gemini-2.0-flash",
     generationConfig: { maxOutputTokens: 2000, temperature: 0.8 }
@@ -220,18 +259,49 @@ Write 2-3 engaging sentences that welcome readers and tease what's in this week'
 Keep it warm, conversational, and relevant to life in SLP.
 Return ONLY the HTML for the opening paragraph (no <tr> wrapper needed, just the <p> tags).`,
 
-    weather: `Generate a weather section for San Luis Potosí, México for the next 7 days.
+    weather: `Generate a weather section for San Luis Potosí, México.
+📅 TODAY IS: ${dates.todayFormatted}
+📅 FORECAST PERIOD: ${dates.dateRange}
+
 Include forecast summary, temperature range in Celsius, and a practical tip.
 Format as HTML with the 🌦️ Weather Watch header.
 Return the complete <tr> section HTML.`,
 
     news: `Generate 2 local news items for San Luis Potosí, MÉXICO (NOT USA).
+
+🚨 CRITICAL DATE REQUIREMENT:
+📅 TODAY IS: ${dates.todayFormatted}
+📅 CURRENT MONTH: ${dates.currentMonth} ${dates.currentYear}
+⛔ REJECT any news from ${dates.prevMonthName1} or ${dates.prevMonthName2}
+⛔ REJECT any news with dates in "${dates.prevMonthSpanish1}" or "${dates.prevMonthSpanish2}"
+✅ ONLY include news from ${dates.currentMonth} ${dates.currentYear}
+
+Search for: "noticias San Luis Potosí ${dates.spanishMonth} ${dates.currentYear}"
+
 Focus on: city announcements, infrastructure, business news, or community events.
 Each news item should have: headline, 3-4 sentence summary, and "why it matters" explanation.
 Also include 3 "Quick Hits" - short practical updates.
 Return the complete <tr> section HTML with the 📰 The Week in SLP header.`,
 
-    events: `Generate 3 events happening in San Luis Potosí, MÉXICO this week.
+    events: `Generate 3 events happening in San Luis Potosí, MÉXICO.
+
+🚨🚨🚨 ABSOLUTELY CRITICAL DATE REQUIREMENT 🚨🚨🚨
+📅 TODAY IS: ${dates.todayFormatted}
+📅 THIS NEWSLETTER COVERS: ${dates.dateRange}
+📅 CURRENT MONTH: ${dates.currentMonth} ${dates.currentYear}
+
+⛔ REJECT ANY EVENT FROM ${dates.prevMonthName1} OR ${dates.prevMonthName2}
+⛔ REJECT ANY EVENT with dates in "${dates.prevMonthSpanish1}" or "${dates.prevMonthSpanish2}"
+⛔ IF YOU SEE "octubre" or "octubre 2025" in event dates → SKIP IT!
+⛔ IF YOU SEE "noviembre" or "noviembre 2025" in event dates → SKIP IT!
+✅ ONLY include events happening in ${dates.currentMonth} ${dates.currentYear}
+✅ Events must be between ${dates.dateRange}
+
+Search queries to use:
+- "eventos San Luis Potosí México ${dates.spanishMonth} ${dates.currentYear}"
+- "conciertos SLP ${dates.spanishMonth} ${dates.currentYear}"
+- "agenda cultural San Luis Potosí ${dates.currentMonth} ${dates.currentYear}"
+
 Include: event name, date/time, venue with address, description, and cost in MXN pesos.
 Categories: culture, music, food, sports, family, or nightlife.
 Return the complete <tr> section HTML.`,
@@ -253,7 +323,16 @@ Include practical info: distance, travel time, what to do, costs.
 Return the complete <tr> section HTML with the 🌿 Weekend Escape header.`,
 
     coming_up: `Generate a "Coming Up" section with 4 upcoming events in San Luis Potosí, MÉXICO.
-List events for the next 2-4 weeks with dates and brief descriptions.
+
+🚨 CRITICAL DATE REQUIREMENT:
+📅 TODAY IS: ${dates.todayFormatted}
+📅 SHOW EVENTS FOR: Next 2-4 weeks starting from today
+⛔ NO events from ${dates.prevMonthName1} or ${dates.prevMonthName2}
+✅ All dates must be in ${dates.currentMonth} ${dates.currentYear} or later
+
+Search for: "eventos San Luis Potosí ${dates.spanishMonth} ${dates.currentYear}"
+
+List events with dates and brief descriptions.
 Return the complete <tr> section HTML with the 📅 Coming Up header.`,
 
     tip: `Generate an "Expat Pro Tip" for living in San Luis Potosí, México.
@@ -272,8 +351,20 @@ Return the complete <tr> section HTML with the 🤝 Comunidad header.`
   const fullPrompt = `
 You are the editor of "San Luis Way Weekly", a newsletter for expats and locals in San Luis Potosí, MÉXICO.
 
-⚠️ CRITICAL: All content must be about SAN LUIS POTOSÍ, MÉXICO - NOT Arizona, California, or any US location.
-Prices should be in MXN (Mexican pesos). Phone numbers should start with +52.
+╔══════════════════════════════════════════════════════════════════════════╗
+║  🚨 CRITICAL: DATE AND LOCATION REQUIREMENTS 🚨                          ║
+╠══════════════════════════════════════════════════════════════════════════╣
+║  📅 TODAY IS: ${dates.todayFormatted}
+║  📅 CURRENT MONTH: ${dates.currentMonth} ${dates.currentYear}
+║                                                                          ║
+║  ⛔ REJECT content from ${dates.prevMonthName1} or ${dates.prevMonthName2}
+║  ⛔ REJECT content with "${dates.prevMonthSpanish1}" or "${dates.prevMonthSpanish2}" dates
+║  ✅ ONLY include content from ${dates.currentMonth} ${dates.currentYear}
+║                                                                          ║
+║  🇲🇽 ALL content must be about SAN LUIS POTOSÍ, MÉXICO                   ║
+║  ❌ NOT Arizona, California, Texas, or any US location                   ║
+║  💰 Prices in MXN (Mexican pesos) | 📞 Phone numbers start with +52     ║
+╚══════════════════════════════════════════════════════════════════════════╝
 
 ${prompt}
 
