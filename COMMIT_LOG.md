@@ -4,6 +4,58 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: a27f67f6 - 2025-12-29
+
+**Mensaje:** feat(newsletter): Add section editor for individual section regeneration
+
+**Archivos modificados:**
+- CHANGE_LOG.md
+- src/components/admin/NewsletterEditor.tsx (nuevo)
+- src/lib/newsletter-sections.ts (nuevo)
+- src/pages/admin/newsletter.tsx
+- src/pages/api/newsletter/regenerate-section.ts (nuevo)
+- src/pages/api/newsletter/save.ts (nuevo)
+
+**Descripción detallada:**
+
+Implementación del editor de secciones para newsletters que permite regenerar secciones individuales sin tener que regenerar todo el newsletter.
+
+1. **NewsletterEditor.tsx** - Componente del editor
+   - Parser de secciones usando patrones regex (Opening Hook, Weather, News, Events, etc.)
+   - Interfaz con lista de secciones expandibles
+   - Botón "Regenerate" para cada sección editable
+   - Panel de vista previa en vivo con iframe
+   - Botones de Save Draft y Export HTML
+
+2. **newsletter-sections.ts** - Lógica de backend
+   - `parseNewsletterSections()` - Parsea HTML en secciones usando marcadores HTML
+   - `regenerateSection()` - Regenera una sección específica usando Gemini 2.0 Flash
+   - Prompts especializados para cada tipo de sección (weather, news, events, etc.)
+   - `reconstructNewsletter()` - Reconstruye el HTML completo desde secciones
+
+3. **regenerate-section.ts** - API endpoint
+   - POST endpoint para regenerar una sección específica
+   - Recibe: sectionType, sectionId, currentHtml, context
+   - Retorna: nuevo HTML de la sección
+
+4. **save.ts** - API endpoint para guardar
+   - POST endpoint para crear o actualizar newsletters en Supabase
+   - Soporta update (con id) o insert (sin id)
+   - Guarda como status 'draft'
+
+5. **newsletter.tsx** - Integración
+   - Dynamic import del NewsletterEditor
+   - Estados: showEditor, editingNewsletter
+   - Función openEditor() para abrir el editor desde tabla o generación
+   - Función handleSaveNewsletter() que sincroniza estado después de guardar
+   - Botón "Edit" en tabla de newsletters históricos
+   - Sección "Open Section Editor" después de generar newsletter
+
+**Propósito/Razón:**
+El usuario necesitaba poder editar secciones específicas del newsletter sin tener que regenerar todo el contenido. A veces una noticia o evento resultaba irrelevante y tenía que regenerar todo. Ahora puede regenerar solo la sección problemática, mantener el resto, y guardar o exportar cuando esté satisfecho.
+
+---
+
 ## Commit: 18344d33 - 2025-12-21
 
 **Mensaje:** feat(newsletter): Improve generation with Comunidad section and date fixes

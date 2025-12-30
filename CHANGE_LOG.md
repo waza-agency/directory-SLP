@@ -4,6 +4,29 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-29] Fix: Newsletter Date Enforcement
+
+**Descripción:**
+Corrección para asegurar que el newsletter solo incluya contenido con fechas actuales, no de meses pasados como octubre o noviembre.
+
+**Problema:**
+El AI estaba incluyendo eventos y noticias de octubre 2025 en lugar del mes actual (diciembre 2025).
+
+**Solución implementada:**
+- Añadido bloque prominente de fecha al inicio del prompt
+- Incluido mes actual en español para las búsquedas
+- Ejemplos de queries de búsqueda con fechas específicas
+- Checklist de validación de fechas antes de generar
+- Instrucciones explícitas para rechazar contenido de meses pasados
+- Logging de fechas para debugging
+
+**Archivos modificados:**
+- `src/lib/newsletter-generator.ts`
+
+**Estado:** ✅ Exitoso | Build: Passed
+
+---
+
 ## [2025-12-29] Feature: Newsletter Section Editor
 
 **Descripción:**

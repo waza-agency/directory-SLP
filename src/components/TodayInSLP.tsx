@@ -97,19 +97,20 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
 
   /*
    * NEWS SOURCES (for internal reference - not displayed to users)
-   * Official: @RGC_Mx, @SLPMunicipio, @sspc_slp, turismo.slp.gob.mx, @sedecoslp
-   * Business: @COPARMEX_SLP
-   * Media: Líder Empresarial, Plano Informativo, El Sol de San Luis, Potosí Noticias, Pulso SLP
+   * State Government: slp.gob.mx, Secretaría de Turismo SLP, Secretaría de Cultura SLP, SEDECO SLP, @GobEdoSLP
+   * Municipal: sanluis.gob.mx, @SLPMunicipio
+   * Media: El Sol de San Luis, Plano Informativo, Pulso SLP, Potosí Noticias, Código San Luis
    * CONTENT POLICY: Only positive/neutral news. NO: crimes, violence, arrests, accidents
-   * Headlines are now fetched from Supabase and updated every 4 hours via cron job
+   * Headlines are fetched from Supabase and updated daily at 7am via cron job with real web search
    */
   const tickerHeadlines = headlines.length > 0
     ? headlines.map(h => ({
         id: h.id,
-        text: locale === 'es' ? h.textEs : h.textEn
+        text: locale === 'es' ? h.textEs : h.textEn,
+        summary: locale === 'es' ? h.summaryEs : h.summaryEn
       }))
     : [
-        { id: '1', text: t('todayInSLP.loadingNews') }
+        { id: '1', text: t('todayInSLP.loadingNews'), summary: '' }
       ];
 
   const dailyTip = t('todayInSLP.dailyTip');
@@ -338,10 +339,15 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           </div>
 
           <div className="relative">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-h-[80px] flex items-center">
-              <p className="text-white text-lg font-medium leading-relaxed">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 min-h-[100px] flex flex-col justify-center">
+              <p className="text-white text-lg font-semibold leading-relaxed">
                 {tickerHeadlines[newsIndex]?.text}
               </p>
+              {tickerHeadlines[newsIndex]?.summary && (
+                <p className="text-white/80 text-sm mt-2 leading-relaxed">
+                  {tickerHeadlines[newsIndex].summary}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center justify-between mt-4">

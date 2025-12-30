@@ -40,6 +40,8 @@ export interface NewsHeadline {
   id: string;
   textEs: string;
   textEn: string;
+  summaryEs: string;
+  summaryEn: string;
   source: string | null;
 }
 
@@ -255,7 +257,7 @@ export async function fetchHeadlines(): Promise<NewsHeadline[]> {
 
     const { data, error } = await supabase
       .from('news_headlines')
-      .select('id, text_es, text_en, source')
+      .select('id, text_es, text_en, summary_es, summary_en, source')
       .eq('active', true)
       .or(`expires_at.is.null,expires_at.gt.${now}`)
       .order('priority', { ascending: true })
@@ -275,6 +277,8 @@ export async function fetchHeadlines(): Promise<NewsHeadline[]> {
       id: h.id,
       textEs: h.text_es,
       textEn: h.text_en,
+      summaryEs: h.summary_es || '',
+      summaryEn: h.summary_en || '',
       source: h.source
     }));
   } catch (error) {
@@ -288,8 +292,22 @@ export async function fetchHeadlines(): Promise<NewsHeadline[]> {
  */
 function getDefaultHeadlines(): NewsHeadline[] {
   return [
-    { id: '1', textEs: 'Bienvenido a San Luis Way - Tu guía definitiva de San Luis Potosí', textEn: 'Welcome to San Luis Way - Your definitive guide to San Luis Potosí', source: null },
-    { id: '2', textEs: 'Descubre los mejores lugares, eventos y experiencias de SLP', textEn: 'Discover the best places, events, and experiences in SLP', source: null }
+    {
+      id: '1',
+      textEs: 'Bienvenido a San Luis Way - Tu guía definitiva de San Luis Potosí',
+      textEn: 'Welcome to San Luis Way - Your definitive guide to San Luis Potosí',
+      summaryEs: 'Descubre lugares, eventos y experiencias únicas en la ciudad y la Huasteca.',
+      summaryEn: 'Discover places, events, and unique experiences in the city and Huasteca.',
+      source: null
+    },
+    {
+      id: '2',
+      textEs: 'Explora la riqueza cultural y gastronómica de SLP',
+      textEn: 'Explore the cultural and gastronomic richness of SLP',
+      summaryEs: 'Desde enchiladas potosinas hasta el Centro de las Artes, hay mucho por descubrir.',
+      summaryEn: 'From enchiladas potosinas to the Arts Center, there is much to discover.',
+      source: null
+    }
   ];
 }
 

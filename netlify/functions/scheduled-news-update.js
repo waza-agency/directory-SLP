@@ -31,5 +31,5 @@ const handler = async () => {
   }
 };
 
-// Run every 4 hours: "0 */4 * * *"
-exports.handler = schedule('0 */4 * * *', handler);
+// Run once daily at 7am Mexico City time (13:00 UTC)
+exports.handler = schedule('0 13 * * *', handler);

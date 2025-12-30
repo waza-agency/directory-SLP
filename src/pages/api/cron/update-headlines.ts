@@ -17,6 +17,8 @@ interface CommunityNews {
 interface NewsHeadline {
   text_es: string;
   text_en: string;
+  summary_es?: string;
+  summary_en?: string;
   source: string;
   priority: number;
 }
@@ -85,7 +87,16 @@ export default async function handler(
 
     const { error: headlinesError } = await supabase
       .from('news_headlines')
-      .insert(headlines.map(h => ({ ...h, active: true, expires_at: getExpiryDate(1) })));
+      .insert(headlines.map(h => ({
+        text_es: h.text_es,
+        text_en: h.text_en,
+        summary_es: h.summary_es || '',
+        summary_en: h.summary_en || '',
+        source: h.source,
+        priority: h.priority,
+        active: true,
+        expires_at: getExpiryDate(1)
+      })));
 
     if (headlinesError) {
       results.errors.push(`Headlines: ${headlinesError.message}`);
@@ -106,8 +117,18 @@ export default async function handler(
   }
 }
 
-async function fetchNewsWithClaude(): Promise<{ communityNews: CommunityNews[], headlines: NewsHeadline[] } | null> {
+interface HeadlineWithSummary extends NewsHeadline {
+  summary_es: string;
+  summary_en: string;
+}
+
+async function fetchNewsWithClaude(): Promise<{ communityNews: CommunityNews[], headlines: HeadlineWithSummary[] } | null> {
   if (!anthropicApiKey) return null;
+
+  const today = new Date().toLocaleDateString('es-MX', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+    timeZone: 'America/Mexico_City'
+  });
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -119,59 +140,59 @@ async function fetchNewsWithClaude(): Promise<{ communityNews: CommunityNews[], 
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 2500,
+        max_tokens: 4000,
+        tools: [{
+          type: 'web_search',
+          name: 'web_search',
+          max_uses: 5
+        }],
         messages: [{
           role: 'user',
-          content: `Eres un editor de noticias para un portal de San Luis Potosí, México.
+          content: `Hoy es ${today}. Eres un editor de noticias para San Luis Way, un portal de San Luis Potosí, México.
 
-Genera noticias REALISTAS y POSITIVAS que podrían estar pasando ahora en San Luis Potosí. Basa tus noticias en eventos típicos de la ciudad como:
-- Eventos en el Centro Histórico, Parque Tangamanga, Centro de las Artes
-- Festivales culturales, gastronómicos o artísticos
-- Mejoras urbanas, nuevos negocios, inversiones
-- Actividades comunitarias, mercados artesanales
-- Eventos deportivos, educativos, de turismo
+TAREA: Busca noticias REALES y RECIENTES de San Luis Potosí usando web search. Enfócate en:
+- Noticias de los últimos 7 días
+- Eventos culturales, festivales, conciertos
+- Economía local, inversiones, nuevos negocios
+- Mejoras urbanas, infraestructura
+- Turismo, gastronomía
+- Deportes locales
 
-Devuelve SOLO un JSON válido con este formato exacto (sin texto adicional):
+IMPORTANTE:
+- Solo noticias POSITIVAS o NEUTRALES (NO crimen, violencia, accidentes)
+- Cada noticia debe incluir información ESPECÍFICA y ÚTIL (fechas, lugares, nombres)
+- Incluye un resumen informativo de 1-2 oraciones
+
+Busca en estas fuentes:
+GOBIERNO ESTATAL: slp.gob.mx, Secretaría de Turismo SLP, Secretaría de Cultura SLP, SEDECO SLP, @GobEdoSLP
+GOBIERNO MUNICIPAL: sanluis.gob.mx, @SLPMunicipio
+MEDIOS: El Sol de San Luis, Plano Informativo, Pulso SLP, Potosí Noticias, Código San Luis
+
+Después de buscar, devuelve SOLO un JSON válido con este formato:
 {
   "communityNews": [
     {
-      "title_es": "Título en español",
-      "title_en": "Title in English",
-      "summary_es": "Resumen breve máximo 80 caracteres",
-      "summary_en": "Brief summary max 80 characters",
+      "title_es": "Título específico con detalles",
+      "title_en": "Specific title with details",
+      "summary_es": "Resumen informativo de 1-2 oraciones con datos concretos",
+      "summary_en": "Informative summary of 1-2 sentences with concrete data",
       "category": "community",
       "priority": 1
-    },
-    {
-      "title_es": "Segunda noticia",
-      "title_en": "Second news",
-      "summary_es": "Resumen de la segunda noticia",
-      "summary_en": "Summary of second news",
-      "category": "culture",
-      "priority": 2
-    },
-    {
-      "title_es": "Tercera noticia",
-      "title_en": "Third news",
-      "summary_es": "Resumen de tercera noticia",
-      "summary_en": "Summary of third news",
-      "category": "local",
-      "priority": 3
     }
   ],
   "headlines": [
-    {"text_es": "Titular 1 en español", "text_en": "Headline 1 in English", "source": "Fuente", "priority": 1},
-    {"text_es": "Titular 2 en español", "text_en": "Headline 2 in English", "source": "Fuente", "priority": 2},
-    {"text_es": "Titular 3 en español", "text_en": "Headline 3 in English", "source": "Fuente", "priority": 3},
-    {"text_es": "Titular 4 en español", "text_en": "Headline 4 in English", "source": "Fuente", "priority": 4},
-    {"text_es": "Titular 5 en español", "text_en": "Headline 5 in English", "source": "Fuente", "priority": 5}
+    {
+      "text_es": "Titular específico con información real",
+      "text_en": "Specific headline with real information",
+      "summary_es": "Resumen breve con datos útiles (fechas, lugares, cifras)",
+      "summary_en": "Brief summary with useful data (dates, places, figures)",
+      "source": "Nombre del medio",
+      "priority": 1
+    }
   ]
 }
 
-Categorías válidas: "social", "community", "culture", "local"
-Fuentes ejemplo: "Turismo SLP", "Municipio", "Cultura", "Economía", "Deportes"
-
-IMPORTANTE: Genera exactamente 3 noticias comunitarias y 5 titulares. Solo devuelve el JSON.`
+Genera exactamente 3 noticias comunitarias y 5 titulares basados en información REAL que encuentres.`
         }]
       })
     });
@@ -182,7 +203,14 @@ IMPORTANTE: Genera exactamente 3 noticias comunitarias y 5 titulares. Solo devue
     }
 
     const data = await response.json();
-    const content = data.content?.[0]?.text;
+
+    // Find the text content (may be after tool uses)
+    let content = '';
+    for (const block of data.content || []) {
+      if (block.type === 'text') {
+        content = block.text;
+      }
+    }
 
     if (!content) return null;
 
@@ -240,12 +268,42 @@ function getDefaultCommunityNews(): CommunityNews[] {
   ];
 }
 
-function getDefaultHeadlines(): NewsHeadline[] {
+function getDefaultHeadlines(): HeadlineWithSummary[] {
   return [
-    { text_es: 'SLP destino turístico destacado en México 2025', text_en: 'SLP top tourist destination in Mexico 2025', source: 'Turismo SLP', priority: 1 },
-    { text_es: 'Centro Histórico iluminado para temporada navideña', text_en: 'Historic Center lit up for holiday season', source: 'Municipio', priority: 2 },
-    { text_es: 'Nuevas rutas de transporte público en zona metropolitana', text_en: 'New public transit routes in metro area', source: 'Movilidad', priority: 3 },
-    { text_es: 'Festival gastronómico potosino atrae visitantes', text_en: 'Potosino food festival attracts visitors', source: 'Cultura', priority: 4 },
-    { text_es: 'Empresas tecnológicas invierten en SLP', text_en: 'Tech companies invest in SLP', source: 'Economía', priority: 5 },
+    {
+      text_es: 'SLP destino turístico destacado en México 2025',
+      text_en: 'SLP top tourist destination in Mexico 2025',
+      summary_es: 'La Huasteca Potosina y el Centro Histórico lideran las preferencias de viajeros nacionales e internacionales.',
+      summary_en: 'Huasteca Potosina and Historic Center lead preferences of national and international travelers.',
+      source: 'Turismo SLP', priority: 1
+    },
+    {
+      text_es: 'Centro Histórico iluminado para temporada festiva',
+      text_en: 'Historic Center lit up for holiday season',
+      summary_es: 'Plaza de Armas y calles principales lucen decoraciones especiales hasta el 6 de enero.',
+      summary_en: 'Plaza de Armas and main streets display special decorations until January 6th.',
+      source: 'Municipio', priority: 2
+    },
+    {
+      text_es: 'Nuevas rutas de transporte público en zona metropolitana',
+      text_en: 'New public transit routes in metro area',
+      summary_es: 'Tres nuevas líneas conectan colonias del sur con el centro de la ciudad.',
+      summary_en: 'Three new lines connect southern neighborhoods with the city center.',
+      source: 'Movilidad', priority: 3
+    },
+    {
+      text_es: 'Gastronomía potosina gana reconocimiento nacional',
+      text_en: 'Potosino gastronomy gains national recognition',
+      summary_es: 'Enchiladas potosinas y tacos rojos destacan en guía de cocina tradicional mexicana.',
+      summary_en: 'Enchiladas potosinas and red tacos featured in traditional Mexican cuisine guide.',
+      source: 'Cultura', priority: 4
+    },
+    {
+      text_es: 'Zona industrial atrae nuevas inversiones',
+      text_en: 'Industrial zone attracts new investments',
+      summary_es: 'Sector automotriz y logístico generan empleos en la zona metropolitana.',
+      summary_en: 'Automotive and logistics sectors create jobs in the metropolitan area.',
+      source: 'Economía', priority: 5
+    },
   ];
 }
