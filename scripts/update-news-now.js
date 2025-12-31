@@ -35,13 +35,10 @@ async function fetchNewsWithClaude() {
     return null;
   }
 
-  const now = new Date();
-  const today = now.toLocaleDateString('es-MX', {
+  const today = new Date().toLocaleDateString('es-MX', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
     timeZone: 'America/Mexico_City'
   });
-  const currentYear = now.getFullYear();
-  const currentMonth = now.toLocaleDateString('es-MX', { month: 'long', timeZone: 'America/Mexico_City' });
 
   console.log(`   Fecha actual: ${today}`);
   console.log('   Buscando noticias reales con web search...');
@@ -63,76 +60,31 @@ async function fetchNewsWithClaude() {
       }],
       messages: [{
         role: 'user',
-        content: `══════════════════════════════════════════════════════════
-⚠️  FECHA ACTUAL: ${today}
-⚠️  AÑO ACTUAL: ${currentYear}
-⚠️  MES ACTUAL: ${currentMonth} ${currentYear}
-══════════════════════════════════════════════════════════
+        content: `HOY ES: ${today}
 
-Eres un servicio de noticias para San Luis Way, portal de San Luis Potosí, México.
+Busca las noticias MÁS RELEVANTES para alguien que vive en San Luis Potosí, México HOY ${today}.
 
-🚨 REGLA CRÍTICA DE FECHAS 🚨
-SOLO incluir noticias sobre:
-✅ Eventos de ${currentMonth} ${currentYear} o enero ${currentYear + 1}
-✅ Anuncios hechos ESTA SEMANA sobre planes futuros
-✅ Cosas que ESTÁN PASANDO AHORA o pasarán PRONTO
+¿Qué necesita saber un potosino HOY?
+- Eventos que ocurren esta semana o próximas semanas
+- Anuncios recientes del gobierno, empresas o instituciones
+- Oportunidades (empleo, becas, programas)
+- Inauguraciones, aperturas, nuevos servicios
 
-RECHAZAR COMPLETAMENTE:
-❌ Resúmenes del año ${currentYear - 1} ("lo mejor de ${currentYear - 1}", "balance ${currentYear - 1}")
-❌ Estadísticas anuales de ${currentYear - 1} (inversión extranjera ${currentYear - 1}, turismo ${currentYear - 1})
-❌ Cualquier dato que diga "${currentYear - 1}" como año de referencia
-❌ Artículos de "year in review" o "cierre de año ${currentYear - 1}"
+Solo noticias POSITIVAS o NEUTRALES (no crimen/violencia).
 
-QUEREMOS NOTICIAS ACTUALES COMO:
-✅ "Ayuntamiento inaugura HOY nueva plaza en Col. Industrial"
-✅ "SEDECO anuncia llegada de empresa X que operará en ${currentYear + 1}"
-✅ "Festival de Año Nuevo en Centro Histórico del 31 dic al 2 enero"
-✅ "Gobernador presenta plan de infraestructura ${currentYear + 1}"
-✅ "BMW abre convocatoria de empleo para enero ${currentYear + 1}"
+Busca en: slp.gob.mx, sanluis.gob.mx, El Sol de San Luis, Plano Informativo, Pulso SLP
 
-NO QUEREMOS:
-❌ "SLP recibió $3,000 millones en inversión durante ${currentYear - 1}"
-❌ "Turismo reporta 2 millones de visitantes en ${currentYear - 1}"
-❌ "Balance económico de ${currentYear - 1}"
-
-CATEGORÍAS:
-1. ECONOMÍA: Nuevas inversiones, convocatorias de empleo, aperturas
-2. GOBIERNO: Inauguraciones, anuncios de programas, obras EN CURSO
-3. EVENTOS: Festivales, conciertos, exposiciones PRÓXIMAS
-4. INFRAESTRUCTURA: Obras que se ESTÁN haciendo o SE ANUNCIAN
-
-FUENTES: slp.gob.mx, sanluis.gob.mx, El Sol de San Luis, Plano Informativo, Pulso SLP
-
-REGLAS:
-- Solo noticias POSITIVAS o NEUTRALES
-- Todas las fechas deben ser de ${currentMonth} ${currentYear} o posterior
-- Si mencionas cifras, deben ser de ${currentYear} o proyecciones ${currentYear + 1}
-
-Devuelve SOLO JSON válido:
+Devuelve JSON:
 {
   "communityNews": [
-    {
-      "title_es": "Noticia actual con fecha de ${currentMonth} ${currentYear}",
-      "title_en": "Current news with date from ${currentMonth} ${currentYear}",
-      "summary_es": "Detalles del evento/anuncio actual",
-      "summary_en": "Details of current event/announcement",
-      "category": "community|culture|local|social",
-      "priority": 1
-    }
+    {"title_es": "...", "title_en": "...", "summary_es": "...", "summary_en": "...", "category": "community|culture|local|social", "priority": 1}
   ],
   "headlines": [
-    {
-      "text_es": "Noticia de ESTA SEMANA: [Qué pasa] + [Cuándo]",
-      "text_en": "THIS WEEK's news: [What's happening] + [When]",
-      "summary_es": "Contexto relevante para HOY",
-      "summary_en": "Context relevant for TODAY",
-      "source": "Fuente",
-      "priority": 1
-    }
+    {"text_es": "...", "text_en": "...", "summary_es": "...", "summary_en": "...", "source": "Fuente", "priority": 1}
   ]
 }
 
-Genera 3 noticias comunitarias y 5 titulares de ${currentMonth} ${currentYear}.`
+Genera 3 community news y 5 headlines relevantes para HOY ${today}.`
       }]
     })
   });
