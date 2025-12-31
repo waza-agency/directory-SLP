@@ -79,7 +79,13 @@
       "Bash(cd:*)",
       "Bash(node scripts/delete-old-events.js:*)",
       "Bash(node scripts/update-news-now.js:*)",
-      "Bash(node scripts/insert-real-news.js:*)"
+      "Bash(node scripts/insert-real-news.js:*)",
+      "Bash(node scripts/check-places-images.js:*)",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_evaluate",
+      "Bash(node scripts/update-place-images.js:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
