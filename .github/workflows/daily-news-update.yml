@@ -1,0 +1,29 @@
+name: Daily News Update
+
+on:
+  schedule:
+    # Runs at 13:00 UTC every day (7:00 AM Mexico City time)
+    # Mexico City is UTC-6, so 7am local = 13:00 UTC
+    - cron: '0 13 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update News Headlines
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST "${{ secrets.SITE_URL }}/api/cron/update-headlines" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json")
+
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+
+          echo "Response: $body"
+          echo "HTTP Code: $http_code"
+
+          if [ "$http_code" != "200" ]; then
+            echo "Failed to update news"
+            exit 1
+          fi

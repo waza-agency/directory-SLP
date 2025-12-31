@@ -4,6 +4,34 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-31] Fix: News Generation - Real News Instead of Generic Content
+
+**Descripción:**
+Mejora del sistema de noticias para generar contenido informativo real en lugar de recomendaciones turísticas genéricas.
+
+**Problema:**
+- Las noticias eran muy genéricas (ej: "Comida potosina incluida en guía")
+- Se generaban recomendaciones de lugares en lugar de noticias reales
+- El web search no funcionaba (error 400 por tipo de herramienta incorrecto)
+
+**Solución implementada:**
+- Corregido el tipo de web_search tool a `web_search_20250305`
+- Reescrito el prompt para generar NOTICIAS reales (inversiones, obras públicas, convenios)
+- Agregados ejemplos claros de lo que SÍ queremos y NO queremos
+- Actualizado fallback con noticias realistas
+
+**Resultado - Noticias ahora incluyen:**
+- Datos específicos: cifras, nombres de funcionarios, fechas
+- Fuentes oficiales: SEDECO, Gobierno, UASLP, Ayuntamiento
+- Impacto real: empleos generados, metros rehabilitados, millones invertidos
+
+**Archivos modificados:**
+- `scripts/update-news-now.js`
+
+**Estado:** ✅ Exitoso | Commit: c387a82a
+
+---
+
 ## [2025-12-29] Fix: Newsletter Date Enforcement
 
 **Descripción:**
