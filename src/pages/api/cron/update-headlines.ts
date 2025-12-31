@@ -125,10 +125,13 @@ interface HeadlineWithSummary extends NewsHeadline {
 async function fetchNewsWithClaude(): Promise<{ communityNews: CommunityNews[], headlines: HeadlineWithSummary[] } | null> {
   if (!anthropicApiKey) return null;
 
-  const today = new Date().toLocaleDateString('es-MX', {
+  const now = new Date();
+  const today = now.toLocaleDateString('es-MX', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
     timeZone: 'America/Mexico_City'
   });
+  const currentYear = now.getFullYear();
+  const currentMonth = now.toLocaleDateString('es-MX', { month: 'long', timeZone: 'America/Mexico_City' });
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -148,68 +151,76 @@ async function fetchNewsWithClaude(): Promise<{ communityNews: CommunityNews[], 
         }],
         messages: [{
           role: 'user',
-          content: `Hoy es ${today}. Eres un servicio de noticias para San Luis Way, un portal informativo de San Luis Potosí, México.
+          content: `══════════════════════════════════════════════════════════
+⚠️  FECHA ACTUAL: ${today}
+⚠️  AÑO ACTUAL: ${currentYear}
+⚠️  MES ACTUAL: ${currentMonth} ${currentYear}
+══════════════════════════════════════════════════════════
 
-MISIÓN: Informar a la población sobre SUCESOS IMPORTANTES y NOTICIAS REALES de San Luis Potosí.
+Eres un servicio de noticias para San Luis Way, portal de San Luis Potosí, México.
 
-ESTO ES UN SERVICIO DE NOTICIAS, NO UNA GUÍA TURÍSTICA.
+🚨 REGLA CRÍTICA DE FECHAS 🚨
+SOLO incluir noticias sobre:
+✅ Eventos de ${currentMonth} ${currentYear} o enero ${currentYear + 1}
+✅ Anuncios hechos ESTA SEMANA sobre planes futuros
+✅ Cosas que ESTÁN PASANDO AHORA o pasarán PRONTO
 
-EJEMPLOS DE NOTICIAS QUE SÍ QUEREMOS:
-✅ "BMW anuncia inversión de $800 millones USD en planta de Villa de Reyes, generará 1,500 empleos en 2025"
-✅ "Gobernador Ricardo Gallardo firma convenio con UASLP para 500 becas de posgrado"
-✅ "SEDECO reporta llegada de 3 nuevas empresas aeroespaciales al corredor industrial"
-✅ "Secretaría de Cultura inaugura exposición de arte virreinal en Museo del Virreinato"
-✅ "Ayuntamiento concluye rehabilitación de 15 km de calles en zona oriente"
-✅ "Turismo SLP reporta 2.3 millones de visitantes a la Huasteca en 2024"
+RECHAZAR COMPLETAMENTE:
+❌ Resúmenes del año ${currentYear - 1} ("lo mejor de ${currentYear - 1}", "balance ${currentYear - 1}")
+❌ Estadísticas anuales de ${currentYear - 1} (inversión extranjera ${currentYear - 1}, turismo ${currentYear - 1})
+❌ Cualquier dato que diga "${currentYear - 1}" como año de referencia
+❌ Artículos de "year in review" o "cierre de año ${currentYear - 1}"
 
-EJEMPLOS DE LO QUE NO QUEREMOS (son recomendaciones, no noticias):
-❌ "Visita el Mercado Hidalgo, abierto de 7am a 7pm"
-❌ "Recorridos guiados en Centro Histórico los sábados"
-❌ "Las mejores enchiladas potosinas las encuentras en..."
+QUEREMOS NOTICIAS ACTUALES COMO:
+✅ "Ayuntamiento inaugura HOY nueva plaza en Col. Industrial"
+✅ "SEDECO anuncia llegada de empresa X que operará en ${currentYear + 1}"
+✅ "Festival de Año Nuevo en Centro Histórico del 31 dic al 2 enero"
+✅ "Gobernador presenta plan de infraestructura ${currentYear + 1}"
+✅ "BMW abre convocatoria de empleo para enero ${currentYear + 1}"
 
-CATEGORÍAS DE NOTICIAS:
-1. ECONOMÍA: Inversiones, nuevas empresas, empleos, datos económicos
-2. GOBIERNO: Obras públicas, programas sociales, convenios, inauguraciones
-3. EDUCACIÓN: Universidades, becas, nuevas carreras, investigación
-4. CULTURA: Exposiciones inauguradas, festivales anunciados, premios
-5. INFRAESTRUCTURA: Obras viales, servicios públicos, mejoras urbanas
+NO QUEREMOS:
+❌ "SLP recibió $3,000 millones en inversión durante ${currentYear - 1}"
+❌ "Turismo reporta 2 millones de visitantes en ${currentYear - 1}"
+❌ "Balance económico de ${currentYear - 1}"
 
-FUENTES A BUSCAR:
-- GOBIERNO: slp.gob.mx, sanluis.gob.mx, SEDECO, Turismo SLP
-- MEDIOS: El Sol de San Luis, Plano Informativo, Pulso SLP, Código San Luis
-- INSTITUCIONES: UASLP, IPICYT, Politécnica
+CATEGORÍAS:
+1. ECONOMÍA: Nuevas inversiones, convocatorias de empleo, aperturas
+2. GOBIERNO: Inauguraciones, anuncios de programas, obras EN CURSO
+3. EVENTOS: Festivales, conciertos, exposiciones PRÓXIMAS
+4. INFRAESTRUCTURA: Obras que se ESTÁN haciendo o SE ANUNCIAN
+
+FUENTES: slp.gob.mx, sanluis.gob.mx, El Sol de San Luis, Plano Informativo, Pulso SLP
 
 REGLAS:
-- Solo noticias POSITIVAS o NEUTRALES (NO crimen, violencia, accidentes)
-- Deben ser SUCESOS que ocurrieron, no recomendaciones de lugares
-- Incluir datos específicos: cifras, nombres de funcionarios, fechas
-- Cada noticia debe responder: ¿QUÉ PASÓ? ¿QUIÉN? ¿CUÁNDO? ¿IMPACTO?
+- Solo noticias POSITIVAS o NEUTRALES
+- Todas las fechas deben ser de ${currentMonth} ${currentYear} o posterior
+- Si mencionas cifras, deben ser de ${currentYear} o proyecciones ${currentYear + 1}
 
-Devuelve SOLO un JSON válido:
+Devuelve SOLO JSON válido:
 {
   "communityNews": [
     {
-      "title_es": "Titular de noticia con datos específicos",
-      "title_en": "News headline with specific data",
-      "summary_es": "Contexto: impacto, beneficiarios, próximos pasos",
-      "summary_en": "Context: impact, beneficiaries, next steps",
+      "title_es": "Noticia actual con fecha de ${currentMonth} ${currentYear}",
+      "title_en": "Current news with date from ${currentMonth} ${currentYear}",
+      "summary_es": "Detalles del evento/anuncio actual",
+      "summary_en": "Details of current event/announcement",
       "category": "community|culture|local|social",
       "priority": 1
     }
   ],
   "headlines": [
     {
-      "text_es": "Titular: [Qué pasó] + [Quién] + [Cifra/Impacto]",
-      "text_en": "Headline: [What happened] + [Who] + [Figure/Impact]",
-      "summary_es": "Más detalles sobre el suceso",
-      "summary_en": "More details about the event",
-      "source": "Fuente específica",
+      "text_es": "Noticia de ESTA SEMANA: [Qué pasa] + [Cuándo]",
+      "text_en": "THIS WEEK's news: [What's happening] + [When]",
+      "summary_es": "Contexto relevante para HOY",
+      "summary_en": "Context relevant for TODAY",
+      "source": "Fuente",
       "priority": 1
     }
   ]
 }
 
-Genera exactamente 3 noticias comunitarias y 5 titulares basados en SUCESOS REALES.`
+Genera 3 noticias comunitarias y 5 titulares de ${currentMonth} ${currentYear}.`
         }]
       })
     });
@@ -257,70 +268,72 @@ function getExpiryDate(days = 1): string {
 }
 
 function getDefaultCommunityNews(): CommunityNews[] {
+  const nextYear = new Date().getFullYear() + 1;
   return [
     {
-      title_es: 'SEDECO reporta 12 nuevas empresas instaladas en SLP durante 2024, generando 3,500 empleos directos',
-      title_en: 'SEDECO reports 12 new companies established in SLP during 2024, creating 3,500 direct jobs',
-      summary_es: 'El sector automotriz y aeroespacial lidera las inversiones con más de $500 millones USD comprometidos.',
-      summary_en: 'Automotive and aerospace sectors lead investments with over $500 million USD committed.',
-      category: 'local',
+      title_es: `Gobierno de SLP abre convocatoria para becas universitarias ${nextYear}, más de 5,000 espacios disponibles`,
+      title_en: `SLP Government opens ${nextYear} university scholarship applications, over 5,000 spots available`,
+      summary_es: 'Registro abierto en linea. Incluye apoyo para transporte, materiales y manutención mensual.',
+      summary_en: 'Online registration open. Includes support for transportation, materials and monthly stipend.',
+      category: 'community',
       priority: 1
     },
     {
-      title_es: 'UASLP inaugura Centro de Investigación en Energías Renovables con inversión de $80 millones de pesos',
-      title_en: 'UASLP inaugurates Renewable Energy Research Center with $80 million peso investment',
-      summary_es: 'El centro beneficiará a más de 200 investigadores y estudiantes de posgrado en tecnologías limpias.',
-      summary_en: 'The center will benefit over 200 researchers and graduate students in clean technologies.',
-      category: 'community',
+      title_es: 'Centro de las Artes presenta nueva exposición de artistas potosinos este mes',
+      title_en: 'Arts Center presents new exhibition by local artists this month',
+      summary_es: 'Entrada gratuita de martes a domingo. Incluye obras de pintura, escultura y fotografía.',
+      summary_en: 'Free entry Tuesday to Sunday. Features painting, sculpture and photography works.',
+      category: 'culture',
       priority: 2
     },
     {
-      title_es: 'Secretaría de Cultura anuncia restauración del Teatro de la Paz con fondos federales de $25 millones',
-      title_en: 'Culture Ministry announces Teatro de la Paz restoration with $25 million federal funds',
-      summary_es: 'Los trabajos iniciarán en febrero 2025 y se estima una duración de 18 meses.',
-      summary_en: 'Work will begin in February 2025 with an estimated duration of 18 months.',
-      category: 'culture',
+      title_es: 'Ayuntamiento inaugura nuevo parque lineal en zona sur de la ciudad',
+      title_en: 'City government inaugurates new linear park in southern zone',
+      summary_es: 'Incluye ciclovía, áreas de ejercicio y zona de juegos infantiles. Abierto al público.',
+      summary_en: 'Includes bike path, exercise areas and playground. Open to the public.',
+      category: 'local',
       priority: 3
     }
   ];
 }
 
 function getDefaultHeadlines(): HeadlineWithSummary[] {
+  const nextYear = new Date().getFullYear() + 1;
   return [
     {
-      text_es: 'BMW México anuncia expansión de planta en Villa de Reyes con inversión de $800 millones USD',
-      text_en: 'BMW Mexico announces Villa de Reyes plant expansion with $800 million USD investment',
-      summary_es: 'La ampliación creará 1,500 nuevos empleos y aumentará la producción a 200,000 unidades anuales.',
-      summary_en: 'The expansion will create 1,500 new jobs and increase production to 200,000 units annually.',
-      source: 'SEDECO SLP', priority: 1
+      text_es: `BMW Villa de Reyes abre convocatoria de empleo para ${nextYear}, más de 500 vacantes disponibles`,
+      text_en: `BMW Villa de Reyes opens ${nextYear} job applications, over 500 positions available`,
+      summary_es: 'Postulaciones en línea. Puestos para técnicos, ingenieros y operadores de producción.',
+      summary_en: 'Online applications. Positions for technicians, engineers and production operators.',
+      source: 'BMW Group', priority: 1
     },
     {
-      text_es: 'Gobierno estatal entrega 2,000 escrituras de regularización de predios en zona metropolitana',
-      text_en: 'State government delivers 2,000 property regularization deeds in metropolitan area',
-      summary_es: 'El programa beneficia a familias de colonias en Soledad y San Luis Potosí capital.',
-      summary_en: 'The program benefits families in neighborhoods in Soledad and San Luis Potosí capital.',
+      text_es: 'Gobierno estatal anuncia programa de pavimentación para colonias de la zona metropolitana',
+      text_en: 'State government announces paving program for metropolitan area neighborhoods',
+      summary_es: 'Beneficiará a más de 50 colonias con inversión de recursos estatales y federales.',
+      summary_en: 'Will benefit over 50 neighborhoods with state and federal investment.',
       source: 'Gobierno SLP', priority: 2
     },
     {
-      text_es: 'Turismo SLP reporta cifra histórica de 2.8 millones de visitantes a la Huasteca en 2024',
-      text_en: 'SLP Tourism reports historic 2.8 million visitors to the Huasteca region in 2024',
-      summary_es: 'El incremento representa un 15% respecto a 2023, con derrama económica de $1,200 millones de pesos.',
-      summary_en: 'The increase represents 15% over 2023, with economic impact of $1.2 billion pesos.',
-      source: 'Turismo SLP', priority: 3
+      text_es: 'UASLP abre inscripciones para cursos de educación continua y diplomados',
+      text_en: 'UASLP opens enrollment for continuing education courses and certificates',
+      summary_es: 'Más de 30 opciones en áreas de tecnología, negocios, salud y humanidades.',
+      summary_en: 'Over 30 options in technology, business, health and humanities areas.',
+      source: 'UASLP', priority: 3
     },
     {
-      text_es: 'Ayuntamiento concluye rehabilitación de 45 km de vialidades en colonias del oriente de la ciudad',
-      text_en: 'City government completes rehabilitation of 45 km of roads in eastern city neighborhoods',
-      summary_es: 'La inversión de $120 millones beneficia a más de 80,000 habitantes de 15 colonias.',
-      summary_en: 'The $120 million investment benefits over 80,000 residents in 15 neighborhoods.',
-      source: 'Municipio SLP', priority: 4
+      text_es: 'Secretaría de Turismo lanza campaña para promover la Huasteca Potosina a nivel nacional',
+      text_en: 'Tourism Ministry launches campaign to promote Huasteca Potosina nationwide',
+      summary_es: 'Destaca cascadas, gastronomía y cultura de la región como destino imperdible.',
+      summary_en: 'Highlights waterfalls, gastronomy and regional culture as must-visit destination.',
+      source: 'Turismo SLP', priority: 4
     },
     {
-      text_es: 'IPICYT y NASA firman convenio de colaboración para investigación en materiales avanzados',
-      text_en: 'IPICYT and NASA sign collaboration agreement for advanced materials research',
-      summary_es: 'El acuerdo permitirá intercambio de investigadores y acceso a laboratorios especializados.',
-      summary_en: 'The agreement will enable researcher exchange and access to specialized laboratories.',
-      source: 'IPICYT', priority: 5
+      text_es: 'Zona Industrial de SLP registra llegada de nuevas empresas del sector automotriz',
+      text_en: 'SLP Industrial Zone registers arrival of new automotive sector companies',
+      summary_es: 'Las inversiones generarán empleos directos e indirectos en la zona metropolitana.',
+      summary_en: 'Investments will create direct and indirect jobs in the metropolitan area.',
+      source: 'SEDECO', priority: 5
     },
   ];
 }
