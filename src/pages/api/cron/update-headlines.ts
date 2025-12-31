@@ -152,15 +152,25 @@ async function fetchNewsWithClaude(): Promise<{ communityNews: CommunityNews[], 
 
 Busca noticias POSITIVAS/NEUTRALES de San Luis Potosí, México para HOY.
 
-IMPORTANTE: Devuelve EXACTAMENTE este formato JSON (usa estos nombres de campos exactos):
+IMPORTANTE - RESÚMENES DETALLADOS:
+Cada summary_es/summary_en debe tener 2-3 oraciones con:
+- Cifras específicas (montos, empleos, fechas)
+- Nombres de empresas, funcionarios o instituciones involucradas
+- Fechas de cuándo ocurrirá o cuándo se anunció
+- Impacto o beneficio para la población
+
+Ejemplo de buen resumen:
+"BMW invertirá $800 millones USD en su planta de Villa de Reyes, anunció el gobernador Ricardo Gallardo el 28 de diciembre. Se crearán 1,500 empleos directos y la producción aumentará a 200,000 unidades anuales a partir de 2026."
+
+Devuelve EXACTAMENTE este formato JSON:
 
 {
   "communityNews": [
     {
       "title_es": "Título en español",
       "title_en": "Title in English",
-      "summary_es": "Resumen en español",
-      "summary_en": "Summary in English",
+      "summary_es": "Resumen DETALLADO de 2-3 oraciones con cifras y nombres específicos",
+      "summary_en": "DETAILED summary of 2-3 sentences with specific figures and names",
       "category": "community",
       "priority": 1
     }
@@ -169,8 +179,8 @@ IMPORTANTE: Devuelve EXACTAMENTE este formato JSON (usa estos nombres de campos 
     {
       "text_es": "Titular en español",
       "text_en": "Headline in English",
-      "summary_es": "Resumen en español",
-      "summary_en": "Summary in English",
+      "summary_es": "Resumen DETALLADO de 2-3 oraciones con cifras y nombres específicos",
+      "summary_en": "DETAILED summary of 2-3 sentences with specific figures and names",
       "source": "Nombre del medio",
       "priority": 1
     }
