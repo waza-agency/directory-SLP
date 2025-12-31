@@ -4,6 +4,38 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 2b152877 - 2025-12-31
+
+**Mensaje:** feat(scripts): Add script to update place images from Google Maps
+
+**Archivos modificados:**
+- scripts/update-place-images.js (nuevo)
+
+**Descripción detallada:**
+
+Script para actualizar las imágenes de lugares en la base de datos de Supabase con imágenes reales obtenidas de Google Maps.
+
+1. **update-place-images.js** - Script de actualización
+   - Conexión a Supabase usando service role key
+   - Array de 9 lugares con IDs y URLs de Google User Content
+   - Función async que actualiza cada lugar secuencialmente
+   - Logging de éxito/error para cada actualización
+
+2. **Proceso de obtención de imágenes:**
+   - Navegación a Google Maps con Playwright
+   - Búsqueda de cada lugar por nombre + "San Luis Potosi"
+   - Extracción de URLs googleusercontent.com del DOM
+   - Selección de imagen principal del establecimiento
+   - Formato: `https://lh3.googleusercontent.com/p/{IMAGE_ID}=w800-h600`
+
+3. **Resultado:**
+   - 127/127 lugares ahora tienen imagen real
+   - 0 lugares con imágenes de fallback
+
+**Propósito/Razón:** Los usuarios necesitan ver fotos reales de los establecimientos, no imágenes genéricas de Unsplash por categoría.
+
+---
+
 ## Commit: a27f67f6 - 2025-12-29
 
 **Mensaje:** feat(newsletter): Add section editor for individual section regeneration

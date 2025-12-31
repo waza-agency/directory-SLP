@@ -4,6 +4,38 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2025-12-31] Feat: Add Real Images to Places Without Images
+
+**Descripción:**
+Búsqueda y actualización de imágenes reales de Google Maps para los 9 lugares que tenían imágenes de fallback en la página de explorar.
+
+**Problema:**
+- 9 lugares mostraban imágenes genéricas de Unsplash en lugar de fotos reales
+- Los usuarios no podían ver cómo lucen realmente los establecimientos
+
+**Solución implementada:**
+- Usé Playwright para buscar cada lugar en Google Maps
+- Extraje las URLs de imágenes de Google User Content
+- Creé script para actualizar la base de datos de Supabase
+
+**Lugares actualizados:**
+1. 500 Noches (live-music)
+2. 7 Barrios Cervecería (cocktail-bars)
+3. Absenta Speakeasy (cocktail-bars)
+4. Arandela Barra de Café (remote-work-cafes)
+5. Capital Coffee (remote-work-cafes)
+6. Casa Altero (modern-dining) - cerrado permanentemente
+7. Dulce Amor Café (remote-work-cafes)
+8. La Piquería Mezcalería (cocktail-bars) - cerrado permanentemente
+9. Natal Cocina de Origen (modern-dining)
+
+**Archivos modificados:**
+- `scripts/update-place-images.js` (nuevo)
+
+**Estado:** ✅ Exitoso | Commit: 2b152877
+
+---
+
 ## [2025-12-31] Fix: News Generation - Real News Instead of Generic Content
 
 **Descripción:**
