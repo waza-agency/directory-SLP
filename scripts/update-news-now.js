@@ -54,57 +54,78 @@ async function fetchNewsWithClaude() {
       model: 'claude-sonnet-4-20250514',
       max_tokens: 4000,
       tools: [{
-        type: 'web_search',
+        type: 'web_search_20250305',
         name: 'web_search',
         max_uses: 5
       }],
       messages: [{
         role: 'user',
-        content: `Hoy es ${today}. Eres un editor de noticias para San Luis Way, un portal de San Luis Potosí, México.
+        content: `Hoy es ${today}. Eres un servicio de noticias para San Luis Way, un portal informativo de San Luis Potosí, México.
 
-TAREA: Busca noticias REALES y RECIENTES de San Luis Potosí usando web search. Enfócate en:
-- Noticias de los últimos 7 días
-- Eventos culturales, festivales, conciertos
-- Economía local, inversiones, nuevos negocios
-- Mejoras urbanas, infraestructura
-- Turismo, gastronomía
-- Deportes locales
+MISIÓN: Informar a la población sobre SUCESOS IMPORTANTES y NOTICIAS REALES de San Luis Potosí.
 
-IMPORTANTE:
+ESTO ES UN SERVICIO DE NOTICIAS, NO UNA GUÍA TURÍSTICA.
+
+EJEMPLOS DE NOTICIAS QUE SÍ QUEREMOS:
+✅ "BMW anuncia inversión de $800 millones USD en planta de Villa de Reyes, generará 1,500 empleos en 2025"
+✅ "Gobernador Ricardo Gallardo firma convenio con UASLP para 500 becas de posgrado"
+✅ "SEDECO reporta llegada de 3 nuevas empresas aeroespaciales al corredor industrial"
+✅ "Secretaría de Cultura inaugura exposición de arte virreinal en Museo del Virreinato"
+✅ "Ayuntamiento concluye rehabilitación de 15 km de calles en zona oriente"
+✅ "INTERAPAS termina obra de drenaje en Col. Himno Nacional tras 6 meses de trabajo"
+✅ "Turismo SLP reporta 2.3 millones de visitantes a la Huasteca en 2024"
+✅ "Universidad Politécnica inaugura nuevo campus en Soledad de Graciano Sánchez"
+
+EJEMPLOS DE LO QUE NO QUEREMOS (son recomendaciones, no noticias):
+❌ "Visita el Mercado Hidalgo, abierto de 7am a 7pm"
+❌ "Recorridos guiados en Centro Histórico los sábados"
+❌ "Las mejores enchiladas potosinas las encuentras en..."
+❌ "Precios de hospedaje en la Huasteca desde $800"
+
+CATEGORÍAS DE NOTICIAS:
+1. ECONOMÍA: Inversiones, nuevas empresas, empleos, datos económicos
+2. GOBIERNO: Obras públicas, programas sociales, convenios, inauguraciones
+3. EDUCACIÓN: Universidades, becas, nuevas carreras, investigación
+4. CULTURA: Exposiciones inauguradas, festivales anunciados, premios otorgados
+5. INFRAESTRUCTURA: Obras viales, servicios públicos, mejoras urbanas
+6. TURISMO: Estadísticas de visitantes, reconocimientos, nuevas rutas
+
+FUENTES A BUSCAR:
+- GOBIERNO: slp.gob.mx, sanluis.gob.mx, SEDECO, Turismo SLP
+- MEDIOS: El Sol de San Luis, Plano Informativo, Pulso SLP, Código San Luis
+- INSTITUCIONES: UASLP, IPICYT, Politécnica
+
+REGLAS:
 - Solo noticias POSITIVAS o NEUTRALES (NO crimen, violencia, accidentes)
-- Cada noticia debe incluir información ESPECÍFICA y ÚTIL (fechas, lugares, nombres)
-- Incluye un resumen informativo de 1-2 oraciones
+- Deben ser SUCESOS que ocurrieron, no recomendaciones de lugares
+- Incluir datos específicos: cifras, nombres de funcionarios, fechas de eventos
+- Cada noticia debe responder: ¿QUÉ PASÓ? ¿QUIÉN lo hizo? ¿CUÁNDO? ¿CON QUÉ IMPACTO?
 
-Busca en estas fuentes:
-GOBIERNO ESTATAL: slp.gob.mx, Secretaría de Turismo SLP, Secretaría de Cultura SLP, SEDECO SLP, @GobEdoSLP
-GOBIERNO MUNICIPAL: sanluis.gob.mx, @SLPMunicipio
-MEDIOS: El Sol de San Luis, Plano Informativo, Pulso SLP, Potosí Noticias, Código San Luis
-
-Después de buscar, devuelve SOLO un JSON válido con este formato:
+Devuelve SOLO un JSON válido:
 {
   "communityNews": [
     {
-      "title_es": "Título específico con detalles",
-      "title_en": "Specific title with details",
-      "summary_es": "Resumen informativo de 1-2 oraciones con datos concretos",
-      "summary_en": "Informative summary of 1-2 sentences with concrete data",
-      "category": "community",
+      "title_es": "Titular de noticia con datos específicos",
+      "title_en": "News headline with specific data",
+      "summary_es": "Contexto adicional: impacto, beneficiarios, próximos pasos",
+      "summary_en": "Additional context: impact, beneficiaries, next steps",
+      "category": "community|culture|local|social",
       "priority": 1
     }
   ],
   "headlines": [
     {
-      "text_es": "Titular específico con información real",
-      "text_en": "Specific headline with real information",
-      "summary_es": "Resumen breve con datos útiles (fechas, lugares, cifras)",
-      "summary_en": "Brief summary with useful data (dates, places, figures)",
-      "source": "Nombre del medio",
+      "text_es": "Titular noticioso: [Qué pasó] + [Quién] + [Cifra/Impacto]",
+      "text_en": "News headline: [What happened] + [Who] + [Figure/Impact]",
+      "summary_es": "Más detalles sobre el suceso y su relevancia",
+      "summary_en": "More details about the event and its relevance",
+      "source": "Fuente específica",
       "priority": 1
     }
   ]
 }
 
-Genera exactamente 3 noticias comunitarias y 5 titulares basados en información REAL que encuentres.`
+Genera exactamente 3 noticias comunitarias y 5 titulares basados en SUCESOS REALES.`
       }]
     })
   });
@@ -135,69 +156,69 @@ function getDefaultNews() {
   return {
     communityNews: [
       {
-        title_es: 'Centro Histórico de SLP: Patrimonio Cultural de México',
-        title_en: 'SLP Historic Center: Mexico Cultural Heritage',
-        summary_es: 'El Centro Histórico ofrece recorridos guiados gratuitos los fines de semana desde Plaza de Armas.',
-        summary_en: 'The Historic Center offers free guided tours on weekends from Plaza de Armas.',
-        category: 'culture',
+        title_es: 'SEDECO reporta 12 nuevas empresas instaladas en SLP durante 2024, generando 3,500 empleos directos',
+        title_en: 'SEDECO reports 12 new companies established in SLP during 2024, creating 3,500 direct jobs',
+        summary_es: 'El sector automotriz y aeroespacial lidera las inversiones con más de $500 millones USD comprometidos.',
+        summary_en: 'Automotive and aerospace sectors lead investments with over $500 million USD committed.',
+        category: 'local',
         priority: 1
       },
       {
-        title_es: 'Huasteca Potosina entre los destinos más visitados de 2025',
-        title_en: 'Huasteca Potosina among most visited destinations of 2025',
-        summary_es: 'Cascadas, ríos y selva atraen a miles de turistas nacionales e internacionales cada semana.',
-        summary_en: 'Waterfalls, rivers, and jungle attract thousands of national and international tourists weekly.',
-        category: 'local',
+        title_es: 'UASLP inaugura Centro de Investigación en Energías Renovables con inversión de $80 millones de pesos',
+        title_en: 'UASLP inaugurates Renewable Energy Research Center with $80 million peso investment',
+        summary_es: 'El centro beneficiará a más de 200 investigadores y estudiantes de posgrado en tecnologías limpias.',
+        summary_en: 'The center will benefit over 200 researchers and graduate students in clean technologies.',
+        category: 'community',
         priority: 2
       },
       {
-        title_es: 'Gastronomía potosina gana reconocimiento nacional',
-        title_en: 'Potosino gastronomy gains national recognition',
-        summary_es: 'Enchiladas potosinas, tacos rojos y el tradicional queso de tuna destacan en guías culinarias.',
-        summary_en: 'Enchiladas potosinas, red tacos, and traditional tuna cheese featured in culinary guides.',
-        category: 'community',
+        title_es: 'Secretaría de Cultura anuncia restauración del Teatro de la Paz con fondos federales de $25 millones',
+        title_en: 'Culture Ministry announces Teatro de la Paz restoration with $25 million federal funds',
+        summary_es: 'Los trabajos iniciarán en febrero 2025 y se estima una duración de 18 meses.',
+        summary_en: 'Work will begin in February 2025 with an estimated duration of 18 months.',
+        category: 'culture',
         priority: 3
       }
     ],
     headlines: [
       {
-        text_es: 'SLP se posiciona como hub industrial del Bajío',
-        text_en: 'SLP positions itself as Bajio industrial hub',
-        summary_es: 'Sector automotriz y aeroespacial generan más de 50,000 empleos directos en la zona metropolitana.',
-        summary_en: 'Automotive and aerospace sectors generate over 50,000 direct jobs in the metropolitan area.',
+        text_es: 'BMW México anuncia expansión de planta en Villa de Reyes con inversión de $800 millones USD',
+        text_en: 'BMW Mexico announces Villa de Reyes plant expansion with $800 million USD investment',
+        summary_es: 'La ampliación creará 1,500 nuevos empleos y aumentará la producción a 200,000 unidades anuales.',
+        summary_en: 'The expansion will create 1,500 new jobs and increase production to 200,000 units annually.',
         source: 'SEDECO SLP',
         priority: 1
       },
       {
-        text_es: 'Turismo en la Huasteca crece 25% este año',
-        text_en: 'Huasteca tourism grows 25% this year',
-        summary_es: 'Xilitla, Tamasopo y Aquismón lideran las visitas con cascadas y sitios arqueológicos.',
-        summary_en: 'Xilitla, Tamasopo and Aquismón lead visits with waterfalls and archaeological sites.',
-        source: 'Turismo SLP',
+        text_es: 'Gobierno estatal entrega 2,000 escrituras de regularización de predios en zona metropolitana',
+        text_en: 'State government delivers 2,000 property regularization deeds in metropolitan area',
+        summary_es: 'El programa beneficia a familias de colonias en Soledad y San Luis Potosí capital.',
+        summary_en: 'The program benefits families in neighborhoods in Soledad and San Luis Potosí capital.',
+        source: 'Gobierno SLP',
         priority: 2
       },
       {
-        text_es: 'Centro de las Artes presenta nueva temporada cultural',
-        text_en: 'Arts Center presents new cultural season',
-        summary_es: 'Exposiciones, conciertos y talleres gratuitos durante enero y febrero en la ex penitenciaría.',
-        summary_en: 'Exhibitions, concerts, and free workshops during January and February at the former penitentiary.',
-        source: 'Cultura SLP',
+        text_es: 'Turismo SLP reporta cifra histórica de 2.8 millones de visitantes a la Huasteca en 2024',
+        text_en: 'SLP Tourism reports historic 2.8 million visitors to the Huasteca region in 2024',
+        summary_es: 'El incremento representa un 15% respecto a 2023, con derrama económica de $1,200 millones de pesos.',
+        summary_en: 'The increase represents 15% over 2023, with economic impact of $1.2 billion pesos.',
+        source: 'Turismo SLP',
         priority: 3
       },
       {
-        text_es: 'Mejoran conectividad vial en zona metropolitana',
-        text_en: 'Road connectivity improved in metro area',
-        summary_es: 'Nuevos pasos a desnivel y ampliación de carriles reducen tiempos de traslado.',
-        summary_en: 'New overpasses and lane expansions reduce commute times.',
-        source: 'Gobierno SLP',
+        text_es: 'Ayuntamiento concluye rehabilitación de 45 km de vialidades en colonias del oriente de la ciudad',
+        text_en: 'City government completes rehabilitation of 45 km of roads in eastern city neighborhoods',
+        summary_es: 'La inversión de $120 millones beneficia a más de 80,000 habitantes de 15 colonias.',
+        summary_en: 'The $120 million investment benefits over 80,000 residents in 15 neighborhoods.',
+        source: 'Municipio SLP',
         priority: 4
       },
       {
-        text_es: 'Festival gastronómico potosino atrae visitantes de todo México',
-        text_en: 'Potosino food festival attracts visitors from all over Mexico',
-        summary_es: 'Más de 50 restaurantes locales participan con platillos tradicionales y fusión.',
-        summary_en: 'Over 50 local restaurants participate with traditional and fusion dishes.',
-        source: 'Municipio SLP',
+        text_es: 'IPICYT y NASA firman convenio de colaboración para investigación en materiales avanzados',
+        text_en: 'IPICYT and NASA sign collaboration agreement for advanced materials research',
+        summary_es: 'El acuerdo permitirá intercambio de investigadores y acceso a laboratorios especializados.',
+        summary_en: 'The agreement will enable researcher exchange and access to specialized laboratories.',
+        source: 'IPICYT',
         priority: 5
       }
     ]
