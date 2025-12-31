@@ -21,7 +21,8 @@ const nextConfig = {
       'omxporaecrqsqhzjzvnx.supabase.co',
       'static.wixstatic.com',
       'assets.seobotai.com',
-      'images.unsplash.com'
+      'images.unsplash.com',
+      'lh3.googleusercontent.com'
     ],
     remotePatterns: [
       {
@@ -43,6 +44,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
       }
     ],
     formats: ['image/avif', 'image/webp'],
