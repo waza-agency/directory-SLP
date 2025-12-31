@@ -62,29 +62,34 @@ async function fetchNewsWithClaude() {
         role: 'user',
         content: `HOY ES: ${today}
 
-Busca las noticias MÁS RELEVANTES para alguien que vive en San Luis Potosí, México HOY ${today}.
+Busca noticias POSITIVAS/NEUTRALES de San Luis Potosí, México para HOY.
 
-¿Qué necesita saber un potosino HOY?
-- Eventos que ocurren esta semana o próximas semanas
-- Anuncios recientes del gobierno, empresas o instituciones
-- Oportunidades (empleo, becas, programas)
-- Inauguraciones, aperturas, nuevos servicios
+IMPORTANTE: Devuelve EXACTAMENTE este formato JSON (usa estos nombres de campos exactos):
 
-Solo noticias POSITIVAS o NEUTRALES (no crimen/violencia).
-
-Busca en: slp.gob.mx, sanluis.gob.mx, El Sol de San Luis, Plano Informativo, Pulso SLP
-
-Devuelve JSON:
 {
   "communityNews": [
-    {"title_es": "...", "title_en": "...", "summary_es": "...", "summary_en": "...", "category": "community|culture|local|social", "priority": 1}
+    {
+      "title_es": "Título en español",
+      "title_en": "Title in English",
+      "summary_es": "Resumen en español",
+      "summary_en": "Summary in English",
+      "category": "community",
+      "priority": 1
+    }
   ],
   "headlines": [
-    {"text_es": "...", "text_en": "...", "summary_es": "...", "summary_en": "...", "source": "Fuente", "priority": 1}
+    {
+      "text_es": "Titular en español",
+      "text_en": "Headline in English",
+      "summary_es": "Resumen en español",
+      "summary_en": "Summary in English",
+      "source": "Nombre del medio",
+      "priority": 1
+    }
   ]
 }
 
-Genera 3 community news y 5 headlines relevantes para HOY ${today}.`
+Genera exactamente 3 communityNews y 5 headlines. NO cambies los nombres de los campos.`
       }]
     })
   });
