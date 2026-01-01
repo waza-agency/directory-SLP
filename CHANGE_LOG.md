@@ -3635,3 +3635,6 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 4. SEO internacional mejorado con hreflang tags para los tres idiomas
 
 **Resultado:** ✅ Exitoso - Build completado sin errores
+
+[2025-12-31] Agregar dominio de Google Maps a configuración de imágenes | Archivos: next.config.js | Estado: ✅ Exitoso
+[2025-12-31] Eliminar lugar genérico "Coworking Space SLP" de base de datos | Archivos: N/A (base de datos) | Estado: ✅ Exitoso

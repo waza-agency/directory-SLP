@@ -2620,3 +2620,13 @@ Mientras se mantiene:
 - Base de datos de suscriptores en Supabase
 
 **Co-Authored-By:** Claude <noreply@anthropic.com>
+
+## Commit: d769cfa8 - 2025-12-31
+**Mensaje:** fix: Add Google Maps image domain to Next.js config
+**Archivos modificados:** next.config.js
+**Descripción detallada:** 
+- Agregado `lh3.googleusercontent.com` a la lista de `domains` permitidos
+- Agregado `lh3.googleusercontent.com` a la lista de `remotePatterns`
+- Esto permite que las imágenes de Google Maps se carguen correctamente en producción
+
+**Propósito/Razón:** Las imágenes de Google Maps (de lugares como Sierra de Álvarez y Presa San José) se mostraban correctamente en desarrollo pero NO en producción porque el dominio de Google no estaba en la configuración de Next.js Image.
