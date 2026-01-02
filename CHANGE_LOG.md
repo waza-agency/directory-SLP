@@ -3673,3 +3673,31 @@ FACEBOOK_ACCESS_TOKEN=your_page_access_token
 
 [2025-12-31] Agregar dominio de Google Maps a configuración de imágenes | Archivos: next.config.js | Estado: ✅ Exitoso
 [2025-12-31] Eliminar lugar genérico "Coworking Space SLP" de base de datos | Archivos: N/A (base de datos) | Estado: ✅ Exitoso
+
+[2026-01-02] Actualizar script de noticias para traducciones automáticas a 4 idiomas | Archivos: scripts/update-news-now.js, src/lib/api/dashboard-data.ts, src/components/TodayInSLP.tsx, supabase/migrations/20260102_add_japanese_translations.sql | Estado: ✅ Exitoso
+
+**Descripción detallada:**
+El script de actualización de noticias ahora traduce automáticamente todo el contenido a los 4 idiomas soportados (es, en, de, ja) cuando se ejecuta.
+
+**Cambios realizados:**
+1. **scripts/update-news-now.js:**
+   - Prompt de Claude actualizado para solicitar traducciones en los 4 idiomas
+   - Noticias por defecto actualizadas con traducciones en alemán y japonés
+   - Lógica de inserción de headlines actualizada para incluir campos _de y _ja
+   - Lógica de inserción de community_news actualizada para incluir campos _de y _ja
+   - Verificación de migración actualizada para validar columnas de todos los idiomas
+
+2. **src/lib/api/dashboard-data.ts:**
+   - Interfaces NewsHeadline y CommunityNews actualizadas con campos para alemán (textDe, summaryDe, titleDe)
+   - Consultas Supabase actualizadas para seleccionar campos _de
+   - Funciones de fallback por defecto actualizadas con traducciones alemanas
+
+3. **src/components/TodayInSLP.tsx:**
+   - Función getLocalizedText actualizada para soportar 4 idiomas (es, en, de, ja)
+   - Noticias comunitarias por defecto actualizadas con traducciones alemanas
+   - Renderizado de headlines y community news actualizado para usar el nuevo formato
+
+4. **supabase/migrations/20260102_add_japanese_translations.sql:**
+   - Añadidas columnas para alemán (text_de, summary_de, title_de) en news_headlines y community_news
+
+**Resultado:** ✅ Exitoso - Ahora cada ejecución del script de noticias genera contenido traducido automáticamente a español, inglés, alemán y japonés
