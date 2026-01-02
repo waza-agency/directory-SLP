@@ -4,6 +4,24 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-01-02] Feat: Add Japanese i18n for Blog and Today in SLP
+
+**Descripción:**
+Extensión de la internacionalización japonesa para incluir el blog y la sección "Today in SLP".
+
+**Cambios realizados:**
+1. Creada migración SQL para campos _ja en blog_posts, news_headlines, community_news
+2. Actualizado `lib/blog.ts` para soportar locale 'ja'
+3. Actualizado `dashboard-data.ts` con traducciones japonesas para clima y noticias
+4. Actualizado `TodayInSLP.tsx` para mostrar contenido en japonés
+5. Formato de fecha/hora adaptado para japonés (ja-JP)
+
+**Archivos:** lib/blog.ts, dashboard-data.ts, TodayInSLP.tsx, 20260102_add_japanese_translations.sql
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-01-02] Feat: Add Japanese Language Support
 
 **Descripción:**

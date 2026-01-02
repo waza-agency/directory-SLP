@@ -4,6 +4,35 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 4ec6c405 - 2026-01-02
+
+**Mensaje:** feat(i18n): Add Japanese translations for blog and Today in SLP
+
+**Archivos modificados:**
+- supabase/migrations/20260102_add_japanese_translations.sql (nuevo)
+- src/lib/blog.ts
+- src/lib/api/dashboard-data.ts
+- src/components/TodayInSLP.tsx
+
+**Descripción detallada:**
+
+Extensión del soporte de japonés para blog y sección Today in SLP.
+
+1. **Migración SQL** - Nuevos campos japoneses:
+   - blog_posts: title_ja, content_ja, excerpt_ja, meta_title_ja, meta_description_ja
+   - news_headlines: text_ja, summary_ja
+   - community_news: title_ja, summary_ja
+
+2. **lib/blog.ts** - SupportedLocale actualizado a incluir 'ja'
+
+3. **dashboard-data.ts** - Traducciones japonesas para clima, noticias
+
+4. **TodayInSLP.tsx** - Renderizado en japonés con formato ja-JP
+
+**Propósito/Razón:** Completar la internacionalización japonesa para contenido dinámico.
+
+---
+
 ## Commit: e543b3ba - 2026-01-02
 
 **Mensaje:** feat(i18n): Add Japanese language support
