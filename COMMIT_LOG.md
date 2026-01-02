@@ -2692,3 +2692,37 @@ Mientras se mantiene:
 - Esto permite que las imágenes de Google Maps se carguen correctamente en producción
 
 **Propósito/Razón:** Las imágenes de Google Maps (de lugares como Sierra de Álvarez y Presa San José) se mostraban correctamente en desarrollo pero NO en producción porque el dominio de Google no estaba en la configuración de Next.js Image.
+
+## Commit: 3b654cee - 2026-01-02
+**Mensaje:** feat: Add automatic 4-language translation to news update script
+**Archivos modificados:** 
+- scripts/update-news-now.js
+- src/components/TodayInSLP.tsx
+- src/lib/api/dashboard-data.ts
+- supabase/migrations/20260102_add_japanese_translations.sql
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+Implementación de traducción automática a 4 idiomas en el script de actualización de noticias.
+
+Cambios en scripts/update-news-now.js:
+- Actualizado el prompt de Claude para solicitar traducciones en español, inglés, alemán y japonés
+- Agregadas traducciones por defecto en alemán y japonés para noticias de fallback
+- Actualizada lógica de inserción para incluir campos text_de, text_ja, summary_de, summary_ja
+- Actualizada verificación de migración para validar todas las columnas de idiomas
+
+Cambios en src/lib/api/dashboard-data.ts:
+- Agregados campos textDe, summaryDe a interface NewsHeadline
+- Agregados campos titleDe, summaryDe a interface CommunityNews
+- Actualizadas consultas Supabase para seleccionar campos _de
+- Actualizadas funciones de fallback con traducciones alemanas
+
+Cambios en src/components/TodayInSLP.tsx:
+- Función getLocalizedText ahora acepta 4 parámetros (es, en, de, ja)
+- Actualizado renderizado de headlines y community news
+
+Cambios en supabase/migrations:
+- Agregadas columnas text_de, summary_de para news_headlines
+- Agregadas columnas title_de, summary_de para community_news
+
+**Propósito/Razón:** Permitir que cada ejecución del script de noticias genere contenido traducido automáticamente a los 4 idiomas soportados por la aplicación (es, en, de, ja), asegurando que los usuarios de todos los idiomas vean las noticias en su idioma preferido.
