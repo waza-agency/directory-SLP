@@ -20,6 +20,7 @@ export interface WeatherData {
   condition: 'sunny' | 'cloudy' | 'rainy' | 'stormy';
   conditionEs: string;
   conditionEn: string;
+  conditionJa: string;
   humidity: number;
   uvIndex: number;
   sunrise: string;
@@ -40,8 +41,10 @@ export interface NewsHeadline {
   id: string;
   textEs: string;
   textEn: string;
+  textJa: string;
   summaryEs: string;
   summaryEn: string;
+  summaryJa: string;
   source: string | null;
 }
 
@@ -49,8 +52,10 @@ export interface CommunityNews {
   id: string;
   titleEs: string;
   titleEn: string;
+  titleJa: string;
   summaryEs: string;
   summaryEn: string;
+  summaryJa: string;
   category: 'social' | 'community' | 'culture' | 'local';
   imageUrl?: string;
   source?: string;
@@ -84,6 +89,7 @@ function getSeasonalFallbackWeather(): WeatherData {
   let condition: WeatherData['condition'] = 'sunny';
   let conditionEs = 'Despejado';
   let conditionEn = 'Clear';
+  let conditionJa = '晴れ';
 
   if (month >= 11 || month <= 1) {
     // Winter
@@ -97,6 +103,7 @@ function getSeasonalFallbackWeather(): WeatherData {
     condition = 'cloudy';
     conditionEs = 'Parcialmente nublado';
     conditionEn = 'Partly cloudy';
+    conditionJa = '曇り';
   } else {
     // Fall
     temp = 16; tempMin = 10; tempMax = 22;
@@ -117,6 +124,7 @@ function getSeasonalFallbackWeather(): WeatherData {
     condition,
     conditionEs,
     conditionEn,
+    conditionJa,
     humidity: month >= 5 && month <= 8 ? 65 : 45,
     uvIndex,
     sunrise: '07:15',
@@ -153,19 +161,23 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
     let condition: WeatherData['condition'] = 'sunny';
     let conditionEs = 'Despejado';
     let conditionEn = 'Clear';
+    let conditionJa = '晴れ';
 
     if (weatherMain.includes('cloud')) {
       condition = 'cloudy';
       conditionEs = 'Nublado';
       conditionEn = 'Cloudy';
+      conditionJa = '曇り';
     } else if (weatherMain.includes('rain') || weatherMain.includes('drizzle')) {
       condition = 'rainy';
       conditionEs = 'Lluvioso';
       conditionEn = 'Rainy';
+      conditionJa = '雨';
     } else if (weatherMain.includes('thunder') || weatherMain.includes('storm')) {
       condition = 'stormy';
       conditionEs = 'Tormentoso';
       conditionEn = 'Stormy';
+      conditionJa = '嵐';
     }
 
     // Format sunrise/sunset times
@@ -197,6 +209,7 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
       condition,
       conditionEs,
       conditionEn,
+      conditionJa,
       humidity: current.main.humidity,
       uvIndex,
       sunrise: formatTime(current.sys.sunrise),
@@ -257,7 +270,7 @@ export async function fetchHeadlines(): Promise<NewsHeadline[]> {
 
     const { data, error } = await supabase
       .from('news_headlines')
-      .select('id, text_es, text_en, summary_es, summary_en, source')
+      .select('id, text_es, text_en, text_ja, summary_es, summary_en, summary_ja, source')
       .eq('active', true)
       .or(`expires_at.is.null,expires_at.gt.${now}`)
       .order('priority', { ascending: true })
@@ -277,8 +290,10 @@ export async function fetchHeadlines(): Promise<NewsHeadline[]> {
       id: h.id,
       textEs: h.text_es,
       textEn: h.text_en,
+      textJa: h.text_ja || h.text_en,
       summaryEs: h.summary_es || '',
       summaryEn: h.summary_en || '',
+      summaryJa: h.summary_ja || h.summary_en || '',
       source: h.source
     }));
   } catch (error) {
@@ -296,16 +311,20 @@ function getDefaultHeadlines(): NewsHeadline[] {
       id: '1',
       textEs: 'Bienvenido a San Luis Way - Tu guía definitiva de San Luis Potosí',
       textEn: 'Welcome to San Luis Way - Your definitive guide to San Luis Potosí',
+      textJa: 'San Luis Wayへようこそ - サンルイスポトシの究極ガイド',
       summaryEs: 'Descubre lugares, eventos y experiencias únicas en la ciudad y la Huasteca.',
       summaryEn: 'Discover places, events, and unique experiences in the city and Huasteca.',
+      summaryJa: '街とウアステカで場所、イベント、ユニークな体験を発見しましょう。',
       source: null
     },
     {
       id: '2',
       textEs: 'Explora la riqueza cultural y gastronómica de SLP',
       textEn: 'Explore the cultural and gastronomic richness of SLP',
+      textJa: 'SLPの文化とグルメの豊かさを探索',
       summaryEs: 'Desde enchiladas potosinas hasta el Centro de las Artes, hay mucho por descubrir.',
       summaryEn: 'From enchiladas potosinas to the Arts Center, there is much to discover.',
+      summaryJa: 'エンチラーダス・ポトシーナスからアートセンターまで、発見することがたくさん。',
       source: null
     }
   ];
@@ -327,7 +346,7 @@ export async function fetchCommunityNews(): Promise<CommunityNews[]> {
 
     const { data, error } = await supabase
       .from('community_news')
-      .select('id, title_es, title_en, summary_es, summary_en, category, image_url, source, published_at')
+      .select('id, title_es, title_en, title_ja, summary_es, summary_en, summary_ja, category, image_url, source, published_at')
       .eq('active', true)
       .or(`expires_at.is.null,expires_at.gt.${now}`)
       .order('priority', { ascending: true })
@@ -347,8 +366,10 @@ export async function fetchCommunityNews(): Promise<CommunityNews[]> {
       id: n.id,
       titleEs: n.title_es,
       titleEn: n.title_en,
+      titleJa: n.title_ja || n.title_en,
       summaryEs: n.summary_es,
       summaryEn: n.summary_en,
+      summaryJa: n.summary_ja || n.summary_en,
       category: n.category,
       imageUrl: n.image_url,
       source: n.source,
@@ -370,8 +391,10 @@ function getDefaultCommunityNews(): CommunityNews[] {
       id: '1',
       titleEs: 'Mercado Tangamanga celebra su 5to aniversario',
       titleEn: 'Tangamanga Market celebrates 5th anniversary',
+      titleJa: 'タンガマンガ市場が5周年を祝う',
       summaryEs: 'El mercado artesanal más querido de SLP festeja con actividades especiales este fin de semana.',
       summaryEn: 'SLP\'s beloved artisan market celebrates with special activities this weekend.',
+      summaryJa: 'SLPで愛される職人市場が今週末特別なアクティビティでお祝い。',
       category: 'community',
       publishedAt: now
     },
@@ -379,8 +402,10 @@ function getDefaultCommunityNews(): CommunityNews[] {
       id: '2',
       titleEs: 'Nueva ruta ciclista conecta Lomas con el Centro',
       titleEn: 'New bike route connects Lomas to Downtown',
+      titleJa: '新しい自転車ルートがロマスとダウンタウンを接続',
       summaryEs: 'La ciclovía de 8km promete facilitar el transporte sustentable en la ciudad.',
       summaryEn: 'The 8km bike lane promises to facilitate sustainable transportation in the city.',
+      summaryJa: '8kmの自転車レーンが市内の持続可能な交通を促進する見込み。',
       category: 'local',
       publishedAt: now
     },
@@ -388,8 +413,10 @@ function getDefaultCommunityNews(): CommunityNews[] {
       id: '3',
       titleEs: 'Voluntarios limpian el Parque de Morales',
       titleEn: 'Volunteers clean up Morales Park',
+      titleJa: 'ボランティアがモラレス公園を清掃',
       summaryEs: 'Más de 200 ciudadanos participaron en la jornada de limpieza comunitaria.',
       summaryEn: 'Over 200 citizens participated in the community cleanup day.',
+      summaryJa: '200人以上の市民がコミュニティ清掃活動に参加。',
       category: 'social',
       publishedAt: now
     }

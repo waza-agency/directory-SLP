@@ -16,7 +16,7 @@ export interface BlogPost {
   metaDescription?: string;
 }
 
-export type SupportedLocale = 'en' | 'es' | 'de';
+export type SupportedLocale = 'en' | 'es' | 'de' | 'ja';
 
 // Helper to get localized content with fallback to English (base)
 // Structure: base fields (title, content, excerpt) = English, _es = Spanish, _de = German
@@ -66,7 +66,7 @@ export async function getBlogPosts(locale: SupportedLocale = 'en'): Promise<Blog
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, title_ja, content_ja, excerpt_ja, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de, meta_title_ja, meta_description_ja')
       .eq('status', 'published')
       .order('published_at', { ascending: false });
 
@@ -116,7 +116,7 @@ export async function getBlogPostBySlug(slug: string, locale: SupportedLocale = 
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, title_ja, content_ja, excerpt_ja, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de, meta_title_ja, meta_description_ja')
       .eq('slug', slug)
       .eq('status', 'published')
       .single();
@@ -171,7 +171,7 @@ export async function getBlogPostsBySlugs(slugs: string[], locale: SupportedLoca
     const client = getSupabaseClient();
     const { data, error } = await client
       .from('blog_posts')
-      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de')
+      .select('id, slug, title, content, excerpt, image_url, category, published_at, created_at, tags, title_es, content_es, excerpt_es, title_de, content_de, excerpt_de, title_ja, content_ja, excerpt_ja, meta_title, meta_description, meta_title_es, meta_description_es, meta_title_de, meta_description_de, meta_title_ja, meta_description_ja')
       .in('slug', slugs)
       .eq('status', 'published');
 

@@ -69,7 +69,13 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
     setCurrentDate(new Date());
     const updateTime = () => {
       const now = new Date();
-      setCurrentTime(now.toLocaleTimeString(locale === 'es' ? 'es-MX' : 'en-US', {
+      const localeMap: Record<string, string> = {
+        es: 'es-MX',
+        ja: 'ja-JP',
+        de: 'de-DE',
+        en: 'en-US'
+      };
+      setCurrentTime(now.toLocaleTimeString(localeMap[locale || 'en'] || 'en-US', {
         hour: '2-digit',
         minute: '2-digit',
         timeZone: 'America/Mexico_City'
@@ -87,7 +93,13 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   }, [locale, exchangeRates.length]);
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString(locale === 'es' ? 'es-MX' : 'en-US', {
+    const localeMap: Record<string, string> = {
+      es: 'es-MX',
+      ja: 'ja-JP',
+      de: 'de-DE',
+      en: 'en-US'
+    };
+    return date.toLocaleDateString(localeMap[locale || 'en'] || 'en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -103,11 +115,17 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
    * CONTENT POLICY: Only positive/neutral news. NO: crimes, violence, arrests, accidents
    * Headlines are fetched from Supabase and updated daily at 7am via cron job with real web search
    */
+  const getLocalizedText = (es: string, en: string, ja: string) => {
+    if (locale === 'es') return es;
+    if (locale === 'ja') return ja;
+    return en;
+  };
+
   const tickerHeadlines = headlines.length > 0
     ? headlines.map(h => ({
         id: h.id,
-        text: locale === 'es' ? h.textEs : h.textEn,
-        summary: locale === 'es' ? h.summaryEs : h.summaryEn
+        text: getLocalizedText(h.textEs, h.textEn, h.textJa),
+        summary: getLocalizedText(h.summaryEs, h.summaryEn, h.summaryJa)
       }))
     : [
         { id: '1', text: t('todayInSLP.loadingNews'), summary: '' }
@@ -121,8 +139,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       id: '1',
       titleEs: 'Mercado Tangamanga celebra su 5to aniversario',
       titleEn: 'Tangamanga Market celebrates 5th anniversary',
+      titleJa: 'タンガマンガ市場が5周年を祝う',
       summaryEs: 'El mercado artesanal más querido de SLP festeja con actividades especiales este fin de semana.',
       summaryEn: "SLP's beloved artisan market celebrates with special activities this weekend.",
+      summaryJa: 'SLPで愛される職人市場が今週末特別なアクティビティでお祝い。',
       category: 'community',
       publishedAt: new Date().toISOString()
     },
@@ -130,8 +150,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       id: '2',
       titleEs: 'Nueva ruta ciclista conecta Lomas con el Centro',
       titleEn: 'New bike route connects Lomas to Downtown',
+      titleJa: '新しい自転車ルートがロマスとダウンタウンを接続',
       summaryEs: 'La ciclovía de 8km promete facilitar el transporte sustentable en la ciudad.',
       summaryEn: 'The 8km bike lane promises to facilitate sustainable transportation in the city.',
+      summaryJa: '8kmの自転車レーンが市内の持続可能な交通を促進する見込み。',
       category: 'local',
       publishedAt: new Date().toISOString()
     },
@@ -139,8 +161,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       id: '3',
       titleEs: 'Voluntarios limpian el Parque de Morales',
       titleEn: 'Volunteers clean up Morales Park',
+      titleJa: 'ボランティアがモラレス公園を清掃',
       summaryEs: 'Más de 200 ciudadanos participaron en la jornada de limpieza comunitaria.',
       summaryEn: 'Over 200 citizens participated in the community cleanup day.',
+      summaryJa: '200人以上の市民がコミュニティ清掃活動に参加。',
       category: 'social',
       publishedAt: new Date().toISOString()
     }
@@ -199,7 +223,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               <>
                 <p className="text-4xl font-bold text-gray-900 mb-1">{weather.temp}°C</p>
                 <p className="text-sm text-gray-600 mb-2">
-                  {locale === 'es' ? weather.conditionEs : weather.conditionEn}
+                  {locale === 'es' ? weather.conditionEs : locale === 'ja' ? weather.conditionJa : weather.conditionEn}
                 </p>
                 <div className="flex items-center gap-3 text-xs text-gray-500">
                   <span>↓ {weather.tempMin}°</span>
@@ -419,10 +443,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                       {t(`todayInSLP.${news.category}`)}
                     </span>
                     <h4 className="font-semibold text-gray-900 text-sm mt-1 line-clamp-2">
-                      {locale === 'es' ? news.titleEs : news.titleEn}
+                      {getLocalizedText(news.titleEs, news.titleEn, news.titleJa)}
                     </h4>
                     <p className="text-gray-600 text-xs mt-1 line-clamp-2">
-                      {locale === 'es' ? news.summaryEs : news.summaryEn}
+                      {getLocalizedText(news.summaryEs, news.summaryEn, news.summaryJa)}
                     </p>
                   </div>
                 </div>
