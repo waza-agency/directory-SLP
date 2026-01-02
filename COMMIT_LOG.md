@@ -4,6 +4,39 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: e543b3ba - 2026-01-02
+
+**Mensaje:** feat(i18n): Add Japanese language support
+
+**Archivos modificados:**
+- public/locales/ja/common.json (nuevo)
+- next-i18next.config.js
+- src/components/LanguageSwitcher.tsx
+- src/pages/_document.tsx
+
+**Descripción detallada:**
+
+Implementación completa de soporte para idioma japonés en la internacionalización del sitio.
+
+1. **public/locales/ja/common.json** - Archivo de traducciones japonesas
+   - 1,000+ claves traducidas al japonés
+   - Incluye todas las secciones: nav, homepage, centro histórico, tangamanga, blog, servicios, etc.
+   - Traducciones naturales y contextuales en japonés
+
+2. **next-i18next.config.js** - Configuración de i18next
+   - Agregado 'ja' al array de locales: `['en', 'es', 'de', 'ja']`
+
+3. **src/components/LanguageSwitcher.tsx** - Selector de idioma
+   - Agregada bandera japonesa: `ja: '🇯🇵'`
+   - Agregado nombre nativo: `ja: '日本語'`
+
+4. **src/pages/_document.tsx** - SEO internacional
+   - Agregado hreflang: `<link rel="alternate" hrefLang="ja" href="https://www.sanluisway.com/ja" />`
+
+**Propósito/Razón:** Expandir el alcance del sitio para usuarios japonófonos, especialmente relevante para la comunidad de expatriados japoneses en San Luis Potosí y visitantes de Japón.
+
+---
+
 ## Commit: 2b152877 - 2025-12-31
 
 **Mensaje:** feat(scripts): Add script to update place images from Google Maps

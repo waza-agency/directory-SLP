@@ -4,6 +4,23 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-01-02] Feat: Add Japanese Language Support
+
+**Descripción:**
+Implementación completa de internacionalización en japonés para el sitio web.
+
+**Cambios realizados:**
+1. Creado `public/locales/ja/common.json` con 1,000+ traducciones al japonés
+2. Actualizado `next-i18next.config.js` para incluir locale 'ja'
+3. Actualizado `LanguageSwitcher.tsx` con bandera 🇯🇵 y nombre "日本語"
+4. Actualizado `_document.tsx` con hreflang tag para SEO japonés
+
+**Archivos:** next-i18next.config.js, LanguageSwitcher.tsx, _document.tsx, public/locales/ja/common.json
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2025-12-31] Feat: Add Real Images to Places Without Images
 
 **Descripción:**
