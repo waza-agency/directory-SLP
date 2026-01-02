@@ -6,12 +6,14 @@ const languageFlags: Record<string, string> = {
   en: '🇺🇸',
   es: '🇲🇽',
   de: '🇩🇪',
+  ja: '🇯🇵',
 };
 
 const languageNames: Record<string, string> = {
   en: 'English',
   es: 'Español',
   de: 'Deutsch',
+  ja: '日本語',
 };
 
 interface LanguageSwitcherProps {
