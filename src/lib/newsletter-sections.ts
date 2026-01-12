@@ -324,8 +324,6 @@ Return the complete <tr> section HTML with the 📰 The Week in SLP header.`,
 
 ⛔ REJECT ANY EVENT FROM ${dates.prevMonthName1} OR ${dates.prevMonthName2}
 ⛔ REJECT ANY EVENT with dates in "${dates.prevMonthSpanish1}" or "${dates.prevMonthSpanish2}"
-⛔ IF YOU SEE "octubre" or "octubre 2025" in event dates → SKIP IT!
-⛔ IF YOU SEE "noviembre" or "noviembre 2025" in event dates → SKIP IT!
 ✅ ONLY include events happening in ${dates.currentMonth} ${dates.currentYear}
 ✅ Events must be between ${dates.dateRange}
 
@@ -334,7 +332,15 @@ Search queries to use:
 - "conciertos SLP ${dates.spanishMonth} ${dates.currentYear}"
 - "agenda cultural San Luis Potosí ${dates.currentMonth} ${dates.currentYear}"
 
-Include: event name, date/time, venue with address, description, and cost in MXN pesos.
+🚨 REQUIRED FOR EACH EVENT (ALL fields mandatory):
+- Event name (specific, not generic like "DJ Night" - include performer/details)
+- Exact date (e.g., "January 19")
+- Venue name AND address (e.g., "Arena Potosí, Av. Himno Nacional 4010")
+- Time (e.g., "9:00 PM")
+- Cost in MXN pesos (or "Free")
+- Brief description (2-3 sentences about what to expect)
+
+⛔ If you can't find venue/time for an event, SKIP IT and find another
 Categories: culture, music, food, sports, family, or nightlife.
 Return the complete <tr> section HTML.`,
 
@@ -364,7 +370,14 @@ Return the complete <tr> section HTML with the 🌿 Weekend Escape header.`,
 
 Search for: "eventos San Luis Potosí ${dates.spanishMonth} ${dates.currentYear}"
 
-List events with dates and brief descriptions.
+🚨 EACH EVENT MUST INCLUDE:
+- Event name (specific, not generic)
+- Date (e.g., "January 25")
+- Venue name (e.g., "Teatro de la Paz", "Arena Potosí")
+- Time (e.g., "8:00 PM")
+- One-line description
+
+⛔ If missing venue/time, find a different event
 Return the complete <tr> section HTML with the 📅 Coming Up header.`,
 
     tip: `Generate an "Expat Pro Tip" for living in San Luis Potosí, México.

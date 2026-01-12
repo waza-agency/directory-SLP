@@ -487,25 +487,25 @@ export const NEWSLETTER_TEMPLATE = `
                   <td width="50%" valign="top" style="padding-right: 10px;">
                     <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🎭 Culture & Arts</h4>
                     <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li style="margin-bottom: 5px;">[EVENT] - [DATE]</li>
-                      <li>[EVENT] - [DATE]</li>
+                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
                     </ul>
 
                     <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🍽️ Food & Dining</h4>
                     <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li>[EVENT] - [DATE]</li>
+                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
                     </ul>
                   </td>
                   <td width="50%" valign="top" style="padding-left: 10px;">
                     <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🎵 Music & Nightlife</h4>
                     <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li style="margin-bottom: 5px;">[EVENT] - [DATE]</li>
-                      <li>[EVENT] - [DATE]</li>
+                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
                     </ul>
 
                     <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">⚽ Sports</h4>
                     <ul style="margin: 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li>[EVENT] - [DATE]</li>
+                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
                     </ul>
                   </td>
                 </tr>
@@ -691,8 +691,8 @@ function cleanHtmlForBeehiiv(html: string): string {
   // Remove unreplaced placeholders (text in square brackets that looks like a template variable)
   cleaned = cleaned.replace(/\[(?:NEWS_|EVENT_|BLOG_|LINK_|DATE_|CATEGORY_|VENUE_|COST_|FACT_|TIP_|CTA_|WEATHER_|QUICK_HIT_|PREVIEW_|HERO_|TOP_PICK_|ESCAPE_|NEW_PLACE_|DESTINATION_|UPCOMING_|IMPACT_)[A-Z0-9_]+\]/g, '');
 
-  // Remove generic placeholders like [EVENT], [DATE], [ADDRESS], etc.
-  cleaned = cleaned.replace(/\[(?:EVENT|DATE|ADDRESS|DESCRIPTION|LINK|PRACTICAL_CITY_UPDATE)\]/g, '');
+  // Remove generic placeholders like [EVENT], [DATE], [ADDRESS], [VENUE], [TIME], etc.
+  cleaned = cleaned.replace(/\[(?:EVENT|EVENT_NAME|DATE|ADDRESS|DESCRIPTION|LINK|PRACTICAL_CITY_UPDATE|VENUE|TIME)\]/g, '');
 
   // Remove template instruction comments
   cleaned = cleaned.replace(/\[[\d-]+ sentences[^\]]*\]/g, '');
@@ -1531,6 +1531,18 @@ Overall Summary: ${weatherForecast.summary}
     - Replace [WEATHER_SUMMARY] with 7-day outlook (e.g., "Mostly sunny, 18-25°C, chance of rain Thursday")
     - Replace [FACT_TITLE] and [FACT_BODY] with a NEW curious fact (not from the used list)
     - Replace [TIP_TITLE] with a NEW pro tip title (not from the used list)
+
+    **🎭 MORE THIS WEEK SECTION - REQUIRED DETAILS:**
+    For EVERY event in the "More This Week" section, you MUST include ALL of these:
+    - [EVENT_NAME]: The event name (e.g., "DJ Night with Carlos Ruiz")
+    - [DATE]: The specific date (e.g., "January 19")
+    - [VENUE]: The venue name (e.g., "La Santa Bar", "Arena Potosí", "Centro de las Artes")
+    - [TIME]: The time (e.g., "9:00 PM", "8:30 PM")
+
+    ⛔ DO NOT leave venue or time empty - readers need this info!
+    ⛔ If you can't find time/venue, SKIP that event and find another one
+    ✅ Format: <strong>Event Name</strong><br/><span style="color: #6B7280;">Date @ Venue · Time</span>
+    ✅ Example: <strong>Jazz Night</strong><br/><span style="color: #6B7280;">Jan 18 @ La Santa Bar · 9:00 PM</span>
 
     ⛔ **ABSOLUTELY NO IMAGES** ⛔
     - Do NOT include ANY <img> tags in the output

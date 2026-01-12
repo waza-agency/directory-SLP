@@ -4,6 +4,31 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-01-12] Fix: Newsletter "More This Week" Events Now Include Full Details
+
+**Descripción:**
+Corregido el problema donde la sección "More This Week" mostraba eventos incompletos (solo nombre y fecha) sin información útil como ubicación y hora.
+
+**Problema:**
+- Los eventos se mostraban como "DJ Night - January 19" sin más detalles
+- El usuario no sabía dónde ni a qué hora era el evento
+- La información era inútil para planear asistencia
+
+**Cambios realizados:**
+1. Actualizado el template HTML para incluir venue y hora en formato estructurado
+2. Añadidas instrucciones explícitas al prompt sobre campos requeridos
+3. Instrucción de omitir eventos si no se encuentra venue/hora
+4. Actualizado newsletter-sections.ts para regeneración con mismos requisitos
+
+**Archivos:**
+- src/lib/newsletter-generator.ts
+- src/lib/newsletter-sections.ts
+- CHANGE_LOG.md
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-01-12] Fix: Newsletter Weather Uses Real OpenWeatherMap API Data
 
 **Descripción:**
