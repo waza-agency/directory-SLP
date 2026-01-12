@@ -4,6 +4,31 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-01-12] Fix: Newsletter Weather Uses Real OpenWeatherMap API Data
+
+**Descripción:**
+Corregido el problema donde el newsletter mostraba temperaturas incorrectas (10-24°C soleado) en lugar de las temperaturas reales. El newsletter ahora obtiene datos del clima directamente de la API de OpenWeatherMap.
+
+**Problema:**
+- El generador de newsletters le decía a la IA que "busque el clima" en internet
+- Esto resultaba en datos inventados o inexactos
+- La temperatura real es ~6-20°C (con mínimas de 6°C), no 10-24°C
+
+**Cambios realizados:**
+1. Añadida función `fetchWeatherForecast()` en `dashboard-data.ts` para obtener pronóstico de 5 días
+2. Modificado `newsletter-generator.ts` para obtener datos reales de clima antes de generar
+3. Actualizado el prompt de la IA para usar los datos exactos de temperatura proporcionados
+4. Modificado `newsletter-sections.ts` para usar datos reales al regenerar la sección del clima
+
+**Archivos:**
+- src/lib/api/dashboard-data.ts
+- src/lib/newsletter-generator.ts
+- src/lib/newsletter-sections.ts
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-01-02] Feat: Add Japanese i18n for Blog and Today in SLP
 
 **Descripción:**

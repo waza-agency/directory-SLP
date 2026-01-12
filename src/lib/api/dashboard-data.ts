@@ -226,6 +226,143 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
   }
 }
 
+export interface DailyForecast {
+  date: string;
+  dayName: string;
+  tempMin: number;
+  tempMax: number;
+  condition: string;
+  conditionEs: string;
+  humidity: number;
+  chanceOfRain: number;
+}
+
+export interface WeatherForecast {
+  current: WeatherData;
+  daily: DailyForecast[];
+  summary: string;
+  summaryEs: string;
+}
+
+/**
+ * Fetch 5-day weather forecast from OpenWeatherMap API
+ * Returns current weather + daily forecasts for the next 5 days
+ */
+export async function fetchWeatherForecast(): Promise<WeatherForecast | null> {
+  const apiKey = process.env.OPENWEATHERMAP_API_KEY;
+
+  if (!apiKey) {
+    console.warn('OpenWeatherMap API key not configured. Cannot fetch forecast.');
+    return null;
+  }
+
+  try {
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${SLP_LAT}&lon=${SLP_LON}&units=metric&appid=${apiKey}`;
+    const forecastRes = await fetch(forecastUrl);
+
+    if (!forecastRes.ok) {
+      const errorText = await forecastRes.text();
+      console.error('Forecast API error:', forecastRes.status, errorText);
+      return null;
+    }
+
+    const forecastData = await forecastRes.json();
+
+    // Get current weather first
+    const current = await fetchWeatherData();
+    if (!current) return null;
+
+    // Process 3-hourly forecasts into daily summaries
+    const dailyMap = new Map<string, {
+      temps: number[];
+      conditions: string[];
+      humidity: number[];
+      rain: number;
+    }>();
+
+    for (const item of forecastData.list) {
+      const date = new Date(item.dt * 1000);
+      const dateKey = date.toISOString().split('T')[0];
+
+      if (!dailyMap.has(dateKey)) {
+        dailyMap.set(dateKey, { temps: [], conditions: [], humidity: [], rain: 0 });
+      }
+
+      const day = dailyMap.get(dateKey)!;
+      day.temps.push(item.main.temp);
+      day.conditions.push(item.weather[0]?.main || 'Clear');
+      day.humidity.push(item.main.humidity);
+      if (item.pop) day.rain = Math.max(day.rain, item.pop * 100);
+    }
+
+    // Convert to daily forecasts
+    const daily: DailyForecast[] = [];
+    const conditionMap: Record<string, string> = {
+      'Clear': 'Despejado',
+      'Clouds': 'Nublado',
+      'Rain': 'Lluvia',
+      'Drizzle': 'Llovizna',
+      'Thunderstorm': 'Tormenta',
+      'Snow': 'Nieve',
+      'Mist': 'Neblina',
+      'Fog': 'Niebla'
+    };
+
+    Array.from(dailyMap.entries()).forEach(([dateKey, data]) => {
+      const date = new Date(dateKey);
+      const dayName = date.toLocaleDateString('en-US', { weekday: 'long', timeZone: 'America/Mexico_City' });
+      const tempMin = Math.round(Math.min(...data.temps));
+      const tempMax = Math.round(Math.max(...data.temps));
+
+      // Most common condition
+      const conditionCounts = data.conditions.reduce((acc: Record<string, number>, c: string) => {
+        acc[c] = (acc[c] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+      const sortedConditions = Object.entries(conditionCounts).sort((a: [string, number], b: [string, number]) => b[1] - a[1]);
+      const mainCondition = sortedConditions[0][0];
+
+      daily.push({
+        date: dateKey,
+        dayName,
+        tempMin,
+        tempMax,
+        condition: mainCondition,
+        conditionEs: conditionMap[mainCondition] || mainCondition,
+        humidity: Math.round(data.humidity.reduce((a: number, b: number) => a + b, 0) / data.humidity.length),
+        chanceOfRain: Math.round(data.rain)
+      });
+    });
+
+    // Generate summary
+    const minTemp = Math.min(...daily.map(d => d.tempMin));
+    const maxTemp = Math.max(...daily.map(d => d.tempMax));
+    const hasRain = daily.some(d => d.chanceOfRain > 30);
+
+    let summary = `Temperature range: ${minTemp}°C to ${maxTemp}°C.`;
+    let summaryEs = `Rango de temperatura: ${minTemp}°C a ${maxTemp}°C.`;
+
+    if (hasRain) {
+      const rainyDays = daily.filter(d => d.chanceOfRain > 30).map(d => d.dayName);
+      summary += ` Chance of rain on ${rainyDays.join(', ')}.`;
+      summaryEs += ` Posibilidad de lluvia el ${rainyDays.join(', ')}.`;
+    } else {
+      summary += ' Mostly dry conditions expected.';
+      summaryEs += ' Se esperan condiciones mayormente secas.';
+    }
+
+    return {
+      current,
+      daily: daily.slice(0, 7), // Limit to 7 days
+      summary,
+      summaryEs
+    };
+  } catch (error) {
+    console.error('Error fetching weather forecast:', error);
+    return null;
+  }
+}
+
 /**
  * Fetch exchange rates from Frankfurter API (free, no key needed)
  * Returns rates for USD, EUR, GBP, JPY, CNY to MXN

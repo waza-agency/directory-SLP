@@ -5,6 +5,7 @@
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { format, addDays } from 'date-fns';
+import { fetchWeatherForecast } from './api/dashboard-data';
 
 // Helper to get current dates for prompts
 function getCurrentDates() {
@@ -248,6 +249,34 @@ export async function regenerateSection(
   const dates = getCurrentDates();
   console.log(`Regenerating section with dates: ${dates.todayFormatted}, range: ${dates.dateRange}`);
 
+  // Fetch real weather data if regenerating weather section
+  let weatherDataStr = '';
+  if (sectionType === 'weather') {
+    console.log('Fetching real weather data for weather section...');
+    try {
+      const forecast = await fetchWeatherForecast();
+      if (forecast) {
+        const dailyForecast = forecast.daily.map(d =>
+          `  - ${d.dayName}: ${d.tempMin}°C - ${d.tempMax}°C, ${d.condition} (${d.conditionEs}), ${d.chanceOfRain}% rain chance`
+        ).join('\n');
+        weatherDataStr = `
+📊 REAL WEATHER DATA FROM OPENWEATHERMAP API (USE THIS DATA):
+Current Temperature: ${forecast.current.temp}°C
+Current Condition: ${forecast.current.conditionEn} (${forecast.current.conditionEs})
+Humidity: ${forecast.current.humidity}%
+
+5-Day Forecast:
+${dailyForecast}
+
+Summary: ${forecast.summary}
+`;
+        console.log('Real weather data fetched successfully');
+      }
+    } catch (error) {
+      console.error('Could not fetch weather data:', error);
+    }
+  }
+
   const model = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY).getGenerativeModel({
     model: "gemini-2.0-flash",
     generationConfig: { maxOutputTokens: 2000, temperature: 0.8 }
@@ -263,7 +292,10 @@ Return ONLY the HTML for the opening paragraph (no <tr> wrapper needed, just the
 📅 TODAY IS: ${dates.todayFormatted}
 📅 FORECAST PERIOD: ${dates.dateRange}
 
-Include forecast summary, temperature range in Celsius, and a practical tip.
+🚨 IMPORTANT: Use the REAL WEATHER DATA below. DO NOT make up temperatures.
+${weatherDataStr || '⚠️ Weather API unavailable - use realistic winter temperatures for SLP (around 5-15°C in January)'}
+
+Include forecast summary, temperature range in Celsius (USE THE EXACT VALUES FROM DATA ABOVE), and a practical tip.
 Format as HTML with the 🌦️ Weather Watch header.
 Return the complete <tr> section HTML.`,
 

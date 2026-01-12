@@ -4,6 +4,52 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 72e5fb65 - 2026-01-12
+
+**Mensaje:** fix(newsletter): Use real OpenWeatherMap API data for weather section
+
+**Archivos modificados:**
+- src/lib/api/dashboard-data.ts
+- src/lib/newsletter-generator.ts
+- src/lib/newsletter-sections.ts
+- CHANGE_LOG.md
+- COMMIT_LOG.md
+
+**Descripción detallada:**
+
+Corrección del generador de newsletters para usar datos reales del clima de OpenWeatherMap en lugar de dejar que la IA invente temperaturas.
+
+**Problema identificado:**
+- El newsletter mostraba temperaturas incorrectas (10-24°C soleado)
+- El generador le pedía a la IA que "busque el clima"
+- La IA generaba datos inventados o inexactos
+- Las temperaturas reales son ~6-20°C (mucho más frío)
+
+**Cambios implementados:**
+
+1. **dashboard-data.ts** - Nueva función `fetchWeatherForecast()`:
+   - Interfaz `DailyForecast` para pronóstico diario
+   - Interfaz `WeatherForecast` para pronóstico completo
+   - Llama a la API de 5 días de OpenWeatherMap
+   - Procesa datos de 3 horas en resúmenes diarios
+   - Retorna temperaturas min/max, condiciones, probabilidad de lluvia
+
+2. **newsletter-generator.ts** - Integración de datos reales:
+   - Importa `fetchWeatherForecast` de dashboard-data
+   - Obtiene datos del clima antes de generar el newsletter
+   - Pasa los datos exactos al prompt de la IA
+   - Instruye a la IA a NO buscar clima y usar los datos proporcionados
+
+3. **newsletter-sections.ts** - Regeneración con datos reales:
+   - Importa `fetchWeatherForecast`
+   - Al regenerar sección de clima, obtiene datos frescos
+   - Actualizado prompt para usar datos exactos
+
+**Propósito/Razón:**
+Garantizar que el newsletter proporcione información meteorológica precisa y actualizada a los suscriptores en lugar de datos inventados por la IA.
+
+---
+
 ## Commit: 4ec6c405 - 2026-01-02
 
 **Mensaje:** feat(i18n): Add Japanese translations for blog and Today in SLP

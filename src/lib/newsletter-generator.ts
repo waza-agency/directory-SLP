@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
 import { format, addDays, startOfWeek, endOfWeek } from 'date-fns';
+import { fetchWeatherForecast, WeatherForecast } from './api/dashboard-data';
 
 let supabaseClient: ReturnType<typeof createClient> | null = null;
 
@@ -1112,7 +1113,40 @@ export async function generateWeeklyNewsletter(customContent?: string) {
 
   console.log(`   Found: ${factsCount} facts, ${tipsCount} tips, ${placesCount} places used previously`);
 
-  console.log('2. 🧠 Performing Deep Research with Gemini Grounding...');
+  // Fetch real weather data from OpenWeatherMap API
+  console.log('2. 🌤️ Fetching real weather forecast from OpenWeatherMap...');
+  let weatherForecast: WeatherForecast | null = null;
+  let weatherDataStr = '';
+  try {
+    weatherForecast = await fetchWeatherForecast();
+    if (weatherForecast) {
+      const dailyForecast = weatherForecast.daily.map(d =>
+        `  - ${d.dayName}: ${d.tempMin}°C - ${d.tempMax}°C, ${d.condition} (${d.conditionEs}), ${d.chanceOfRain}% rain chance`
+      ).join('\n');
+      weatherDataStr = `
+📊 REAL WEATHER DATA FROM OPENWEATHERMAP API (USE THIS - DO NOT SEARCH FOR WEATHER):
+Current Temperature: ${weatherForecast.current.temp}°C
+Current Condition: ${weatherForecast.current.conditionEn} (${weatherForecast.current.conditionEs})
+Humidity: ${weatherForecast.current.humidity}%
+Sunrise: ${weatherForecast.current.sunrise} / Sunset: ${weatherForecast.current.sunset}
+
+5-Day Forecast for San Luis Potosí, México:
+${dailyForecast}
+
+Overall Summary: ${weatherForecast.summary}
+`;
+      console.log('   ✅ Real weather data fetched successfully');
+      console.log(`   📊 Temperature range: ${Math.min(...weatherForecast.daily.map(d => d.tempMin))}°C - ${Math.max(...weatherForecast.daily.map(d => d.tempMax))}°C`);
+    } else {
+      console.log('   ⚠️ Could not fetch weather forecast - AI will search for weather');
+      weatherDataStr = '⚠️ Weather API unavailable - Search for "Clima San Luis Potosí" to get current weather.';
+    }
+  } catch (error) {
+    console.error('   ❌ Weather fetch error:', error);
+    weatherDataStr = '⚠️ Weather API error - Search for "Clima San Luis Potosí" to get current weather.';
+  }
+
+  console.log('3. 🧠 Performing Deep Research with Gemini Grounding...');
   console.log(`   📅 Newsletter date range: ${dateRangeStr}`);
   console.log(`   📅 Today is: ${dates.todayFormatted}`);
   console.log(`   📅 Current month: ${dates.weekStartDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`);
@@ -1259,16 +1293,19 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     - Example: "<strong>Traffic Alert:</strong> Continued maintenance on Himno Nacional."
 
     ═══════════════════════════════════════════════════════════
-    SECTION 2: WEATHER FORECAST
+    SECTION 2: WEATHER FORECAST (USE REAL DATA PROVIDED BELOW)
     ═══════════════════════════════════════════════════════════
 
-    Search for "Clima San Luis Potosí ${dateRangeStr}" and "Calidad del aire San Luis Potosí".
+    🚨 IMPORTANT: Use the REAL WEATHER DATA provided below. DO NOT search for weather.
+    This data comes directly from OpenWeatherMap API and is accurate.
 
-    FORMAT:
-    - General Outlook: (Sunny, rainy, cold front, etc.)
-    - High/Low Temps: Range for the week
-    - Rain Probability: Days with rain expected
-    - Recommendation: (e.g. "Bring a jacket," "High UV warning")
+    ${weatherDataStr}
+
+    FORMAT YOUR OUTPUT AS:
+    - General Outlook: Use the condition from the data above
+    - High/Low Temps: Use the EXACT temperature range from the forecast data
+    - Rain Probability: Mention specific days with >30% rain chance
+    - Recommendation: Based on temperatures (if cold: "Bundle up", if rain: "Bring umbrella")
 
     ═══════════════════════════════════════════════════════════
     SECTION 3: EVENTS & ENTERTAINMENT (NEXT 7 DAYS ONLY)
