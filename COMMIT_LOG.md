@@ -4,6 +4,34 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 58326d93 - 2026-01-14
+
+**Mensaje:** fix(weather): Use forecast data for accurate daily min/max temperatures
+
+**Archivos modificados:**
+- src/lib/api/dashboard-data.ts
+
+**Descripción detallada:**
+
+Corrección de las temperaturas mínimas y máximas mostradas en la sección "What you need to know today" del homepage.
+
+**Problema identificado:**
+- El endpoint `/weather` de OpenWeatherMap retorna `temp_min` y `temp_max` del momento actual, no del día completo
+- Esto causaba que las temperaturas bajas no reflejaran la mínima real del día (ej: mostraba 15° cuando la mínima fue 6°)
+
+**Cambios implementados:**
+
+1. **fetchWeatherData()** - Ahora obtiene datos precisos del día:
+   - Hace 2 llamadas en paralelo: `/weather` (actual) + `/forecast` (pronóstico)
+   - Filtra los datos del forecast para obtener solo las temperaturas de hoy
+   - Calcula min/max real usando todos los puntos de datos del forecast
+   - Incluye la temperatura actual en el cálculo para mayor precisión
+
+**Propósito/Razón:**
+Mostrar temperaturas mínimas y máximas precisas del día completo en lugar de las del momento actual, proporcionando información meteorológica más útil a los usuarios.
+
+---
+
 ## Commit: 72e5fb65 - 2026-01-12
 
 **Mensaje:** fix(newsletter): Use real OpenWeatherMap API data for weather section

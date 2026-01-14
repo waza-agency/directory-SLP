@@ -4,6 +4,28 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-01-14] Fix: Weather min/max temperatures now show accurate daily values
+
+**Descripción:**
+Corregido el problema donde las temperaturas mínimas y máximas en la sección "What you need to know today" del homepage no mostraban los valores correctos del día.
+
+**Problema:**
+- El endpoint `/weather` de OpenWeatherMap retorna temp_min/temp_max del momento actual, no del día
+- Las temperaturas bajas no reflejaban la mínima real (ej: mostraba 15° cuando fue 6°)
+
+**Cambios realizados:**
+1. Modificada `fetchWeatherData()` para obtener también el forecast
+2. Se hacen 2 llamadas en paralelo: `/weather` + `/forecast`
+3. Se filtran los datos del forecast para obtener temperaturas del día actual
+4. Se calcula min/max usando todos los puntos de datos + temperatura actual
+
+**Archivos:**
+- src/lib/api/dashboard-data.ts
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-01-12] Fix: Newsletter "More This Week" Events Now Include Full Details
 
 **Descripción:**
