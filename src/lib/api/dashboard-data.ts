@@ -164,22 +164,46 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
 
     const current = await currentRes.json();
 
-    // Get today's min/max from forecast data (more accurate than current weather endpoint)
+    // Get daily min/max from forecast data
+    // The /weather endpoint only gives current moment temps, not daily range
     let tempMin = Math.round(current.main.temp);
     let tempMax = Math.round(current.main.temp);
 
     if (forecastRes.ok) {
       const forecastData = await forecastRes.json();
-      const today = new Date().toISOString().split('T')[0];
-      const todayForecasts = forecastData.list.filter((item: { dt: number }) => {
+      const now = new Date();
+      const today = now.toISOString().split('T')[0];
+
+      // Get tomorrow's date for fallback
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+      // Try to get today's forecasts first
+      let targetForecasts = forecastData.list.filter((item: { dt: number }) => {
         const itemDate = new Date(item.dt * 1000).toISOString().split('T')[0];
         return itemDate === today;
       });
 
-      if (todayForecasts.length > 0) {
-        const temps = todayForecasts.map((f: { main: { temp: number } }) => f.main.temp);
-        tempMin = Math.round(Math.min(...temps, current.main.temp));
-        tempMax = Math.round(Math.max(...temps, current.main.temp));
+      // If no data for today (late in day), use tomorrow's forecast
+      if (targetForecasts.length === 0) {
+        targetForecasts = forecastData.list.filter((item: { dt: number }) => {
+          const itemDate = new Date(item.dt * 1000).toISOString().split('T')[0];
+          return itemDate === tomorrowStr;
+        });
+      }
+
+      if (targetForecasts.length > 0) {
+        // Use both temp and temp_min/temp_max from forecast entries for better range
+        const allTemps: number[] = [];
+        targetForecasts.forEach((f: { main: { temp: number; temp_min: number; temp_max: number } }) => {
+          allTemps.push(f.main.temp);
+          if (f.main.temp_min) allTemps.push(f.main.temp_min);
+          if (f.main.temp_max) allTemps.push(f.main.temp_max);
+        });
+
+        tempMin = Math.round(Math.min(...allTemps));
+        tempMax = Math.round(Math.max(...allTemps, current.main.temp));
       }
     }
 
