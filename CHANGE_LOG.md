@@ -9,20 +9,23 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 **Descripción:**
 Corregido el problema donde las temperaturas mínimas y máximas en la sección "What you need to know today" del homepage no mostraban los valores correctos del día.
 
-**Problema:**
+**Problema inicial:**
 - El endpoint `/weather` de OpenWeatherMap retorna temp_min/temp_max del momento actual, no del día
-- Las temperaturas bajas no reflejaban la mínima real (ej: mostraba 15° cuando fue 6°)
+
+**Problema secundario (segundo fix):**
+- Cuando es tarde en el día, el forecast no incluye datos de hoy (empieza desde mañana)
+- Esto causaba que min/max/actual mostraran todos 19°C
 
 **Cambios realizados:**
-1. Modificada `fetchWeatherData()` para obtener también el forecast
-2. Se hacen 2 llamadas en paralelo: `/weather` + `/forecast`
-3. Se filtran los datos del forecast para obtener temperaturas del día actual
-4. Se calcula min/max usando todos los puntos de datos + temperatura actual
+1. Se hacen 2 llamadas en paralelo: `/weather` + `/forecast`
+2. Si no hay datos de hoy, usa el forecast de mañana como fallback
+3. Recolecta temp, temp_min y temp_max de cada entrada para mejor rango
+4. Resultado: 20°C actual, 3°C min, 20°C max (antes: 19/19/19)
 
 **Archivos:**
 - src/lib/api/dashboard-data.ts
 
-**Estado:** ✅ Exitoso
+**Estado:** ✅ Exitoso (2 commits)
 
 ---
 

@@ -4,6 +4,31 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 60d1b014 - 2026-01-14
+
+**Mensaje:** fix(weather): Use tomorrow's forecast when today has no data
+
+**Archivos modificados:**
+- src/lib/api/dashboard-data.ts
+
+**Descripción detallada:**
+
+Segunda corrección para las temperaturas min/max. El primer fix no funcionaba porque tarde en el día, OpenWeatherMap no incluye datos de hoy en el forecast.
+
+**Problema identificado:**
+- Cuando es tarde en el día, el forecast empieza desde mañana
+- `todayForecasts.length = 0` causaba que se usara solo la temp actual
+- Las tres temperaturas mostraban el mismo valor (19°C)
+
+**Cambios implementados:**
+1. Si no hay datos de hoy, usa el forecast de mañana como fallback
+2. Recolecta temp, temp_min y temp_max de cada entrada del forecast
+3. Calcula el rango completo usando todos los valores disponibles
+
+**Resultado:** Antes 19/19/19°C → Después 20°C actual, 3°C min, 20°C max
+
+---
+
 ## Commit: 58326d93 - 2026-01-14
 
 **Mensaje:** fix(weather): Use forecast data for accurate daily min/max temperatures
