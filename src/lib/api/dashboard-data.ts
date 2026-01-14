@@ -139,6 +139,7 @@ function getSeasonalFallbackWeather(): WeatherData {
 
 /**
  * Fetch weather data from OpenWeatherMap API
+ * Uses both current weather and forecast to get accurate daily min/max temps
  */
 export async function fetchWeatherData(): Promise<WeatherData | null> {
   const apiKey = process.env.OPENWEATHERMAP_API_KEY;
@@ -149,8 +150,11 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
   }
 
   try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${SLP_LAT}&lon=${SLP_LON}&units=metric&appid=${apiKey}`;
-    const currentRes = await fetch(url);
+    // Fetch both current weather and forecast in parallel
+    const [currentRes, forecastRes] = await Promise.all([
+      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${SLP_LAT}&lon=${SLP_LON}&units=metric&appid=${apiKey}`),
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${SLP_LAT}&lon=${SLP_LON}&units=metric&appid=${apiKey}`)
+    ]);
 
     if (!currentRes.ok) {
       const errorText = await currentRes.text();
@@ -159,6 +163,25 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
     }
 
     const current = await currentRes.json();
+
+    // Get today's min/max from forecast data (more accurate than current weather endpoint)
+    let tempMin = Math.round(current.main.temp);
+    let tempMax = Math.round(current.main.temp);
+
+    if (forecastRes.ok) {
+      const forecastData = await forecastRes.json();
+      const today = new Date().toISOString().split('T')[0];
+      const todayForecasts = forecastData.list.filter((item: { dt: number }) => {
+        const itemDate = new Date(item.dt * 1000).toISOString().split('T')[0];
+        return itemDate === today;
+      });
+
+      if (todayForecasts.length > 0) {
+        const temps = todayForecasts.map((f: { main: { temp: number } }) => f.main.temp);
+        tempMin = Math.round(Math.min(...temps, current.main.temp));
+        tempMax = Math.round(Math.max(...temps, current.main.temp));
+      }
+    }
 
     // Map weather condition
     const weatherMain = current.weather[0]?.main?.toLowerCase() || 'clear';
@@ -208,8 +231,8 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
 
     return {
       temp: Math.round(current.main.temp),
-      tempMin: Math.round(current.main.temp_min),
-      tempMax: Math.round(current.main.temp_max),
+      tempMin,
+      tempMax,
       condition,
       conditionEs,
       conditionEn,
