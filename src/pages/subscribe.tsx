@@ -4,6 +4,13 @@ import Script from 'next/script';
 import Image from 'next/image';
 import { CheckCircleIcon, SparklesIcon, ClockIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 
+/**
+ * Render the newsletter subscription page for San Luis Way, including the hero signup form, sneak-peek content, benefits grid, final CTA, footer, and a success confirmation view.
+ *
+ * The component manages form state (email, submission status, messages), validates email input, posts subscriptions to /api/newsletter/subscribe, and displays loading, error, and success states. It also computes the next Monday date for the urgency badge and controls simple entrance animations and subscriber count display.
+ *
+ * @returns The rendered subscription page as a React element.
+ */
 export default function SubscribePage() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');

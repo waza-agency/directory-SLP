@@ -6,7 +6,6 @@ import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 
 interface BlogPostPageProps {
   post: BlogPost;
@@ -45,8 +44,14 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context)
   };
 };
 
+/**
+ * Render the full blog post page including SEO metadata, Article structured data,
+ * hero image, breadcrumbs, post content, tags, and a newsletter call-to-action.
+ *
+ * @param post - The blog post data used to populate page content, SEO fields, metadata, and structured data
+ * @returns A JSX element representing the rendered blog post page
+ */
 export default function BlogPostPage({ post }: BlogPostPageProps) {
-  const { t } = useTranslation('common');
   // Use dedicated SEO fields when available, fallback to title/excerpt
   const seoTitle = post.metaTitle || post.title;
   const seoDescription = post.metaDescription || post.excerpt;
@@ -139,7 +144,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
           {post.tags && post.tags.length > 0 && (
             <div className="mt-12 pt-8 border-t border-gray-200">
-              <h3 className="mb-4 text-lg font-semibold">{t('blog.tags')}</h3>
+              <h3 className="mb-4 text-lg font-semibold">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <span key={tag} className="rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 transition-colors">

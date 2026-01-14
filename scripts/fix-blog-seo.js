@@ -53,6 +53,12 @@ const seoFixes = [
   }
 ];
 
+/**
+ * Apply the predefined SEO updates in `seoFixes` to matching blog posts in the Supabase `blog_posts` table.
+ *
+ * For each entry in `seoFixes`, updates `meta_title`, `meta_description`, and `updated_at`, and sets `tags` when provided.
+ * Logs per-item progress and errors to the console.
+ */
 async function fixBlogSEO() {
   console.log('🔧 Fixing Blog Posts SEO...\n');
 

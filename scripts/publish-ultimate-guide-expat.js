@@ -55,6 +55,12 @@ const postData = {
   meta_description: "Complete expat guide to SLP: visas, cost of living ($800-1,500/month), best neighborhoods, healthcare (IMSS & private), banking, safety. 25+ verified sources."
 };
 
+/**
+ * Publish the prepared blog post to the Supabase "blog_posts" table by updating an existing record with the same slug or inserting a new one.
+ *
+ * On error the process will be terminated with exit code 1.
+ * @returns {Object} The created or updated blog post record as returned by the database.
+ */
 async function publishPost() {
   console.log('Publishing Ultimate Guide: Living in San Luis Potosí as an Expat...');
   console.log('Slug:', postData.slug);
