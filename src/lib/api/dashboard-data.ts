@@ -164,38 +164,25 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
 
     const current = await currentRes.json();
 
-    // Get daily min/max from forecast data
+    // Get daily min/max from forecast data (next 24 hours)
     // The /weather endpoint only gives current moment temps, not daily range
     let tempMin = Math.round(current.main.temp);
     let tempMax = Math.round(current.main.temp);
 
     if (forecastRes.ok) {
       const forecastData = await forecastRes.json();
-      const now = new Date();
-      const today = now.toISOString().split('T')[0];
+      const nowTimestamp = Date.now();
+      const next24Hours = nowTimestamp + (24 * 60 * 60 * 1000);
 
-      // Get tomorrow's date for fallback
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      const tomorrowStr = tomorrow.toISOString().split('T')[0];
-
-      // Try to get today's forecasts first
-      let targetForecasts = forecastData.list.filter((item: { dt: number }) => {
-        const itemDate = new Date(item.dt * 1000).toISOString().split('T')[0];
-        return itemDate === today;
+      // Get forecasts for the next 24 hours (8 entries at 3-hour intervals)
+      const targetForecasts = forecastData.list.filter((item: { dt: number }) => {
+        const itemTimestamp = item.dt * 1000;
+        return itemTimestamp >= nowTimestamp && itemTimestamp <= next24Hours;
       });
 
-      // If no data for today (late in day), use tomorrow's forecast
-      if (targetForecasts.length === 0) {
-        targetForecasts = forecastData.list.filter((item: { dt: number }) => {
-          const itemDate = new Date(item.dt * 1000).toISOString().split('T')[0];
-          return itemDate === tomorrowStr;
-        });
-      }
-
       if (targetForecasts.length > 0) {
-        // Use both temp and temp_min/temp_max from forecast entries for better range
-        const allTemps: number[] = [];
+        // Collect all temperature values for accurate min/max
+        const allTemps: number[] = [current.main.temp];
         targetForecasts.forEach((f: { main: { temp: number; temp_min: number; temp_max: number } }) => {
           allTemps.push(f.main.temp);
           if (f.main.temp_min) allTemps.push(f.main.temp_min);
@@ -203,7 +190,7 @@ export async function fetchWeatherData(): Promise<WeatherData | null> {
         });
 
         tempMin = Math.round(Math.min(...allTemps));
-        tempMax = Math.round(Math.max(...allTemps, current.main.temp));
+        tempMax = Math.round(Math.max(...allTemps));
       }
     }
 
