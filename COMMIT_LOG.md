@@ -4,6 +4,31 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 0c9a138f - 2026-01-15
+
+**Mensaje:** fix(weather): Use next 24 hours forecast instead of date filtering
+
+**Archivos modificados:**
+- src/lib/api/dashboard-data.ts
+
+**Descripción detallada:**
+
+Tercera y definitiva corrección para las temperaturas min/max. Los fixes anteriores filtraban por fecha UTC lo cual fallaba con zonas horarias.
+
+**Problema identificado:**
+- El filtrado por fecha UTC perdía las temperaturas bajas de la noche
+- Mostraba min: 15°C cuando la real era ~5°C
+- Otros servicios meteorológicos mostraban la temperatura correcta
+
+**Cambios implementados:**
+- En lugar de filtrar por fecha, ahora usa las próximas 24 horas de forecast
+- Incluye 8 puntos de datos (cada 3 horas) más la temperatura actual
+- Captura correctamente las bajas nocturnas
+
+**Resultado:** Min ahora muestra 4°C (coincide con otros servicios) en lugar de 15°C
+
+---
+
 ## Commit: 60d1b014 - 2026-01-14
 
 **Mensaje:** fix(weather): Use tomorrow's forecast when today has no data

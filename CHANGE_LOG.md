@@ -4,28 +4,27 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
-## [2026-01-14] Fix: Weather min/max temperatures now show accurate daily values
+## [2026-01-15] Fix: Weather min/max temperatures now show accurate daily values
 
 **Descripción:**
-Corregido el problema donde las temperaturas mínimas y máximas en la sección "What you need to know today" del homepage no mostraban los valores correctos del día.
+Corregido el problema donde las temperaturas mínimas y máximas en la sección "What you need to know today" del homepage no mostraban los valores correctos.
 
-**Problema inicial:**
-- El endpoint `/weather` de OpenWeatherMap retorna temp_min/temp_max del momento actual, no del día
+**Problemas resueltos (3 iteraciones):**
+1. El endpoint `/weather` retorna temp_min/temp_max del momento actual, no del día
+2. Filtrar por fecha UTC perdía datos cuando era tarde en el día
+3. Filtrar por fecha UTC perdía las bajas nocturnas (mostraba 15°C en vez de 5°C)
 
-**Problema secundario (segundo fix):**
-- Cuando es tarde en el día, el forecast no incluye datos de hoy (empieza desde mañana)
-- Esto causaba que min/max/actual mostraran todos 19°C
+**Solución final:**
+- Usa las **próximas 24 horas** de forecast en lugar de filtrar por fecha
+- Incluye 8 puntos de datos (cada 3 horas) + temperatura actual
+- Captura correctamente las bajas nocturnas
 
-**Cambios realizados:**
-1. Se hacen 2 llamadas en paralelo: `/weather` + `/forecast`
-2. Si no hay datos de hoy, usa el forecast de mañana como fallback
-3. Recolecta temp, temp_min y temp_max de cada entrada para mejor rango
-4. Resultado: 20°C actual, 3°C min, 20°C max (antes: 19/19/19)
+**Resultado:** Min ahora muestra 4°C (coincide con otros servicios) en lugar de 15°C
 
 **Archivos:**
 - src/lib/api/dashboard-data.ts
 
-**Estado:** ✅ Exitoso (2 commits)
+**Estado:** ✅ Exitoso (3 commits: 58326d93, 60d1b014, 0c9a138f)
 
 ---
 
