@@ -11,9 +11,9 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Scheduled function for news updates (every 4 hours)
+# Scheduled function for news updates (daily at 7am Mexico City / 13:00 UTC)
 [functions."scheduled-news-update"]
-  schedule = "0 */4 * * *"
+  schedule = "0 13 * * *"
 
 # Redirects for www canonical URL
 [[redirects]]
