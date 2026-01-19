@@ -4,6 +4,39 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 6a9f916a - 2026-01-18
+
+**Mensaje:** feat: Add Beehiiv lead import script
+
+**Archivos modificados:**
+- scripts/add-new-leads-to-beehiiv.js (nuevo)
+- .gitignore
+
+**Descripción detallada:**
+
+Nuevo script para importar leads de Facebook (CSV) a Beehiiv de manera inteligente.
+
+**Funcionalidades del script:**
+- Lee lista de emails existentes de `beehiiv_all_emails.txt`
+- Parsea archivo CSV con leads de Facebook Ads
+- Filtra duplicados (solo agrega los que no existen)
+- Agrega nuevos suscriptores via Beehiiv API con delay de 200ms
+- Actualiza archivo local con emails nuevos agregados
+
+**Resultado de primera ejecución:**
+- 438 emails existentes en Beehiiv
+- 571 leads en CSV
+- 162 nuevos leads agregados exitosamente
+- 0 fallos
+
+**Cambios en .gitignore:**
+- Agregado `beehiiv_all_emails.txt` (datos sensibles)
+- Agregado `new_emails_to_add.txt`
+- Agregado `tmpclaude-*` (archivos temporales)
+- Agregado `.playwright-mcp/`
+
+---
+
 ## Commit: 0c9a138f - 2026-01-15
 
 **Mensaje:** fix(weather): Use next 24 hours forecast instead of date filtering
