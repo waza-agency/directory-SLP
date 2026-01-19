@@ -4,6 +4,49 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 7e60de2d - 2026-01-19
+
+**Mensaje:** chore: Clean up unused files, scripts, and endpoints
+
+**Archivos modificados:** 93 archivos (22,466 líneas eliminadas)
+
+**Descripción detallada:**
+
+Limpieza masiva del codebase eliminando archivos obsoletos y no utilizados:
+
+**API Endpoints eliminados (17):**
+- Endpoints de prueba: add-test-events, test-cultural-events, test-real-signup, etc.
+- Endpoints de debug: health-check, check-production-env, supabase-test
+- Endpoints redundantes: minimal-signup, production-signup, robust-signup
+
+**Scripts eliminados (45+):**
+- Scripts de upload de imágenes (7): upload-hero-image, upload-tamul-image, etc.
+- Scripts de publicación (7): publish-historia-slp-post, publish-arte-potosino-post, etc.
+- Scripts de fix/check (15): fix-blog-seo, check-blog-schema, audit-blog-seo, etc.
+- Scripts de traducción (2): translate-blog-posts, translate-places
+- Scripts de Leonora con múltiples versiones (6)
+
+**Migraciones obsoletas:**
+- Directorio `/migrations/` completo (4 archivos) - reemplazado por `supabase/migrations/`
+
+**Archivos duplicados consolidados:**
+- `src/lib/supabaseClient.ts` (no usado, eliminado)
+- `src/lib/supabase-auth.ts` (solo re-exportaba .tsx, eliminado)
+
+**Páginas no usadas:**
+- design-showcase.tsx
+- parque-tangamanga-uno.tsx
+
+**Archivos de draft/temporales:**
+- HTML drafts: leonora-post-*.html, family-weekend-itinerary-post.html, etc.
+- SQL en root: create-contact-table.sql, migrate_existing_blog_posts.sql, etc.
+- Directorio tmp/
+- Archivos .bak y .txt temporales
+
+**Propósito/Razón:** Reducir deuda técnica y mejorar mantenibilidad del proyecto eliminando código muerto y archivos que ya cumplieron su propósito.
+
+---
+
 ## Commit: 6a9f916a - 2026-01-18
 
 **Mensaje:** feat: Add Beehiiv lead import script
