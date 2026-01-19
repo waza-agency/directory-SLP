@@ -720,7 +720,7 @@ Ultimate Guides are **comprehensive, authoritative reference articles** that:
       </blockquote>
       <p class="text-sm text-gray-600">
         — <strong>Source Name</strong>, <em>Publication/Organization</em>, [Year]
-        <a href="https://official-source-url.gov" target="_blank" class="text-blue-600 hover:text-blue-800 underline ml-2">
+        <a href="https://official-source-url.gov" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline ml-2">
           View original source →
         </a>
       </p>
@@ -751,7 +751,7 @@ Ultimate Guides are **comprehensive, authoritative reference articles** that:
         <div id="ref-1" class="bg-white p-4 rounded-lg border border-green-200">
           <p class="font-semibold text-gray-900">[1] INEGI - Censo de Población y Vivienda 2024</p>
           <p class="text-sm text-gray-600 mt-1">Instituto Nacional de Estadística y Geografía</p>
-          <a href="https://www.inegi.org.mx/programas/ccpv/2024/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm underline mt-2 inline-block">
+          <a href="https://www.inegi.org.mx/programas/ccpv/2024/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 text-sm underline mt-2 inline-block">
             https://www.inegi.org.mx/programas/ccpv/2024/ →
           </a>
           <p class="text-xs text-gray-500 mt-2">Accessed: January 10, 2025</p>
@@ -760,7 +760,7 @@ Ultimate Guides are **comprehensive, authoritative reference articles** that:
         <div id="ref-2" class="bg-white p-4 rounded-lg border border-green-200">
           <p class="font-semibold text-gray-900">[2] INM - Guía de Trámites Migratorios 2025</p>
           <p class="text-sm text-gray-600 mt-1">Instituto Nacional de Migración</p>
-          <a href="https://www.inm.gob.mx/tramites/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm underline mt-2 inline-block">
+          <a href="https://www.inm.gob.mx/tramites/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 text-sm underline mt-2 inline-block">
             https://www.inm.gob.mx/tramites/ →
           </a>
           <p class="text-xs text-gray-500 mt-2">Accessed: January 12, 2025</p>
@@ -879,7 +879,7 @@ Ultimate Guides are **comprehensive, authoritative reference articles** that:
         <p class="text-xs text-gray-700">
           <strong>Official Reference:</strong> [Law/Regulation Name], Article [X], Section [Y]
         </p>
-        <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs underline">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 text-xs underline">
           View official document →
         </a>
       </div>

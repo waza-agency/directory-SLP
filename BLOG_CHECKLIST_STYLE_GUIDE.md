@@ -156,7 +156,7 @@ Checklist posts are **practical, action-oriented guides** that:
         <input type="checkbox" class="mt-1 w-5 h-5 text-green-600 rounded" />
         <div class="flex-1">
           <p class="font-medium text-gray-900">Make appointment at INM (Immigration office)</p>
-          <p class="text-sm text-gray-600 mt-1">Book online at <a href="https://citas.inm.gob.mx/" target="_blank" class="text-blue-600 hover:underline">citas.inm.gob.mx</a> - appointments fill up 2-3 weeks in advance</p>
+          <p class="text-sm text-gray-600 mt-1">Book online at <a href="https://citas.inm.gob.mx/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">citas.inm.gob.mx</a> - appointments fill up 2-3 weeks in advance</p>
         </div>
       </label>
 
@@ -685,12 +685,12 @@ Checklist posts are **practical, action-oriented guides** that:
       <h4 class="font-semibold text-blue-900 mb-2">Government Offices</h4>
       <ul class="space-y-2 text-blue-800 text-sm">
         <li>
-          <a href="https://www.inm.gob.mx/" target="_blank" class="hover:underline flex items-center gap-2">
+          <a href="https://www.inm.gob.mx/" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-2">
             <span>📄</span> INM (Immigration) Official Website
           </a>
         </li>
         <li>
-          <a href="https://citas.inm.gob.mx/" target="_blank" class="hover:underline flex items-center gap-2">
+          <a href="https://citas.inm.gob.mx/" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-2">
             <span>📅</span> INM Appointment Booking System
           </a>
         </li>

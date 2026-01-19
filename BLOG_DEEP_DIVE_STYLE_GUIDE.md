@@ -322,7 +322,7 @@ Deep dive posts are **comprehensive, research-backed articles** that:
       </p>
       <p class="text-sm text-gray-600">
         — Source Name, <em>Publication</em> (2024)
-        <a href="https://source.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline ml-1">
+        <a href="https://source.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline ml-1">
           <sup>[1]</sup>
         </a>
       </p>

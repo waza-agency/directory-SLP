@@ -83,10 +83,10 @@ Target keywords like:
 12. **Product Links Box** (blue) - Featured products with affiliate links
 13. **Final CTA** (green) - Link to /deals page
 
-### Wrapper Principal
+### Main Wrapper
 ```html
 <div class="prose prose-lg max-w-none">
-  <!-- Todo el contenido del comparison post aquí -->
+  <!-- All comparison post content goes here -->
 </div>
 ```
 
@@ -94,9 +94,9 @@ Target keywords like:
 
 ## Comparison Tables
 
-### 1. Quick Comparison Overview (Obligatoria al inicio)
+### 1. Quick Comparison Overview (Required at the beginning)
 
-**Usar después de Key Takeaways:**
+**Use after Key Takeaways:**
 
 ```html
 <div class="overflow-x-auto mb-12">
@@ -160,7 +160,7 @@ Target keywords like:
 
 ### 2. Detailed Feature Comparison Table
 
-**Para comparaciones feature-by-feature:**
+**For feature-by-feature comparisons:**
 
 ```html
 <div class="overflow-x-auto mb-12">
@@ -193,9 +193,9 @@ Target keywords like:
 </div>
 ```
 
-### 3. Price Comparison Table con Links
+### 3. Price Comparison Table with Links
 
-**IMPORTANTE: Incluir links de productos de Amazon:**
+**IMPORTANT: Include Amazon product links:**
 
 ```html
 <div class="overflow-x-auto mb-8">
@@ -212,7 +212,7 @@ Target keywords like:
     <tbody class="divide-y divide-gray-200">
       <tr class="hover:bg-gray-50">
         <td class="px-6 py-4 text-sm font-medium text-gray-900">
-          <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+          <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">
             La Roche-Posay Hyalu B5 Serum
           </a>
         </td>
@@ -224,14 +224,14 @@ Target keywords like:
           </span>
         </td>
         <td class="px-6 py-4 text-center">
-          <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+          <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
             Shop Now →
           </a>
         </td>
       </tr>
       <tr class="hover:bg-gray-50">
         <td class="px-6 py-4 text-sm font-medium text-gray-900">
-          <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+          <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">
             The Ordinary Azelaic Acid 10%
           </a>
         </td>
@@ -243,7 +243,7 @@ Target keywords like:
           </span>
         </td>
         <td class="px-6 py-4 text-center">
-          <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+          <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
             Shop Now →
           </a>
         </td>
@@ -261,23 +261,23 @@ Target keywords like:
 
 ## Product Integration
 
-### 1. Inline Product Links (En el texto)
+### 1. Inline Product Links (Within text)
 
-**REGLA: Incluir 8-12 product links naturalmente en el artículo**
+**RULE: Include 8-12 product links naturally throughout the article**
 
 ```html
 <p class="text-gray-700 mb-6">
   For best results with hyaluronic acid, we recommend
-  <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">La Roche-Posay Hyalu B5 Pure Hyaluronic Acid Serum</a>,
+  <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">La Roche-Posay Hyalu B5 Pure Hyaluronic Acid Serum</a>,
   which features multiple molecular weights for deeper penetration. If you're on a budget,
-  <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">The Ordinary Niacinamide 10% + Zinc</a>
+  <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">The Ordinary Niacinamide 10% + Zinc</a>
   offers excellent value at under $15.
 </p>
 ```
 
-### 2. Product Card Grid (Con imágenes)
+### 2. Product Card Grid (With images)
 
-**Para mostrar productos visualmente:**
+**For visual product display:**
 
 ```html
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -310,7 +310,7 @@ Target keywords like:
       <p class="text-sm text-gray-600 mb-4">
         Pure hyaluronic acid serum for intense hydration. Perfect for all skin types.
       </p>
-      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
         Shop on Amazon →
       </a>
     </div>
@@ -344,7 +344,7 @@ Target keywords like:
       <p class="text-sm text-gray-600 mb-4">
         Budget-friendly niacinamide serum. Great for pore refinement and oil control.
       </p>
-      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
         Shop on Amazon →
       </a>
     </div>
@@ -357,34 +357,34 @@ Target keywords like:
 </div>
 ```
 
-### 3. Featured Products Resource Box (Obligatorio al final)
+### 3. Featured Products Resource Box (Required at the end)
 
-**SIEMPRE incluir antes del CTA final:**
+**ALWAYS include before the final CTA:**
 
 ```html
 <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
   <h3 class="text-lg font-semibold mb-3 text-blue-900">🛍️ Featured Products Mentioned in This Comparison</h3>
   <ul class="space-y-2 text-blue-800">
     <li>
-      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">
         → La Roche-Posay Hyalu B5 Pure Hyaluronic Acid Serum
       </a>
       <span class="text-sm text-blue-700 ml-2">(Best Overall)</span>
     </li>
     <li>
-      <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+      <a href="https://www.amazon.com/dp/B06WD5J8KY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">
         → The Ordinary Azelaic Acid 10% Suspension
       </a>
       <span class="text-sm text-blue-700 ml-2">(Best for Brightening)</span>
     </li>
     <li>
-      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">
         → The Ordinary Niacinamide 10% + Zinc
       </a>
       <span class="text-sm text-blue-700 ml-2">(Best Value)</span>
     </li>
     <li>
-      <a href="https://www.amazon.com/dp/B01B9OEDKS?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">
+      <a href="https://www.amazon.com/dp/B01B9OEDKS?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">
         → Drunk Elephant B-Hydra Intensive Hydration Gel
       </a>
       <span class="text-sm text-blue-700 ml-2">(Luxury Option)</span>
@@ -414,7 +414,7 @@ Target keywords like:
     <figcaption class="mt-4">
       <h4 class="text-xl font-semibold text-blue-900 mb-2">Product A</h4>
       <p class="text-sm text-gray-600">Gel texture, lightweight, absorbs quickly. Best for oily skin.</p>
-      <a href="https://www.amazon.com/dp/ASIN1?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm font-medium mt-2 inline-block">
+      <a href="https://www.amazon.com/dp/ASIN1?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline text-sm font-medium mt-2 inline-block">
         Shop Product A →
       </a>
     </figcaption>
@@ -432,7 +432,7 @@ Target keywords like:
     <figcaption class="mt-4">
       <h4 class="text-xl font-semibold text-green-900 mb-2">Product B</h4>
       <p class="text-sm text-gray-600">Rich cream, deeply nourishing. Best for dry/mature skin.</p>
-      <a href="https://www.amazon.com/dp/ASIN2?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm font-medium mt-2 inline-block">
+      <a href="https://www.amazon.com/dp/ASIN2?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline text-sm font-medium mt-2 inline-block">
         Shop Product B →
       </a>
     </figcaption>
@@ -619,7 +619,7 @@ Target keywords like:
 
 ### 1. Pros & Cons Grid
 
-**OBLIGATORIO para cada producto comparado:**
+**REQUIRED for each compared product:**
 
 ```html
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -705,7 +705,7 @@ Target keywords like:
       </li>
     </ul>
     <div class="mt-6">
-      <a href="https://www.amazon.com/dp/ASIN?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg">
+      <a href="https://www.amazon.com/dp/ASIN?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg">
         Shop Product A on Amazon →
       </a>
     </div>
@@ -733,7 +733,7 @@ Target keywords like:
       </li>
     </ul>
     <div class="mt-6">
-      <a href="https://www.amazon.com/dp/ASIN?tag=glamlocalstor-20" target="_blank" class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-all shadow-lg">
+      <a href="https://www.amazon.com/dp/ASIN?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-all shadow-lg">
         Shop Product B on Amazon →
       </a>
     </div>
@@ -745,7 +745,7 @@ Target keywords like:
 
 ## Winner/Verdict Sections
 
-### Final Verdict Box (Al final del artículo)
+### Final Verdict Box (At the end of the article)
 
 ```html
 <div class="bg-gradient-to-br from-purple-100 via-pink-100 to-purple-100 border-4 border-purple-500 rounded-2xl p-10 mb-12 shadow-2xl">
@@ -765,7 +765,7 @@ Target keywords like:
       <p class="text-sm text-gray-600 mb-4">
         Unbeatable combination of efficacy, texture, and dermatologist trust. Worth the investment.
       </p>
-      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
         Shop Now →
       </a>
     </div>
@@ -779,7 +779,7 @@ Target keywords like:
       <p class="text-sm text-gray-600 mb-4">
         Incredible effectiveness at an unbeatable price. Perfect for skincare beginners.
       </p>
-      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" class="block bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-green-700 hover:to-green-800 transition-all">
+      <a href="https://www.amazon.com/dp/B01MDTVZTZ?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="block bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-green-700 hover:to-green-800 transition-all">
         Shop Now →
       </a>
     </div>
@@ -793,7 +793,7 @@ Target keywords like:
       <p class="text-sm text-gray-600 mb-4">
         Premium ingredients and luxurious experience. If budget allows, you'll love it.
       </p>
-      <a href="https://www.amazon.com/dp/B01B9OEDKS?tag=glamlocalstor-20" target="_blank" class="block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
+      <a href="https://www.amazon.com/dp/B01B9OEDKS?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all">
         Shop Now →
       </a>
     </div>
@@ -816,7 +816,7 @@ Target keywords like:
 ```html
 <!-- TABLE OF CONTENTS (Yellow Box) -->
 <div class="bg-yellow-50 p-6 rounded-lg mb-8">
-  <h2 class="text-xl font-semibold mb-4">Guía de Contenido</h2>
+  <h2 class="text-xl font-semibold mb-4">Table of Contents</h2>
   <ul class="list-disc pl-6">
     <li><a href="#introduction" class="text-blue-600 hover:text-blue-800">Introduction</a></li>
     <li><a href="#quick-comparison" class="text-blue-600 hover:text-blue-800">Quick Comparison Table</a></li>
@@ -833,7 +833,7 @@ Target keywords like:
 
 <!-- KEY TAKEAWAYS (Blue Box) -->
 <div class="bg-blue-50 p-6 rounded-lg mb-8">
-  <h3 class="text-lg font-semibold mb-4 text-blue-900">Puntos Clave de esta Comparación</h3>
+  <h3 class="text-lg font-semibold mb-4 text-blue-900">Key Takeaways from This Comparison</h3>
   <ul class="list-disc pl-6 space-y-2">
     <li><strong>Best Overall:</strong> Product A wins for effectiveness and quality</li>
     <li><strong>Best Value:</strong> Product B offers incredible results at budget price</li>
@@ -843,7 +843,7 @@ Target keywords like:
   </ul>
 </div>
 
-<!-- WRAPPER PRINCIPAL -->
+<!-- MAIN WRAPPER -->
 <div class="prose prose-lg max-w-none">
 
   <!-- INTRODUCTION -->
@@ -871,7 +871,7 @@ Target keywords like:
     <!-- Include product link inline -->
     <p class="text-gray-700 mb-6">
       You can purchase
-      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">La Roche-Posay Hyalu B5 on Amazon</a>
+      <a href="https://www.amazon.com/dp/B083SGYDJY?tag=glamlocalstor-20" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">La Roche-Posay Hyalu B5 on Amazon</a>
       for $29.99 with free shipping.
     </p>
   </section>
@@ -949,38 +949,38 @@ Target keywords like:
 
 ---
 
-## Reglas de Consistencia
+## Consistency Rules
 
-### ✅ OBLIGATORIO:
-1. **Tabla de Contenidos** (amarilla) al inicio
-2. **Key Takeaways** (azul) después del TOC
-3. **Quick Comparison Table** en las primeras secciones
-4. **8-12 product links** integrados naturalmente (tag=glamlocalstor-20)
-5. **Pros & Cons** para cada producto comparado
-6. **Price Comparison Table** con links de compra
-7. **"Who Should Choose"** secciones para guiar decisión
-8. **Final Verdict Box** con ganadores por categoría
-9. **Featured Products Box** (azul) antes del CTA final
-10. **Final CTA** (verde) al final linkando a /deals
-11. **FAQ Section** al final del artículo
-12. **3-5 imágenes** de productos/comparaciones
+### ✅ REQUIRED:
+1. **Table of Contents** (yellow) at the beginning
+2. **Key Takeaways** (blue) after the TOC
+3. **Quick Comparison Table** in the first sections
+4. **8-12 product links** integrated naturally (tag=glamlocalstor-20)
+5. **Pros & Cons** for each compared product
+6. **Price Comparison Table** with purchase links
+7. **"Who Should Choose"** sections to guide decisions
+8. **Final Verdict Box** with winners by category
+9. **Featured Products Box** (blue) before the final CTA
+10. **Final CTA** (green) at the end linking to /deals
+11. **FAQ Section** at the end of the article
+12. **3-5 images** of products/comparisons
 
-### Estructura de Product Links:
+### Product Links Structure:
 ```html
 https://www.amazon.com/dp/[ASIN]?tag=glamlocalstor-20
 ```
 
-### Colores Semánticos:
-- **Azul** = Información, recursos, featured products
-- **Verde** = Éxito, ganadores, CTAs
-- **Amarillo** = TOC, advertencias, tips
-- **Rojo** = Cons, advertencias críticas
-- **Purple/Pink** = Headers principales, gradientes de botones
+### Semantic Colors:
+- **Blue** = Information, resources, featured products
+- **Green** = Success, winners, CTAs
+- **Yellow** = TOC, warnings, tips
+- **Red** = Cons, critical warnings
+- **Purple/Pink** = Main headers, button gradients
 
 ---
 
-**Fecha de creación:** Octubre 2025
-**Última actualización:** Octubre 17, 2025
-**Versión:** 1.0
+**Created:** October 2025
+**Last updated:** October 17, 2025
+**Version:** 1.0
 
-> 💡 **Nota Importante:** TODOS los comparison posts DEBEN incluir product links de nuestro inventario Amazon con el affiliate tag `glamlocalstor-20`. Los artículos de comparación sin product integration NO serán publicados.
+> 💡 **Important Note:** ALL comparison posts MUST include product links from our Amazon inventory with the affiliate tag `glamlocalstor-20`. Comparison articles without product integration will NOT be published.

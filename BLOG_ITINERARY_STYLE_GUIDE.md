@@ -690,7 +690,7 @@ Target keywords like:
     <div class="text-center">
       <p class="text-gray-500 text-lg mb-2">📍 Interactive Map</p>
       <p class="text-gray-400 text-sm">
-        <a href="https://www.google.com/maps/d/edit?mid=EXAMPLE_MAP_ID" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+        <a href="https://www.google.com/maps/d/edit?mid=EXAMPLE_MAP_ID" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">
           View Full Map on Google Maps →
         </a>
       </p>
@@ -778,7 +778,7 @@ Target keywords like:
       </div>
 
       <div class="mt-4">
-        <a href="https://www.google.com/maps/dir/?api=1&destination=Centro+Historico+San+Luis+Potosi" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold text-sm">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Centro+Historico+San+Luis+Potosi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold text-sm">
           Get Directions on Google Maps →
         </a>
       </div>

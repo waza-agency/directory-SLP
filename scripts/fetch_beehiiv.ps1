@@ -1,5 +1,13 @@
+# Fetch all Beehiiv subscribers
+# Requires: $env:BEEHIIV_API_KEY environment variable
+
+if (-not $env:BEEHIIV_API_KEY) {
+    Write-Error "BEEHIIV_API_KEY environment variable is not set. Please set it before running this script."
+    exit 1
+}
+
 $headers = @{
-    'Authorization' = 'Bearer TgB3ZLTS711n2DJjuVcRuwazjxcYPi2V5u3msS5LEho4Y015gLIoFGCcDpnznA1B'
+    'Authorization' = "Bearer $env:BEEHIIV_API_KEY"
 }
 
 $allEmails = @()
@@ -12,8 +20,15 @@ do {
         $url += "&cursor=$cursor"
     }
 
-    $response = Invoke-RestMethod -Uri $url -Headers $headers
-    $emails = $response.data | ForEach-Object { $_.email.ToLower() }
+    try {
+        $response = Invoke-RestMethod -Uri $url -Headers $headers -ErrorAction Stop
+    }
+    catch {
+        Write-Error "Failed to fetch subscribers: $($_.Exception.Message)"
+        exit 1
+    }
+
+    $emails = $response.data | Where-Object { $_.email -and $_.email.Trim() -ne "" } | ForEach-Object { $_.email.ToLower() }
     $allEmails += $emails
 
     Write-Host "Page $page : $($emails.Count) emails (Total so far: $($allEmails.Count))"
@@ -25,5 +40,7 @@ do {
 
 Write-Host "`nTotal subscribers in Beehiiv: $($allEmails.Count)"
 
-$allEmails | Out-File -FilePath "C:\Users\sango\Waza\San Luis Way\directory-SLP\beehiiv_all_emails.txt" -Encoding utf8
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$outputPath = Join-Path (Split-Path -Parent $scriptDir) "beehiiv_all_emails.txt"
+$allEmails | Out-File -FilePath $outputPath -Encoding utf8
 Write-Host "Saved to beehiiv_all_emails.txt"

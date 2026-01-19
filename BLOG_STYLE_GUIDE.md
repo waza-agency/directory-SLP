@@ -248,12 +248,12 @@ Todos los blog posts deben usar esta estructura base:
 
 ### Enlaces Externos
 ```html
-<a href="githuhttps://ejemplo.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Texto del enlace</a>
+<a href="githuhttps://ejemplo.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Texto del enlace</a>
 ```
 
 ### Enlaces con Referencias Numeradas
 ```html
-<a href="https://ejemplo.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline"><sup>[1]</sup></a>
+<a href="https://ejemplo.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline"><sup>[1]</sup></a>
 ```
 
 ### Enlaces Internos
@@ -268,7 +268,7 @@ Todos los blog posts deben usar esta estructura base:
 ### Cita/Testimonio
 ```html
 <blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-6">
-  <p>"Texto de la cita o testimonio aquí." - Nombre del autor <a href="fuente.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline"><sup>[1]</sup></a></p>
+  <p>"Texto de la cita o testimonio aquí." - Nombre del autor <a href="fuente.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline"><sup>[1]</sup></a></p>
 </blockquote>
 ```
 
@@ -288,8 +288,8 @@ Todos los blog posts deben usar esta estructura base:
 <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
   <h3 class="text-lg font-semibold mb-3 text-blue-900">🔗 Recursos Adicionales</h3>
   <ul class="list-disc pl-6 text-blue-800 space-y-2">
-    <li><a href="https://ejemplo1.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Recurso 1</a></li>
-    <li><a href="https://ejemplo2.com" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Recurso 2</a></li>
+    <li><a href="https://ejemplo1.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Recurso 1</a></li>
+    <li><a href="https://ejemplo2.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">Recurso 2</a></li>
   </ul>
 </div>
 ```

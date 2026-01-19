@@ -51,8 +51,8 @@
       border-bottom: 3px solid #ff00ff;
     }
 
-    .header::before {
-      content: 'AI';
+    /* Email-safe decoration: Header background "AI" text */
+    .header-bg-text {
       position: absolute;
       top: -40px;
       right: -30px;
@@ -61,10 +61,11 @@
       color: rgba(255, 0, 255, 0.05);
       transform: rotate(-12deg);
       pointer-events: none;
+      z-index: 1;
     }
 
-    .header::after {
-      content: '';
+    /* Email-safe decoration: Header bottom bar */
+    .header-bottom-bar {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -119,7 +120,7 @@
     }
 
     .tagline {
-      font-family: 'Special+Elite', monospace;
+      font-family: 'Special Elite', monospace;
       font-size: 11px;
       letter-spacing: 8px;
       text-transform: uppercase;
@@ -164,8 +165,8 @@
       transform: rotate(-0.5deg);
     }
 
-    .hero::before {
-      content: '>>>>';
+    /* Email-safe decoration: Hero arrows */
+    .hero-arrows {
       position: absolute;
       top: -15px;
       left: 20px;
@@ -209,8 +210,8 @@
       overflow: hidden;
     }
 
-    .divider::before {
-      content: '////////////////////////////////////////';
+    /* Email-safe decoration: Divider slashes */
+    .divider-slashes {
       position: absolute;
       left: 0;
       top: 50%;
@@ -316,8 +317,8 @@
       transform: rotate(-1deg);
     }
 
-    .quote-section::before {
-      content: '"';
+    /* Email-safe decoration: Quote mark */
+    .quote-mark {
       position: absolute;
       top: -30px;
       left: 20px;
@@ -355,8 +356,8 @@
       border-bottom: 1px solid #222;
     }
 
-    .cta-section::before {
-      content: 'ACT NOW';
+    /* Email-safe decoration: CTA background text */
+    .cta-bg-text {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -399,8 +400,8 @@
       position: relative;
     }
 
-    .cta-button::before {
-      content: '';
+    /* Email-safe decoration: CTA button shadow */
+    .cta-button-shadow {
       position: absolute;
       top: 4px;
       left: 4px;
@@ -415,7 +416,8 @@
       transform: skewX(-5deg) translate(-2px, -2px);
     }
 
-    .cta-button:hover::before {
+    .cta-button:hover + .cta-button-shadow,
+    .cta-button:hover .cta-button-shadow {
       top: 6px;
       left: 6px;
     }
@@ -428,8 +430,8 @@
       overflow: hidden;
     }
 
-    .footer::before {
-      content: 'NEURAL NETWORKS MACHINE LEARNING DEEP TECH AI FUTURE';
+    /* Email-safe decoration: Footer background text */
+    .footer-bg-text {
       position: absolute;
       bottom: -10px;
       left: 0;
@@ -438,6 +440,7 @@
       color: rgba(255, 255, 255, 0.02);
       white-space: nowrap;
       letter-spacing: -3px;
+      pointer-events: none;
     }
 
     .footer-grid {
@@ -570,6 +573,8 @@
   <div class="newsletter-container">
     <!-- HEADER -->
     <header class="header">
+      <span class="header-bg-text" aria-hidden="true">AI</span>
+      <div class="header-bottom-bar" aria-hidden="true"></div>
       <div class="logo-section">
         <div class="logo-glitch glitch-hover">
           <span>NEU</span><span>RAL</span><span>_X</span>
@@ -584,6 +589,7 @@
 
     <!-- HERO -->
     <section class="hero">
+      <span class="hero-arrows" aria-hidden="true">&gt;&gt;&gt;&gt;</span>
       <h1 class="hero-title">
         The Future of AI is<br>
         <span class="highlight">Not What You Think</span>
@@ -593,7 +599,9 @@
       </p>
     </section>
 
-    <div class="divider"></div>
+    <div class="divider">
+      <span class="divider-slashes" aria-hidden="true">////////////////////////////////////////</span>
+    </div>
 
     <!-- CONTENT BLOCKS -->
     <section class="content-grid">
@@ -630,6 +638,7 @@
 
     <!-- QUOTE -->
     <section class="quote-section">
+      <span class="quote-mark" aria-hidden="true">"</span>
       <p class="quote-text">
         "The question isn't whether AI will transform your industry—it's whether you'll be the one transforming it or the one being transformed."
       </p>
@@ -638,13 +647,18 @@
 
     <!-- CTA -->
     <section class="cta-section">
+      <span class="cta-bg-text" aria-hidden="true">ACT NOW</span>
       <h2 class="cta-title">Ready to Build the Future?</h2>
       <p class="cta-subtitle">Let's discuss your next AI project</p>
-      <a href="#" class="cta-button">Start a Conversation</a>
+      <span class="cta-button-wrapper" style="position: relative; display: inline-block;">
+        <span class="cta-button-shadow" aria-hidden="true"></span>
+        <a href="#" class="cta-button">Start a Conversation</a>
+      </span>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
+      <span class="footer-bg-text" aria-hidden="true">NEURAL NETWORKS MACHINE LEARNING DEEP TECH AI FUTURE</span>
       <div class="footer-grid">
         <div class="footer-col">
           <h3 class="footer-title">Services</h3>
@@ -663,10 +677,10 @@
         <div class="footer-col">
           <h3 class="footer-title">Connect</h3>
           <div class="footer-social">
-            <a href="#" class="social-link">X</a>
-            <a href="#" class="social-link">LI</a>
-            <a href="#" class="social-link">GH</a>
-            <a href="#" class="social-link">DC</a>
+            <a href="#" class="social-link" aria-label="Follow us on X (Twitter)">X</a>
+            <a href="#" class="social-link" aria-label="Connect on LinkedIn">LI</a>
+            <a href="#" class="social-link" aria-label="View our GitHub">GH</a>
+            <a href="#" class="social-link" aria-label="Join our Discord">DC</a>
           </div>
         </div>
       </div>

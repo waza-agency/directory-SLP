@@ -59,6 +59,12 @@ tmpclaude-*
 # Playwright MCP
 .playwright-mcp/
 
+# Claude Code settings (contains API keys and user-specific paths)
+.claude/settings.local.json
+
+# Email corrections file (may contain PII)
+email_corrections.json
+
 # Auto-added by swet
 .git/
 .svn/
