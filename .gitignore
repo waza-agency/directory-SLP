@@ -49,6 +49,16 @@ debug_output.json
 .netlify
 /.netlify/
 
+# Beehiiv data (contains subscriber emails)
+beehiiv_all_emails.txt
+new_emails_to_add.txt
+
+# Temporary Claude files
+tmpclaude-*
+
+# Playwright MCP
+.playwright-mcp/
+
 # Auto-added by swet
 .git/
 .svn/
