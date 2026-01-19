@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agency Newsletter - Raygun Edition</title>
+  <style>
+    /* RAYGUN AESTHETIC - Anti-Design Newsletter */
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Special+Elite&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #f0f0f0;
+      font-family: 'Space Mono', monospace;
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* CONTAINER - Breaking the grid */
+    .newsletter-container {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* HEADER - Chaotic, layered, aggressive */
+    .header {
+      position: relative;
+      padding: 60px 20px 80px;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+      overflow: hidden;
+      border-bottom: 3px solid #ff00ff;
+    }
+
+    .header::before {
+      content: 'AI';
+      position: absolute;
+      top: -40px;
+      right: -30px;
+      font-family: 'Anton', sans-serif;
+      font-size: 280px;
+      color: rgba(255, 0, 255, 0.05);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        #ff00ff 0px,
+        #ff00ff 10px,
+        transparent 10px,
+        transparent 20px,
+        #00ffff 20px,
+        #00ffff 30px,
+        transparent 30px,
+        transparent 40px
+      );
+    }
+
+    /* LOGO - Fragmented, distorted */
+    .logo-section {
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-glitch {
+      font-family: 'Anton', sans-serif;
+      font-size: 72px;
+      text-transform: uppercase;
+      letter-spacing: -5px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo-glitch span:nth-child(1) {
+      color: #ff00ff;
+      transform: translateX(-3px) skewX(-5deg);
+      display: inline-block;
+    }
+
+    .logo-glitch span:nth-child(2) {
+      color: #00ffff;
+      transform: translateX(2px) skewX(3deg);
+      display: inline-block;
+      margin-left: -8px;
+    }
+
+    .logo-glitch span:nth-child(3) {
+      color: #ffff00;
+      transform: translateY(-5px) rotate(-2deg);
+      display: inline-block;
+      margin-left: -5px;
+    }
+
+    .tagline {
+      font-family: 'Special+Elite', monospace;
+      font-size: 11px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: 15px;
+      transform: rotate(-1deg);
+      border-left: 3px solid #ff00ff;
+      padding-left: 12px;
+    }
+
+    /* ISSUE INFO - Scattered, anti-hierarchy */
+    .issue-info {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      text-align: right;
+      transform: rotate(3deg);
+    }
+
+    .issue-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      color: #ff00ff;
+      line-height: 0.8;
+      letter-spacing: -2px;
+    }
+
+    .issue-date {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #444;
+      text-transform: uppercase;
+    }
+
+    /* HERO SECTION - Explosive, layered */
+    .hero {
+      position: relative;
+      padding: 50px 20px;
+      background: #0d0d0d;
+      border-left: 8px solid #00ffff;
+      margin: 30px 15px;
+      transform: rotate(-0.5deg);
+    }
+
+    .hero::before {
+      content: '>>>>';
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 24px;
+      color: #ff00ff;
+      letter-spacing: -5px;
+    }
+
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 42px;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title .highlight {
+      color: #00ffff;
+      display: inline-block;
+      transform: skewX(-8deg);
+      background: rgba(0, 255, 255, 0.1);
+      padding: 0 10px;
+    }
+
+    .hero-text {
+      font-size: 13px;
+      color: #888;
+      max-width: 500px;
+      border-top: 1px dashed #333;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+
+    /* SECTION DIVIDER - Broken, glitchy */
+    .divider {
+      height: 40px;
+      position: relative;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+
+    .divider::before {
+      content: '////////////////////////////////////////';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: #222;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    /* CONTENT BLOCKS - Asymmetric, colliding */
+    .content-grid {
+      padding: 20px;
+    }
+
+    .content-block {
+      position: relative;
+      margin-bottom: 35px;
+      padding: 25px;
+      background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+      border: 1px solid #1a1a1a;
+    }
+
+    .content-block:nth-child(odd) {
+      margin-left: 30px;
+      margin-right: 10px;
+      transform: rotate(0.3deg);
+      border-left: 4px solid #ff00ff;
+    }
+
+    .content-block:nth-child(even) {
+      margin-left: 10px;
+      margin-right: 30px;
+      transform: rotate(-0.3deg);
+      border-right: 4px solid #00ffff;
+    }
+
+    .block-number {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: #ff00ff;
+      background: #0a0a0a;
+      padding: 0 8px;
+    }
+
+    .block-tag {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #00ffff;
+      background: rgba(0, 255, 255, 0.1);
+      padding: 4px 10px;
+      margin-bottom: 12px;
+      transform: skewX(-5deg);
+    }
+
+    .block-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 26px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .block-text {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+
+    .block-link {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ff00ff;
+      text-decoration: none;
+      border-bottom: 1px solid #ff00ff;
+      padding-bottom: 2px;
+      transition: all 0.2s;
+    }
+
+    .block-link:hover {
+      color: #00ffff;
+      border-color: #00ffff;
+      transform: translateX(5px);
+    }
+
+    /* QUOTE SECTION - Massive, disruptive */
+    .quote-section {
+      position: relative;
+      padding: 60px 30px;
+      margin: 40px 0;
+      background: #ff00ff;
+      color: #000;
+      transform: rotate(-1deg);
+    }
+
+    .quote-section::before {
+      content: '"';
+      position: absolute;
+      top: -30px;
+      left: 20px;
+      font-family: 'Anton', sans-serif;
+      font-size: 200px;
+      color: rgba(0, 0, 0, 0.15);
+      line-height: 1;
+    }
+
+    .quote-text {
+      font-family: 'Anton', sans-serif;
+      font-size: 32px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quote-author {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 20px;
+      opacity: 0.7;
+    }
+
+    /* CTA SECTION - Aggressive, demanding */
+    .cta-section {
+      padding: 50px 20px;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(180deg, #0a0a0a 0%, #0f0a1a 100%);
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .cta-section::before {
+      content: 'ACT NOW';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-5deg);
+      font-family: 'Anton', sans-serif;
+      font-size: 120px;
+      color: rgba(255, 0, 255, 0.03);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 36px;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      margin-bottom: 15px;
+    }
+
+    .cta-subtitle {
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 18px 45px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #000;
+      background: #00ffff;
+      border: none;
+      transform: skewX(-5deg);
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 100%;
+      height: 100%;
+      background: #ff00ff;
+      z-index: -1;
+      transition: all 0.2s;
+    }
+
+    .cta-button:hover {
+      transform: skewX(-5deg) translate(-2px, -2px);
+    }
+
+    .cta-button:hover::before {
+      top: 6px;
+      left: 6px;
+    }
+
+    /* FOOTER - Chaotic, layered */
+    .footer {
+      padding: 40px 20px;
+      background: #050505;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: 'NEURAL NETWORKS MACHINE LEARNING DEEP TECH AI FUTURE';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      font-family: 'Anton', sans-serif;
+      font-size: 60px;
+      color: rgba(255, 255, 255, 0.02);
+      white-space: nowrap;
+      letter-spacing: -3px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-col {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .footer-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: #ff00ff;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #222;
+      padding-bottom: 8px;
+    }
+
+    .footer-link {
+      display: block;
+      font-size: 11px;
+      color: #555;
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: #00ffff;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: #666;
+      text-decoration: none;
+      font-size: 12px;
+      transition: all 0.2s;
+      transform: skewX(-5deg);
+    }
+
+    .social-link:hover {
+      background: #ff00ff;
+      color: #000;
+    }
+
+    /* UNSUBSCRIBE - Barely visible */
+    .unsubscribe {
+      text-align: center;
+      padding: 30px 20px;
+      background: #030303;
+      border-top: 1px solid #111;
+    }
+
+    .unsubscribe-text {
+      font-size: 9px;
+      color: #333;
+      letter-spacing: 1px;
+    }
+
+    .unsubscribe-link {
+      color: #444;
+      text-decoration: underline;
+    }
+
+    /* GLITCH ANIMATION */
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+
+    .glitch-hover:hover {
+      animation: glitch 0.3s infinite;
+    }
+
+    /* RESPONSIVE - Still chaotic */
+    @media (max-width: 600px) {
+      .logo-glitch {
+        font-size: 48px;
+      }
+
+      .hero-title {
+        font-size: 28px;
+      }
+
+      .quote-text {
+        font-size: 24px;
+      }
+
+      .content-block:nth-child(odd),
+      .content-block:nth-child(even) {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .issue-info {
+        position: relative;
+        top: 0;
+        right: 0;
+        text-align: left;
+        margin-top: 20px;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise-overlay"></div>
+
+  <div class="newsletter-container">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo-section">
+        <div class="logo-glitch glitch-hover">
+          <span>NEU</span><span>RAL</span><span>_X</span>
+        </div>
+        <p class="tagline">Artificial Intelligence Agency</p>
+      </div>
+      <div class="issue-info">
+        <div class="issue-number">#047</div>
+        <div class="issue-date">January 2026</div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1 class="hero-title">
+        The Future of AI is<br>
+        <span class="highlight">Not What You Think</span>
+      </h1>
+      <p class="hero-text">
+        We're witnessing a paradigm shift in artificial intelligence. This month we explore the bleeding edge of neural architecture, emergent behaviors, and why everything you knew about machine learning is about to become obsolete.
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CONTENT BLOCKS -->
+    <section class="content-grid">
+      <article class="content-block">
+        <span class="block-number">01</span>
+        <span class="block-tag">Deep Dive</span>
+        <h2 class="block-title">Autonomous Agents Are Rewriting the Rules</h2>
+        <p class="block-text">
+          The emergence of self-improving AI systems marks a turning point in technological evolution. These aren't just tools—they're digital entities capable of reasoning, planning, and executing complex tasks without human intervention.
+        </p>
+        <a href="#" class="block-link">Read the analysis →</a>
+      </article>
+
+      <article class="content-block">
+        <span class="block-number">02</span>
+        <span class="block-tag">Case Study</span>
+        <h2 class="block-title">How We Built a 10x Faster Pipeline</h2>
+        <p class="block-text">
+          Our latest project involved restructuring an entire data infrastructure using cutting-edge vector databases and custom embedding models. The results exceeded all expectations.
+        </p>
+        <a href="#" class="block-link">See the breakdown →</a>
+      </article>
+
+      <article class="content-block">
+        <span class="block-number">03</span>
+        <span class="block-tag">Industry Watch</span>
+        <h2 class="block-title">The Consolidation Has Begun</h2>
+        <p class="block-text">
+          Major acquisitions are reshaping the AI landscape. We analyze who's buying, who's selling, and what it means for the future of independent AI development.
+        </p>
+        <a href="#" class="block-link">Get the intel →</a>
+      </article>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="quote-section">
+      <p class="quote-text">
+        "The question isn't whether AI will transform your industry—it's whether you'll be the one transforming it or the one being transformed."
+      </p>
+      <p class="quote-author">— Neural_X Research Division</p>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2 class="cta-title">Ready to Build the Future?</h2>
+      <p class="cta-subtitle">Let's discuss your next AI project</p>
+      <a href="#" class="cta-button">Start a Conversation</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3 class="footer-title">Services</h3>
+          <a href="#" class="footer-link">Custom AI Development</a>
+          <a href="#" class="footer-link">ML Model Training</a>
+          <a href="#" class="footer-link">Data Infrastructure</a>
+          <a href="#" class="footer-link">AI Consulting</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Resources</h3>
+          <a href="#" class="footer-link">Research Papers</a>
+          <a href="#" class="footer-link">Open Source</a>
+          <a href="#" class="footer-link">Blog Archive</a>
+          <a href="#" class="footer-link">Documentation</a>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Connect</h3>
+          <div class="footer-social">
+            <a href="#" class="social-link">X</a>
+            <a href="#" class="social-link">LI</a>
+            <a href="#" class="social-link">GH</a>
+            <a href="#" class="social-link">DC</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- UNSUBSCRIBE -->
+    <div class="unsubscribe">
+      <p class="unsubscribe-text">
+        You're receiving this because you subscribed to Neural_X updates.<br>
+        <a href="#" class="unsubscribe-link">Unsubscribe</a> | <a href="#" class="unsubscribe-link">Update preferences</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
