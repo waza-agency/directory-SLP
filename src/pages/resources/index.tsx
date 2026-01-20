@@ -33,6 +33,19 @@ export default function ResourcesHubPage() {
       ),
     },
     {
+      id: 'arrival-checklist',
+      title: 'Arrival Checklist',
+      description: 'Your first 30 days in SLP. 45+ actionable items covering essentials, bureaucracy, utilities, banking, healthcare, and social integration.',
+      image: '/images/cultura-3.jpg',
+      href: '/resources/arrival-checklist',
+      color: 'from-rose-600 to-red-500',
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+      ),
+    },
+    {
       id: 'expat-guide',
       title: 'Expat Essentials Guide',
       description: 'Essential practical information for expats. Emergency contacts, healthcare, banking, immigration, transportation, and utilities.',
