@@ -4,6 +4,30 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: bb32214b - 2026-01-20
+
+**Mensaje:** fix: Remove false social proof claim from homepage hero
+
+**Archivos modificados:**
+- public/locales/en/common.json
+- public/locales/es/common.json
+- public/locales/de/common.json
+- public/locales/ja/common.json
+
+**Descripción detallada:**
+
+Se eliminó el texto de social proof falso "Trusted by 1,000+ Expats" del badge del hero de la homepage porque no era verdad (aún no hay 1000+ usuarios).
+
+**Cambios realizados:**
+- EN: "Trusted by 1,000+ Expats" → "Your Expat Guide to SLP"
+- ES: "Confiado por más de 1,000 Expatriados" → "Tu Guía Expat en SLP"
+- DE: "Vertraut von 1.000+ Auswanderern" → "Ihr Expat-Reiseführer für SLP"
+- JA: "1,000人以上の駐在員に信頼されています" → "SLPの駐在員ガイド"
+
+**Propósito/Razón:** Mantener la integridad y honestidad del sitio al no hacer afirmaciones falsas sobre el número de usuarios.
+
+---
+
 ## Commit: 7e60de2d - 2026-01-19
 
 **Mensaje:** chore: Clean up unused files, scripts, and endpoints
