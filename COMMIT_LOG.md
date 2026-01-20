@@ -4,6 +4,42 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 58380a17 - 2026-01-20
+
+**Mensaje:** feat: Add comprehensive arrival checklist guide for newcomers to SLP
+
+**Archivos modificados:**
+- supabase/migrations/20250120_arrival_checklist_guide.sql (nuevo)
+- CHANGE_LOG.md
+
+**Descripción detallada:**
+
+Se creó una guía completa tipo checklist para recién llegados a San Luis Potosí, cubriendo los primeros 30 días con más de 45 items accionables organizados en 8 categorías:
+
+**Contenido del checklist:**
+1. **First Week Essentials (Days 1-7)**: SIM card, apps esenciales, moneda, español básico
+2. **Administrative & Bureaucratic Tasks**: Registro INM, CURP, RFC, registro consular
+3. **Setting Up Home & Services**: CFE, INTERAPAS, gas, internet, garrafones de agua
+4. **Financial Setup**: Cuenta bancaria mexicana, Mercado Pago, SPEI, pagos de servicios
+5. **Healthcare & Medical**: Doctores, dentistas, farmacias, seguros de salud
+6. **Social & Community Integration**: Grupos de expats, intercambio de idiomas, actividades
+7. **Practical Daily Life**: Supermercados, transporte, gimnasios, parques
+8. **Resources & Contacts**: Números de emergencia, oficinas gubernamentales, links útiles
+
+**Features del formato:**
+- Checkboxes interactivos organizados por categoría con colores distintivos
+- Secciones con gradientes de color para mejor organización visual
+- Links a recursos oficiales (INM, SAT, CFE, INTERAPAS, etc.)
+- Links internos a otras guías de San Luis Way
+- Tabla comparativa de bancos con costos
+- Sección FAQ con preguntas frecuentes
+- Tips y advertencias destacadas en cajas coloreadas
+- Responsive design siguiendo el BLOG_CHECKLIST_STYLE_GUIDE.md
+
+**Propósito/Razón:** Proporcionar a los recién llegados una guía práctica y accionable que les ayude a establecerse exitosamente en San Luis Potosí durante su primer mes.
+
+---
+
 ## Commit: bb32214b - 2026-01-20
 
 **Mensaje:** fix: Remove false social proof claim from homepage hero
