@@ -4,6 +4,36 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-01-20] Feat: Arrival Checklist Guide - First 30 Days in SLP
+
+**Descripción:**
+Creada una guía completa tipo checklist para recién llegados a San Luis Potosí. Cubre los primeros 30 días con más de 45 items accionables.
+
+**Contenido incluido:**
+- **First Week Essentials**: SIM card, apps, currency, basic Spanish
+- **Administrative Tasks**: INM registration, CURP, RFC, consulate registration
+- **Home & Services**: CFE, INTERAPAS, gas, internet, water garrafones
+- **Financial Setup**: Mexican bank account, Mercado Pago, SPEI, bill payments
+- **Healthcare**: Finding doctors, dentists, pharmacies, insurance options
+- **Social Integration**: Expat groups, language exchange, activities
+- **Practical Daily Life**: Supermarkets, transportation, gyms, parks
+
+**Features del formato:**
+- Checkboxes interactivos por categoría
+- Códigos de color por sección (urgencia/tipo)
+- Links a recursos oficiales (INM, SAT, CFE, etc.)
+- Links internos a guías relacionadas de San Luis Way
+- FAQ section con preguntas comunes
+- Tabla de costos bancarios
+- Tips y advertencias destacadas
+
+**Archivos:**
+- supabase/migrations/20250120_arrival_checklist_guide.sql
+
+**Estado:** ✅ Exitoso (pendiente de deploy a Supabase)
+
+---
+
 ## [2026-01-15] Fix: Weather min/max temperatures now show accurate daily values
 
 **Descripción:**
