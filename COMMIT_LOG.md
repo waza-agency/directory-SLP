@@ -4,6 +4,44 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 41cf5242 - 2026-01-20
+
+**Mensaje:** feat: Internationalize arrival checklist page
+
+**Archivos modificados:**
+- public/locales/en/common.json (modificado)
+- public/locales/es/common.json (modificado)
+- public/locales/de/common.json (modificado)
+- public/locales/ja/common.json (modificado)
+- src/pages/resources/arrival-checklist.tsx (modificado)
+
+**Descripción detallada:**
+
+Se internacionalizó completamente la página del checklist de llegada para soportar los 4 idiomas del sitio:
+
+**Traducciones agregadas:**
+- Inglés (EN) - Idioma base
+- Español (ES) - Traducciones completas
+- Alemán (DE) - Traducciones completas
+- Japonés (JA) - Traducciones completas
+
+**Contenido traducido:**
+- Meta tags (title, description, keywords, OG tags)
+- Hero section (badge, título, subtítulo, badges)
+- Navegación por categorías
+- 7 categorías con 45+ items de checklist
+- Sección de recursos (números de emergencia, guías)
+- CTA final
+
+**Cambios técnicos:**
+- Se actualizó arrival-checklist.tsx para usar useTranslation hook
+- Se refactorizó la estructura de datos para usar IDs y buscar traducciones dinámicamente
+- Se agregó sección "arrivalChecklist" a cada archivo de locale
+
+**Propósito/Razón:** Hacer el contenido accesible para la audiencia internacional del sitio (expatriados de diferentes países).
+
+---
+
 ## Commit: a67a8b93 - 2026-01-20
 
 **Mensaje:** feat: Add arrival checklist to resources page
