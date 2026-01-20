@@ -1017,5 +1017,119 @@
     "alreadySubscribed": "Sie sind bereits abonniert!",
     "welcomeAboard": "Willkommen an Bord! Prüfen Sie Ihren Posteingang.",
     "somethingWrong": "Etwas ist schief gelaufen"
+  },
+  "arrivalChecklist": {
+    "meta": {
+      "title": "Ankunfts-Checkliste: Ihre ersten 30 Tage in San Luis Potosí | San Luis Way",
+      "description": "Vollständige Checkliste mit 45+ Punkten für Neuankömmlinge in San Luis Potosí. Deckt Bürokratie, Versorgung, Banking, Gesundheit und soziale Integration ab.",
+      "keywords": "San Luis Potosí Ankunfts-Checkliste, Expat Checkliste Mexiko, nach SLP ziehen, erste Tage San Luis Potosí",
+      "ogTitle": "Ankunfts-Checkliste: Ihre ersten 30 Tage in San Luis Potosí",
+      "ogDescription": "Ihre vollständige Checkliste für die Eingewöhnung in San Luis Potosí."
+    },
+    "hero": {
+      "badge": "Ihre ersten 30 Tage",
+      "title": "Ankunfts-Checkliste",
+      "subtitle": "45+ umsetzbare Punkte, um sich erfolgreich in San Luis Potosí einzuleben",
+      "categories": "7 Kategorien",
+      "checkboxes": "Interaktive Checkboxen",
+      "links": "Offizielle Links"
+    },
+    "learnMore": "Mehr erfahren →",
+    "resources": {
+      "title": "Wichtige Ressourcen",
+      "emergency": {
+        "title": "Notrufnummern",
+        "general": "Allgemeiner Notfall",
+        "police": "Polizei",
+        "ambulance": "Rotes Kreuz / Krankenwagen"
+      },
+      "guides": {
+        "title": "San Luis Way Reiseführer",
+        "neighborhoods": "Stadtviertel-Guide →",
+        "healthcare": "Gesundheits-Guide →",
+        "expat": "Expat-Grundlagen →"
+      }
+    },
+    "cta": {
+      "title": "Brauchen Sie persönliche Hilfe?",
+      "subtitle": "Unsere lokalen Experten können Sie durch den Eingewöhnungsprozess führen.",
+      "button": "Kontaktieren Sie uns"
+    },
+    "categories": {
+      "firstWeek": {
+        "title": "Erste Woche Essentials",
+        "items": {
+          "sim": { "title": "Mexikanische SIM-Karte besorgen", "description": "Telcel (beste Abdeckung), AT&T oder Movistar. Erhältlich bei OXXO oder Mobilfunkgeschäften. $150-300 MXN." },
+          "apps": { "title": "Wichtige Apps herunterladen", "description": "Uber, DiDi (Fahrten), Rappi (Lieferung), Google Maps, WhatsApp (Haupt-Messenger)." },
+          "atm": { "title": "Pesos am Geldautomaten abheben", "description": "Nutzen Sie Geldautomaten in Banken (Santander, BBVA). Lehnen Sie Umrechnung in Heimatwährung ab." },
+          "cash": { "title": "Bargeld bereithalten", "description": "Viele Orte akzeptieren nur Bargeld. Halten Sie $500-1.000 MXN für den täglichen Bedarf." },
+          "spanish": { "title": "Grundlegende Spanisch-Phrasen lernen", "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"." },
+          "translate": { "title": "Google Translate herunterladen", "description": "Laden Sie das Spanisch-Offline-Paket. Kamerafunktion hilft bei Speisekarten und Schildern." }
+        }
+      },
+      "administrative": {
+        "title": "Administrative Aufgaben",
+        "items": {
+          "inm": { "title": "INM Adressregistrierung", "description": "Erforderlich innerhalb von 90 Tagen bei Aufenthaltsgenehmigung. Bringen Sie Reisepass, Aufenthaltskarte, Adressnachweis mit." },
+          "curp": { "title": "CURP beantragen", "description": "Mexikos Bevölkerungs-ID. Kostenlos beim Registro Civil mit Reisepass und Aufenthaltskarte." },
+          "rfc": { "title": "RFC beantragen (wenn berufstätig)", "description": "Steuer-ID für Beschäftigung. Antrag beim SAT mit CURP, Reisepass, Adressnachweis." },
+          "consulate": { "title": "Bei Ihrem Konsulat registrieren", "description": "Für Notfallhilfe und Auslandswahl. Meist online möglich." },
+          "license": { "title": "Mexikanischer Führerschein (optional)", "description": "Antrag bei Secretaría de Seguridad Pública. Kosten: ~$800-1.200 MXN." }
+        }
+      },
+      "homeServices": {
+        "title": "Wohnung & Versorgung",
+        "items": {
+          "electricity": { "title": "Strom einrichten (CFE)", "description": "Konto übertragen im CFE-Büro mit Mietvertrag und ID. Zahlung bei OXXO oder online." },
+          "water": { "title": "Wasser einrichten (INTERAPAS)", "description": "Übertragung im INTERAPAS-Büro. Rechnungen typisch $150-400 MXN/Monat." },
+          "gas": { "title": "Gaslieferung arrangieren", "description": "Anbieter: Gas Express Nieto, Zeta Gas. Stationäre Tanks werden aufgefüllt, tragbare ausgetauscht." },
+          "internet": { "title": "Internet einrichten", "description": "Telmex (meiste Abdeckung), Totalplay (Glasfaser), Izzi. Tarife $400-800 MXN/Monat." },
+          "garrafon": { "title": "Wasserbehälter kaufen", "description": "Leitungswasser NICHT trinkbar. Kaufen Sie 19L-Behälter von Bonafont, Ciel. ~$30-40 MXN pro Stück." },
+          "dispenser": { "title": "Wasserspender besorgen", "description": "Erhältlich bei Soriana, Walmart, Amazon Mexiko. $500-2.000 MXN." }
+        }
+      },
+      "financial": {
+        "title": "Finanzielle Einrichtung",
+        "items": {
+          "bank": { "title": "Mexikanisches Bankkonto eröffnen", "description": "BBVA, Santander (expat-freundlich), Banorte. Benötigt: Reisepass, Aufenthalt, CURP, Adressnachweis." },
+          "mercadoPago": { "title": "Mercado Pago einrichten", "description": "Mexikos beliebte digitale Geldbörse. Funktioniert in vielen Geschäften, Überweisungen an Freunde, Rechnungen zahlen." },
+          "spei": { "title": "SPEI-Überweisungen lernen", "description": "Mexikos Sofortüberweisungssystem. Kostenlos, schnell, weit verbreitet für Miete und Dienstleistungen." },
+          "international": { "title": "Internationale Überweisungen einrichten", "description": "Wise (beste Kurse), Remitly, oder Banküberweisung für regelmäßige Transfers." },
+          "bills": { "title": "Rechnungszahlung verstehen", "description": "Zahlen bei OXXO (24/7), Bank-Apps, Online-Portale. OXXO ist am einfachsten für die meisten Dienste." }
+        }
+      },
+      "healthcare": {
+        "title": "Gesundheit",
+        "items": {
+          "doctor": { "title": "Allgemeinarzt finden", "description": "Fragen Sie in Expat-Gruppen nach englischsprachigen Ärzten. Konsultationen: $400-800 MXN." },
+          "dentist": { "title": "Zahnarzt finden", "description": "Zahnpflege ist ausgezeichnet und erschwinglich. Reinigung: $400-800 MXN." },
+          "pharmacy": { "title": "Apotheken finden", "description": "Farmacias Guadalajara, Farmacias del Ahorro. Viele Medikamente ohne Rezept erhältlich." },
+          "insurance": { "title": "Krankenversicherung einrichten", "description": "IMSS (~$6.000 MXN/Jahr) oder privat: GNP, Seguros Monterrey, Bupa." },
+          "emergency": { "title": "Notrufnummern speichern", "description": "911 (Notfall), 066 (Polizei), 065 (Krankenwagen/Rotes Kreuz)." }
+        }
+      },
+      "social": {
+        "title": "Soziales & Gemeinschaft",
+        "items": {
+          "facebook": { "title": "Expat Facebook-Gruppen beitreten", "description": "Suchen Sie \"Expats in San Luis Potosí\". Ideal für Ratschläge und Kontakte." },
+          "exchange": { "title": "Sprachtandem-Partner finden", "description": "Spanisch üben, beim Englisch helfen. Schauen Sie bei Meetup, Uni-Aushängen, Cafés." },
+          "classes": { "title": "Für Spanischkurse anmelden", "description": "UASLP bietet Kurse an. Private Tutoren: $150-300 MXN/Stunde." },
+          "neighborhoods": { "title": "Stadtteile erkunden", "description": "Centro Histórico, Parque Tangamanga, Lomas zu Fuß erkunden. Beste Art, sich heimisch zu fühlen." },
+          "events": { "title": "Lokale Events besuchen", "description": "Schauen Sie unseren Veranstaltungskalender. FENAPO (August) ist die größte jährliche Messe." },
+          "neighbors": { "title": "Nachbarn kennenlernen", "description": "Ein einfaches \"Buenos días\" wirkt Wunder. Nachbarn sind wertvoll für Empfehlungen." }
+        }
+      },
+      "dailyLife": {
+        "title": "Praktischer Alltag",
+        "items": {
+          "supermarkets": { "title": "Supermärkte finden", "description": "Soriana (lokal), Walmart, HEB (Premium), Costco (Mitgliedschaft)." },
+          "markets": { "title": "Lokale Märkte erkunden", "description": "Mercado Hidalgo (Centro), Mercado República. Frische Produkte zu besseren Preisen." },
+          "rides": { "title": "Fahr-Apps herunterladen", "description": "Uber und DiDi funktionieren in der ganzen Stadt. Sicherer als Straßentaxis." },
+          "gym": { "title": "Fitnessstudio finden", "description": "Smart Fit ($400-600 MXN/Mo), Sport City (Premium), lokale Studios ($300-500 MXN/Mo)." },
+          "park": { "title": "Parque Tangamanga erkunden", "description": "Einer der größten Stadtparks Mexikos. Laufen, Radfahren, Picknicks. Eintritt frei." },
+          "amazon": { "title": "Amazon Mexiko einrichten", "description": "Lieferung verfügbar. Prime bietet schnelleren Versand. Ideal für schwer zu findende Artikel." }
+        }
+      }
+    }
   }
 }

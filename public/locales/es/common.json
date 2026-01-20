@@ -1052,5 +1052,119 @@
     "alreadySubscribed": "¡Ya estás suscrito!",
     "welcomeAboard": "¡Bienvenido a bordo! Revisa tu bandeja.",
     "somethingWrong": "Algo salió mal"
+  },
+  "arrivalChecklist": {
+    "meta": {
+      "title": "Checklist de Llegada: Tus Primeros 30 Días en San Luis Potosí | San Luis Way",
+      "description": "Checklist completo de 45+ items para recién llegados a San Luis Potosí. Cubre trámites, servicios, banca, salud e integración social.",
+      "keywords": "checklist llegada San Luis Potosí, lista expatriados México, mudarse a SLP, primeros días San Luis Potosí",
+      "ogTitle": "Checklist de Llegada: Tus Primeros 30 Días en San Luis Potosí",
+      "ogDescription": "Tu checklist completo para establecerte en San Luis Potosí."
+    },
+    "hero": {
+      "badge": "Tus Primeros 30 Días",
+      "title": "Checklist de Llegada",
+      "subtitle": "45+ items accionables para ayudarte a establecerte en San Luis Potosí exitosamente",
+      "categories": "7 Categorías",
+      "checkboxes": "Casillas Interactivas",
+      "links": "Enlaces Oficiales"
+    },
+    "learnMore": "Más información →",
+    "resources": {
+      "title": "Recursos Esenciales",
+      "emergency": {
+        "title": "Números de Emergencia",
+        "general": "Emergencia General",
+        "police": "Policía",
+        "ambulance": "Cruz Roja / Ambulancia"
+      },
+      "guides": {
+        "title": "Guías de San Luis Way",
+        "neighborhoods": "Guía de Colonias →",
+        "healthcare": "Guía de Salud →",
+        "expat": "Guía para Expatriados →"
+      }
+    },
+    "cta": {
+      "title": "¿Necesitas Ayuda Personalizada?",
+      "subtitle": "Nuestros expertos locales pueden guiarte en el proceso de establecimiento.",
+      "button": "Contáctanos"
+    },
+    "categories": {
+      "firstWeek": {
+        "title": "Esenciales de la Primera Semana",
+        "items": {
+          "sim": { "title": "Obtén un chip mexicano", "description": "Telcel (mejor cobertura), AT&T o Movistar. Disponibles en OXXO o tiendas de las compañías. $150-300 MXN." },
+          "apps": { "title": "Descarga apps esenciales", "description": "Uber, DiDi (transporte), Rappi (delivery), Google Maps, WhatsApp (mensajería principal)." },
+          "atm": { "title": "Retira pesos del cajero", "description": "Usa cajeros dentro de bancos (Santander, BBVA). Rechaza la conversión a tu moneda." },
+          "cash": { "title": "Ten efectivo a la mano", "description": "Muchos lugares solo aceptan efectivo. Ten $500-1,000 MXN para necesidades diarias." },
+          "spanish": { "title": "Aprende frases básicas en español", "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"." },
+          "translate": { "title": "Descarga Google Translate", "description": "Obtén el paquete offline de español. La función de cámara ayuda con menús y letreros." }
+        }
+      },
+      "administrative": {
+        "title": "Trámites Administrativos",
+        "items": {
+          "inm": { "title": "Registro de domicilio en INM", "description": "Requerido dentro de 90 días si tienes residencia. Lleva pasaporte, tarjeta de residencia, comprobante de domicilio." },
+          "curp": { "title": "Obtén tu CURP", "description": "ID de población de México. Gratis en Registro Civil con pasaporte y tarjeta de residencia." },
+          "rfc": { "title": "Obtén RFC (si trabajas)", "description": "ID fiscal para empleo. Aplica en oficina del SAT con CURP, pasaporte, comprobante de domicilio." },
+          "consulate": { "title": "Regístrate en tu consulado", "description": "Para asistencia de emergencia y votación en el extranjero. La mayoría se hace en línea." },
+          "license": { "title": "Licencia de conducir mexicana (opcional)", "description": "Aplica en Secretaría de Seguridad Pública. Costo: ~$800-1,200 MXN." }
+        }
+      },
+      "homeServices": {
+        "title": "Hogar y Servicios",
+        "items": {
+          "electricity": { "title": "Configura electricidad (CFE)", "description": "Transfiere cuenta en oficina CFE con contrato y ID. Paga en OXXO o en línea." },
+          "water": { "title": "Configura agua (INTERAPAS)", "description": "Transfiere en oficina INTERAPAS. Facturas típicas $150-400 MXN/mes." },
+          "gas": { "title": "Arregla entrega de gas", "description": "Proveedores: Gas Express Nieto, Zeta Gas. Tanques estacionarios se rellenan, portátiles se intercambian." },
+          "internet": { "title": "Configura internet", "description": "Telmex (más cobertura), Totalplay (fibra), Izzi. Planes $400-800 MXN/mes." },
+          "garrafon": { "title": "Compra garrafones de agua", "description": "El agua de la llave NO es potable. Compra garrafones de 19L de Bonafont, Ciel. ~$30-40 MXN cada uno." },
+          "dispenser": { "title": "Consigue un dispensador de garrafón", "description": "Disponibles en Soriana, Walmart, Amazon México. $500-2,000 MXN." }
+        }
+      },
+      "financial": {
+        "title": "Configuración Financiera",
+        "items": {
+          "bank": { "title": "Abre cuenta bancaria mexicana", "description": "BBVA, Santander (amigable con expats), Banorte. Necesitas: pasaporte, residencia, CURP, comprobante de domicilio." },
+          "mercadoPago": { "title": "Configura Mercado Pago", "description": "Billetera digital popular en México. Funciona en muchas tiendas, transferencias a amigos, pago de servicios." },
+          "spei": { "title": "Aprende transferencias SPEI", "description": "Sistema de transferencia instantánea de México. Gratis, rápido, muy usado para renta y servicios." },
+          "international": { "title": "Configura transferencias internacionales", "description": "Wise (mejores tasas), Remitly, o transferencia bancaria para transferencias regulares." },
+          "bills": { "title": "Entiende pagos de servicios", "description": "Paga en OXXO (24/7), apps bancarias, portales en línea. OXXO es el más fácil para la mayoría." }
+        }
+      },
+      "healthcare": {
+        "title": "Salud",
+        "items": {
+          "doctor": { "title": "Encuentra un médico general", "description": "Pregunta en grupos de expats por doctores que hablen inglés. Consultas: $400-800 MXN." },
+          "dentist": { "title": "Encuentra un dentista", "description": "La atención dental es excelente y accesible. Limpieza: $400-800 MXN." },
+          "pharmacy": { "title": "Localiza farmacias", "description": "Farmacias Guadalajara, Farmacias del Ahorro. Muchos medicamentos disponibles sin receta." },
+          "insurance": { "title": "Configura seguro de salud", "description": "IMSS (~$6,000 MXN/año) o privado: GNP, Seguros Monterrey, Bupa." },
+          "emergency": { "title": "Guarda números de emergencia", "description": "911 (emergencia), 066 (policía), 065 (ambulancia/Cruz Roja)." }
+        }
+      },
+      "social": {
+        "title": "Social y Comunidad",
+        "items": {
+          "facebook": { "title": "Únete a grupos de Facebook de expats", "description": "Busca \"Expats in San Luis Potosí\". Excelente para consejos y conocer gente." },
+          "exchange": { "title": "Encuentra compañeros de intercambio de idiomas", "description": "Practica español, ayuda con inglés. Revisa Meetup, tableros universitarios, cafés." },
+          "classes": { "title": "Inscríbete en clases de español", "description": "UASLP ofrece cursos. Tutores privados: $150-300 MXN/hora." },
+          "neighborhoods": { "title": "Explora las colonias", "description": "Camina por el Centro Histórico, Parque Tangamanga, Lomas. La mejor forma de sentirte en casa." },
+          "events": { "title": "Asiste a eventos locales", "description": "Revisa nuestro calendario de eventos. FENAPO (agosto) es la feria anual más grande." },
+          "neighbors": { "title": "Conoce a tus vecinos", "description": "Un simple \"Buenos días\" hace mucho. Los vecinos son valiosos para recomendaciones." }
+        }
+      },
+      "dailyLife": {
+        "title": "Vida Diaria Práctica",
+        "items": {
+          "supermarkets": { "title": "Encuentra supermercados", "description": "Soriana (local), Walmart, HEB (premium), Costco (membresía)." },
+          "markets": { "title": "Explora mercados locales", "description": "Mercado Hidalgo (Centro), Mercado República. Productos frescos a mejores precios." },
+          "rides": { "title": "Descarga apps de transporte", "description": "Uber y DiDi funcionan en toda la ciudad. Más seguros que taxis de calle." },
+          "gym": { "title": "Encuentra un gimnasio", "description": "Smart Fit ($400-600 MXN/mes), Sport City (premium), gimnasios locales ($300-500 MXN/mes)." },
+          "park": { "title": "Explora Parque Tangamanga", "description": "Uno de los parques urbanos más grandes de México. Correr, ciclismo, picnics. Entrada gratis." },
+          "amazon": { "title": "Configura Amazon México", "description": "Envíos disponibles. Prime ofrece envío más rápido. Ideal para artículos difíciles de encontrar." }
+        }
+      }
+    }
   }
 }

@@ -1052,5 +1052,119 @@
     "alreadySubscribed": "You're already subscribed!",
     "welcomeAboard": "Welcome aboard! Check your inbox.",
     "somethingWrong": "Something went wrong"
+  },
+  "arrivalChecklist": {
+    "meta": {
+      "title": "Arrival Checklist: Your First 30 Days in San Luis Potosí | San Luis Way",
+      "description": "Complete 45+ item checklist for newcomers to San Luis Potosí. Covers essentials, bureaucratic tasks, utilities, banking, healthcare, and social integration.",
+      "keywords": "San Luis Potosí arrival checklist, expat checklist Mexico, moving to SLP, first days San Luis Potosí",
+      "ogTitle": "Arrival Checklist: Your First 30 Days in San Luis Potosí",
+      "ogDescription": "Your complete checklist for settling in San Luis Potosí."
+    },
+    "hero": {
+      "badge": "Your First 30 Days",
+      "title": "Arrival Checklist",
+      "subtitle": "45+ actionable items to help you settle into San Luis Potosí successfully",
+      "categories": "7 Categories",
+      "checkboxes": "Interactive Checkboxes",
+      "links": "Official Links"
+    },
+    "learnMore": "Learn more →",
+    "resources": {
+      "title": "Essential Resources",
+      "emergency": {
+        "title": "Emergency Numbers",
+        "general": "General Emergency",
+        "police": "Police",
+        "ambulance": "Red Cross / Ambulance"
+      },
+      "guides": {
+        "title": "San Luis Way Guides",
+        "neighborhoods": "Neighborhoods Guide →",
+        "healthcare": "Healthcare Guide →",
+        "expat": "Expat Essentials →"
+      }
+    },
+    "cta": {
+      "title": "Need Personalized Help?",
+      "subtitle": "Our local experts can guide you through the settling process.",
+      "button": "Contact Us"
+    },
+    "categories": {
+      "firstWeek": {
+        "title": "First Week Essentials",
+        "items": {
+          "sim": { "title": "Get a Mexican SIM card", "description": "Telcel (best coverage), AT&T, or Movistar. Available at OXXO or carrier stores. $150-300 MXN." },
+          "apps": { "title": "Download essential apps", "description": "Uber, DiDi (rides), Rappi (delivery), Google Maps, WhatsApp (primary messaging)." },
+          "atm": { "title": "Withdraw pesos from ATM", "description": "Use ATMs inside banks (Santander, BBVA). Decline conversion to home currency." },
+          "cash": { "title": "Keep cash on hand", "description": "Many places are cash-only. Keep $500-1,000 MXN for daily needs." },
+          "spanish": { "title": "Learn basic Spanish phrases", "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"." },
+          "translate": { "title": "Download Google Translate", "description": "Get the Spanish offline pack. Camera feature helps with menus and signs." }
+        }
+      },
+      "administrative": {
+        "title": "Administrative Tasks",
+        "items": {
+          "inm": { "title": "INM address registration", "description": "Required within 90 days if you have residency. Bring passport, residency card, proof of address." },
+          "curp": { "title": "Get your CURP", "description": "Mexico's population ID. Free at Registro Civil with passport and residency card." },
+          "rfc": { "title": "Obtain RFC (if working)", "description": "Tax ID for employment. Apply at SAT office with CURP, passport, proof of address." },
+          "consulate": { "title": "Register at your consulate", "description": "For emergency assistance and voting abroad. Most done online." },
+          "license": { "title": "Mexican driver's license (optional)", "description": "Apply at Secretaría de Seguridad Pública. Cost: ~$800-1,200 MXN." }
+        }
+      },
+      "homeServices": {
+        "title": "Home & Services",
+        "items": {
+          "electricity": { "title": "Set up electricity (CFE)", "description": "Transfer account at CFE office with lease and ID. Pay at OXXO or online." },
+          "water": { "title": "Set up water (INTERAPAS)", "description": "Transfer at INTERAPAS office. Bills typically $150-400 MXN/month." },
+          "gas": { "title": "Arrange gas delivery", "description": "Providers: Gas Express Nieto, Zeta Gas. Stationary tanks refilled, portable exchanged." },
+          "internet": { "title": "Set up internet", "description": "Telmex (most coverage), Totalplay (fiber), Izzi. Plans $400-800 MXN/month." },
+          "garrafon": { "title": "Buy water garrafones", "description": "Tap water NOT drinkable. Buy 5-gallon jugs from Bonafont, Ciel. ~$30-40 MXN each." },
+          "dispenser": { "title": "Get a garrafón dispenser", "description": "Available at Soriana, Walmart, Amazon Mexico. $500-2,000 MXN." }
+        }
+      },
+      "financial": {
+        "title": "Financial Setup",
+        "items": {
+          "bank": { "title": "Open Mexican bank account", "description": "BBVA, Santander (expat-friendly), Banorte. Need: passport, residency, CURP, proof of address." },
+          "mercadoPago": { "title": "Set up Mercado Pago", "description": "Mexico's popular digital wallet. Works at many stores, transfers to friends, pay bills." },
+          "spei": { "title": "Learn SPEI transfers", "description": "Mexico's instant bank transfer system. Free, fast, widely used for rent and services." },
+          "international": { "title": "Set up international transfers", "description": "Wise (best rates), Remitly, or wire transfer for regular transfers." },
+          "bills": { "title": "Understand bill payments", "description": "Pay at OXXO (24/7), bank apps, online portals. OXXO is easiest for most services." }
+        }
+      },
+      "healthcare": {
+        "title": "Healthcare",
+        "items": {
+          "doctor": { "title": "Find a general doctor", "description": "Ask in expat groups for English speakers. Consultations: $400-800 MXN." },
+          "dentist": { "title": "Find a dentist", "description": "Dental care is excellent and affordable. Cleaning: $400-800 MXN." },
+          "pharmacy": { "title": "Locate pharmacies", "description": "Farmacias Guadalajara, Farmacias del Ahorro. Many meds available without prescription." },
+          "insurance": { "title": "Set up health insurance", "description": "IMSS (~$6,000 MXN/year) or private: GNP, Seguros Monterrey, Bupa." },
+          "emergency": { "title": "Save emergency numbers", "description": "911 (emergency), 066 (police), 065 (ambulance/Red Cross)." }
+        }
+      },
+      "social": {
+        "title": "Social & Community",
+        "items": {
+          "facebook": { "title": "Join expat Facebook groups", "description": "Search \"Expats in San Luis Potosí\". Great for advice and meeting others." },
+          "exchange": { "title": "Find language exchange partners", "description": "Practice Spanish, help with English. Check Meetup, university boards, cafes." },
+          "classes": { "title": "Enroll in Spanish classes", "description": "UASLP offers courses. Private tutors: $150-300 MXN/hour." },
+          "neighborhoods": { "title": "Explore neighborhoods", "description": "Walk Centro Histórico, Parque Tangamanga, Lomas. Best way to feel at home." },
+          "events": { "title": "Attend local events", "description": "Check our events calendar. FENAPO (August) is the biggest annual fair." },
+          "neighbors": { "title": "Meet your neighbors", "description": "A simple \"Buenos días\" goes a long way. Neighbors are valuable for recommendations." }
+        }
+      },
+      "dailyLife": {
+        "title": "Practical Daily Life",
+        "items": {
+          "supermarkets": { "title": "Find supermarkets", "description": "Soriana (local), Walmart, HEB (premium), Costco (membership)." },
+          "markets": { "title": "Explore local markets", "description": "Mercado Hidalgo (Centro), Mercado República. Fresh produce at better prices." },
+          "rides": { "title": "Download ride apps", "description": "Uber and DiDi work throughout the city. Safer than street taxis." },
+          "gym": { "title": "Find a gym", "description": "Smart Fit ($400-600 MXN/mo), Sport City (premium), local gyms ($300-500 MXN/mo)." },
+          "park": { "title": "Explore Parque Tangamanga", "description": "One of Mexico's largest urban parks. Running, cycling, picnics. Free entry." },
+          "amazon": { "title": "Set up Amazon Mexico", "description": "Delivery available. Prime offers faster shipping. Great for hard-to-find items." }
+        }
+      }
+    }
   }
 }
