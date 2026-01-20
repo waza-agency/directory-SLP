@@ -4,6 +4,40 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: a67a8b93 - 2026-01-20
+
+**Mensaje:** feat: Add arrival checklist to resources page
+
+**Archivos modificados:**
+- src/pages/resources/arrival-checklist.tsx (nuevo)
+- src/pages/resources/index.tsx (modificado)
+- supabase/migrations/20250120_arrival_checklist_guide.sql (eliminado)
+
+**Descripción detallada:**
+
+Se movió el checklist de llegada del blog a la página de recursos por petición del usuario. Se creó una página React interactiva con 45+ items accionables para recién llegados a San Luis Potosí.
+
+**Categorías incluidas:**
+1. **First Week Essentials**: SIM card, apps esenciales, dinero, español básico
+2. **Administrative Tasks**: INM, CURP, RFC, registro consular, licencia de conducir
+3. **Home & Services**: CFE, INTERAPAS, gas, internet, agua purificada
+4. **Financial Setup**: Cuenta bancaria, Mercado Pago, SPEI, transferencias internacionales
+5. **Healthcare**: Doctores, dentistas, farmacias, seguros, números de emergencia
+6. **Social & Community**: Grupos de expats, intercambio de idiomas, eventos
+7. **Daily Life**: Supermercados, mercados, transporte, gimnasios, Amazon Mexico
+
+**Features:**
+- Checkboxes interactivos para marcar progreso
+- Navegación sticky por categorías
+- Headers con gradientes de colores distintivos
+- Links a recursos oficiales y páginas internas
+- Sección de recursos esenciales con números de emergencia
+- CTA para contacto personalizado
+
+**Propósito/Razón:** El usuario prefirió tener el checklist como página de recursos dedicada en lugar de un post del blog, permitiendo mejor interactividad y organización.
+
+---
+
 ## Commit: 58380a17 - 2026-01-20
 
 **Mensaje:** feat: Add comprehensive arrival checklist guide for newcomers to SLP
