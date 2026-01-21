@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import B2BBanner from '@/components/B2BBanner';
 
 interface GuideCard {
   id: string;
@@ -330,6 +331,21 @@ export default function ResourcesHubPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* B2B Section */}
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                {t('b2b.card.title')}
+              </h3>
+              <p className="text-gray-600">
+                {t('b2b.card.description')}
+              </p>
+            </div>
+            <B2BBanner variant="compact" />
           </div>
         </section>
 

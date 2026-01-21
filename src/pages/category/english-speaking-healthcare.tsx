@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
+import B2BBanner from '@/components/B2BBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface HealthcarePageProps {
@@ -77,6 +78,8 @@ const HealthcarePage: NextPage<HealthcarePageProps> = ({ places }) => {
             )}
           </div>
         </section>
+
+        <B2BBanner />
 
         {selectedPlace && (
           <PlaceModal

@@ -1131,5 +1131,33 @@
         }
       }
     }
+  },
+  "b2b": {
+    "nav": "Für Unternehmen",
+    "footer": {
+      "title": "Für Unternehmen",
+      "description": "Erreichen Sie 15.000+ Expats und internationale Fachkräfte in San Luis Potosí",
+      "cta": "Partner werden"
+    },
+    "banner": {
+      "title": "Haben Sie ein Geschäft in SLP?",
+      "subtitle": "Werden Sie von internationalen Kunden entdeckt, die aktiv nach Ihren Dienstleistungen suchen",
+      "cta": "Mehr erfahren",
+      "benefits": {
+        "visibility": "Mehrsprachige Sichtbarkeit",
+        "clients": "Vorqualifizierte Leads",
+        "seo": "SEO-optimiertes Profil"
+      }
+    },
+    "card": {
+      "title": "Wachsen Sie Ihr Geschäft",
+      "description": "Schließen Sie sich über 100 lokalen Unternehmen an, die die internationale Gemeinschaft in San Luis Potosí erreichen. Erhalten Sie ein verifiziertes Profil, mehrsprachige Inhalte und direkten Zugang zu Expats.",
+      "cta": "Partner werden",
+      "badge": "B2B"
+    },
+    "inline": {
+      "text": "Ist dies Ihr Unternehmen?",
+      "cta": "Profil beanspruchen"
+    }
   }
 }

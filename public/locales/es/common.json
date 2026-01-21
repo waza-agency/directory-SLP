@@ -1166,5 +1166,33 @@
         }
       }
     }
+  },
+  "b2b": {
+    "nav": "Para Negocios",
+    "footer": {
+      "title": "Para Negocios",
+      "description": "Conecta con 15,000+ expatriados y profesionales internacionales en San Luis Potosí",
+      "cta": "Colabora Con Nosotros"
+    },
+    "banner": {
+      "title": "¿Tienes un Negocio en SLP?",
+      "subtitle": "Hazte visible para clientes internacionales que buscan activamente tus servicios",
+      "cta": "Más Información",
+      "benefits": {
+        "visibility": "Visibilidad multilingüe",
+        "clients": "Clientes pre-calificados",
+        "seo": "Perfil optimizado para SEO"
+      }
+    },
+    "card": {
+      "title": "Haz Crecer tu Negocio",
+      "description": "Únete a más de 100 negocios locales que conectan con la comunidad internacional en San Luis Potosí. Obtén un perfil verificado, contenido multilingüe y acceso directo a expatriados.",
+      "cta": "Colabora Con Nosotros",
+      "badge": "B2B"
+    },
+    "inline": {
+      "text": "¿Es este tu negocio?",
+      "cta": "Reclama tu perfil"
+    }
   }
 }

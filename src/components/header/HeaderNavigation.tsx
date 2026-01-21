@@ -15,6 +15,7 @@ const HeaderNavigation = memo(function HeaderNavigation() {
     { href: '/community', label: t('nav.community', 'Community'), comingSoon: true },
     { href: '/blog', label: t('nav.blog') },
     { href: '/contact', label: t('nav.contact') },
+    { href: 'https://sanluiswayhub.com', label: t('b2b.nav'), external: true, b2b: true },
   ];
 
   const isActive = (path: string) => {
@@ -26,22 +27,22 @@ const HeaderNavigation = memo(function HeaderNavigation() {
 
   return (
     <nav className="hidden lg:flex items-center gap-1">
-      {navItems.map(({ href, label, comingSoon, highlight }) => (
-        <Link
-          key={href}
-          href={href}
-          className={`
-            nav-link px-3 py-1.5 rounded-lg text-sm font-medium
-            transition-all duration-200 relative
-            ${isActive(href)
-              ? 'text-primary bg-primary/5'
+      {navItems.map(({ href, label, comingSoon, highlight, external, b2b }) => {
+        const linkClasses = `
+          nav-link px-3 py-1.5 rounded-lg text-sm font-medium
+          transition-all duration-200 relative
+          ${isActive(href)
+            ? 'text-primary bg-primary/5'
+            : b2b
+              ? 'text-secondary hover:text-secondary-dark hover:bg-secondary/10'
               : highlight
                 ? 'text-rose-600 hover:text-rose-700 hover:bg-rose-50'
                 : 'text-gray-700 hover:text-primary hover:bg-gray-50'
-            }
-            focus-ring
-          `}
-        >
+          }
+          focus-ring
+        `;
+
+        const content = (
           <span className="flex items-center gap-1.5">
             {label}
             {highlight && (
@@ -54,9 +55,34 @@ const HeaderNavigation = memo(function HeaderNavigation() {
                 Soon
               </span>
             )}
+            {b2b && (
+              <span className="px-1.5 py-0.5 text-[10px] font-bold bg-gradient-to-r from-secondary to-primary text-white rounded-full uppercase">
+                B2B
+              </span>
+            )}
           </span>
-        </Link>
-      ))}
+        );
+
+        if (external) {
+          return (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClasses}
+            >
+              {content}
+            </a>
+          );
+        }
+
+        return (
+          <Link key={href} href={href} className={linkClasses}>
+            {content}
+          </Link>
+        );
+      })}
     </nav>
   );
 });

@@ -30,6 +30,40 @@ export default function Footer() {
           <NewsletterSignup variant="footer" />
         </div>
 
+        {/* B2B CTA Section */}
+        <div className="mb-16">
+          <a
+            href="https://sanluiswayhub.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 border border-primary/30 rounded-2xl p-6 hover:border-primary/50 transition-all duration-300 group"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">
+                    {t('b2b.footer.title')}
+                  </h3>
+                  <p className="text-gray-300 text-sm">
+                    {t('b2b.footer.description')}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-full group-hover:bg-primary-dark transition-colors">
+                {t('b2b.footer.cta')}
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </div>
+            </div>
+          </a>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Enhanced Brand Section */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">

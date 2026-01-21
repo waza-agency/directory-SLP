@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
+import B2BBanner from '@/components/B2BBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface RemoteWorkCafesPageProps {
@@ -82,6 +83,9 @@ const RemoteWorkCafesPage: NextPage<RemoteWorkCafesPageProps> = ({ places }) => 
             )}
           </div>
         </section>
+
+        {/* B2B Banner */}
+        <B2BBanner />
 
         {/* Place Details Modal */}
         {selectedPlace && (

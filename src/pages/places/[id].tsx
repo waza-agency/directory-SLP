@@ -5,6 +5,7 @@ import type { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
+import B2BBanner from '@/components/B2BBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
@@ -129,13 +130,17 @@ export default function PlacePage({ place, error }: { place: Place | null; error
               </div>
             )}
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
               <Link
                 href="/places"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
               >
                 Regresar a lugares
               </Link>
+            </div>
+
+            <div className="mt-6">
+              <B2BBanner variant="inline" />
             </div>
           </div>
         </div>
