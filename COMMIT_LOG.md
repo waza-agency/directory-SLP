@@ -4,6 +4,52 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 220c1bb2 - 2026-01-21
+
+**Mensaje:** feat: Add B2B CTAs and banners linking to sanluiswayhub.com
+
+**Archivos modificados:**
+- src/components/B2BBanner.tsx (nuevo)
+- public/locales/en/common.json (modificado)
+- public/locales/es/common.json (modificado)
+- public/locales/de/common.json (modificado)
+- public/locales/ja/common.json (modificado)
+- src/components/Footer.tsx (modificado)
+- src/components/header/HeaderNavigation.tsx (modificado)
+- src/pages/category/english-speaking-healthcare.tsx (modificado)
+- src/pages/category/family-activities.tsx (modificado)
+- src/pages/category/remote-work-cafes.tsx (modificado)
+- src/pages/category/restaurants-with-playgrounds.tsx (modificado)
+- src/pages/places/[id].tsx (modificado)
+- src/pages/resources/index.tsx (modificado)
+
+**Descripción detallada:**
+
+Se agregaron CTAs y banners B2B en múltiples ubicaciones del sitio para promover sanluiswayhub.com (sitio de servicios B2B para negocios locales).
+
+**Componente B2BBanner:**
+- Componente reutilizable con 3 variantes: default (full-width), compact (card), inline (small)
+- Diseño consistente con gradientes y animaciones
+- Totalmente traducido a 4 idiomas
+
+**Traducciones B2B (todos los idiomas):**
+- nav: "For Businesses" / "Para Negocios" / "Für Unternehmen" / "ビジネス向け"
+- footer: título, descripción, CTA
+- banner: título, subtítulo, beneficios (visibility, clients, SEO)
+- card: título, descripción, CTA, badge
+- inline: texto y CTA para páginas de detalle
+
+**Ubicaciones de CTAs:**
+1. Header Navigation - Link "For Businesses" con badge B2B
+2. Footer - Sección prominente con icono y botón
+3. Category pages (4 páginas) - Banner full-width al final
+4. Place detail page - Banner inline para reclamar perfil
+5. Resources index - Sección compacta con card
+
+**Propósito/Razón:** Integrar estrategia de monetización B2B al sitio principal, dirigiendo negocios locales a sanluiswayhub.com donde pueden suscribirse a perfiles premium.
+
+---
+
 ## Commit: 41cf5242 - 2026-01-20
 
 **Mensaje:** feat: Internationalize arrival checklist page
