@@ -4,6 +4,38 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 0402cb03 - 2026-01-23
+
+**Mensaje:** refactor: Rename Practical Guides to Smart Picks with improved descriptions
+
+**Archivos modificados:**
+- public/locales/en/common.json (modificado)
+- public/locales/es/common.json (modificado)
+- public/locales/de/common.json (modificado)
+- public/locales/ja/common.json (modificado)
+
+**Descripción detallada:**
+
+Se renombró la sección "Practical Guides" del homepage a "Smart Picks" ya que el contenido son listas curadas de lugares con cualidades específicas, no guías prácticas paso a paso.
+
+**Cambios de nombre:**
+- EN: "Practical Guides" → "Smart Picks" (badge: "Curated Lists")
+- ES: "Guías Prácticas" → "Selecciones Inteligentes" (badge: "Listas Curadas")
+- DE: "Praktische Führer" → "Smart Picks" (badge: "Kuratierte Listen")
+- JA: "実用ガイド" → "スマートピック" (badge: "厳選リスト")
+
+**Descripciones mejoradas (más específicas y orientadas al beneficio):**
+- Family Activities: "Parks, museums & entertainment perfect for all ages"
+- Rainy Day: "Indoor spots to keep everyone entertained when it rains"
+- Kid-Friendly Restaurants: "Eat in peace while kids burn energy in safe play areas"
+- English-Speaking Healthcare: "Doctors, dentists & clinics where staff speaks English"
+- International Markets: "Asian groceries, American snacks, European imports & more"
+- Easy Parking: "Restaurants & cafes with hassle-free parking"
+
+**Propósito/Razón:** Mejorar la claridad del contenido ya que la sección muestra listas filtradas de lugares, no guías instructivas. El nuevo nombre "Smart Picks" es más moderno y descriptivo.
+
+---
+
 ## Commit: 220c1bb2 - 2026-01-21
 
 **Mensaje:** feat: Add B2B CTAs and banners linking to sanluiswayhub.com
