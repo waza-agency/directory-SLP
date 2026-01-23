@@ -367,38 +367,38 @@
       "exploreAll": "すべてのブランドを探索"
     },
     "practical": {
-      "badge": "便利なリソース",
-      "title": "実用ガイド",
-      "description": "サンルイスポトシでの家族と日常生活に欠かせない情報",
+      "badge": "厳選リスト",
+      "title": "スマートピック",
+      "description": "特定のニーズに合わせてキュレーションされた場所 — 探しているものがすぐ見つかる",
       "family": {
         "title": "ファミリーアクティビティ",
-        "description": "サンルイスポトシで子供と楽しめること",
+        "description": "公園、博物館、全年齢向けエンターテイメント",
         "badge": "ファミリー"
       },
       "rainyDay": {
         "title": "雨の日のアクティビティ",
-        "description": "天気が悪いときの屋内アクティビティ",
+        "description": "雨の日でも楽しめる屋内スポット",
         "badge": "屋内"
       },
       "playgrounds": {
-        "title": "遊び場付きレストラン",
-        "description": "子供が安全に遊べるダイニングスポット",
+        "title": "キッズフレンドリーレストラン",
+        "description": "子供が安全に遊べる間、ゆっくり食事を楽しめる",
         "badge": "ダイニング"
       },
       "healthcare": {
         "title": "英語対応の医療",
-        "description": "国際コミュニティ向けの医療サービス",
+        "description": "英語が話せる医師、歯科医、クリニック",
         "badge": "健康"
       },
       "markets": {
         "title": "輸入品マーケット",
-        "description": "輸入品や特産品を見つける場所",
+        "description": "アジア食材、アメリカのスナック、ヨーロッパの輸入品など",
         "badge": "ショッピング"
       },
       "parking": {
-        "title": "便利な駐車場",
-        "description": "市内中心部の駐車ガイド",
-        "badge": "実用的"
+        "title": "駐車しやすいスポット",
+        "description": "駐車が便利なレストラン＆カフェ",
+        "badge": "駐車場"
       }
     },
     "cta": {

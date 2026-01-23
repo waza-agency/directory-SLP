@@ -356,38 +356,38 @@
       "exploreAll": "Explorar Todas las Marcas"
     },
     "practical": {
-      "badge": "Recursos Útiles",
-      "title": "Guías Prácticas",
-      "description": "Información esencial para familias y la vida diaria en San Luis Potosí",
+      "badge": "Listas Curadas",
+      "title": "Selecciones Inteligentes",
+      "description": "Lugares curados para necesidades específicas — encuentra exactamente lo que buscas",
       "family": {
         "title": "Actividades Familiares",
-        "description": "Cosas divertidas para hacer con niños en San Luis Potosí",
+        "description": "Parques, museos y entretenimiento para todas las edades",
         "badge": "Familia"
       },
       "rainyDay": {
         "title": "Actividades para Días Lluviosos",
-        "description": "Diversión bajo techo cuando el clima cambia",
+        "description": "Lugares bajo techo para mantenerse entretenidos cuando llueve",
         "badge": "Interior"
       },
       "playgrounds": {
-        "title": "Restaurantes con Áreas de Juegos",
-        "description": "Lugares para comer donde los niños pueden jugar seguros",
+        "title": "Restaurantes con Área de Juegos",
+        "description": "Come tranquilo mientras los niños juegan en áreas seguras",
         "badge": "Comida"
       },
       "healthcare": {
         "title": "Servicios de Salud en Inglés",
-        "description": "Servicios médicos para la comunidad internacional",
+        "description": "Doctores, dentistas y clínicas con personal que habla inglés",
         "badge": "Salud"
       },
       "markets": {
         "title": "Mercados Internacionales",
-        "description": "Dónde encontrar productos importados y alimentos especiales",
+        "description": "Comida asiática, snacks americanos, importados europeos y más",
         "badge": "Compras"
       },
       "parking": {
-        "title": "Lugares de Estacionamiento Fácil",
-        "description": "Guía de estacionamiento en el centro de la ciudad",
-        "badge": "Práctico"
+        "title": "Lugares con Estacionamiento Fácil",
+        "description": "Restaurantes y cafés con estacionamiento sin complicaciones",
+        "badge": "Parking"
       }
     },
     "cta": {

@@ -356,38 +356,38 @@
       "exploreAll": "Explore All Brands"
     },
     "practical": {
-      "badge": "Useful Resources",
-      "title": "Practical Guides",
-      "description": "Essential information for families and daily life in San Luis Potosí",
+      "badge": "Curated Lists",
+      "title": "Smart Picks",
+      "description": "Places curated for specific needs — find exactly what you're looking for",
       "family": {
         "title": "Family Activities",
-        "description": "Fun things to do with kids in San Luis Potosí",
+        "description": "Parks, museums & entertainment perfect for all ages",
         "badge": "Family"
       },
       "rainyDay": {
         "title": "Rainy Day Activities",
-        "description": "Indoor fun for when the weather turns",
+        "description": "Indoor spots to keep everyone entertained when it rains",
         "badge": "Indoor"
       },
       "playgrounds": {
-        "title": "Restaurants with Playgrounds",
-        "description": "Dining spots where kids can play safely",
+        "title": "Kid-Friendly Restaurants",
+        "description": "Eat in peace while kids burn energy in safe play areas",
         "badge": "Dining"
       },
       "healthcare": {
         "title": "English-Speaking Healthcare",
-        "description": "Medical services for the international community",
+        "description": "Doctors, dentists & clinics where staff speaks English",
         "badge": "Health"
       },
       "markets": {
         "title": "International Markets",
-        "description": "Where to find imported goods and specialty foods",
+        "description": "Asian groceries, American snacks, European imports & more",
         "badge": "Shopping"
       },
       "parking": {
         "title": "Easy Parking Spots",
-        "description": "Guide to parking in the city center",
-        "badge": "Practical"
+        "description": "Restaurants & cafes with hassle-free parking",
+        "badge": "Parking"
       }
     },
     "cta": {

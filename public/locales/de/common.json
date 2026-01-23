@@ -356,38 +356,38 @@
       "exploreAll": "Alle Marken erkunden"
     },
     "practical": {
-      "badge": "Nützliche Ressourcen",
-      "title": "Praktische Führer",
-      "description": "Wichtige Informationen für Familien und das tägliche Leben in San Luis Potosí",
+      "badge": "Kuratierte Listen",
+      "title": "Smart Picks",
+      "description": "Orte für spezifische Bedürfnisse kuratiert — finden Sie genau, was Sie suchen",
       "family": {
         "title": "Familienaktivitäten",
-        "description": "Spaß mit Kindern in San Luis Potosí",
+        "description": "Parks, Museen & Unterhaltung für alle Altersgruppen",
         "badge": "Familie"
       },
       "rainyDay": {
         "title": "Regentag-Aktivitäten",
-        "description": "Indoor-Spaß bei schlechtem Wetter",
+        "description": "Indoor-Orte für Unterhaltung bei Regen",
         "badge": "Indoor"
       },
       "playgrounds": {
-        "title": "Restaurants mit Spielplätzen",
-        "description": "Esslokale, wo Kinder sicher spielen können",
+        "title": "Kinderfreundliche Restaurants",
+        "description": "In Ruhe essen, während Kinder in sicheren Spielbereichen toben",
         "badge": "Gastronomie"
       },
       "healthcare": {
         "title": "Englischsprachige Gesundheitsversorgung",
-        "description": "Medizinische Dienste für die internationale Gemeinschaft",
+        "description": "Ärzte, Zahnärzte & Kliniken mit englischsprachigem Personal",
         "badge": "Gesundheit"
       },
       "markets": {
         "title": "Internationale Märkte",
-        "description": "Wo man importierte Waren und Spezialitäten findet",
+        "description": "Asiatische Lebensmittel, amerikanische Snacks, europäische Importe & mehr",
         "badge": "Einkaufen"
       },
       "parking": {
         "title": "Einfache Parkplätze",
-        "description": "Parkführer für das Stadtzentrum",
-        "badge": "Praktisch"
+        "description": "Restaurants & Cafés mit unkompliziertem Parken",
+        "badge": "Parken"
       }
     },
     "cta": {
