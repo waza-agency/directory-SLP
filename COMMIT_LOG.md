@@ -4,7 +4,7 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
-## Commit: [pending] - 2026-01-29
+## Commit: 79f59ea2 - 2026-01-29
 
 **Mensaje:** feat: Add CSV subscriber import system and email tracking for Beehiiv
 
