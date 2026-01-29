@@ -52,6 +52,7 @@ debug_output.json
 # Beehiiv data (contains subscriber emails)
 beehiiv_all_emails.txt
 new_emails_to_add.txt
+scripts/import-report-*.txt
 
 # Temporary Claude files
 tmpclaude-*

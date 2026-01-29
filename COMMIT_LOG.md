@@ -4,6 +4,54 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: [pending] - 2026-01-29
+
+**Mensaje:** feat: Add CSV subscriber import system and email tracking for Beehiiv
+
+**Archivos modificados:**
+- scripts/import-csv-subscribers.js (nuevo)
+- scripts/fetch-beehiiv-emails.js (nuevo)
+- beehiiv_all_emails.txt (nuevo - no versionado)
+- .gitignore (modificado)
+
+**Descripción detallada:**
+
+Se implementó un sistema completo para importar suscriptores desde archivos CSV a Beehiiv y mantener un tracking local de emails existentes para evitar duplicados.
+
+**Funcionalidades agregadas:**
+
+1. **Script de importación CSV (`import-csv-subscribers.js`):**
+   - Lee archivos CSV con columnas Name y Email
+   - Parsea correctamente campos con comillas y caracteres especiales
+   - Verifica contra archivo local de emails existentes para evitar duplicados
+   - Importa nuevos suscriptores a Beehiiv vía API
+   - Configura UTM tags apropiados (utm_source: csv_import, utm_medium: bulk_upload)
+   - Desactiva welcome emails para evitar spam masivo
+   - Procesa en batches con delay de 200ms entre requests para respetar rate limits
+   - Genera reporte detallado con resumen y lista de éxitos/errores
+   - Actualiza automáticamente el archivo de tracking con nuevos emails
+
+2. **Script de sincronización (`fetch-beehiiv-emails.js`):**
+   - Obtiene todos los suscriptores activos de Beehiiv vía API
+   - Pagina automáticamente a través de todos los resultados
+   - Guarda emails en archivo `beehiiv_all_emails.txt` ordenados alfabéticamente
+   - Útil para sincronización inicial o re-sincronización después de cambios manuales en Beehiiv
+
+3. **Sistema de tracking:**
+   - Archivo `beehiiv_all_emails.txt` mantiene lista de todos los emails existentes
+   - Previene importación de duplicados en futuras operaciones
+   - Se actualiza automáticamente después de cada importación exitosa
+   - Excluido del repositorio vía .gitignore por contener información sensible
+
+**Resultado primera ejecución:**
+- Importados exitosamente: 584 nuevos suscriptores desde leads (15).csv
+- Total de emails ahora en Beehiiv: 587
+- 0 fallos durante el proceso
+
+**Propósito/Razón:** Automatizar el proceso de importación de leads desde campañas de marketing y mantener sincronización con la base de suscriptores de Beehiiv. Permite agregar múltiples suscriptores de forma masiva sin duplicados y con tracking adecuado.
+
+---
+
 ## Commit: 0402cb03 - 2026-01-23
 
 **Mensaje:** refactor: Rename Practical Guides to Smart Picks with improved descriptions
