@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-02-02T17:15:08.939Z",
+  "totalEmails": 612,
+  "typosFound": 21,
+  "duplicates": 6,
+  "toCorrect": 15,
+  "details": [
+    {
+      "original": "algarapaola@yahoo.com.mx",
+      "localPart": "algarapaola",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "algarapaola@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "barbara.canales@yahoo.com.mx",
+      "localPart": "barbara.canales",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "barbara.canales@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "bservin6@yahoo.com.mx",
+      "localPart": "bservin6",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "bservin6@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "cgamez76@yahoo.com.mx",
+      "localPart": "cgamez76",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "cgamez76@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "jlgaliciaz@yahoo.com.mx",
+      "localPart": "jlgaliciaz",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "jlgaliciaz@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "kofcarlos@yahoo.com.mx",
+      "localPart": "kofcarlos",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "kofcarlos@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "lalo_94@yahoo.com.mx",
+      "localPart": "lalo_94",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "lalo_94@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "robertomorua@yahoo.com.mx",
+      "localPart": "robertomorua",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "robertomorua@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "sermonvil@yahoo.com.mx",
+      "localPart": "sermonvil",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "sermonvil@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "westerandtables@yahoo.com.mx",
+      "localPart": "westerandtables",
+      "wrongDomain": "yahoo.com.mx",
+      "correctDomain": "yahoo.com",
+      "suggested": "westerandtables@yahoo.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "jaibolucas@hotmeil.com",
+      "localPart": "jaibolucas",
+      "wrongDomain": "hotmeil.com",
+      "correctDomain": "hotmail.com",
+      "suggested": "jaibolucas@hotmail.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "alfredodavidesparzamendoza@gotmail.com",
+      "localPart": "alfredodavidesparzamendoza",
+      "wrongDomain": "gotmail.com",
+      "correctDomain": "gmail.com",
+      "suggested": "alfredodavidesparzamendoza@gmail.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "hybridreactor@gnail.com",
+      "localPart": "hybridreactor",
+      "wrongDomain": "gnail.com",
+      "correctDomain": "gmail.com",
+      "suggested": "hybridreactor@gmail.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "abogadoeliasslp@hmail.com",
+      "localPart": "abogadoeliasslp",
+      "wrongDomain": "hmail.com",
+      "correctDomain": "gmail.com",
+      "suggested": "abogadoeliasslp@gmail.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "alesitafigueroa.22@icloud.com.com",
+      "localPart": "alesitafigueroa.22",
+      "wrongDomain": "icloud.com.com",
+      "correctDomain": "icloud.com",
+      "suggested": "alesitafigueroa.22@icloud.com",
+      "correctExists": false,
+      "action": "CORREGIR - Actualizar email"
+    },
+    {
+      "original": "yiyis1505@gmail.comy",
+      "localPart": "yiyis1505",
+      "wrongDomain": "gmail.comy",
+      "correctDomain": "gmail.com",
+      "suggested": "yiyis1505@gmail.com",
+      "correctExists": true,
+      "action": "DUPLICATE - Eliminar typo"
+    },
+    {
+      "original": "pichardo38@hotmail.con",
+      "localPart": "pichardo38",
+      "wrongDomain": "hotmail.con",
+      "correctDomain": "hotmail.com",
+      "suggested": "pichardo38@hotmail.com",
+      "correctExists": true,
+      "action": "DUPLICATE - Eliminar typo"
+    },
+    {
+      "original": "mariacossio11@gmail.con",
+      "localPart": "mariacossio11",
+      "wrongDomain": "gmail.con",
+      "correctDomain": "gmail.com",
+      "suggested": "mariacossio11@gmail.com",
+      "correctExists": true,
+      "action": "DUPLICATE - Eliminar typo"
+    },
+    {
+      "original": "albertoyubaile@gmail.com.mx",
+      "localPart": "albertoyubaile",
+      "wrongDomain": "gmail.com.mx",
+      "correctDomain": "gmail.com",
+      "suggested": "albertoyubaile@gmail.com",
+      "correctExists": true,
+      "action": "DUPLICATE - Eliminar typo"
+    },
+    {
+      "original": "serranopablo@hotmal.com",
+      "localPart": "serranopablo",
+      "wrongDomain": "hotmal.com",
+      "correctDomain": "hotmail.com",
+      "suggested": "serranopablo@hotmail.com",
+      "correctExists": true,
+      "action": "DUPLICATE - Eliminar typo"
+    },
+    {
+      "original": "muro.md@hotmail.con",
+      "localPart": "muro.md",
+      "wrongDomain": "hotmail.con",
+      "correctDomain": "hotmail.com",
+      "suggested": "muro.md@hotmail.com",
+      "correctExists": true,
+      "action": "DUPLICATE - Eliminar typo"
+    }
+  ]
+}

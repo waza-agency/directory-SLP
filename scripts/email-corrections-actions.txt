@@ -1,0 +1,30 @@
+ACCIONES SUGERIDAS PARA BEEHIIV
+================================================================================
+
+DUPLICADOS - Eliminar estos emails (versión correcta ya existe):
+- yiyis1505@gmail.comy
+- pichardo38@hotmail.con
+- mariacossio11@gmail.con
+- albertoyubaile@gmail.com.mx
+- serranopablo@hotmal.com
+- muro.md@hotmail.con
+
+CORRECCIONES - Actualizar estos emails manualmente en Beehiiv:
+- algarapaola@yahoo.com.mx → algarapaola@yahoo.com
+- barbara.canales@yahoo.com.mx → barbara.canales@yahoo.com
+- bservin6@yahoo.com.mx → bservin6@yahoo.com
+- cgamez76@yahoo.com.mx → cgamez76@yahoo.com
+- jlgaliciaz@yahoo.com.mx → jlgaliciaz@yahoo.com
+- kofcarlos@yahoo.com.mx → kofcarlos@yahoo.com
+- lalo_94@yahoo.com.mx → lalo_94@yahoo.com
+- robertomorua@yahoo.com.mx → robertomorua@yahoo.com
+- sermonvil@yahoo.com.mx → sermonvil@yahoo.com
+- westerandtables@yahoo.com.mx → westerandtables@yahoo.com
+- jaibolucas@hotmeil.com → jaibolucas@hotmail.com
+- alfredodavidesparzamendoza@gotmail.com → alfredodavidesparzamendoza@gmail.com
+- hybridreactor@gnail.com → hybridreactor@gmail.com
+- abogadoeliasslp@hmail.com → abogadoeliasslp@gmail.com
+- alesitafigueroa.22@icloud.com.com → alesitafigueroa.22@icloud.com
+
+NOTA: Beehiiv no permite actualizar emails vía API.
+Debes hacer estas correcciones manualmente en el dashboard de Beehiiv.
