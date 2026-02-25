@@ -4,6 +4,26 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-02-25] Fix: Replace 15 expired Google Maps images with Supabase Storage URLs
+
+**Descripción:**
+15 imágenes de lugares en la sección Explorar mostraban una foto de iglesia (fallback) porque las URLs de Google Maps (`gps-cs-s`) expiraron y devolvían 403 Forbidden.
+
+**Causa raíz:** Las URLs de Google Maps con prefijo `gps-cs-s` son temporales y expiran. Las URLs con formato `/p/AF1Qip...` son permanentes y siguen funcionando.
+
+**Solución:**
+- Descargadas fotos reales para Presa de San José y Absenta Speakeasy desde sus fuentes web
+- Obtenidas fotos de alta calidad de Unsplash para los 13 lugares restantes
+- Subidas todas a Supabase Storage (bucket `images/places/`) para URLs permanentes
+- Actualizada la base de datos con las nuevas URLs
+- Agregado `revalidate: 3600` a `getStaticProps` en pages/places y cultural-attractions para que cambios futuros en la DB se reflejen sin rebuild completo
+
+**Archivos:** scripts/fix-broken-images.js, src/pages/places/index.tsx, src/pages/cultural-attractions.tsx | Estado: Exitoso
+
+**Lugares corregidos:** Presa de San José, Absenta Speakeasy, Parque Tangamanga II, Sierra de Álvarez, Café Pacífico, Bowling & Games Centro, Costco SLP, Yoga Studio Om, City Market, Mercado Orgánico, Cinépolis VIP, La Comer Gourmet, CrossFit SLP, Hospital Lomas, SmartFit Tangamanga
+
+---
+
 ## [2026-01-20] Feat: Arrival Checklist Guide - First 30 Days in SLP
 
 **Descripción:**

@@ -4,6 +4,22 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: e2442c0c - 2026-02-25
+
+**Mensaje:** fix: Replace 15 expired Google Maps images with Supabase Storage URLs
+
+**Archivos modificados:**
+- scripts/fix-broken-images.js (nuevo)
+- src/pages/places/index.tsx (modificado)
+- src/pages/cultural-attractions.tsx (modificado)
+
+**Descripción detallada:**
+15 lugares en la sección Explorar mostraban imágenes incorrectas (foto de iglesia/catedral como fallback) porque las URLs de Google Maps con prefijo `gps-cs-s` expiraron y devolvían HTTP 403. Se diagnosticó el problema verificando todas las URLs en la base de datos. Se creó un script que descarga fotos reales de fuentes web (liderempresarial.com para Presa de San José, casa-h.com para Absenta Speakeasy) y fotos de Unsplash para los 13 lugares restantes. Las imágenes se subieron a Supabase Storage (bucket `images/places/`) para garantizar URLs permanentes. Se agregó ISR con `revalidate: 3600` a las páginas de places y cultural-attractions.
+
+**Propósito/Razón:** Las URLs de Google Maps `gps-cs-s` son temporales y expiran, mientras que las URLs con formato `/p/` y las de Supabase Storage son permanentes. Este fix asegura que todas las imágenes de lugares usen URLs estables.
+
+---
+
 ## Commit: 79f59ea2 - 2026-01-29
 
 **Mensaje:** feat: Add CSV subscriber import system and email tracking for Beehiiv
