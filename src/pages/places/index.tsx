@@ -514,6 +514,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         services: services || [],
         featuredServices: featuredServices || [],
       },
+      revalidate: 3600,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -525,6 +526,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         services: [],
         featuredServices: [],
       },
+      revalidate: 3600,
     };
   }
 };
