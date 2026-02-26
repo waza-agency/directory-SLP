@@ -14,11 +14,11 @@ import { getSponsoredBrands, getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
 import CentroHistoricoBanner from '@/components/CentroHistoricoBanner';
 import { logger } from '@/lib/logger';
-import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
+import RobotMindBanner from '@/components/RobotMindBanner';
 import GlitchText from '@/components/common/GlitchText';
 import TodayInSLP from '@/components/TodayInSLP';
 import BlogCarousel from '@/components/BlogCarousel';
@@ -468,10 +468,8 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </section>
         )}
 
-        {/* Ad Placement 1 */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
-          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
-        </div>
+        {/* ROBOTMIND BANNER - Primary (after events, high visibility) */}
+        <RobotMindBanner variant="primary" />
 
         {/* FEATURED PLACES - Editorial Style */}
         <section id="places-001" className="py-32 bg-white">
@@ -557,10 +555,8 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </div>
         </section>
 
-        {/* Ad Placement 2 */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
-          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
-        </div>
+        {/* ROBOTMIND BANNER - Slim (between places and dining) */}
+        <RobotMindBanner variant="slim" />
 
         {/* RESTAURANTS & BARS - Culinary Excellence */}
         <section id="dining-001" className="py-32 bg-white">
@@ -741,10 +737,8 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           />
         )}
 
-        {/* Ad Placement 3 */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
-          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
-        </div>
+        {/* ROBOTMIND BANNER - Time (after blog, before culture) */}
+        <RobotMindBanner variant="time" />
 
         {/* CULTURAL HERITAGE - Traditions & History */}
         <section id="culture-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
@@ -1044,6 +1038,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           </div>
         </section>
 
+        {/* ROBOTMIND BANNER - Sponsored */}
+        <RobotMindBanner variant="growth" />
+
         {/* LIFESTYLE BENEFITS - Why SLP */}
         <section id="benefits-001" className="py-32 bg-gradient-to-b from-gray-50 to-white">
           <div className="container mx-auto px-6 md:px-12 lg:px-20">
@@ -1140,10 +1137,8 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* CIRCLE OF TRUST BANNER */}
         <CircleOfTrustBanner />
 
-        {/* Ad Placement 4 */}
-        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-8">
-          <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }} />
-        </div>
+        {/* ROBOTMIND BANNER - Sponsored */}
+        <RobotMindBanner variant="slim" />
 
         {/* NEWSLETTER BANNER - Mid Content */}
         <div className="container mx-auto px-6 md:px-12 lg:px-20">
