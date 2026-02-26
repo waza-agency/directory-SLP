@@ -4,6 +4,19 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-02-26] Feat: Add RobotMind promotional banners across homepage
+
+**Descripcion:**
+Se creó el componente `RobotMindBanner` con 4 variantes (primary, growth, time, slim) y se distribuyeron 5 banners promocionales en diferentes secciones del homepage. Se reemplazaron todos los AdUnit existentes con banners de RobotMind que apuntan a robotmind.io.
+
+**Archivos afectados:**
+- `src/components/RobotMindBanner.tsx` (nuevo)
+- `src/pages/index.tsx` (modificado)
+
+**Estado:** Exitoso
+
+---
+
 ## [2026-02-25] Fix: Replace 15 expired Google Maps images with Supabase Storage URLs
 
 **Descripción:**

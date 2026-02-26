@@ -4,6 +4,22 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: da365f9b - 2026-02-26
+
+**Mensaje:** feat: Add RobotMind promotional banners across homepage
+
+**Archivos modificados:** src/components/RobotMindBanner.tsx (nuevo), src/pages/index.tsx
+
+**Descripcion detallada:**
+- Creado componente `RobotMindBanner.tsx` con 4 variantes: `primary` (tarjeta completa con icono, etiqueta Sponsored, puntos animados y CTA), `growth`, `time` (misma estructura, diferente copy), y `slim` (barra compacta de una linea).
+- Distribuidos 5 banners en el homepage: despues de Events (primary), despues de Featured Places (slim), despues de Blog Carousel (time), entre Brands y Benefits (growth), antes de Newsletter (slim).
+- Reemplazados todos los AdUnit anteriores, eliminado el import no utilizado de AdUnit.
+- Todos los banners enlazan a `https://robotmind.io` con `target="_blank" rel="noopener noreferrer"`.
+
+**Proposito/Razon:** El usuario quiere promocionar RobotMind.io en multiples ubicaciones del sitio de forma no intrusiva con diferentes mensajes publicitarios.
+
+---
+
 ## Commit: e2442c0c - 2026-02-25
 
 **Mensaje:** fix: Replace 15 expired Google Maps images with Supabase Storage URLs
