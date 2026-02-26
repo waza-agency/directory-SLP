@@ -23,23 +23,23 @@ const ArrowIcon = () => (
 
 const VARIANTS = {
   primary: {
-    headline: 'Stop Drowning in Repetitive Tasks',
-    text: 'Smart automation that handles your busywork while you focus on what actually grows your business.',
+    headline: 'Your AI Assistant That Gets Things Done',
+    text: 'RobotMind works the way you do — handling tasks, answering questions, and keeping your business moving forward.',
     cta: 'Join Waiting List',
   },
   growth: {
-    headline: 'Automate. Scale. Grow.',
-    text: 'Let AI handle the repetitive work so you can focus on strategy and growth.',
+    headline: 'Work Smarter, Your Way',
+    text: 'An AI assistant that adapts to how you work — so you can focus on strategy and growth.',
     cta: 'Get Early Access',
   },
   time: {
     headline: 'Get 10+ Hours Back Every Week',
-    text: 'RobotMind automates your daily workflows — emails, data entry, scheduling, and more.',
+    text: 'RobotMind handles your daily tasks — emails, scheduling, research, and more — your way.',
     cta: 'Learn More',
   },
   slim: {
-    headline: 'Your business runs on autopilot',
-    text: 'RobotMind — Smart AI automation for growing businesses.',
+    headline: 'Meet your AI assistant',
+    text: 'RobotMind — Does things your way, so you don\'t have to.',
     cta: 'Join Waiting List',
   },
 };
