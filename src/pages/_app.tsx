@@ -13,6 +13,11 @@ import { AuthProvider } from '@/lib/supabase-auth';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { appWithTranslation } from 'next-i18next';
+import dynamic from 'next/dynamic';
+
+const PageAgentWidget = dynamic(() => import('@/components/PageAgentWidget'), {
+  ssr: false,
+});
 
 // Create a single instance of the Supabase client
 const supabaseClient = createPagesBrowserClient();
@@ -131,6 +136,8 @@ function App({ Component, pageProps }: AppProps) {
               </main>
               <Footer />
             </div>
+
+            <PageAgentWidget />
 
             <ToastContainer
               position="top-right"
