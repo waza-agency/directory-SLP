@@ -4,6 +4,28 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: beeb99d1 - 2026-03-09
+
+**Mensaje:** feat: Add Alibaba page-agent widget and leads import skill
+
+**Archivos modificados:**
+- `src/components/PageAgentWidget.tsx` (nuevo)
+- `src/pages/api/page-agent-proxy/[...path].ts` (nuevo)
+- `src/pages/_app.tsx` (modificado)
+- `package.json` / `package-lock.json` (modificado)
+- `.claude/skills/import-leads.md` (nuevo)
+
+**Descripcion detallada:**
+- Instalado paquete `page-agent` v1.5.4 de Alibaba para automatizacion GUI con lenguaje natural en el navegador.
+- Creado `PageAgentWidget.tsx`: usa import dinamico con `ssr: false`, `useRef` para evitar doble inicializacion en StrictMode, llama `agent.panel.show()` para hacer visible el panel.
+- Creado ruta API proxy catch-all `[...path].ts`: reenvía peticiones de page-agent a OpenAI (`/v1/chat/completions`), manteniendo la API key en el servidor.
+- Modificado `_app.tsx`: agregado import dinamico de `PageAgentWidget` y renderizado dentro de `AuthProvider`.
+- Creado skill `.claude/skills/import-leads.md` para importacion semanal de leads CSV a beehiiv con deduplicacion.
+
+**Proposito/Razon:** Integrar herramienta de automatizacion AI en el sitio para control de interfaz con lenguaje natural. Crear skill reutilizable para la tarea recurrente de importacion de leads cada lunes.
+
+---
+
 ## Commit: da365f9b - 2026-02-26
 
 **Mensaje:** feat: Add RobotMind promotional banners across homepage

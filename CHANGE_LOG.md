@@ -4,6 +4,22 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-03-09] Feat: Add Alibaba page-agent widget and leads import skill
+
+**Descripcion:**
+Se integro el widget page-agent de Alibaba para automatizacion GUI con lenguaje natural. Se creo una ruta API proxy (`/api/page-agent-proxy/[...path]`) para mantener la API key de OpenAI en el servidor. Se agrego el componente `PageAgentWidget` con import dinamico (SSR deshabilitado) y se incluyo en `_app.tsx`. Tambien se creo el skill `/import-leads` para la importacion semanal de leads a beehiiv.
+
+**Archivos afectados:**
+- `src/components/PageAgentWidget.tsx` (nuevo)
+- `src/pages/api/page-agent-proxy/[...path].ts` (nuevo)
+- `src/pages/_app.tsx` (modificado)
+- `package.json` / `package-lock.json` (modificado - agregado page-agent)
+- `.claude/skills/import-leads.md` (nuevo)
+
+**Estado:** Exitoso
+
+---
+
 ## [2026-02-26] Feat: Add RobotMind promotional banners across homepage
 
 **Descripcion:**
