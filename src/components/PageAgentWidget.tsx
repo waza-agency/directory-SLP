@@ -5,7 +5,7 @@ const POSITION_CSS = `
   ._wrapper_gtdpc_1 {
     left: auto !important;
     right: 20px !important;
-    bottom: 20px !important;
+    bottom: 80px !important;
   }
 `;
 
