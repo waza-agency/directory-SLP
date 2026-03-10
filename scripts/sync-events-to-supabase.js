@@ -14,7 +14,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-const CUTOFF = '2026-02-16T00:00:00.000Z';
+const CUTOFF = '2026-03-10T00:00:00.000Z';
 
 function normalizeTitle(title) {
   return title.toLowerCase().replace(/[^a-z0-9]/g, '');

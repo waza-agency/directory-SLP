@@ -3238,3 +3238,11 @@ Cambios en supabase/migrations:
 - Agregadas columnas title_de, summary_de para community_news
 
 **Propósito/Razón:** Permitir que cada ejecución del script de noticias genere contenido traducido automáticamente a los 4 idiomas soportados por la aplicación (es, en, de, ja), asegurando que los usuarios de todos los idiomas vean las noticias en su idioma preferido.
+
+---
+
+## Commit: 1f803054 - 2026-03-09
+**Mensaje:** fix: Strip unsupported params from page-agent proxy requests
+**Archivos modificados:** src/pages/api/page-agent-proxy/[...path].ts
+**Descripción detallada:** page-agent's modelPatch() function automatically injects verbosity:'low' for GPT models, which OpenAI's API rejects with HTTP 400. The proxy now strips verbosity, enable_thinking, thinking, and reasoning parameters from the request body before forwarding to OpenAI. Changed from sending raw req.body to creating a cleaned copy.
+**Propósito/Razón:** The page-agent widget was completely broken on the live site because every LLM request failed with "Unsupported value: 'verbosity' does not support 'low'" error, retried twice, and then gave up.

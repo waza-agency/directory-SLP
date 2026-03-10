@@ -11,7 +11,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-const CUTOFF_DATE = '2026-02-16T00:00:00.000Z';
+const CUTOFF_DATE = '2026-03-10T00:00:00.000Z';
 
 async function main() {
   console.log('=== Limpieza de eventos pasados ===\n');

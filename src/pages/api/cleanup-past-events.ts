@@ -26,7 +26,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const cutoffDate = '2025-12-14T00:00:00.000Z';
+  const cutoffDate = '2026-03-10T00:00:00.000Z';
 
   if (req.method === 'GET') {
     try {

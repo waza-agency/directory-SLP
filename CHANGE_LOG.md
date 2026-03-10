@@ -4,6 +4,77 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-03-10] Fix: Design review polish - placeholders, hero overlays, spacing, card heights
+
+**Descripcion:**
+Correcciones de 5 issues criticos identificados en design review:
+1. Placeholder images mejorados: icon mas visible (opacity-40) + etiqueta de categoria sobre gradiente
+2. Hero carousel: overlays lightened (from-black/70, from-black/40) para mejor visibilidad de contenido
+3. "Calendario de Eventos" heading alineado con contenido del timeline (pl-14 md:pl-20)
+4. Spacing mejorado entre heading/search y category filter (mb-2 -> mb-6)
+5. Cards con alturas consistentes usando flex-col + h-full + flex-1
+
+**Archivos afectados:**
+- `src/components/EventCard.tsx` (placeholder mejorado, card heights)
+- `src/components/EventHeroCarousel.tsx` (overlays lightened)
+- `src/pages/events/[category]/index.tsx` (spacing + heading alignment)
+
+**Estado:** Exitoso
+
+---
+
+## [2026-03-10] Feat: Update events - remove 21 past events, add 9 new, update dates for 2 existing
+
+**Descripcion:**
+Limpieza y actualizacion completa de eventos:
+- Eliminados 21 eventos pasados (end_date antes del 10 marzo 2026) del JSON
+- Eliminados 9 eventos pasados de la base de datos Supabase
+- Agregados 9 nuevos eventos: FEREVHI Villa Hidalgo, Fiesta Vochera Ciudad del Maiz, FENAHUAP 64th Edition, Festival del Cabrito, Dia de la Santa Cruz, Gasomax Trail, Corpus Christi, Feria del Rebozo, Fiestas Patrias
+- Actualizadas fechas de Festival en Primavera (Mar 28 - Apr 4, Miguel Bose) y FENAE (Apr 4-12, Gloria Trevi)
+- Eliminados 4 duplicados de la DB (ExpoTecnomedic, FENAHUAP viejo, Banda MS bare, 31 Minutos duplicado)
+- Total final: 68 eventos, 0 duplicados
+
+**Archivos afectados:**
+- `EVENTS_TO_IMPORT.json` (reescrito completo)
+- `scripts/sync-events-to-supabase.js` (cutoff actualizado)
+- `scripts/cleanup-past-events.js` (cutoff actualizado)
+- `src/pages/api/cleanup-past-events.ts` (cutoff actualizado)
+
+**Estado:** Exitoso
+
+---
+
+## [2026-03-10] Feat: Redesign events page with hero carousel, timeline, and polished UI
+
+**Descripcion:**
+Rediseno completo de la pagina de eventos con multiples componentes nuevos y mejorados:
+- Nuevo `EventHeroCarousel` con carousel auto-rotativo de eventos destacados, gradientes, navegacion por flechas/dots
+- Nuevo `EventCard` con variantes grid y compact, badges de fecha/categoria, hover effects
+- Nuevo `EventMonthlyTimeline` con agrupacion por mes, linea de tiempo visual, secciones colapsables
+- Nuevo `EventComingUp` para mostrar proximos eventos en formato compacto
+- Nuevo `EventSearchBar` con icono de busqueda y boton de limpiar
+- Nuevo `EventEmptyState` con estado vacio amigable
+- Nuevo `eventHelpers.ts` con utilidades compartidas (formateo de fechas, info de categorias, gradientes, agrupacion)
+- Rediseno de `EventCategoryFilter` con iconos Heroicons, sticky behavior, color secondary (#00007A) como activo
+- Rediseno de `EventList` como grid responsive (3/2/1 columnas)
+- Pagina principal reorganizada: hero carousel > heading+search > category filter > coming up > monthly timeline
+
+**Archivos afectados:**
+- `src/utils/eventHelpers.ts` (nuevo)
+- `src/components/EventHeroCarousel.tsx` (nuevo)
+- `src/components/EventCard.tsx` (nuevo)
+- `src/components/EventMonthlyTimeline.tsx` (nuevo)
+- `src/components/EventComingUp.tsx` (nuevo)
+- `src/components/EventSearchBar.tsx` (nuevo)
+- `src/components/EventEmptyState.tsx` (nuevo)
+- `src/components/EventCategoryFilter.tsx` (rediseñado)
+- `src/components/EventList.tsx` (rediseñado)
+- `src/pages/events/[category]/index.tsx` (rediseñado)
+
+**Estado:** Exitoso
+
+---
+
 ## [2026-03-09] Feat: Add Alibaba page-agent widget and leads import skill
 
 **Descripcion:**
@@ -3854,3 +3925,7 @@ El script de actualización de noticias ahora traduce automáticamente todo el c
    - Añadidas columnas para alemán (text_de, summary_de, title_de) en news_headlines y community_news
 
 **Resultado:** ✅ Exitoso - Ahora cada ejecución del script de noticias genera contenido traducido automáticamente a español, inglés, alemán y japonés
+
+---
+
+[2026-03-09] Fix page-agent proxy: strip unsupported params (verbosity, enable_thinking, thinking, reasoning) before forwarding to OpenAI API | Archivos: src/pages/api/page-agent-proxy/[...path].ts | Estado: ✅ Exitoso
