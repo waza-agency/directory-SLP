@@ -58,18 +58,30 @@ export default function PlacePage({ place, error }: { place: Place | null; error
       <SEO
         title={`${place.name} | San Luis Potosí`}
         description={place.description || `Visit ${place.name} in San Luis Potosí.`}
-        ogImage={place.imageUrl || '/images/placeholder.jpg'}
+        ogImage={place.imageUrl || '/images/logo.jpeg'}
       />
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative h-96">
-            <Image
-              src={place.imageUrl || '/images/placeholder.jpg'}
-              alt={place.name}
-              fill
-              className="object-cover"
-            />
+          <div className={`relative h-96 ${!place.imageUrl ? 'bg-[#0a1628]' : ''}`}>
+            {place.imageUrl ? (
+              <Image
+                src={place.imageUrl}
+                alt={place.name}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Image
+                  src="/images/logo.jpeg"
+                  alt="San Luis Way"
+                  width={240}
+                  height={240}
+                  className="object-contain opacity-80"
+                />
+              </div>
+            )}
           </div>
 
           <div className="p-6">

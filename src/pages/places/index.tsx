@@ -7,7 +7,7 @@ import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MapPinIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
 
-const PLACEHOLDER_IMAGE = '/images/placeholder-place.jpg';
+const LOGO_PLACEHOLDER = '/images/logo.jpeg';
 
 interface PlacesPageProps {
   places: Place[];
@@ -17,24 +17,26 @@ interface PlacesPageProps {
 }
 
 const PlaceImage = ({ src, alt, className, sizes }: { src: string; alt: string; className?: string; sizes?: string }) => {
-  const [imgSrc, setImgSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
+  const isPlaceholder = !src || src === LOGO_PLACEHOLDER;
+  const showLogo = isPlaceholder || hasError;
 
-  const handleError = () => {
-    if (!hasError) {
-      setHasError(true);
-      setImgSrc('/images/cultura-1.jpg');
-    }
-  };
+  if (showLogo) {
+    return (
+      <div className="absolute inset-0 bg-[#0a1628] flex items-center justify-center">
+        <Image src={LOGO_PLACEHOLDER} alt="San Luis Way" width={120} height={120} className="object-contain opacity-80" />
+      </div>
+    );
+  }
 
   return (
     <Image
-      src={imgSrc}
+      src={src}
       alt={alt}
       fill
       className={className || 'object-cover'}
       sizes={sizes}
-      onError={handleError}
+      onError={() => setHasError(true)}
     />
   );
 };
@@ -253,7 +255,7 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
                   <div key={item.id} className="bg-white rounded-xl p-6 shadow-elegant hover:shadow-lg transition-shadow">
                     <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden bg-gray-100">
                       <PlaceImage
-                        src={item.image_url || '/images/cultura-1.jpg'}
+                        src={item.image_url || LOGO_PLACEHOLDER}
                         alt={item.name}
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -394,7 +396,7 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
                   <div key={item.id} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
                     <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden bg-gray-100">
                       <PlaceImage
-                        src={item.image_url || '/images/cultura-1.jpg'}
+                        src={item.image_url || LOGO_PLACEHOLDER}
                         alt={item.name}
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

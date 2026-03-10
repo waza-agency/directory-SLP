@@ -31,48 +31,23 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
     other: 'border-gray-600 text-gray-600 bg-gray-50',
   };
 
-  // Get default image based on category
-  const getDefaultImage = (category: string) => {
-    const defaultImages: Record<string, string> = {
-      food: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',
-      beverages: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb',
-      'outdoor-activities': 'https://images.unsplash.com/photo-1551717743-49959800b1f6',
-      service: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40',
-      'sports-fitness': 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f',
-      'private-dining-rooms': 'https://images.unsplash.com/photo-1587899897387-091ebd01a6e2',
-      'language-exchange-cafes': 'https://images.unsplash.com/photo-1534531173927-aeb928d54385',
-      'family-activities': 'https://images.unsplash.com/photo-1608889476561-6242cfdbf622',
-      terraces: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf',
-      'live-music': 'https://images.unsplash.com/photo-1483393458019-411bc6bd104e',
-    };
-    return defaultImages[category] || 'https://images.unsplash.com/photo-1506619216599-9d16d0903dfd';
-  };
+  const LOGO_PLACEHOLDER = '/images/logo.jpeg';
 
-  // Simplified image URL handling
+  const hasRealImage = !!(place.imageUrl || place.image_url);
+
   const getImageUrl = (url: string | undefined) => {
-    if (!url || url.trim() === '') {
-      return getDefaultImage(place.category);
-    }
-
-    // Clean the URL
+    if (!url || url.trim() === '') return LOGO_PLACEHOLDER;
     url = url.trim();
-
-    // Handle Google Drive links
     if (url.includes('drive.google.com')) {
-      const fileIdMatch = url.match(/\/file\/d\/([-\w]{25,})/);
-      const idParamMatch = url.match(/[?&]id=([-\w]{25,})/);
-      const ucIdMatch = url.match(/\/uc\?.*id=([-\w]{25,})/);
-
-      const fileId = fileIdMatch?.[1] || idParamMatch?.[1] || ucIdMatch?.[1];
-
-      if (fileId) {
-        return `https://drive.google.com/uc?export=view&id=${fileId}`;
-      }
+      const fileId = url.match(/\/file\/d\/([-\w]{25,})/)?.[1]
+        || url.match(/[?&]id=([-\w]{25,})/)?.[1]
+        || url.match(/\/uc\?.*id=([-\w]{25,})/)?.[1];
+      if (fileId) return `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
-
-    // Return the URL as is for all other cases
     return url;
   };
+
+  const showLogo = !hasRealImage || imageError;
 
   return (
     <div
@@ -82,18 +57,30 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
       onClick={onClick}
     >
       <Link href={`/places/${place.id}`} className="block">
-        {/* Enhanced Image Container */}
-        <div className="relative h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-          <Image
-            src={imageError ? getDefaultImage(place.category) : getImageUrl(place.imageUrl)}
-            alt={place.name}
-            className={`object-cover transition-all duration-700 ease-out ${isHovered ? 'scale-110 brightness-110' : 'scale-100 brightness-100'}`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={featured}
-            onError={() => setImageError(true)}
-            unoptimized={true}
-          />
+        {/* Image Container */}
+        <div className={`relative h-56 overflow-hidden ${showLogo ? 'bg-[#0a1628]' : 'bg-gradient-to-br from-gray-100 to-gray-200'}`}>
+          {showLogo ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Image
+                src={LOGO_PLACEHOLDER}
+                alt="San Luis Way"
+                width={160}
+                height={160}
+                className="object-contain opacity-80"
+              />
+            </div>
+          ) : (
+            <Image
+              src={getImageUrl(place.imageUrl)}
+              alt={place.name}
+              className={`object-cover transition-all duration-700 ease-out ${isHovered ? 'scale-110 brightness-110' : 'scale-100 brightness-100'}`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={featured}
+              onError={() => setImageError(true)}
+              unoptimized={true}
+            />
+          )}
 
           {/* Enhanced Category Badge */}
           <div className={`absolute top-4 left-4 z-10 transition-all duration-300 ${isHovered ? 'scale-110 -translate-y-1' : 'scale-100 translate-y-0'}`}>
