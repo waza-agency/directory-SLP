@@ -19,13 +19,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const endpoint = pathSegments.join('/');
 
   try {
+    const body = { ...req.body };
+    // Strip non-standard parameters that page-agent injects via modelPatch()
+    const unsupported = ['verbosity', 'enable_thinking', 'thinking', 'reasoning'];
+    unsupported.forEach(key => delete body[key]);
+
     const response = await fetch(`https://api.openai.com/v1/${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
       },
-      body: JSON.stringify(req.body),
+      body: JSON.stringify(body),
     });
 
     const data = await response.json();
