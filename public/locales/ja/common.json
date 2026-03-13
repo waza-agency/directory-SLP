@@ -1258,5 +1258,43 @@
     "yourEarnings": "あなたの収益",
     "status": "ステータス",
     "noOrdersYet": "まだ注文はありません。顧客が商品を購入すると、ここに表示されます。"
+  },
+  "booking": {
+    "bookNow": "今すぐ予約",
+    "reserveAt": "予約先",
+    "date": "日付",
+    "time": "時間",
+    "partySize": "人数",
+    "person": "名",
+    "people": "名",
+    "contactName": "連絡先名",
+    "contactEmail": "メール",
+    "contactPhone": "電話番号",
+    "specialRequests": "特別なリクエスト",
+    "notesPlaceholder": "特別な要望やリクエストがあれば...",
+    "confirmBooking": "予約を確定",
+    "submitting": "送信中...",
+    "successMessage": "予約が正常に送信されました！",
+    "confirmationNote": "施設が予約を確認次第、確認メールが届きます。",
+    "errorCreating": "予約の作成に失敗しました。もう一度お試しください。",
+    "loginRequired": "予約するにはサインインしてください。",
+    "noBookings": "まだ予約はありません。",
+    "unknownPlace": "不明な場所",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "markCompleted": "完了にする",
+    "noShow": "不参加",
+    "allBookings": "すべて",
+    "noBookingsFound": "予約が見つかりません。",
+    "manageBookings": "予約管理",
+    "manageDescription": "ビジネスの予約を表示・管理します。",
+    "backToDashboard": "ダッシュボードに戻る",
+    "status": {
+      "pending": "保留中",
+      "confirmed": "確認済み",
+      "cancelled": "キャンセル済み",
+      "completed": "完了",
+      "no_show": "不参加"
+    }
   }
 }

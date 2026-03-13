@@ -1265,5 +1265,43 @@
     "yourEarnings": "Your Earnings",
     "status": "Status",
     "noOrdersYet": "No orders received yet. Orders will appear here when customers purchase your products."
+  },
+  "booking": {
+    "bookNow": "Book Now",
+    "reserveAt": "Reserve at",
+    "date": "Date",
+    "time": "Time",
+    "partySize": "Party Size",
+    "person": "person",
+    "people": "people",
+    "contactName": "Contact Name",
+    "contactEmail": "Email",
+    "contactPhone": "Phone",
+    "specialRequests": "Special Requests",
+    "notesPlaceholder": "Any special requirements or requests...",
+    "confirmBooking": "Confirm Booking",
+    "submitting": "Submitting...",
+    "successMessage": "Booking submitted successfully!",
+    "confirmationNote": "You will receive a confirmation once the business reviews your reservation.",
+    "errorCreating": "Failed to create booking. Please try again.",
+    "loginRequired": "Please sign in to make a booking.",
+    "noBookings": "You have no bookings yet.",
+    "unknownPlace": "Unknown Place",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "markCompleted": "Mark Completed",
+    "noShow": "No Show",
+    "allBookings": "All",
+    "noBookingsFound": "No bookings found.",
+    "manageBookings": "Manage Bookings",
+    "manageDescription": "View and manage reservations for your business.",
+    "backToDashboard": "Back to Dashboard",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed",
+      "no_show": "No Show"
+    }
   }
 }

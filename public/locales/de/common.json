@@ -1230,5 +1230,43 @@
     "yourEarnings": "Ihre Einnahmen",
     "status": "Status",
     "noOrdersYet": "Noch keine Bestellungen erhalten. Bestellungen erscheinen hier, wenn Kunden Ihre Produkte kaufen."
+  },
+  "booking": {
+    "bookNow": "Jetzt Buchen",
+    "reserveAt": "Reservieren bei",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "partySize": "Personenanzahl",
+    "person": "Person",
+    "people": "Personen",
+    "contactName": "Kontaktname",
+    "contactEmail": "E-Mail",
+    "contactPhone": "Telefon",
+    "specialRequests": "Besondere Wünsche",
+    "notesPlaceholder": "Besondere Anforderungen oder Wünsche...",
+    "confirmBooking": "Buchung Bestätigen",
+    "submitting": "Wird gesendet...",
+    "successMessage": "Buchung erfolgreich eingereicht!",
+    "confirmationNote": "Sie erhalten eine Bestätigung, sobald das Unternehmen Ihre Reservierung prüft.",
+    "errorCreating": "Buchung konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "loginRequired": "Bitte melden Sie sich an, um eine Buchung vorzunehmen.",
+    "noBookings": "Sie haben noch keine Buchungen.",
+    "unknownPlace": "Unbekannter Ort",
+    "cancel": "Stornieren",
+    "confirm": "Bestätigen",
+    "markCompleted": "Als Abgeschlossen markieren",
+    "noShow": "Nicht erschienen",
+    "allBookings": "Alle",
+    "noBookingsFound": "Keine Buchungen gefunden.",
+    "manageBookings": "Buchungen Verwalten",
+    "manageDescription": "Reservierungen für Ihr Unternehmen anzeigen und verwalten.",
+    "backToDashboard": "Zurück zum Dashboard",
+    "status": {
+      "pending": "Ausstehend",
+      "confirmed": "Bestätigt",
+      "cancelled": "Storniert",
+      "completed": "Abgeschlossen",
+      "no_show": "Nicht erschienen"
+    }
   }
 }
