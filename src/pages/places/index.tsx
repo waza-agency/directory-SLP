@@ -130,12 +130,16 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
     <>
       <SEO
         title={activeTab === 'places'
-          ? "Places to Visit in San Luis Potosí | SLP Descubre"
-          : "Local Services in San Luis Potosí | SLP Descubre"
+          ? "Best Places to Visit in San Luis Potosí — Restaurants, Bars, Cafes & More"
+          : "Trusted Local Services in San Luis Potosí — Healthcare, Legal, Home & More"
         }
         description={activeTab === 'places'
-          ? "Discover the best places to visit in San Luis Potosí. From historic sites to modern attractions, find your next adventure."
-          : "Find trusted local service providers in San Luis Potosí. From healthcare to home maintenance, connect with reliable professionals."
+          ? `Explore ${places.length}+ curated places in San Luis Potosí. Find the best restaurants, cafes, bars, museums, and attractions. Honest reviews and local recommendations for expats and visitors.`
+          : `Find ${services.length}+ trusted local service providers in San Luis Potosí. Healthcare, legal, home services, and more — vetted by the expat community.`
+        }
+        keywords={activeTab === 'places'
+          ? "places san luis potosi, restaurants SLP, things to do san luis potosi, best cafes SLP, bars san luis potosi, expat restaurants mexico"
+          : "services san luis potosi, healthcare SLP, legal services mexico, home services san luis potosi, expat services"
         }
       />
 

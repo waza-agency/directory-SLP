@@ -13,6 +13,7 @@ interface SEOProps {
     modifiedTime?: string;
     tags?: string[];
   };
+  structuredData?: Record<string, unknown>;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -23,50 +24,43 @@ const SEO: React.FC<SEOProps> = ({
   ogType = 'website',
   noIndex = false,
   article,
+  structuredData,
 }) => {
   const router = useRouter();
-  // Remove query parameters and trailing slashes (except for root) to avoid duplicate content issues
   const path = router.asPath.split('?')[0];
   const cleanPath = path === '/' ? path : path.replace(/\/$/, '');
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
   const canonicalUrl = `${siteUrl}${cleanPath}`;
   const siteName = "San Luis Way";
-
-  // Make title specific but also include site name
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+  const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
   return (
     <Head>
-      {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
       {description && <meta name="description" content={description} />}
       {keywords && <meta name="keywords" content={keywords} />}
-      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
       {!noIndex && <link rel="canonical" href={canonicalUrl} />}
 
-      {/* Favicon Tags */}
-      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-      <meta name="theme-color" content="#ffffff" />
-
-      {/* Open Graph Meta Tags */}
+      {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      {description && <meta property="og:description" content={description} />}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={absoluteOgImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteName} />
+      <meta property="og:locale" content={router.locale === 'es' ? 'es_MX' : router.locale === 'de' ? 'de_DE' : router.locale === 'ja' ? 'ja_JP' : 'en_US'} />
 
-      {/* Twitter Meta Tags */}
+      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
+      {description && <meta name="twitter:description" content={description} />}
+      <meta name="twitter:image" content={absoluteOgImage} />
 
-      {/* Article Specific Meta Tags */}
+      {/* Article Meta */}
       {ogType === 'article' && article && (
         <>
           {article.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
@@ -77,12 +71,16 @@ const SEO: React.FC<SEOProps> = ({
         </>
       )}
 
-      {/* Additional SEO tags for better indexing */}
-      <meta name="robots" content="index, follow" />
-      <meta name="language" content="en" />
-      <meta name="revisit-after" content="7 days" />
       <meta name="author" content="San Luis Way" />
-      <meta name="application-name" content="San Luis Way" />
+
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData)
+          }}
+        />
+      )}
     </Head>
   );
 };

@@ -10,6 +10,63 @@ import ReviewForm from '@/components/ReviewForm';
 import ReviewList from '@/components/ReviewList';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+const CATEGORY_TO_SCHEMA: Record<string, string> = {
+  restaurant: 'Restaurant',
+  cafe: 'CafeOrCoffeeShop',
+  bar: 'BarOrPub',
+  hotel: 'Hotel',
+  museum: 'Museum',
+  park: 'Park',
+  shop: 'Store',
+  'live-music': 'MusicVenue',
+};
+
+function buildPlaceStructuredData(place: Place) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
+  const schemaType = CATEGORY_TO_SCHEMA[place.category] || 'LocalBusiness';
+
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    "name": place.name,
+    "url": `${siteUrl}/places/${place.id}`,
+    ...(place.description && { "description": place.description }),
+    ...(place.imageUrl && { "image": place.imageUrl }),
+    ...(place.phone && { "telephone": place.phone }),
+    ...(place.website && { "url": place.website }),
+    "address": {
+      "@type": "PostalAddress",
+      ...(place.address && { "streetAddress": place.address }),
+      "addressLocality": "San Luis Potosí",
+      "addressRegion": "SLP",
+      "addressCountry": "MX",
+    },
+  };
+
+  if (place.latitude && place.longitude) {
+    data.geo = {
+      "@type": "GeoCoordinates",
+      "latitude": place.latitude,
+      "longitude": place.longitude,
+    };
+  }
+
+  if (place.rating && place.review_count) {
+    data.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": place.rating,
+      "bestRating": 5,
+      "reviewCount": place.review_count,
+    };
+  }
+
+  if (place.hours) {
+    data.openingHours = place.hours;
+  }
+
+  return data;
+}
+
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
   const router = useRouter();
   const [reviews, setReviews] = useState<any[]>([]);
@@ -62,9 +119,11 @@ export default function PlacePage({ place, error }: { place: Place | null; error
   return (
     <>
       <SEO
-        title={`${place.name} | San Luis Potosí`}
-        description={place.description || `Visit ${place.name} in San Luis Potosí.`}
+        title={`${place.name} — ${place.category ? place.category.charAt(0).toUpperCase() + place.category.slice(1) : 'Place'} in San Luis Potosí`}
+        description={place.description || `Discover ${place.name} in San Luis Potosí. ${place.address ? `Located at ${place.address}.` : ''} Find hours, reviews, and more on San Luis Way.`}
+        keywords={`${place.name}, ${place.category || 'place'}, San Luis Potosí, SLP, ${place.tags?.join(', ') || ''}`}
         ogImage={place.imageUrl || '/images/logo.jpeg'}
+        structuredData={buildPlaceStructuredData(place)}
       />
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

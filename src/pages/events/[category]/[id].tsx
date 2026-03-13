@@ -172,13 +172,35 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
   return (
     <>
       <SEO
-        title={`${event.title} | SLP Descubre`}
-        description={event.description || `Detalles del evento ${event.title} en San Luis Potosí`}
+        title={`${event.title} — Event in San Luis Potosí`}
+        description={event.description || `${event.title} — ${formatDate(event.start_date)} at ${event.location}, San Luis Potosí. Find details, times, and location.`}
         ogImage={event.image_url || '/og-image.jpg'}
-        ogType="article"
-        article={{
-          publishedTime: event.created_at,
-          tags: [event.category]
+        keywords={`${event.title}, events san luis potosi, ${event.category} events SLP, things to do san luis potosi`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          "name": event.title,
+          "startDate": event.start_date,
+          "endDate": event.end_date,
+          ...(event.description && { "description": event.description }),
+          ...(event.image_url && { "image": event.image_url }),
+          "location": {
+            "@type": "Place",
+            "name": event.location,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "San Luis Potosí",
+              "addressRegion": "SLP",
+              "addressCountry": "MX",
+            },
+          },
+          "organizer": {
+            "@type": "Organization",
+            "name": "San Luis Way",
+            "url": "https://www.sanluisway.com",
+          },
+          "eventStatus": "https://schema.org/EventScheduled",
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         }}
       />
 
