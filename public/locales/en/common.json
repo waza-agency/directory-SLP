@@ -1178,6 +1178,22 @@
       }
     }
   },
+  "filters": {
+    "searchPlaceholder": "Search...",
+    "allCategories": "All Categories",
+    "minRating": "Min Rating",
+    "priceLevel": "Price",
+    "sortNewest": "Newest First",
+    "sortRating": "Highest Rated",
+    "sortName": "A-Z",
+    "clearAll": "Clear filters",
+    "showing": "Showing",
+    "of": "of"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
+  },
   "analytics": {
     "title": "Analytics Overview",
     "activeListings": "Active Listings",

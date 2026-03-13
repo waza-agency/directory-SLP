@@ -1171,6 +1171,22 @@
       }
     }
   },
+  "filters": {
+    "searchPlaceholder": "検索...",
+    "allCategories": "すべてのカテゴリ",
+    "minRating": "最低評価",
+    "priceLevel": "価格",
+    "sortNewest": "新しい順",
+    "sortRating": "評価が高い順",
+    "sortName": "A-Z順",
+    "clearAll": "フィルターをクリア",
+    "showing": "表示中",
+    "of": "件中"
+  },
+  "pagination": {
+    "prev": "前へ",
+    "next": "次へ"
+  },
   "analytics": {
     "title": "分析概要",
     "activeListings": "アクティブなリスティング",

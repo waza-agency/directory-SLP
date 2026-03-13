@@ -1,11 +1,14 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { Place, Service } from '@/types';
 import { supabase } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MapPinIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import PlaceFilters, { FilterState, SortOption } from '@/components/PlaceFilters';
+import Pagination from '@/components/Pagination';
 
 const LOGO_PLACEHOLDER = '/images/logo.jpeg';
 
@@ -41,47 +44,87 @@ const PlaceImage = ({ src, alt, className, sizes }: { src: string; alt: string; 
   );
 };
 
-const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, services, featuredServices }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeTab, setActiveTab] = useState<'places' | 'services'>('places');
+const ITEMS_PER_PAGE = 12;
 
-  // Get unique categories based on active tab
+const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, services, featuredServices }) => {
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<'places' | 'services'>(
+    (router.query.tab as string) === 'services' ? 'services' : 'places'
+  );
+  const [page, setPage] = useState(Number(router.query.page) || 1);
+  const [filters, setFilters] = useState<FilterState>({
+    search: (router.query.q as string) || '',
+    category: (router.query.category as string) || 'all',
+    minRating: Number(router.query.minRating) || 0,
+    priceLevel: Number(router.query.priceLevel) || 0,
+    sort: ((router.query.sort as string) || 'newest') as SortOption,
+  });
+
+  // Sync filters to URL
+  const syncUrl = useCallback((f: FilterState, tab: string, p: number) => {
+    const query: Record<string, string> = {};
+    if (tab !== 'places') query.tab = tab;
+    if (f.search) query.q = f.search;
+    if (f.category !== 'all') query.category = f.category;
+    if (f.minRating > 0) query.minRating = String(f.minRating);
+    if (f.priceLevel > 0) query.priceLevel = String(f.priceLevel);
+    if (f.sort !== 'newest') query.sort = f.sort;
+    if (p > 1) query.page = String(p);
+    router.replace({ pathname: router.pathname, query }, undefined, { shallow: true });
+  }, [router]);
+
+  const handleFiltersChange = (newFilters: FilterState) => {
+    setFilters(newFilters);
+    setPage(1);
+    syncUrl(newFilters, activeTab, 1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    syncUrl(filters, activeTab, newPage);
+    window.scrollTo({ top: document.getElementById('items-section')?.offsetTop ?? 0, behavior: 'smooth' });
+  };
+
   const categories = useMemo(() => {
     const items = activeTab === 'places' ? places : services;
     const cats = Array.from(new Set(items.map(item => item.category)));
     return ['all', ...cats.sort()];
   }, [places, services, activeTab]);
 
-  // Filter items based on active tab
-  const filteredPlaces = useMemo(() => {
-    return places.filter(place => {
-      const matchesSearch = place.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           (place.description && place.description.toLowerCase().includes(searchTerm.toLowerCase()));
-      const matchesCategory = selectedCategory === 'all' || place.category === selectedCategory;
-      return matchesSearch && matchesCategory;
+  // Apply filters + sort
+  const filteredAndSorted = useMemo(() => {
+    const items = activeTab === 'places' ? places : services;
+    const search = filters.search.toLowerCase();
+
+    const filtered = items.filter(item => {
+      const matchesSearch = !search || item.name.toLowerCase().includes(search) ||
+        (item.description && item.description.toLowerCase().includes(search));
+      const matchesCategory = filters.category === 'all' || item.category === filters.category;
+      const matchesRating = filters.minRating === 0 || ('rating' in item && (item.rating ?? 0) >= filters.minRating);
+      const matchesPrice = filters.priceLevel === 0 || ('priceLevel' in item && (item.priceLevel ?? 0) <= filters.priceLevel);
+      return matchesSearch && matchesCategory && matchesRating && matchesPrice;
     });
-  }, [places, searchTerm, selectedCategory]);
 
-  const filteredServices = useMemo(() => {
-    return services.filter(service => {
-      const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           (service.description && service.description.toLowerCase().includes(searchTerm.toLowerCase()));
-      const matchesCategory = selectedCategory === 'all' || service.category === selectedCategory;
-      return matchesSearch && matchesCategory;
+    return [...filtered].sort((a, b) => {
+      if (filters.sort === 'rating') return (('rating' in b ? b.rating : 0) ?? 0) - (('rating' in a ? a.rating : 0) ?? 0);
+      if (filters.sort === 'name') return a.name.localeCompare(b.name);
+      return 0; // newest = default DB order
     });
-  }, [services, searchTerm, selectedCategory]);
+  }, [places, services, activeTab, filters]);
 
-  // Reset category when switching tabs
-  const handleTabChange = (tab: 'places' | 'services') => {
-    setActiveTab(tab);
-    setSelectedCategory('all');
-    setSearchTerm('');
-  };
-
-  const currentItems = activeTab === 'places' ? filteredPlaces : filteredServices;
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSorted.length / ITEMS_PER_PAGE);
+  const currentItems = filteredAndSorted.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
   const totalItems = activeTab === 'places' ? places.length : services.length;
   const currentFeatured = activeTab === 'places' ? featuredPlaces : featuredServices;
+
+  const handleTabChange = (tab: 'places' | 'services') => {
+    setActiveTab(tab);
+    const reset: FilterState = { search: '', category: 'all', minRating: 0, priceLevel: 0, sort: 'newest' };
+    setFilters(reset);
+    setPage(1);
+    syncUrl(reset, tab, 1);
+  };
 
   return (
     <>
@@ -355,43 +398,20 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
                   }
                 </p>
 
-                {/* Search and Filter Controls */}
-                <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder={`Search ${activeTab}...`}
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                    />
-                    <svg className="absolute right-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  >
-                    {categories.map((category) => (
-                      <option key={category} value={category}>
-                        {category === 'all' ? 'All Categories' : category.charAt(0).toUpperCase() + category.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
               </div>
 
-              {/* Results count */}
-              <div className="mb-6">
-                <p className="text-gray-600 text-center">
-                  Showing {currentItems.length} of {totalItems} {activeTab}
-                </p>
-              </div>
+              {/* Filters */}
+              <PlaceFilters
+                filters={filters}
+                onChange={handleFiltersChange}
+                categories={categories}
+                activeTab={activeTab}
+                resultCount={filteredAndSorted.length}
+                totalCount={totalItems}
+              />
 
               {/* Items Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div id="items-section" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentItems.map((item) => (
                   <div key={item.id} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
                     <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden bg-gray-100">
@@ -454,6 +474,8 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
                   <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filter criteria.</p>
                 </div>
               )}
+
+              <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
             </div>
           </div>
         </section>

@@ -1178,6 +1178,22 @@
       }
     }
   },
+  "filters": {
+    "searchPlaceholder": "Buscar...",
+    "allCategories": "Todas las Categorías",
+    "minRating": "Calificación mínima",
+    "priceLevel": "Precio",
+    "sortNewest": "Más recientes",
+    "sortRating": "Mejor calificados",
+    "sortName": "A-Z",
+    "clearAll": "Limpiar filtros",
+    "showing": "Mostrando",
+    "of": "de"
+  },
+  "pagination": {
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
   "analytics": {
     "title": "Resumen Analítico",
     "activeListings": "Listados Activos",
