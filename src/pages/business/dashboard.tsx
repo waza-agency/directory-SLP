@@ -8,6 +8,7 @@ import { supabase } from '@/lib/supabase';
 import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import BusinessAnalytics from '@/components/BusinessAnalytics';
+import SellerOrders from '@/components/SellerOrders';
 
 // Types
 type BusinessProfile = {
@@ -690,6 +691,11 @@ export default function BusinessDashboardPage() {
               {/* Analytics Section */}
               {businessProfile && subscription && (
                 <BusinessAnalytics />
+              )}
+
+              {/* Seller Orders Section */}
+              {businessProfile && subscription && (
+                <SellerOrders />
               )}
 
               {/* Listings Section */}
