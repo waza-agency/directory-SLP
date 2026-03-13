@@ -105,19 +105,79 @@ export default function BusinessAnalytics() {
         />
       </div>
 
-      {/* Recent Inquiries */}
-      {data.recentInquiries.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100">
-            <h3 className="text-sm font-semibold text-gray-800">
-              {t('analytics.recentInquiries', 'Recent Inquiries')}
-              {data.newInquiries > 0 && (
-                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                  {data.newInquiries} {t('analytics.new', 'new')}
-                </span>
-              )}
-            </h3>
-          </div>
+      {/* Actionable Insights */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-5 mb-6 border border-blue-100">
+        <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
+          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+          {t('analytics.insights', 'Insights & Tips')}
+        </h3>
+        <ul className="space-y-2">
+          {data.totalListings === 0 && (
+            <li className="flex items-start gap-2 text-sm text-gray-700">
+              <span className="text-blue-500 mt-0.5">&#8226;</span>
+              {t('analytics.insightNoListings', 'Create your first listing to start attracting customers.')}
+            </li>
+          )}
+          {data.totalListings > 0 && data.totalInquiries === 0 && (
+            <li className="flex items-start gap-2 text-sm text-gray-700">
+              <span className="text-blue-500 mt-0.5">&#8226;</span>
+              {t('analytics.insightNoInquiries', 'Your listings have no inquiries yet. Try adding detailed descriptions and photos to attract more customers.')}
+            </li>
+          )}
+          {data.totalListings > 0 && data.activeListings < data.totalListings && (
+            <li className="flex items-start gap-2 text-sm text-gray-700">
+              <span className="text-blue-500 mt-0.5">&#8226;</span>
+              {t('analytics.insightInactiveListings', `You have ${data.totalListings - data.activeListings} inactive listing(s). Activate them to increase your visibility.`)}
+            </li>
+          )}
+          {data.reviewCount === 0 && data.totalListings > 0 && (
+            <li className="flex items-start gap-2 text-sm text-gray-700">
+              <span className="text-blue-500 mt-0.5">&#8226;</span>
+              {t('analytics.insightNoReviews', 'Ask satisfied customers to leave a review — businesses with reviews get 2x more inquiries.')}
+            </li>
+          )}
+          {data.newInquiries > 0 && (
+            <li className="flex items-start gap-2 text-sm text-gray-700">
+              <span className="text-amber-500 mt-0.5">&#8226;</span>
+              {t('analytics.insightNewInquiries', `You have ${data.newInquiries} new inquiry(ies). Respond quickly to increase conversion.`)}
+            </li>
+          )}
+          {data.totalListings > 0 && data.totalInquiries > 0 && data.reviewCount > 0 && (
+            <li className="flex items-start gap-2 text-sm text-green-700">
+              <span className="text-green-500 mt-0.5">&#8226;</span>
+              {t('analytics.insightGood', 'Your business is performing well. Keep your listings updated to maintain momentum.')}
+            </li>
+          )}
+        </ul>
+      </div>
+
+      {/* Recent Inquiries + Export */}
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-gray-800">
+            {t('analytics.recentInquiries', 'Recent Inquiries')}
+            {data.newInquiries > 0 && (
+              <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                {data.newInquiries} {t('analytics.new', 'new')}
+              </span>
+            )}
+          </h3>
+          {/* CSV Export Button */}
+          <button
+            onClick={() => exportAnalyticsCSV(data)}
+            className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 transition-colors"
+            title="Export analytics data as CSV"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            {t('analytics.export', 'Export CSV')}
+          </button>
+        </div>
+
+        {data.recentInquiries.length > 0 ? (
           <ul className="divide-y divide-gray-100">
             {data.recentInquiries.map(inquiry => (
               <li key={inquiry.id} className="px-5 py-3 flex items-center justify-between">
@@ -129,13 +189,43 @@ export default function BusinessAnalytics() {
                   <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[inquiry.status] || 'bg-gray-100 text-gray-800'}`}>
                     {inquiry.status}
                   </span>
-                  <span className="text-xs text-gray-400">{formatDate(inquiry.created_at)}</span>
+                  <span className="text-xs text-gray-400 hidden sm:inline">{formatDate(inquiry.created_at)}</span>
                 </div>
               </li>
             ))}
           </ul>
-        </div>
-      )}
+        ) : (
+          <div className="px-5 py-8 text-center text-sm text-gray-500">
+            {t('analytics.noInquiries', 'No inquiries yet. Share your listing to get started.')}
+          </div>
+        )}
+      </div>
     </div>
   );
+}
+
+function exportAnalyticsCSV(data: AnalyticsData) {
+  const rows = [
+    ['Metric', 'Value'],
+    ['Total Listings', String(data.totalListings)],
+    ['Active Listings', String(data.activeListings)],
+    ['Total Inquiries', String(data.totalInquiries)],
+    ['New Inquiries', String(data.newInquiries)],
+    ['Total Revenue (MXN)', String(data.totalRevenue)],
+    ['Average Rating', data.reviewCount > 0 ? String(data.avgRating) : 'N/A'],
+    ['Review Count', String(data.reviewCount)],
+    [''],
+    ['Recent Inquiries'],
+    ['Name', 'Subject', 'Status', 'Date'],
+    ...data.recentInquiries.map(i => [i.customer_name, i.subject, i.status, i.created_at]),
+  ];
+
+  const csv = rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `analytics_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
