@@ -734,6 +734,17 @@
       "feature3": "Lebendiges Kulturleben"
     }
   },
+  "reviews": {
+    "loginRequired": "Melden Sie sich an, um eine Bewertung zu hinterlassen",
+    "ratingRequired": "Bitte wählen Sie eine Bewertung",
+    "textTooShort": "Die Bewertung muss mindestens 10 Zeichen lang sein",
+    "writeReview": "Bewertung schreiben",
+    "placeholder": "Teilen Sie Ihre Erfahrung...",
+    "submitted": "Bewertung erfolgreich eingereicht!",
+    "submitting": "Wird gesendet...",
+    "submit": "Bewertung abschicken",
+    "noReviews": "Noch keine Bewertungen. Seien Sie der Erste!"
+  },
   "placeCard": {
     "featured": "Empfohlen",
     "viewDetails": "Details ansehen"

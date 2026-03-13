@@ -769,6 +769,17 @@
       "feature3": "Vida Cultural Vibrante"
     }
   },
+  "reviews": {
+    "loginRequired": "Inicia sesión para dejar una reseña",
+    "ratingRequired": "Por favor selecciona una calificación",
+    "textTooShort": "La reseña debe tener al menos 10 caracteres",
+    "writeReview": "Escribe una reseña",
+    "placeholder": "Comparte tu experiencia...",
+    "submitted": "¡Reseña enviada exitosamente!",
+    "submitting": "Enviando...",
+    "submit": "Enviar Reseña",
+    "noReviews": "Aún no hay reseñas. ¡Sé el primero en opinar!"
+  },
   "placeCard": {
     "featured": "Destacado",
     "viewDetails": "Ver Detalles"

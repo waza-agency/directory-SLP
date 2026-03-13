@@ -1,27 +1,33 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getPlaceById, getPlaces } from '@/lib/supabase';
 import type { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
 import B2BBanner from '@/components/B2BBanner';
+import ReviewForm from '@/components/ReviewForm';
+import ReviewList from '@/components/ReviewList';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
   const router = useRouter();
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
-  // Add debug logging
+  const fetchReviews = useCallback(async () => {
+    if (!place) return;
+    setReviewsLoading(true);
+    try {
+      const res = await fetch(`/api/reviews/list?placeId=${place.id}`);
+      if (res.ok) setReviews(await res.json());
+    } catch { /* non-critical */ }
+    finally { setReviewsLoading(false); }
+  }, [place]);
+
   useEffect(() => {
-    console.log('PlacePage rendered with:', { place, error, path: router.asPath });
-
-    if (error) {
-      console.error('Place page error:', error);
-    }
-    if (place) {
-      console.log('Place data:', place);
-    }
-  }, [place, error, router.asPath]);
+    if (place) fetchReviews();
+  }, [place, fetchReviews]);
 
   if (router.isFallback) {
     return (
@@ -141,6 +147,15 @@ export default function PlacePage({ place, error }: { place: Place | null; error
                 </a>
               </div>
             )}
+
+            {/* Reviews Section */}
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Reviews</h2>
+              <ReviewList reviews={reviews} isLoading={reviewsLoading} />
+              <div className="mt-4">
+                <ReviewForm placeId={place.id} onReviewSubmitted={fetchReviews} />
+              </div>
+            </div>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
               <Link

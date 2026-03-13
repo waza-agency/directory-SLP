@@ -794,6 +794,17 @@
       "feature3": "活気ある文化生活"
     }
   },
+  "reviews": {
+    "loginRequired": "レビューを投稿するにはログインしてください",
+    "ratingRequired": "評価を選択してください",
+    "textTooShort": "レビューは10文字以上で入力してください",
+    "writeReview": "レビューを書く",
+    "placeholder": "体験を共有してください...",
+    "submitted": "レビューが正常に送信されました！",
+    "submitting": "送信中...",
+    "submit": "レビューを送信",
+    "noReviews": "まだレビューがありません。最初のレビューを書きましょう！"
+  },
   "placeCard": {
     "featured": "おすすめ",
     "viewDetails": "詳細を見る"

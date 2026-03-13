@@ -769,6 +769,17 @@
       "feature3": "Vibrant Cultural Life"
     }
   },
+  "reviews": {
+    "loginRequired": "Sign in to leave a review",
+    "ratingRequired": "Please select a rating",
+    "textTooShort": "Review must be at least 10 characters",
+    "writeReview": "Write a review",
+    "placeholder": "Share your experience...",
+    "submitted": "Review submitted successfully!",
+    "submitting": "Submitting...",
+    "submit": "Submit Review",
+    "noReviews": "No reviews yet. Be the first to review!"
+  },
   "placeCard": {
     "featured": "Featured",
     "viewDetails": "View Details"

@@ -1,7 +1,9 @@
 import { Place } from '@/types';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'next-i18next';
 import PlaceImage from './PlaceImage';
+import ReviewForm from './ReviewForm';
+import ReviewList from './ReviewList';
 
 interface PlaceModalProps {
   place: Place | null;
@@ -12,6 +14,31 @@ interface PlaceModalProps {
 
 export default function PlaceModal({ place, onClose, activeTab = 'description', setActiveTab }: PlaceModalProps) {
   const { t } = useTranslation('common');
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+
+  const fetchReviews = useCallback(async () => {
+    if (!place) return;
+    setReviewsLoading(true);
+    try {
+      const res = await fetch(`/api/reviews/list?placeId=${place.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setReviews(data);
+      }
+    } catch {
+      // Silently fail — reviews are not critical
+    } finally {
+      setReviewsLoading(false);
+    }
+  }, [place]);
+
+  // Load reviews when switching to reviews tab or when modal opens
+  useEffect(() => {
+    if (activeTab === 'reviews' && place) {
+      fetchReviews();
+    }
+  }, [activeTab, place, fetchReviews]);
 
   // Close on ESC key press
   useEffect(() => {
@@ -194,23 +221,10 @@ export default function PlaceModal({ place, onClose, activeTab = 'description', 
             )}
             
             {activeTab === 'reviews' && (
-              <div className="py-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('placeModal.reviews')}</h3>
-                {place.reviews && place.reviews.length > 0 ? (
-                  <div className="space-y-4">
-                    {place.reviews.map((review: { author: string; rating: number; text: string }, index: number) => (
-                      <div key={index} className="border-b pb-4 last:border-0">
-                        <div className="flex justify-between mb-2">
-                          <span className="font-medium">{review.author}</span>
-                          <span className="text-amber-500">{'★'.repeat(review.rating)}</span>
-                        </div>
-                        <p className="text-gray-600">{review.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-gray-500">{t('placeModal.noReviews')}</p>
-                )}
+              <div className="py-4 space-y-6">
+                <h3 className="text-lg font-semibold text-gray-800">{t('placeModal.reviews')}</h3>
+                <ReviewList reviews={reviews} isLoading={reviewsLoading} />
+                <ReviewForm placeId={place.id} onReviewSubmitted={fetchReviews} />
               </div>
             )}
             

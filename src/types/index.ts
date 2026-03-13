@@ -20,6 +20,7 @@ export interface Place {
     lng: number;
   };
   rating?: number;
+  review_count?: number;
   priceLevel?: number;
   reviews?: {
     author: string;
