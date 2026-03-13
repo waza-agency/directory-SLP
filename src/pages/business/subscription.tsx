@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { SubscriptionEvents } from '@/lib/analytics';
 
 /**
  * DEVELOPER NOTE:
@@ -43,14 +44,19 @@ const SubscriptionPage = () => {
   const [couponError, setCouponError] = useState('');
 
   useEffect(() => {
-    // Redirect if not authenticated
     if (!user && !isLoading) {
       router.push('/signin?redirect=/business/subscription');
     }
   }, [user, isLoading, router]);
 
+  // Track pricing page view
+  useEffect(() => {
+    SubscriptionEvents.viewPricing();
+  }, []);
+
   const handleSelectPlan = (plan: 'monthly' | 'yearly') => {
     setSelectedPlan(plan);
+    SubscriptionEvents.selectPlan(plan);
   };
 
   const validateCoupon = async () => {
@@ -183,7 +189,8 @@ const SubscriptionPage = () => {
 
       // Redirect to Stripe Checkout
       if (data.checkoutUrl) {
-        console.log('Redirecting to checkout URL:', data.checkoutUrl);
+        const price = selectedPlan === 'monthly' ? MONTHLY_PRICE : YEARLY_PRICE;
+        SubscriptionEvents.startCheckout(selectedPlan, price);
         window.location.href = data.checkoutUrl;
       } else {
         throw new Error('No checkout URL returned');
@@ -211,21 +218,83 @@ const SubscriptionPage = () => {
   return (
     <>
       <Head>
-        <title>Suscripción de Negocio | Directory SLP</title>
-        <meta name="description" content="Suscríbete para crear tu perfil de negocio en Directory SLP" />
+        <title>Business Subscription — Get Discovered by Expats | San Luis Way</title>
+        <meta name="description" content="List your business on San Luis Way and reach 15,000+ expats and visitors in San Luis Potosí. From $250 MXN/month with custom profiles and analytics." />
       </Head>
 
-      <div className="bg-gray-50 py-16 min-h-screen">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Suscripción de Negocio
+      <div className="bg-gray-50 min-h-screen">
+        {/* Value Proposition Hero */}
+        <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-16 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <span className="inline-block bg-primary/20 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+                For Local Businesses
+              </span>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                Get Discovered by 15,000+ Expats & Visitors Monthly
               </h1>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Crea tu perfil de negocio en Directory SLP y publica hasta 10 servicios o productos para llegar a más clientes.
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                List your business on San Luis Way — the #1 guide for foreigners in San Luis Potosí.
+                Reach an engaged audience actively looking for your services.
               </p>
+              <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto">
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-white">15K+</p>
+                  <p className="text-xs text-gray-400">Monthly visitors</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-white">500+</p>
+                  <p className="text-xs text-gray-400">Listed places</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-white">4</p>
+                  <p className="text-xs text-gray-400">Languages</p>
+                </div>
+              </div>
             </div>
+          </div>
+        </section>
+
+        {/* Why Subscribe Section */}
+        <section className="py-12 bg-white border-b">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">Why businesses choose San Luis Way</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center p-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-xl mb-3">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Multilingual reach</h3>
+                  <p className="text-gray-600 text-sm">Your listing appears in English, Spanish, German, and Japanese</p>
+                </div>
+                <div className="text-center p-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-xl mb-3">
+                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Analytics dashboard</h3>
+                  <p className="text-gray-600 text-sm">Track views, contacts, and engagement with your listing</p>
+                </div>
+                <div className="text-center p-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 rounded-xl mb-3">
+                    <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Targeted audience</h3>
+                  <p className="text-gray-600 text-sm">Visitors are expats and tourists actively looking for services</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-4xl mx-auto">
 
             {/* Business Navigation and Plans */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

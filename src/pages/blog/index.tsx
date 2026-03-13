@@ -6,6 +6,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { BlogPost, getBlogPosts, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import SubscriptionCTA from '@/components/SubscriptionCTA';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -308,6 +309,9 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
           </div>
         </div>
       </main>
+
+      {/* Business Subscription CTA */}
+      <SubscriptionCTA variant="banner" />
     </>
   );
 }
