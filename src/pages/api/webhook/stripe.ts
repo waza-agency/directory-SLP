@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { buffer } from 'micro';
 import { supabase } from '@/lib/supabase';
+import { logger } from '@/lib/logger';
 
 // Disable body parsing, need the raw body for webhook signature verification
 export const config = {
@@ -26,7 +27,7 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 async function handleCheckoutSession(session: Stripe.Checkout.Session) {
   try {
-    console.log('Processing checkout session:', session.id, 'Payment status:', session.payment_status);
+    logger.log('Processing checkout session:', session.id, 'Payment status:', session.payment_status);
 
     // First check if an order already exists
     const { data: existingOrder } = await supabase
@@ -35,17 +36,17 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
       .eq('stripe_session_id', session.id)
       .single();
 
-    console.log('Existing order found:', existingOrder?.id);
+    logger.log('Existing order found:', existingOrder?.id);
 
     // Get line items from the session
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
 
     // Simplified status logic: only completed or cancelled
     const orderStatus = session.payment_status === 'paid' ? 'completed' : 'cancelled';
-    console.log('Setting order status to:', orderStatus);
+    logger.log('Setting order status to:', orderStatus);
 
     if (existingOrder) {
-      console.log('Updating existing order:', existingOrder.id);
+      logger.log('Updating existing order:', existingOrder.id);
       // Update existing order
       const { data: order, error: orderError } = await supabase
         .from('orders')
@@ -59,14 +60,14 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
         .single();
 
       if (orderError) {
-        console.error('Error updating order:', orderError);
+        logger.error('Error updating order:', orderError);
         throw orderError;
       }
 
-      console.log('Order updated successfully:', order?.id);
+      logger.log('Order updated successfully:', order?.id);
       return order;
     } else {
-      console.log('Creating new order for session:', session.id);
+      logger.log('Creating new order for session:', session.id);
       // Generate order number
       const orderNumber = 'SLP-' + Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -106,15 +107,15 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
         .single();
 
       if (orderError) {
-        console.error('Error creating order:', orderError);
+        logger.error('Error creating order:', orderError);
         throw orderError;
       }
 
-      console.log('New order created successfully:', order?.id, 'with status:', orderStatus);
+      logger.log('New order created successfully:', order?.id, 'with status:', orderStatus);
       return order;
     }
   } catch (error) {
-    console.error('Error in handleCheckoutSession:', error);
+    logger.error('Error in handleCheckoutSession:', error);
     throw error;
   }
 }
@@ -134,9 +135,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
-      console.log('Webhook event received:', event.type);
+      logger.log('Webhook event received:', event.type);
     } catch (err) {
-      console.error('Webhook signature verification failed:', err);
+      logger.error('Webhook signature verification failed:', err);
       return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
     }
 
@@ -144,7 +145,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     switch (event.type) {
       case 'checkout.session.completed':
         const session = event.data.object as Stripe.Checkout.Session;
-        console.log('Processing completed session:', session.id);
+        logger.log('Processing completed session:', session.id);
 
         try {
           const order = await handleCheckoutSession(session);
@@ -154,22 +155,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             await handleCouponUsage(session);
           }
 
-          console.log('Successfully processed order:', order?.id);
+          logger.log('Successfully processed order:', order?.id);
           return res.json({ success: true, order: order?.id });
         } catch (error) {
-          console.error('Error processing checkout session:', error);
+          logger.error('Error processing checkout session:', error);
           return res.status(500).json({ error: 'Error processing checkout session' });
         }
 
       case 'checkout.session.expired':
         const expiredSession = event.data.object as Stripe.Checkout.Session;
-        console.log('Processing expired session:', expiredSession.id);
+        logger.log('Processing expired session:', expiredSession.id);
 
         try {
           const order = await handleCheckoutSession(expiredSession);
-          console.log('Successfully processed expired session:', order?.id);
+          logger.log('Successfully processed expired session:', order?.id);
         } catch (error) {
-          console.error('Error processing expired session:', error);
+          logger.error('Error processing expired session:', error);
           return res.status(500).json({ error: 'Error processing expired session' });
         }
         break;
@@ -191,11 +192,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
       }
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        logger.log(`Unhandled event type: ${event.type}`);
         return res.json({ received: true });
     }
   } catch (err) {
-    console.error('Error processing webhook:', err);
+    logger.error('Error processing webhook:', err);
     return res.status(500).json({ error: 'Webhook handler failed' });
   }
 }
@@ -208,11 +209,11 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
     const businessId = session.metadata?.businessId;
 
     if (!couponCode || !userId) {
-      console.log('No coupon code or user ID in session metadata');
+      logger.log('No coupon code or user ID in session metadata');
       return;
     }
 
-    console.log('Recording coupon usage:', couponCode, 'for user:', userId);
+    logger.log('Recording coupon usage:', couponCode, 'for user:', userId);
 
     // Get coupon details from database
     const { data: coupon, error: couponError } = await supabaseClient
@@ -222,7 +223,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
       .single();
 
     if (couponError || !coupon) {
-      console.error('Error finding coupon for usage tracking:', couponError);
+      logger.error('Error finding coupon for usage tracking:', couponError);
       return;
     }
 
@@ -235,7 +236,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
       .single();
 
     if (existingUsage) {
-      console.log('Coupon usage already recorded');
+      logger.log('Coupon usage already recorded');
       return;
     }
 
@@ -266,7 +267,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
       });
 
     if (usageError) {
-      console.error('Error recording coupon usage:', usageError);
+      logger.error('Error recording coupon usage:', usageError);
       return;
     }
 
@@ -283,7 +284,7 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
         .eq('id', businessId);
 
       if (profileError) {
-        console.error('Error updating business profile with coupon info:', profileError);
+        logger.error('Error updating business profile with coupon info:', profileError);
       }
     }
 
@@ -297,13 +298,13 @@ async function handleCouponUsage(session: Stripe.Checkout.Session) {
       .eq('id', coupon.id);
 
     if (updateError) {
-      console.error('Error updating coupon usage count:', updateError);
+      logger.error('Error updating coupon usage count:', updateError);
     }
 
-    console.log('Successfully recorded coupon usage for:', couponCode);
+    logger.log('Successfully recorded coupon usage for:', couponCode);
 
   } catch (error) {
-    console.error('Error in handleCouponUsage:', error);
+    logger.error('Error in handleCouponUsage:', error);
   }
 }
 
@@ -320,12 +321,12 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
     .single();
 
   if (userError) {
-    console.error('Error finding user for subscription:', userError);
+    logger.error('Error finding user for subscription:', userError);
     return;
   }
 
   if (!userData) {
-    console.error('No user found for customer ID:', customerId);
+    logger.error('No user found for customer ID:', customerId);
     return;
   }
 
@@ -339,7 +340,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
     .single();
 
   if (profileError && profileError.code !== 'PGRST116') {
-    console.error('Error finding business profile:', profileError);
+    logger.error('Error finding business profile:', profileError);
     return;
   }
 
@@ -360,7 +361,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
       .eq('id', businessProfile.id);
 
     if (updateError) {
-      console.error('Error updating business profile subscription:', updateError);
+      logger.error('Error updating business profile subscription:', updateError);
     }
   } else {
     // Create new business profile with subscription
@@ -374,7 +375,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
       });
 
     if (createError) {
-      console.error('Error creating business profile with subscription:', createError);
+      logger.error('Error creating business profile with subscription:', createError);
     }
   }
 
@@ -393,11 +394,11 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
       });
 
     if (subError) {
-      console.error('Error updating subscription record:', subError);
+      logger.error('Error updating subscription record:', subError);
     }
   } catch (error) {
     // Table might not exist, that's ok
-    console.warn('Could not update subscriptions table, it might not exist:', error);
+    logger.warn('Could not update subscriptions table, it might not exist:', error);
   }
 }
 
@@ -411,7 +412,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     .single();
 
   if (subError) {
-    console.error('Error finding subscription record:', subError);
+    logger.error('Error finding subscription record:', subError);
 
     // Try finding by customer ID as fallback
     const customerId = subscription.customer as string;
@@ -422,7 +423,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
       .single();
 
     if (userError) {
-      console.error('Error finding user for deleted subscription:', userError);
+      logger.error('Error finding user for deleted subscription:', userError);
       return;
     }
 
@@ -437,7 +438,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
         .eq('user_id', userData.id);
 
       if (updateError) {
-        console.error('Error updating business profile for canceled subscription:', updateError);
+        logger.error('Error updating business profile for canceled subscription:', updateError);
       }
     }
 
@@ -445,7 +446,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   }
 
   if (!userSubscription) {
-    console.error('No subscription record found for:', subscription.id);
+    logger.error('No subscription record found for:', subscription.id);
     return;
   }
 
@@ -459,7 +460,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     .eq('user_id', userSubscription.user_id);
 
   if (updateError) {
-    console.error('Error updating business profile for canceled subscription:', updateError);
+    logger.error('Error updating business profile for canceled subscription:', updateError);
   }
 
   // Also update subscription record
@@ -472,7 +473,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     .eq('stripe_subscription_id', subscription.id);
 
   if (subUpdateError) {
-    console.error('Error updating subscription record status:', subUpdateError);
+    logger.error('Error updating subscription record status:', subUpdateError);
   }
 }
 
@@ -486,12 +487,12 @@ async function handleAccountUpdated(account: Stripe.Account) {
     .single();
 
   if (userError) {
-    console.error('Error finding user for Stripe Connect account:', userError);
+    logger.error('Error finding user for Stripe Connect account:', userError);
     return;
   }
 
   if (!userData) {
-    console.error('No user found for Stripe Connect account ID:', account.id);
+    logger.error('No user found for Stripe Connect account ID:', account.id);
     return;
   }
 
@@ -510,6 +511,6 @@ async function handleAccountUpdated(account: Stripe.Account) {
     .eq('id', userData.id);
 
   if (updateError) {
-    console.error('Error updating user seller status:', updateError);
+    logger.error('Error updating user seller status:', updateError);
   }
 }

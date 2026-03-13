@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -42,7 +43,7 @@ async function getNewsletter(id: string, res: NextApiResponse) {
 
     return res.status(200).json({ newsletter: data });
   } catch (error) {
-    console.error('Get newsletter error:', error);
+    logger.error('Get newsletter error:', error);
     return res.status(500).json({ message: 'Failed to fetch newsletter' });
   }
 }
@@ -70,7 +71,7 @@ async function updateNewsletter(id: string, req: NextApiRequest, res: NextApiRes
 
     return res.status(200).json({ newsletter: data });
   } catch (error) {
-    console.error('Update newsletter error:', error);
+    logger.error('Update newsletter error:', error);
     return res.status(500).json({ message: 'Failed to update newsletter' });
   }
 }
@@ -86,7 +87,7 @@ async function deleteNewsletter(id: string, res: NextApiResponse) {
 
     return res.status(200).json({ message: 'Newsletter deleted successfully' });
   } catch (error) {
-    console.error('Delete newsletter error:', error);
+    logger.error('Delete newsletter error:', error);
     return res.status(500).json({ message: 'Failed to delete newsletter' });
   }
 }

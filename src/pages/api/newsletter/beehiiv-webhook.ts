@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -53,15 +54,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Simple secret comparison (Beehiiv uses direct secret matching)
     if (signature !== webhookSecret && signature !== `Bearer ${webhookSecret}`) {
-      console.error('Invalid Beehiiv webhook signature');
-      console.log('Expected:', webhookSecret.substring(0, 10) + '...');
-      console.log('Received headers:', Object.keys(req.headers).filter(h => h.includes('beehiiv') || h.includes('webhook') || h.includes('auth')));
+      logger.error('Invalid Beehiiv webhook signature');
+      logger.log('Expected:', webhookSecret.substring(0, 10) + '...');
+      logger.log('Received headers:', Object.keys(req.headers).filter(h => h.includes('beehiiv') || h.includes('webhook') || h.includes('auth')));
       return res.status(401).json({ message: 'Unauthorized' });
     }
   }
 
   // Log raw payload for debugging
-  console.log('Beehiiv webhook received:', JSON.stringify(req.body, null, 2).substring(0, 500));
+  logger.log('Beehiiv webhook received:', JSON.stringify(req.body, null, 2).substring(0, 500));
 
   try {
     const payload: BeehiivWebhookPayload = req.body;
@@ -69,11 +70,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data = payload.data;
 
     if (!data || !data.email) {
-      console.error('Invalid webhook payload - missing data or email');
+      logger.error('Invalid webhook payload - missing data or email');
       return res.status(400).json({ message: 'Invalid payload' });
     }
 
-    console.log(`Beehiiv webhook: ${eventType} for ${data.email}`);
+    logger.log(`Beehiiv webhook: ${eventType} for ${data.email}`);
 
     switch (eventType) {
       case 'subscription.created':
@@ -102,12 +103,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         break;
 
       default:
-        console.log('Unhandled Beehiiv event:', eventType);
+        logger.log('Unhandled Beehiiv event:', eventType);
     }
 
     return res.status(200).json({ success: true, event: eventType });
   } catch (error) {
-    console.error('Beehiiv webhook error:', error);
+    logger.error('Beehiiv webhook error:', error);
     return res.status(500).json({
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
@@ -157,7 +158,7 @@ async function handleSubscriptionCreated(data: BeehiivSubscription) {
       }
     }]);
 
-  console.log(`New Beehiiv subscriber (pending): ${email}`);
+  logger.log(`New Beehiiv subscriber (pending): ${email}`);
 }
 
 async function handleSubscriptionConfirmed(data: BeehiivSubscription) {
@@ -189,7 +190,7 @@ async function handleSubscriptionConfirmed(data: BeehiivSubscription) {
       }]);
   }
 
-  console.log(`Beehiiv subscriber confirmed: ${email}`);
+  logger.log(`Beehiiv subscriber confirmed: ${email}`);
 }
 
 async function handleSubscriptionDeleted(data: BeehiivSubscription) {
@@ -203,7 +204,7 @@ async function handleSubscriptionDeleted(data: BeehiivSubscription) {
     })
     .eq('email', email.toLowerCase());
 
-  console.log(`Beehiiv unsubscribe: ${email}`);
+  logger.log(`Beehiiv unsubscribe: ${email}`);
 }
 
 async function handleTierChange(data: BeehiivSubscription, eventType: string) {
@@ -227,7 +228,7 @@ async function handleTierChange(data: BeehiivSubscription, eventType: string) {
     .update({ preferences: updatedPreferences })
     .eq('email', email.toLowerCase());
 
-  console.log(`Beehiiv tier change (${eventType}): ${email} -> ${subscription_tier}`);
+  logger.log(`Beehiiv tier change (${eventType}): ${email} -> ${subscription_tier}`);
 }
 
 async function handleSubscriptionPaused(data: BeehiivSubscription) {
@@ -238,7 +239,7 @@ async function handleSubscriptionPaused(data: BeehiivSubscription) {
     .update({ status: 'paused' })
     .eq('email', email.toLowerCase());
 
-  console.log(`Beehiiv subscription paused: ${email}`);
+  logger.log(`Beehiiv subscription paused: ${email}`);
 }
 
 async function handleSubscriptionResumed(data: BeehiivSubscription) {
@@ -249,5 +250,5 @@ async function handleSubscriptionResumed(data: BeehiivSubscription) {
     .update({ status: 'active' })
     .eq('email', email.toLowerCase());
 
-  console.log(`Beehiiv subscription resumed: ${email}`);
+  logger.log(`Beehiiv subscription resumed: ${email}`);
 }

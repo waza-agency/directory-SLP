@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
+import { rateLimit } from '@/lib/rate-limit';
+import { logger } from '@/lib/logger';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2025-04-30.basil',
@@ -10,6 +12,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
+
+  if (rateLimit(req, res, { limit: 10, windowSec: 60, prefix: 'coupons' })) return;
 
   try {
     const supabase = createServerSupabaseClient({ req, res });
@@ -86,14 +90,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
     } catch (stripeError: any) {
-      console.error('Error validating coupon with Stripe:', stripeError);
+      logger.error('Error validating coupon with Stripe:', stripeError);
       return res.status(400).json({
         message: 'Invalid coupon code'
       });
     }
 
   } catch (error: any) {
-    console.error('Error validating coupon:', error);
+    logger.error('Error validating coupon:', error);
     return res.status(500).json({
       message: error.message || 'Error validating coupon'
     });

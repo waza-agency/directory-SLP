@@ -1,10 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { z } from 'zod';
+import { rateLimit } from '@/lib/rate-limit';
+
+const reviewSchema = z.object({
+  place_id: z.string().uuid(),
+  rating: z.number().int().min(1).max(5),
+  text: z.string().min(10).max(5000),
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (rateLimit(req, res, { limit: 10, windowSec: 60, prefix: 'reviews' })) return;
 
   try {
     const supabase = createPagesServerClient({ req, res });
@@ -17,19 +27,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(401).json({ error: 'Authentication required' });
     }
 
-    const { place_id, rating, text } = req.body;
-
-    if (!place_id || !rating || !text) {
-      return res.status(400).json({ error: 'Missing required fields: place_id, rating, text' });
+    const parsed = reviewSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        error: 'Invalid input',
+        details: parsed.error.flatten().fieldErrors,
+      });
     }
 
-    if (rating < 1 || rating > 5 || !Number.isInteger(rating)) {
-      return res.status(400).json({ error: 'Rating must be an integer between 1 and 5' });
-    }
-
-    if (text.trim().length < 10) {
-      return res.status(400).json({ error: 'Review text must be at least 10 characters' });
-    }
+    const { place_id, rating, text } = parsed.data;
 
     const author = session.user.user_metadata?.full_name
       || session.user.email?.split('@')[0]

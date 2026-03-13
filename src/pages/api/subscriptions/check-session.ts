@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2025-04-30.basil',
@@ -37,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // If no active user session, but we have a valid Stripe session with metadata,
     // we can still provide subscription status (payment might be processing)
     if (!session) {
-      console.log('No active user session, but checking subscription status from Stripe session');
+      logger.log('No active user session, but checking subscription status from Stripe session');
 
       // Get user ID from Stripe session metadata
       const userId = checkoutSession.metadata?.userId;
@@ -99,11 +100,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (profileError) {
-      console.error('Error fetching business profile:', profileError);
+      logger.error('Error fetching business profile:', profileError);
 
       // If business profile doesn't exist but payment was successful, create it
       if (profileError.code === 'PGRST116' && checkoutSession.payment_status === 'paid') {
-        console.log('Creating business profile for successful payment');
+        logger.log('Creating business profile for successful payment');
 
         const { data: userData } = await supabase
           .from('users')
@@ -159,7 +160,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('user_id', session.user.id);
 
       if (updateError) {
-        console.error('Error updating business profile status:', updateError);
+        logger.error('Error updating business profile status:', updateError);
       }
     }
 
@@ -169,7 +170,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       subscription_id: checkoutSession.subscription,
     });
   } catch (error: any) {
-    console.error('Error checking subscription session:', error);
+    logger.error('Error checking subscription session:', error);
     res.status(500).json({
       error: {
         message: error.message || 'An error occurred while checking the subscription',

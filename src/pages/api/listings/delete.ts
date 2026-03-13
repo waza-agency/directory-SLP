@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { supabaseAdmin } from '@/lib/api/supabase-admin';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Solo aceptar solicitudes DELETE
@@ -39,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (profileError) {
-      console.error('Error obteniendo perfil de negocio:', profileError);
+      logger.error('Error obteniendo perfil de negocio:', profileError);
       return res.status(404).json({ error: 'Perfil de negocio no encontrado' });
     }
 
@@ -78,7 +79,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
             // First, delete any related records that might prevent deletion due to foreign key constraints
-    console.log('Checking for related records before deletion...');
+    logger.log('Checking for related records before deletion...');
 
     // Delete from shopping_cart first
     const { error: cartDeleteError } = await supabaseAdmin
@@ -87,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('listing_id', id);
 
     if (cartDeleteError) {
-      console.warn('Error deleting shopping cart items (non-critical):', cartDeleteError);
+      logger.warn('Error deleting shopping cart items (non-critical):', cartDeleteError);
     }
 
     // Delete from order_items (this was the missing piece!)
@@ -97,7 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('listing_id', id);
 
     if (orderItemsDeleteError) {
-      console.warn('Error deleting order items (non-critical):', orderItemsDeleteError);
+      logger.warn('Error deleting order items (non-critical):', orderItemsDeleteError);
     }
 
         // Check for marketplace transactions that might prevent deletion
@@ -107,10 +108,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('listing_id', id);
 
     if (transactionCheckError) {
-      console.warn('Error checking transactions:', transactionCheckError);
+      logger.warn('Error checking transactions:', transactionCheckError);
     } else if (transactions && transactions.length > 0) {
       const completedTransactions = transactions.filter(t => t.status === 'completed');
-      console.log(`Found ${transactions.length} transactions for this listing (${completedTransactions.length} completed)`);
+      logger.log(`Found ${transactions.length} transactions for this listing (${completedTransactions.length} completed)`);
 
       // If there are completed transactions, we should not delete the listing
       if (completedTransactions.length > 0) {
@@ -129,7 +130,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           .neq('status', 'completed');
 
         if (deleteTransactionsError) {
-          console.error('Error deleting pending transactions:', deleteTransactionsError);
+          logger.error('Error deleting pending transactions:', deleteTransactionsError);
           return res.status(500).json({
             error: 'Error eliminando transacciones pendientes',
             details: deleteTransactionsError.message
@@ -145,8 +146,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('id', id);
 
     if (deleteError) {
-      console.error('Error eliminando producto:', deleteError);
-      console.error('Detalles del error:', {
+      logger.error('Error eliminando producto:', deleteError);
+      logger.error('Detalles del error:', {
         code: deleteError.code,
         message: deleteError.message,
         details: deleteError.details,
@@ -171,7 +172,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('id', businessProfile.id);
 
       if (counterError) {
-        console.error('Error actualizando contador de productos:', counterError);
+        logger.error('Error actualizando contador de productos:', counterError);
         // No detener la respuesta por este error
       }
     }
@@ -182,7 +183,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error: any) {
-    console.error('Error en la eliminación de producto:', error);
+    logger.error('Error en la eliminación de producto:', error);
     return res.status(500).json({
       error: {
         message: error.message || 'Ha ocurrido un error al eliminar el producto',

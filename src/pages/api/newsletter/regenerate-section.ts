@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { regenerateSection, NewsletterSection } from '@/lib/newsletter-sections';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -18,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ message: 'Missing required fields: sectionType, currentHtml' });
     }
 
-    console.log(`Regenerating section: ${sectionId} (${sectionType})`);
+    logger.log(`Regenerating section: ${sectionId} (${sectionType})`);
 
     const newHtml = await regenerateSection(
       sectionType as NewsletterSection['type'],
@@ -33,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error) {
-    console.error('Section regeneration error:', error);
+    logger.error('Section regeneration error:', error);
     return res.status(500).json({
       success: false,
       message: 'Failed to regenerate section',

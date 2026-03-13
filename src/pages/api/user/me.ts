@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -28,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (userError) {
-      console.error('Error fetching user data:', userError);
+      logger.error('Error fetching user data:', userError);
       return res.status(500).json({ error: 'Error fetching user data' });
     }
 
@@ -41,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     });
   } catch (error: any) {
-    console.error('User data fetch error:', error);
+    logger.error('User data fetch error:', error);
     return res.status(500).json({
       error: error.message || 'An error occurred while fetching user data',
     });

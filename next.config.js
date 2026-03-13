@@ -104,13 +104,17 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: [
-              "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:",
-              "connect-src 'self' https: wss: https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.facebook.com https://*.facebook.net",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:",
-              "style-src 'self' 'unsafe-inline' https: data:",
+              "default-src 'self'",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.facebook.com https://*.facebook.net https://api.resend.com",
+              "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com https://*.facebook.net",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' https: data: blob:",
-              "font-src 'self' https: data:",
+              "font-src 'self' https://fonts.gstatic.com",
               "frame-src 'self' https://*.google.com https://*.google.com.mx https://*.doubleclick.net https://*.facebook.com https://*.facebook.net https://www.googletagmanager.com",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "object-src 'none'",
+              "upgrade-insecure-requests",
             ].join('; ')
           },
           {
@@ -123,7 +127,19 @@ const nextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
+            value: 'strict-origin-when-cross-origin'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(self), payment=(self)'
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
           }
         ],
       },

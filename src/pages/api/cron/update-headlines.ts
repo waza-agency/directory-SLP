@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -112,7 +113,7 @@ export default async function handler(
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    console.error('Cron error:', error);
+    logger.error('Cron error:', error);
     return res.status(500).json({ error: 'Failed to update news' });
   }
 }
@@ -193,7 +194,7 @@ Genera exactamente 3 communityNews y 5 headlines. NO cambies los nombres de los 
     });
 
     if (!response.ok) {
-      console.error('Anthropic API error:', response.status);
+      logger.error('Anthropic API error:', response.status);
       return null;
     }
 
@@ -225,7 +226,7 @@ Genera exactamente 3 communityNews y 5 headlines. NO cambies los nombres de los 
       headlines: parsed.headlines.slice(0, 5)
     };
   } catch (error) {
-    console.error('Claude fetch error:', error);
+    logger.error('Claude fetch error:', error);
     return null;
   }
 }

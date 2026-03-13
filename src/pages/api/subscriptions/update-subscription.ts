@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
+import { logger } from '@/lib/logger';
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -43,7 +44,7 @@ export default async function handler(
       .single();
       
     if (subError || !subscription) {
-      console.error('Error fetching subscription:', subError);
+      logger.error('Error fetching subscription:', subError);
       return res.status(404).json({ message: 'Subscription not found' });
     }
     
@@ -60,7 +61,7 @@ export default async function handler(
       .single();
       
     if (planError || !newPlan) {
-      console.error('Error fetching new plan:', planError);
+      logger.error('Error fetching new plan:', planError);
       return res.status(404).json({ message: 'New subscription plan not found' });
     }
     
@@ -103,7 +104,7 @@ export default async function handler(
       .single();
       
     if (updateError) {
-      console.error('Error updating subscription record:', updateError);
+      logger.error('Error updating subscription record:', updateError);
       return res.status(500).json({ message: 'Error updating subscription record' });
     }
     
@@ -112,7 +113,7 @@ export default async function handler(
       subscription: updatedSubscription
     });
   } catch (error) {
-    console.error('Subscription update error:', error);
+    logger.error('Subscription update error:', error);
     return res.status(500).json({ message: 'Error updating subscription' });
   }
 } 

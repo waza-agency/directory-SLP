@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { logger } from '@/lib/logger';
 
 /**
  * Catch-all proxy for page-agent LLM requests.
@@ -41,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json(data);
   } catch (error) {
-    console.error('Page agent proxy error:', error);
+    logger.error('Page agent proxy error:', error);
     return res.status(500).json({ error: 'Proxy request failed' });
   }
 }

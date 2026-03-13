@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
+import { logger } from '@/lib/logger';
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('STRIPE_SECRET_KEY is not set');
@@ -55,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (userError) {
-      console.error('Error fetching user:', userError);
+      logger.error('Error fetching user:', userError);
       return res.status(500).json({ error: 'Error fetching user data' });
     }
 
@@ -67,7 +68,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (profileError && profileError.code !== 'PGRST116') {
-      console.error('Error fetching business profile:', profileError);
+      logger.error('Error fetching business profile:', profileError);
       return res.status(500).json({ error: 'Error fetching business profile' });
     }
 
@@ -75,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const stripeCustomerId = businessProfile?.stripe_customer_id || user?.stripe_customer_id;
 
     if (!stripeCustomerId) {
-      console.log('No Stripe customer ID found for user:', userId);
+      logger.log('No Stripe customer ID found for user:', userId);
       return res.status(200).json({ active: false });
     }
 
@@ -87,13 +88,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (subscriptions.data.length === 0) {
-      console.log('No active subscriptions found in Stripe for customer:', stripeCustomerId);
+      logger.log('No active subscriptions found in Stripe for customer:', stripeCustomerId);
       return res.status(200).json({ active: false });
     }
 
     // Get the subscription details
     const subscription = subscriptions.data[0];
-    console.log('Found active subscription in Stripe:', subscription.id);
+    logger.log('Found active subscription in Stripe:', subscription.id);
 
     // Try to get the plan ID from the subscription
     let planId = businessProfile?.plan_id || null;
@@ -109,7 +110,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         planId = subscriptionData.plan_id;
       }
     } catch (err) {
-      console.log('Could not find plan ID from subscriptions table:', err);
+      logger.log('Could not find plan ID from subscriptions table:', err);
     }
 
     // Return the active status and subscription details
@@ -125,7 +126,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     });
   } catch (error: any) {
-    console.error('Error checking Stripe subscription status:', error);
+    logger.error('Error checking Stripe subscription status:', error);
     return res.status(500).json({
       error: error.message || 'An error occurred while checking the Stripe subscription status'
     });

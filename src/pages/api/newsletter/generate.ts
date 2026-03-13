@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { generateWeeklyNewsletter } from '@/lib/newsletter-generator';
 import { createPost } from '@/lib/beehiiv-service';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -20,22 +21,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { customContent } = req.body || {};
-    console.log('Admin triggered newsletter generation...');
+    logger.log('Admin triggered newsletter generation...');
     if (customContent) {
-      console.log('Custom content provided:', customContent.substring(0, 100) + '...');
+      logger.log('Custom content provided:', customContent.substring(0, 100) + '...');
     }
     const { subject, html_content, date_range } = await generateWeeklyNewsletter(customContent);
     const previewText = `Your weekly guide to San Luis Potosí for ${date_range}`;
 
     // Create draft in Beehiiv (primary)
-    console.log('Creating draft in Beehiiv...');
+    logger.log('Creating draft in Beehiiv...');
     const beehiivResult = await createPost(subject, html_content, {
       subtitle: previewText,
       audience: 'all',
     });
 
     if (!beehiivResult.success) {
-      console.error('Beehiiv draft creation failed:', beehiivResult.error);
+      logger.error('Beehiiv draft creation failed:', beehiivResult.error);
       // Continue anyway - we'll save to Supabase as fallback
     }
 
@@ -53,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (dbError) {
-      console.error('Supabase backup save failed:', dbError.message);
+      logger.error('Supabase backup save failed:', dbError.message);
     }
 
     // Build Beehiiv edit URL
@@ -81,10 +82,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error) {
-    console.error('Generation Error:', error);
+    logger.error('Generation Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     const errorStack = error instanceof Error ? error.stack : '';
-    console.error('Error details:', { message: errorMessage, stack: errorStack });
+    logger.error('Error details:', { message: errorMessage, stack: errorStack });
 
     return res.status(500).json({
       success: false,

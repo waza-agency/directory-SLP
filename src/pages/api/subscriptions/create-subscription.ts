@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
+import { logger } from '@/lib/logger';
 
 // Initialize Stripe
 const stripeKey = process.env.STRIPE_SECRET_KEY;
 if (!stripeKey) {
-  console.error('Missing Stripe secret key - subscriptions will not work');
+  logger.error('Missing Stripe secret key - subscriptions will not work');
 }
 
 const stripe = new Stripe(stripeKey || 'sk_test_dummy', {
@@ -27,7 +28,7 @@ export default async function handler(
 
   try {
     // Log request details for debugging
-    console.log('Request body:', {
+    logger.log('Request body:', {
       plan: req.body.plan,
       user_id: req.body.user_id,
       business_id: req.body.business_id
@@ -37,7 +38,7 @@ export default async function handler(
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-    console.log('Environment:', {
+    logger.log('Environment:', {
       hasSupabaseUrl: !!supabaseUrl,
       hasSupabaseKey: !!supabaseKey,
       hasStripeKey: !!stripeKey,
@@ -68,7 +69,7 @@ export default async function handler(
       .single();
 
     if (userError) {
-      console.error('Error fetching user:', userError);
+      logger.error('Error fetching user:', userError);
       return res.status(500).json({ message: 'Error fetching user information' });
     }
 
@@ -117,7 +118,7 @@ export default async function handler(
 
         validatedCoupon = dbCoupon;
       } catch (stripeError) {
-        console.error('Error validating coupon with Stripe:', stripeError);
+        logger.error('Error validating coupon with Stripe:', stripeError);
         return res.status(400).json({ message: 'Invalid coupon code' });
       }
     }
@@ -125,7 +126,7 @@ export default async function handler(
     // Get the right Stripe price ID based on plan
     const stripePriceId = plan === 'yearly' ? YEARLY_PRICE_ID : MONTHLY_PRICE_ID;
 
-    console.log('Creating Stripe checkout session with price ID:', stripePriceId);
+    logger.log('Creating Stripe checkout session with price ID:', stripePriceId);
 
     // Prepare checkout session data
     const checkoutSessionData: any = {
@@ -153,7 +154,7 @@ export default async function handler(
       checkoutSessionData.discounts = [{
         coupon: validatedCoupon.stripe_coupon_id
       }];
-      console.log('Applied coupon:', validatedCoupon.coupon_code);
+      logger.log('Applied coupon:', validatedCoupon.coupon_code);
     } else {
       // Only allow promotion codes if no coupon is already applied
       checkoutSessionData.allow_promotion_codes = true;
@@ -162,7 +163,7 @@ export default async function handler(
     // Create checkout session
     const checkoutSession = await stripe.checkout.sessions.create(checkoutSessionData);
 
-    console.log('Checkout session created with ID:', checkoutSession.id);
+    logger.log('Checkout session created with ID:', checkoutSession.id);
 
     return res.status(200).json({
       message: 'Checkout session created successfully',
@@ -170,7 +171,7 @@ export default async function handler(
       sessionId: checkoutSession.id
     });
   } catch (error: any) {
-    console.error('Subscription creation error:', error);
+    logger.error('Subscription creation error:', error);
     return res.status(500).json({
       message: error?.message || 'Error creating subscription',
       stack: process.env.NODE_ENV === 'development' ? error?.stack : undefined

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
+import { logger } from '@/lib/logger';
 
 export default async function handler(
   req: NextApiRequest,
@@ -42,7 +43,7 @@ export default async function handler(
       updatedEvents: data
     });
   } catch (error) {
-    console.error('Error updating events:', error);
+    logger.error('Error updating events:', error);
     return res.status(500).json({
       message: 'Failed to update events',
       error

@@ -1,6 +1,39 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { strictRateLimit } from '@/lib/rate-limit';
+
+const contactSchema = z.object({
+  name: z.string().min(1).max(200),
+  email: z.string().email().max(320),
+  phone: z.string().max(50).optional(),
+  subject: z.string().max(500).optional(),
+  message: z.string().max(5000).optional(),
+  service: z.string().max(200).optional(),
+  to: z.string().optional(),
+  businessId: z.string().uuid().optional(),
+  businessName: z.string().max(300).optional(),
+  businessTitle: z.string().max(300).optional(),
+  listingCategory: z.string().max(200).optional(),
+  experienceType: z.string().max(200).optional(),
+  groupSize: z.union([z.string(), z.number()]).optional(),
+  preferredDates: z.string().max(500).optional(),
+  languagePreference: z.string().max(100).optional(),
+  specialRequirements: z.string().max(2000).optional(),
+  nationality: z.string().max(200).optional(),
+  currentLocation: z.string().max(300).optional(),
+  familySize: z.union([z.string(), z.number()]).optional(),
+  plannedMoveDate: z.string().max(200).optional(),
+  visaStatus: z.string().max(200).optional(),
+  housingPreference: z.string().max(300).optional(),
+  schoolingNeeds: z.string().max(500).optional(),
+  additionalServices: z.union([z.string(), z.array(z.string())]).optional(),
+  serviceCategory: z.string().max(200).optional(),
+  specificService: z.string().max(200).optional(),
+  urgencyLevel: z.string().max(100).optional(),
+  recaptchaToken: z.string().optional(),
+});
 
 // CORS middleware
 function cors(req: NextApiRequest, res: NextApiResponse) {
@@ -200,7 +233,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  logger.log('Contact API called with body:', JSON.stringify(req.body, null, 2));
+  if (strictRateLimit(req, res, 'contact')) return;
+
+  const parsed = contactSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      message: 'Invalid input',
+      errors: parsed.error.flatten().fieldErrors,
+    });
+  }
 
   const {
     name,
@@ -209,18 +250,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     subject,
     message,
     service,
-    to, // This might be provided by frontend, but we'll override with database value
     businessId,
     businessName,
     businessTitle,
     listingCategory,
-    // Experience-specific fields
     experienceType,
     groupSize,
     preferredDates,
     languagePreference,
     specialRequirements,
-    // Relocation-specific fields
     nationality,
     currentLocation,
     familySize,
@@ -229,13 +267,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     housingPreference,
     schoolingNeeds,
     additionalServices,
-    // Service-specific fields
     serviceCategory,
     specificService,
     urgencyLevel,
-    // reCAPTCHA token
-    recaptchaToken
-  } = req.body;
+    recaptchaToken,
+  } = parsed.data;
 
   // Initialize Supabase client with service role key
   const supabase = createClient(

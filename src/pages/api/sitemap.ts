@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import path from 'path';
+import { logger } from '@/lib/logger';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -17,7 +18,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Send the sitemap content
     res.status(200).send(sitemapContent);
   } catch (error) {
-    console.error('Error serving sitemap:', error);
+    logger.error('Error serving sitemap:', error);
     res.status(500).json({ error: 'Failed to serve sitemap' });
   }
 } 

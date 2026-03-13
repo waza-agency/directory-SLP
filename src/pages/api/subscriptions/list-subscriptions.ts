@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { supabaseAdmin } from '@/lib/api/supabase-admin';
+import { logger } from '@/lib/logger';
 
 export default async function handler(
   req: NextApiRequest,
@@ -83,7 +84,7 @@ export default async function handler(
     const { data: subscriptions, error } = await query;
     
     if (error) {
-      console.error('Error fetching subscriptions:', error);
+      logger.error('Error fetching subscriptions:', error);
       return res.status(500).json({ message: 'Error retrieving subscriptions' });
     }
     
@@ -92,7 +93,7 @@ export default async function handler(
       subscriptions: subscriptions || []
     });
   } catch (error) {
-    console.error('List subscriptions error:', error);
+    logger.error('List subscriptions error:', error);
     return res.status(500).json({ message: 'Error retrieving subscriptions' });
   }
 } 

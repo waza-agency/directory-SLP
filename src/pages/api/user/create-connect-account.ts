@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2025-04-30.basil',
@@ -35,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (userError) {
-      console.error('Error fetching user data:', userError);
+      logger.error('Error fetching user data:', userError);
       return res.status(500).json({ error: userError.message });
     }
 
@@ -93,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('id', session.user.id);
 
     if (updateError) {
-      console.error('Error updating user with Stripe account ID:', updateError);
+      logger.error('Error updating user with Stripe account ID:', updateError);
       return res.status(500).json({ error: updateError.message });
     }
 
@@ -111,7 +112,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       isNew: true
     });
   } catch (error: any) {
-    console.error('Error creating Stripe Connect account:', error);
+    logger.error('Error creating Stripe Connect account:', error);
     return res.status(500).json({
       error: {
         message: error.message || 'An error occurred while creating Stripe Connect account',

@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/api/supabase-admin';
+import { logger } from '@/lib/logger';
 
 export default async function handler(
   req: NextApiRequest,
@@ -66,7 +67,7 @@ export default async function handler(
       .single();
     
     if (error || !subscription) {
-      console.error('Error fetching subscription:', error);
+      logger.error('Error fetching subscription:', error);
       return res.status(404).json({ message: 'Subscription not found' });
     }
     
@@ -91,7 +92,7 @@ export default async function handler(
           subscription.stripe_subscription_id
         );
       } catch (stripeError) {
-        console.error('Error fetching Stripe subscription:', stripeError);
+        logger.error('Error fetching Stripe subscription:', stripeError);
         // Continue without Stripe data if there's an error
       }
     }
@@ -102,7 +103,7 @@ export default async function handler(
       stripe_details: stripeSubscription
     });
   } catch (error) {
-    console.error('Subscription details error:', error);
+    logger.error('Subscription details error:', error);
     return res.status(500).json({ message: 'Error retrieving subscription details' });
   }
 } 

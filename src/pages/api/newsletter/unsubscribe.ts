@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -58,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error) {
-    console.error('Newsletter unsubscribe error:', error);
+    logger.error('Newsletter unsubscribe error:', error);
     return res.status(500).json({
       message: 'Failed to unsubscribe. Please try again.',
       error: error instanceof Error ? error.message : 'Unknown error'
