@@ -1171,6 +1171,15 @@
       }
     }
   },
+  "analytics": {
+    "title": "分析概要",
+    "activeListings": "アクティブなリスティング",
+    "inquiries": "お問い合わせ",
+    "revenue": "収益",
+    "avgRating": "平均評価",
+    "recentInquiries": "最近のお問い合わせ",
+    "new": "新規"
+  },
   "b2b": {
     "nav": "ビジネス向け",
     "footer": {

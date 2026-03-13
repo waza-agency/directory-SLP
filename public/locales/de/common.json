@@ -1143,6 +1143,15 @@
       }
     }
   },
+  "analytics": {
+    "title": "Analyseübersicht",
+    "activeListings": "Aktive Einträge",
+    "inquiries": "Kontaktanfragen",
+    "revenue": "Umsatz",
+    "avgRating": "Durchschnittsbewertung",
+    "recentInquiries": "Neueste Anfragen",
+    "new": "neu"
+  },
   "b2b": {
     "nav": "Für Unternehmen",
     "footer": {

@@ -1178,6 +1178,15 @@
       }
     }
   },
+  "analytics": {
+    "title": "Resumen Analítico",
+    "activeListings": "Listados Activos",
+    "inquiries": "Consultas de Contacto",
+    "revenue": "Ingresos",
+    "avgRating": "Calificación Promedio",
+    "recentInquiries": "Consultas Recientes",
+    "new": "nuevas"
+  },
   "b2b": {
     "nav": "Para Negocios",
     "footer": {

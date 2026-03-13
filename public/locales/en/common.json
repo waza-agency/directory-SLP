@@ -1178,6 +1178,15 @@
       }
     }
   },
+  "analytics": {
+    "title": "Analytics Overview",
+    "activeListings": "Active Listings",
+    "inquiries": "Contact Inquiries",
+    "revenue": "Revenue",
+    "avgRating": "Avg Rating",
+    "recentInquiries": "Recent Inquiries",
+    "new": "new"
+  },
   "b2b": {
     "nav": "For Businesses",
     "footer": {

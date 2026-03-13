@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
+import BusinessAnalytics from '@/components/BusinessAnalytics';
 
 // Types
 type BusinessProfile = {
@@ -686,6 +687,11 @@ export default function BusinessDashboardPage() {
                 </div>
               )}
 
+              {/* Analytics Section */}
+              {businessProfile && subscription && (
+                <BusinessAnalytics />
+              )}
+
               {/* Listings Section */}
               <div className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="p-6 border-b border-gray-200">
@@ -963,9 +969,11 @@ export default function BusinessDashboardPage() {
   );
 }
 
-export async function getServerSideProps({ }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const { serverSideTranslations } = await import('next-i18next/serverSideTranslations');
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 }
