@@ -13,7 +13,7 @@ const AdUnit: React.FC<AdUnitProps> = ({
   style,
   isRelaxed = false
 }) => {
-  const adRef = useRef<HTMLElement>(null);
+  const adRef = useRef<HTMLModElement>(null);
   const [isClient, setIsClient] = useState(false);
   const [adLoaded, setAdLoaded] = useState(false);
 

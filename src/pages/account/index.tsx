@@ -488,7 +488,7 @@ export default function AccountPage() {
   );
 }
 
-export async function getServerSideProps({ }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   try {
     return {
       props: {

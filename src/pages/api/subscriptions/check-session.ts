@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-04-10',
+  apiVersion: '2025-04-30.basil',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -49,9 +50,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Use service role to check subscription status without requiring user session
-      const serviceSupabase = require('@supabase/supabase-js').createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.SUPABASE_SERVICE_ROLE_KEY
+      const serviceSupabase = createSupabaseClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
       );
 
       const { data: businessProfile } = await serviceSupabase

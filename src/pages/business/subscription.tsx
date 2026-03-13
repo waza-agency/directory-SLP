@@ -110,11 +110,8 @@ const SubscriptionPage = () => {
         throw new Error('You must be logged in to subscribe');
       }
 
-      // TypeScript ignore user type issues
-      // @ts-ignore
-      const userId = user.id;
-      // @ts-ignore
-      const userEmail = user.email || '';
+      const userId = (user as { id: string }).id;
+      const userEmail = (user as { email?: string }).email || '';
 
       // Check if user has a business profile first
       console.log('Checking for business profile');
@@ -156,8 +153,7 @@ const SubscriptionPage = () => {
           throw new Error('Error creating your business profile. Please try again.');
         }
 
-        // @ts-ignore
-        businessId = newProfile?.id;
+        businessId = (newProfile as { id: string } | null)?.id;
       }
 
       console.log('Proceeding with subscription, business ID:', businessId);

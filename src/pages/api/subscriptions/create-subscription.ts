@@ -9,7 +9,7 @@ if (!stripeKey) {
 }
 
 const stripe = new Stripe(stripeKey || 'sk_test_dummy', {
-  apiVersion: '2023-10-16',
+  apiVersion: '2025-04-30.basil',
 });
 
 // Subscription plan prices (hardcoded fallbacks in case DB lookup fails)

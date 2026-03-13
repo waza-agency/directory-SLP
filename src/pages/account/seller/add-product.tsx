@@ -109,20 +109,19 @@ export default function AddProduct() {
 
       // Upload image if provided
       if (formData.image) {
-        const fileExt = formData.image.name.split.pop();
+        const fileExt = formData.image.name.split('.').pop();
         const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
         const filePath = `products/${user.id}/${fileName}`;
 
         // Upload to Supabase Storage
+        setUploadProgress(50);
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from('marketplace')
           .upload(filePath, formData.image, {
             cacheControl: '3600',
             upsert: false,
-            onUploadProgress: (progress) => {
-              setUploadProgress(Math.round((progress.loaded / progress.total) * 100));
-            },
           });
+        setUploadProgress(100);
 
         if (uploadError) {
           throw new Error(`Error uploading image: ${uploadError.message}`);

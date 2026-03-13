@@ -8,7 +8,7 @@ import { useAuth } from '@/lib/supabase-auth';
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { cart, removeItem, updateItemQuantity, clearCart, cartTotal, cartCount } = useCart();
+  const { cart, removeItem, updateQuantity, clearCart, cartTotal, cartCount } = useCart();
   const router = useRouter();
   const { user } = useAuth();
 
@@ -97,9 +97,9 @@ const Cart = () => {
                     {cart.map((item) => (
                       <li key={item.id} className="py-4 flex">
                         <div className="flex-shrink-0 w-20 h-20 bg-gray-100 rounded overflow-hidden relative">
-                          {item.image ? (
+                          {item.imageUrl ? (
                             <Image 
-                              src={item.image} 
+                              src={item.imageUrl} 
                               alt={item.name}
                               fill
                               className="object-cover"
@@ -120,7 +120,7 @@ const Cart = () => {
                           <div className="mt-2 flex items-center justify-between">
                             <div className="flex items-center border rounded">
                               <button 
-                                onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                 className="px-2 py-1 text-gray-600"
                                 aria-label="Decrease quantity"
                               >
@@ -128,7 +128,7 @@ const Cart = () => {
                               </button>
                               <span className="px-2 py-1">{item.quantity}</span>
                               <button 
-                                onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                 className="px-2 py-1 text-gray-600"
                                 aria-label="Increase quantity"
                               >

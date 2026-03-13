@@ -77,7 +77,7 @@ async function sendEmailViaSMTP(emailData: any) {
     // Dynamic import of nodemailer
     const nodemailer = await import('nodemailer');
 
-    const transporter = nodemailer.default.createTransporter({
+    const transporter = nodemailer.default.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER,
@@ -431,7 +431,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           created_at: contactResult.created_at,
           email_sent: true,
           email_method: emailResult.method,
-          email_id: emailResult.id
+          email_id: 'id' in emailResult ? emailResult.id : undefined
         }
       });
 

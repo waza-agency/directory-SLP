@@ -50,11 +50,7 @@ const wineRegions = [
   }
 ];
 
-interface WineScenePageProps {
-  // Props can be extended if needed
-}
-
-const WineScenePage: NextPage<WineScenePageProps> = () => {
+const WineScenePage: NextPage = () => {
 
   return (
     <>

@@ -274,7 +274,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                   if (typeof navigator !== 'undefined' && navigator.share) {
                     navigator.share({
                       title: event.title,
-                      text: event.description,
+                      text: event.description ?? undefined,
                       url: window.location.href,
                     }).catch(err => console.error('Error sharing:', err));
                   }

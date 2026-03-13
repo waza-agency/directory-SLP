@@ -44,7 +44,7 @@ export default async function handler(
     
     // Initialize Stripe
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-      apiVersion: '2023-10-16',
+      apiVersion: '2025-04-30.basil',
     });
     
     // If there's a Stripe subscription, cancel it

@@ -183,7 +183,7 @@ export function ListingsPageOriginal({ initialListings }: ListingsPageProps) {
                         : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                     }`}
                   >
-                    {t(category, category.charAt(0).toUpperCase() + category.slice(1))}
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
                   </button>
                 ))}
               </div>
@@ -398,23 +398,26 @@ export const getServerSideProps: GetServerSideProps = async ({ }) => {
     }
 
     // Transform the data to match the expected interface
-    const transformedListings = listings?.map(listing => ({
-      ...listing,
-      business_profiles: {
-        ...listing.business_profiles,
-        users: {
-          id: listing.business_profiles.user_id,
-          email: '', // We don't need email for display
-          subscriptions: [
-            {
-              id: 'active',
-              status: 'active',
-              current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-            }
-          ]
+    const transformedListings = listings?.map(listing => {
+      const bp = listing.business_profiles as any;
+      return {
+        ...listing,
+        business_profiles: {
+          ...bp,
+          users: {
+            id: bp.user_id,
+            email: '',
+            subscriptions: [
+              {
+                id: 'active',
+                status: 'active',
+                current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+              }
+            ]
+          }
         }
-      }
-    })) || [];
+      };
+    }) || [];
 
           return {
         props: {

@@ -94,7 +94,7 @@ export default function ProfilePage() {
       console.error('Error fetching user profile:', error);
 
       // If no user found, create a new user record
-      if (user && error.code === 'PGRST116') {
+      if (user && (error as { code?: string }).code === 'PGRST116') {
         try {
           console.log('Creating new user profile for:', user.id);
 
@@ -176,7 +176,7 @@ export default function ProfilePage() {
     setSubmitError(null);
 
     try {
-      const fileExt = file.name.split.pop();
+      const fileExt = file.name.split('.').pop();
       const fileName = `${user?.id}-profile-${Date.now()}.${fileExt}`;
       const filePath = fileName;
 
@@ -539,7 +539,7 @@ export default function ProfilePage() {
   );
 }
 
-export async function getServerSideProps({ }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
   try {
     return {
       props: {

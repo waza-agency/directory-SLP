@@ -13,7 +13,7 @@ export default function FeaturedPlaces({ places, onPlaceSelect }: FeaturedPlaces
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [sectionRef, isVisible] = useIntersectionObserver({
+  const [sectionRef, isVisible] = useIntersectionObserver<HTMLElement>({
     threshold: 0.2,
     triggerOnce: true
   });

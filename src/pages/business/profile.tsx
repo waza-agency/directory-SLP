@@ -1,4 +1,4 @@
-// @ts-nocheck - Disabling TypeScript temporarily due to deep type instantiation issues with useTranslation
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -82,6 +82,7 @@ interface BusinessProfile {
 }
 
 interface BusinessHours {
+  [key: string]: { open: string; close: string } | undefined;
   monday?: { open: string; close: string };
   tuesday?: { open: string; close: string };
   wednesday?: { open: string; close: string };
@@ -254,7 +255,7 @@ export default function BusinessProfilePage() {
     setError('');
 
     try {
-      const fileExt = file.name.split.pop();
+      const fileExt = file.name.split('.').pop();
       const fileName = `${businessProfile?.id}-logo-${Date.now()}.${fileExt}`;
       const filePath = `${fileName}`;
 
@@ -309,7 +310,7 @@ export default function BusinessProfilePage() {
     setError('');
 
     try {
-      const fileExt = file.name.split.pop();
+      const fileExt = file.name.split('.').pop();
       const fileName = `${businessProfile?.id}-cover-${Date.now()}.${fileExt}`;
       const filePath = `${fileName}`;
 
@@ -420,7 +421,7 @@ export default function BusinessProfilePage() {
       fetchBusinessProfile();
     } catch (err) {
       console.error('Error updating business profile:', err);
-      setError(err.message || 'Failed to update business profile. Please try again.');
+      setError((err as Error).message || 'Failed to update business profile. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -481,7 +482,7 @@ export default function BusinessProfilePage() {
   // Handle business hours changes
   const handleBusinessHoursChange = (day: string, field: 'open' | 'close', value: string) => {
     setFormData(prev => {
-      const updatedHours = { ...prev.business_hours };
+      const updatedHours = { ...prev.business_hours } as BusinessHours;
       if (!updatedHours[day]) {
         updatedHours[day] = { open: '', close: '' };
       }

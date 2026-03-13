@@ -7,7 +7,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-11-20.acacia',
+  apiVersion: '2025-04-30.basil',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -118,8 +118,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       subscriptionDetails: {
         id: subscription.id,
         status: subscription.status,
-        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        current_period_start: new Date(((subscription as any).current_period_start || 0) * 1000).toISOString(),
+        current_period_end: new Date(((subscription as any).current_period_end || 0) * 1000).toISOString(),
         plan_id: planId,
         stripe_subscription_id: subscription.id,
       }

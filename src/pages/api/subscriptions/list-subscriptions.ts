@@ -70,7 +70,7 @@ export default async function handler(
     // Apply status filter if provided
     if (status !== 'all') {
       if (status.includes(',')) {
-        query = query.in('status', status.split);
+        query = query.in('status', status.split(','));
       } else {
         query = query.eq('status', status);
       }

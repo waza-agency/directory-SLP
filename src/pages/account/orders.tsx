@@ -101,11 +101,11 @@ export default function OrdersPage() {
         if (order.items && Array.isArray(order.items)) {
           orderItems = order.items;
         } else if (order.order_items && Array.isArray(order.order_items)) {
-          orderItems = order.order_items.map(item => ({
-            id: item.id,
-            title: item.item?.title || 'Unknown Item',
-            quantity: item.quantity || 1,
-            price: item.price || 0
+          orderItems = order.order_items.map((item: Record<string, unknown>) => ({
+            id: item.id as string,
+            title: ((item.item as Record<string, string> | null)?.title) || 'Unknown Item',
+            quantity: (item.quantity as number) || 1,
+            price: (item.price as number) || 0
           }));
         }
 
@@ -121,7 +121,7 @@ export default function OrdersPage() {
         (order.items?.length > 0 || order.order_items?.length > 0)
       );
 
-      setOrders(validOrders);
+      setOrders(validOrders as unknown as Order[]);
     } catch (error) {
       console.error('Error fetching orders:', error);
       setError('Failed to load orders. Please try again.');

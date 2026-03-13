@@ -31,7 +31,7 @@ export default async function handler(
       .from('events')
       .update({ show_in_cultural_calendar: showInCulturalCalendar })
       .in('id', eventIds)
-      .select;
+      .select('*');
 
     if (error) {
       throw error;

@@ -68,11 +68,7 @@ const weekendGetaways = [
   }
 ];
 
-interface WeekendGetawaysPageProps {
-  // Props can be extended if needed
-}
-
-const WeekendGetawaysPage: NextPage<WeekendGetawaysPageProps> = () => {
+const WeekendGetawaysPage: NextPage = () => {
 
   return (
     <>

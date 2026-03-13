@@ -19,7 +19,7 @@ const supabaseClient = createClient(
 
 // Initialize Stripe with the secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-10-16',
+  apiVersion: '2025-04-30.basil',
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -82,7 +82,7 @@ async function handleCheckoutSession(session: Stripe.Checkout.Session) {
 
       // Get customer details
       const customer = session.customer_details;
-      const shippingAddress = session.shipping_details || customer?.address;
+      const shippingAddress = (session as any).shipping_details || customer?.address;
 
       // Create new order with completed status if payment is successful
       const { data: order, error: orderError } = await supabase
@@ -137,7 +137,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log('Webhook event received:', event.type);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
+      return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
     }
 
     // Handle the event
