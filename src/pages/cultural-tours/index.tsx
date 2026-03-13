@@ -533,7 +533,7 @@ export default function CulturalTours() {
                   value={formData.preferredDate}
                   onChange={handleChange}
                   required
-                  min={new Date().toISOString().split[0]}
+                  min={new Date().toISOString().split('T')[0]}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 />
               </div>

@@ -33,7 +33,7 @@ interface TodayInSLPProps {
 const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentDate, setCurrentDate] = useState<Date | null>(null);
   const [currentTime, setCurrentTime] = useState<string>('');
   const [currencyIndex, setCurrencyIndex] = useState(0);
   const [newsIndex, setNewsIndex] = useState(0);
@@ -103,7 +103,8 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
+      timeZone: 'America/Mexico_City'
     });
   };
 
@@ -147,7 +148,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       summaryDe: 'Der beliebte Kunsthandwerkermarkt von SLP feiert mit besonderen Aktivitäten an diesem Wochenende.',
       summaryJa: 'SLPで愛される職人市場が今週末特別なアクティビティでお祝い。',
       category: 'community',
-      publishedAt: new Date().toISOString()
+      publishedAt: '2026-03-01T12:00:00.000Z'
     },
     {
       id: '2',
@@ -160,7 +161,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       summaryDe: 'Der 8km lange Radweg verspricht nachhaltigen Transport in der Stadt zu fördern.',
       summaryJa: '8kmの自転車レーンが市内の持続可能な交通を促進する見込み。',
       category: 'local',
-      publishedAt: new Date().toISOString()
+      publishedAt: '2026-03-01T12:00:00.000Z'
     },
     {
       id: '3',
@@ -173,7 +174,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
       summaryDe: 'Über 200 Bürger nahmen am Gemeinschaftsreinigungstag teil.',
       summaryJa: '200人以上の市民がコミュニティ清掃活動に参加。',
       category: 'social',
-      publishedAt: new Date().toISOString()
+      publishedAt: '2026-03-01T12:00:00.000Z'
     }
   ];
 
@@ -205,7 +206,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             {t('todayInSLP.title')}
           </h2>
-          <p className="text-gray-500 capitalize">{formatDate(currentDate)}</p>
+          <p className="text-gray-500 capitalize">{currentDate ? formatDate(currentDate) : '\u00A0'}</p>
         </div>
 
         {/* Quick Stats Grid */}

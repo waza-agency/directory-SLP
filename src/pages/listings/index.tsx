@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { GetServerSideProps } from 'next';
 import { formatMXNPrice } from '@/utils/currency';
@@ -41,9 +42,10 @@ interface ListingsPageProps {
 
 // TEMPORARILY DISABLED - Redirecting to home
 export default function ListingsPage({ initialListings }: ListingsPageProps) {
+  const router = useRouter();
   React.useEffect(() => {
-    window.location.href = '/';
-  }, []);
+    router.replace('/');
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

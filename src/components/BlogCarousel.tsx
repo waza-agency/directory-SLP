@@ -130,7 +130,8 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                   {new Date(currentPost.publishedAt).toLocaleDateString(locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US', {
                     month: 'long',
                     day: 'numeric',
-                    year: 'numeric'
+                    year: 'numeric',
+                    timeZone: 'America/Mexico_City'
                   })}
                 </time>
                 <span className="flex items-center gap-1">
@@ -211,7 +212,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                 {post.title}
               </h4>
               <span className="text-xs text-gray-500">
-                {new Date(post.publishedAt).toLocaleDateString(locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US', { month: 'short', day: 'numeric' })}
+                {new Date(post.publishedAt).toLocaleDateString(locale === 'de' ? 'de-DE' : locale === 'es' ? 'es-MX' : 'en-US', { month: 'short', day: 'numeric', timeZone: 'America/Mexico_City' })}
               </span>
             </Link>
           ))}

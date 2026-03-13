@@ -1,5 +1,7 @@
 import { Event } from '@/types';
 
+const TZ = 'America/Mexico_City';
+
 /** Format a date string to a user-friendly Spanish locale format */
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -7,29 +9,31 @@ export const formatDate = (dateString: string): string => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: TZ,
   });
 };
 
 /** Format a short date (e.g. "15 Mar") */
 export const formatShortDate = (dateString: string): string => {
   const date = new Date(dateString);
-  return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+  return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', timeZone: TZ });
 };
 
 /** Get day number from a date string */
 export const getDayNumber = (dateString: string): string => {
-  return new Date(dateString).getDate().toString();
+  const date = new Date(dateString);
+  return date.toLocaleDateString('es-ES', { day: 'numeric', timeZone: TZ });
 };
 
 /** Get short month name in Spanish */
 export const getMonthShort = (dateString: string): string => {
-  return new Date(dateString).toLocaleDateString('es-ES', { month: 'short' }).toUpperCase();
+  return new Date(dateString).toLocaleDateString('es-ES', { month: 'short', timeZone: TZ }).toUpperCase();
 };
 
 /** Get full month + year in Spanish (e.g. "Marzo 2026") */
 export const getMonthYear = (dateString: string): string => {
   const date = new Date(dateString);
-  const month = date.toLocaleDateString('es-ES', { month: 'long' });
+  const month = date.toLocaleDateString('es-ES', { month: 'long', timeZone: TZ });
   return `${month.charAt(0).toUpperCase() + month.slice(1)} ${date.getFullYear()}`;
 };
 

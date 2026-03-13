@@ -108,7 +108,8 @@ const formatDate = (dateString: string) => {
   return date.toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    timeZone: 'America/Mexico_City'
   });
 };
 
@@ -117,7 +118,8 @@ const formatTime = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleTimeString('es-ES', {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    timeZone: 'America/Mexico_City'
   });
 };
 
@@ -226,7 +228,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                   <p className="text-sm text-white/70">Fecha</p>
                   <p className="font-medium">
                     {formatDate(event.start_date)}
-                    {event.end_date && event.start_date.split[0] && (
+                    {event.end_date && event.end_date !== event.start_date && (
                       <> - {formatDate(event.end_date)}</>
                     )}
                   </p>
@@ -269,11 +271,13 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
               <button
                 className="bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 onClick={() => {
-                  navigator.share({
-                    title: event.title,
-                    text: event.description,
-                    url: window.location.href,
-                  }).catch(err => console.error('Error sharing:', err));
+                  if (typeof navigator !== 'undefined' && navigator.share) {
+                    navigator.share({
+                      title: event.title,
+                      text: event.description,
+                      url: window.location.href,
+                    }).catch(err => console.error('Error sharing:', err));
+                  }
                 }}
               >
                 Compartir
@@ -308,7 +312,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                     <div>
                       <p className="font-medium">Fecha</p>
                       <p className="text-gray-600">{formatDate(event.start_date)}</p>
-                      {event.end_date && event.start_date.split[0] && (
+                      {event.end_date && event.end_date !== event.start_date && (
                         <p className="text-gray-600">{formatDate(event.end_date)}</p>
                       )}
                     </div>

@@ -111,7 +111,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           .single();
 
         const businessName = userData?.email ?
-          userData.email.split[0] + ' Business' :
+          userData.email.split('@')[0] + ' Business' :
           'New Business';
 
         const { data: newProfile, error: insertError } = await supabase

@@ -119,9 +119,10 @@ export default function EventsCarousel({
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <CalendarIcon className="w-4 h-4" />
-                    <span>{new Date(event.start_date).toLocaleDateString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric' 
+                    <span>{new Date(event.start_date).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      timeZone: 'America/Mexico_City'
                     })}</span>
                   </div>
                   

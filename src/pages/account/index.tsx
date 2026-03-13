@@ -75,7 +75,7 @@ export default function AccountPage() {
           setProfile({
             id: user.id,
             email: user.email,
-            name: user.user_metadata?.name || user.email?.split[0] || 'User'
+            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
           });
         } else {
           console.error('Error fetching user profile:', error);
@@ -83,7 +83,7 @@ export default function AccountPage() {
           setProfile({
             id: user.id,
             email: user.email,
-            name: user.user_metadata?.name || user.email?.split[0] || 'User'
+            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
           });
         }
       } else {
@@ -95,7 +95,7 @@ export default function AccountPage() {
       setProfile({
         id: user.id,
         email: user.email,
-        name: user.user_metadata?.name || user.email?.split[0] || 'User'
+        name: user.user_metadata?.name || user.email?.split('@')[0] || 'User'
       });
     } finally {
       setIsLoadingProfile(false);
@@ -278,7 +278,7 @@ export default function AccountPage() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">
-              Welcome back, {profile?.name || user.email?.split[0] || 'User'}!
+              Welcome back, {profile?.name || user.email?.split('@')[0] || 'User'}!
             </h1>
             <p className="text-gray-600 mt-2">Manage your account and view your activity</p>
 
