@@ -104,11 +104,19 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; connect-src 'self' https: wss: https://*.supabase.co https://omxporaecrqsqhzjzvnx.supabase.co; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:; style-src 'self' 'unsafe-inline' https: data:; img-src 'self' https: data: blob:; font-src 'self' https: data:;"
+            value: [
+              "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:",
+              "connect-src 'self' https: wss: https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.facebook.com https://*.facebook.net",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: data:",
+              "style-src 'self' 'unsafe-inline' https: data:",
+              "img-src 'self' https: data: blob:",
+              "font-src 'self' https: data:",
+              "frame-src 'self' https://*.google.com https://*.google.com.mx https://*.doubleclick.net https://*.facebook.com https://*.facebook.net https://www.googletagmanager.com",
+            ].join('; ')
           },
           {
             key: 'X-Frame-Options',
-            value: 'DENY'
+            value: 'SAMEORIGIN'
           },
           {
             key: 'X-Content-Type-Options',

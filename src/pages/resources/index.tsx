@@ -91,7 +91,7 @@ export default function ResourcesHubPage() {
       id: 'neighborhoods-guide',
       title: 'Ultimate Neighborhoods Guide',
       description: 'Where to live in SLP? Complete guide to 7 neighborhoods with rental prices, safety ratings, schools, and insider tips for expats.',
-      image: '/images/cultura-4.jpg',
+      image: '/images/cultura-3.jpg',
       href: '/resources/neighborhoods-san-luis-potosi',
       color: 'from-purple-700 to-purple-500',
       icon: (
