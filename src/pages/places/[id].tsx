@@ -8,7 +8,6 @@ import SEO from '@/components/common/SEO';
 import B2BBanner from '@/components/B2BBanner';
 import ReviewForm from '@/components/ReviewForm';
 import ReviewList from '@/components/ReviewList';
-import BookingForm from '@/components/BookingForm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function PlacePage({ place, error }: { place: Place | null; error: string | null }) {
@@ -148,12 +147,6 @@ export default function PlacePage({ place, error }: { place: Place | null; error
                 </a>
               </div>
             )}
-
-            {/* Booking Section */}
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Reservar</h2>
-              <BookingForm placeId={place.id} placeName={place.name} />
-            </div>
 
             {/* Reviews Section */}
             <div className="mb-6">

@@ -4,6 +4,51 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: [pending] - 2026-03-13
+
+**Mensaje:** feat: Remove marketplace and booking UI from production (SAN-17)
+**Archivos modificados:** src/pages/account/index.tsx, src/pages/places/[id].tsx, src/pages/business/dashboard.tsx, src/pages/shop.tsx (deleted), src/pages/checkout.tsx (deleted), src/pages/checkout/success.tsx (deleted), src/pages/account/orders.tsx (deleted), src/pages/account/seller/add-product.tsx (deleted), src/pages/business/bookings.tsx (deleted), CHANGE_LOG.md, COMMIT_LOG.md
+**Descripcion detallada:** Board decision to defer marketplace and bookings until validated demand exists. Removed all marketplace/booking UI from production: deleted shop page, checkout flow, orders page, seller product page, and business bookings page. Removed booking form from place detail pages, seller orders from business dashboard, and orders section from account dashboard. Database tables and API endpoints intentionally preserved for future re-enablement.
+**Proposito/Razon:** Reduce user confusion and maintenance burden by hiding deferred features.
+
+---
+
+## Commit: deb90eca - 2026-03-13
+
+**Mensaje:** feat: Re-enable marketplace MVP with shop, cart, checkout, and seller dashboard (SAN-12)
+
+**Archivos modificados:**
+- `src/components/common/BuyButton.tsx` (reescrito)
+- `src/pages/shop.tsx` (reescrito)
+- `src/pages/checkout.tsx` (reescrito)
+- `src/pages/checkout/success.tsx` (reescrito)
+- `src/pages/api/checkout/create-session.ts` (reescrito)
+- `src/pages/api/checkout/process-marketplace-payment.ts` (reescrito)
+- `src/pages/api/business/orders.ts` (nuevo)
+- `src/components/SellerOrders.tsx` (nuevo)
+- `src/pages/business/dashboard.tsx` (modificado)
+- `public/locales/en/common.json` (modificado)
+- `public/locales/es/common.json` (modificado)
+- `public/locales/de/common.json` (modificado)
+- `public/locales/ja/common.json` (modificado)
+
+**Descripcion detallada:**
+El marketplace estaba completamente deshabilitado (BuyButton, shop, checkout, APIs devolvian 503). Se re-habilito todo el flujo:
+- BuyButton ahora usa useCart() para agregar items al carrito y redirige a checkout en modo buy-now
+- Shop page usa getServerSideProps para traer business_listings con is_sellable=true de Supabase
+- Checkout page muestra items del carrito con controles de cantidad y calcula shipping
+- API create-session crea Stripe Checkout Sessions con line items en MXN
+- API process-marketplace-payment crea marketplace_transactions con 10% platform fee
+- Checkout success page muestra detalles del pedido via get-order API
+- Nuevo componente SellerOrders con 3 stat cards (earnings, pending, total orders) + tabla de pedidos
+- Nuevo API /api/business/orders consulta marketplace_transactions por business_id
+- SellerOrders integrado en business dashboard despues de BusinessAnalytics
+- 37 keys i18n de marketplace agregadas en 4 idiomas
+
+**Proposito/Razon:** Tarea SAN-12 - Completar marketplace MVP. Revenue impact: marketplace commissions son 10% revenue stream planificado.
+
+---
+
 ## Commit: beeb99d1 - 2026-03-09
 
 **Mensaje:** feat: Add Alibaba page-agent widget and leads import skill

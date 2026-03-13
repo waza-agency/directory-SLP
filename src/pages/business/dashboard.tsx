@@ -8,7 +8,7 @@ import { supabase } from '@/lib/supabase';
 import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import BusinessAnalytics from '@/components/BusinessAnalytics';
-import SellerOrders from '@/components/SellerOrders';
+// MARKETPLACE DISABLED - SellerOrders removed
 
 // Types
 type BusinessProfile = {
@@ -693,10 +693,7 @@ export default function BusinessDashboardPage() {
                 <BusinessAnalytics />
               )}
 
-              {/* Seller Orders Section */}
-              {businessProfile && subscription && (
-                <SellerOrders />
-              )}
+              {/* MARKETPLACE DISABLED - Seller Orders Section removed */}
 
               {/* Listings Section */}
               <div className="bg-white rounded-lg shadow overflow-hidden">
