@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -66,7 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (insertError) {
-      console.error('Error inserting post:', insertError);
+      logger.error('Error inserting post:', insertError);
       return res.status(500).json({
         error: 'Error creating post',
         details: insertError.message
@@ -83,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     });
   } catch (error) {
-    console.error('Error in create-post:', error);
+    logger.error('Error in create-post:', error);
     return res.status(500).json({
       error: 'Internal server error',
       details: error instanceof Error ? error.message : 'Unknown error'

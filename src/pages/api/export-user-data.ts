@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import fs from 'fs';
 import path from 'path';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -23,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (profileError && profileError.code !== 'PGRST116') {
-      console.error('Error fetching business profile:', profileError);
+      logger.error('Error fetching business profile:', profileError);
     }
 
     // Get subscription data
@@ -34,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .maybeSingle();
 
     if (subscriptionError && subscriptionError.code !== 'PGRST116') {
-      console.error('Error fetching subscription:', subscriptionError);
+      logger.error('Error fetching subscription:', subscriptionError);
     }
 
     // Get user data
@@ -45,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (userError) {
-      console.error('Error fetching user data:', userError);
+      logger.error('Error fetching user data:', userError);
     }
 
     // Get business listings 
@@ -63,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       listingsError = result.error;
       
       if (listingsError) {
-        console.error('Error fetching business listings:', listingsError);
+        logger.error('Error fetching business listings:', listingsError);
       }
     }
 
@@ -93,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       filePath
     });
   } catch (error: any) {
-    console.error('Error exporting user data:', error);
+    logger.error('Error exporting user data:', error);
     return res.status(500).json({
       error: {
         message: error.message || 'An error occurred while exporting user data',

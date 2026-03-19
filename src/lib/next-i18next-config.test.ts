@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const path = require('path');
 
 // Using require here because next-i18next.config.js is a CommonJS module
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const nextI18NextConfig = require('../../next-i18next.config.js');
 
 describe('next-i18next configuration', () => {

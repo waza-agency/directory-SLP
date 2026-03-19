@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Create authenticated Supabase client
@@ -57,13 +58,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('id', userId);
 
     if (error) {
-      console.error('Error updating profile:', error);
+      logger.error('Error updating profile:', error);
       return res.status(400).json({ error: error.message });
     }
 
     return res.status(200).json({ success: true });
   } catch (error: any) {
-    console.error('Error in update profile API:', error);
+    logger.error('Error in update profile API:', error);
     return res.status(500).json({ error: error.message });
   }
 } 

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Solo aceptar solicitudes PUT
@@ -38,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (profileError) {
-      console.error('Error obteniendo perfil de negocio:', profileError);
+      logger.error('Error obteniendo perfil de negocio:', profileError);
       return res.status(404).json({ error: 'Perfil de negocio no encontrado' });
     }
 
@@ -122,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (updateError) {
-      console.error('Error actualizando producto:', updateError);
+      logger.error('Error actualizando producto:', updateError);
       return res.status(500).json({ error: 'Error actualizando producto' });
     }
 
@@ -138,7 +139,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('id', businessProfile.id);
 
       if (counterError) {
-        console.error('Error actualizando contador de productos:', counterError);
+        logger.error('Error actualizando contador de productos:', counterError);
         // No detener la respuesta por este error
       }
     }
@@ -150,7 +151,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error: any) {
-    console.error('Error en la actualización de producto:', error);
+    logger.error('Error en la actualización de producto:', error);
     return res.status(500).json({
       error: {
         message: error.message || 'Ha ocurrido un error al actualizar el producto',

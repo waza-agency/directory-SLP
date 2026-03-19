@@ -54,11 +54,7 @@ const foodExperiences = [
   }
 ];
 
-interface FoodieGuidePageProps {
-  // Props can be extended if needed
-}
-
-const FoodieGuidePage: NextPage<FoodieGuidePageProps> = () => {
+const FoodieGuidePage: NextPage = () => {
 
   return (
     <>

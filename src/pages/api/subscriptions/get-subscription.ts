@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { supabaseAdmin } from '@/lib/api/supabase-admin';
+import { logger } from '@/lib/logger';
 
 export default async function handler(
   req: NextApiRequest,
@@ -71,7 +72,7 @@ export default async function handler(
       .order('created_at', { ascending: false });
 
     if (subscriptionError) {
-      console.error('Error fetching subscription:', subscriptionError);
+      logger.error('Error fetching subscription:', subscriptionError);
       return res.status(500).json({ 
         message: 'Error fetching subscription details' 
       });
@@ -86,7 +87,7 @@ export default async function handler(
       subscription: currentSubscription || null
     });
   } catch (error) {
-    console.error('Subscription fetch error:', error);
+    logger.error('Subscription fetch error:', error);
     return res.status(500).json({ 
       message: 'Error retrieving subscription' 
     });

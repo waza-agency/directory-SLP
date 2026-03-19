@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { logger } from '@/lib/logger';
 
 /**
  * API endpoint for on-demand revalidation of Next.js ISR pages
@@ -48,7 +49,7 @@ export default async function handler(
       timestamp: new Date().toISOString()
     });
   } catch (err) {
-    console.error('Error revalidating:', err);
+    logger.error('Error revalidating:', err);
     return res.status(500).json({
       message: 'Error revalidating',
       error: err instanceof Error ? err.message : 'Unknown error'

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -62,7 +63,7 @@ async function getSubscribers(req: NextApiRequest, res: NextApiResponse) {
       counts: statusCounts
     });
   } catch (error) {
-    console.error('Get subscribers error:', error);
+    logger.error('Get subscribers error:', error);
     return res.status(500).json({ message: 'Failed to fetch subscribers' });
   }
 }
@@ -84,7 +85,7 @@ async function deleteSubscriber(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json({ message: 'Subscriber deleted successfully' });
   } catch (error) {
-    console.error('Delete subscriber error:', error);
+    logger.error('Delete subscriber error:', error);
     return res.status(500).json({ message: 'Failed to delete subscriber' });
   }
 }

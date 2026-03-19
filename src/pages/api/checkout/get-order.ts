@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -37,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (orderError) {
-      console.error('Error fetching order:', orderError);
+      logger.error('Error fetching order:', orderError);
       return res.status(500).json({ error: orderError.message });
     }
 
@@ -48,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Return the order
     return res.status(200).json({ order: orderData });
   } catch (error: any) {
-    console.error('Error getting order:', error);
+    logger.error('Error getting order:', error);
     return res.status(500).json({ error: error.message });
   }
 } 

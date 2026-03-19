@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { supabaseAdmin } from '@/lib/api/supabase-admin';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -62,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .maybeSingle();
 
     if (profileError && profileError.code !== 'PGRST116') {
-      console.error('Error fetching business profile:', profileError);
+      logger.error('Error fetching business profile:', profileError);
       return res.status(500).json({ error: 'Error fetching business profile' });
     }
 
@@ -75,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .maybeSingle();
 
     if (subscriptionError && subscriptionError.code !== 'PGRST116') {
-      console.error('Error fetching subscription:', subscriptionError);
+      logger.error('Error fetching subscription:', subscriptionError);
       return res.status(500).json({ error: 'Error fetching subscription' });
     }
 
@@ -88,7 +89,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('business_id', businessProfile.id);
 
       if (listingsError) {
-        console.error('Error counting listings:', listingsError);
+        logger.error('Error counting listings:', listingsError);
       } else {
         listingsCount = listingsData?.length || 0;
       }
@@ -103,7 +104,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       maxListings: subscription?.subscription_plans?.max_listings || 0
     });
   } catch (error: any) {
-    console.error('Error checking user subscription:', error);
+    logger.error('Error checking user subscription:', error);
     return res.status(500).json({
       error: {
         message: error.message || 'An error occurred while checking the user subscription',

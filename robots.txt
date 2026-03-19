@@ -1,7 +1,11 @@
 User-agent: *
 Allow: /
 
-# Block specific directories
+# Block internal/private paths
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /_next/
 Disallow: /.next/
 Disallow: /.github/
 Disallow: /migrations/
@@ -9,10 +13,22 @@ Disallow: /scripts/
 Disallow: /supabase/
 Disallow: /.vscode/
 
-# Allow access to favicon and other important files
+# Block auth and checkout flows
+Disallow: /signin
+Disallow: /signup
+Disallow: /checkout
+Disallow: /order-confirmation
+
+# Allow important resources crawlers need
+Allow: /api/robots
+Allow: /api/sitemap
 Allow: /favicon.ico
 Allow: /sitemap.xml
 Allow: /robots.txt
+Allow: /_next/static/
+
+# Crawl rate
+Crawl-delay: 1
 
 # Sitemap
-Sitemap: https://www.sanluisway.com/sitemap.xml 
+Sitemap: https://www.sanluisway.com/sitemap.xml

@@ -4,6 +4,62 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-03-13] feat: Remove marketplace and booking UI from production (SAN-17)
+
+**Descripcion:**
+Board decision: marketplace and bookings deferred until validated demand. Removed all user-facing marketplace/booking UI to reduce confusion and maintenance burden. Database tables and API endpoints preserved for future re-enablement.
+
+**Cambios principales:**
+1. Removed "Orders" sidebar link and entire Recent Orders section from account dashboard
+2. Removed BookingForm from place detail pages
+3. Removed SellerOrders component from business dashboard
+4. Deleted page routes: /shop, /checkout, /checkout/success, /account/orders, /account/seller/add-product, /business/bookings
+5. CartProvider was already disabled in _app.tsx from prior work
+6. Build verified with zero errors
+
+**Archivos afectados:**
+- `src/pages/account/index.tsx` - removed orders link, orders fetch, orders section | Estado: Exitoso
+- `src/pages/places/[id].tsx` - removed BookingForm import and booking section | Estado: Exitoso
+- `src/pages/business/dashboard.tsx` - removed SellerOrders import and section | Estado: Exitoso
+- `src/pages/shop.tsx` - deleted | Estado: Exitoso
+- `src/pages/checkout.tsx` - deleted | Estado: Exitoso
+- `src/pages/checkout/success.tsx` - deleted | Estado: Exitoso
+- `src/pages/account/orders.tsx` - deleted | Estado: Exitoso
+- `src/pages/account/seller/add-product.tsx` - deleted | Estado: Exitoso
+- `src/pages/business/bookings.tsx` - deleted | Estado: Exitoso
+
+---
+
+## [2026-03-13] feat: Re-enable marketplace MVP (SAN-12)
+
+**Descripcion:**
+Marketplace completo re-habilitado con shop, carrito, checkout via Stripe, y dashboard de vendedor.
+
+**Cambios principales:**
+1. BuyButton re-habilitado con modos add-to-cart y buy-now
+2. Shop page con grilla de productos SSR, busqueda y filtros por categoria
+3. Checkout page con resumen de carrito, controles de cantidad, integracion Stripe
+4. API create-session para crear Stripe Checkout Sessions en MXN
+5. API process-marketplace-payment con calculo de 10% platform fee
+6. Pagina de exito de checkout con detalles del pedido
+7. Componente SellerOrders con resumen de ganancias y tabla de pedidos
+8. API /api/business/orders para vendedores
+9. Keys i18n de marketplace en EN, ES, DE, JA
+
+**Archivos afectados:**
+- `src/components/common/BuyButton.tsx` | Estado: Exitoso
+- `src/pages/shop.tsx` | Estado: Exitoso
+- `src/pages/checkout.tsx` | Estado: Exitoso
+- `src/pages/checkout/success.tsx` | Estado: Exitoso
+- `src/pages/api/checkout/create-session.ts` | Estado: Exitoso
+- `src/pages/api/checkout/process-marketplace-payment.ts` | Estado: Exitoso
+- `src/pages/api/business/orders.ts` (nuevo) | Estado: Exitoso
+- `src/components/SellerOrders.tsx` (nuevo) | Estado: Exitoso
+- `src/pages/business/dashboard.tsx` | Estado: Exitoso
+- `public/locales/{en,es,de,ja}/common.json` | Estado: Exitoso
+
+---
+
 ## [2026-03-10] Fix: Design review polish - placeholders, hero overlays, spacing, card heights
 
 **Descripcion:**

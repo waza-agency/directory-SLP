@@ -769,6 +769,17 @@
       "feature3": "Vida Cultural Vibrante"
     }
   },
+  "reviews": {
+    "loginRequired": "Inicia sesión para dejar una reseña",
+    "ratingRequired": "Por favor selecciona una calificación",
+    "textTooShort": "La reseña debe tener al menos 10 caracteres",
+    "writeReview": "Escribe una reseña",
+    "placeholder": "Comparte tu experiencia...",
+    "submitted": "¡Reseña enviada exitosamente!",
+    "submitting": "Enviando...",
+    "submit": "Enviar Reseña",
+    "noReviews": "Aún no hay reseñas. ¡Sé el primero en opinar!"
+  },
   "placeCard": {
     "featured": "Destacado",
     "viewDetails": "Ver Detalles"
@@ -1180,6 +1191,31 @@
       }
     }
   },
+  "filters": {
+    "searchPlaceholder": "Buscar...",
+    "allCategories": "Todas las Categorías",
+    "minRating": "Calificación mínima",
+    "priceLevel": "Precio",
+    "sortNewest": "Más recientes",
+    "sortRating": "Mejor calificados",
+    "sortName": "A-Z",
+    "clearAll": "Limpiar filtros",
+    "showing": "Mostrando",
+    "of": "de"
+  },
+  "pagination": {
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
+  "analytics": {
+    "title": "Resumen Analítico",
+    "activeListings": "Listados Activos",
+    "inquiries": "Consultas de Contacto",
+    "revenue": "Ingresos",
+    "avgRating": "Calificación Promedio",
+    "recentInquiries": "Consultas Recientes",
+    "new": "nuevas"
+  },
   "b2b": {
     "nav": "Para Negocios",
     "footer": {
@@ -1206,6 +1242,79 @@
     "inline": {
       "text": "¿Es este tu negocio?",
       "cta": "Reclama tu perfil"
+    }
+  },
+  "marketplace": {
+    "shopTitle": "Tienda",
+    "shopDescription": "Explora productos de negocios locales en San Luis Potosí",
+    "shopSubtitle": "Descubre productos de negocios locales",
+    "searchProducts": "Buscar productos...",
+    "allCategories": "Todas las Categorías",
+    "noProducts": "No se encontraron productos",
+    "noProductsDescription": "Intenta ajustar tu búsqueda o filtros",
+    "buyNow": "Comprar Ahora",
+    "addToCart": "Agregar al Carrito",
+    "checkout": "Pagar",
+    "emptyCart": "Tu carrito está vacío",
+    "continueShopping": "Seguir Comprando",
+    "orderSummary": "Resumen del Pedido",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "total": "Total",
+    "processing": "Procesando...",
+    "payNow": "Pagar Ahora",
+    "loginRequired": "Necesitas iniciar sesión para completar tu compra",
+    "orderSuccess": "¡Pedido Confirmado!",
+    "orderNumber": "Pedido #",
+    "items": "Artículos",
+    "goHome": "Ir al Inicio",
+    "sellerOrders": "Pedidos y Ganancias",
+    "totalEarnings": "Ganancias Totales",
+    "pendingPayouts": "Pagos Pendientes",
+    "totalOrders": "Total de Pedidos",
+    "recentOrders": "Pedidos Recientes",
+    "date": "Fecha",
+    "amount": "Monto",
+    "yourEarnings": "Tus Ganancias",
+    "status": "Estado",
+    "noOrdersYet": "Aún no has recibido pedidos. Los pedidos aparecerán aquí cuando los clientes compren tus productos."
+  },
+  "booking": {
+    "bookNow": "Reservar Ahora",
+    "reserveAt": "Reservar en",
+    "date": "Fecha",
+    "time": "Hora",
+    "partySize": "Personas",
+    "person": "persona",
+    "people": "personas",
+    "contactName": "Nombre de Contacto",
+    "contactEmail": "Correo Electrónico",
+    "contactPhone": "Teléfono",
+    "specialRequests": "Solicitudes Especiales",
+    "notesPlaceholder": "Algún requerimiento especial o solicitud...",
+    "confirmBooking": "Confirmar Reserva",
+    "submitting": "Enviando...",
+    "successMessage": "¡Reserva enviada exitosamente!",
+    "confirmationNote": "Recibirás una confirmación cuando el negocio revise tu reservación.",
+    "errorCreating": "Error al crear la reserva. Intenta de nuevo.",
+    "loginRequired": "Inicia sesión para hacer una reserva.",
+    "noBookings": "No tienes reservas aún.",
+    "unknownPlace": "Lugar Desconocido",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "markCompleted": "Marcar Completada",
+    "noShow": "No Asistió",
+    "allBookings": "Todas",
+    "noBookingsFound": "No se encontraron reservas.",
+    "manageBookings": "Gestionar Reservas",
+    "manageDescription": "Ver y gestionar las reservaciones de tu negocio.",
+    "backToDashboard": "Volver al Panel",
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmada",
+      "cancelled": "Cancelada",
+      "completed": "Completada",
+      "no_show": "No Asistió"
     }
   }
 }

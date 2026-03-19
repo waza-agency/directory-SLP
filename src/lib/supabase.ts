@@ -325,7 +325,7 @@ export const getRandomPlaces = async (limit: number = 16, locale: SupportedLocal
     // First, get the total count of places
     const { count, error: countError } = await supabase
       .from('places')
-      .select;
+      .select('*', { count: 'exact', head: true });
 
     if (countError) throw countError;
 
@@ -340,7 +340,7 @@ export const getRandomPlaces = async (limit: number = 16, locale: SupportedLocal
     // This is more efficient for small to medium datasets than the SQL randomization
     const { data, error } = await supabase
       .from('places')
-      .select;
+      .select('*');
 
     if (error) throw error;
 

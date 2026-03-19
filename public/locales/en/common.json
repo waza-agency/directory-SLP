@@ -769,6 +769,17 @@
       "feature3": "Vibrant Cultural Life"
     }
   },
+  "reviews": {
+    "loginRequired": "Sign in to leave a review",
+    "ratingRequired": "Please select a rating",
+    "textTooShort": "Review must be at least 10 characters",
+    "writeReview": "Write a review",
+    "placeholder": "Share your experience...",
+    "submitted": "Review submitted successfully!",
+    "submitting": "Submitting...",
+    "submit": "Submit Review",
+    "noReviews": "No reviews yet. Be the first to review!"
+  },
   "placeCard": {
     "featured": "Featured",
     "viewDetails": "View Details"
@@ -1180,6 +1191,31 @@
       }
     }
   },
+  "filters": {
+    "searchPlaceholder": "Search...",
+    "allCategories": "All Categories",
+    "minRating": "Min Rating",
+    "priceLevel": "Price",
+    "sortNewest": "Newest First",
+    "sortRating": "Highest Rated",
+    "sortName": "A-Z",
+    "clearAll": "Clear filters",
+    "showing": "Showing",
+    "of": "of"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "analytics": {
+    "title": "Analytics Overview",
+    "activeListings": "Active Listings",
+    "inquiries": "Contact Inquiries",
+    "revenue": "Revenue",
+    "avgRating": "Avg Rating",
+    "recentInquiries": "Recent Inquiries",
+    "new": "new"
+  },
   "b2b": {
     "nav": "For Businesses",
     "footer": {
@@ -1206,6 +1242,79 @@
     "inline": {
       "text": "Is this your business?",
       "cta": "Claim your profile"
+    }
+  },
+  "marketplace": {
+    "shopTitle": "Shop",
+    "shopDescription": "Browse products from local businesses in San Luis Potosi",
+    "shopSubtitle": "Discover products from local businesses",
+    "searchProducts": "Search products...",
+    "allCategories": "All Categories",
+    "noProducts": "No products found",
+    "noProductsDescription": "Try adjusting your search or filter criteria",
+    "buyNow": "Buy Now",
+    "addToCart": "Add to Cart",
+    "checkout": "Checkout",
+    "emptyCart": "Your cart is empty",
+    "continueShopping": "Continue Shopping",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "processing": "Processing...",
+    "payNow": "Pay Now",
+    "loginRequired": "You need to sign in to complete your purchase",
+    "orderSuccess": "Order Confirmed!",
+    "orderNumber": "Order #",
+    "items": "Items",
+    "goHome": "Go Home",
+    "sellerOrders": "Orders & Earnings",
+    "totalEarnings": "Total Earnings",
+    "pendingPayouts": "Pending Payouts",
+    "totalOrders": "Total Orders",
+    "recentOrders": "Recent Orders",
+    "date": "Date",
+    "amount": "Amount",
+    "yourEarnings": "Your Earnings",
+    "status": "Status",
+    "noOrdersYet": "No orders received yet. Orders will appear here when customers purchase your products."
+  },
+  "booking": {
+    "bookNow": "Book Now",
+    "reserveAt": "Reserve at",
+    "date": "Date",
+    "time": "Time",
+    "partySize": "Party Size",
+    "person": "person",
+    "people": "people",
+    "contactName": "Contact Name",
+    "contactEmail": "Email",
+    "contactPhone": "Phone",
+    "specialRequests": "Special Requests",
+    "notesPlaceholder": "Any special requirements or requests...",
+    "confirmBooking": "Confirm Booking",
+    "submitting": "Submitting...",
+    "successMessage": "Booking submitted successfully!",
+    "confirmationNote": "You will receive a confirmation once the business reviews your reservation.",
+    "errorCreating": "Failed to create booking. Please try again.",
+    "loginRequired": "Please sign in to make a booking.",
+    "noBookings": "You have no bookings yet.",
+    "unknownPlace": "Unknown Place",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "markCompleted": "Mark Completed",
+    "noShow": "No Show",
+    "allBookings": "All",
+    "noBookingsFound": "No bookings found.",
+    "manageBookings": "Manage Bookings",
+    "manageDescription": "View and manage reservations for your business.",
+    "backToDashboard": "Back to Dashboard",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed",
+      "no_show": "No Show"
     }
   }
 }

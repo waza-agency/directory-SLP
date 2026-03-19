@@ -734,6 +734,17 @@
       "feature3": "Lebendiges Kulturleben"
     }
   },
+  "reviews": {
+    "loginRequired": "Melden Sie sich an, um eine Bewertung zu hinterlassen",
+    "ratingRequired": "Bitte wählen Sie eine Bewertung",
+    "textTooShort": "Die Bewertung muss mindestens 10 Zeichen lang sein",
+    "writeReview": "Bewertung schreiben",
+    "placeholder": "Teilen Sie Ihre Erfahrung...",
+    "submitted": "Bewertung erfolgreich eingereicht!",
+    "submitting": "Wird gesendet...",
+    "submit": "Bewertung abschicken",
+    "noReviews": "Noch keine Bewertungen. Seien Sie der Erste!"
+  },
   "placeCard": {
     "featured": "Empfohlen",
     "viewDetails": "Details ansehen"
@@ -1145,6 +1156,31 @@
       }
     }
   },
+  "filters": {
+    "searchPlaceholder": "Suchen...",
+    "allCategories": "Alle Kategorien",
+    "minRating": "Min. Bewertung",
+    "priceLevel": "Preis",
+    "sortNewest": "Neueste zuerst",
+    "sortRating": "Bestbewertet",
+    "sortName": "A-Z",
+    "clearAll": "Filter zurücksetzen",
+    "showing": "Zeige",
+    "of": "von"
+  },
+  "pagination": {
+    "prev": "Zurück",
+    "next": "Weiter"
+  },
+  "analytics": {
+    "title": "Analyseübersicht",
+    "activeListings": "Aktive Einträge",
+    "inquiries": "Kontaktanfragen",
+    "revenue": "Umsatz",
+    "avgRating": "Durchschnittsbewertung",
+    "recentInquiries": "Neueste Anfragen",
+    "new": "neu"
+  },
   "b2b": {
     "nav": "Für Unternehmen",
     "footer": {
@@ -1171,6 +1207,79 @@
     "inline": {
       "text": "Ist dies Ihr Unternehmen?",
       "cta": "Profil beanspruchen"
+    }
+  },
+  "marketplace": {
+    "shopTitle": "Shop",
+    "shopDescription": "Produkte lokaler Unternehmen in San Luis Potosí entdecken",
+    "shopSubtitle": "Produkte lokaler Unternehmen entdecken",
+    "searchProducts": "Produkte suchen...",
+    "allCategories": "Alle Kategorien",
+    "noProducts": "Keine Produkte gefunden",
+    "noProductsDescription": "Versuchen Sie, Ihre Suche oder Filter anzupassen",
+    "buyNow": "Jetzt kaufen",
+    "addToCart": "In den Warenkorb",
+    "checkout": "Zur Kasse",
+    "emptyCart": "Ihr Warenkorb ist leer",
+    "continueShopping": "Weiter einkaufen",
+    "orderSummary": "Bestellübersicht",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "total": "Gesamt",
+    "processing": "Verarbeitung...",
+    "payNow": "Jetzt bezahlen",
+    "loginRequired": "Sie müssen sich anmelden, um Ihren Einkauf abzuschließen",
+    "orderSuccess": "Bestellung bestätigt!",
+    "orderNumber": "Bestellung #",
+    "items": "Artikel",
+    "goHome": "Zur Startseite",
+    "sellerOrders": "Bestellungen & Einnahmen",
+    "totalEarnings": "Gesamteinnahmen",
+    "pendingPayouts": "Ausstehende Auszahlungen",
+    "totalOrders": "Gesamtbestellungen",
+    "recentOrders": "Letzte Bestellungen",
+    "date": "Datum",
+    "amount": "Betrag",
+    "yourEarnings": "Ihre Einnahmen",
+    "status": "Status",
+    "noOrdersYet": "Noch keine Bestellungen erhalten. Bestellungen erscheinen hier, wenn Kunden Ihre Produkte kaufen."
+  },
+  "booking": {
+    "bookNow": "Jetzt Buchen",
+    "reserveAt": "Reservieren bei",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "partySize": "Personenanzahl",
+    "person": "Person",
+    "people": "Personen",
+    "contactName": "Kontaktname",
+    "contactEmail": "E-Mail",
+    "contactPhone": "Telefon",
+    "specialRequests": "Besondere Wünsche",
+    "notesPlaceholder": "Besondere Anforderungen oder Wünsche...",
+    "confirmBooking": "Buchung Bestätigen",
+    "submitting": "Wird gesendet...",
+    "successMessage": "Buchung erfolgreich eingereicht!",
+    "confirmationNote": "Sie erhalten eine Bestätigung, sobald das Unternehmen Ihre Reservierung prüft.",
+    "errorCreating": "Buchung konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "loginRequired": "Bitte melden Sie sich an, um eine Buchung vorzunehmen.",
+    "noBookings": "Sie haben noch keine Buchungen.",
+    "unknownPlace": "Unbekannter Ort",
+    "cancel": "Stornieren",
+    "confirm": "Bestätigen",
+    "markCompleted": "Als Abgeschlossen markieren",
+    "noShow": "Nicht erschienen",
+    "allBookings": "Alle",
+    "noBookingsFound": "Keine Buchungen gefunden.",
+    "manageBookings": "Buchungen Verwalten",
+    "manageDescription": "Reservierungen für Ihr Unternehmen anzeigen und verwalten.",
+    "backToDashboard": "Zurück zum Dashboard",
+    "status": {
+      "pending": "Ausstehend",
+      "confirmed": "Bestätigt",
+      "cancelled": "Storniert",
+      "completed": "Abgeschlossen",
+      "no_show": "Nicht erschienen"
     }
   }
 }

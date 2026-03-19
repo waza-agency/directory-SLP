@@ -7,6 +7,8 @@ import { useAuth } from '@/lib/supabase-auth';
 import { supabase } from '@/lib/supabase';
 import { PlusIcon, PencilIcon, TrashIcon, ExclamationCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
+import BusinessAnalytics from '@/components/BusinessAnalytics';
+// MARKETPLACE DISABLED - SellerOrders removed
 
 // Types
 type BusinessProfile = {
@@ -67,8 +69,6 @@ export default function BusinessDashboardPage() {
   const buttonRef1 = useRef<HTMLButtonElement>(null);
   const buttonRef2 = useRef<HTMLButtonElement>(null);
 
-  // For testing with a specific user ID
-  const testUserId = 'd6e52249-d9a5-40c1-a0db-555f861345f6';
 
   useEffect(() => {
     // Redirect if not authenticated
@@ -81,8 +81,7 @@ export default function BusinessDashboardPage() {
     if (user) {
       fetchBusinessData();
 
-      // Additional check for the specified test user
-      if (router.query.debug === 'true' || user.id === testUserId) {
+      if (router.query.debug === 'true') {
         setIsDebugMode(true);
         fetchTestUserData();
       }
@@ -355,21 +354,21 @@ export default function BusinessDashboardPage() {
       const { data: profileData, error: profileError } = await supabase
         .from('business_profiles')
         .select("*")
-        .eq('user_id', testUserId)
+        .eq('user_id', user!.id)
         .single();
 
       // Get subscription data for test user
       const { data: subscriptionData, error: subscriptionError } = await supabase
         .from('subscriptions')
         .select("*")
-        .eq('user_id', testUserId)
+        .eq('user_id', user!.id)
         .maybeSingle();
 
       // Get user data
       const { data: userData, error: userError } = await supabase
         .from('users')
         .select("*")
-        .eq('id', testUserId)
+        .eq('id', user!.id)
         .single();
 
       // Get business listings for test user
@@ -689,6 +688,13 @@ export default function BusinessDashboardPage() {
                 </div>
               )}
 
+              {/* Analytics Section */}
+              {businessProfile && subscription && (
+                <BusinessAnalytics />
+              )}
+
+              {/* MARKETPLACE DISABLED - Seller Orders Section removed */}
+
               {/* Listings Section */}
               <div className="bg-white rounded-lg shadow overflow-hidden">
                 <div className="p-6 border-b border-gray-200">
@@ -869,7 +875,7 @@ export default function BusinessDashboardPage() {
                 <div className="mt-8 bg-gray-100 rounded-lg shadow overflow-hidden">
                   <div className="p-4 bg-gray-200 font-mono">
                     <h2 className="text-lg font-bold">Debug Data</h2>
-                    <p className="text-xs text-gray-700">Test User ID: {testUserId}</p>
+                    <p className="text-xs text-gray-700">User ID: {user?.id}</p>
                   </div>
                   <div className="p-4 overflow-auto">
                     <pre className="text-xs">{JSON.stringify(debugData, null, 2)}</pre>
@@ -966,9 +972,11 @@ export default function BusinessDashboardPage() {
   );
 }
 
-export async function getServerSideProps({ }: { locale: string }) {
+export async function getServerSideProps({ locale }: { locale: string }) {
+  const { serverSideTranslations } = await import('next-i18next/serverSideTranslations');
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
 }

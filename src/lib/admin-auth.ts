@@ -1,45 +1,61 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { GetServerSidePropsContext } from 'next';
-import Cookies from 'js-cookie';
+import { timingSafeEqual } from 'crypto';
 
-// Admin authentication password - in a real app, store this in environment variables
-const ADMIN_PASSWORD = 'directoryslp2024';
-
-// Cookie name for admin authentication
 const ADMIN_COOKIE_NAME = 'directory_slp_admin_auth';
+const COOKIE_MAX_AGE_SEC = 86400; // 24 hours
 
-// Cookie expiration time (24 hours)
-const COOKIE_EXPIRATION_DAYS = 1;
+function getAdminPassword(): string {
+  const pw = process.env.ADMIN_PASSWORD;
+  if (!pw) throw new Error('ADMIN_PASSWORD environment variable is not set');
+  return pw;
+}
 
-/**
- * Set admin authentication cookie
- */
-export function setAdminAuth() {
-  Cookies.set(ADMIN_COOKIE_NAME, 'authenticated', { 
-    expires: COOKIE_EXPIRATION_DAYS,
-    path: '/'
-  });
+function safeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
 }
 
 /**
- * Remove admin authentication cookie
+ * Set admin authentication cookie (server-side, httpOnly)
  */
-export function removeAdminAuth() {
-  Cookies.remove(ADMIN_COOKIE_NAME, { path: '/' });
+export function setAdminCookie(res: NextApiResponse): void {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const cookie = [
+    `${ADMIN_COOKIE_NAME}=authenticated`,
+    `Path=/`,
+    `HttpOnly`,
+    `SameSite=Strict`,
+    `Max-Age=${COOKIE_MAX_AGE_SEC}`,
+    isProduction ? 'Secure' : '',
+  ].filter(Boolean).join('; ');
+  res.setHeader('Set-Cookie', cookie);
 }
 
 /**
- * Check if user is authenticated as admin (client-side)
+ * Remove admin authentication cookie (server-side)
  */
-export function isAdminAuthenticated(): boolean {
-  return Cookies.get(ADMIN_COOKIE_NAME) === 'authenticated';
+export function clearAdminCookie(res: NextApiResponse): void {
+  const cookie = `${ADMIN_COOKIE_NAME}=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0`;
+  res.setHeader('Set-Cookie', cookie);
 }
 
 /**
- * Verify admin password
+ * Check if user is authenticated as admin from request cookies
+ */
+export function isAdminAuthenticated(req: NextApiRequest): boolean {
+  return req.cookies[ADMIN_COOKIE_NAME] === 'authenticated';
+}
+
+/**
+ * Verify admin password with timing-safe comparison
  */
 export function verifyAdminPassword(password: string): boolean {
-  return password === ADMIN_PASSWORD;
+  try {
+    return safeCompare(password, getAdminPassword());
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -49,9 +65,8 @@ export function withAdminApiAuth(
   handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>
 ) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
-    // Check for admin cookie
     const adminCookie = req.cookies[ADMIN_COOKIE_NAME];
-    
+
     if (adminCookie !== 'authenticated') {
       return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -65,11 +80,10 @@ export function withAdminApiAuth(
  */
 export function withAdminPageAuth(getServerSidePropsFunc?: any) {
   return async (context: GetServerSidePropsContext) => {
-    const { req, res } = context;
+    const { req } = context;
     const adminCookie = req.cookies[ADMIN_COOKIE_NAME];
-    
+
     if (adminCookie !== 'authenticated') {
-      // Redirect to admin login
       return {
         redirect: {
           destination: '/admin/login',
@@ -78,12 +92,10 @@ export function withAdminPageAuth(getServerSidePropsFunc?: any) {
       };
     }
 
-    // Call the original getServerSideProps if it exists
     if (getServerSidePropsFunc) {
       return getServerSidePropsFunc(context);
     }
 
-    // Otherwise return empty props
     return { props: {} };
   };
-} 
+}

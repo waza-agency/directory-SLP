@@ -61,7 +61,7 @@ const model = genAI.getGenerativeModel({
   tools: [
     {
       googleSearch: {}
-    }
+    } as never,
   ],
   generationConfig: {
     maxOutputTokens: 16384,
@@ -1037,8 +1037,8 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     .lte('start_date', dates.weekEndIso)
     .order('start_date', { ascending: true });
 
-  const eventsList = events?.map(e =>
-    `- ${e.title} (${format(new Date(e.start_date), 'MMM d')}) @ ${e.location}`
+  const eventsList = events?.map((e) =>
+    `- ${e.title} (${format(new Date(e.start_date as string), 'MMM d')}) @ ${e.location}`
   ).join('\n') || 'No specific DB events.';
 
   console.log('1.5. Fetching real blog posts from DB...');

@@ -108,7 +108,8 @@ const formatDate = (dateString: string) => {
   return date.toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
+    timeZone: 'America/Mexico_City'
   });
 };
 
@@ -117,7 +118,8 @@ const formatTime = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleTimeString('es-ES', {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
+    timeZone: 'America/Mexico_City'
   });
 };
 
@@ -170,13 +172,35 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
   return (
     <>
       <SEO
-        title={`${event.title} | SLP Descubre`}
-        description={event.description || `Detalles del evento ${event.title} en San Luis Potosí`}
+        title={`${event.title} — Event in San Luis Potosí`}
+        description={event.description || `${event.title} — ${formatDate(event.start_date)} at ${event.location}, San Luis Potosí. Find details, times, and location.`}
         ogImage={event.image_url || '/og-image.jpg'}
-        ogType="article"
-        article={{
-          publishedTime: event.created_at,
-          tags: [event.category]
+        keywords={`${event.title}, events san luis potosi, ${event.category} events SLP, things to do san luis potosi`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          "name": event.title,
+          "startDate": event.start_date,
+          "endDate": event.end_date,
+          ...(event.description && { "description": event.description }),
+          ...(event.image_url && { "image": event.image_url }),
+          "location": {
+            "@type": "Place",
+            "name": event.location,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "San Luis Potosí",
+              "addressRegion": "SLP",
+              "addressCountry": "MX",
+            },
+          },
+          "organizer": {
+            "@type": "Organization",
+            "name": "San Luis Way",
+            "url": "https://www.sanluisway.com",
+          },
+          "eventStatus": "https://schema.org/EventScheduled",
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         }}
       />
 
@@ -226,7 +250,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                   <p className="text-sm text-white/70">Fecha</p>
                   <p className="font-medium">
                     {formatDate(event.start_date)}
-                    {event.end_date && event.start_date.split[0] && (
+                    {event.end_date && event.end_date !== event.start_date && (
                       <> - {formatDate(event.end_date)}</>
                     )}
                   </p>
@@ -269,11 +293,13 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
               <button
                 className="bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-full inline-flex items-center gap-2 transition-colors"
                 onClick={() => {
-                  navigator.share({
-                    title: event.title,
-                    text: event.description,
-                    url: window.location.href,
-                  }).catch(err => console.error('Error sharing:', err));
+                  if (typeof navigator !== 'undefined' && navigator.share) {
+                    navigator.share({
+                      title: event.title,
+                      text: event.description ?? undefined,
+                      url: window.location.href,
+                    }).catch(err => console.error('Error sharing:', err));
+                  }
                 }}
               >
                 Compartir
@@ -308,7 +334,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                     <div>
                       <p className="font-medium">Fecha</p>
                       <p className="text-gray-600">{formatDate(event.start_date)}</p>
-                      {event.end_date && event.start_date.split[0] && (
+                      {event.end_date && event.end_date !== event.start_date && (
                         <p className="text-gray-600">{formatDate(event.end_date)}</p>
                       )}
                     </div>

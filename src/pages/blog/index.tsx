@@ -6,6 +6,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { BlogPost, getBlogPosts, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import SubscriptionCTA from '@/components/SubscriptionCTA';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -72,7 +73,7 @@ function BlogCard({ post, locale, minReadText, translateCategory }: { post: Blog
           </h2>
           <p className="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
           <div className="flex items-center gap-4 text-sm text-gray-500">
-            <span>{new Date(post.publishedAt).toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            <span>{new Date(post.publishedAt).toLocaleDateString(dateLocale, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Mexico_City' })}</span>
             <span className="flex items-center gap-1">
               <ClockIcon className="w-4 h-4" />
               {readTime} {minReadText}
@@ -116,7 +117,7 @@ function FeaturedPost({ post, locale, minReadText, translateCategory }: { post: 
                 {post.excerpt}
               </p>
               <div className="flex items-center gap-4 text-white/80 text-sm">
-                <span>{new Date(post.publishedAt).toLocaleDateString(dateLocale, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                <span>{new Date(post.publishedAt).toLocaleDateString(dateLocale, { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Mexico_City' })}</span>
                 <span className="flex items-center gap-1">
                   <ClockIcon className="w-4 h-4" />
                   {readTime} {minReadText}
@@ -308,6 +309,9 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
           </div>
         </div>
       </main>
+
+      {/* Business Subscription CTA */}
+      <SubscriptionCTA variant="banner" />
     </>
   );
 }

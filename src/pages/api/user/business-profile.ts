@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -56,14 +57,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
       }
 
-      console.error('Error fetching business profile:', profileError);
+      logger.error('Error fetching business profile:', profileError);
       return res.status(500).json({ error: 'Error fetching business profile' });
     }
 
     // Return business profile data
     return res.status(200).json(businessProfile);
   } catch (error: any) {
-    console.error('Business profile fetch error:', error);
+    logger.error('Business profile fetch error:', error);
     return res.status(500).json({
       error: error.message || 'An error occurred while fetching the business profile',
     });

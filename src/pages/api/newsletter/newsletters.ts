@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -43,7 +44,7 @@ async function getNewsletters(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json({ newsletters: data, total: count });
   } catch (error) {
-    console.error('Get newsletters error:', error);
+    logger.error('Get newsletters error:', error);
     return res.status(500).json({ message: 'Failed to fetch newsletters' });
   }
 }
@@ -74,7 +75,7 @@ async function createNewsletter(req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(201).json({ newsletter: data });
   } catch (error) {
-    console.error('Create newsletter error:', error);
+    logger.error('Create newsletter error:', error);
     return res.status(500).json({ message: 'Failed to create newsletter' });
   }
 }

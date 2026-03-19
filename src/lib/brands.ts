@@ -84,7 +84,7 @@ export const getRandomPotosinoBrands = async (limit = 3): Promise<Brand[]> => {
     // First, get all brands
     const { data, error } = await supabase
       .from('brands')
-      .select;
+      .select('*');
 
     if (error) {
       console.error('Error fetching brands for random selection:', error);

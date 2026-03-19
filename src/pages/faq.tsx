@@ -5,6 +5,22 @@ import Link from 'next/link';
 import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+function buildFaqStructuredData(categories: { title: string; questions: { question: string; answer: string }[] }[]) {
+  const allQuestions = categories.flatMap(cat => cat.questions);
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": allQuestions.map(q => ({
+      "@type": "Question",
+      "name": q.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": q.answer,
+      },
+    })),
+  };
+}
+
 export default function FAQPage() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
 
@@ -111,6 +127,7 @@ export default function FAQPage() {
         description="Find answers to common questions about San Luis Way, our directory of places in San Luis Potosí, our blog content, and tips for expats and visitors."
         keywords="FAQ, San Luis Way, San Luis Potosí, expat guide, places directory, blog, newsletter, Mexico travel, living in SLP"
         ogType="website"
+        structuredData={buildFaqStructuredData(faqCategories)}
       />
 
       <div className="min-h-screen bg-gray-50">

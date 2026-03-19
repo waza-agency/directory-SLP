@@ -1,11 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { logger } from '@/lib/logger';
+import { rateLimit } from '@/lib/rate-limit';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Solo aceptar solicitudes POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
   }
+
+  if (rateLimit(req, res, { limit: 10, windowSec: 60, prefix: 'listings-create' })) return;
 
   try {
     // Crear cliente Supabase autenticado
@@ -33,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (profileError) {
-      console.error('Error obteniendo perfil de negocio:', profileError);
+      logger.error('Error obteniendo perfil de negocio:', profileError);
       return res.status(404).json({ error: 'Perfil de negocio no encontrado' });
     }
 
@@ -66,7 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('business_id', businessProfile.id);
 
     if (countError) {
-      console.error('Error contando productos:', countError);
+      logger.error('Error contando productos:', countError);
       return res.status(500).json({ error: 'Error al verificar límite de productos' });
     }
 
@@ -126,7 +129,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .single();
 
     if (createError) {
-      console.error('Error creando producto:', createError);
+      logger.error('Error creando producto:', createError);
       return res.status(500).json({ error: 'Error creando producto' });
     }
 
@@ -139,7 +142,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .eq('id', businessProfile.id);
 
     if (updateError) {
-      console.error('Error actualizando contador de productos:', updateError);
+      logger.error('Error actualizando contador de productos:', updateError);
       // No detener la respuesta por este error
     }
 
@@ -150,7 +153,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error: any) {
-    console.error('Error en la creación de producto:', error);
+    logger.error('Error en la creación de producto:', error);
     return res.status(500).json({
       error: {
         message: error.message || 'Ha ocurrido un error al crear el producto',

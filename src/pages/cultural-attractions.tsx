@@ -416,7 +416,7 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {category.displayName} ({category.count})
+                  {category.displayName}
                 </button>
               ))}
             </div>

@@ -1,4 +1,4 @@
-// @ts-nocheck - Disabling TypeScript temporarily due to deep type instantiation issues with useTranslation
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -136,7 +136,7 @@ export default function CreateServiceListing() {
       // Upload images
       const imageUrls = await Promise.all(
         formData.images.map(async (file) => {
-          const fileExt = file.name.split.pop();
+          const fileExt = file.name.split('.').pop();
           const fileName = `${Math.random()}.${fileExt}`;
           const filePath = `service-images/${fileName}`;
 

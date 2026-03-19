@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { fetchDashboardData, DashboardData } from '@/lib/api/dashboard-data';
+import { logger } from '@/lib/logger';
 
 // Cache the response for 10 minutes
 let cachedData: DashboardData | null = null;
@@ -34,7 +35,7 @@ export default async function handler(
 
     return res.status(200).json(data);
   } catch (error) {
-    console.error('Dashboard data API error:', error);
+    logger.error('Dashboard data API error:', error);
     return res.status(500).json({ error: 'Failed to fetch dashboard data' });
   }
 }

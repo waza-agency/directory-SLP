@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Stripe from 'stripe';
+import { logger } from '@/lib/logger';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2023-10-16',
+  apiVersion: '2025-04-30.basil',
 });
 
 export default async function handler(
@@ -60,7 +61,7 @@ export default async function handler(
       .eq('id', subscription.id);
       
     if (updateError) {
-      console.error('Error updating subscription:', updateError);
+      logger.error('Error updating subscription:', updateError);
       return res.status(500).json({
         message: 'Error updating subscription status'
       });
@@ -74,7 +75,7 @@ export default async function handler(
       }
     });
   } catch (error) {
-    console.error('Subscription resume error:', error);
+    logger.error('Subscription resume error:', error);
     return res.status(500).json({ 
       message: 'Error resuming subscription' 
     });

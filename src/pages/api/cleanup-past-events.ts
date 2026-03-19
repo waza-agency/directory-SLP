@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+import { logger } from '@/lib/logger';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -49,7 +50,7 @@ export default async function handler(
         totalEventsCount: allEvents?.length || 0
       });
     } catch (error) {
-      console.error('Error fetching events:', error);
+      logger.error('Error fetching events:', error);
       return res.status(500).json({ error: 'Failed to fetch events' });
     }
   }
@@ -87,7 +88,7 @@ export default async function handler(
         deletedEvents: pastEvents
       });
     } catch (error) {
-      console.error('Error deleting events:', error);
+      logger.error('Error deleting events:', error);
       return res.status(500).json({ error: 'Failed to delete events' });
     }
   }

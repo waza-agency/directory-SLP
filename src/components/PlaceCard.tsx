@@ -131,6 +131,9 @@ export default function PlaceCard({ place, featured, onClick, isSelected }: Plac
                   ))}
                 </div>
                 <span className="ml-2 text-sm font-semibold text-gray-700">{place.rating.toFixed(1)}</span>
+                {place.review_count != null && place.review_count > 0 && (
+                  <span className="ml-1 text-xs text-gray-500">({place.review_count})</span>
+                )}
               </div>
             )}
 

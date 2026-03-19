@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { supabaseAdmin } from '@/lib/api/supabase-admin';
+import { logger } from '@/lib/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -10,18 +11,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Count places
     const { count: placesCount, error: placesError } = await supabaseAdmin
       .from('places')
-      .select;
+      .select('*', { count: 'exact', head: true });
     if (placesError) throw placesError;
 
     // Count business_listings (services)
     const { count: servicesCount, error: servicesError } = await supabaseAdmin
       .from('business_listings')
-      .select;
+      .select('*', { count: 'exact', head: true });
     if (servicesError) throw servicesError;
 
     return res.status(200).json({ placesCount, servicesCount });
   } catch (error) {
-    console.error('Error fetching stats:', error);
+    logger.error('Error fetching stats:', error);
     return res.status(500).json({ message: 'Failed to fetch stats' });
   }
 }

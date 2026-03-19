@@ -1,5 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { z } from 'zod';
 import { addSubscriber, getSubscriberByEmail } from '@/lib/beehiiv-service';
+import { strictRateLimit } from '@/lib/rate-limit';
+import { logger } from '@/lib/logger';
+
+const subscribeSchema = z.object({
+  email: z.string().email().max(320),
+  firstName: z.string().max(200).optional(),
+  source: z.string().max(100).default('website'),
+});
 
 function cors(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_SITE_URL || '*');
@@ -19,11 +28,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const { email, firstName, source = 'website' } = req.body;
+  if (strictRateLimit(req, res, 'newsletter-subscribe')) return;
 
-  if (!email || !email.includes('@')) {
-    return res.status(400).json({ message: 'Valid email is required' });
+  const parsed = subscribeSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      message: 'Valid email is required',
+      errors: parsed.error.flatten().fieldErrors,
+    });
   }
+
+  const { email, firstName, source } = parsed.data;
 
   try {
     // Check if already subscribed in Beehiiv
@@ -54,7 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
       }
 
-      console.error('Beehiiv subscription error:', result.error);
+      logger.error('Beehiiv subscription error:', result.error);
       return res.status(400).json({
         message: 'Failed to subscribe. Please try again.',
         error: result.error
@@ -74,7 +89,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
   } catch (error) {
-    console.error('Newsletter subscription error:', error);
+    logger.error('Newsletter subscription error:', error);
     return res.status(500).json({
       message: 'Failed to subscribe. Please try again.',
       error: error instanceof Error ? error.message : 'Unknown error'

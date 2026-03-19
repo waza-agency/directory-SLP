@@ -16,7 +16,7 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
 
   // Get unique categories from brands
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(brands.map(brand => brand.category))].filter(Boolean);
+    const uniqueCategories = Array.from(new Set(brands.map(brand => brand.category))).filter(Boolean);
     return ['all', ...uniqueCategories];
   }, [brands]);
 
