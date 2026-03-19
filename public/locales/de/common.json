@@ -832,7 +832,20 @@
     "community": "Gemeinschaft",
     "culture": "Kultur",
     "local": "Lokal",
-    "dailyTip": "Dezember-Tipp: Die Weihnachtsbeleuchtung im historischen Zentrum läuft bis zum 6. Januar. Am besten nach 19 Uhr ansehen!"
+    "dailyTip": "März-Tipp: Die Frühlings-Tagundnachtgleiche (20.-21. März) wird in der Huasteca Potosina mit Ahnenzeremonien gefeiert. Besuchen Sie Tamtoc oder Tamuín!"
+  },
+  "festivalBanner": {
+    "badge": "28. März — 4. Apr. 2026",
+    "title": "Frühlingsfestival San Luis",
+    "subtitle": "Miguel Bosé, Lucero, Mon Laferte, Diego El Cigala und mehr. 110+ kostenlose Veranstaltungen im historischen Zentrum.",
+    "description": "Die 5. Ausgabe des größten Festivals von San Luis Potosí verwandelt das historische Zentrum in der Karwoche in eine Bühne für Kunst, Musik und Kultur. Künstler aus 9 Ländern, die Guelaguetza aus Oaxaca, Spanien als Gastland und die ikonische Prozession der Stille.",
+    "cta": "Vollständiges Programm"
+  },
+  "festival": {
+    "title": "Internationales Frühlingsfestival San Luis 2026",
+    "viewSchedule": "Offiziellen Spielplan ansehen",
+    "seeLineup": "Line-up ansehen",
+    "headliners": "Hauptkünstler"
   },
   "betaBanner": {
     "betaVersion": "Beta-Version",

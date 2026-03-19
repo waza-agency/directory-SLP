@@ -4,6 +4,43 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 4c613167 - 2026-03-10
+
+**Mensaje:** feat: Redesign events page and update event data for Mar-Sep 2026
+
+**Archivos modificados:**
+- `EVENTS_TO_IMPORT.json` (modificado - reescrito)
+- `scripts/cleanup-past-events.js` (modificado)
+- `scripts/sync-events-to-supabase.js` (modificado)
+- `src/pages/api/cleanup-past-events.ts` (modificado)
+- `src/utils/eventHelpers.ts` (nuevo)
+- `src/components/EventCard.tsx` (nuevo)
+- `src/components/EventHeroCarousel.tsx` (nuevo)
+- `src/components/EventMonthlyTimeline.tsx` (nuevo)
+- `src/components/EventComingUp.tsx` (nuevo)
+- `src/components/EventSearchBar.tsx` (nuevo)
+- `src/components/EventEmptyState.tsx` (nuevo)
+- `src/components/EventCategoryFilter.tsx` (rediseñado)
+- `src/components/EventList.tsx` (rediseñado)
+- `src/pages/events/[category]/index.tsx` (rediseñado)
+- `CHANGE_LOG.md` (actualizado)
+- `COMMIT_LOG.md` (actualizado)
+- `ELEMENT_IDS.md` (nuevo)
+
+**Descripcion detallada:**
+- Eliminados 21 eventos pasados (antes del 10 Mar 2026) del JSON y la base de datos.
+- Agregados 9 eventos nuevos verificados: FEREVHI Villa Hidalgo, Fiesta Vochera, FENAHUAP 64a Edición, Festival del Cabrito, Día de la Santa Cruz, Gasomax Trail, Corpus Christi, Feria del Rebozo, Fiestas Patrias.
+- Actualizadas fechas de FENAHUAP, FENAE y Festival en Primavera basado en investigación web.
+- Eliminados 4 eventos duplicados de la base de datos.
+- Rediseño completo de la página de eventos: hero carousel para eventos destacados/patrocinados, timeline mensual colapsable, sección "Coming Up", barra de búsqueda, estado vacío.
+- Extraídas utilidades compartidas a `eventHelpers.ts`.
+- Rediseño de EventCategoryFilter con Heroicons y EventList como grid responsivo.
+- 5 correcciones de diseño: mejores placeholders, overlays más claros en hero, alturas consistentes en cards, espaciado mejorado, alineación de heading del timeline.
+
+**Proposito/Razon:** Actualizar la sección de eventos con datos verificados para Mar-Sep 2026 y rediseñar la interfaz para que luzca profesional, con hero section para futura promoción de eventos patrocinados.
+
+---
+
 ## Commit: beeb99d1 - 2026-03-09
 
 **Mensaje:** feat: Add Alibaba page-agent widget and leads import skill

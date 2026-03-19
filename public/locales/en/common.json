@@ -867,7 +867,20 @@
     "community": "Community",
     "culture": "Culture",
     "local": "Local",
-    "dailyTip": "December tip: The Historic Center's Christmas lights display runs until January 6. Best viewed after 7pm!"
+    "dailyTip": "March tip: The spring equinox (March 20-21) is celebrated with ancestral ceremonies in the Huasteca Potosina. Visit Tamtoc or Tamuín!"
+  },
+  "festivalBanner": {
+    "badge": "Mar 28 — Apr 4, 2026",
+    "title": "San Luis Spring Festival",
+    "subtitle": "Miguel Bosé, Lucero, Mon Laferte, Diego El Cigala and more. 110+ free events in the Historic Center.",
+    "description": "The 5th edition of San Luis Potosí's biggest festival transforms the Historic Center into a stage of art, music and culture during Holy Week. Artists from 9 countries, Oaxaca's Guelaguetza, Spain as guest country and the iconic Procession of Silence.",
+    "cta": "See full schedule"
+  },
+  "festival": {
+    "title": "International Spring Festival San Luis 2026",
+    "viewSchedule": "View official schedule",
+    "seeLineup": "See lineup",
+    "headliners": "Main Artists"
   },
   "betaBanner": {
     "betaVersion": "Beta Version",

@@ -56,7 +56,16 @@
       "Skill(factcheck)",
       "Bash(git mv:*)",
       "Bash(npx ts-node:*)",
-      "Bash(npm --version:*)"
+      "Bash(npm --version:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:alibaba.github.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:dev.to)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:news.ycombinator.com)",
+      "WebFetch(domain:gigazine.net)",
+      "mcp__playwright__browser_console_messages",
+      "Bash(rm:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

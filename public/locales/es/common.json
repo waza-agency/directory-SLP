@@ -867,7 +867,20 @@
     "community": "Comunidad",
     "culture": "Cultura",
     "local": "Local",
-    "dailyTip": "Tip de diciembre: La iluminación navideña del Centro Histórico estará hasta el 6 de enero. ¡Mejor después de las 7pm!"
+    "dailyTip": "Tip de marzo: El equinoccio de primavera (20-21 marzo) se celebra en la Huasteca Potosina con ceremonias ancestrales. ¡Visita Tamtoc o Tamuín!"
+  },
+  "festivalBanner": {
+    "badge": "28 Mar — 4 Abr 2026",
+    "title": "Festival San Luis en Primavera",
+    "subtitle": "Miguel Bosé, Lucero, Mon Laferte, Diego El Cigala y más. 110+ eventos gratuitos en el Centro Histórico.",
+    "description": "La 5ª edición del festival más importante de San Luis Potosí transforma el Centro Histórico en un escenario de arte, música y cultura durante Semana Santa. Artistas de 9 países, la Guelaguetza de Oaxaca, España como país invitado y la icónica Procesión del Silencio.",
+    "cta": "Ver programa completo"
+  },
+  "festival": {
+    "title": "Festival Internacional San Luis en Primavera 2026",
+    "viewSchedule": "Ver cartelera oficial",
+    "seeLineup": "Ver line-up",
+    "headliners": "Artistas Principales"
   },
   "betaBanner": {
     "betaVersion": "Versión Beta",
