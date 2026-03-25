@@ -4,6 +4,66 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 731bb42 - 2026-03-24
+
+**Mensaje:** feat: Add sponsor ads system for newsletter
+
+**Archivos modificados:**
+- supabase/migrations/20251222000000_add_sponsor_ads.sql (nuevo)
+- src/types/supabase.ts (modificado)
+- src/lib/newsletter-generator.ts (modificado)
+- src/pages/admin/newsletter.tsx (modificado)
+- src/pages/api/newsletter/generate.ts (modificado)
+- src/pages/api/newsletter/sponsor-ads.ts (nuevo)
+- src/pages/api/newsletter/sponsor-ads/[id].ts (nuevo)
+- src/pages/api/newsletter/sponsor-ads-analytics.ts (nuevo)
+- src/pages/api/newsletter/sponsor-ads-available.ts (nuevo)
+- src/pages/api/newsletter/ad-placements.ts (nuevo)
+- src/pages/api/newsletter/ad-click.ts (nuevo)
+- src/components/admin/HtmlAdEditor.tsx (nuevo)
+- src/components/admin/SponsorAdsManager.tsx (nuevo)
+- src/components/admin/AdSelector.tsx (nuevo)
+
+**Descripcion detallada:**
+Implementacion completa del sistema de anuncios patrocinados para el newsletter semanal:
+
+1. **Base de datos:**
+   - Nueva tabla `sponsor_ads` para almacenar configuraciones de anuncios
+   - Nueva tabla `newsletter_ad_placements` para tracking de anuncios por newsletter
+   - Indices para optimizar consultas
+   - Policies RLS para seguridad
+
+2. **Tipos TypeScript:**
+   - `SponsorAd` interface con todas las propiedades
+   - `NewsletterAdPlacement` interface
+   - `SponsorAdType`, `AdPlacement`, `LinkTarget` types
+
+3. **API Endpoints:**
+   - `GET/POST /api/newsletter/sponsor-ads` - listar y crear anuncios
+   - `GET/PUT/DELETE /api/newsletter/sponsor-ads/[id]` - CRUD individual
+   - `GET /api/newsletter/sponsor-ads-available` - anuncios activos con rotacion
+   - `POST /api/newsletter/sponsor-ads-analytics` - tracking de clicks
+   - `GET /api/newsletter/sponsor-ads-analytics` - obtener estadisticas
+   - `POST /api/newsletter/ad-placements` - guardar placement de anuncios
+   - `GET /api/newsletter/ad-placements` - obtener placements
+   - `GET /api/newsletter/ad-click` - tracking de clicks con redirect
+
+4. **Componentes UI:**
+   - `HtmlAdEditor`: Editor de HTML para anuncios con preview en vivo
+   - `SponsorAdsManager`: Manager completo de anuncios en admin
+   - `AdSelector`: Selector de anuncios en tab de generacion
+
+5. **Generador de Newsletter:**
+   - Marcadores de placement en template HTML
+   - Funcion `injectAdsIntoHtml` para inyectar anuncios
+   - Wrapper de tracking para clicks
+   - Actualizacion de generate API para soportar anuncios
+
+**Proposito/Razon:**
+Permitir a los administradores agregar anuncios HTML/imagenes en el newsletter semanal, con seleccion manual de anuncios, tracking de impresiones y clicks, y estadisticas de CTR.
+
+---
+
 ## Commit: [pending] - 2026-03-13
 
 **Mensaje:** feat: Remove marketplace and booking UI from production (SAN-17)

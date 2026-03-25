@@ -4,6 +4,30 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-03-24] feat: Sponsor Ads System for Newsletter
+
+**Descripcion:** Implementado sistema completo de anuncios patrocinados para el newsletter semanal.
+
+**Archivos afectados:**
+- `supabase/migrations/20251222000000_add_sponsor_ads.sql` (nuevo)
+- `src/types/supabase.ts` (modificado)
+- `src/lib/newsletter-generator.ts` (modificado)
+- `src/pages/admin/newsletter.tsx` (modificado)
+- `src/pages/api/newsletter/generate.ts` (modificado)
+- `src/pages/api/newsletter/sponsor-ads.ts` (nuevo)
+- `src/pages/api/newsletter/sponsor-ads/[id].ts` (nuevo)
+- `src/pages/api/newsletter/sponsor-ads-analytics.ts` (nuevo)
+- `src/pages/api/newsletter/sponsor-ads-available.ts` (nuevo)
+- `src/pages/api/newsletter/ad-placements.ts` (nuevo)
+- `src/pages/api/newsletter/ad-click.ts` (nuevo)
+- `src/components/admin/HtmlAdEditor.tsx` (nuevo)
+- `src/components/admin/SponsorAdsManager.tsx` (nuevo)
+- `src/components/admin/AdSelector.tsx` (nuevo)
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-03-13] feat: Remove marketplace and booking UI from production (SAN-17)
 
 **Descripcion:**
