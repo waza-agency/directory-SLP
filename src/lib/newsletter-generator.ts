@@ -364,6 +364,8 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
+          <!-- AD_PLACEMENT_TOP -->
+
           <!-- WEATHER & ENVIRONMENT -->
           <tr>
             <td style="background-color: #F0F9FF; padding: 20px 30px;">
@@ -647,6 +649,8 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
+          <!-- AD_PLACEMENT_MIDDLE -->
+
           <!-- COMUNIDAD SECTION (Custom Content) -->
           <!-- COMUNIDAD_PLACEHOLDER -->
 
@@ -667,6 +671,8 @@ export const NEWSLETTER_TEMPLATE = `
               </p>
             </td>
           </tr>
+
+          <!-- AD_PLACEMENT_BOTTOM -->
 
           <!-- CLOSING_FOOTER_PLACEHOLDER -->
 
@@ -743,6 +749,95 @@ function cleanHtmlForBeehiiv(html: string): string {
   cleaned = cleaned.trim();
 
   return cleaned;
+}
+
+export interface AdPlacementData {
+  ad_id: string;
+  placement: 'top' | 'middle' | 'bottom';
+  html: string;
+}
+
+export function injectAdsIntoHtml(html: string, ads: AdPlacementData[]): string {
+  let result = html;
+
+  for (const ad of ads) {
+    const placeholder = `<!-- AD_PLACEMENT_${ad.placement.toUpperCase()} -->`;
+    const adHtml = `
+          <tr>
+            <td style="padding: 20px 30px; background-color: #F9FAFB; text-align: center;">
+              <div style="max-width: 600px; margin: 0 auto;">
+                ${wrapAdWithTracking(ad.html, ad.ad_id)}
+              </div>
+            </td>
+          </tr>
+        `;
+    result = result.replace(placeholder, adHtml);
+  }
+
+  result = result.replace(/<!-- AD_PLACEMENT_(TOP|MIDDLE|BOTTOM) -->/g, '');
+
+  return result;
+}
+
+function wrapAdWithTracking(html: string, adId: string): string {
+  const trackingUrl = `/api/newsletter/ad-click?ad_id=${encodeURIComponent(adId)}`;
+  const regex = /<a\s+([^>]*?)href=["']([^"']+)["']([^>]*)>/gi;
+  
+  return html.replace(regex, (match, before, href, after) => {
+    if (href.startsWith('/') || href.startsWith('#')) {
+      return match;
+    }
+    const trackingHref = `${trackingUrl}&original_url=${encodeURIComponent(href)}`;
+    return `<a ${before}href="${trackingHref}"${after}>`;
+  });
+}
+
+export async function fetchAdsForPlacement(
+  placement: 'top' | 'middle' | 'bottom'
+): Promise<AdPlacementData[]> {
+  try {
+    const supabase = getSupabaseClient();
+    const today = new Date().toISOString().split('T')[0];
+
+    const { data, error } = await supabase
+      .from('sponsor_ads')
+      .select('id, ad_type, html_content, image_url, image_alt, link_url, link_target, width, height')
+      .eq('active', true)
+      .eq('placement', placement)
+      .or(`start_date.is.null,start_date.lte.${today}`)
+      .or(`end_date.is.null,end_date.gte.${today}`)
+      .order('priority', { ascending: false })
+      .limit(1);
+
+    if (error || !data || data.length === 0) {
+      return [];
+    }
+
+    const ad = data[0];
+    let adHtml = '';
+
+    if (ad.ad_type === 'html' && ad.html_content) {
+      adHtml = ad.html_content as string;
+    } else if (ad.ad_type === 'image' && ad.image_url) {
+      const imgTag = `<img src="${ad.image_url}" alt="${ad.image_alt || 'Advertisement'}" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />`;
+      adHtml = ad.link_url
+        ? `<a href="${ad.link_url}" target="_blank" rel="noopener noreferrer">${imgTag}</a>`
+        : imgTag;
+    }
+
+    if (!adHtml) {
+      return [];
+    }
+
+    return [{
+      ad_id: ad.id as string,
+      placement,
+      html: adHtml
+    }];
+  } catch (error) {
+    console.error(`Failed to fetch ads for placement ${placement}:`, error);
+    return [];
+  }
 }
 
 // Function to validate and clean URLs in HTML

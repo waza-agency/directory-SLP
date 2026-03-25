@@ -3,6 +3,8 @@ import SEO from '@/components/common/SEO';
 import dynamic from 'next/dynamic';
 
 const NewsletterEditor = dynamic(() => import('@/components/admin/NewsletterEditor'), { ssr: false });
+const SponsorAdsManager = dynamic(() => import('@/components/admin/SponsorAdsManager'), { ssr: false });
+const AdSelector = dynamic(() => import('@/components/admin/AdSelector'), { ssr: false });
 
 interface Subscriber {
   id: string;
@@ -40,7 +42,7 @@ interface GeneratedNewsletter {
 export default function NewsletterAdminPage() {
   const [adminKey, setAdminKey] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [activeTab, setActiveTab] = useState<'subscribers' | 'newsletters' | 'send'>('subscribers');
+  const [activeTab, setActiveTab] = useState<'subscribers' | 'newsletters' | 'send' | 'sponsor-ads'>('subscribers');
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
   const [subscriberCounts, setSubscriberCounts] = useState({ active: 0, unsubscribed: 0, bounced: 0 });
@@ -59,6 +61,7 @@ export default function NewsletterAdminPage() {
   const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
   const [showEditor, setShowEditor] = useState(false);
   const [editingNewsletter, setEditingNewsletter] = useState<{ id?: string; subject: string; html: string } | null>(null);
+  const [selectedAds, setSelectedAds] = useState<Record<string, string>>({ top: '', middle: '', bottom: '' });
 
   const fetchSubscribers = useCallback(async () => {
     setLoading(true);
@@ -127,13 +130,20 @@ export default function NewsletterAdminPage() {
     setCopied(false);
 
     try {
+      const selectedAdIds = Object.entries(selectedAds)
+        .filter(([_, id]) => id)
+        .map(([placement, id]) => ({ placement, ad_id: id }));
+
       const res = await fetch('/api/newsletter/generate', {
         method: 'POST',
         headers: {
           'x-admin-key': adminKey,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ customContent: customContent.trim() || undefined })
+        body: JSON.stringify({ 
+          customContent: customContent.trim() || undefined,
+          selectedAds: selectedAdIds
+        })
       });
 
       // Safely parse response - handle HTML error pages
@@ -329,6 +339,12 @@ export default function NewsletterAdminPage() {
               className={`px-6 py-2 rounded-lg font-medium ${activeTab === 'send' ? 'bg-terracotta text-white' : 'bg-white text-gray-600'}`}
             >
               Generate Newsletter
+            </button>
+            <button
+              onClick={() => setActiveTab('sponsor-ads')}
+              className={`px-6 py-2 rounded-lg font-medium ${activeTab === 'sponsor-ads' ? 'bg-terracotta text-white' : 'bg-white text-gray-600'}`}
+            >
+              Sponsor Ads
             </button>
           </div>
 
@@ -548,6 +564,17 @@ export default function NewsletterAdminPage() {
                     </p>
                   </div>
 
+                  {/* Sponsor Ads Section */}
+                  <div className="mb-6">
+                    <AdSelector
+                      adminKey={adminKey}
+                      selectedAds={selectedAds}
+                      onAdSelect={(placement, adId) => {
+                        setSelectedAds(prev => ({ ...prev, [placement]: adId }));
+                      }}
+                    />
+                  </div>
+
                   <button
                     onClick={handleGenerate}
                     disabled={generating}
@@ -695,6 +722,13 @@ export default function NewsletterAdminPage() {
                     </ul>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* SPONSOR ADS TAB */}
+            {activeTab === 'sponsor-ads' && (
+              <div className="p-6">
+                <SponsorAdsManager adminKey={adminKey} />
               </div>
             )}
           </div>

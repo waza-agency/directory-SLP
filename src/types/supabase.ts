@@ -6,6 +6,46 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+export type SponsorAdType = 'html' | 'image';
+export type AdPlacement = 'top' | 'middle' | 'bottom';
+export type LinkTarget = '_blank' | '_self';
+
+export interface SponsorAd {
+  id: string;
+  name: string;
+  description: string | null;
+  ad_type: SponsorAdType;
+  html_content: string | null;
+  image_url: string | null;
+  image_alt: string | null;
+  link_url: string | null;
+  link_target: LinkTarget;
+  width: string;
+  height: string | null;
+  placement: AdPlacement;
+  section_anchor: string | null;
+  priority: number;
+  active: boolean;
+  start_date: string | null;
+  end_date: string | null;
+  impressions_limit: number | null;
+  impressions_count: number;
+  clicks_count: number;
+  rotation_group: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface NewsletterAdPlacement {
+  id: string;
+  newsletter_id: string;
+  sponsor_ad_id: string;
+  placement: AdPlacement;
+  impressions_count: number;
+  clicks_count: number;
+  created_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -318,6 +358,24 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+      }
+      sponsor_ads: {
+        Row: SponsorAd
+        Insert: Omit<SponsorAd, 'created_at' | 'updated_at' | 'impressions_count' | 'clicks_count'> & {
+          created_at?: string
+          updated_at?: string
+          impressions_count?: number
+          clicks_count?: number
+        }
+        Update: Partial<Omit<SponsorAd, 'id' | 'created_at'>>
+      }
+      newsletter_ad_placements: {
+        Row: NewsletterAdPlacement
+        Insert: Omit<NewsletterAdPlacement, 'id' | 'created_at'> & {
+          id?: string
+          created_at?: string
+        }
+        Update: Partial<Omit<NewsletterAdPlacement, 'id' | 'created_at'>>
       }
     }
     Views: {

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
-import { generateWeeklyNewsletter } from '@/lib/newsletter-generator';
+import { generateWeeklyNewsletter, injectAdsIntoHtml, AdPlacementData } from '@/lib/newsletter-generator';
 import { createPost } from '@/lib/beehiiv-service';
 import { logger } from '@/lib/logger';
 
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { customContent } = req.body || {};
+    const { customContent, selectedAds } = req.body || {};
     logger.log('Admin triggered newsletter generation...');
     if (customContent) {
       logger.log('Custom content provided:', customContent.substring(0, 100) + '...');
@@ -28,9 +28,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { subject, html_content, date_range } = await generateWeeklyNewsletter(customContent);
     const previewText = `Your weekly guide to San Luis Potosí for ${date_range}`;
 
+    let finalHtml = html_content;
+
+    if (selectedAds && Array.isArray(selectedAds) && selectedAds.length > 0) {
+      logger.log('Injecting selected ads:', selectedAds);
+      
+      const adIds = selectedAds.map((a: { ad_id: string }) => a.ad_id);
+      const { data: ads, error: adsError } = await supabase
+        .from('sponsor_ads')
+        .select('id, ad_type, html_content, image_url, image_alt, link_url, placement')
+        .in('id', adIds);
+
+      if (!adsError && ads) {
+        const adsWithHtml = selectedAds.map((sa: { placement: string; ad_id: string }) => {
+          const adData = ads.find((a: { id: string }) => a.id === sa.ad_id);
+          if (!adData) return null;
+
+          let adHtml = '';
+          if (adData.ad_type === 'html' && adData.html_content) {
+            adHtml = adData.html_content;
+          } else if (adData.ad_type === 'image' && adData.image_url) {
+            const imgTag = `<img src="${adData.image_url}" alt="${adData.image_alt || 'Advertisement'}" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />`;
+            adHtml = adData.link_url
+              ? `<a href="${adData.link_url}" target="_blank" rel="noopener noreferrer">${imgTag}</a>`
+              : imgTag;
+          }
+
+          if (!adHtml) return null;
+
+          return {
+            ad_id: sa.ad_id,
+            placement: sa.placement,
+            html: adHtml
+          };
+        }).filter((ad): ad is AdPlacementData => ad !== null);
+
+        finalHtml = injectAdsIntoHtml(html_content, adsWithHtml);
+      }
+    }
+
     // Create draft in Beehiiv (primary)
     logger.log('Creating draft in Beehiiv...');
-    const beehiivResult = await createPost(subject, html_content, {
+    const beehiivResult = await createPost(subject, finalHtml, {
       subtitle: previewText,
       audience: 'all',
     });
@@ -45,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .from('newsletters')
       .insert({
         subject,
-        html_content,
+        html_content: finalHtml,
         status: 'draft',
         preview_text: previewText,
         created_at: new Date().toISOString(),
@@ -55,6 +94,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (dbError) {
       logger.error('Supabase backup save failed:', dbError.message);
+    }
+
+    // Record ad placements
+    if (selectedAds && Array.isArray(selectedAds) && selectedAds.length > 0 && newsletter?.id) {
+      const placements = selectedAds.map((sa: { placement: string; ad_id: string }) => ({
+        newsletter_id: newsletter.id,
+        sponsor_ad_id: sa.ad_id,
+        placement: sa.placement,
+        impressions_count: 0,
+        clicks_count: 0
+      }));
+
+      await supabase.from('newsletter_ad_placements').insert(placements);
+
+      for (const sa of selectedAds) {
+        try {
+          await supabase.rpc('increment', {
+            table_name: 'sponsor_ads',
+            column_name: 'impressions_count',
+            row_id: sa.ad_id
+          });
+        } catch (e) {
+          logger.error('Failed to increment impressions:', e);
+        }
+      }
     }
 
     // Build Beehiiv edit URL
@@ -72,7 +136,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         id: newsletter?.id,
         subject,
         preview_text: previewText,
-        html_content,
+        html_content: finalHtml,
       },
       beehiiv: {
         success: beehiivResult.success,
