@@ -34,31 +34,56 @@ async function getAvailableAds(req: NextApiRequest, res: NextApiResponse) {
       .order('priority', { ascending: false })
       .order('created_at', { ascending: false });
 
-    if (error) throw error;
+    if (error) {
+      logger.error('Supabase query error:', error);
+      return res.status(500).json({ 
+        message: 'Database query failed', 
+        error: error.message,
+        ads: [],
+        byPlacement: { top: [], middle: [], bottom: [] },
+        total: 0
+      });
+    }
+
+    const validAds = (data || []).filter((ad: any) => {
+      const startOk = !ad.start_date || ad.start_date <= today;
+      const endOk = !ad.end_date || ad.end_date >= today;
+      return startOk && endOk;
+    });
 
     const adsByPlacement = {
-      top: data.filter(ad => ad.placement === 'top'),
-      middle: data.filter(ad => ad.placement === 'middle'),
-      bottom: data.filter(ad => ad.placement === 'bottom')
+      top: validAds.filter((ad: any) => ad.placement === 'top'),
+      middle: validAds.filter((ad: any) => ad.placement === 'middle'),
+      bottom: validAds.filter((ad: any) => ad.placement === 'bottom')
     };
 
-    const rotationGroups = Array.from(new Set(data.filter(ad => ad.rotation_group).map(ad => ad.rotation_group)));
+    const rotationGroups = Array.from(new Set(validAds.filter((ad: any) => ad.rotation_group).map((ad: any) => ad.rotation_group)));
     const rotationSelections: Record<string, any> = {};
 
     for (const group of rotationGroups) {
-      const groupAds = data.filter(ad => ad.rotation_group === group);
-      const randomAd = groupAds[Math.floor(Math.random() * groupAds.length)];
-      rotationSelections[group] = randomAd;
+      const groupAds = validAds.filter((ad: any) => ad.rotation_group === group);
+      if (groupAds.length > 0) {
+        const randomAd = groupAds[Math.floor(Math.random() * groupAds.length)];
+        rotationSelections[group] = randomAd;
+      }
     }
 
+    logger.log(`Found ${validAds.length} available ads (of ${(data || []).length} total):`, adsByPlacement);
+
     return res.status(200).json({ 
-      ads: data, 
+      ads: validAds, 
       byPlacement: adsByPlacement,
       rotationSelections,
-      total: data.length
+      total: validAds.length
     });
   } catch (error) {
     logger.error('Get available ads error:', error);
-    return res.status(500).json({ message: 'Failed to fetch available ads' });
+    return res.status(500).json({ 
+      message: 'Failed to fetch available ads', 
+      error: String(error),
+      ads: [],
+      byPlacement: { top: [], middle: [], bottom: [] },
+      total: 0
+    });
   }
 }
