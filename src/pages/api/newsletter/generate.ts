@@ -39,14 +39,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .select('id, ad_type, html_content, image_url, image_alt, link_url, placement')
         .in('id', adIds);
 
-      if (!adsError && ads) {
+      if (!adsError && ads && ads.length > 0) {
         const adsWithHtml = selectedAds.map((sa: { placement: string; ad_id: string }) => {
           const adData = ads.find((a: { id: string }) => a.id === sa.ad_id);
           if (!adData) return null;
 
           let adHtml = '';
           if (adData.ad_type === 'html' && adData.html_content) {
-            adHtml = adData.html_content;
+            adHtml = adData.html_content as string;
           } else if (adData.ad_type === 'image' && adData.image_url) {
             const imgTag = `<img src="${adData.image_url}" alt="${adData.image_alt || 'Advertisement'}" style="max-width: 100%; height: auto; display: block; margin: 0 auto;" />`;
             adHtml = adData.link_url
@@ -58,12 +58,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
           return {
             ad_id: sa.ad_id,
-            placement: sa.placement,
+            placement: sa.placement as 'top' | 'middle' | 'bottom',
             html: adHtml
           };
         }).filter((ad): ad is AdPlacementData => ad !== null);
 
-        finalHtml = injectAdsIntoHtml(html_content, adsWithHtml);
+        if (adsWithHtml.length > 0) {
+          finalHtml = injectAdsIntoHtml(html_content, adsWithHtml);
+          logger.log('Ads injected, finalHtml length:', finalHtml.length);
+        }
+      } else {
+        logger.log('No ads found in database for IDs:', adIds, 'Error:', adsError);
       }
     }
 

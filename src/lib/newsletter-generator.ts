@@ -760,23 +760,84 @@ export interface AdPlacementData {
 export function injectAdsIntoHtml(html: string, ads: AdPlacementData[]): string {
   let result = html;
 
+  const sectionMarkers: Record<string, { top: RegExp; bottom?: RegExp }> = {
+    top: {
+      top: /Hey there![\s\S]{0,500}?<\/td>\s*<\/tr>/i,
+      bottom: /Hey there![\s\S]{0,500}?<\/td>\s*<\/tr>\s*<tr>\s*<td[^>]*style="[^"]*background/i
+    },
+    middle: {
+      top: /📖 From the Blog[\s\S]{0,1000}?<\/td>\s*<\/tr>\s*<tr>\s*<td/i,
+      bottom: /📖 From the Blog[\s\S]{0,1000}?<\/td>\s*<\/tr>\s*<tr>\s*<td[^>]*style="[^"]*background.*?C75B39/i
+    },
+    bottom: {
+      top: /cta[\s\S]{0,500}?<\/td>\s*<\/tr>/i
+    }
+  };
+
   for (const ad of ads) {
-    const placeholder = `<!-- AD_PLACEMENT_${ad.placement.toUpperCase()} -->`;
     const adHtml = `
           <tr>
             <td style="padding: 20px 30px; background-color: #F9FAFB; text-align: center;">
-              <div style="max-width: 600px; margin: 0 auto;">
+              <div style="max-width: 600px; margin: 0 auto; border: 1px dashed #d1d5db; border-radius: 8px; padding: 15px;">
+                <p style="font-size: 10px; color: #9ca3af; margin: 0 0 10px 0; text-transform: uppercase;">Sponsored</p>
                 ${wrapAdWithTracking(ad.html, ad.ad_id)}
               </div>
             </td>
           </tr>
         `;
-    result = result.replace(placeholder, adHtml);
+
+    const markers = sectionMarkers[ad.placement];
+    if (!markers) continue;
+
+    const insertionPoint = findInsertionPoint(result, ad.placement, markers);
+    
+    if (insertionPoint) {
+      result = result.slice(0, insertionPoint) + adHtml + result.slice(insertionPoint);
+    }
   }
 
-  result = result.replace(/<!-- AD_PLACEMENT_(TOP|MIDDLE|BOTTOM) -->/g, '');
-
   return result;
+}
+
+function findInsertionPoint(html: string, placement: string, markers: { top: RegExp; bottom: RegExp | null }): number | null {
+  if (placement === 'top') {
+    const match = html.match(/Hey there![\s\S]{0,200}?<\/td>\s*<\/tr>/i);
+    if (match && match.index !== undefined) {
+      return match.index + match[0].length;
+    }
+  }
+
+  if (placement === 'middle') {
+    const blogMatch = html.match(/📖 From the Blog/i);
+    if (blogMatch && blogMatch.index !== undefined) {
+      return blogMatch.index;
+    }
+    const comunidadMatch = html.match(/🤝 Comunidad/i);
+    if (comunidadMatch && comunidadMatch.index !== undefined) {
+      return comunidadMatch.index;
+    }
+    const ctaMatch = html.match(/Discover More|C75B39|cta[\s\S]{0,200}?button/i);
+    if (ctaMatch && ctaMatch.index !== undefined) {
+      return ctaMatch.index;
+    }
+  }
+
+  if (placement === 'bottom') {
+    const ctaMatch = html.match(/Discover More of San Luis/i);
+    if (ctaMatch && ctaMatch.index !== undefined) {
+      const afterCta = html.slice(ctaMatch.index);
+      const closingMatch = afterCta.match(/<\/td>\s*<\/tr>\s*<\/table>/i);
+      if (closingMatch && closingMatch.index !== undefined) {
+        return ctaMatch.index + closingMatch.index + closingMatch[0].length;
+      }
+    }
+    const lastTable = html.lastIndexOf('</table>');
+    if (lastTable !== -1) {
+      return lastTable;
+    }
+  }
+
+  return null;
 }
 
 function wrapAdWithTracking(html: string, adId: string): string {

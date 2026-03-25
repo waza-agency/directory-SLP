@@ -97,6 +97,7 @@ const nextConfig = {
   // Exclude test files from pages directory
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(ext => !ext.includes('test.')),
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
     return [
       {
         source: '/:path*',
@@ -106,7 +107,7 @@ const nextConfig = {
             value: [
               "default-src 'self'",
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.facebook.com https://*.facebook.net https://api.resend.com",
-              "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com https://*.facebook.net",
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://*.googletagmanager.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com https://*.facebook.net`,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' https: data: blob:",
               "font-src 'self' https://fonts.gstatic.com",
