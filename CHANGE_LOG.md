@@ -4,6 +4,33 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-03-24] fix: Ad injection and availability query improvements
+
+**Descripcion:** Arreglados problemas con la inyeccion de ads en el newsletter y la consulta de ads disponibles.
+
+**Problemas resueltos:**
+1. Ads no se inyectaban porque el AI genera HTML sin placeholders
+2. Ads no aparecian disponibles en el selector por error en consulta de fechas
+
+**Cambios realizados:**
+1. `injectAdsIntoHtml` ahora busca puntos de insercion por secciones:
+   - Top: despues de "Hey there!"
+   - Middle: antes de "From the Blog"
+   - Bottom: antes del cierre
+2. Mejor manejo de errores en API de ads disponibles
+3. Filtrado de fechas en cliente como backup
+4. Mejor logging para debug
+5. Creado script `scripts/create-test-ads.js` para crear ads de prueba
+
+**Archivos afectados:**
+- `src/lib/newsletter-generator.ts` (modificado)
+- `src/pages/api/newsletter/sponsor-ads-available.ts` (modificado)
+- `scripts/create-test-ads.js` (nuevo)
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-03-24] feat: Sponsor Ads System for Newsletter
 
 **Descripcion:** Implementado sistema completo de anuncios patrocinados para el newsletter semanal.
