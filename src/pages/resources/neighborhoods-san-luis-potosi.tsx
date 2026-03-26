@@ -367,7 +367,13 @@ export default function NeighborhoodsGuidePage() {
                 ))}
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">{n.emoji} {n.name}</h2>
-              <p className="text-lg text-gray-600 mb-6">{n.description}</p>
+              <p className="text-lg text-gray-600 mb-4">{n.description}</p>
+              <Link 
+                href={`/neighborhoods/${n.id === 'lomas' ? 'lomas-del-tecnologico' : n.id === 'pedregal' ? 'privadas-del-pedregal' : n.id === 'centro' ? 'centro-historico' : n.id === 'tangamanga' ? 'tangamanga' : n.id === 'villa-magna' ? 'villa-magna' : n.id === 'zona-industrial' ? 'zona-industrial' : 'soledad'}`}
+                className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+              >
+                View Full Page →
+              </Link>
 
               {n.warning && (
                 <div className="bg-yellow-50 border-2 border-yellow-400 rounded-xl p-5 mb-6">

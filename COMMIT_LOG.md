@@ -4,6 +4,76 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## Commit: 7bd6aa8a - 2026-03-25
+
+**Mensaje:** feat: Homepage refactoring + neighborhood pages + social sharing + monetization
+
+**Archivos modificados:**
+- SESSION_CONTEXT.md (nuevo)
+- src/components/business/PromoteButton.tsx (nuevo)
+- src/components/home/BrandsShowcase.tsx (nuevo)
+- src/components/home/CultureSection.tsx (nuevo)
+- src/components/home/DiningSection.tsx (nuevo)
+- src/components/home/EventsPreview.tsx (nuevo)
+- src/components/home/FeaturedPlaces.tsx (nuevo)
+- src/components/home/FinalCTA.tsx (nuevo)
+- src/components/home/HeroSection.tsx (nuevo)
+- src/components/home/LifestyleBenefits.tsx (nuevo)
+- src/components/home/OutdoorsSection.tsx (nuevo)
+- src/components/home/PracticalGuidesSection.tsx (nuevo)
+- src/components/home/index.ts (nuevo)
+- src/components/sharing/ShareButton.tsx (nuevo)
+- src/components/sharing/index.ts (nuevo)
+- src/data/neighborhoods.ts (nuevo)
+- src/pages/neighborhoods/[slug].tsx (nuevo)
+- src/pages/advertise.tsx (modificado)
+- src/pages/blog/[slug].tsx (modificado)
+- src/pages/index.tsx (modificado)
+- src/pages/resources/living-guide.tsx (modificado)
+- src/pages/resources/neighborhoods-san-luis-potosi.tsx (modificado)
+
+**Descripcion detallada:**
+
+1. **Refactoring Homepage:**
+   - Extraidas 11 secciones del homepage en componentes modulares bajo `src/components/home/`
+   - Reducido index.tsx de 1228 lineas a ~498 lineas (60% menos)
+   - Mejora en mantenibilidad y adherecia a regla de max 200 lineas por archivo
+
+2. **Sistema de Compartir (ShareButton):**
+   - Creado componente reusable para compartir en redes sociales
+   - Soporte para WhatsApp, Twitter/X, Facebook, LinkedIn
+   - Native navigator.share para dispositivos moviles
+   - Funcion de copiar enlace al portapapeles
+   - Integracion en blog posts (hero) y living guide
+
+3. **Paginas de Barrios (SEO):**
+   - Creado archivo centralizado `src/data/neighborhoods.ts` con datos de 7 barrios
+   - Creadas paginas dinamicas `src/pages/neighborhoods/[slug].tsx`
+   - Cada barrio tiene pagina individual optimizada para SEO
+   - Actualizada guia consolidada con enlaces a cada pagina individual
+   - Barrios: Lomas del Tecnológico, Tangamanga, Centro Histórico, Privadas del Pedregal, Villa Magna, Zona Industrial, Soledad
+
+4. **Monetizacion - PromoteButton:**
+   - Creado componente para upgrades de negocios
+   - 3 tiers de precios: Featured ($500/mes), Premium ($1000/mes), Verified ($300/mes)
+   - Modal interactivo con comparacion de planes
+   - Redirecciona a contact con subject prellenado
+
+5. **Precios Visibles en Advertise:**
+   - Agregados precios a paquetes publicitarios
+   - Basic: $1,500/mes, Premium: $3,000/mes, Enterprise: $5,000+/mes
+   - Incluye nota de ahorro para plan anual
+
+6. **Documentacion:**
+   - Creado `SESSION_CONTEXT.md` con contexto para coding agents
+   - Actualizado `CHANGE_LOG.md` y `COMMIT_LOG.md`
+
+**Proposito:** Mejorar SEO del sitio con paginas individuales de barrios, aumentar engagement con botones de compartir, y mejorar monetizacion con precios visibles y opciones de upgrade para negocios.
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## Commit: 731bb42 - 2026-03-24
 
 **Mensaje:** feat: Add sponsor ads system for newsletter

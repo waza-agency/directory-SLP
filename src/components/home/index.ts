@@ -1,0 +1,10 @@
+export { default as HeroSection } from './HeroSection';
+export { default as EventsPreview } from './EventsPreview';
+export { default as FeaturedPlaces } from './FeaturedPlaces';
+export { default as DiningSection } from './DiningSection';
+export { default as CultureSection } from './CultureSection';
+export { default as OutdoorsSection } from './OutdoorsSection';
+export { default as PracticalGuidesSection } from './PracticalGuidesSection';
+export { default as BrandsShowcase } from './BrandsShowcase';
+export { default as LifestyleBenefits } from './LifestyleBenefits';
+export { default as FinalCTA } from './FinalCTA';

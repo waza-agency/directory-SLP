@@ -1,10 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { BlogPost, getBlogPosts, getBlogPostBySlug, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import ShareButton from '@/components/sharing/ShareButton';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BlogPostPageProps {
@@ -118,10 +120,17 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center">
               <h1 className="max-w-4xl text-center text-4xl font-bold text-white md:text-5xl px-4">
                 {post.title}
               </h1>
+              <div className="mt-6">
+                <ShareButton 
+                  title={post.title} 
+                  text={post.excerpt ? `Read "${post.title}": ` : undefined}
+                  size="lg"
+                />
+              </div>
             </div>
           </div>
         )}

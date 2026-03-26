@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import ShareButton from '@/components/sharing/ShareButton';
 
 export default function LivingGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -167,9 +168,16 @@ export default function LivingGuidePage() {
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 Ultimate Guide to Living in San Luis Potosí
               </h1>
-              <p className="text-xl text-white/90 mb-8">
+              <p className="text-xl text-white/90 mb-4">
                 Everything you need to know about expat life in SLP (2025)
               </p>
+              <div className="flex justify-center mb-6">
+                <ShareButton 
+                  title="Ultimate Guide to Living in San Luis Potosí" 
+                  text="Check out this comprehensive guide for expats in SLP:"
+                  size="lg"
+                />
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 {quickStats.map((stat, i) => (
                   <div key={i} className="bg-white/10 backdrop-blur rounded-lg p-3">

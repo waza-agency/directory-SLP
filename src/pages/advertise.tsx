@@ -296,6 +296,11 @@ export default function Advertise() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Básico</h3>
                   <p className="text-gray-600">Perfecto para empezar</p>
                 </div>
+                <div className="text-center mb-6">
+                  <span className="text-4xl font-bold text-gray-900">$1,500</span>
+                  <span className="text-gray-600">/mes</span>
+                  <p className="text-sm text-green-600 font-medium mt-1">Ahorra 17% con plan anual</p>
+                </div>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center">
                     <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,6 +336,11 @@ export default function Advertise() {
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Premium</h3>
                   <p className="text-gray-600">Máxima visibilidad</p>
+                </div>
+                <div className="text-center mb-6">
+                  <span className="text-4xl font-bold text-primary">$3,000</span>
+                  <span className="text-gray-600">/mes</span>
+                  <p className="text-sm text-green-600 font-medium mt-1">Ahorra 17% con plan anual</p>
                 </div>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center">
@@ -370,6 +380,11 @@ export default function Advertise() {
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
                   <p className="text-gray-600">Solución personalizada</p>
+                </div>
+                <div className="text-center mb-6">
+                  <span className="text-4xl font-bold text-gray-900">$5,000</span>
+                  <span className="text-gray-600">+/mes</span>
+                  <p className="text-sm text-gray-500 mt-1">Según necesidades específicas</p>
                 </div>
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-center">

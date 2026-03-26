@@ -4,6 +4,56 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-03-25] feat: Homepage refactoring + neighborhood pages + social sharing + monetization
+
+**Descripcion:** Refactorizacion del homepage y nuevas funcionalidades para SEO y monetizacion.
+
+**Cambios realizados:**
+
+1. **Refactoring Homepage:**
+   - Extraidas secciones en componentes modulares en `src/components/home/`
+   - Creados: HeroSection, EventsPreview, FeaturedPlaces, DiningSection, CultureSection, OutdoorsSection, PracticalGuidesSection, BrandsShowcase, LifestyleBenefits, FinalCTA
+   - Reducido index.tsx de 1228 lineas a ~498 lineas (~60% reduction)
+
+2. **ShareButton - Sistema de Compartir:**
+   - `src/components/sharing/ShareButton.tsx` - Componente reusable
+   - Soporte para WhatsApp, Twitter/X, Facebook, LinkedIn, copy link
+   - Native navigator.share para mobile
+   - Integracion en blog posts y living guide
+
+3. **Paginas de Barrios (SEO):**
+   - `src/data/neighborhoods.ts` - Datos centralizados de 7 barrios
+   - `src/pages/neighborhoods/[slug].tsx` - Paginas dinamicas para cada barrio
+   - Actualizada guia de barrios con enlaces a paginas individuales
+
+4. **Monetizacion - PromoteButton:**
+   - `src/components/business/PromoteButton.tsx` - Modal de upgrade para negocios
+   - 3 tiers: Featured ($500/mes), Premium ($1000/mes), Verified ($300/mes)
+
+5. **Precios Visibles en Advertise:**
+   - Agregados precios a los paquetes: Basic $1,500/mes, Premium $3,000/mes, Enterprise $5,000+/mes
+
+6. **Documentacion:**
+   - Creado `SESSION_CONTEXT.md` para contexto de coding agents
+
+**Archivos afectados:**
+- `src/components/home/` (nuevo directorio con 11 archivos)
+- `src/components/sharing/ShareButton.tsx` (nuevo)
+- `src/components/sharing/index.ts` (nuevo)
+- `src/components/business/PromoteButton.tsx` (nuevo)
+- `src/data/neighborhoods.ts` (nuevo)
+- `src/pages/neighborhoods/[slug].tsx` (nuevo)
+- `src/pages/advertise.tsx` (modificado)
+- `src/pages/blog/[slug].tsx` (modificado)
+- `src/pages/index.tsx` (modificado)
+- `src/pages/resources/living-guide.tsx` (modificado)
+- `src/pages/resources/neighborhoods-san-luis-potosi.tsx` (modificado)
+- `SESSION_CONTEXT.md` (nuevo)
+
+**Estado:** ✅ Exitoso
+
+---
+
 ## [2026-03-24] fix: Ad injection and availability query improvements
 
 **Descripcion:** Arreglados problemas con la inyeccion de ads en el newsletter y la consulta de ads disponibles.
