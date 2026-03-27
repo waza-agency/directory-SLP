@@ -3,11 +3,19 @@
     "next/core-web-vitals"
   ],
   "rules": {
-    "@typescript-eslint/no-unused-vars": "off",
     "react/no-unescaped-entities": "off",
-    "@typescript-eslint/no-explicit-any": "off",
     "@next/next/no-html-link-for-pages": "off",
     "react-hooks/rules-of-hooks": "warn",
-    "react-hooks/exhaustive-deps": "warn"
-  }
+    "react-hooks/exhaustive-deps": "warn",
+    "@next/next/no-img-element": "warn",
+    "@next/next/next-script-for-ga": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "rules": {
+        "@next/next/no-html-link-for-pages": "off"
+      }
+    }
+  ]
 }
