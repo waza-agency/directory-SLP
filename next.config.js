@@ -89,11 +89,9 @@ const nextConfig = {
     return config;
   },
   // Modern Next.js config optimized for Node.js 18+
-  swcMinify: true,
   compiler: {
     styledComponents: true,
   },
-  optimizeFonts: true,
   // Exclude test files from pages directory
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(ext => !ext.includes('test.')),
   async headers() {
@@ -169,10 +167,7 @@ const nextConfig = {
   // },
   // This will tell Next.js to ignore specific paths during build
   excludeDefaultMomentLocales: true,
-  // Removed standalone output mode that was causing issues
   poweredByHeader: false,
-  // Add configuration to handle build tracing issues
-  outputFileTracing: false,
 };
 
 // Add performance polyfill to fix Node.js compatibility issue (only for older Node.js)

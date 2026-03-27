@@ -2,8 +2,7 @@ import React, { useState, Suspense, lazy, useMemo } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Script from 'next/script';
-import { Place } from '@/types';
-import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
+import { Place, Event as DirectoryEvent } from '@/types';
 import SEO from '@/components/common/SEO';
 import {
   HeroSection,
@@ -17,6 +16,7 @@ import {
   LifestyleBenefits,
   FinalCTA
 } from '@/components/home';
+import { supabase, getSafetyDateBuffer, filterUpcomingEvents } from '@/lib/supabase';
 import { getBlogPostsBySlugs, getBlogPosts, SupportedLocale } from '@/lib/blog';
 import { getRandomPotosinoBrands } from '@/lib/brands';
 import TangamangaBanner from '@/components/TangamangaBanner';
@@ -39,7 +39,7 @@ const PlaceModal = lazy(() => import('@/components/PlaceModal'));
 const ImageCarousel = lazy(() => import('@/components/ImageCarousel'));
 
 interface HomeProps {
-  events: Event[];
+  events: DirectoryEvent[];
   featuredAdvertisers?: any[];
   featuredBrands?: any[];
   blogPosts?: any[];
