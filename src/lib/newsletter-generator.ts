@@ -760,7 +760,7 @@ export interface AdPlacementData {
 export function injectAdsIntoHtml(html: string, ads: AdPlacementData[]): string {
   let result = html;
 
-  const sectionMarkers: Record<string, { top: RegExp; bottom?: RegExp }> = {
+  const sectionMarkers: Record<string, { top: RegExp; bottom: RegExp | null }> = {
     top: {
       top: /Hey there![\s\S]{0,500}?<\/td>\s*<\/tr>/i,
       bottom: /Hey there![\s\S]{0,500}?<\/td>\s*<\/tr>\s*<tr>\s*<td[^>]*style="[^"]*background/i
@@ -770,7 +770,8 @@ export function injectAdsIntoHtml(html: string, ads: AdPlacementData[]): string 
       bottom: /📖 From the Blog[\s\S]{0,1000}?<\/td>\s*<\/tr>\s*<tr>\s*<td[^>]*style="[^"]*background.*?C75B39/i
     },
     bottom: {
-      top: /cta[\s\S]{0,500}?<\/td>\s*<\/tr>/i
+      top: /cta[\s\S]{0,500}?<\/td>\s*<\/tr>/i,
+      bottom: null
     }
   };
 
