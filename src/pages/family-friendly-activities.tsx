@@ -1,0 +1,498 @@
+import { GetStaticProps } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import SEO from '@/components/common/SEO';
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+  },
+});
+
+const outdoorPlaces = [
+  {
+    name: 'Parque Tangamanga I',
+    desc: 'El parque urbano más grande de SLP con zoológico, lago, canchas, áreas de picnic, Laberinto de las Ciencias y senderos para bici.',
+    descEn: 'SLP\'s largest urban park with zoo, lake, sports courts, picnic areas, science museum, and bike trails.',
+    price: 'Gratis', priceEn: 'Free',
+    hours: 'Mar-Dom 6AM-6PM', hoursEn: 'Tue-Sun 6AM-6PM',
+    ages: '0-99', icon: '🌳', tip: 'Lleva bicicleta y protector solar',
+    tipEn: 'Bring a bike and sunscreen',
+  },
+  {
+    name: 'Parque Tangamanga II',
+    desc: 'Segundo parque con canchas deportivas, lago y áreas verdes más tranquilas. Ideal para días relajados.',
+    descEn: 'Second park with sports courts, lake, and quieter green areas. Perfect for relaxed days.',
+    price: 'Gratis', priceEn: 'Free',
+    hours: 'Mar-Dom 6AM-6PM', hoursEn: 'Tue-Sun 6AM-6PM',
+    ages: '0-99', icon: '🏞️', tip: 'Menos concurrido que Tangamanga I',
+    tipEn: 'Less crowded than Tangamanga I',
+  },
+  {
+    name: 'Ciclovía Dominical (Av. Carranza)',
+    desc: 'Cada domingo la avenida más icónica se cierra al tráfico para ciclistas, patinadores y familias. Renta de bicis disponible.',
+    descEn: 'Every Sunday the most iconic avenue closes to traffic for cyclists, skaters, and families. Bike rentals available.',
+    price: 'Gratis', priceEn: 'Free',
+    hours: 'Dom 8AM-1PM', hoursEn: 'Sun 8AM-1PM',
+    ages: '0-99', icon: '🚴', tip: 'Llega temprano para rentar bici (~$50-100 MXN/hr)',
+    tipEn: 'Arrive early to rent a bike (~$50-100 MXN/hr)',
+  },
+];
+
+const indoorPlaces = [
+  {
+    name: 'Kidiverso',
+    desc: 'Parque infantil con trampolines, laberintos, resbaladillas, inflables, pared de escalada, carrusel, área de bebés y cancha de fútbol.',
+    descEn: 'Kids\' park with trampolines, mazes, slides, inflatables, climbing wall, carousel, baby area, and soccer field.',
+    price: '$199-299 MXN por niño (~$11-17 USD)', priceEn: '$199-299 MXN per child (~$11-17 USD)',
+    hours: 'Mar-Dom 11AM-7PM', hoursEn: 'Tue-Sun 11AM-7PM',
+    ages: '1-12', icon: '🎢',
+    tip: 'Pack Familiar incluye entrada + pizza + refresco',
+    tipEn: 'Family Pack includes admission + pizza + soda',
+    website: 'https://kidiverso.mx/',
+  },
+  {
+    name: 'Jumparks SLP',
+    desc: 'El parque de trampolines más grande de la ciudad. Camas elásticas, fosa de espuma, pared ninja, dodgeball y zona para pequeños.',
+    descEn: 'The city\'s largest trampoline park. Trampolines, foam pit, ninja wall, dodgeball, and toddler zone.',
+    price: '$189-279 MXN por persona (~$11-16 USD)', priceEn: '$189-279 MXN per person (~$11-16 USD)',
+    hours: 'Lun-Dom 11AM-8PM', hoursEn: 'Mon-Sun 11AM-8PM',
+    ages: '3-99', icon: '🤸',
+    tip: 'Calcetines antideslizantes obligatorios (se venden en el lugar)',
+    tipEn: 'Non-slip socks required (sold on-site)',
+  },
+  {
+    name: 'Laberinto de las Ciencias y las Artes',
+    desc: 'Museo interactivo dentro de Tangamanga con experimentos científicos, planetario, área de agua y exhibiciones rotativas.',
+    descEn: 'Interactive museum inside Tangamanga with science experiments, planetarium, water area, and rotating exhibits.',
+    price: '$80 adultos / $60 niños (~$4.50/$3.50 USD)', priceEn: '$80 adults / $60 kids (~$4.50/$3.50 USD)',
+    hours: 'Mar-Dom 10AM-6PM', hoursEn: 'Tue-Sun 10AM-6PM',
+    ages: '3-99', icon: '🔬',
+    tip: 'El planetario tiene horarios limitados, consulta al llegar',
+    tipEn: 'Planetarium has limited showtimes, check on arrival',
+  },
+  {
+    name: 'Bol Tanga (Boliche)',
+    desc: 'Centro de boliche moderno con lanes iluminados, snack bar y ambiente familiar. Perfecto para tardes lluviosas.',
+    descEn: 'Modern bowling center with lit lanes, snack bar, and family atmosphere. Perfect for rainy afternoons.',
+    price: '$100-150 MXN por persona/juego (~$6-9 USD)', priceEn: '$100-150 MXN per person/game (~$6-9 USD)',
+    hours: 'Lun-Dom 12PM-10PM', hoursEn: 'Mon-Sun 12PM-10PM',
+    ages: '4-99', icon: '🎳',
+    tip: 'Martes y miércoles suelen tener promociones',
+    tipEn: 'Tuesday and Wednesday usually have promotions',
+  },
+  {
+    name: 'Lost Box — Laser Tag',
+    desc: 'Arena de laser tag con escenarios temáticos, efectos de luz y juego en equipo. También tienen escape rooms.',
+    descEn: 'Laser tag arena with themed scenarios, light effects, and team play. They also have escape rooms.',
+    price: '$150-200 MXN por persona (~$9-12 USD)', priceEn: '$150-200 MXN per person (~$9-12 USD)',
+    hours: 'Lun-Dom 12PM-9PM', hoursEn: 'Mon-Sun 12PM-9PM',
+    ages: '6-99', icon: '🎯',
+    tip: 'Reserva para grupos de 8+ con anticipación',
+    tipEn: 'Book ahead for groups of 8+',
+  },
+  {
+    name: 'Go-Karts SLP',
+    desc: 'Pista de go-karts con carreras para adultos y karts especiales para niños. Emoción sobre ruedas para toda la familia.',
+    descEn: 'Go-kart track with adult races and special karts for kids. Wheeled thrills for the whole family.',
+    price: '$150-250 MXN por carrera (~$9-15 USD)', priceEn: '$150-250 MXN per race (~$9-15 USD)',
+    hours: 'Vie-Dom 11AM-8PM', hoursEn: 'Fri-Sun 11AM-8PM',
+    ages: '5-99', icon: '🏎️',
+    tip: 'Los fines de semana tienen más horarios disponibles',
+    tipEn: 'Weekends have more available time slots',
+  },
+];
+
+const culturePlaces = [
+  {
+    name: 'Centro de las Artes',
+    desc: 'Antigua penitenciaría convertida en centro cultural con talleres de arte, galerías y la Sala Leonora Carrington.',
+    descEn: 'Former penitentiary turned cultural center with art workshops, galleries, and the Leonora Carrington Room.',
+    price: 'Gratis', priceEn: 'Free',
+    hours: 'Mar-Dom 10AM-6PM', hoursEn: 'Tue-Sun 10AM-6PM',
+    ages: '0-99', icon: '🎨',
+    tip: 'Los talleres infantiles de fin de semana son gratuitos',
+    tipEn: 'Weekend kids\' workshops are free',
+  },
+  {
+    name: 'Museo Nacional de la Máscara',
+    desc: 'Más de 1,300 máscaras ceremoniales de todo México. A los niños les fascina la variedad de diseños y colores.',
+    descEn: 'Over 1,300 ceremonial masks from across Mexico. Kids love the variety of designs and colors.',
+    price: '$30 MXN (~$1.70 USD)', priceEn: '$30 MXN (~$1.70 USD)',
+    hours: 'Mar-Dom 10AM-6PM', hoursEn: 'Tue-Sun 10AM-6PM',
+    ages: '3-99', icon: '🎭',
+    tip: 'En el Centro Histórico, combínalo con un paseo por las plazas',
+    tipEn: 'In Centro Histórico, combine with a walk around the plazas',
+  },
+  {
+    name: 'San Luis Rey (Tranvía)',
+    desc: 'Recorrido narrado en tranvía por el centro histórico. Historia, arquitectura y leyendas de la ciudad.',
+    descEn: 'Narrated trolley tour through the historic center. History, architecture, and city legends.',
+    price: '$150 MXN adultos / $100 niños (~$9/$6 USD)', priceEn: '$150 MXN adults / $100 kids (~$9/$6 USD)',
+    hours: 'Salidas desde Plaza de Armas', hoursEn: 'Departures from Plaza de Armas',
+    ages: '3-99', icon: '🚋',
+    tip: 'Los recorridos nocturnos de leyendas son geniales para niños mayores',
+    tipEn: 'Night legend tours are great for older kids',
+  },
+];
+
+const familyPlans = [
+  {
+    title: 'Día de Aventura',
+    titleEn: 'Adventure Day',
+    budget: '$1,500-2,500 MXN',
+    budgetEn: '$85-145 USD',
+    schedule: [
+      { time: '9:00', act: 'Desayuno en La Parroquia Potosina', actEn: 'Breakfast at La Parroquia Potosina' },
+      { time: '10:30', act: 'Parque Tangamanga - Zoológico y lago', actEn: 'Tangamanga Park - Zoo and lake' },
+      { time: '13:30', act: 'Almuerzo picnic en el parque', actEn: 'Picnic lunch in the park' },
+      { time: '15:00', act: 'Jumparks o Go-Karts', actEn: 'Jumparks or Go-Karts' },
+      { time: '18:00', act: 'Helado en La Flor de SLP', actEn: 'Ice cream at La Flor de SLP' },
+    ],
+    color: 'green',
+  },
+  {
+    title: 'Día Cultural',
+    titleEn: 'Culture Day',
+    budget: '$800-1,500 MXN',
+    budgetEn: '$45-85 USD',
+    schedule: [
+      { time: '9:00', act: 'Desayuno en Sanborns o VIPS', actEn: 'Breakfast at Sanborns or VIPS' },
+      { time: '10:30', act: 'Laberinto de las Ciencias', actEn: 'Laberinto Science Museum' },
+      { time: '13:00', act: 'San Luis Rey Tranvía', actEn: 'San Luis Rey Trolley Tour' },
+      { time: '14:30', act: 'Comida en La Oruga y la Cebolla', actEn: 'Lunch at La Oruga y la Cebolla' },
+      { time: '16:30', act: 'Museo de la Máscara + paseo Centro', actEn: 'Mask Museum + Centro walk' },
+    ],
+    color: 'blue',
+  },
+  {
+    title: 'Domingo en Familia',
+    titleEn: 'Family Sunday',
+    budget: '$600-1,200 MXN',
+    budgetEn: '$35-70 USD',
+    schedule: [
+      { time: '8:00', act: 'Ciclovía en Av. Carranza', actEn: 'Ciclovía on Av. Carranza' },
+      { time: '10:30', act: 'Desayuno en El Mesón de San Pascual', actEn: 'Breakfast at El Mesón de San Pascual' },
+      { time: '12:00', act: 'Kidiverso o Boliche', actEn: 'Kidiverso or Bowling' },
+      { time: '14:30', act: 'Comida en Peter Piper Pizza', actEn: 'Lunch at Peter Piper Pizza' },
+      { time: '16:00', act: 'Helado y paseo en Plaza Citadina', actEn: 'Ice cream and stroll at Plaza Citadina' },
+    ],
+    color: 'orange',
+  },
+];
+
+const colorMap: Record<string, { bg: string; border: string; text: string; badge: string }> = {
+  green: { bg: 'bg-green-50', border: 'border-green-300', text: 'text-green-700', badge: 'bg-green-600' },
+  blue: { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-700', badge: 'bg-blue-600' },
+  orange: { bg: 'bg-orange-50', border: 'border-orange-300', text: 'text-orange-700', badge: 'bg-orange-600' },
+};
+
+export default function FamilyFriendlyActivities() {
+  const { locale } = useRouter();
+  const isEs = locale === 'es';
+
+  const pageTitle = isEs
+    ? 'Family Friendly Activities en San Luis Potosí — Guía Completa de Actividades Familiares con Precios y Horarios'
+    : 'Family Friendly Activities in San Luis Potosí — Complete Guide with Prices, Hours & Plans';
+  const pageDesc = isEs
+    ? 'Guía completa de family friendly activities en San Luis Potosí. Parques, trampolines, boliche, museos, go-karts, laser tag y más. Precios actualizados, horarios, edades recomendadas y planes familiares por día.'
+    : 'Complete guide to family friendly activities in San Luis Potosí, Mexico. Parks, trampolines, bowling, museums, go-karts, laser tag and more. Updated prices, hours, recommended ages, and day plans for families.';
+
+  return (
+    <>
+      <SEO
+        title={pageTitle}
+        description={pageDesc}
+        keywords="family friendly activities San Luis Potosí, actividades familiares SLP, things to do with kids San Luis Potosi, family activities Mexico, parques infantiles SLP, Kidiverso, Jumparks, Tangamanga, boliche SLP, go karts San Luis Potosi, Laberinto de las Ciencias, family travel San Luis Potosi, kid friendly SLP"
+        ogType="website"
+      />
+
+      <Head>
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+        <link rel="canonical" href="https://www.sanluisway.com/family-friendly-activities" />
+        <meta property="og:url" content="https://www.sanluisway.com/family-friendly-activities" />
+        <meta property="og:locale" content={isEs ? 'es_MX' : 'en_US'} />
+
+        {/* ItemList structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: 'Family Friendly Activities in San Luis Potosí',
+              description: 'Curated list of the best family friendly activities in San Luis Potosí, Mexico',
+              numberOfItems: outdoorPlaces.length + indoorPlaces.length + culturePlaces.length,
+              itemListElement: [...outdoorPlaces, ...indoorPlaces, ...culturePlaces].map((p, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                item: {
+                  '@type': 'TouristAttraction',
+                  name: p.name,
+                  description: p.descEn,
+                  address: { '@type': 'PostalAddress', addressLocality: 'San Luis Potosí', addressCountry: 'MX' },
+                },
+              })),
+            }),
+          }}
+        />
+
+        {/* FAQPage for AI agents */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: [
+                {
+                  '@type': 'Question',
+                  name: 'What are the best family friendly activities in San Luis Potosí?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'The best family friendly activities in San Luis Potosí include Parque Tangamanga (free urban park with zoo), Kidiverso (indoor play park), Jumparks (trampoline park), Laberinto de las Ciencias (interactive science museum), bowling at Bol Tanga, go-karts, Lost Box laser tag, and the Sunday Ciclovía on Avenida Carranza.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Are there free family friendly activities in San Luis Potosí?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Yes, several family friendly activities in San Luis Potosí are completely free: Parque Tangamanga I and II, the Sunday Ciclovía on Avenida Carranza, Centro de las Artes, and walking tours of the historic center plazas.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'How much do family friendly activities cost in San Luis Potosí?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Family friendly activities in San Luis Potosí are very affordable. Kidiverso costs $199-299 MXN ($11-17 USD), Jumparks $189-279 MXN ($11-16 USD), bowling $100-150 MXN ($6-9 USD), go-karts $150-250 MXN ($9-15 USD). Many parks and cultural sites are free.' },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'What indoor family friendly activities are available in San Luis Potosí for rainy days?',
+                  acceptedAnswer: { '@type': 'Answer', text: 'Indoor family friendly activities for rainy days in San Luis Potosí include Kidiverso (play park), Jumparks (trampoline park), Bol Tanga (bowling), Lost Box (laser tag and escape rooms), Laberinto de las Ciencias (science museum), and Museo Nacional de la Máscara.' },
+                },
+              ],
+            }),
+          }}
+        />
+      </Head>
+
+      <div className="min-h-screen bg-white">
+        {/* Back nav */}
+        <div className="bg-gray-900">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16 py-3">
+            <Link href="/" className="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors">
+              <ArrowLeftIcon className="w-4 h-4" />
+              {isEs ? 'Volver al inicio' : 'Back to home'}
+            </Link>
+          </div>
+        </div>
+
+        {/* HERO */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-orange-500 via-pink-500 to-purple-600">
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2px)', backgroundSize: '30px 30px' }} />
+          <div className="relative container mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-24 text-center">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+              Family Friendly Activities
+              <span className="block text-xl md:text-2xl font-light text-white/70 mt-3">
+                {isEs ? 'en San Luis Potosí' : 'in San Luis Potosí'}
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-8">
+              {isEs
+                ? 'Guía completa con los mejores lugares, precios actualizados, horarios y planes por día para disfrutar en familia.'
+                : 'Complete guide with the best places, updated prices, hours, and day-by-day plans to enjoy with your family.'}
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                { icon: '🌳', label: isEs ? '3 Al Aire Libre' : '3 Outdoor' },
+                { icon: '🎢', label: isEs ? '6 Bajo Techo' : '6 Indoor' },
+                { icon: '🎨', label: isEs ? '3 Culturales' : '3 Cultural' },
+                { icon: '📋', label: isEs ? '3 Planes del Día' : '3 Day Plans' },
+              ].map((s) => (
+                <div key={s.label} className="bg-white/15 border border-white/25 rounded-full px-5 py-2 text-white text-sm font-medium">
+                  {s.icon} {s.label}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* NAV BAR */}
+        <div className="bg-gray-900 text-white py-3 sticky top-0 z-30 border-t border-white/10">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16 flex flex-wrap justify-center gap-4 md:gap-8 text-sm">
+            {[
+              { href: '#outdoor', label: isEs ? '🌳 Al Aire Libre' : '🌳 Outdoor' },
+              { href: '#indoor', label: isEs ? '🎢 Bajo Techo' : '🎢 Indoor' },
+              { href: '#culture', label: '🎨 Cultural' },
+              { href: '#plans', label: isEs ? '📋 Planes' : '📋 Day Plans' },
+              { href: '#tips', label: isEs ? '💡 Consejos' : '💡 Tips' },
+            ].map((l) => (
+              <a key={l.href} href={l.href} className="hover:text-orange-300 transition-colors">{l.label}</a>
+            ))}
+          </div>
+        </div>
+
+        {/* OUTDOOR */}
+        <section className="py-16 bg-white" id="outdoor">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 text-center">
+              🌳 {isEs ? 'Family Friendly Activities al Aire Libre' : 'Outdoor Family Friendly Activities'}
+            </h2>
+            <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              {isEs ? 'Parques, ciclovía y naturaleza — muchas opciones gratuitas' : 'Parks, cycling, and nature — many free options'}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {outdoorPlaces.map((p) => (
+                <PlaceCard key={p.name} place={p} isEs={isEs} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* INDOOR */}
+        <section className="py-16 bg-gray-50" id="indoor">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 text-center">
+              🎢 {isEs ? 'Family Friendly Activities Bajo Techo' : 'Indoor Family Friendly Activities'}
+            </h2>
+            <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              {isEs ? 'Perfectas para días lluviosos o tardes calurosas' : 'Perfect for rainy days or hot afternoons'}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {indoorPlaces.map((p) => (
+                <PlaceCard key={p.name} place={p} isEs={isEs} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CULTURE */}
+        <section className="py-16 bg-white" id="culture">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 text-center">
+              🎨 {isEs ? 'Family Friendly Activities Culturales' : 'Cultural Family Friendly Activities'}
+            </h2>
+            <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              {isEs ? 'Museos, arte y recorridos que toda la familia disfrutará' : 'Museums, art, and tours the whole family will enjoy'}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {culturePlaces.map((p) => (
+                <PlaceCard key={p.name} place={p} isEs={isEs} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* DAY PLANS */}
+        <section className="py-16 bg-gray-50" id="plans">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 text-center">
+              📋 {isEs ? 'Planes del Día para Family Friendly Activities' : 'Day Plans for Family Friendly Activities'}
+            </h2>
+            <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              {isEs ? '3 itinerarios listos para usar con presupuesto estimado' : '3 ready-to-use itineraries with estimated budgets'}
+            </p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {familyPlans.map((plan) => {
+                const c = colorMap[plan.color];
+                return (
+                  <div key={plan.title} className={`${c.bg} border-2 ${c.border} rounded-2xl overflow-hidden`}>
+                    <div className={`${c.badge} px-6 py-4 text-white`}>
+                      <h3 className="text-xl font-bold">{isEs ? plan.title : plan.titleEn}</h3>
+                      <p className="text-sm text-white/80">{isEs ? 'Presupuesto familia de 4' : 'Budget for family of 4'}: {isEs ? plan.budget : plan.budgetEn}</p>
+                    </div>
+                    <div className="p-6 space-y-4">
+                      {plan.schedule.map((s) => (
+                        <div key={s.time} className="flex items-start gap-3">
+                          <span className={`flex-shrink-0 ${c.text} font-bold text-sm w-12`}>{s.time}</span>
+                          <span className="text-gray-700 text-sm">{isEs ? s.act : s.actEn}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* TIPS */}
+        <section className="py-16 bg-white" id="tips">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-12 text-center">
+              💡 {isEs ? 'Consejos para Family Friendly Activities en SLP' : 'Tips for Family Friendly Activities in SLP'}
+            </h2>
+            <div className="space-y-4">
+              {[
+                { color: 'green', icon: '☀️', text: isEs ? 'El clima de SLP es semiárido. Lleva protector solar, gorra y agua, especialmente para actividades al aire libre entre 11AM-3PM.' : 'SLP has a semi-arid climate. Bring sunscreen, a cap, and water, especially for outdoor activities between 11AM-3PM.' },
+                { color: 'blue', icon: '🚗', text: isEs ? 'Uber y DiDi funcionan bien en toda la ciudad. Para recorrer varios lugares en un día, considera rentar auto — el estacionamiento es barato ($20-40 MXN/hr).' : 'Uber and DiDi work well throughout the city. To visit multiple places in a day, consider renting a car — parking is cheap ($20-40 MXN/hr).' },
+                { color: 'amber', icon: '💰', text: isEs ? 'Muchas family friendly activities en SLP son gratis o cuestan menos de $200 MXN por persona. Comer en fondas locales cuesta $60-100 MXN por persona vs $200+ en restaurantes.' : 'Many family friendly activities in SLP are free or under $200 MXN per person. Eating at local fondas costs $60-100 MXN per person vs $200+ at restaurants.' },
+                { color: 'purple', icon: '📅', text: isEs ? 'Los fines de semana son más concurridos. Para evitar filas en Kidiverso y Jumparks, ve entre semana o llega temprano.' : 'Weekends are busier. To avoid lines at Kidiverso and Jumparks, go on weekdays or arrive early.' },
+                { color: 'red', icon: '🏥', text: isEs ? 'Farmacias están en todas partes. Para emergencias: Hospital Lomas (privado) y Star Médica. Número de emergencias: 911.' : 'Pharmacies are everywhere. For emergencies: Hospital Lomas (private) and Star Médica. Emergency number: 911.' },
+              ].map((tip) => (
+                <div key={tip.icon} className={`bg-${tip.color}-50 border-l-4 border-${tip.color}-400 p-4 rounded-r-lg`}>
+                  <p className={`text-${tip.color}-800`}><strong>{tip.icon}</strong> {tip.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-16 bg-gradient-to-br from-orange-500 via-pink-500 to-purple-600 text-white">
+          <div className="container mx-auto px-4 md:px-8 lg:px-16 text-center">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+              {isEs ? '¡Planea tus Family Friendly Activities!' : 'Plan Your Family Friendly Activities!'}
+            </h2>
+            <p className="text-white/70 max-w-xl mx-auto mb-8">
+              {isEs
+                ? '¿Necesitas recomendaciones personalizadas? Contáctanos para ayudarte a planear el día perfecto en familia.'
+                : 'Need personalized recommendations? Contact us to help plan the perfect family day.'}
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-8 py-4 rounded-full hover:bg-purple-50 transition-colors shadow-lg">
+                {isEs ? 'Contáctanos' : 'Contact Us'} →
+              </Link>
+              <Link href="/blog/fin-de-semana-familiar-san-luis-potosi-parques-go-karts-ninos" className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/30 text-white font-bold px-8 py-4 rounded-full hover:bg-white/20 transition-colors">
+                {isEs ? 'Guía de Fin de Semana' : 'Weekend Guide'} →
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}
+
+function PlaceCard({ place, isEs }: { place: any; isEs: boolean }) {
+  return (
+    <div className="bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-orange-300 hover:shadow-lg transition-all">
+      <div className="flex items-start gap-3 mb-3">
+        <span className="text-3xl">{place.icon}</span>
+        <div>
+          <h3 className="text-lg font-bold text-gray-900">{place.name}</h3>
+          <span className="text-xs text-gray-400">{isEs ? 'Edades' : 'Ages'}: {place.ages}</span>
+        </div>
+      </div>
+      <p className="text-sm text-gray-600 mb-4">{isEs ? place.desc : place.descEn}</p>
+      <div className="space-y-2 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-green-600 font-bold">💲</span>
+          <span className="text-gray-700">{isEs ? place.price : place.priceEn}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-blue-600 font-bold">🕐</span>
+          <span className="text-gray-700">{isEs ? place.hours : place.hoursEn}</span>
+        </div>
+        <div className="flex items-center gap-2 bg-amber-50 rounded-lg px-3 py-1.5">
+          <span className="text-amber-600 font-bold">💡</span>
+          <span className="text-amber-800 text-xs">{isEs ? place.tip : place.tipEn}</span>
+        </div>
+      </div>
+      {place.website && (
+        <a href={place.website} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs text-blue-600 hover:text-blue-800 underline">
+          {isEs ? 'Sitio web' : 'Website'} ↗
+        </a>
+      )}
+    </div>
+  );
+}

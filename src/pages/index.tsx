@@ -30,6 +30,7 @@ import RobotMindBanner from '@/components/RobotMindBanner';
 import TodayInSLP from '@/components/TodayInSLP';
 import FestivalPrimaveraBanner from '@/components/FestivalPrimaveraBanner';
 import CopaPotosiBanner from '@/components/CopaPotosiBanner';
+import FamilyActivitiesBanner from '@/components/FamilyActivitiesBanner';
 import BlogCarousel from '@/components/BlogCarousel';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -329,6 +330,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* CENTRO HISTORICO BANNER */}
         <CentroHistoricoBanner />
+
+        {/* FAMILY FRIENDLY ACTIVITIES BANNER */}
+        <FamilyActivitiesBanner />
 
         {/* FAMILY & PRACTICAL GUIDES */}
         <PracticalGuidesSection guides={practicalGuides} />
