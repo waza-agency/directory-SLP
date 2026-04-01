@@ -301,6 +301,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* FEATURED PLACES */}
         <FeaturedPlaces places={featuredAdvertisers} />
 
+        {/* FAMILY FRIENDLY ACTIVITIES BANNER */}
+        <FamilyActivitiesBanner />
+
         {/* ROBOTMIND BANNER - Slim (between places and dining) */}
         <RobotMindBanner variant="slim" />
 
@@ -330,9 +333,6 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* CENTRO HISTORICO BANNER */}
         <CentroHistoricoBanner />
-
-        {/* FAMILY FRIENDLY ACTIVITIES BANNER */}
-        <FamilyActivitiesBanner />
 
         {/* FAMILY & PRACTICAL GUIDES */}
         <PracticalGuidesSection guides={practicalGuides} />
