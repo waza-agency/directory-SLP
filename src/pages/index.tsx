@@ -29,6 +29,7 @@ import CollaborationBanner from '@/components/CollaborationBanner';
 import RobotMindBanner from '@/components/RobotMindBanner';
 import TodayInSLP from '@/components/TodayInSLP';
 import FestivalPrimaveraBanner from '@/components/FestivalPrimaveraBanner';
+import CopaPotosiBanner from '@/components/CopaPotosiBanner';
 import BlogCarousel from '@/components/BlogCarousel';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -286,6 +287,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* FESTIVAL DE PRIMAVERA 2026 BANNER */}
         <FestivalPrimaveraBanner />
+
+        {/* COPA POTOSI 2026 BANNER */}
+        <CopaPotosiBanner />
 
         {/* EVENTS PREVIEW */}
         <EventsPreview events={events} />
