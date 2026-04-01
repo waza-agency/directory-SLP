@@ -4,16 +4,16 @@ import { logger } from '@/lib/logger';
 /**
  * Catch-all proxy for page-agent LLM requests.
  * page-agent calls: baseURL + /chat/completions
- * This forwards to OpenAI keeping the API key server-side.
+ * This forwards to Google Gemini (OpenAI-compatible endpoint) keeping the API key server-side.
  */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'OpenAI API key not configured' });
+    return res.status(500).json({ error: 'Google API key not configured' });
   }
 
   const pathSegments = req.query.path as string[];
@@ -25,7 +25,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const unsupported = ['verbosity', 'enable_thinking', 'thinking', 'reasoning'];
     unsupported.forEach(key => delete body[key]);
 
-    const response = await fetch(`https://api.openai.com/v1/${endpoint}`, {
+    // Force Gemini model
+    body.model = 'gemini-2.0-flash';
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/openai/${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

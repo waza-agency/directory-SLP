@@ -11,7 +11,7 @@ const POSITION_CSS = `
 
 /**
  * PageAgent widget - AI-powered GUI assistant for the site.
- * Connects to OpenAI through our proxy API to keep the key server-side.
+ * Connects to Google Gemini through our proxy API to keep the key server-side.
  */
 export default function PageAgentWidget() {
   const agentRef = useRef<any>(null);
@@ -26,7 +26,7 @@ export default function PageAgentWidget() {
 
     import('page-agent').then(({ PageAgent }) => {
       const agent = new PageAgent({
-        model: 'gpt-4o-mini',
+        model: 'gemini-2.0-flash',
         baseURL: '/api/page-agent-proxy',
         apiKey: 'proxy',
         language: 'en-US',
