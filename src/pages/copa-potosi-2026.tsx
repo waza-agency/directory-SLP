@@ -35,7 +35,7 @@ const venues = [
     icon: '🏫',
   },
   {
-    name: 'Estadio Alfonso Lastras Ramírez',
+    name: 'Estadio Alfonso Lastras (Libertad Financiera)',
     role: 'Gran Final',
     roleEn: 'Grand Final',
     address: 'Blvd. Antonio Rocha Cordero, Lomas del Tecnológico',
