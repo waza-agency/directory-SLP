@@ -21,12 +21,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const body = { ...req.body };
-    // Strip non-standard parameters that page-agent injects via modelPatch()
-    const unsupported = ['verbosity', 'enable_thinking', 'thinking', 'reasoning'];
+
+    // Strip parameters unsupported by Gemini's OpenAI-compatible endpoint
+    const unsupported = [
+      'verbosity', 'enable_thinking', 'thinking', 'reasoning',
+      'tools', 'tool_choice', 'functions', 'function_call',
+      'response_format', 'logprobs', 'top_logprobs', 'logit_bias',
+      'seed', 'user', 'service_tier', 'parallel_tool_calls',
+      'stream_options', 'modalities', 'audio', 'prediction',
+      'store', 'metadata', 'frequency_penalty', 'presence_penalty',
+    ];
     unsupported.forEach(key => delete body[key]);
 
-    // Force Gemini model
+    // Force Gemini model and disable streaming
     body.model = 'gemini-2.0-flash';
+    body.stream = false;
+
+    // Sanitize messages: remove unsupported 'name' field and tool-related roles
+    if (body.messages) {
+      body.messages = body.messages
+        .filter((m: any) => m.role !== 'tool' && m.role !== 'function')
+        .map((m: any) => {
+          const clean: any = { role: m.role, content: m.content || '' };
+          return clean;
+        });
+    }
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/openai/${endpoint}`, {
       method: 'POST',
@@ -40,6 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data = await response.json();
 
     if (!response.ok) {
+      logger.error('Gemini API error:', response.status, JSON.stringify(data));
       return res.status(response.status).json(data);
     }
 
