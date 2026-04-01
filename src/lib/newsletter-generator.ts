@@ -86,7 +86,17 @@ async function generateWithOpenAI(prompt: string): Promise<string> {
     messages: [
       {
         role: 'system',
-        content: 'You are the editor of "San Luis Way Weekly", a newsletter for expats and locals in San Luis Potosí, Mexico. Generate engaging, informative content in HTML format.'
+        content: `You are the editor of "San Luis Way Weekly", a newsletter for expats and locals in San Luis Potosí, MEXICO (not USA).
+
+VOICE: Write like a knowledgeable friend who lives in SLP. Casual but informed, use "we" and "our city". Sprinkle Spanish naturally. Always actionable - tell readers what to DO, where to GO.
+
+RULES:
+- ALL content must be about San Luis Potosí, MEXICO only (not Arizona, California, or any US location)
+- All prices in MXN pesos, phone numbers with +52 country code
+- Include specific dates, times, addresses for every event/place
+- No vague language - be specific with real details
+- No <img> tags
+- Generate HTML that fills the provided template placeholders with real content`
       },
       {
         role: 'user',
@@ -383,6 +393,32 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
+          <!-- MARKET WATCH -->
+          <tr>
+            <td style="background-color: #F0FDF4; padding: 20px 30px;">
+              <h2 style="font-size: 18px; color: #166534; margin-bottom: 10px;">
+                💰 Market Watch
+              </h2>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="33%" style="text-align: center; padding: 8px;">
+                    <p style="margin: 0; font-size: 12px; color: #6B7280;">USD/MXN</p>
+                    <p style="margin: 4px 0 0 0; font-size: 18px; font-weight: bold; color: #166534;">[EXCHANGE_RATE]</p>
+                  </td>
+                  <td width="33%" style="text-align: center; padding: 8px; border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB;">
+                    <p style="margin: 0; font-size: 12px; color: #6B7280;">Gasolina Regular</p>
+                    <p style="margin: 4px 0 0 0; font-size: 18px; font-weight: bold; color: #166534;">[GAS_PRICE] /L</p>
+                  </td>
+                  <td width="33%" style="text-align: center; padding: 8px;">
+                    <p style="margin: 0; font-size: 12px; color: #6B7280;">Gas LP</p>
+                    <p style="margin: 4px 0 0 0; font-size: 18px; font-weight: bold; color: #166534;">[LP_GAS_PRICE] /kg</p>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin: 10px 0 0 0; font-size: 13px; color: #4B5563; text-align: center;">[MARKET_TREND_NOTE]</p>
+            </td>
+          </tr>
+
           <!-- NEWS SECTION -->
           <tr>
             <td style="background-color: #FEF2F2; padding: 30px;">
@@ -526,6 +562,25 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
+          <!-- SPOT OF THE WEEK -->
+          <tr>
+            <td style="padding: 30px;">
+              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
+                📍 Spot of the Week
+              </h2>
+              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">A hidden gem worth discovering</p>
+              <div style="background-color: #FFF7ED; border: 1px solid #FED7AA; border-left: 4px solid #EA580C; border-radius: 8px; padding: 20px;">
+                <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #EA580C;">[SPOT_NAME]</h3>
+                <p style="margin: 0 0 12px 0; font-size: 14px; color: #4B5563; line-height: 1.7;">[SPOT_DESCRIPTION]</p>
+                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6B7280;">📍 [SPOT_ADDRESS]</p>
+                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6B7280;">🕐 [SPOT_HOURS]</p>
+                <p style="margin: 0; font-size: 13px;">
+                  <a href="[SPOT_MAPS_LINK]" style="color: #EA580C; font-weight: bold;">View on Google Maps →</a>
+                </p>
+              </div>
+            </td>
+          </tr>
+
           <!-- AROUND TOWN -->
           <tr>
             <td style="padding: 30px;">
@@ -606,6 +661,20 @@ export const NEWSLETTER_TEMPLATE = `
             </td>
           </tr>
 
+          <!-- ASK AN EXPAT -->
+          <tr>
+            <td style="padding: 30px; background-color: #F5F3FF;">
+              <h2 style="font-size: 20px; color: #5B21B6; margin-bottom: 15px;">
+                🙋 Ask an Expat
+              </h2>
+              <div style="background-color: #FFFFFF; border: 1px solid #DDD6FE; border-radius: 8px; padding: 20px;">
+                <p style="margin: 0 0 12px 0; font-size: 15px; font-weight: bold; color: #5B21B6;">Q: "[EXPAT_QUESTION]"</p>
+                <p style="margin: 0 0 12px 0; font-size: 14px; color: #4B5563; line-height: 1.7;">[EXPAT_ANSWER]</p>
+                <p style="margin: 0; font-size: 13px; color: #7C3AED; font-style: italic;">Got a question? Hit reply and we'll answer it in a future edition!</p>
+              </div>
+            </td>
+          </tr>
+
           <!-- PRO TIP -->
           <tr>
             <td style="padding: 30px; background-color: #FEF3C7;">
@@ -614,6 +683,26 @@ export const NEWSLETTER_TEMPLATE = `
               </h2>
               <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[TIP_TITLE]</h3>
               <p style="font-size: 14px; color: #4B5563; margin: 0;">[2-3 sentences with practical advice]</p>
+            </td>
+          </tr>
+
+          <!-- SPANISH CORNER -->
+          <tr>
+            <td style="padding: 30px; background-color: #EFF6FF;">
+              <h2 style="font-size: 20px; color: #1E40AF; margin-bottom: 15px;">
+                🗣️ Spanish Corner
+              </h2>
+              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Level up your Potosino Spanish</p>
+              <div style="background-color: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 20px; margin-bottom: 12px;">
+                <p style="margin: 0 0 8px 0; font-size: 18px; font-weight: bold; color: #1E40AF;">"[SPANISH_PHRASE_1]"</p>
+                <p style="margin: 0 0 8px 0; font-size: 14px; color: #4B5563;"><strong>Meaning:</strong> [PHRASE_MEANING_1]</p>
+                <p style="margin: 0; font-size: 13px; color: #6B7280; font-style: italic;">💬 Example: "[PHRASE_EXAMPLE_1]"</p>
+              </div>
+              <div style="background-color: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 20px;">
+                <p style="margin: 0 0 8px 0; font-size: 18px; font-weight: bold; color: #1E40AF;">"[SPANISH_PHRASE_2]"</p>
+                <p style="margin: 0 0 8px 0; font-size: 14px; color: #4B5563;"><strong>Meaning:</strong> [PHRASE_MEANING_2]</p>
+                <p style="margin: 0; font-size: 13px; color: #6B7280; font-style: italic;">💬 Example: "[PHRASE_EXAMPLE_2]"</p>
+              </div>
             </td>
           </tr>
 
@@ -645,6 +734,23 @@ export const NEWSLETTER_TEMPLATE = `
                 <p style="margin: 0; font-size: 14px;">
                   <a href="https://www.sanluisway.com/blog?category=travel" style="color: #2563EB; text-decoration: none;">→ Day trips & adventures</a>
                 </p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- COMMUNITY SPOTLIGHT -->
+          <tr>
+            <td style="padding: 30px; background-color: #FFFBEB;">
+              <h2 style="font-size: 20px; color: #92400E; margin-bottom: 15px;">
+                ✨ Community Spotlight
+              </h2>
+              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Supporting local, one story at a time</p>
+              <div style="background-color: #FFFFFF; border: 1px solid #FDE68A; border-radius: 8px; padding: 20px;">
+                <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #92400E;">[SPOTLIGHT_NAME]</h3>
+                <p style="margin: 0 0 5px 0; font-size: 12px; color: #B45309; font-weight: bold;">[SPOTLIGHT_TYPE]</p>
+                <p style="margin: 0 0 12px 0; font-size: 14px; color: #4B5563; line-height: 1.7;">[SPOTLIGHT_STORY]</p>
+                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6B7280;">📍 [SPOTLIGHT_ADDRESS]</p>
+                <p style="margin: 0; font-size: 13px; color: #6B7280;">📱 [SPOTLIGHT_CONTACT]</p>
               </div>
             </td>
           </tr>
@@ -695,7 +801,7 @@ function cleanHtmlForBeehiiv(html: string): string {
   cleaned = cleaned.replace(/```\s*/gi, '');
 
   // Remove unreplaced placeholders (text in square brackets that looks like a template variable)
-  cleaned = cleaned.replace(/\[(?:NEWS_|EVENT_|BLOG_|LINK_|DATE_|CATEGORY_|VENUE_|COST_|FACT_|TIP_|CTA_|WEATHER_|QUICK_HIT_|PREVIEW_|HERO_|TOP_PICK_|ESCAPE_|NEW_PLACE_|DESTINATION_|UPCOMING_|IMPACT_)[A-Z0-9_]+\]/g, '');
+  cleaned = cleaned.replace(/\[(?:NEWS_|EVENT_|BLOG_|LINK_|DATE_|CATEGORY_|VENUE_|COST_|FACT_|TIP_|CTA_|WEATHER_|QUICK_HIT_|PREVIEW_|HERO_|TOP_PICK_|ESCAPE_|NEW_PLACE_|DESTINATION_|UPCOMING_|IMPACT_|HISTORY_|SPOTLIGHT_|EXCHANGE_|GAS_|LP_GAS_|MARKET_|SPOT_|SPANISH_|PHRASE_|EXPAT_)[A-Z0-9_]+\]/g, '');
 
   // Remove generic placeholders like [EVENT], [DATE], [ADDRESS], [VENUE], [TIME], etc.
   cleaned = cleaned.replace(/\[(?:EVENT|EVENT_NAME|DATE|ADDRESS|DESCRIPTION|LINK|PRACTICAL_CITY_UPDATE|VENUE|TIME)\]/g, '');
@@ -916,6 +1022,8 @@ function validateAndCleanUrls(html: string): string {
     'tiktok.com',
     'google.com',
     'maps.google.com',
+    'maps.app.goo.gl',
+    'goo.gl',
     'ticketmaster.com.mx',
     'superboletos.com',
     'eventbrite.com',
@@ -1268,7 +1376,104 @@ export async function generateWeeklyNewsletter(customContent?: string) {
     console.log('   ⚠️ Could not fetch places:', e);
   }
 
-  console.log(`   Found: ${factsCount} facts, ${tipsCount} tips, ${placesCount} places used previously`);
+
+
+  // Fetch used spots (Spot of the Week)
+  let usedSpotsList = '';
+  let spotsCount = 0;
+  try {
+    const { data: usedSpots, error: spotsError } = await supabase
+      .from('newsletter_spots')
+      .select('spot_name')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!spotsError && usedSpots) {
+      usedSpotsList = usedSpots.map(s => `- ${s.spot_name}`).join('\n');
+      spotsCount = usedSpots.length;
+    } else if (spotsError) {
+      console.log('   ⚠️ newsletter_spots table not available:', spotsError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch spots:', e);
+  }
+
+  // Fetch used phrases (Spanish Corner)
+  let usedPhrasesList = '';
+  let phrasesCount = 0;
+  try {
+    const { data: usedPhrases, error: phrasesError } = await supabase
+      .from('newsletter_phrases')
+      .select('phrase')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!phrasesError && usedPhrases) {
+      usedPhrasesList = usedPhrases.map(p => `- "${p.phrase}"`).join('\n');
+      phrasesCount = usedPhrases.length;
+    } else if (phrasesError) {
+      console.log('   ⚠️ newsletter_phrases table not available:', phrasesError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch phrases:', e);
+  }
+
+  // Fetch used questions (Ask an Expat)
+  let usedQuestionsList = '';
+  let questionsCount = 0;
+  try {
+    const { data: usedQuestions, error: questionsError } = await supabase
+      .from('newsletter_questions')
+      .select('question')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!questionsError && usedQuestions) {
+      usedQuestionsList = usedQuestions.map(q => `- "${q.question}"`).join('\n');
+      questionsCount = usedQuestions.length;
+    } else if (questionsError) {
+      console.log('   ⚠️ newsletter_questions table not available:', questionsError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch questions:', e);
+  }
+
+  // Fetch used spotlights (Community Spotlight)
+  let usedSpotlightsList = '';
+  let spotlightsCount = 0;
+  try {
+    const { data: usedSpotlights, error: spotlightsError } = await supabase
+      .from('newsletter_spotlights')
+      .select('spotlight_name, spotlight_type')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!spotlightsError && usedSpotlights) {
+      usedSpotlightsList = usedSpotlights.map(s => `- ${s.spotlight_name} (${s.spotlight_type})`).join('\n');
+      spotlightsCount = usedSpotlights.length;
+    } else if (spotlightsError) {
+      console.log('   ⚠️ newsletter_spotlights table not available:', spotlightsError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch spotlights:', e);
+  }
+
+  // Fetch used escapes (Weekend Escape)
+  let usedEscapesList = '';
+  let escapesCount = 0;
+  try {
+    const { data: usedEscapes, error: escapesError } = await supabase
+      .from('newsletter_escapes')
+      .select('escape_name')
+      .order('used_at', { ascending: false })
+      .limit(50);
+    if (!escapesError && usedEscapes) {
+      usedEscapesList = usedEscapes.map(e => `- ${e.escape_name}`).join('\n');
+      escapesCount = usedEscapes.length;
+    } else if (escapesError) {
+      console.log('   ⚠️ newsletter_escapes table not available:', escapesError.message);
+    }
+  } catch (e) {
+    console.log('   ⚠️ Could not fetch escapes:', e);
+  }
+
+  console.log(`   Found: ${factsCount} facts, ${tipsCount} tips, ${placesCount} places, ${spotsCount} spots, ${phrasesCount} phrases, ${questionsCount} questions, ${spotlightsCount} spotlights, ${escapesCount} escapes used previously`);
 
   // Fetch real weather data from OpenWeatherMap API
   console.log('2. 🌤️ Fetching real weather forecast from OpenWeatherMap...');
@@ -1334,76 +1539,55 @@ Overall Summary: ${weatherForecast.summary}
   const prompt = `
     You are the editor of "San Luis Way Weekly".
 
-    ╔══════════════════════════════════════════════════════════════════════════╗
-    ║  🚨🚨🚨 ABSOLUTE DATE REQUIREMENT - READ THIS FIRST 🚨🚨🚨                 ║
-    ╠══════════════════════════════════════════════════════════════════════════╣
-    ║                                                                          ║
-    ║  📅 TODAY IS: ${dates.todayFormatted}                                    ║
-    ║  📅 CURRENT MONTH: ${currentMonth} ${currentYear}                        ║
-    ║  📅 THIS NEWSLETTER COVERS: ${dateRangeStr}                              ║
-    ║                                                                          ║
-    ║  ⛔ REJECT ANY CONTENT FROM BEFORE ${currentMonth} ${currentYear}        ║
-    ║  ⛔ REJECT ${prevMonthName1}, ${prevMonthName2}, or any past dates       ║
-    ║  ⛔ REJECT "${prevMonthSpanish1}", "${prevMonthSpanish2}" or past months ║
-    ║                                                                          ║
-    ║  When you search, ALWAYS add "${currentMonth} ${currentYear}" or        ║
-    ║  "${spanishMonth} ${currentYear}" to your search queries!               ║
-    ║                                                                          ║
-    ║  EXAMPLE SEARCHES:                                                       ║
-    ║  ✓ "eventos San Luis Potosí México ${spanishMonth} ${currentYear}"      ║
-    ║  ✓ "noticias SLP ${spanishMonth} ${currentYear}"                        ║
-    ║  ✓ "conciertos San Luis Potosí ${currentMonth} ${currentYear}"          ║
-    ║  ✗ "eventos San Luis Potosí" (NO - will return old results!)            ║
-    ╚══════════════════════════════════════════════════════════════════════════╝
+    ═══════════════════════════════════════════════════════════
+    SYSTEM RULES (apply to ALL sections below)
+    ═══════════════════════════════════════════════════════════
 
-    ╔══════════════════════════════════════════════════════════════════╗
-    ║  ⚠️⚠️⚠️ CRITICAL GEOGRAPHIC CONSTRAINT ⚠️⚠️⚠️                    ║
-    ╠══════════════════════════════════════════════════════════════════╣
-    ║  THIS NEWSLETTER IS EXCLUSIVELY FOR:                            ║
-    ║                                                                  ║
-    ║  🇲🇽 SAN LUIS POTOSÍ CITY, SAN LUIS POTOSÍ STATE, MEXICO 🇲🇽     ║
-    ║                                                                  ║
-    ║  ❌ NOT San Luis, Arizona, USA                                   ║
-    ║  ❌ NOT San Luis Obispo, California, USA                         ║
-    ║  ❌ NOT San Luis, Colorado, USA                                  ║
-    ║  ❌ NOT any other "San Luis" in the world                        ║
-    ║                                                                  ║
-    ║  ALL content must be about SAN LUIS POTOSÍ, MEXICO ONLY.        ║
-    ║  If you find events in USA or other countries, EXCLUDE them.    ║
-    ╚══════════════════════════════════════════════════════════════════╝
+    📅 DATE RULES:
+    - TODAY: ${dates.todayFormatted} | LOCAL TIME: ${dates.mexicoCityLocalTime}
+    - THIS NEWSLETTER COVERS: ${dateRangeStr} (next 7 days)
+    - ONLY include content dated within ${dateRangeStr}
+    - REJECT anything from ${prevMonthName1}, ${prevMonthName2}, or earlier
+    - REJECT dates in "${prevMonthSpanish1}", "${prevMonthSpanish2}", or past Spanish months
+    - ALWAYS append "${spanishMonth} ${currentYear}" or "${currentMonth} ${currentYear}" to search queries
 
-    ╔══════════════════════════════════════════════════════════════════╗
-    ║  CRITICAL DATE/TIME CONTEXT                                      ║
-    ╠══════════════════════════════════════════════════════════════════╣
-    ║  TODAY'S DATE: ${dates.todayFormatted}
-    ║  GENERATION TIME: ${dates.currentDateTime}
-    ║  MEXICO CITY LOCAL TIME: ${dates.mexicoCityLocalTime}
-    ║  NEWSLETTER COVERS: ${dateRangeStr} (NEXT 7 DAYS)
-    ╚══════════════════════════════════════════════════════════════════╝
+    📍 GEOGRAPHIC RULES:
+    - EXCLUSIVELY about San Luis Potosí CITY & STATE, MEXICO
+    - Include: SLP city, Soledad de Graciano Sánchez, Huasteca Potosina
+    - EXCLUDE: San Luis AZ, San Luis Obispo CA, any US/non-Mexico location
+    - EXCLUDE: prices in USD (must be MXN), US phone numbers (must be +52), US state abbreviations
 
-    TASK: Create a comprehensive weekly digest for San Luis Potosí CITY, MEXICO.
+    🔍 SEARCH RULES:
+    - ✅ "eventos San Luis Potosí México ${spanishMonth} ${currentYear}"
+    - ✅ "noticias SLP ${spanishMonth} ${currentYear}"
+    - ❌ "eventos San Luis Potosí" (without date = old results)
 
-    **GEOGRAPHIC VERIFICATION FOR EVERY ITEM:**
-    Before including ANY event, news, or place, verify it is located in:
-    - San Luis Potosí city (capital of SLP state)
-    - Or nearby areas in SLP state (Soledad de Graciano Sánchez, etc.)
-    - Or the Huasteca Potosina region of Mexico
+    ═══════════════════════════════════════════════════════════
+    VOICE & TONE GUIDE
+    ═══════════════════════════════════════════════════════════
 
-    If an event mentions Arizona, California, Texas, or any US state → EXCLUDE IT.
-    If prices are in USD instead of MXN (pesos mexicanos) → EXCLUDE IT.
+    Write like a knowledgeable friend who lives in SLP and genuinely loves the city.
+    - CASUAL BUT INFORMED: Not corporate, not too informal. Like texting a well-read friend.
+    - COMMUNITY FEEL: Use "we", "our city", "around here" to build belonging.
+    - BILINGUAL FLAVOR: Sprinkle Spanish naturally. "Head to the mercado", "the centro histórico".
+    - ALWAYS ACTIONABLE: Don't just inform - tell readers what to DO, where to GO, what to TRY.
+    - SPECIFIC > VAGUE: "The tacos al pastor at Don Beto's on Carranza ($25 MXN)" beats "great tacos in town".
 
-    **ABSOLUTELY CRITICAL DATE REQUIREMENTS:**
-    1. TODAY is ${dates.todayFormatted} - use this as your reference point
-    2. Search for events happening FROM TODAY through ${format(dates.weekEndDate, 'MMMM d, yyyy')}
-    3. DO NOT include any events that have ALREADY PASSED (before today)
-    4. Only recommend activities for the NEXT 7 DAYS starting from TODAY
-    5. When searching, always include the current year (2025) in your queries
+    GOOD EXAMPLE: "The city just opened a new 3km bike lane on Av. Carranza - perfect timing if you've been meaning to dust off that bicycle. Runs from Centro to Lomas, with dedicated signals at every intersection."
+    BAD EXAMPLE: "There are new developments in San Luis Potosí regarding infrastructure improvements."
 
-    Example: If today is December 21, 2025:
-    ✓ Include: Events on December 21, 22, 23, 24, 25, 26, 27, 28
-    ✗ Exclude: Events on December 15, 16, 17, 18, 19, 20 (already passed)
+    TASK: Create the weekly digest. Fill the HTML template below with real, verified content.
 
-    I need information in these 5 areas:
+    ═══════════════════════════════════════════════════════════
+    OPENING HOOK (replace [OPENING_HOOK_TEXT])
+    ═══════════════════════════════════════════════════════════
+
+    Write a warm, 2-3 sentence opening that connects to something SPECIFIC happening THIS week:
+    - A big event coming up ("Arena Potosí is about to get loud this Friday...")
+    - The weather/season ("Those cool mornings are finally here...")
+    - A holiday or tradition ("Semana Santa vibes are already in the air...")
+    - A city milestone ("The new bike lane on Carranza just opened and we're here for it")
+    Do NOT write a generic greeting. Reference something real and timely.
 
     ═══════════════════════════════════════════════════════════
     SECTION 1: LOCAL NEWS & HEADLINES
@@ -1416,16 +1600,17 @@ Overall Summary: ${weatherForecast.summary}
 
     Search for recent news (past 7 days) about San Luis Potosí:
 
-    TOPICS:
-    - City/state government announcements
-    - Infrastructure projects and road work
+    PRIORITIZE news that DIRECTLY AFFECTS DAILY LIFE for residents and expats:
+    - Water supply alerts (Interapas), power outages (CFE)
+    - Road closures, construction, traffic changes
+    - New transit routes, airport updates, bus terminal changes
+    - Cost of living: rent trends, utility rate changes, market prices
+    - Immigration updates (INM, visa changes, consulate news)
+    - Safety alerts relevant to neighborhoods (not crime reports)
     - New businesses opening or major closings
-    - Economic developments and investments
-    - Public transportation updates
-    - Airport and travel news
-    - University news (UASLP, Tec de Monterrey)
-    - Tourism initiatives
-    - Public safety (relevant updates, not crime reports)
+    - Infrastructure projects with real impact on commutes
+    - University news only if it affects the broader community
+    AVOID: Pure political news without practical impact, crime blotters, national news unrelated to SLP
 
     Also identify 3-4 "Quick Hits": short, practical updates (weather, traffic, construction, small alerts) to include as a bulleted list.
 
@@ -1465,30 +1650,34 @@ Overall Summary: ${weatherForecast.summary}
     - Recommendation: Based on temperatures (if cold: "Bundle up", if rain: "Bring umbrella")
 
     ═══════════════════════════════════════════════════════════
-    SECTION 3: EVENTS & ENTERTAINMENT (NEXT 7 DAYS ONLY)
+    SECTION: MARKET WATCH (Economic Snapshot)
     ═══════════════════════════════════════════════════════════
 
-    🚨 **CRITICAL DATE FILTER** 🚨
-    Today is: ${dates.todayFormatted}
-    Newsletter covers: ${dateRangeStr}
+    Search for current economic data relevant to SLP residents:
+    - "tipo de cambio dólar peso hoy" or "USD MXN exchange rate today"
+    - "precio gasolina San Luis Potosí hoy ${currentYear}"
+    - "precio gas LP San Luis Potosí ${spanishMonth} ${currentYear}"
 
-    ⛔ IF YOU SEE AN EVENT FROM ${prevMonthName1} OR ${prevMonthName2} - SKIP IT!
-    ⛔ IF THE DATE SAYS "${prevMonthSpanish1}" or "${prevMonthSpanish2}" - IT'S OLD, SKIP IT!
-    ✅ ONLY include events happening in ${currentMonth} ${currentYear}
+    REQUIRED DATA:
+    - [EXCHANGE_RATE]: Current USD to MXN rate (e.g., "$17.25 MXN")
+    - [GAS_PRICE]: Regular gasoline per liter in SLP (e.g., "$24.50 MXN")
+    - [LP_GAS_PRICE]: LP gas price per kg in SLP (e.g., "$14.80 MXN")
+    - [MARKET_TREND_NOTE]: One-sentence trend note (e.g., "The peso strengthened 1.2% this week against the dollar")
 
-    🔍 REQUIRED SEARCH QUERIES (use these EXACT queries):
+    SOURCES: Banco de México (banxico.org.mx), CRE (cre.gob.mx), Profeco
+
+    ═══════════════════════════════════════════════════════════
+    SECTION 3: EVENTS & ENTERTAINMENT
+    ═══════════════════════════════════════════════════════════
+
+    Apply DATE RULES and GEOGRAPHIC RULES from System Rules above.
+
+    🔍 SEARCH QUERIES:
     - "eventos San Luis Potosí México ${spanishMonth} ${currentYear}"
     - "que hacer en SLP México ${spanishMonth} ${currentYear}"
     - "conciertos San Luis Potosí ${spanishMonth} ${currentYear}"
     - "teatro San Luis Potosí ${currentMonth} ${currentYear}"
     - "agenda cultural SLP ${spanishMonth} ${currentYear}"
-
-    IMPORTANT SEARCH TIPS:
-    - ALWAYS include "${spanishMonth} ${currentYear}" in your search query
-    - ALWAYS add "México" to your search to avoid US results
-    - DO NOT include events from past months (${prevMonthName1}, ${prevMonthName2}, etc.)
-    - VERIFY each result date is within ${dateRangeStr}
-    - VERIFY each result is in MEXICO, not USA
 
     CATEGORIES:
     1. CULTURE: festivals, traditions, museum exhibitions, cultural celebrations
@@ -1510,18 +1699,21 @@ Overall Summary: ${weatherForecast.summary}
     - Centro de las Artes (ceartslp.gob.mx)
     - Secretaría de Cultura SLP
 
+    EDITOR'S PICK: The FIRST event in "Top Picks" should be your #1 recommendation.
+    Add a personal note: "Why we love it: [1 sentence explaining why this stands out]"
+    Replace the [CATEGORY_1] tag with "⭐ EDITOR'S PICK" for the first event.
+
     FORMAT FOR EACH EVENT:
     - Event name (English + Spanish if applicable)
     - Date, time, location with address
     - **Detailed description** (3-4 sentences explaining what it is and why it's worth going)
     - Cost/ticket info
     - Website or ticket link
-    - **Image URL** (if available)
 
     DATABASE EVENTS (Include these if relevant):
     ${eventsList}
 
-    ═══════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════
     SECTION 4: DID YOU KNOW? (Curious Fact) - MUST BE UNIQUE
     ═══════════════════════════════════════════════════════════
 
@@ -1545,6 +1737,28 @@ Overall Summary: ${weatherForecast.summary}
     FORMAT:
     - Title: Catchy header (this will be saved to avoid repetition)
     - Fact: 3-4 sentences explaining the historical or cultural fact.
+
+    ═══════════════════════════════════════════════════════════
+    SECTION: SPOT OF THE WEEK (Hidden Gem)
+    ═══════════════════════════════════════════════════════════
+
+    Feature ONE established but lesser-known place in SLP city.
+    NOT about new openings (that's "Around Town"). This is about places locals love but newcomers miss.
+
+    PREVIOUSLY FEATURED (DO NOT REPEAT):
+    ${usedSpotsList || 'No previous spots recorded yet.'}
+
+    Types: scenic viewpoints, hidden courtyards, neighborhood parks, traditional market stalls,
+    quiet cafés, street art corridors, lesser-known museums, artisan workshops.
+
+    REQUIRED:
+    - [SPOT_NAME]: Name of the place
+    - [SPOT_DESCRIPTION]: 3-4 sentences - what makes it special, insider tips
+    - [SPOT_ADDRESS]: Full address in SLP
+    - [SPOT_HOURS]: When to visit
+    - [SPOT_MAPS_LINK]: Google Maps URL for the place
+
+    TONE: "One of those places you stumble upon and wonder why nobody told you sooner..."
 
     ═══════════════════════════════════════════════════════════
     SECTION 5: AROUND TOWN - RECENTLY OPENED PLACES ONLY
@@ -1593,27 +1807,107 @@ Overall Summary: ${weatherForecast.summary}
     - Why readers should care
 
     ═══════════════════════════════════════════════════════════
-    SECTION 6: EXPLORE & DISCOVER
+    SECTION 6: WEEKEND ESCAPE (Season-Aware, NO REPEATS)
     ═══════════════════════════════════════════════════════════
 
-    Search for regional tourism and outdoor activities:
+    Recommend ONE day trip or weekend escape. MUST be different from previous editions.
 
-    TOPICS:
-    - Huasteca Potosina conditions and updates
-    - Day trip recommendations for the season
-    - Real de Catorce news
-    - Xilitla and Las Pozas updates
-    - Outdoor activity conditions (hiking, camping)
-    - New tours or experiences available
-    - Road conditions for popular routes
-    - Seasonal natural attractions (waterfalls, blooms, etc.)
+    🚨 PREVIOUSLY FEATURED (DO NOT REPEAT ANY OF THESE):
+    ${usedEscapesList || 'No previous escapes recorded yet.'}
 
-    SOURCES:
-    - Huasteca tourism sites
-    - TripAdvisor
-    - Local tour operators
-    - Weather services
-    - National park announcements
+    Pick a destination NOT on the list above. There are dozens of options beyond Real de Catorce and the Huasteca.
+
+    CONSIDER THE CURRENT SEASON:
+    🌧️ RAINY (Jun-Oct): Warn about rivers/floods. Prefer museums, pueblos, hot springs, covered sites.
+    ☀️ HOT (Mar-May): Higher elevations, shady spots, water. Sunscreen reminder.
+    🍂 COOL (Nov-Feb): Desert hikes, outdoor markets, layering tips.
+
+    DESTINATIONS (grouped by region - ROTATE, don't repeat):
+
+    🏔️ SLP STATE - HUASTECA POTOSINA:
+    - Cascada de Tamul (boat ride through Cañón del Río Santa María)
+    - Tamasopo waterfalls (Puente de Dios, El Trampolín)
+    - Cascadas de Micos (7 waterfalls, cliff jumping)
+    - Sótano de las Golondrinas (bird watching at dawn)
+    - Xilitla / Jardín Escultórico de Edward James (Las Pozas)
+    - Aquismón (caving, Cueva del Agua, Sótano de las Huahuas)
+    - Tanchachín / Río Gallinas waterfalls
+    - Ciudad Valles (base camp, rafting, zip-lining)
+
+    🏜️ SLP STATE - ALTIPLANO & DESERT:
+    - Real de Catorce (pueblo mágico, Wirikuta, tunnel, horse rides)
+    - Sierra de Catorce (hiking, desert landscapes)
+    - Guadalcázar (mining town, bat caves, Sótano del Barro)
+    - Cerro de San Pedro (ghost mining town, 20 min from SLP)
+    - Laguna de la Media Luna (diving, snorkeling in Rioverde)
+    - Rioverde (springs, pozas, agricultural valley)
+
+    🌲 SLP STATE - ZONA MEDIA & SIERRA:
+    - Sierra de Álvarez (hiking, camping, pine forests)
+    - Parque Nacional Gogorrón (trails, rock formations)
+    - Santa María del Río (rebozos, hot springs, pueblo mágico)
+    - Villa de Reyes (haciendas, vineyards, Gogorrón)
+    - Armadillo de los Infante (colonial town, peach orchards)
+    - La Joya Honda (extinct volcano crater hike, 30 min from SLP)
+
+    🗺️ NEARBY STATES (2-4 hr drive from SLP):
+    - Guanajuato city (UNESCO, mummies, underground streets) ~2.5h
+    - San Miguel de Allende (art, food, hot springs) ~3h
+    - Mineral de Pozos (ghost town, lavender fields) ~3h
+    - Peña de Bernal (3rd largest monolith, pueblo mágico, Querétaro) ~3h
+    - Bernal + Tequisquiapan wine route (Querétaro) ~3.5h
+    - Sierra Gorda Biosphere (Querétaro: Jalpan, missions) ~4h
+    - Zacatecas city (colonial, mines, teleférico) ~3h
+    - Aguascalientes (thermal baths, San Marcos) ~2.5h
+    - Real de Asientos (Aguascalientes: mining town) ~3h
+    - Jalpa (Zacatecas: Cañón de Juchipila) ~3h
+    - Wirikuta desert crossing (Estación Catorce to Real) ~4h
+
+    REQUIRED INFO:
+    - Destination name and what makes it special (3-4 sentences)
+    - Driving time from SLP city
+    - Road conditions / route tips
+    - Best time to visit / seasonal considerations
+    - Approximate cost (entry fees, tolls, food)
+
+    TONE: "Pack a cooler, grab your sunnies, and head out early - trust us on this one."
+
+    ═══════════════════════════════════════════════════════════
+    SECTION: ASK AN EXPAT (Q&A)
+    ═══════════════════════════════════════════════════════════
+
+    Answer ONE common question that expats or newcomers frequently ask about living in SLP.
+
+    PREVIOUSLY ANSWERED (DO NOT REPEAT):
+    ${usedQuestionsList || 'No previous questions answered yet.'}
+
+    QUESTION BANK (choose one NOT previously used):
+    - "Is tap water safe to drink in SLP?"
+    - "How do I find a reliable housekeeper/cleaning person?"
+    - "What's the best neighborhood for expats?"
+    - "Can I use my foreign driver's license?"
+    - "How do I set up internet at home?"
+    - "Where can I find a good English-speaking doctor?"
+    - "Is SLP safe for walking at night?"
+    - "How do I get a Mexican phone number?"
+    - "Where do expats hang out in SLP?"
+    - "How does trash collection work?"
+    - "Can I bring my pet to Mexico?"
+    - "How do I get a bank account as a foreigner?"
+    - "What's the deal with propinas (tips)?"
+    - "How do I get my car registered in Mexico?"
+    - "Where can I find good coffee beans?"
+    - "Is Uber reliable in SLP?"
+    - "How do I deal with noisy neighbors?"
+    - "Where can I recycle in SLP?"
+    - "How do I find a gym?"
+    - "What's the altitude and how does it affect me?"
+
+    FORMAT:
+    - [EXPAT_QUESTION]: The question in natural language
+    - [EXPAT_ANSWER]: 3-4 sentences with a practical, specific answer. Include at least one specific detail (address, app name, price, phone number).
+
+    TONE: Friendly, been-there-done-that. Like a friend who moved to SLP two years ago sharing what they learned.
 
     ═══════════════════════════════════════════════════════════
     SECTION 5: EXPAT ESSENTIALS & PRO TIP (NO REPETITION)
@@ -1645,7 +1939,14 @@ Overall Summary: ${weatherForecast.summary}
 
     **REQUIRED FORMAT FOR PRO TIP:**
     - Title: Specific, actionable header (e.g., "Getting Your Mexican Driver's License")
-    - Body: 3-4 sentences with SPECIFIC details (addresses, prices, phone numbers if possible)
+    - Body: 3-4 sentences with SPECIFIC details. MUST include at least ONE of:
+      - A real address (e.g., "The IMSS clinic at Av. Carranza 500")
+      - A phone number (e.g., "+52 444 123 4567")
+      - A website/app (e.g., "Download the CFE Contigo app")
+      - A price (e.g., "costs $580 MXN for the tramite")
+
+    GOOD: "Need to pay your water bill? Skip the line at Interapas (Av. Muñoz 435, Centro) and use their app instead. Download 'Interapas Móvil', enter your account number, and pay with any Mexican debit card. Takes 2 minutes."
+    BAD: "You can pay your water bill online or at various locations around the city."
 
     SOURCES:
     - INM (immigration) announcements
@@ -1653,68 +1954,83 @@ Overall Summary: ${weatherForecast.summary}
     - InterNations SLP
     - US/Canadian consulate announcements
 
+    ═══════════════════════════════════════════════════════════
+    SECTION: SPANISH CORNER (Potosino Expressions)
+    ═══════════════════════════════════════════════════════════
+
+    Teach readers 2 Mexican Spanish expressions commonly used in San Luis Potosí.
+
+    PREVIOUSLY USED (DO NOT REPEAT):
+    ${usedPhrasesList || 'No previous phrases recorded yet.'}
+
+    REQUIREMENTS:
+    - Choose expressions specifically Potosino or commonly heard in SLP
+    - Include regional slang, market phrases, food terms, or social expressions
+    - Mix difficulty: one easier, one more advanced
+
+    EXAMPLES: "¡Órale pues!", "Echar la hueva", "Está bien chido", "Quedamos al tiro"
+
+    FORMAT:
+    - [SPANISH_PHRASE_1]: The expression | [PHRASE_MEANING_1]: English meaning with context | [PHRASE_EXAMPLE_1]: Realistic SLP scenario
+    - [SPANISH_PHRASE_2]: Second expression | [PHRASE_MEANING_2]: Translation | [PHRASE_EXAMPLE_2]: Usage example
+
     ${customContent ? `
     NOTE: A Comunidad section with custom content will be added automatically.
     Do NOT generate a Comunidad section - it will be injected programmatically.
     ` : ''}
 
     ═══════════════════════════════════════════════════════════
-    FINAL INSTRUCTIONS - READ CAREFULLY
+    SECTION: COMMUNITY SPOTLIGHT
     ═══════════════════════════════════════════════════════════
 
-    🚨 **GEOGRAPHIC CHECK - VERIFY BEFORE INCLUDING:**
-    ✓ Is this event/place in San Luis Potosí, MEXICO? → Include it
-    ✗ Is this in Arizona, California, Texas, or USA? → EXCLUDE IT
-    ✗ Is the price in USD ($)? → EXCLUDE IT (should be MXN pesos)
-    ✗ Does the address include a US state abbreviation (AZ, CA, TX)? → EXCLUDE IT
+    Profile ONE local business, artisan, or community initiative worth knowing about.
+    This is NOT limited to new places - feature established gems that deserve recognition.
 
-    **REQUIRED SPECIFIC DETAILS FOR ALL CONTENT:**
-    Every event, place, and recommendation MUST include:
-    ✓ Exact DATE (e.g., "Saturday, December 23")
-    ✓ Exact TIME (e.g., "7:00 PM - 10:00 PM")
-    ✓ Full ADDRESS in SAN LUIS POTOSÍ, MEXICO (e.g., "Av. Carranza 500, Centro, SLP")
-    ✓ PRICE/COST in MEXICAN PESOS (e.g., "$150 MXN", "Entrada libre")
-    ✓ Contact info when available (phone with +52 country code, Instagram, website)
+    PREVIOUSLY FEATURED (DO NOT REPEAT):
+    ${usedSpotlightsList || 'No previous spotlights recorded yet.'}
 
-    DO NOT use vague phrases like "this weekend" or "coming soon" - use SPECIFIC dates.
+    TYPES OF FEATURES:
+    - A family-run restaurant with decades of history
+    - A local artisan or craftsperson (pottery, textiles, leather)
+    - A community organization or charity
+    - A local artist, musician, or cultural figure
+    - A traditional market vendor with a great story
+    - A small business doing something unique
+    - A local sustainability or social initiative
 
-    **CONTENT REQUIREMENTS:**
-    - News items: 4-5 sentences with context and impact
-    - Event descriptions: Include what to expect, who it's for, and logistics
-    - Pro Tip: Specific, actionable advice with real details
-    - Weather: Include temperature range and specific days
+    SEARCH: "emprendedores San Luis Potosí", "negocios locales SLP", "artesanos SLP", "historias SLP"
 
-    **TEMPLATE INSTRUCTIONS:**
-    - Replace [WEATHER_SUMMARY] with 7-day outlook (e.g., "Mostly sunny, 18-25°C, chance of rain Thursday")
-    - Replace [FACT_TITLE] and [FACT_BODY] with a NEW curious fact (not from the used list)
-    - Replace [TIP_TITLE] with a NEW pro tip title (not from the used list)
+    FORMAT:
+    - [SPOTLIGHT_NAME]: Business/person name
+    - [SPOTLIGHT_TYPE]: Category (e.g., "Family Restaurant · Est. 1985", "Local Artisan · Ceramics", "Community Initiative")
+    - [SPOTLIGHT_STORY]: 3-4 sentences telling their story - what they do, why they're special, what makes them worth visiting/supporting
+    - [SPOTLIGHT_ADDRESS]: Full address
+    - [SPOTLIGHT_CONTACT]: Instagram, phone, or website
 
-    **🎭 MORE THIS WEEK SECTION - REQUIRED DETAILS:**
-    For EVERY event in the "More This Week" section, you MUST include ALL of these:
-    - [EVENT_NAME]: The event name (e.g., "DJ Night with Carlos Ruiz")
-    - [DATE]: The specific date (e.g., "January 19")
-    - [VENUE]: The venue name (e.g., "La Santa Bar", "Arena Potosí", "Centro de las Artes")
-    - [TIME]: The time (e.g., "9:00 PM", "8:30 PM")
+    TONE: Celebratory and genuine. "We've been fans since day one..." or "If you haven't discovered this gem yet..."
 
-    ⛔ DO NOT leave venue or time empty - readers need this info!
-    ⛔ If you can't find time/venue, SKIP that event and find another one
-    ✅ Format: <strong>Event Name</strong><br/><span style="color: #6B7280;">Date @ Venue · Time</span>
-    ✅ Example: <strong>Jazz Night</strong><br/><span style="color: #6B7280;">Jan 18 @ La Santa Bar · 9:00 PM</span>
+    ═══════════════════════════════════════════════════════════
+    FINAL INSTRUCTIONS
+    ═══════════════════════════════════════════════════════════
 
-    ⛔ **ABSOLUTELY NO IMAGES** ⛔
-    - Do NOT include ANY <img> tags in the output
-    - Do NOT add image URLs or image placeholders
-    - Do NOT reference [HERO_IMAGE_URL], [TOP_PICK_IMAGE_URL], [ESCAPE_IMAGE_URL] or any image placeholders
-    - Remove any <img> sections from the template - just skip them entirely
-    - ALL image content will be stripped - do not waste tokens generating it
+    **DETAIL REQUIREMENTS (all events, places, recommendations):**
+    - Exact DATE (e.g., "Saturday, March 30") - no "this weekend" or "coming soon"
+    - Exact TIME (e.g., "7:00 PM - 10:00 PM")
+    - Full ADDRESS in SLP (e.g., "Av. Carranza 500, Centro, SLP")
+    - PRICE in MXN (e.g., "$150 MXN", "Entrada libre")
+    - Contact when available (+52 phone, Instagram, website)
+
+    **MORE THIS WEEK events:** Each MUST have event name, date, venue, and time.
+    Format: <strong>Event Name</strong><br/><span style="color: #6B7280;">Date @ Venue · Time</span>
+    If you can't find venue/time for an event, SKIP it and find another.
+
+    **NO IMAGES:** Do NOT include <img> tags. They will be stripped.
 
     **BLOG SECTION - USE ONLY THESE REAL POSTS:**
     ${blogPostsList}
     Use ONLY the exact URLs above - DO NOT invent URLs.
 
-    **LINKS:**
-    - For events: Use verified links from search OR https://www.sanluisway.com/events
-    - DO NOT invent fake URLs
+    **LINKS:** Use verified links from search OR https://www.sanluisway.com/events. Never invent URLs.
 
     **CTA VALUES:**
     - CTA_TITLE: "Discover More of San Luis Potosí"
@@ -1722,35 +2038,9 @@ Overall Summary: ${weatherForecast.summary}
     - CTA_BUTTON_LABEL: "Visit San Luis Way"
     - CTA_BUTTON_LINK: https://www.sanluisway.com
 
-    **CRITICAL:**
-    - Replace ALL [PLACEHOLDER] text with real content
-    - Do NOT generate footer/closing - it's added automatically
-    - Stop after the CTA section
+    **OUTPUT:** Replace ALL [PLACEHOLDER] text. Stop after CTA. No footer (added automatically). Return raw HTML only.
 
-    ═══════════════════════════════════════════════════════════
-    ✅ PRE-FLIGHT CHECKLIST (VERIFY BEFORE SUBMITTING)
-    ═══════════════════════════════════════════════════════════
-
-    🗓️ DATE VALIDATION (MOST IMPORTANT):
-    □ All event dates are in ${currentMonth} ${currentYear}
-    □ NO events from ${prevMonthName1}, ${prevMonthName2}, or any past month
-    □ NO dates that say "${prevMonthSpanish1}", "${prevMonthSpanish2}", or past Spanish months
-    □ All dates are within ${dateRangeStr}
-    □ "Coming Up" section shows dates AFTER today (${dates.todayFormatted})
-
-    📍 GEOGRAPHIC VALIDATION:
-    □ All events are in SAN LUIS POTOSÍ, MÉXICO (not USA)
-    □ All prices are in MXN (Mexican pesos), not USD
-    □ All addresses are in México, not Arizona/California/Texas
-    □ No US phone numbers (should be +52 for México)
-
-    📝 CONTENT VALIDATION:
-    □ NO <img> tags in the output
-    □ [PLACEHOLDER] text has been replaced with real content
-    □ Weather is for San Luis Potosí, México
-
-    🚨 If ANY event shows ${prevMonthName1}/${prevMonthName2}/past dates → REMOVE IT
-    🚨 If ANY item fails geographic check → REMOVE IT
+    ✅ PRE-FLIGHT: Verify all System Rules (dates in range, geography = Mexico, MXN prices, no images, no placeholders).
 
     HTML TEMPLATE:
     ${NEWSLETTER_TEMPLATE}
@@ -1901,6 +2191,93 @@ Overall Summary: ${weatherForecast.summary}
     }
   } catch (e) {
     console.error('   ⚠️ Could not save place:', e);
+  }
+
+  // Save "Weekend Escape" destination
+  try {
+    const escapeNameMatch = htmlContent.match(/🌿 Weekend Escape[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
+    if (escapeNameMatch) {
+      const escapeName = escapeNameMatch[1].trim();
+      if (escapeName && escapeName.length > 2) {
+        await supabase.from('newsletter_escapes').insert({ escape_name: escapeName });
+        console.log(`   ✅ Saved escape: "${escapeName.substring(0, 40)}..."`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save escape:', e);
+  }
+
+  // Save "Spot of the Week"
+  try {
+    const spotNameMatch = htmlContent.match(/📍 Spot of the Week[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
+    const spotDescMatch = htmlContent.match(/📍 Spot of the Week[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+    if (spotNameMatch) {
+      const spotName = spotNameMatch[1].trim();
+      const spotDesc = spotDescMatch ? spotDescMatch[1].trim() : '';
+      if (spotName && spotName.length > 2) {
+        await supabase.from('newsletter_spots').insert({ spot_name: spotName, spot_description: spotDesc });
+        console.log(`   ✅ Saved spot: "${spotName.substring(0, 40)}..."`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save spot:', e);
+  }
+
+  // Save "Spanish Corner" phrases
+  try {
+    const phrase1Match = htmlContent.match(/🗣️ Spanish Corner[\s\S]*?"([^"]{2,50})"/i);
+    const phrase2Match = htmlContent.match(/🗣️ Spanish Corner[\s\S]*?<div[^>]*>[\s\S]*?<\/div>\s*<div[^>]*>[\s\S]*?"([^"]{2,50})"/i);
+    const phrases = [phrase1Match?.[1], phrase2Match?.[1]].filter(Boolean);
+    for (const phrase of phrases) {
+      if (phrase && phrase.length > 2) {
+        await supabase.from('newsletter_phrases').insert({ phrase });
+        console.log(`   ✅ Saved phrase: "${phrase}"`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save phrases:', e);
+  }
+
+  // Save "Ask an Expat" question
+  try {
+    const questionMatch = htmlContent.match(/🙋 Ask an Expat[\s\S]*?Q: "([^"]+)"/i);
+    const answerMatch = htmlContent.match(/🙋 Ask an Expat[\s\S]*?Q: "[^"]*"[\s\S]*?<p[^>]*>([^<]+)<\/p>/i);
+
+    if (questionMatch && answerMatch) {
+      const question = questionMatch[1].trim();
+      const answerSummary = answerMatch[1].trim().substring(0, 200);
+
+      if (question && question.length > 5) {
+        await supabase.from('newsletter_questions').insert({
+          question: question,
+          answer_summary: answerSummary,
+        });
+        console.log(`   ✅ Saved question: "${question.substring(0, 40)}..."`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save question:', e);
+  }
+
+  // Save "Community Spotlight" entry
+  try {
+    const spotlightNameMatch = htmlContent.match(/✨ Community Spotlight[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
+    const spotlightTypeMatch = htmlContent.match(/✨ Community Spotlight[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+
+    if (spotlightNameMatch) {
+      const spotlightName = spotlightNameMatch[1].trim();
+      const spotlightType = spotlightTypeMatch ? spotlightTypeMatch[1].trim() : '';
+
+      if (spotlightName && spotlightName.length > 2) {
+        await supabase.from('newsletter_spotlights').insert({
+          spotlight_name: spotlightName,
+          spotlight_type: spotlightType,
+        });
+        console.log(`   ✅ Saved spotlight: "${spotlightName.substring(0, 40)}..."`);
+      }
+    }
+  } catch (e) {
+    console.error('   ⚠️ Could not save spotlight:', e);
   }
 
   return {

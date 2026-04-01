@@ -21,15 +21,20 @@ interface NewsletterEditorProps {
 const SECTION_MARKERS = [
   { id: 'opening', name: '👋 Opening Hook', pattern: /Hey there! 👋/i, editable: true },
   { id: 'weather', name: '🌦️ Weather Watch', pattern: /🌦️ Weather Watch/i, editable: true },
+  { id: 'market_watch', name: '💰 Market Watch', pattern: /💰 Market Watch/i, editable: true },
   { id: 'news', name: '📰 The Week in SLP', pattern: /📰 The Week in SLP/i, editable: true },
   { id: 'events', name: '🌟 Top Picks', pattern: /🌟 This Week's Top Picks/i, editable: true },
   { id: 'more_events', name: '🎭 More This Week', pattern: /🎭 More This Week/i, editable: true },
-  { id: 'fact', name: '🧠 Did You Know?', pattern: /🧠 Did You Know/i, editable: true },
+{ id: 'fact', name: '🧠 Did You Know?', pattern: /🧠 Did You Know/i, editable: true },
+  { id: 'spot_of_the_week', name: '📍 Spot of the Week', pattern: /📍 Spot of the Week/i, editable: true },
   { id: 'around_town', name: '🏙️ Around Town', pattern: /🏙️ Around Town/i, editable: true },
   { id: 'escape', name: '🌿 Weekend Escape', pattern: /🌿 Weekend Escape/i, editable: true },
   { id: 'coming_up', name: '📅 Coming Up', pattern: /📅 Coming Up/i, editable: true },
+  { id: 'ask_an_expat', name: '🙋 Ask an Expat', pattern: /🙋 Ask an Expat/i, editable: true },
   { id: 'tip', name: '💡 Pro Tip', pattern: /💡 Expat Pro Tip/i, editable: true },
+  { id: 'spanish_corner', name: '🗣️ Spanish Corner', pattern: /🗣️ Spanish Corner/i, editable: true },
   { id: 'blog', name: '📖 From the Blog', pattern: /📖 From the Blog/i, editable: false },
+  { id: 'community_spotlight', name: '✨ Community Spotlight', pattern: /✨ Community Spotlight/i, editable: true },
   { id: 'comunidad', name: '🤝 Comunidad', pattern: /🤝 Comunidad/i, editable: true },
 ];
 

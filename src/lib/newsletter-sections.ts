@@ -44,7 +44,7 @@ function getCurrentDates() {
 export interface NewsletterSection {
   id: string;
   name: string;
-  type: 'opening' | 'weather' | 'news' | 'events' | 'fact' | 'around_town' | 'escape' | 'coming_up' | 'tip' | 'blog' | 'comunidad' | 'cta';
+  type: 'opening' | 'weather' | 'market_watch' | 'news' | 'events' | 'fact' | 'spot_of_the_week' | 'around_town' | 'escape' | 'coming_up' | 'ask_an_expat' | 'tip' | 'spanish_corner' | 'blog' | 'community_spotlight' | 'comunidad' | 'cta';
   html: string;
   editable: boolean;
 }
@@ -64,6 +64,14 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Weather Watch',
     type: 'weather',
     startPattern: /<!-- WEATHER/i,
+    endPattern: /<!-- MARKET WATCH|<!-- NEWS SECTION/i,
+    editable: true
+  },
+  {
+    id: 'market_watch',
+    name: 'Market Watch',
+    type: 'market_watch',
+    startPattern: /<!-- MARKET WATCH/i,
     endPattern: /<!-- NEWS SECTION/i,
     editable: true
   },
@@ -96,6 +104,14 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Did You Know?',
     type: 'fact',
     startPattern: /<!-- DID YOU KNOW/i,
+    endPattern: /<!-- SPOT OF THE WEEK|<!-- AROUND TOWN/i,
+    editable: true
+  },
+  {
+    id: 'spot_of_the_week',
+    name: 'Spot of the Week',
+    type: 'spot_of_the_week',
+    startPattern: /<!-- SPOT OF THE WEEK/i,
     endPattern: /<!-- AROUND TOWN/i,
     editable: true
   },
@@ -120,6 +136,14 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Coming Up',
     type: 'coming_up',
     startPattern: /<!-- COMING UP/i,
+    endPattern: /<!-- ASK AN EXPAT|<!-- PRO TIP/i,
+    editable: true
+  },
+  {
+    id: 'ask_an_expat',
+    name: 'Ask an Expat',
+    type: 'ask_an_expat',
+    startPattern: /<!-- ASK AN EXPAT/i,
     endPattern: /<!-- PRO TIP/i,
     editable: true
   },
@@ -128,6 +152,14 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Expat Pro Tip',
     type: 'tip',
     startPattern: /<!-- PRO TIP/i,
+    endPattern: /<!-- SPANISH CORNER|<!-- FROM THE BLOG/i,
+    editable: true
+  },
+  {
+    id: 'spanish_corner',
+    name: 'Spanish Corner',
+    type: 'spanish_corner',
+    startPattern: /<!-- SPANISH CORNER/i,
     endPattern: /<!-- FROM THE BLOG/i,
     editable: true
   },
@@ -136,8 +168,16 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'From the Blog',
     type: 'blog',
     startPattern: /<!-- FROM THE BLOG/i,
-    endPattern: /<!-- COMUNIDAD|<!-- CALL TO ACTION/i,
+    endPattern: /<!-- COMMUNITY SPOTLIGHT|<!-- COMUNIDAD|<!-- CALL TO ACTION/i,
     editable: false
+  },
+  {
+    id: 'community_spotlight',
+    name: 'Community Spotlight',
+    type: 'community_spotlight',
+    startPattern: /<!-- COMMUNITY SPOTLIGHT/i,
+    endPattern: /<!-- COMUNIDAD|<!-- CALL TO ACTION/i,
+    editable: true
   },
   {
     id: 'comunidad',
@@ -173,6 +213,9 @@ export function parseNewsletterSections(html: string): NewsletterSection[] {
   if (!html.includes('<!-- WEATHER')) {
     markedHtml = markedHtml.replace(/(🌦️ Weather Watch)/i, '<!-- WEATHER & ENVIRONMENT -->\n$1');
   }
+  if (!html.includes('<!-- MARKET WATCH')) {
+    markedHtml = markedHtml.replace(/(💰 Market Watch)/i, '<!-- MARKET WATCH -->\n$1');
+  }
   if (!html.includes('<!-- NEWS SECTION')) {
     markedHtml = markedHtml.replace(/(📰 The Week in SLP)/i, '<!-- NEWS SECTION -->\n$1');
   }
@@ -181,6 +224,9 @@ export function parseNewsletterSections(html: string): NewsletterSection[] {
   }
   if (!html.includes('<!-- DID YOU KNOW')) {
     markedHtml = markedHtml.replace(/(🧠 Did You Know)/i, '<!-- DID YOU KNOW -->\n$1');
+  }
+  if (!html.includes('<!-- SPOT OF THE WEEK')) {
+    markedHtml = markedHtml.replace(/(📍 Spot of the Week)/i, '<!-- SPOT OF THE WEEK -->\n$1');
   }
   if (!html.includes('<!-- AROUND TOWN')) {
     markedHtml = markedHtml.replace(/(🏙️ Around Town)/i, '<!-- AROUND TOWN -->\n$1');
@@ -191,11 +237,20 @@ export function parseNewsletterSections(html: string): NewsletterSection[] {
   if (!html.includes('<!-- COMING UP')) {
     markedHtml = markedHtml.replace(/(📅 Coming Up)/i, '<!-- COMING UP -->\n$1');
   }
+  if (!html.includes('<!-- ASK AN EXPAT')) {
+    markedHtml = markedHtml.replace(/(🙋 Ask an Expat)/i, '<!-- ASK AN EXPAT -->\n$1');
+  }
   if (!html.includes('<!-- PRO TIP')) {
     markedHtml = markedHtml.replace(/(💡 Expat Pro Tip)/i, '<!-- PRO TIP -->\n$1');
   }
+  if (!html.includes('<!-- SPANISH CORNER')) {
+    markedHtml = markedHtml.replace(/(🗣️ Spanish Corner)/i, '<!-- SPANISH CORNER -->\n$1');
+  }
   if (!html.includes('<!-- FROM THE BLOG')) {
     markedHtml = markedHtml.replace(/(📖 From the Blog)/i, '<!-- FROM THE BLOG -->\n$1');
+  }
+  if (!html.includes('<!-- COMMUNITY SPOTLIGHT')) {
+    markedHtml = markedHtml.replace(/(✨ Community Spotlight)/i, '<!-- COMMUNITY SPOTLIGHT -->\n$1');
   }
   if (!html.includes('<!-- COMUNIDAD')) {
     markedHtml = markedHtml.replace(/(🤝 Comunidad)/i, '<!-- COMUNIDAD SECTION -->\n$1');
@@ -380,10 +435,61 @@ Search for: "eventos San Luis Potosí ${dates.spanishMonth} ${dates.currentYear}
 ⛔ If missing venue/time, find a different event
 Return the complete <tr> section HTML with the 📅 Coming Up header.`,
 
+    ask_an_expat: `Generate an "Ask an Expat" Q&A section answering ONE common question that expats or newcomers frequently ask about living in San Luis Potosí, México.
+
+QUESTION BANK (choose one):
+- "Is tap water safe to drink in SLP?"
+- "How do I find a reliable housekeeper/cleaning person?"
+- "What's the best neighborhood for expats?"
+- "Can I use my foreign driver's license?"
+- "How do I set up internet at home?"
+- "Where can I find a good English-speaking doctor?"
+- "Is SLP safe for walking at night?"
+- "How do I get a Mexican phone number?"
+- "Where do expats hang out in SLP?"
+- "How does trash collection work?"
+- "Can I bring my pet to Mexico?"
+- "How do I get a bank account as a foreigner?"
+- "What's the deal with propinas (tips)?"
+- "Is Uber reliable in SLP?"
+- "What's the altitude and how does it affect me?"
+
+FORMAT:
+- Q: The question in natural language
+- A: 3-4 sentences with a practical, specific answer. Include at least one specific detail (address, app name, price, phone number).
+
+TONE: Friendly, been-there-done-that. Like a friend who moved to SLP two years ago sharing what they learned.
+
+Return the complete <tr> section HTML with the 🙋 Ask an Expat header.
+Use background-color: #F5F3FF, accent color #5B21B6, and a white card with border #DDD6FE.`,
+
     tip: `Generate an "Expat Pro Tip" for living in San Luis Potosí, México.
 Topics: navigating bureaucracy, finding services, local customs, money-saving tips, etc.
 Be specific with addresses, phone numbers, or websites when possible.
 Return the complete <tr> section HTML with the 💡 Expat Pro Tip header.`,
+
+    community_spotlight: `Generate a "Community Spotlight" section profiling ONE local business, artisan, or community initiative in San Luis Potosí, México.
+This is NOT limited to new places - feature established gems that deserve recognition.
+
+TYPES OF FEATURES:
+- A family-run restaurant with decades of history
+- A local artisan or craftsperson (pottery, textiles, leather)
+- A community organization or charity
+- A local artist, musician, or cultural figure
+- A traditional market vendor with a great story
+- A small business doing something unique
+
+SEARCH: "emprendedores San Luis Potosí", "negocios locales SLP", "artesanos SLP"
+
+FORMAT:
+- Name of the business/person
+- Type (e.g., "Family Restaurant · Est. 1985", "Local Artisan · Ceramics")
+- 3-4 sentences telling their story
+- Full address
+- Instagram, phone, or website
+
+TONE: Celebratory and genuine.
+Return the complete <tr> section HTML with warm amber styling (background #FFFBEB, accent #92400E).`,
 
     comunidad: `Generate a "Comunidad" section with a community announcement or local business feature.
 Make it friendly and engaging, like a friend sharing a recommendation.

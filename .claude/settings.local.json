@@ -65,7 +65,9 @@
       "WebFetch(domain:news.ycombinator.com)",
       "WebFetch(domain:gigazine.net)",
       "mcp__playwright__browser_console_messages",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
