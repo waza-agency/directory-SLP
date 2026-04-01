@@ -45,13 +45,13 @@ const outdoorPlaces = [
 const indoorPlaces = [
   {
     name: 'Kidiverso',
-    desc: 'Parque infantil con trampolines, laberintos, resbaladillas, inflables, pared de escalada, carrusel, área de bebés y cancha de fútbol.',
-    descEn: 'Kids\' park with trampolines, mazes, slides, inflatables, climbing wall, carousel, baby area, and soccer field.',
-    price: '$199-299 MXN por niño (~$11-17 USD)', priceEn: '$199-299 MXN per child (~$11-17 USD)',
-    hours: 'Mar-Dom 11AM-7PM', hoursEn: 'Tue-Sun 11AM-7PM',
+    desc: 'Parque infantil con trampolines, laberintos, resbaladillas, inflables, pared de escalada, carrusel, alberca de pelotas, área de bebés y cancha de fútbol. También ofrecen fiestas privadas.',
+    descEn: 'Kids\' park with trampolines, mazes, slides, inflatables, climbing wall, carousel, ball pit, baby area, and soccer field. Also offer private parties.',
+    price: '$90-120 MXN por niño/1-2hrs (~$5-7 USD)', priceEn: '$90-120 MXN per child/1-2hrs (~$5-7 USD)',
+    hours: 'Lun-Vie 1PM-8PM | Sáb-Dom 2PM-8PM', hoursEn: 'Mon-Fri 1PM-8PM | Sat-Sun 2PM-8PM',
     ages: '1-12', icon: '🎢',
-    tip: 'Pack Familiar incluye entrada + pizza + refresco',
-    tipEn: 'Family Pack includes admission + pizza + soda',
+    tip: 'Ubicado en Carr. Guadalajara 1235, Lomas del Tecnológico. Grupos de 5+ niños tienen 10% descuento',
+    tipEn: 'Located at Carr. Guadalajara 1235, Lomas del Tecnológico. Groups of 5+ kids get 10% discount',
     website: 'https://kidiverso.mx/',
   },
   {
@@ -103,6 +103,26 @@ const indoorPlaces = [
     ages: '5-99', icon: '🏎️',
     tip: 'Los fines de semana tienen más horarios disponibles',
     tipEn: 'Weekends have more available time slots',
+  },
+  {
+    name: 'Enigma Rooms (Escape Room)',
+    desc: 'Salas de escape temáticas donde la familia trabaja en equipo para resolver acertijos y escapar antes del tiempo. Varias dificultades disponibles.',
+    descEn: 'Themed escape rooms where the family works together to solve puzzles and escape before time runs out. Various difficulty levels.',
+    price: '$200-300 MXN por persona (~$12-17 USD)', priceEn: '$200-300 MXN per person (~$12-17 USD)',
+    hours: 'Lun-Dom 12PM-9PM', hoursEn: 'Mon-Sun 12PM-9PM',
+    ages: '8-99', icon: '🔐',
+    tip: 'Calificado 5.0/5 en TripAdvisor. Ideal para familias con niños mayores de 8',
+    tipEn: 'Rated 5.0/5 on TripAdvisor. Best for families with kids 8+',
+  },
+  {
+    name: 'Jaulas de Bateo Mont Park',
+    desc: 'Centro de bateo con jaulas de diferentes velocidades para niños y adultos. Diversión deportiva para practicar béisbol y softbol.',
+    descEn: 'Batting center with cages at different speeds for kids and adults. Sports fun for baseball and softball practice.',
+    price: '$80-150 MXN por ronda (~$5-9 USD)', priceEn: '$80-150 MXN per round (~$5-9 USD)',
+    hours: 'Lun-Dom 10AM-9PM', hoursEn: 'Mon-Sun 10AM-9PM',
+    ages: '5-99', icon: '⚾',
+    tip: 'Tiene jaulas de velocidad baja para principiantes y niños',
+    tipEn: 'Has low-speed cages for beginners and kids',
   },
 ];
 
@@ -303,7 +323,7 @@ export default function FamilyFriendlyActivities() {
             <div className="flex flex-wrap justify-center gap-4">
               {[
                 { icon: '🌳', label: isEs ? '3 Al Aire Libre' : '3 Outdoor' },
-                { icon: '🎢', label: isEs ? '6 Bajo Techo' : '6 Indoor' },
+                { icon: '🎢', label: isEs ? '8 Bajo Techo' : '8 Indoor' },
                 { icon: '🎨', label: isEs ? '3 Culturales' : '3 Cultural' },
                 { icon: '📋', label: isEs ? '3 Planes del Día' : '3 Day Plans' },
               ].map((s) => (
