@@ -40,6 +40,37 @@ const outdoorPlaces = [
     ages: '0-99', icon: '🚴', tip: 'Llega temprano para rentar bici (~$50-100 MXN/hr)',
     tipEn: 'Arrive early to rent a bike (~$50-100 MXN/hr)',
   },
+  {
+    name: 'Presa de San José',
+    desc: 'Presa histórica inaugurada en 1903 con paseo peatonal, senderos para correr y andar en bici, vistas al cerro y puestos de gorditas los fines de semana.',
+    descEn: 'Historic dam built in 1903 with pedestrian walkway, running and cycling trails, hill views, and gorditas food stands on weekends.',
+    price: 'Gratis', priceEn: 'Free',
+    hours: 'Diario — consultar estatus de apertura', hoursEn: 'Daily — check current opening status',
+    ages: '0-99', icon: '💧',
+    tip: 'Área natural protegida. Puede tener cierres temporales por mantenimiento — verifica antes de ir',
+    tipEn: 'Protected natural area. May have temporary closures for maintenance — verify before going',
+  },
+  {
+    name: 'Parque Bicentenario (IMMSA)',
+    desc: 'Parque urbano moderno con pista de ciclismo, skatepark, áreas de juegos infantiles, anfiteatro al aire libre, zonas de ejercicio y Museo de la Energía.',
+    descEn: 'Modern urban park with cycling track, skatepark, children\'s playgrounds, outdoor amphitheater, exercise zones, and Energy Museum.',
+    price: 'Gratis', priceEn: 'Free',
+    hours: 'Diario 7AM-6PM', hoursEn: 'Daily 7AM-6PM',
+    ages: '0-99', icon: '🚴‍♂️',
+    tip: 'Antigua planta de cobre reconvertida en parque. Tiene 6 áreas de baños gratuitos y miradores',
+    tipEn: 'Former copper plant converted into park. Has 6 free bathroom areas and viewpoints',
+  },
+  {
+    name: 'Rancho La Estación',
+    desc: '9 hectáreas de rancho campestre a 10 min de la ciudad. Tirolesa, muro de escalada, rapel, tiro con arco, cabalgata, chapoteadero con agua caliente y granja con animales.',
+    descEn: '9-hectare country ranch 10 min from the city. Zip-line, climbing wall, rappelling, archery, horseback riding, heated splash pool, and farm animals.',
+    price: 'Consultar precios (varía por evento/grupo)', priceEn: 'Check prices (varies by event/group)',
+    hours: 'Con reservación', hoursEn: 'By reservation',
+    ages: '3-99', icon: '🐴',
+    tip: 'Ideal para grupos y eventos familiares. Contacto: 444-391-2442 | rancholaestacion.com',
+    tipEn: 'Great for groups and family events. Contact: 444-391-2442 | rancholaestacion.com',
+    website: 'https://www.rancholaestacion.com/',
+  },
 ];
 
 const indoorPlaces = [
@@ -322,7 +353,7 @@ export default function FamilyFriendlyActivities() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {[
-                { icon: '🌳', label: isEs ? '3 Al Aire Libre' : '3 Outdoor' },
+                { icon: '🌳', label: isEs ? '6 Al Aire Libre' : '6 Outdoor' },
                 { icon: '🎢', label: isEs ? '8 Bajo Techo' : '8 Indoor' },
                 { icon: '🎨', label: isEs ? '3 Culturales' : '3 Cultural' },
                 { icon: '📋', label: isEs ? '3 Planes del Día' : '3 Day Plans' },
