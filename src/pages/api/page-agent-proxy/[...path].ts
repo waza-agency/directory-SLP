@@ -20,32 +20,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const endpoint = pathSegments.join('/');
 
   try {
-    const body = { ...req.body };
+    const raw = req.body || {};
 
-    // Strip parameters unsupported by Gemini's OpenAI-compatible endpoint
-    const unsupported = [
-      'verbosity', 'enable_thinking', 'thinking', 'reasoning',
-      'tools', 'tool_choice', 'functions', 'function_call',
-      'response_format', 'logprobs', 'top_logprobs', 'logit_bias',
-      'seed', 'user', 'service_tier', 'parallel_tool_calls',
-      'stream_options', 'modalities', 'audio', 'prediction',
-      'store', 'metadata', 'frequency_penalty', 'presence_penalty',
-    ];
-    unsupported.forEach(key => delete body[key]);
+    // Whitelist: only send parameters Gemini actually supports
+    const messages = Array.isArray(raw.messages)
+      ? raw.messages
+          .filter((m: any) => m.role === 'system' || m.role === 'user' || m.role === 'assistant')
+          .map((m: any) => ({ role: m.role, content: typeof m.content === 'string' ? m.content : JSON.stringify(m.content) }))
+      : [];
 
-    // Force Gemini model and disable streaming
-    body.model = 'gemini-2.0-flash';
-    body.stream = false;
+    const body: Record<string, any> = {
+      model: 'gemini-2.0-flash',
+      messages,
+      stream: false,
+    };
 
-    // Sanitize messages: remove unsupported 'name' field and tool-related roles
-    if (body.messages) {
-      body.messages = body.messages
-        .filter((m: any) => m.role !== 'tool' && m.role !== 'function')
-        .map((m: any) => {
-          const clean: any = { role: m.role, content: m.content || '' };
-          return clean;
-        });
-    }
+    if (raw.temperature !== undefined) body.temperature = raw.temperature;
+    if (raw.max_tokens !== undefined) body.max_tokens = raw.max_tokens;
+    if (raw.top_p !== undefined) body.top_p = raw.top_p;
+    if (raw.stop !== undefined) body.stop = raw.stop;
+    if (raw.n !== undefined) body.n = raw.n;
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/openai/${endpoint}`, {
       method: 'POST',
