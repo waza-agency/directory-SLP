@@ -21,6 +21,7 @@ const outdoorPlaces = [
     hours: 'Lun 5AM-11AM | Mar-Sáb 5AM-10:30PM | Dom 5AM-6PM', hoursEn: 'Mon 5AM-11AM | Tue-Sat 5AM-10:30PM | Sun 5AM-6PM',
     ages: '0-99', icon: '🌳', tip: 'Lleva bicicleta y protector solar. El zoológico abre Mar-Dom 9AM-5PM',
     tipEn: 'Bring a bike and sunscreen. Zoo open Tue-Sun 9AM-5PM',
+    map: 'Parque+Tangamanga+I+San+Luis+Potosi',
   },
   {
     name: 'Parque Tangamanga II',
@@ -30,6 +31,7 @@ const outdoorPlaces = [
     hours: 'Lun 5AM-11AM | Mar-Sáb 5AM-10:30PM | Dom 5AM-6PM', hoursEn: 'Mon 5AM-11AM | Tue-Sat 5AM-10:30PM | Sun 5AM-6PM',
     ages: '0-99', icon: '🏞️', tip: 'Menos concurrido que Tangamanga I',
     tipEn: 'Less crowded than Tangamanga I',
+    map: 'Parque+Tangamanga+II+San+Luis+Potosi',
   },
   {
     name: 'Ciclovía Dominical (Av. Carranza)',
@@ -39,6 +41,7 @@ const outdoorPlaces = [
     hours: 'Dom 8AM-1PM', hoursEn: 'Sun 8AM-1PM',
     ages: '0-99', icon: '🚴', tip: 'Llega temprano para rentar bici (~$50-100 MXN/hr)',
     tipEn: 'Arrive early to rent a bike (~$50-100 MXN/hr)',
+    map: 'Avenida+Venustiano+Carranza+San+Luis+Potosi',
   },
   {
     name: 'Presa de San José',
@@ -49,6 +52,7 @@ const outdoorPlaces = [
     ages: '0-99', icon: '💧',
     tip: 'Área natural protegida. Puede tener cierres temporales por mantenimiento — verifica antes de ir',
     tipEn: 'Protected natural area. May have temporary closures for maintenance — verify before going',
+    map: 'Presa+de+San+Jose+San+Luis+Potosi',
   },
   {
     name: 'Parque Bicentenario (IMMSA)',
@@ -59,6 +63,7 @@ const outdoorPlaces = [
     ages: '0-99', icon: '🚴‍♂️',
     tip: 'Antigua planta de cobre reconvertida en parque. Tiene 6 áreas de baños gratuitos y miradores',
     tipEn: 'Former copper plant converted into park. Has 6 free bathroom areas and viewpoints',
+    map: 'Parque+Bicentenario+IMMSA+San+Luis+Potosi',
   },
   {
     name: 'Rancho La Estación',
@@ -70,6 +75,7 @@ const outdoorPlaces = [
     tip: 'Ideal para grupos y eventos familiares. Contacto: 444-391-2442 | rancholaestacion.com',
     tipEn: 'Great for groups and family events. Contact: 444-391-2442 | rancholaestacion.com',
     website: 'https://www.rancholaestacion.com/',
+    map: 'Rancho+La+Estacion+San+Luis+Potosi',
   },
 ];
 
@@ -84,6 +90,7 @@ const indoorPlaces = [
     tip: 'Ubicado en Carr. Guadalajara 1235, Lomas del Tecnológico. Grupos de 5+ niños tienen 10% descuento',
     tipEn: 'Located at Carr. Guadalajara 1235, Lomas del Tecnológico. Groups of 5+ kids get 10% discount',
     website: 'https://kidiverso.mx/',
+    map: 'Kidiverso+San+Luis+Potosi',
   },
   {
     name: 'Jumparks SLP',
@@ -94,6 +101,7 @@ const indoorPlaces = [
     ages: '3-99', icon: '🤸',
     tip: 'Calcetines antideslizantes obligatorios (se venden en el lugar)',
     tipEn: 'Non-slip socks required (sold on-site)',
+    map: 'Jumparks+San+Luis+Potosi',
   },
   {
     name: 'Laberinto de las Ciencias y las Artes',
@@ -104,6 +112,7 @@ const indoorPlaces = [
     ages: '3-99', icon: '🔬',
     tip: 'El planetario tiene horarios limitados, consulta al llegar',
     tipEn: 'Planetarium has limited showtimes, check on arrival',
+    map: 'Museo+Laberinto+de+las+Ciencias+San+Luis+Potosi',
   },
   {
     name: 'Bol Tanga (Boliche)',
@@ -114,6 +123,7 @@ const indoorPlaces = [
     ages: '4-99', icon: '🎳',
     tip: 'Martes y miércoles suelen tener promociones',
     tipEn: 'Tuesday and Wednesday usually have promotions',
+    map: 'Bol+Tanga+Boliche+San+Luis+Potosi',
   },
   {
     name: 'Lost Box — Laser Tag',
@@ -124,6 +134,7 @@ const indoorPlaces = [
     ages: '6-99', icon: '🎯',
     tip: 'Reserva para grupos de 8+ con anticipación',
     tipEn: 'Book ahead for groups of 8+',
+    map: 'Lost+Box+Laser+Tag+San+Luis+Potosi',
   },
   {
     name: 'Go-Karts SLP',
@@ -134,6 +145,7 @@ const indoorPlaces = [
     ages: '5-99', icon: '🏎️',
     tip: 'Los fines de semana tienen más horarios disponibles',
     tipEn: 'Weekends have more available time slots',
+    map: 'Go+Karts+San+Luis+Potosi',
   },
   {
     name: 'Enigma Rooms (Escape Room)',
@@ -144,6 +156,7 @@ const indoorPlaces = [
     ages: '8-99', icon: '🔐',
     tip: 'Calificado 5.0/5 en TripAdvisor. Ideal para familias con niños mayores de 8',
     tipEn: 'Rated 5.0/5 on TripAdvisor. Best for families with kids 8+',
+    map: 'Enigma+Rooms+San+Luis+Potosi',
   },
   {
     name: 'Jaulas de Bateo Mont Park',
@@ -154,6 +167,7 @@ const indoorPlaces = [
     ages: '5-99', icon: '⚾',
     tip: 'Tiene jaulas de velocidad baja para principiantes y niños',
     tipEn: 'Has low-speed cages for beginners and kids',
+    map: 'Jaulas+de+Bateo+Mont+Park+San+Luis+Potosi',
   },
 ];
 
@@ -167,6 +181,7 @@ const culturePlaces = [
     ages: '0-99', icon: '🎨',
     tip: 'Los talleres infantiles de fin de semana son gratuitos',
     tipEn: 'Weekend kids\' workshops are free',
+    map: 'Centro+de+las+Artes+San+Luis+Potosi',
   },
   {
     name: 'Museo Nacional de la Máscara',
@@ -177,6 +192,7 @@ const culturePlaces = [
     ages: '3-99', icon: '🎭',
     tip: 'Los martes la entrada es gratuita. En el Centro Histórico, combínalo con un paseo por las plazas',
     tipEn: 'Free admission on Tuesdays. In Centro Histórico, combine with a walk around the plazas',
+    map: 'Museo+Nacional+de+la+Mascara+San+Luis+Potosi',
   },
   {
     name: 'San Luis Rey (Tranvía)',
@@ -187,6 +203,7 @@ const culturePlaces = [
     ages: '3-99', icon: '🚋',
     tip: 'Los recorridos nocturnos de leyendas son geniales para niños mayores',
     tipEn: 'Night legend tours are great for older kids',
+    map: 'Tranvia+Turistico+San+Luis+Rey+San+Luis+Potosi',
   },
 ];
 
@@ -515,12 +532,22 @@ export default function FamilyFriendlyActivities() {
 }
 
 function PlaceCard({ place, isEs }: { place: any; isEs: boolean }) {
+  const mapsUrl = place.map ? `https://www.google.com/maps/search/?api=1&query=${place.map}` : undefined;
+
   return (
-    <div className="bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-orange-300 hover:shadow-lg transition-all">
+    <a
+      href={mapsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-orange-300 hover:shadow-lg transition-all cursor-pointer group"
+    >
       <div className="flex items-start gap-3 mb-3">
         <span className="text-3xl">{place.icon}</span>
-        <div>
-          <h3 className="text-lg font-bold text-gray-900">{place.name}</h3>
+        <div className="flex-1">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors">{place.name}</h3>
+            <span className="text-gray-400 group-hover:text-orange-500 transition-colors text-sm">📍</span>
+          </div>
           <span className="text-xs text-gray-400">{isEs ? 'Edades' : 'Ages'}: {place.ages}</span>
         </div>
       </div>
@@ -539,11 +566,16 @@ function PlaceCard({ place, isEs }: { place: any; isEs: boolean }) {
           <span className="text-amber-800 text-xs">{isEs ? place.tip : place.tipEn}</span>
         </div>
       </div>
-      {place.website && (
-        <a href={place.website} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-xs text-blue-600 hover:text-blue-800 underline">
-          {isEs ? 'Sitio web' : 'Website'} ↗
-        </a>
-      )}
-    </div>
+      <div className="mt-3 flex items-center gap-3">
+        {place.website && (
+          <span className="text-xs text-blue-600 underline">
+            {isEs ? 'Sitio web' : 'Website'} ↗
+          </span>
+        )}
+        <span className="text-xs text-orange-600 font-semibold group-hover:underline">
+          {isEs ? 'Ver en Google Maps' : 'View on Google Maps'} →
+        </span>
+      </div>
+    </a>
   );
 }
