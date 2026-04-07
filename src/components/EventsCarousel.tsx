@@ -182,19 +182,23 @@ export default function EventsCarousel({
 
       {/* Dot Indicators */}
       {events.length > 3 && (
-        <div className="flex justify-center mt-8 space-x-2">
+        <div className="flex justify-center mt-8 gap-1">
           {Array.from({ length: Math.ceil(events.length / 3) }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index * 3)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                Math.floor(currentIndex / 3) === index
-                  ? 'bg-primary scale-125'
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
+              className="min-w-[24px] min-h-[24px] flex items-center justify-center"
               aria-label={`Go to events page ${index + 1}`}
               aria-current={Math.floor(currentIndex / 3) === index ? 'true' : undefined}
-            />
+            >
+              <span
+                className={`block w-2 h-2 rounded-full transition-all duration-300 ${
+                  Math.floor(currentIndex / 3) === index
+                    ? 'bg-primary scale-125'
+                    : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            </button>
           ))}
         </div>
       )}

@@ -187,23 +187,27 @@ export default function HeroCarousel({
       </div>
 
       {/* Enhanced Dot Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`relative transition-all duration-400 focus:outline-none group ${
-              index === currentIndex
-                ? 'w-8 h-3 bg-primary rounded-full scale-110 shadow-lg'
-                : 'w-3 h-3 bg-white/40 hover:bg-white/60 rounded-full hover:scale-110'
-            }`}
+            className="min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none group"
             disabled={isTransitioning}
             aria-label={`Go to slide ${index + 1}`}
             aria-current={index === currentIndex ? 'true' : undefined}
           >
-            {index === currentIndex && (
-              <div className="absolute inset-0 bg-primary rounded-full animate-pulse"></div>
-            )}
+            <span
+              className={`relative block transition-all duration-400 ${
+                index === currentIndex
+                  ? 'w-8 h-3 bg-primary rounded-full scale-110 shadow-lg'
+                  : 'w-3 h-3 bg-white/40 group-hover:bg-white/60 rounded-full group-hover:scale-110'
+              }`}
+            >
+              {index === currentIndex && (
+                <span className="absolute inset-0 bg-primary rounded-full animate-pulse" />
+              )}
+            </span>
           </button>
         ))}
       </div>

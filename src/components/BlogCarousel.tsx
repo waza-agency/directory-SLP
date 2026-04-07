@@ -159,18 +159,23 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
               </Link>
 
               {/* Dots Navigation */}
-              <div className="flex items-center gap-3 mt-10">
+              <div className="flex items-center gap-1 mt-10">
                 {visiblePosts.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentIndex
-                        ? 'w-8 bg-secondary'
-                        : 'w-2 bg-gray-300 hover:bg-gray-400'
-                    }`}
+                    className="min-w-[24px] min-h-[24px] flex items-center justify-center"
                     aria-label={`${t('blogCarousel.goToSlide')} ${index + 1}`}
-                  />
+                    aria-current={index === currentIndex ? 'true' : undefined}
+                  >
+                    <span
+                      className={`block h-2 rounded-full transition-all duration-300 ${
+                        index === currentIndex
+                          ? 'w-8 bg-secondary'
+                          : 'w-2 bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
             </div>

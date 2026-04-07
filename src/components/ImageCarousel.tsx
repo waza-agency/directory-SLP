@@ -192,19 +192,23 @@ export default function ImageCarousel({
 
       {/* Dot Indicators */}
       {items.length > itemsPerView && (
-        <div className="flex justify-center mt-8 space-x-2">
+        <div className="flex justify-center mt-8 gap-1">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentIndex === index
-                  ? 'bg-primary scale-125'
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
+              className="min-w-[24px] min-h-[24px] flex items-center justify-center"
               aria-label={`Go to page ${index + 1}`}
               aria-current={currentIndex === index ? 'true' : undefined}
-            />
+            >
+              <span
+                className={`block w-2 h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === index
+                    ? 'bg-primary scale-125'
+                    : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            </button>
           ))}
         </div>
       )}

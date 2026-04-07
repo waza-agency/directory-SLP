@@ -392,16 +392,21 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                 <ChevronLeftIcon className="w-5 h-5 text-white" />
               </button>
 
-              <div className="flex gap-2">
+              <div className="flex gap-1">
                 {tickerHeadlines.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setNewsIndex(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      idx === newsIndex ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/60'
-                    }`}
+                    className="min-w-[24px] min-h-[24px] flex items-center justify-center"
                     aria-label={`Go to news ${idx + 1}`}
-                  />
+                    aria-current={idx === newsIndex ? 'true' : undefined}
+                  >
+                    <span
+                      className={`block h-2 rounded-full transition-all ${
+                        idx === newsIndex ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/60 w-2'
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
 
