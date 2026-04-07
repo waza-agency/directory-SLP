@@ -1,31 +1,80 @@
-# robots.txt for San Luis Way
-# Updated: 2025-11-21
+# robots.txt for San Luis Way (sanluisway.com)
+# Updated: 2026-04-06
 
-# Allow all bots to access public content
+# Default rules for all crawlers
 User-agent: *
-
-# Disallow private/protected pages
+Allow: /
+Allow: /.well-known/
 Disallow: /api/
 Disallow: /account/
 Disallow: /business/
 Disallow: /_next/
 Disallow: /signin
 Disallow: /signup
+Disallow: /signin-*
+Disallow: /signup-*
+Disallow: /checkout
+Disallow: /order-confirmation
+Disallow: /index-backup
+Disallow: /index-redesign
+Disallow: /design-showcase
+
+# AI / LLM crawlers — explicitly allowed (clearer than implicit *)
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
 Disallow: /checkout
 Disallow: /order-confirmation
 
-# Disallow development/test pages
-Disallow: /index-backup
-Disallow: /index-redesign
-Disallow: /signup-*
-Disallow: /signin-*
-Disallow: /design-showcase
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /checkout
+Disallow: /order-confirmation
 
-# Allow well-known paths
-Allow: /.well-known/
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /checkout
+Disallow: /order-confirmation
 
-# Crawl delay (optional, helps prevent server overload)
-Crawl-delay: 1
+User-agent: Claude-Web
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /checkout
+Disallow: /order-confirmation
 
-# Sitemap location
-Sitemap: https://www.sanluisway.com/sitemap.xml
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /checkout
+Disallow: /order-confirmation
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /checkout
+Disallow: /order-confirmation
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /account/
+Disallow: /business/
+Disallow: /checkout
+Disallow: /order-confirmation
+
+# Sitemap (apex host — matches GSC property)
+Sitemap: https://sanluisway.com/sitemap.xml

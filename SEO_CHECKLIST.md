@@ -99,8 +99,8 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] **Optimize top-10 images** — convert to WebP/AVIF, add responsive `srcset`/`sizes`. Target: save the 525–631 KB PSI flagged.
 - [ ] **Audit bundle with `@next/bundle-analyzer`** — find chunks >50 KB, especially unused translations or duplicate libs.
 - [ ] **Rewrite meta descriptions** for all pages ranking page 1–2 with 0 clicks — add a call-to-action and benefit statement. Target: 2–3× CTR.
-- [ ] **Unify robots.txt host declaration** — currently lists `www.sanluisway.com/sitemap.xml` but GSC references `sanluisway.com/sitemap.xml`. Pick one host.
-- [ ] **Remove `Crawl-delay: 1`** from robots.txt — Googlebot ignores it and it creates confusion.
+- [x] **Unified robots.txt host** — sitemap now points to apex `sanluisway.com` (matches GSC). _(done — current commit)_
+- [x] **Removed `Crawl-delay: 1`** from robots.txt. _(done — current commit)_
 - [ ] **Fix links-without-descriptive-text** Lighthouse audit failure — replace "click here", "read more", icon-only links with descriptive labels or `aria-label`.
 - [ ] **Fix button accessibility names** — Lighthouse flagged buttons without accessible names. Add `aria-label` to icon-only buttons.
 - [ ] **Fix color contrast** flagged in Lighthouse accessibility.
@@ -116,7 +116,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] Evaluate DataForSEO or Moz API integration for backlink profile analysis.
 - [ ] Submit "San Luis Way" to Wikidata as an organization entity to strengthen the brand knowledge graph.
 - [ ] Implement a `<LastUpdated>` build-time date injector that reads git log for each page.
-- [ ] Add `/robots.txt` explicit rules for AI crawlers (GPTBot, ClaudeBot, Perplexity-Bot, Google-Extended) — currently implicitly allowed via `User-agent: *`. Explicit allow is clearer and audit-friendly.
+- [x] Added `/robots.txt` explicit rules for AI crawlers — GPTBot, ChatGPT-User, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended, Applebot-Extended. _(done — current commit)_
 
 ---
 
