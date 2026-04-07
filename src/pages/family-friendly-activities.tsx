@@ -266,8 +266,8 @@ export default function FamilyFriendlyActivities() {
     ? 'Family Friendly Activities en San Luis Potosí — Guía Completa de Actividades Familiares con Precios y Horarios'
     : 'Family Friendly Activities in San Luis Potosí — Complete Guide with Prices, Hours & Plans';
   const pageDesc = isEs
-    ? 'Guía completa de family friendly activities en San Luis Potosí. Parques, trampolines, boliche, museos, go-karts, laser tag y más. Precios actualizados, horarios, edades recomendadas y planes familiares por día.'
-    : 'Complete guide to family friendly activities in San Luis Potosí, Mexico. Parks, trampolines, bowling, museums, go-karts, laser tag and more. Updated prices, hours, recommended ages, and day plans for families.';
+    ? '30+ planes familiares en SLP con precios, horarios y edades. Parques, trampolines, museos, go-karts y más — encuentra el plan perfecto para este fin de semana.'
+    : '30+ family plans in San Luis Potosí with prices, hours and age ranges. Parks, trampolines, museums, go-karts and more — find the perfect weekend plan in one click.';
 
   return (
     <>

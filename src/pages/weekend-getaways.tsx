@@ -73,10 +73,10 @@ const WeekendGetawaysPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Weekend Getaways in San Luis Potosí | Sponsored by Corazón de Xoconostle</title>
+        <title>Weekend Getaways from San Luis Potosí — Real de Catorce, Huasteca, Media Luna</title>
         <meta
           name="description"
-          content="Discover the perfect weekend escapes in San Luis Potosí with expert-crafted itineraries by Corazón de Xoconostle. Explore majestic waterfalls, magical towns, and natural wonders."
+          content="Escape SLP this weekend: Real de Catorce, Huasteca Potosina, Media Luna. 2-day itineraries with prices, drive times and what to book — start planning in 2 minutes."
         />
         <meta name="keywords" content="weekend getaways, San Luis Potosí, Corazón de Xoconostle, Huasteca Potosina, Real de Catorce, Media Luna, travel, adventure, tourism, Mexico" />
       </Head>
