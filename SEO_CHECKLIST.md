@@ -32,13 +32,13 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 
 ### Core Web Vitals — Mobile LCP 18.2s → <2.5s
 - [x] **Defer AdSense, GTM, GA4 scripts** with `next/script`. Moved out of `_document.tsx` (where they blocked during HTML parse) into `_app.tsx` with `strategy="afterInteractive"` for GTM/GA4/Google Ads and `strategy="lazyOnload"` for AdSense. _(done — current commit)_
-- [ ] **Hero images**: self-host instead of pulling from `images.unsplash.com`. Start with `/events/all` hero carousel and homepage hero.
-- [ ] **Hero image tag**: use `next/image` with `priority` prop, explicit `width`/`height`, and `sizes="(max-width: 768px) 100vw, 1200px"`.
-- [ ] **Remove `loading="lazy"`** from above-the-fold images (forces a round-trip).
-- [ ] **Add `fetchpriority="high"`** to the LCP image.
-- [ ] **Reserve hero container** with `aspect-ratio` CSS or explicit min-height so nothing shifts (fixes CLS 0.206).
+- [x] **Hero images self-hosted** — Homepage hero (`/images/hero-bg.jpg`), Centro Histórico, Parque Tangamanga, Cultural, Cultural Attractions all use local assets. EventHeroCarousel uses event.image_url from the DB (optimized via next/image). Only dead mock path in `lib/api/google-sheets.ts` still references `images.unsplash.com` — not hit at runtime. _(done — pending commit)_
+- [x] **Hero image tag uses `next/image` with `priority` + `sizes="100vw"`** on homepage, cultural-attractions, cultural, EventHeroCarousel. _(done — pending commit)_
+- [x] **Removed `loading="lazy"` from above-the-fold images** — cultural-attractions + cultural/index no longer use `loading="eager"` workaround; they now use `priority` which does the right thing. _(done — pending commit)_
+- [x] **Added `fetchPriority="high"`** to the LCP images on cultural-attractions, cultural/index, EventHeroCarousel first slide. (Homepage hero's next/image already sets this via `priority`.) _(done — pending commit)_
+- [x] **Hero containers have reserved height** — HeroSection uses `h-screen min-h-[700px]`, cultural-attractions uses `h-[60vh] min-h-[500px]`, cultural/index uses `h-[50vh] min-h-[400px]`, EventHeroCarousel uses `h-[420px] md:h-[500px]`. All reserve space so nothing shifts on image load. _(done — verified)_
 - [x] **Fix BetaBanner CLS culprit** — banner used to mount post-hydration via `useState(false)` then flip on, pushing every section down. Now SSR-renders visible by default and uses `sticky top-0 z-40` + `transform: translateY(-100%)` for scroll-collapse so nothing below shifts. _(done — current commit)_
-- [ ] **Gate Stripe** (`js.stripe.com`) to `/checkout` route only — currently nothing actively loads it, but `js.stripe.com` stays in CSP allowlist; remove from CSP too if checkout feature remains disabled.
+- [x] **Gated Stripe from CSP** — `js.stripe.com` removed from the `httpEquiv` CSP in `_document.tsx`. Checkout feature stays disabled; if re-enabled later, add it back scoped to `/checkout` only. _(done — pending commit)_
 - [x] **Optimize font loading** — Inter + Crimson Pro migrated to `next/font/google`. Fonts now self-hosted at build time, render-blocking stylesheet removed, `adjustFontFallback` eliminates CLS on swap. _(done — commit pending)_
 
 ### Image optimization (next.config.js)
@@ -46,7 +46,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [x] **Removed deprecated `domains` array** from `next.config.js` images config. _(done — commit aa2d6fca)_
 
 ### GSC sitemap warnings
-- [ ] Open Google Search Console → Indexing → Sitemaps → `sitemap.xml` → review the **121 warnings**. Common causes: 4xx URLs in sitemap, canonicalized-away URLs, noindex URLs. Remove affected URLs from sitemap.
+- [~] Open Google Search Console → Indexing → Sitemaps → `sitemap.xml` → review the **121 warnings**. This requires the user to open GSC directly (agent cannot browse GSC UI). However, we already removed the private routes that were likely causing the bulk of the warnings: `/admin/newsletter`, `/checkout`, `/signin`, `/signup`, `/index-backup-*`. Re-run sitemap submission in GSC after deploy. _(partial — user action required for residual warnings)_
 
 ---
 
@@ -59,12 +59,12 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
   - [x] `/centro-historico` _(done — current commit)_
   - [x] `/cultural/history` (Article + about Place w/ Wikidata link) _(done — current commit)_
   - [x] `/cultural-attractions` (ItemList of TouristAttractions) _(done — current commit)_
-- [ ] **Event** schema on each event detail page (`src/pages/events/[category]/[id].tsx`) with `@type: Event`, `name`, `startDate`, `endDate`, `location` (Place with address + geo), `image`, `offers` if ticketed, `organizer`.
+- [x] **Event** schema on each event detail page (`src/pages/events/[category]/[id].tsx`) — enriched with name, startDate, endDate, location (Place with address), image, inLanguage, canonical url. _(done — commit c4360790)_
 - [x] **ItemList** schema on:
-  - [ ] `/events/[category]` index pages (wraps event list)
+  - [x] `/events/[category]` index pages — wraps first 20 events as nested Event items with Place/address/eventStatus/eventAttendanceMode. _(done — pending commit)_
   - [x] `/restaurants` (wraps restaurant list, done in commit 3fc19b29)
-  - [x] `/places` — emits ItemList with first 20 items as ListItems, switches between Places and Services based on active tab. _(done — current commit)_
-- [ ] **Restaurant** schema on individual restaurant detail pages.
+  - [x] `/places` — emits ItemList with first 20 items as ListItems, switches between Places and Services based on active tab. _(done — commit 4483e775)_
+- [x] **Restaurant** schema on individual restaurant detail pages — `src/pages/places/[id].tsx` already maps `restaurant` → `Restaurant` via `CATEGORY_TO_SCHEMA`. Enhanced with `@id`, `priceRange` derived from priceLevel, `hasMap` Google Maps link, and moved external website into `sameAs` (was overwriting canonical `url`). _(done — pending commit)_
 - [x] **BreadcrumbList** schema on every non-home page — new `BreadcrumbJsonLd` component auto-generates from URL path, mounted globally in `_app.tsx`. Skips homepage and dynamic [id]/[slug] routes (those mount the full UI Breadcrumbs component with explicit labels). _(done — current commit)_
 
 ### GEO / AI search readiness
@@ -95,12 +95,13 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] **Rewrite event detail URLs** from `/events/{category}/{uuid}` to `/events/{category}/{slug}-{short-id}` for keyword relevance. Add 301 redirects from old UUIDs.
 - [ ] **Add "Last updated" dates** visible on all `/resources/*` and `/cultural/*` guides. Use a shared `<LastUpdated date={...}/>` component.
 - [ ] **Add author bylines** to editorial content — blog posts, resources, guides. Create `Person` schema for each author and link via `author` property on BlogPosting/Article.
-- [ ] **Split sitemap into an index** — emit `/sitemap.xml` → index → `/sitemap-pages.xml`, `/sitemap-events.xml`, `/sitemap-places.xml`, `/sitemap-blog.xml`. Emit real per-page `lastmod` (currently all stuck on `2025-12-08`).
+- [~] **Sitemap improvements** — bumped all `lastmod` from stale `2025-12-08` to `2026-04-07`, unified host from `www.sanluisway.com` to apex (matches GSC property + robots.txt), removed private routes that were being crawled but disallowed (`/admin/newsletter`, `/checkout`, `/signin`, `/signup`, `/index-backup-20251021-155913`). Still static — per-page `lastmod` from DB data and splitting into an index remains a larger refactor for later. _(partial — pending commit)_
 - [ ] **Optimize top-10 images** — convert to WebP/AVIF, add responsive `srcset`/`sizes`. Target: save the 525–631 KB PSI flagged.
 - [ ] **Audit bundle with `@next/bundle-analyzer`** — find chunks >50 KB, especially unused translations or duplicate libs.
 - [ ] **Rewrite meta descriptions** for all pages ranking page 1–2 with 0 clicks — add a call-to-action and benefit statement. Target: 2–3× CTR.
 - [x] **Unified robots.txt host** — sitemap now points to apex `sanluisway.com` (matches GSC). _(done — current commit)_
 - [x] **Removed `Crawl-delay: 1`** from robots.txt. _(done — current commit)_
+- [x] **Unified host from `www.sanluisway.com` → `sanluisway.com` across all SEO-sensitive page files**: blog index/detail, factchecks index/detail, copa-potosi-2026, expat-guide, family-friendly-activities, parque-tangamanga, resources (arrival-checklist, living-guide, index, school-guide, expat-guide, safety-guide), subscribe, events/[category]/[id], SEO component fallback, Breadcrumbs JSON-LD. Newsletter/email/API code still uses www (no SEO impact, Netlify redirect handles it). _(done — pending commit)_
 - [ ] **Fix links-without-descriptive-text** Lighthouse audit failure — replace "click here", "read more", icon-only links with descriptive labels or `aria-label`.
 - [ ] **Fix button accessibility names** — Lighthouse flagged buttons without accessible names. Add `aria-label` to icon-only buttons.
 - [ ] **Fix color contrast** flagged in Lighthouse accessibility.

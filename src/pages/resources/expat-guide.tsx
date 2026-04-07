@@ -85,7 +85,7 @@ export default function ExpatGuidePage() {
         <meta property="og:title" content="Complete Expat Guide to San Luis Potosí | Essential Info" />
         <meta property="og:description" content="Everything you need to know about living in San Luis Potosí as an expat." />
         <meta property="og:image" content="/images/cultura-2.jpg" />
-        <meta property="og:url" content="https://www.sanluisway.com/resources/expat-guide" />
+        <meta property="og:url" content="https://sanluisway.com/resources/expat-guide" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -107,9 +107,9 @@ export default function ExpatGuidePage() {
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
               "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sanluisway.com" },
-                { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://www.sanluisway.com/resources" },
-                { "@type": "ListItem", "position": 3, "name": "Expat Guide", "item": "https://www.sanluisway.com/resources/expat-guide" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://sanluisway.com" },
+                { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://sanluisway.com/resources" },
+                { "@type": "ListItem", "position": 3, "name": "Expat Guide", "item": "https://sanluisway.com/resources/expat-guide" }
               ]
             })
           }}

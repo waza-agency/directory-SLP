@@ -167,7 +167,7 @@ export default function FactCheckPage({ slug, title, content, articleUrl, verifi
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ClaimReview",
-              "url": `https://www.sanluisway.com/blog/factchecks/${slug}`,
+              "url": `https://sanluisway.com/blog/factchecks/${slug}`,
               "datePublished": verificationDate,
               "itemReviewed": {
                 "@type": "Article",

@@ -73,59 +73,14 @@ function App({ Component, pageProps }: AppProps) {
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
 
-        {/* Global Site Verification - Add your verification codes here */}
-        {/* Google Analytics - Add your GA4 tracking code here */}
-        {/* Add other verification meta tags as needed */}
-
-        {/* Structured Data - JSON-LD for WebSite */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "San Luis Way",
-              "url": "https://www.sanluisway.com",
-              "description": "Your complete guide to San Luis Potosí - discover the best places, events, and authentic local experiences for expats",
-              "inLanguage": ["en-US", "es-MX"],
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": "https://www.sanluisway.com/search?q={search_term_string}"
-                },
-                "query-input": "required name=search_term_string"
-              }
-            })
-          }}
-        />
-
-        {/* Structured Data - JSON-LD for Organization */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "San Luis Way",
-              "url": "https://www.sanluisway.com",
-              "logo": "https://www.sanluisway.com/og-image.jpg",
-              "description": "Your trusted local guide to San Luis Potosí - helping expats and travelers discover authentic experiences, businesses, and events",
-              "sameAs": [
-                "https://www.facebook.com/sanluisway",
-                "https://www.instagram.com/sanluisway",
-                "https://twitter.com/sanluisway"
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "contactType": "Customer Service",
-                "email": "sanluisway@waza.baby",
-                "areaServed": "MX",
-                "availableLanguage": ["English", "Spanish"]
-              }
-            })
-          }}
-        />
+        {/*
+          Global structured data (Organization + WebSite) lives on the
+          homepage SEO component (src/pages/index.tsx) as a typed @graph
+          with proper @id references. Previously there were duplicate
+          WebSite + Organization blocks here with the www host and
+          unverified Facebook/Instagram/Twitter sameAs links, which
+          conflicted with the homepage graph. Removed 2026-04-07.
+        */}
       </Head>
 
       {/* Auto-generated BreadcrumbList JSON-LD for every non-home page */}

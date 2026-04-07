@@ -24,18 +24,24 @@ const CATEGORY_TO_SCHEMA: Record<string, string> = {
 };
 
 function buildPlaceStructuredData(place: Place) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com';
   const schemaType = CATEGORY_TO_SCHEMA[place.category] || 'LocalBusiness';
+  const priceRange = place.priceLevel
+    ? '$'.repeat(Math.max(1, Math.min(4, place.priceLevel)))
+    : undefined;
 
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": schemaType,
+    "@id": `${siteUrl}/places/${place.id}#place`,
     "name": place.name,
     "url": `${siteUrl}/places/${place.id}`,
     ...(place.description && { "description": place.description }),
     ...(place.imageUrl && { "image": place.imageUrl }),
     ...(place.phone && { "telephone": place.phone }),
-    ...(place.website && { "url": place.website }),
+    // External website goes in sameAs so the canonical url stays on our page.
+    ...(place.website && { "sameAs": [place.website] }),
+    ...(priceRange && { "priceRange": priceRange }),
     "address": {
       "@type": "PostalAddress",
       ...(place.address && { "streetAddress": place.address }),
@@ -51,6 +57,7 @@ function buildPlaceStructuredData(place: Place) {
       "latitude": place.latitude,
       "longitude": place.longitude,
     };
+    data.hasMap = `https://www.google.com/maps/search/?api=1&query=${place.latitude},${place.longitude}`;
   }
 
   if (place.rating && place.review_count) {
@@ -64,6 +71,12 @@ function buildPlaceStructuredData(place: Place) {
 
   if (place.hours) {
     data.openingHours = place.hours;
+  }
+
+  // Restaurant-specific enhancements — Restaurant, CafeOrCoffeeShop, BarOrPub
+  // all inherit FoodEstablishment properties in schema.org.
+  if (['restaurant', 'cafe', 'bar'].includes(place.category)) {
+    data.acceptsReservations = place.website ? true : undefined;
   }
 
   return data;

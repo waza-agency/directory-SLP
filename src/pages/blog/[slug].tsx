@@ -83,25 +83,25 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               "@type": "Article",
               "headline": seoTitle,
               "description": seoDescription,
-              "image": post.imageUrl || "https://www.sanluisway.com/og-image.jpg",
+              "image": post.imageUrl || "https://sanluisway.com/og-image.jpg",
               "datePublished": post.publishedAt,
               "dateModified": post.createdAt,
               "author": {
                 "@type": "Organization",
                 "name": "San Luis Way",
-                "url": "https://www.sanluisway.com"
+                "url": "https://sanluisway.com"
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "San Luis Way",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://www.sanluisway.com/og-image.jpg"
+                  "url": "https://sanluisway.com/og-image.jpg"
                 }
               },
               "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": `https://www.sanluisway.com/blog/${post.slug}`
+                "@id": `https://sanluisway.com/blog/${post.slug}`
               },
               "keywords": post.tags?.join(', ') || '',
               "articleSection": post.category || "Expat Guide"

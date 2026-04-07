@@ -61,6 +61,8 @@ export default function EventHeroCarousel({ events }: EventHeroCarouselProps) {
               fill
               className="object-cover"
               priority={idx === 0}
+              fetchPriority={idx === 0 ? 'high' : 'auto'}
+              sizes="100vw"
             />
           ) : (
             <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryGradient(slide.category)}`} />

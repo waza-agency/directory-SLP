@@ -29,7 +29,7 @@ const SEO: React.FC<SEOProps> = ({
   const router = useRouter();
   const path = router.asPath.split('?')[0];
   const cleanPath = path === '/' ? path : path.replace(/\/$/, '');
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com';
   const canonicalUrl = `${siteUrl}${cleanPath}`;
   const siteName = "San Luis Way";
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;

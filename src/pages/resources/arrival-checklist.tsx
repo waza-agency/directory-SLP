@@ -144,7 +144,7 @@ export default function ArrivalChecklistPage() {
         <meta name="keywords" content={t('arrivalChecklist.meta.keywords')} />
         <meta property="og:title" content={t('arrivalChecklist.meta.ogTitle')} />
         <meta property="og:description" content={t('arrivalChecklist.meta.ogDescription')} />
-        <meta property="og:url" content="https://www.sanluisway.com/resources/arrival-checklist" />
+        <meta property="og:url" content="https://sanluisway.com/resources/arrival-checklist" />
       </Head>
 
       <main className="min-h-screen bg-gray-50">

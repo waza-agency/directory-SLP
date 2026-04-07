@@ -186,7 +186,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
           "name": event.title,
           "startDate": event.start_date,
           "endDate": event.end_date,
-          "url": `https://www.sanluisway.com/events/${event.category}/${event.id}`,
+          "url": `https://sanluisway.com/events/${event.category}/${event.id}`,
           "inLanguage": "es-MX",
           ...(event.description && { "description": event.description }),
           ...(event.image_url && { "image": [event.image_url] }),
@@ -203,7 +203,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
           "organizer": {
             "@type": "Organization",
             "name": "San Luis Way",
-            "url": "https://www.sanluisway.com",
+            "url": "https://sanluisway.com",
           },
           "eventStatus": "https://schema.org/EventScheduled",
           "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",

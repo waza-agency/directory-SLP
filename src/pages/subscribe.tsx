@@ -140,7 +140,7 @@ export default function SubscribePage() {
               </div>
             </div>
             <a
-              href="https://www.sanluisway.com"
+              href="https://sanluisway.com"
               className="text-terracotta hover:underline font-medium"
             >
               Explore sanluisway.com
@@ -161,8 +161,8 @@ export default function SubscribePage() {
         />
         <meta property="og:title" content="Never Miss What Matters in SLP" />
         <meta property="og:description" content="Join 2,800+ readers who get the best of San Luis Potosí every Monday." />
-        <meta property="og:image" content="https://www.sanluisway.com/images/og-newsletter.jpg" />
-        <meta property="og:url" content="https://www.sanluisway.com/subscribe" />
+        <meta property="og:image" content="https://sanluisway.com/images/og-newsletter.jpg" />
+        <meta property="og:url" content="https://sanluisway.com/subscribe" />
         <meta name="twitter:card" content="summary_large_image" />
         <noscript>
           <img
@@ -417,7 +417,7 @@ export default function SubscribePage() {
               San Luis Way | Your guide to life in San Luis Potosí
             </p>
             <div className="flex justify-center gap-6 text-gray-500 text-sm">
-              <a href="https://www.sanluisway.com" className="hover:text-white transition-colors">
+              <a href="https://sanluisway.com" className="hover:text-white transition-colors">
                 Website
               </a>
               <a href="https://www.instagram.com/sanluisway/" className="hover:text-white transition-colors">

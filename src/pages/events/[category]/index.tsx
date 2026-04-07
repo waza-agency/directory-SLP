@@ -125,6 +125,40 @@ export default function EventsPage({ events, allEvents, categoryCounts, category
         title={`${getCategoryTitle(category)} en San Luis Potosí: Agenda Cultural y Actividades`}
         description={`${getCategoryTitle(category)} en San Luis Potosí. Agenda cultural, conciertos, festivales, deportes y actividades familiares para disfrutar en SLP.`}
         keywords={`eventos san luis potosi, ${getCategoryTitle(category).toLowerCase()} slp, agenda cultural san luis potosi, que hacer en san luis potosi, conciertos slp, festivales san luis potosi`}
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: `${getCategoryTitle(category)} en San Luis Potosí`,
+          description: `Agenda cultural y eventos de ${getCategoryTitle(category).toLowerCase()} en San Luis Potosí, México.`,
+          url: `https://sanluisway.com/events/${category}`,
+          numberOfItems: events.length,
+          itemListElement: events.slice(0, 20).map((event, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            item: {
+              '@type': 'Event',
+              '@id': `https://sanluisway.com/events/${event.category}/${event.id}`,
+              name: event.title,
+              startDate: event.start_date,
+              endDate: event.end_date,
+              url: `https://sanluisway.com/events/${event.category}/${event.id}`,
+              inLanguage: 'es-MX',
+              eventStatus: 'https://schema.org/EventScheduled',
+              eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+              location: {
+                '@type': 'Place',
+                name: event.location || 'San Luis Potosí',
+                address: {
+                  '@type': 'PostalAddress',
+                  addressLocality: 'San Luis Potosí',
+                  addressRegion: 'SLP',
+                  addressCountry: 'MX',
+                },
+              },
+              ...(event.image_url ? { image: event.image_url } : {}),
+            },
+          })),
+        }}
       />
 
       {/* Hero Carousel (featured / sponsored events) */}

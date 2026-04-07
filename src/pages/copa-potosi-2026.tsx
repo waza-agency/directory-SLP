@@ -110,8 +110,8 @@ export default function CopaPotosi2026() {
       <Head>
         {/* Extended SEO for AI discoverability and Google */}
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-        <link rel="canonical" href="https://www.sanluisway.com/copa-potosi-2026" />
-        <meta property="og:url" content="https://www.sanluisway.com/copa-potosi-2026" />
+        <link rel="canonical" href="https://sanluisway.com/copa-potosi-2026" />
+        <meta property="og:url" content="https://sanluisway.com/copa-potosi-2026" />
         <meta property="og:locale" content={isEs ? 'es_MX' : 'en_US'} />
         <meta property="og:site_name" content="San Luis Way" />
 
@@ -171,8 +171,8 @@ export default function CopaPotosi2026() {
                 availability: 'https://schema.org/InStock',
                 description: isEs ? 'Entrada gratuita para espectadores' : 'Free admission for spectators',
               },
-              image: 'https://www.sanluisway.com/og-image.jpg',
-              url: 'https://www.sanluisway.com/copa-potosi-2026',
+              image: 'https://sanluisway.com/og-image.jpg',
+              url: 'https://sanluisway.com/copa-potosi-2026',
             }),
           }}
         />

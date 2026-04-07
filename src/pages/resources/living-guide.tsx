@@ -121,7 +121,7 @@ export default function LivingGuidePage() {
         <meta name="description" content="Comprehensive expat guide to San Luis Potosí covering visas, cost of living, neighborhoods, healthcare, banking, transportation. 35-50% lower cost than Mexico City." />
         <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, cost of living Mexico, expat visa Mexico, neighborhoods SLP" />
         <meta property="og:title" content="Ultimate Guide to Living in San Luis Potosí | Expat Guide" />
-        <meta property="og:url" content="https://www.sanluisway.com/resources/living-guide" />
+        <meta property="og:url" content="https://sanluisway.com/resources/living-guide" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

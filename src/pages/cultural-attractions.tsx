@@ -200,8 +200,9 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
             alt="Cultural attractions in San Luis Potosí"
             fill
             className="object-cover mix-blend-overlay opacity-50"
-            unoptimized
-            loading="eager"
+            priority
+            fetchPriority="high"
+            sizes="100vw"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.src = '/images/cultural/san-luis-potosi-cathedral.jpg';

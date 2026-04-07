@@ -27,7 +27,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": `https://www.sanluisway.com${item.href}`
+      "item": `https://sanluisway.com${item.href}`
     }))
   };
 
