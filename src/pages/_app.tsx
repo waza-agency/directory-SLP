@@ -27,8 +27,6 @@ const crimsonPro = Crimson_Pro({
   weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
 });
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { AuthProvider } from '@/lib/supabase-auth';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
@@ -39,6 +37,13 @@ import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 
 const PageAgentWidget = dynamic(() => import('@/components/PageAgentWidget'), {
+  ssr: false,
+});
+
+// Toast notifications are only fired on a couple of auth flows — lazy-load
+// the whole react-toastify bundle + its stylesheet so first paint isn't
+// blocked by code that won't run until the user clicks something.
+const Toaster = dynamic(() => import('@/components/common/Toaster'), {
   ssr: false,
 });
 
@@ -160,17 +165,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             <PageAgentWidget />
 
-            <ToastContainer
-              position="top-right"
-              autoClose={4000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
+            <Toaster />
           </AuthProvider>
         </SessionContextProvider>
       </ErrorBoundary>
