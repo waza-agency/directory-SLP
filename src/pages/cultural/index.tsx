@@ -88,12 +88,12 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     href="/cultural/history"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
-                    Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />
+                    Explore SLP history <ArrowRightIcon className="ml-1 w-4 h-4" aria-hidden="true" />
                   </Link>
                 </div>
                 <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-all duration-300">
                   <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
                     </svg>
                   </div>
@@ -105,12 +105,12 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     href="/cultural/festivals"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
-                    Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />
+                    Discover SLP festivals <ArrowRightIcon className="ml-1 w-4 h-4" aria-hidden="true" />
                   </Link>
                 </div>
                 <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-all duration-300">
                   <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                     </svg>
                   </div>
@@ -122,7 +122,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     href="/cultural/music-dance"
                     className="inline-flex items-center text-primary mt-4 font-medium hover:underline"
                   >
-                    Learn more <ArrowRightIcon className="ml-1 w-4 h-4" />
+                    Explore music &amp; dance <ArrowRightIcon className="ml-1 w-4 h-4" aria-hidden="true" />
                   </Link>
                 </div>
               </div>

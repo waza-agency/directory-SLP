@@ -369,9 +369,12 @@ export default function AboutPage() {
                     <a
                       href={brand.website}
                       className="inline-flex items-center gap-2 text-primary font-semibold group/link hover:gap-3 transition-all"
+                      aria-label={`Visit ${brand.name} website`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <span>Learn More</span>
-                      <svg className="w-5 h-5 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <span>Visit {brand.name}</span>
+                      <svg className="w-5 h-5 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </a>

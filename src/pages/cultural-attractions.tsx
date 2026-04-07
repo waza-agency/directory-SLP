@@ -357,8 +357,9 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
                   <Link
                     href={`/places/${attraction.id}`}
                     className="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                    aria-label={`Learn more about ${attraction.name}`}
                   >
-                    Learn More
+                    Learn more about {attraction.name}
                   </Link>
                 </div>
               </div>

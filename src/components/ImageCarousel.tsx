@@ -155,9 +155,10 @@ export default function ImageCarousel({
                   <Link
                     href={item.link}
                     className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium text-sm transition-colors"
+                    aria-label={item.linkText ? `${item.linkText}: ${item.title}` : `Learn more about ${item.title}`}
                   >
-                    {item.linkText || 'Learn More'}
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {item.linkText || `Learn more about ${item.title}`}
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </Link>

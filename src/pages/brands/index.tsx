@@ -187,9 +187,10 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
                       <Link
                         href={`/brands/${brand.slug || generateBrandSlug(brand.name, brand.category, brand.city)}`}
                         className="inline-flex items-center px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-dark transition-colors"
+                        aria-label={`Learn more about ${brand.name}`}
                       >
-                        Learn More
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        Learn more about {brand.name}
+                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </Link>
@@ -295,9 +296,10 @@ export default function BrandsPage({ brands }: BrandsPageProps) {
                     <Link
                       href={`/brands/${brand.slug || generateBrandSlug(brand.name, brand.category, brand.city)}`}
                       className="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors"
+                      aria-label={`Learn more about ${brand.name}`}
                     >
-                      Learn More
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      Learn more about {brand.name}
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </Link>

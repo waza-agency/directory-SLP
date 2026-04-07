@@ -35,7 +35,7 @@ const VARIANTS = {
   time: {
     headline: 'Get 10+ Hours Back Every Week',
     text: 'RobotMind handles your daily tasks — emails, scheduling, research, and more — your way.',
-    cta: 'Learn More',
+    cta: 'Learn more about RobotMind',
   },
   slim: {
     headline: 'Meet your AI assistant',
@@ -62,6 +62,7 @@ export default function RobotMindBanner({ variant = 'primary' }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           className="group flex flex-col sm:flex-row items-center justify-between gap-3 bg-gray-900/90 rounded-xl px-5 py-3.5 border border-gray-800 hover:border-blue-500/30 transition-all"
+          aria-label={`${v.cta} for RobotMind — ${v.headline}`}
         >
           <div className="flex items-center gap-3">
             <RobotMindIcon id={gradId} />
@@ -122,6 +123,7 @@ export default function RobotMindBanner({ variant = 'primary' }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30"
+                aria-label={`${v.cta} for RobotMind — ${v.headline}`}
               >
                 {v.cta} <ArrowIcon />
               </a>
