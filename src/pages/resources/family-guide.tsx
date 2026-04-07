@@ -498,7 +498,7 @@ export default function FamilyGuidePage() {
             <div className="text-center">
               <div className="flex justify-center gap-2 mb-6">
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-white/20 text-white">
-                  VERIFIED 2025
+                  VERIFIED 2026
                 </span>
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-pink-400/30 text-white">
                   FAMILY FOCUSED
@@ -509,7 +509,7 @@ export default function FamilyGuidePage() {
               </h1>
               <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-xl text-purple-100 max-w-3xl mx-auto">
-                San Luis Potosí - Schools, Activities & Family Living 2025
+                San Luis Potosí - Schools, Activities & Family Living
               </p>
             </div>
           </div>
@@ -926,7 +926,7 @@ export default function FamilyGuidePage() {
                 ))}
               </div>
               <p className="text-xs text-gray-500 mt-4">
-                Last updated: December 2025 | Prices and information may change. Always verify current rates.
+                Prices and information may change. Always verify current rates.
               </p>
             </div>
           </section>

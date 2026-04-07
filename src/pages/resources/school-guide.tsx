@@ -408,10 +408,10 @@ export default function SchoolGuidePage() {
   return (
     <>
       <Head>
-        <title>Ultimate School Guide San Luis Potosí 2025 | Complete Education Guide for Expat Families</title>
-        <meta name="description" content="Comprehensive guide to education in San Luis Potosí. International schools, private education, public options, universities, enrollment process, costs, and FAQs for expat families moving to SLP in 2025." />
+        <title>Ultimate School Guide San Luis Potosí | Complete Education Guide for Expat Families</title>
+        <meta name="description" content="Comprehensive guide to education in San Luis Potosí. International schools, private education, public options, universities, enrollment process, costs, and FAQs for expat families moving to SLP." />
         <meta name="keywords" content="San Luis Potosí schools, international schools SLP, education Mexico expats, bilingual schools, universities San Luis Potosí, school enrollment Mexico, Colegio Terranova, Colegio Motolinia, UASLP" />
-        <meta property="og:title" content="Ultimate School Guide San Luis Potosí 2025 | Education for Expat Families" />
+        <meta property="og:title" content="Ultimate School Guide San Luis Potosí | Education for Expat Families" />
         <meta property="og:description" content="Complete guide to education options in San Luis Potosí. Find the perfect school for your children with detailed information on enrollment, costs, and curriculum." />
         <meta property="og:url" content="https://sanluisway.com/resources/school-guide" />
         <meta property="og:type" content="article" />
@@ -422,10 +422,10 @@ export default function SchoolGuidePage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
-              "headline": "Ultimate School Guide San Luis Potosí 2025",
+              "headline": "Ultimate School Guide San Luis Potosí",
               "description": "Comprehensive education guide for expat families in San Luis Potosí",
               "datePublished": "2025-01-01",
-              "dateModified": "2025-12-19",
+              "dateModified": "2026-04-07",
               "author": { "@type": "Organization", "name": "San Luis Way" }
             })
           }}
@@ -480,7 +480,7 @@ export default function SchoolGuidePage() {
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur rounded-full text-white/90 text-sm mb-6">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                Updated December 2025 • 15 min read
+                15 min read
               </div>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 Ultimate School Guide<br />San Luis Potosí
@@ -988,7 +988,7 @@ export default function SchoolGuidePage() {
 
             {/* Costs Section */}
             <section id="costs" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Education Costs (2025)</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Education Costs</h2>
               <div className="bg-white rounded-xl shadow-elegant p-6">
 
                 {/* Comparison Table */}

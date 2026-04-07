@@ -182,7 +182,7 @@ export default function ResourcesHubPage() {
                   Local Insights
                 </span>
                 <span className="px-4 py-2 bg-white/10 rounded-full text-white text-sm">
-                  Updated 2025
+                  Regularly Updated
                 </span>
               </div>
             </div>

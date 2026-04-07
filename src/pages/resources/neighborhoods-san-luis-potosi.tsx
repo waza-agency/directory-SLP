@@ -271,7 +271,7 @@ export default function NeighborhoodsGuidePage() {
               Where to Live in San Luis Potosí — A Complete Guide for Expats
             </p>
             <div className="flex flex-wrap gap-3 text-sm">
-              <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full">✓ Verified Dec 2025</span>
+              <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full">✓ Verified</span>
               <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full">20 Sources</span>
               <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full">7 Neighborhoods</span>
               <span className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full">25 min read</span>
@@ -318,7 +318,7 @@ export default function NeighborhoodsGuidePage() {
                   </ul>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm">
-                  <h3 className="font-semibold text-blue-900 mb-3">Quick Price Ranges (Dec 2025)</h3>
+                  <h3 className="font-semibold text-blue-900 mb-3">Quick Price Ranges</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between"><span>Budget Apartment:</span><strong className="text-blue-900">$10,000 - $15,000 MXN</strong></div>
                     <div className="flex justify-between"><span>Mid-Range House:</span><strong className="text-blue-900">$18,000 - $30,000 MXN</strong></div>
@@ -432,7 +432,7 @@ export default function NeighborhoodsGuidePage() {
 
               {/* Prices */}
               <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white mb-6">
-                <h3 className="text-xl font-bold mb-4">💰 Rental Prices (December 2025)</h3>
+                <h3 className="text-xl font-bold mb-4">💰 Rental Prices</h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   {n.prices.map((p) => (
                     <div key={p.type} className="bg-white/10 rounded-lg p-4 text-center">
@@ -762,7 +762,7 @@ export default function NeighborhoodsGuidePage() {
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
               <h4 className="font-semibold text-yellow-900 mb-2">Editorial Note</h4>
               <p className="text-yellow-800 text-sm">
-                All rental prices were verified against active listings on major Mexican real estate portals in December 2025. Housing prices in SLP increased 10.3% in 2024 and 9% in early 2025. Market conditions change frequently. This guide is updated quarterly. Last update: December 2025.
+                All rental prices were verified against active listings on major Mexican real estate portals. Housing prices in SLP increased 10.3% in 2024 and 9% in early 2025. Market conditions change frequently. This guide is updated quarterly.
               </p>
             </div>
           </section>

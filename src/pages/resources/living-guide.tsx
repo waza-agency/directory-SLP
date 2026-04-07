@@ -362,7 +362,7 @@ export default function LivingGuidePage() {
                 </div>
 
                 <div className="bg-white rounded-xl shadow-elegant p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Housing & Rent (December 2025)</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Housing & Rent</h3>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
@@ -473,7 +473,7 @@ export default function LivingGuidePage() {
                     ))}
                   </tbody>
                 </table>
-                <p className="text-xs text-gray-500 px-4 py-2">Updated December 2025 · USD equivalents · Centro and Tangamanga are the most walkable</p>
+                <p className="text-xs text-gray-500 px-4 py-2">USD equivalents · Centro and Tangamanga are the most walkable</p>
               </div>
 
               <div className="space-y-6">

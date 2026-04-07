@@ -96,8 +96,6 @@ export default function SafetyGuidePage() {
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="flex items-center gap-2 text-emerald-400 text-sm mb-4">
               <span className="px-3 py-1 bg-emerald-500/20 rounded-full">Verified Guide</span>
-              <span>•</span>
-              <span>Last updated: December 2025</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Is San Luis Potosí Safe?

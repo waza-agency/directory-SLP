@@ -494,7 +494,7 @@ export default function HealthGuidePage() {
   return (
     <>
       <Head>
-        <title>Ultimate Health Services Guide San Luis Potosí 2025 | Healthcare for Expats</title>
+        <title>Ultimate Health Services Guide San Luis Potosí | Healthcare for Expats</title>
         <meta name="description" content="Complete guide to healthcare in San Luis Potosí. Hospitals, clinics, specialists, insurance options, pharmacies, and step-by-step guides for expats." />
         <meta name="keywords" content="San Luis Potosí healthcare, hospitals SLP, doctors Mexico, health insurance expats, pharmacies San Luis Potosí" />
         <link rel="canonical" href="https://sanluisway.com/resources/health-guide" />
@@ -507,7 +507,7 @@ export default function HealthGuidePage() {
             <div className="text-center">
               <div className="flex justify-center gap-2 mb-6">
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-400 text-green-900">
-                  ✓ VERIFIED 2025
+                  ✓ VERIFIED 2026
                 </span>
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-white/20 text-white">
                   10+ SOURCES
@@ -518,7 +518,7 @@ export default function HealthGuidePage() {
               </h1>
               <LastUpdated date="2026-04-07" className="text-emerald-100 mb-4" />
               <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
-                San Luis Potosí - Complete Medical Services for Expats 2025
+                San Luis Potosí - Complete Medical Services for Expats
               </p>
             </div>
           </div>

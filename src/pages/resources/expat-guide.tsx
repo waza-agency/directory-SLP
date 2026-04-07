@@ -234,7 +234,7 @@ export default function ExpatGuidePage() {
                     <li><strong>Centro Histórico:</strong> Historic center with colonial architecture</li>
                     <li><strong>Zona Universitaria:</strong> Near universities, affordable options</li>
                   </ul>
-                  <h3 className="text-xl font-semibold text-gray-900 mt-6">Average Monthly Rent (2025)</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mt-6">Average Monthly Rent</h3>
                   <ul className="list-disc list-inside text-gray-600 space-y-2">
                     <li>1-bedroom apartment: $5,000 - $10,000 MXN</li>
                     <li>2-bedroom apartment: $8,000 - $15,000 MXN</li>
