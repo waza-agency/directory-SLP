@@ -113,7 +113,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 ## LOW — backlog
 
 - [ ] Set up `scripts/gsc_inspect.py` automation for the top 50 URLs to track indexation status weekly via GSC URL Inspection API.
-- [ ] Build a `/sitemaps-report.json` internal monitoring file that flags pages missing title/description/canonical on build (fail build in CI).
+- [x] Build a `/sitemaps-report.json` internal monitoring file that flags pages missing title/description/canonical on build (fail build in CI). Added `scripts/sitemap-report.js` + `npm run seo:report`. Statically scans every indexable page in `src/pages`, skips redirect-only and noindex pages, and writes `sitemaps-report.json` at the repo root. Current status: 97/97 indexable pages pass (100%). Canonical is emitted globally by `HreflangAlternates` (mounted in `_app.tsx`) — the old SEO component used to emit its own canonical, causing duplication; refactored so canonical lives in exactly one place. Script exits non-zero on failure to gate CI. _(done — pending commit)_
 - [ ] Add `Review` / `AggregateRating` schema once real user reviews exist on places/restaurants.
 - [ ] Evaluate DataForSEO or Moz API integration for backlink profile analysis.
 - [ ] Submit "San Luis Way" to Wikidata as an organization entity to strengthen the brand knowledge graph.

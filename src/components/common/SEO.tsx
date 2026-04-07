@@ -54,10 +54,10 @@ const SEO: React.FC<SEOProps> = ({
       {description && <meta name="description" content={description} />}
       {keywords && <meta name="keywords" content={keywords} />}
       <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
-      {!noIndex && <link rel="canonical" href={canonicalUrl} />}
-      {/* Per-page hreflang alternates are emitted globally from _app.tsx
+      {/* Canonical AND hreflang alternates are emitted globally from _app.tsx
           (HreflangAlternates) so EVERY page gets them, not just those that
-          import this SEO component. */}
+          import this SEO component. That keeps this component focused on
+          per-page title/description/OG metadata. */}
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
