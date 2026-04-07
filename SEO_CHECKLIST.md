@@ -60,10 +60,10 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
   - [x] `/cultural/history` (Article + about Place w/ Wikidata link) _(done — current commit)_
   - [x] `/cultural-attractions` (ItemList of TouristAttractions) _(done — current commit)_
 - [ ] **Event** schema on each event detail page (`src/pages/events/[category]/[id].tsx`) with `@type: Event`, `name`, `startDate`, `endDate`, `location` (Place with address + geo), `image`, `offers` if ticketed, `organizer`.
-- [ ] **ItemList** schema on:
+- [x] **ItemList** schema on:
   - [ ] `/events/[category]` index pages (wraps event list)
-  - [ ] `/restaurants` (wraps restaurant list)
-  - [ ] `/places` (already has SEO, add structuredData prop)
+  - [x] `/restaurants` (wraps restaurant list, done in commit 3fc19b29)
+  - [x] `/places` — emits ItemList with first 20 items as ListItems, switches between Places and Services based on active tab. _(done — current commit)_
 - [ ] **Restaurant** schema on individual restaurant detail pages.
 - [ ] **BreadcrumbList** schema on every non-home page (add to `_app.tsx` or Layout).
 
