@@ -132,8 +132,25 @@ export default function LivingGuidePage() {
               "headline": "Ultimate Guide to Living in San Luis Potosí as an Expat",
               "description": "Comprehensive guide covering visas, cost of living, neighborhoods, healthcare, and practical information for expats.",
               "datePublished": "2025-01-01",
-              "dateModified": "2026-04-06"
+              "dateModified": "2026-04-07"
             })
+          }}
+        />
+        {/* FAQPage JSON-LD — mirrors the visible Q&A at the bottom so Google
+            can surface the answers as rich results. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              '@id': 'https://sanluisway.com/resources/living-guide#faq',
+              mainEntity: faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
           }}
         />
       </Head>
@@ -216,7 +233,7 @@ export default function LivingGuidePage() {
 
             {/* Overview */}
             <section id="overview" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Why San Luis Potosí?</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Why should expats move to San Luis Potosí?</h2>
               <div className="bg-white rounded-xl shadow-elegant p-6 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -265,7 +282,7 @@ export default function LivingGuidePage() {
 
             {/* Visas */}
             <section id="visas" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Visas & Immigration</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Which Mexican visa do I need to live in SLP?</h2>
               <div className="space-y-6">
                 <div className="bg-white rounded-xl shadow-elegant p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Visa Types Comparison</h3>
@@ -325,7 +342,7 @@ export default function LivingGuidePage() {
 
             {/* Cost of Living */}
             <section id="cost" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Cost of Living</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">How much does it cost to live in San Luis Potosí?</h2>
               <div className="space-y-6">
                 <div className="bg-white rounded-xl shadow-elegant p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Cost Comparison Index (NYC = 100)</h3>
@@ -430,7 +447,35 @@ export default function LivingGuidePage() {
 
             {/* Neighborhoods */}
             <section id="neighborhoods" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Best Neighborhoods for Expats</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Where should expats live in San Luis Potosí?</h2>
+
+              {/* Scannable rent-by-neighborhood table — machine-extractable for AI
+                  Overviews and rich results. Mirrors the card data below. */}
+              <div className="overflow-x-auto mb-8 bg-white rounded-xl shadow-elegant">
+                <table className="w-full text-sm">
+                  <caption className="sr-only">Rent and safety comparison by neighborhood in San Luis Potosí</caption>
+                  <thead>
+                    <tr className="border-b bg-gray-50">
+                      <th scope="col" className="text-left py-3 px-4 font-semibold">Neighborhood</th>
+                      <th scope="col" className="text-left py-3 px-4 font-semibold">Monthly rent</th>
+                      <th scope="col" className="text-left py-3 px-4 font-semibold">Safety (/5)</th>
+                      <th scope="col" className="text-left py-3 px-4 font-semibold">Best for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {neighborhoods.map((hood) => (
+                      <tr key={hood.name} className="border-b last:border-b-0">
+                        <th scope="row" className="text-left py-3 px-4 font-semibold text-gray-900">{hood.name}</th>
+                        <td className="py-3 px-4">{hood.rent}</td>
+                        <td className="py-3 px-4">{hood.safety}/5</td>
+                        <td className="py-3 px-4">{hood.bestFor}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="text-xs text-gray-500 px-4 py-2">Updated December 2025 · USD equivalents · Centro and Tangamanga are the most walkable</p>
+              </div>
+
               <div className="space-y-6">
                 {neighborhoods.map((hood, i) => (
                   <div key={i} className="bg-white rounded-xl shadow-elegant p-6">
@@ -482,7 +527,7 @@ export default function LivingGuidePage() {
 
             {/* Healthcare */}
             <section id="healthcare" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Healthcare System</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">How does the healthcare system work in SLP?</h2>
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-white rounded-xl shadow-elegant p-6">
@@ -549,7 +594,7 @@ export default function LivingGuidePage() {
 
             {/* Banking */}
             <section id="banking" className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Banking & Finances</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">How do I open a bank account in San Luis Potosí?</h2>
               <div className="space-y-6">
                 <div className="bg-white rounded-xl shadow-elegant p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Opening a Bank Account</h3>
