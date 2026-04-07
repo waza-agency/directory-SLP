@@ -20,12 +20,18 @@ export default function Document(props: DocumentProps) {
         {/*
           Hreflang tags. Site-wide root entries only — per-page alternates
           should ideally be emitted by the SEO component using router.asPath,
-          but until then a root-level x-default + en/es is at least correct
-          (de/ja were removed because no German/Japanese content exists and
-          pointing them at the English homepage was actively harmful).
+          but until then the root-level set is at minimum correct.
+
+          All four locales serve real translated content via next-i18next:
+          - /en  -> English  (default, full translation)
+          - /es  -> Spanish  (full translation)
+          - /de  -> German   (full translation, verified 2026-04-07)
+          - /ja  -> Japanese (full translation, verified 2026-04-07)
         */}
         <link rel="alternate" hrefLang="en" href="https://sanluisway.com" />
         <link rel="alternate" hrefLang="es" href="https://sanluisway.com/es" />
+        <link rel="alternate" hrefLang="de" href="https://sanluisway.com/de" />
+        <link rel="alternate" hrefLang="ja" href="https://sanluisway.com/ja" />
         <link rel="alternate" hrefLang="x-default" href="https://sanluisway.com" />
 
         {/* DNS prefetch + preconnect for third-party origins that load later via next/script */}

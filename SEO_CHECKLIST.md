@@ -78,8 +78,8 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [x] **`og:locale` per route** — SEO component already uses `router.locale` to map en→en_US, es→es_MX. Verified `src/components/common/SEO.tsx:55`. _(already done)_
 
 ### Hreflang
-- [x] **Removed `hreflang` for `de` and `ja`** — no German/Japanese content existed, were pointing to English homepage which is actively harmful per Google docs. _(done — current commit)_
-- [x] **`hreflang="es"` points to `/es`** — verified in `_document.tsx`. Per-page alternates would be better but root-level x-default + en/es is at minimum correct now. _(done — current commit)_
+- [x] **Hreflang restored to all 4 locales** — earlier removal of `de`/`ja` was based on the incorrect assumption that no German/Japanese content existed. All 4 locales (en/es/de/ja) actually serve real translated content via next-i18next — verified 2026-04-07 by fetching `/de` (returned German: "Startseite", "Entdecken") and `/ja` (returned Japanese: "ホーム", "探索", `lang="ja"`). Restored `hreflang="de"` → `/de` and `hreflang="ja"` → `/ja` in `_document.tsx` alongside en/es/x-default. _(done — pending commit)_
+- [x] **`hreflang="es"` points to `/es`** — verified in `_document.tsx`. Per-page alternates would still be better but root-level entries now cover all 4 real locales. _(done — current commit)_
 
 ### Quick-win landing pages (keywords already rank page 1)
 - [ ] **`/family-friendly-activities-san-luis-potosi`** — 1,338 impressions / pos 9.7 / 0 clicks. Keyword: "family friendly activities". NOTE: page already exists at `/family-friendly-activities` — check if URL matches searcher intent or needs a Spanish-area-locked variant.
