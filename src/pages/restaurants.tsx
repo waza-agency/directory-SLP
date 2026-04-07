@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useState } from 'react';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
+import SEO from '@/components/common/SEO';
 
 interface RestaurantsPageProps {
   places: Place[];
@@ -19,15 +19,38 @@ const RestaurantsPage: NextPage<RestaurantsPageProps> = ({ places }) => {
   const featuredPlaces = places?.filter(place => place.featured) || [];
   const regularPlaces = places?.filter(place => !place.featured) || [];
 
+  const restaurantsListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Restaurants in San Luis Potosí',
+    description:
+      'Curated list of restaurants and dining experiences in San Luis Potosí, Mexico.',
+    numberOfItems: places.length,
+    itemListElement: places.slice(0, 20).map((place, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Restaurant',
+        name: place.name,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'San Luis Potosí',
+          addressRegion: 'SLP',
+          addressCountry: 'MX',
+        },
+        ...(place.imageUrl ? { image: place.imageUrl } : {}),
+      },
+    })),
+  };
+
   return (
     <>
-      <Head>
-        <title>All Restaurants - SLP Descubre</title>
-        <meta
-          name="description"
-          content="Explore all restaurants and dining experiences in San Luis Potosí."
-        />
-      </Head>
+      <SEO
+        title="Best Restaurants in San Luis Potosí: Where to Eat in SLP"
+        description="Discover the best restaurants in San Luis Potosí — from authentic Potosino cuisine to modern international dining. Curated picks with reviews, photos, and locations across Centro, Lomas, and more."
+        keywords="restaurants san luis potosi, best restaurants slp, where to eat san luis potosi, restaurantes san luis potosi, dining san luis potosi, potosino food, expat restaurants mexico"
+        structuredData={restaurantsListSchema}
+      />
 
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-primary/5 to-secondary/5">

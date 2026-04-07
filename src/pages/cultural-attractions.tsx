@@ -1,5 +1,4 @@
 import { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -158,20 +157,12 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
   return (
     <>
       <SEO
-        title="Cultural Attractions in San Luis Potosí - Museums, Theaters & Heritage Sites"
-        description="Discover the rich cultural heritage of San Luis Potosí through its museums, theaters, historical sites, and cultural centers. Explore art galleries, colonial architecture, and sacred sites."
-        keywords="San Luis Potosí museums, theaters, cultural attractions, historical sites, art galleries, heritage monuments, colonial architecture, sacred sites, cultural centers"
+        title="Cultural Attractions in San Luis Potosí: Museums, Theaters & Heritage Sites"
+        description="Discover the rich cultural heritage of San Luis Potosí through its museums, theaters, historical sites, and cultural centers. Explore art galleries, colonial architecture, and sacred sites in this UNESCO-listed city."
+        keywords="San Luis Potosí museums, teatros san luis potosi, cultural attractions slp, historical sites mexico, art galleries, heritage monuments, colonial architecture, centro historico san luis potosi"
         ogImage="/images/cultural/cultural-attractions-hero.jpg"
         ogType="website"
       />
-
-      <Head>
-        <title>Cultural Attractions in San Luis Potosí - SLP Descubre</title>
-        <meta
-          name="description"
-          content="Explore the rich cultural heritage of San Luis Potosí through its museums, theaters, historical sites, and cultural centers. Discover art, history, and traditions."
-        />
-      </Head>
 
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">

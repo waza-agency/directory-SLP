@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useState } from 'react';
 import { Place } from '@/types';
 import { supabase } from '@/lib/supabase';
 import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
+import SEO from '@/components/common/SEO';
 
 interface TraditionalCuisinePageProps {
   places: Place[];
@@ -19,15 +19,39 @@ const TraditionalCuisinePage: NextPage<TraditionalCuisinePageProps> = ({ places 
   const featuredPlaces = places?.filter(place => place.featured) || [];
   const regularPlaces = places?.filter(place => !place.featured) || [];
 
+  const traditionalCuisineSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Traditional Potosino Restaurants in San Luis Potosí',
+    description:
+      'Authentic restaurants serving traditional Potosino dishes: enchiladas potosinas, asado de boda, gorditas, and regional specialties.',
+    numberOfItems: places.length,
+    itemListElement: places.slice(0, 20).map((place, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Restaurant',
+        name: place.name,
+        servesCuisine: 'Potosino, Mexican',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'San Luis Potosí',
+          addressRegion: 'SLP',
+          addressCountry: 'MX',
+        },
+        ...(place.imageUrl ? { image: place.imageUrl } : {}),
+      },
+    })),
+  };
+
   return (
     <>
-      <Head>
-        <title>Traditional Cuisine - SLP Descubre</title>
-        <meta
-          name="description"
-          content="Discover authentic Potosino restaurants serving traditional dishes in San Luis Potosí"
-        />
-      </Head>
+      <SEO
+        title="Traditional Potosino Cuisine: Authentic Restaurants in San Luis Potosí"
+        description="Taste the authentic flavors of San Luis Potosí. From enchiladas potosinas and asado de boda to gorditas and tacos potosinos, these traditional restaurants serve the real thing."
+        keywords="comida potosina, enchiladas potosinas, asado de boda, traditional restaurants san luis potosi, potosino cuisine, mexican food slp, authentic mexican food"
+        structuredData={traditionalCuisineSchema}
+      />
 
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-primary/5 to-secondary/5">

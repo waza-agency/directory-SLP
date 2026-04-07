@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { ClockIcon, MapPinIcon, TicketIcon, SunIcon, UsersIcon, SparklesIcon, HeartIcon, TrophyIcon, FireIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/outline';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import SEO from '@/components/common/SEO';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -10,6 +11,51 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale ?? 'es', ['common'])),
     },
   };
+};
+
+const tangamangaStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  name: 'Parque Tangamanga I',
+  alternateName: 'Parque Tangamanga',
+  description:
+    'Parque Tangamanga I is one of the largest urban parks in Mexico (411 hectares), located in San Luis Potosí. It features a zoo, planetarium, aquarium, Japanese garden, botanical garden, museums, theater, lakes, sports facilities, and over 400,000 trees.',
+  url: 'https://www.sanluisway.com/parque-tangamanga',
+  image: 'https://www.sanluisway.com/images/parque-tangamanga/hero.jpg',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Av. Dr. Salvador Nava Martínez',
+    addressLocality: 'San Luis Potosí',
+    addressRegion: 'SLP',
+    postalCode: '78250',
+    addressCountry: 'MX',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 22.1357,
+    longitude: -101.0105,
+  },
+  isAccessibleForFree: true,
+  publicAccess: true,
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '06:00',
+      closes: '20:00',
+    },
+  ],
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Zoo', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Planetarium', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Aquarium', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Japanese Garden', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Botanical Garden', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Open-air Theater', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Sports Facilities', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Running Track', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Lakes', value: true },
+  ],
 };
 
 /**
@@ -25,7 +71,16 @@ export default function ParqueTangamanga() {
   const { t } = useTranslation('common');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <>
+      <SEO
+        title="Parque Tangamanga I: Guía Completa del Parque Urbano de San Luis Potosí"
+        description="Descubre Parque Tangamanga I, uno de los parques urbanos más grandes de México (411 ha). Zoológico, planetario, acuario, jardín japonés, museos, horarios, cómo llegar y actividades gratis en San Luis Potosí."
+        keywords="parque tangamanga, parque tangamanga san luis potosi, tangamanga slp, zoo san luis potosi, planetario slp, parque urbano mexico, actividades familiares san luis potosi, jardin japones tangamanga"
+        ogImage="/images/parque-tangamanga/hero.jpg"
+        structuredData={tangamangaStructuredData}
+      />
+
+      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Hero Section */}
       <section className="relative h-[60vh] w-full">
         <Image
@@ -889,5 +944,6 @@ export default function ParqueTangamanga() {
         </div>
       </div>
     </div>
+    </>
   );
 }
