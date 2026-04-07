@@ -33,6 +33,7 @@ import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { AuthProvider } from '@/lib/supabase-auth';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
+import BreadcrumbJsonLd from '@/components/common/BreadcrumbJsonLd';
 import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 
@@ -126,6 +127,9 @@ function App({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
+
+      {/* Auto-generated BreadcrumbList JSON-LD for every non-home page */}
+      <BreadcrumbJsonLd />
 
       {/*
         Third-party scripts. All loaded via next/script with deferred strategies

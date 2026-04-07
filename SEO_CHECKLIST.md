@@ -65,7 +65,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
   - [x] `/restaurants` (wraps restaurant list, done in commit 3fc19b29)
   - [x] `/places` — emits ItemList with first 20 items as ListItems, switches between Places and Services based on active tab. _(done — current commit)_
 - [ ] **Restaurant** schema on individual restaurant detail pages.
-- [ ] **BreadcrumbList** schema on every non-home page (add to `_app.tsx` or Layout).
+- [x] **BreadcrumbList** schema on every non-home page — new `BreadcrumbJsonLd` component auto-generates from URL path, mounted globally in `_app.tsx`. Skips homepage and dynamic [id]/[slug] routes (those mount the full UI Breadcrumbs component with explicit labels). _(done — current commit)_
 
 ### GEO / AI search readiness
 - [x] **Published `/public/llms.txt`** following llmstxt.org spec — name, description, top-level URLs grouped by Places, Food, Events, Cultural, Living/Expat, Community. _(done — current commit)_
