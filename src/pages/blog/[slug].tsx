@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { BlogPost, getBlogPosts, getBlogPostBySlug, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
+import Byline from '@/components/common/Byline';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import ShareButton from '@/components/sharing/ShareButton';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -87,12 +88,20 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               "datePublished": post.publishedAt,
               "dateModified": post.createdAt,
               "author": {
-                "@type": "Organization",
-                "name": "San Luis Way",
-                "url": "https://sanluisway.com"
+                "@type": "Person",
+                "@id": "https://sanluisway.com/about#editorial-team",
+                "name": "San Luis Way Editorial",
+                "url": "https://sanluisway.com/about",
+                "jobTitle": "Editorial Team",
+                "worksFor": {
+                  "@type": "Organization",
+                  "@id": "https://sanluisway.com/#organization",
+                  "name": "San Luis Way"
+                }
               },
               "publisher": {
                 "@type": "Organization",
+                "@id": "https://sanluisway.com/#organization",
                 "name": "San Luis Way",
                 "logo": {
                   "@type": "ImageObject",
@@ -141,7 +150,12 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               { label: 'Blog', href: '/blog' },
               { label: post.title, href: `/blog/${post.slug}` }
             ]}
-            className="mb-8"
+            className="mb-6"
+          />
+          <Byline
+            publishedAt={post.publishedAt}
+            modifiedAt={post.createdAt}
+            className="text-gray-600"
           />
         </div>
 
