@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function ReligiousPracticesPage() {
 
@@ -38,6 +39,7 @@ export default function ReligiousPracticesPage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 Spiritual Traditions
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-white text-lg">
                 Discover the ancient practices and sacred connections that form the spiritual foundation of San Luis Potosí.
               </p>

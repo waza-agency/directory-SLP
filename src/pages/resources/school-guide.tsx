@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function SchoolGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -484,6 +485,7 @@ export default function SchoolGuidePage() {
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 Ultimate School Guide<br />San Luis Potosí
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-xl text-white/90 mb-8">
                 Complete education guide for expat families: international schools, enrollment process, costs & everything you need to know
               </p>

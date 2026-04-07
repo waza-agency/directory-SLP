@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function FestivalsPage() {
 
@@ -37,6 +38,7 @@ export default function FestivalsPage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 Local Festivities & Events
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-white text-lg">
                 Experience the vibrant cultural celebrations and traditions of San Luis Potosí.
               </p>

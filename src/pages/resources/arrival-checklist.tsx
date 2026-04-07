@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import LastUpdated from '@/components/common/LastUpdated';
 
 interface ChecklistItem {
   id: string;
@@ -157,6 +158,7 @@ export default function ArrivalChecklistPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               {t('arrivalChecklist.hero.title')}
             </h1>
+            <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               {t('arrivalChecklist.hero.subtitle')}
             </p>

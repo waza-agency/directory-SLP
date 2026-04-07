@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
+import LastUpdated from '@/components/common/LastUpdated';
 
 // Food destinations data
 const foodExperiences = [
@@ -77,6 +78,7 @@ const FoodieGuidePage: NextPage = () => {
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">
               The Ultimate Foodie Guide to San Luis Potosí
             </h1>
+            <LastUpdated date="2026-04-07" className="mb-4" />
             <p className="text-lg text-gray-700 mb-4">
               As the aromas of slow-simmered moles and freshly made corn tortillas drift through the historic streets of San Luis Potosí, the city reveals itself as one of Mexico's hidden culinary treasures. Join us on a gastronomic journey curated by <Link href="https://lalegendaria.com/nuestras-cervezas/" className="text-amber-700 hover:underline font-medium" target="_blank" rel="noopener noreferrer">La Legendaria Microcervecería</Link>, where every traditional dish and innovative creation finds its perfect craft beer companion.
             </p>

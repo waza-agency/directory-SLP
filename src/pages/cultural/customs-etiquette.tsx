@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function CustomsEtiquettePage() {
 
@@ -37,6 +38,7 @@ export default function CustomsEtiquettePage() {
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 Customs & Etiquette
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-white text-lg">
                 Navigate local customs and cultural norms in San Luis Potosí like a local.
               </p>

@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function MusicDancePage() {
   const [activeGenre, setActiveGenre] = useState('mariachi');
@@ -171,6 +172,7 @@ export default function MusicDancePage() {
               <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Music & Dance Traditions
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-white/90 text-xl leading-relaxed">
                 Discover the vibrant sounds and movements that define Mexican culture, from mariachi serenades to regional huapango
               </p>

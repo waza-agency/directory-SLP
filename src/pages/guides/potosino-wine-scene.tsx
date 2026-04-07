@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
+import LastUpdated from '@/components/common/LastUpdated';
 
 // Wine regions data
 const wineRegions = [
@@ -73,6 +74,7 @@ const WineScenePage: NextPage = () => {
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">
               Discover the Potosino Wine Scene
             </h1>
+            <LastUpdated date="2026-04-07" className="mb-4" />
             <p className="text-lg text-gray-700 mb-4">
               The sun dips below the horizon as you raise your glass, capturing the last golden rays through the ruby-red Tempranillo in your hand. Here, in the emerging vineyards of San Luis Potosí, you're witnessing the birth of Mexico's newest wine story—one that local winemakers have been quietly crafting for decades, now finally ready to be savored and shared.
             </p>

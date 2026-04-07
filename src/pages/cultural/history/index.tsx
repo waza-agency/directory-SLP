@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import SEO from '@/components/common/SEO';
+import LastUpdated from '@/components/common/LastUpdated';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -177,6 +178,7 @@ export default function History() {
                   History of San Luis Potosí
                 </motion.h1>
               </motion.div>
+              <LastUpdated date="2026-04-07" className="text-white/80 mb-4" />
               <motion.p
                 className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl"
                 initial={{ opacity: 0, y: 20 }}

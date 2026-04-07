@@ -5,6 +5,7 @@ import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import B2BBanner from '@/components/B2BBanner';
+import LastUpdated from '@/components/common/LastUpdated';
 
 interface GuideCard {
   id: string;
@@ -169,6 +170,7 @@ export default function ResourcesHubPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                 Resources Hub
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-xl md:text-2xl text-gray-300 mb-8">
                 Your complete guide to living, working, and thriving in San Luis Potosí
               </p>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function HealthGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -515,6 +516,7 @@ export default function HealthGuidePage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Ultimate Healthcare Guide
               </h1>
+              <LastUpdated date="2026-04-07" className="text-emerald-100 mb-4" />
               <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
                 San Luis Potosí - Complete Medical Services for Expats 2025
               </p>

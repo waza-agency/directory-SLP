@@ -6,6 +6,7 @@ import { useState } from 'react';
 import AdUnit from '../../components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function ExpatGuidePage() {
   const [activeSection, setActiveSection] = useState('emergency');
@@ -138,6 +139,7 @@ export default function ExpatGuidePage() {
           <div className="relative container mx-auto px-4 h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Expat Essentials Guide</h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-white text-lg">Your comprehensive resource for practical information in SLP</p>
             </div>
           </div>

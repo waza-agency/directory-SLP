@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function FamilyGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -506,6 +507,7 @@ export default function FamilyGuidePage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Ultimate Family Life Guide
               </h1>
+              <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
               <p className="text-xl text-purple-100 max-w-3xl mx-auto">
                 San Luis Potosí - Schools, Activities & Family Living 2025
               </p>
