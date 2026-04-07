@@ -9,35 +9,36 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 ## CRITICAL — this week
 
 ### Per-page metadata fixes (missing or weak)
-- [ ] **`/parque-tangamanga`** — page has NO `<title>`, meta description, canonical, or OG tags. File: `src/pages/parque-tangamanga.tsx`. Add `SEO` component + TouristAttraction JSON-LD.
-- [ ] **`/restaurants`** — uses raw `<Head>` with weak title `"All Restaurants - SLP Descubre"`. File: `src/pages/restaurants.tsx`. Replace with `SEO` component + ItemList schema.
-- [ ] **`/traditional-cuisine`** — uses raw `<Head>` with `"Traditional Cuisine - SLP Descubre"` title and thin description. File: `src/pages/traditional-cuisine.tsx`. Replace with `SEO`.
-- [ ] **`/cultural-attractions`** — has BOTH `<SEO>` and `<Head>` causing conflicting metadata (Head overrides). File: `src/pages/cultural-attractions.tsx`. Remove the raw `<Head>` block.
+- [x] **`/parque-tangamanga`** — page has NO `<title>`, meta description, canonical, or OG tags. File: `src/pages/parque-tangamanga.tsx`. Add `SEO` component + TouristAttraction JSON-LD. _(done — commit 3fc19b29)_
+- [x] **`/restaurants`** — uses raw `<Head>` with weak title `"All Restaurants - SLP Descubre"`. File: `src/pages/restaurants.tsx`. Replace with `SEO` component + ItemList schema. _(done — commit 3fc19b29)_
+- [x] **`/traditional-cuisine`** — uses raw `<Head>` with `"Traditional Cuisine - SLP Descubre"` title and thin description. File: `src/pages/traditional-cuisine.tsx`. Replace with `SEO`. _(done — commit 3fc19b29)_
+- [x] **`/cultural-attractions`** — has BOTH `<SEO>` and `<Head>` causing conflicting metadata (Head overrides). File: `src/pages/cultural-attractions.tsx`. Remove the raw `<Head>` block. _(done — commit 3fc19b29)_
 
 ### Stale-year titles ("2025" → drop or use 2026)
-- [ ] **`/` (homepage)** — title ends in "Your Elegant Expat Guide **2025**". File: `src/pages/index.tsx` line ~247.
-- [ ] **`/resources/safety-guide`** — title "Complete Safety Guide **2025**". File: `src/pages/resources/safety-guide.tsx` line ~64.
-- [ ] **`/resources/neighborhoods-san-luis-potosi`** — title "Neighborhoods Guide San Luis Potosí **2025**". File: `src/pages/resources/neighborhoods-san-luis-potosi.tsx` line ~250.
-- [ ] Grep the whole `src/pages/` tree for `"2025"` in title/description strings and fix any remaining hardcoded years. Replace with `new Date().getFullYear()` or remove entirely.
+- [x] **`/` (homepage)** — title reworked to `"San Luis Potosí Expat Guide: Things to Do, Places to Eat & Live"`. _(done — commit c4360790)_
+- [x] **`/resources/safety-guide`** — removed 2025 from title + og:title. _(done — commit c4360790)_
+- [x] **`/resources/neighborhoods-san-luis-potosi`** — removed 2025 from title. _(done — commit c4360790)_
+- [x] **`/resources/family-guide`** — removed 2025 from title. _(done — commit c4360790)_
+- [x] **`/resources/expat-guide`** — removed 2025 from title + og:title. _(done — commit c4360790)_
+- [x] **`/resources/living-guide`** — removed 2025 from title + og:title + JSON-LD headline; dateModified bumped to 2026-04-06. _(done — commit c4360790)_
+- [x] **`/expat-guide`** — removed 2025 from title + og:title. _(done — commit c4360790)_
+- [ ] Review body-content references to 2025 (`<h1>` "Family Living 2025", "VERIFIED 2025" badges, "Last updated: December 2025") — these are factual claims that should only be updated when the underlying content is actually reviewed.
 
 ### Awkward Spanish in meta description
-- [ ] **`/events/[category]`** — description reads `"Descubre los mejores todos los eventos..."` (wrong word order). File: `src/pages/events/[category]/index.tsx` line ~125-126. Should be `"Descubre todos los mejores eventos y actividades..."`. Also drop "SLP Descubre" from the title template.
+- [x] **`/events/[category]`** — description rewritten; template now reads `"${getCategoryTitle(category)} en San Luis Potosí. Agenda cultural, conciertos, festivales y actividades familiares..."` which is grammatically correct for every category. _(done — commit c4360790)_
 
 ### "SLP Descubre" leftover branding
-- [ ] Global find/replace for `"SLP Descubre"` across `src/pages/` — if not an active brand, remove from titles and descriptions. Confirmed in:
-  - `events/[category]/index.tsx`
-  - `restaurants.tsx` (fixed via SEO refactor)
-  - `traditional-cuisine.tsx` (fixed via SEO refactor)
-  - `cultural-attractions.tsx` (fixed via Head cleanup)
+- [x] Removed from `events/[category]/index.tsx`, `restaurants.tsx`, `traditional-cuisine.tsx`, `cultural-attractions.tsx`. _(done — commits 3fc19b29 + c4360790)_
 
 ### Core Web Vitals — Mobile LCP 18.2s → <2.5s
+- [x] **Defer AdSense, GTM, GA4 scripts** with `next/script`. Moved out of `_document.tsx` (where they blocked during HTML parse) into `_app.tsx` with `strategy="afterInteractive"` for GTM/GA4/Google Ads and `strategy="lazyOnload"` for AdSense. _(done — current commit)_
 - [ ] **Hero images**: self-host instead of pulling from `images.unsplash.com`. Start with `/events/all` hero carousel and homepage hero.
 - [ ] **Hero image tag**: use `next/image` with `priority` prop, explicit `width`/`height`, and `sizes="(max-width: 768px) 100vw, 1200px"`.
 - [ ] **Remove `loading="lazy"`** from above-the-fold images (forces a round-trip).
 - [ ] **Add `fetchpriority="high"`** to the LCP image.
 - [ ] **Reserve hero container** with `aspect-ratio` CSS or explicit min-height so nothing shifts (fixes CLS 0.206).
-- [ ] **Defer AdSense, ad-quality, and GTM scripts** with `next/script strategy="lazyOnload"`.
-- [ ] **Gate Stripe** (`js.stripe.com`) to the `/checkout` route only — currently loads on every page.
+- [ ] **Gate Stripe** (`js.stripe.com`) to `/checkout` route only — currently nothing actively loads it, but `js.stripe.com` stays in CSP allowlist; remove from CSP too if checkout feature remains disabled.
+- [ ] **Optimize font loading** — Google Fonts (`Inter` + `Crimson Pro`) are currently loaded via render-blocking `<link rel="stylesheet">`. Migrate to `next/font/google` for automatic self-hosting + zero layout shift.
 
 ### GSC sitemap warnings
 - [ ] Open Google Search Console → Indexing → Sitemaps → `sitemap.xml` → review the **121 warnings**. Common causes: 4xx URLs in sitemap, canonicalized-away URLs, noindex URLs. Remove affected URLs from sitemap.

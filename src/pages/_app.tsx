@@ -106,7 +106,36 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      {/* Google Ads (gtag.js) */}
+      {/*
+        Third-party scripts. All loaded via next/script with deferred strategies
+        so they do NOT block initial render / LCP. Previously these lived in
+        _document.tsx and executed during HTML parse, pushing mobile LCP to 18.2s.
+      */}
+
+      {/* Google Tag Manager */}
+      <Script id="gtm" strategy="afterInteractive">
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T4LHTQ9C');`}
+      </Script>
+
+      {/* Google Analytics 4 (property-level) */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-5R48THR70E"
+        strategy="afterInteractive"
+      />
+      <Script id="ga4" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5R48THR70E');
+        `}
+      </Script>
+
+      {/* Google Ads (conversion tracking) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-17635572319"
         strategy="afterInteractive"
@@ -119,6 +148,14 @@ function App({ Component, pageProps }: AppProps) {
           gtag('config', 'AW-17635572319');
         `}
       </Script>
+
+      {/* AdSense — lazyOnload so ads never block LCP */}
+      <Script
+        id="adsense"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7339948154887436"
+        strategy="lazyOnload"
+        crossOrigin="anonymous"
+      />
 
       <ErrorBoundary>
         <SessionContextProvider
