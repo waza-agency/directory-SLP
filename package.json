@@ -12,6 +12,8 @@
     "start": "next start",
     "lint": "next lint",
     "seo:report": "node scripts/sitemap-report.js",
+    "lastupdated:check": "node scripts/refresh-lastupdated.js --check",
+    "lastupdated:refresh": "node scripts/refresh-lastupdated.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"

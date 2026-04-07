@@ -117,7 +117,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] Add `Review` / `AggregateRating` schema once real user reviews exist on places/restaurants.
 - [ ] Evaluate DataForSEO or Moz API integration for backlink profile analysis.
 - [ ] Submit "San Luis Way" to Wikidata as an organization entity to strengthen the brand knowledge graph.
-- [ ] Implement a `<LastUpdated>` build-time date injector that reads git log for each page.
+- [x] Implement a `<LastUpdated>` build-time date injector that reads git log for each page. `scripts/refresh-lastupdated.js` scans every `.tsx` file under `src/pages` for `<LastUpdated date="YYYY-MM-DD" />`, queries `git log -1 --format=%cs` per file, and rewrites the date to match each file's most recent commit. `--check` mode exits non-zero when any file is stale so CI can gate on it. Exposed as `npm run lastupdated:refresh` and `npm run lastupdated:check`. _(done — pending commit)_
 - [x] Added `/robots.txt` explicit rules for AI crawlers — GPTBot, ChatGPT-User, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended, Applebot-Extended. _(done — current commit)_
 
 ---
