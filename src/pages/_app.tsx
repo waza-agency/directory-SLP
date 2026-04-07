@@ -34,6 +34,7 @@ import { AuthProvider } from '@/lib/supabase-auth';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import BreadcrumbJsonLd from '@/components/common/BreadcrumbJsonLd';
+import HreflangAlternates from '@/components/common/HreflangAlternates';
 import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 
@@ -82,6 +83,9 @@ function App({ Component, pageProps }: AppProps) {
           conflicted with the homepage graph. Removed 2026-04-07.
         */}
       </Head>
+
+      {/* Per-page hreflang alternates for all 4 locales — fires on every page */}
+      <HreflangAlternates />
 
       {/* Auto-generated BreadcrumbList JSON-LD for every non-home page */}
       <BreadcrumbJsonLd />

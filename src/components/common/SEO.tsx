@@ -16,6 +16,8 @@ interface SEOProps {
   structuredData?: Record<string, unknown>;
 }
 
+const DEFAULT_LOCALE = 'en';
+
 const SEO: React.FC<SEOProps> = ({
   title,
   description,
@@ -27,10 +29,21 @@ const SEO: React.FC<SEOProps> = ({
   structuredData,
 }) => {
   const router = useRouter();
-  const path = router.asPath.split('?')[0];
-  const cleanPath = path === '/' ? path : path.replace(/\/$/, '');
+  // Strip query string and hash — canonical URLs should be the path only.
+  const path = router.asPath.split('?')[0].split('#')[0];
+  // Strip trailing slash except for root, normalize root to ''
+  const cleanPath = path === '/' ? '' : path.replace(/\/$/, '');
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com';
-  const canonicalUrl = `${siteUrl}${cleanPath}`;
+  const currentLocale = router.locale || DEFAULT_LOCALE;
+
+  // Build the public URL for a given locale + current path. Default locale
+  // (en) lives at the apex; others live under /<locale>.
+  const urlForLocale = (locale: string) => {
+    if (locale === DEFAULT_LOCALE) return cleanPath ? `${siteUrl}${cleanPath}` : siteUrl;
+    return cleanPath ? `${siteUrl}/${locale}${cleanPath}` : `${siteUrl}/${locale}`;
+  };
+
+  const canonicalUrl = urlForLocale(currentLocale);
   const siteName = "San Luis Way";
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
   const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
@@ -42,6 +55,9 @@ const SEO: React.FC<SEOProps> = ({
       {keywords && <meta name="keywords" content={keywords} />}
       <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
       {!noIndex && <link rel="canonical" href={canonicalUrl} />}
+      {/* Per-page hreflang alternates are emitted globally from _app.tsx
+          (HreflangAlternates) so EVERY page gets them, not just those that
+          import this SEO component. */}
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />

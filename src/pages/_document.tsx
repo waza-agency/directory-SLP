@@ -18,21 +18,12 @@ export default function Document(props: DocumentProps) {
         <meta name="facebook-domain-verification" content="eduke3sgsk7rzqsqwyc9xrk4fu13k2" />
 
         {/*
-          Hreflang tags. Site-wide root entries only — per-page alternates
-          should ideally be emitted by the SEO component using router.asPath,
-          but until then the root-level set is at minimum correct.
-
-          All four locales serve real translated content via next-i18next:
-          - /en  -> English  (default, full translation)
-          - /es  -> Spanish  (full translation)
-          - /de  -> German   (full translation, verified 2026-04-07)
-          - /ja  -> Japanese (full translation, verified 2026-04-07)
+          Per-page hreflang alternates are now emitted globally from
+          src/components/common/HreflangAlternates.tsx (mounted in _app.tsx)
+          so every page advertises the right /es, /de, /ja sibling for its
+          own path — not just the homepage roots. All four locales serve
+          real translated content via next-i18next.
         */}
-        <link rel="alternate" hrefLang="en" href="https://sanluisway.com" />
-        <link rel="alternate" hrefLang="es" href="https://sanluisway.com/es" />
-        <link rel="alternate" hrefLang="de" href="https://sanluisway.com/de" />
-        <link rel="alternate" hrefLang="ja" href="https://sanluisway.com/ja" />
-        <link rel="alternate" hrefLang="x-default" href="https://sanluisway.com" />
 
         {/* DNS prefetch + preconnect for third-party origins that load later via next/script */}
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
