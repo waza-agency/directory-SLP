@@ -37,12 +37,13 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] **Remove `loading="lazy"`** from above-the-fold images (forces a round-trip).
 - [ ] **Add `fetchpriority="high"`** to the LCP image.
 - [ ] **Reserve hero container** with `aspect-ratio` CSS or explicit min-height so nothing shifts (fixes CLS 0.206).
+- [x] **Fix BetaBanner CLS culprit** — banner used to mount post-hydration via `useState(false)` then flip on, pushing every section down. Now SSR-renders visible by default and uses `sticky top-0 z-40` + `transform: translateY(-100%)` for scroll-collapse so nothing below shifts. _(done — current commit)_
 - [ ] **Gate Stripe** (`js.stripe.com`) to `/checkout` route only — currently nothing actively loads it, but `js.stripe.com` stays in CSP allowlist; remove from CSP too if checkout feature remains disabled.
 - [x] **Optimize font loading** — Inter + Crimson Pro migrated to `next/font/google`. Fonts now self-hosted at build time, render-blocking stylesheet removed, `adjustFontFallback` eliminates CLS on swap. _(done — commit pending)_
 
 ### Image optimization (next.config.js)
-- [ ] **`unoptimized: true` in `next.config.js`** globally disables Next.js image optimization. All `next/image` tags fall back to raw `<img>` with no AVIF/WebP, no responsive srcset, no automatic resizing. Comment says "causes 400 errors in production" but `remotePatterns` are now correctly configured. Flip to `unoptimized: false` in a standalone test PR to measure the impact without risk of a bundled rollback.
-- [ ] **Remove deprecated `domains` array** from `next.config.js` images config. It is fully superseded by `remotePatterns` and adds confusion.
+- [x] **`unoptimized: true` removed** — image optimization re-enabled. AVIF/WebP, responsive srcset, automatic resizing all now active. `remotePatterns` covers all remote hosts. _(done — commit aa2d6fca)_
+- [x] **Removed deprecated `domains` array** from `next.config.js` images config. _(done — commit aa2d6fca)_
 
 ### GSC sitemap warnings
 - [ ] Open Google Search Console → Indexing → Sitemaps → `sitemap.xml` → review the **121 warnings**. Common causes: 4xx URLs in sitemap, canonicalized-away URLs, noindex URLs. Remove affected URLs from sitemap.

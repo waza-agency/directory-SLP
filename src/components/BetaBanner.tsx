@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react';
 import { XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 
+// Note on CLS: this banner used to start hidden (`useState(false)`) and only
+// turn visible after the client-side useEffect read localStorage. That created
+// a 0.15+ layout shift on every desktop pageview because the banner mounted
+// AFTER hydration and pushed every section of the homepage down.
+//
+// Fix: render visible by default (matches SSR), then dismiss in useEffect for
+// users who previously dismissed. Worst case is a small upward shift only for
+// users who already dismissed, instead of a downward shift for every visitor.
+//
+// The scroll-collapse uses CSS transform (translateY + opacity) instead of
+// max-height so it does NOT trigger Cumulative Layout Shift either. The
+// banner is `sticky top-0` so collapsing it does not move anything below.
 export default function BetaBanner() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -12,11 +24,9 @@ export default function BetaBanner() {
     if (dismissed && dismissedDate) {
       const daysSinceDismissed = (Date.now() - parseInt(dismissedDate)) / (1000 * 60 * 60 * 24);
       if (daysSinceDismissed < 7) {
-        return;
+        setIsVisible(false);
       }
     }
-
-    setIsVisible(true);
   }, []);
 
   useEffect(() => {
@@ -38,8 +48,8 @@ export default function BetaBanner() {
 
   return (
     <div
-      className={`bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-b border-amber-200 transition-all duration-300 overflow-hidden ${
-        isScrolled ? 'max-h-0 opacity-0 py-0' : 'max-h-24 opacity-100'
+      className={`sticky top-0 z-40 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-b border-amber-200 transition-transform duration-300 will-change-transform ${
+        isScrolled ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
       <div className="container mx-auto px-4 py-3">
