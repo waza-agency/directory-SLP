@@ -244,9 +244,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
   return (
     <div className="slp-root bg-white">
       <SEO
-        title="Living in San Luis Potosí | Your Elegant Expat Guide 2025"
-        description="Experience the refined lifestyle of San Luis Potosí. Curated recommendations for discerning expats and travelers seeking authentic experiences in Mexico's hidden gem."
-        keywords="San Luis Potosí, SLP, expat guide, luxury travel, Mexico living, cultural experiences, digital nomad"
+        title="San Luis Potosí Expat Guide: Things to Do, Places to Eat & Live"
+        description="Your complete guide to San Luis Potosí, Mexico. Curated restaurants, events, neighborhoods, cultural attractions and expat resources to help you discover and live well in SLP."
+        keywords="San Luis Potosí, SLP, expat guide San Luis Potosi, things to do san luis potosi, living in san luis potosi, Mexico expat, cultural experiences, digital nomad mexico"
         ogImage="/og-image.jpg"
       />
 

@@ -122,8 +122,9 @@ export default function EventsPage({ events, allEvents, categoryCounts, category
   return (
     <>
       <SEO
-        title={`${getCategoryTitle(category)} en San Luis Potosí - SLP Descubre`}
-        description={`Descubre los mejores ${getCategoryTitle(category).toLowerCase()} en San Luis Potosí. Agenda cultural, conciertos, festivales y más.`}
+        title={`${getCategoryTitle(category)} en San Luis Potosí: Agenda Cultural y Actividades`}
+        description={`${getCategoryTitle(category)} en San Luis Potosí. Agenda cultural, conciertos, festivales, deportes y actividades familiares para disfrutar en SLP.`}
+        keywords={`eventos san luis potosi, ${getCategoryTitle(category).toLowerCase()} slp, agenda cultural san luis potosi, que hacer en san luis potosi, conciertos slp, festivales san luis potosi`}
       />
 
       {/* Hero Carousel (featured / sponsored events) */}

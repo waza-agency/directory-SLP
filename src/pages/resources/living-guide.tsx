@@ -117,10 +117,10 @@ export default function LivingGuidePage() {
   return (
     <>
       <Head>
-        <title>Ultimate Guide to Living in San Luis Potosí | Expat Guide 2025</title>
+        <title>Ultimate Guide to Living in San Luis Potosí | Expat Guide</title>
         <meta name="description" content="Comprehensive expat guide to San Luis Potosí covering visas, cost of living, neighborhoods, healthcare, banking, transportation. 35-50% lower cost than Mexico City." />
         <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, cost of living Mexico, expat visa Mexico, neighborhoods SLP" />
-        <meta property="og:title" content="Ultimate Guide to Living in San Luis Potosí | Expat Guide 2025" />
+        <meta property="og:title" content="Ultimate Guide to Living in San Luis Potosí | Expat Guide" />
         <meta property="og:url" content="https://www.sanluisway.com/resources/living-guide" />
         <script
           type="application/ld+json"
@@ -128,10 +128,10 @@ export default function LivingGuidePage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
-              "headline": "Ultimate Guide to Living in San Luis Potosí as an Expat (2025)",
+              "headline": "Ultimate Guide to Living in San Luis Potosí as an Expat",
               "description": "Comprehensive guide covering visas, cost of living, neighborhoods, healthcare, and practical information for expats.",
               "datePublished": "2025-01-01",
-              "dateModified": "2025-12-19"
+              "dateModified": "2026-04-06"
             })
           }}
         />

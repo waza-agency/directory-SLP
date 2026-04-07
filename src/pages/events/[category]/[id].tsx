@@ -172,18 +172,24 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
   return (
     <>
       <SEO
-        title={`${event.title} — Event in San Luis Potosí`}
-        description={event.description || `${event.title} — ${formatDate(event.start_date)} at ${event.location}, San Luis Potosí. Find details, times, and location.`}
+        title={`${event.title} — ${formatDate(event.start_date)} | Eventos en San Luis Potosí`}
+        description={
+          event.description
+            ? event.description.slice(0, 155)
+            : `${event.title}. ${formatDate(event.start_date)} en ${event.location}, San Luis Potosí. Consulta fecha, horario, ubicación y detalles del evento.`
+        }
         ogImage={event.image_url || '/og-image.jpg'}
-        keywords={`${event.title}, events san luis potosi, ${event.category} events SLP, things to do san luis potosi`}
+        keywords={`${event.title}, eventos san luis potosi, ${event.category} san luis potosi, que hacer en san luis potosi, agenda slp`}
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Event",
           "name": event.title,
           "startDate": event.start_date,
           "endDate": event.end_date,
+          "url": `https://www.sanluisway.com/events/${event.category}/${event.id}`,
+          "inLanguage": "es-MX",
           ...(event.description && { "description": event.description }),
-          ...(event.image_url && { "image": event.image_url }),
+          ...(event.image_url && { "image": [event.image_url] }),
           "location": {
             "@type": "Place",
             "name": event.location,

@@ -247,7 +247,7 @@ export default function NeighborhoodsGuidePage() {
   return (
     <>
       <Head>
-        <title>Ultimate Neighborhoods Guide San Luis Potosí 2025 | Where to Live</title>
+        <title>Ultimate Neighborhoods Guide San Luis Potosí | Where to Live</title>
         <meta name="description" content="Complete guide to neighborhoods in San Luis Potosí for expats. Rental prices, safety ratings, schools, and detailed profiles for Lomas, Pedregal, Centro, and more." />
       </Head>
 
