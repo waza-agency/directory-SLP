@@ -74,12 +74,12 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] **Add structured tables** for data-dense guides (rent by neighborhood, crime stats, school tuition ranges) — AI systems prefer extractable tables.
 
 ### HTML lang & og:locale
-- [ ] **Fix `<html lang>`** per route in `_document.tsx` or via `_app.tsx` — currently always `"en"` even on Spanish pages. Use the router locale.
-- [ ] **Fix `og:locale`** to match page content language (already done in SEO component via `router.locale`, but verify).
+- [x] **`<html lang>` per route** — `_document.tsx` already uses `props.__NEXT_DATA__.locale` via `<Html lang={currentLocale}>`. Verified 2026-04-06. _(already done)_
+- [x] **`og:locale` per route** — SEO component already uses `router.locale` to map en→en_US, es→es_MX. Verified `src/components/common/SEO.tsx:55`. _(already done)_
 
 ### Hreflang
-- [ ] **Remove `hreflang` for `de` and `ja`** unless real German/Japanese content exists — currently all pointing to the same English URL.
-- [ ] **Verify `hreflang="es"` points to the actual Spanish route** (`/es/*`), not the default URL.
+- [x] **Removed `hreflang` for `de` and `ja`** — no German/Japanese content existed, were pointing to English homepage which is actively harmful per Google docs. _(done — current commit)_
+- [x] **`hreflang="es"` points to `/es`** — verified in `_document.tsx`. Per-page alternates would be better but root-level x-default + en/es is at minimum correct now. _(done — current commit)_
 
 ### Quick-win landing pages (keywords already rank page 1)
 - [ ] **`/family-friendly-activities-san-luis-potosi`** — 1,338 impressions / pos 9.7 / 0 clicks. Keyword: "family friendly activities". NOTE: page already exists at `/family-friendly-activities` — check if URL matches searcher intent or needs a Spanish-area-locked variant.

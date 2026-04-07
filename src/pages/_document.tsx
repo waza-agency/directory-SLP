@@ -17,12 +17,16 @@ export default function Document(props: DocumentProps) {
         <meta name="google-adsense-account" content="ca-pub-7339948154887436" />
         <meta name="facebook-domain-verification" content="eduke3sgsk7rzqsqwyc9xrk4fu13k2" />
 
-        {/* Hreflang tags for international SEO */}
-        <link rel="alternate" hrefLang="en" href="https://www.sanluisway.com" />
-        <link rel="alternate" hrefLang="es" href="https://www.sanluisway.com/es" />
-        <link rel="alternate" hrefLang="de" href="https://www.sanluisway.com/de" />
-        <link rel="alternate" hrefLang="ja" href="https://www.sanluisway.com/ja" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.sanluisway.com" />
+        {/*
+          Hreflang tags. Site-wide root entries only — per-page alternates
+          should ideally be emitted by the SEO component using router.asPath,
+          but until then a root-level x-default + en/es is at least correct
+          (de/ja were removed because no German/Japanese content exists and
+          pointing them at the English homepage was actively harmful).
+        */}
+        <link rel="alternate" hrefLang="en" href="https://sanluisway.com" />
+        <link rel="alternate" hrefLang="es" href="https://sanluisway.com/es" />
+        <link rel="alternate" hrefLang="x-default" href="https://sanluisway.com" />
 
         {/* DNS prefetch + preconnect for third-party origins that load later via next/script */}
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
