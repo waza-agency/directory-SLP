@@ -248,6 +248,73 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         description="Your complete guide to San Luis Potosí, Mexico. Curated restaurants, events, neighborhoods, cultural attractions and expat resources to help you discover and live well in SLP."
         keywords="San Luis Potosí, SLP, expat guide San Luis Potosi, things to do san luis potosi, living in san luis potosi, Mexico expat, cultural experiences, digital nomad mexico"
         ogImage="/og-image.jpg"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Organization',
+              '@id': 'https://sanluisway.com/#organization',
+              name: 'San Luis Way',
+              url: 'https://sanluisway.com',
+              logo: 'https://sanluisway.com/og-image.jpg',
+              description: 'Editorial expat and visitor guide to San Luis Potosí, Mexico — restaurants, places, events, neighborhoods and practical living resources.',
+              areaServed: {
+                '@type': 'City',
+                name: 'San Luis Potosí',
+                sameAs: 'https://www.wikidata.org/wiki/Q80786',
+              },
+              sameAs: [
+                'https://www.wikidata.org/wiki/Q80786',
+                'https://en.wikipedia.org/wiki/San_Luis_Potos%C3%AD_City',
+              ],
+            },
+            {
+              '@type': 'TouristInformationCenter',
+              '@id': 'https://sanluisway.com/#tic',
+              name: 'San Luis Way — San Luis Potosí Visitor & Expat Guide',
+              url: 'https://sanluisway.com',
+              image: 'https://sanluisway.com/og-image.jpg',
+              description: 'Curated information for visitors and expats living in San Luis Potosí, S.L.P., Mexico. Restaurants, cultural attractions, events, neighborhoods and practical resources.',
+              priceRange: 'Free',
+              areaServed: [
+                { '@type': 'City', name: 'San Luis Potosí' },
+                { '@type': 'State', name: 'San Luis Potosí' },
+                { '@type': 'Country', name: 'Mexico' },
+              ],
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'San Luis Potosí',
+                addressRegion: 'SLP',
+                addressCountry: 'MX',
+              },
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 22.1565,
+                longitude: -100.9855,
+              },
+              hasMap: 'https://www.google.com/maps/place/San+Luis+Potos%C3%AD,+S.L.P.',
+              isAccessibleForFree: true,
+              publicAccess: true,
+              parentOrganization: { '@id': 'https://sanluisway.com/#organization' },
+            },
+            {
+              '@type': 'WebSite',
+              '@id': 'https://sanluisway.com/#website',
+              url: 'https://sanluisway.com',
+              name: 'San Luis Way',
+              publisher: { '@id': 'https://sanluisway.com/#organization' },
+              inLanguage: ['en', 'es'],
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://sanluisway.com/places?q={search_term_string}',
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            },
+          ],
+        }}
       />
 
       {/* Meta Pixel Code */}

@@ -53,7 +53,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 ## HIGH — within 1 week
 
 ### Schema / structured data
-- [ ] **LocalBusiness / TouristInformationCenter** schema on homepage. Include `areaServed`, `geo`, `priceRange`, `openingHours`.
+- [x] **TouristInformationCenter + Organization + WebSite** schema on homepage. Includes `areaServed`, `geo`, `priceRange`, `address`, `sameAs` (Wikidata Q80786 + Wikipedia), and SearchAction. _(done — current commit)_
 - [ ] **TouristAttraction / Place** schema on:
   - [ ] `/parque-tangamanga` (done as part of metadata fix)
   - [ ] `/centro-historico`
@@ -69,7 +69,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 
 ### GEO / AI search readiness
 - [x] **Published `/public/llms.txt`** following llmstxt.org spec — name, description, top-level URLs grouped by Places, Food, Events, Cultural, Living/Expat, Community. _(done — current commit)_
-- [ ] **Add sameAs links** on Organization schema pointing to Wikidata (Q80786 for San Luis Potosí city), Wikipedia, Instagram, LinkedIn — strengthens brand entity graph.
+- [x] **Added sameAs links** on Organization schema pointing to Wikidata Q80786 + Wikipedia. Instagram/LinkedIn pending until accounts confirmed. _(done — current commit)_
 - [ ] **Convert guide H2/H3s to question form** where possible ("How safe is SLP?", "Where should expats live in SLP?") — AI Overviews prefer Q&A headings.
 - [ ] **Add structured tables** for data-dense guides (rent by neighborhood, crime stats, school tuition ranges) — AI systems prefer extractable tables.
 
