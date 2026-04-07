@@ -201,6 +201,8 @@ export default function ImageCarousel({
                   ? 'bg-primary scale-125'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
+              aria-label={`Go to page ${index + 1}`}
+              aria-current={currentIndex === index ? 'true' : undefined}
             />
           ))}
         </div>

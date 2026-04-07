@@ -122,6 +122,7 @@ export default function AdSelector({ adminKey, selectedAds, onAdSelect }: AdSele
                 <button
                   style={styles.clearBtn}
                   onClick={() => onAdSelect(key, '')}
+                  aria-label="Clear selected ad"
                 >
                   ✕
                 </button>

@@ -169,6 +169,7 @@ export default function HeroCarousel({
           onClick={prevSlide}
           className="ml-8 p-4 rounded-full bg-white/15 hover:bg-white/25 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:shadow-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-50 disabled:cursor-not-allowed group"
           disabled={isTransitioning}
+          aria-label="Previous slide"
         >
           <ChevronLeftIcon className="w-7 h-7 transform transition-transform group-hover:-translate-x-0.5" />
         </button>
@@ -179,6 +180,7 @@ export default function HeroCarousel({
           onClick={nextSlide}
           className="mr-8 p-4 rounded-full bg-white/15 hover:bg-white/25 text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:shadow-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-50 disabled:cursor-not-allowed group"
           disabled={isTransitioning}
+          aria-label="Next slide"
         >
           <ChevronRightIcon className="w-7 h-7 transform transition-transform group-hover:translate-x-0.5" />
         </button>
@@ -196,6 +198,8 @@ export default function HeroCarousel({
                 : 'w-3 h-3 bg-white/40 hover:bg-white/60 rounded-full hover:scale-110'
             }`}
             disabled={isTransitioning}
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={index === currentIndex ? 'true' : undefined}
           >
             {index === currentIndex && (
               <div className="absolute inset-0 bg-primary rounded-full animate-pulse"></div>

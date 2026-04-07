@@ -257,7 +257,11 @@ const NewsletterBanner: React.FC<NewsletterBannerProps> = ({
               {status === 'success' ? `✓ ${t('newsletterBanner.joined')}` : t('newsletterBanner.joinFree')}
             </button>
             {onClose && (
-              <button onClick={onClose} className="p-2.5 hover:bg-white/10 rounded-lg transition-colors">
+              <button
+                onClick={onClose}
+                className="p-2.5 hover:bg-white/10 rounded-lg transition-colors"
+                aria-label={t('newsletterBanner.closeLabel', 'Close newsletter banner')}
+              >
                 <XMarkIcon className="w-5 h-5" />
               </button>
             )}

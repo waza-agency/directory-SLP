@@ -42,6 +42,8 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                 ? 'bg-primary text-white border-primary'
                 : 'border-gray-300 text-gray-700 hover:bg-gray-50'
             }`}
+            aria-label={`Go to page ${page}`}
+            aria-current={page === currentPage ? 'page' : undefined}
           >
             {page}
           </button>

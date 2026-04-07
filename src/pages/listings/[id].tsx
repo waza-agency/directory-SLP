@@ -157,6 +157,8 @@ export default function BusinessListingDetail({ businessListing }: ListingDetail
                         className={`relative w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border-2 ${
                           currentImageIndex === index ? 'border-primary' : 'border-transparent'
                         }`}
+                        aria-label={`Show image ${index + 1}`}
+                        aria-current={currentImageIndex === index ? 'true' : undefined}
                       >
                         {img ? (
                           <Image

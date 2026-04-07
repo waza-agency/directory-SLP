@@ -111,9 +111,10 @@ export default function PromoteButton({
                   <h2 className="text-2xl font-bold text-gray-900">🚀 Potencia Tu Negocio</h2>
                   <p className="text-gray-600">Selecciona el plan que mejor se adapte a tus necesidades</p>
                 </div>
-                <button 
+                <button
                   onClick={() => setShowModal(false)}
                   className="p-2 hover:bg-gray-100 rounded-full"
+                  aria-label="Cerrar modal de promoción"
                 >
                   ✕
                 </button>

@@ -187,10 +187,12 @@ export default function EventsCarousel({
               key={index}
               onClick={() => goToSlide(index * 3)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                Math.floor(currentIndex / 3) === index 
-                  ? 'bg-primary scale-125' 
+                Math.floor(currentIndex / 3) === index
+                  ? 'bg-primary scale-125'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
+              aria-label={`Go to events page ${index + 1}`}
+              aria-current={Math.floor(currentIndex / 3) === index ? 'true' : undefined}
             />
           ))}
         </div>
