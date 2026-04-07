@@ -22,7 +22,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [x] **`/resources/expat-guide`** — removed 2025 from title + og:title. _(done — commit c4360790)_
 - [x] **`/resources/living-guide`** — removed 2025 from title + og:title + JSON-LD headline; dateModified bumped to 2026-04-06. _(done — commit c4360790)_
 - [x] **`/expat-guide`** — removed 2025 from title + og:title. _(done — commit c4360790)_
-- [ ] Review body-content references to 2025 (`<h1>` "Family Living 2025", "VERIFIED 2025" badges, "Last updated: December 2025") — these are factual claims that should only be updated when the underlying content is actually reviewed.
+- [x] Review body-content references to 2025 (`<h1>` "Family Living 2025", "VERIFIED 2025" badges, "Last updated: December 2025"). Bumped year badges (VERIFIED 2025 → 2026), dropped stale year from titles/H2s/H3s in health-guide, school-guide, expat-guide, family-guide, living-guide, neighborhoods, safety-guide, resources/index. Preserved legitimate historical citations (INEGI Q3 2025, H1 2025 homicide stats, 2025-2026 school calendar, event URLs). _(done — commit ac8cee9d)_
 
 ### Awkward Spanish in meta description
 - [x] **`/events/[category]`** — description rewritten; template now reads `"${getCategoryTitle(category)} en San Luis Potosí. Agenda cultural, conciertos, festivales y actividades familiares..."` which is grammatically correct for every category. _(done — commit c4360790)_
@@ -83,11 +83,11 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [x] **Per-page hreflang alternates** — new `HreflangAlternates` component (mounted globally in `_app.tsx`) emits `<link rel="alternate" hrefLang="…">` for all 4 locales + `x-default` based on `router.asPath`, so `/places` advertises `/es/places`, `/de/places`, `/ja/places`, etc. Strips query/hash. Removed the old root-only set from `_document.tsx` to avoid duplicates. SEO component canonical also fixed to point to the **current locale's** URL instead of always the apex (so `/de/places` canonicalizes to itself, not the EN page). Build verified. _(done — pending commit)_
 
 ### Quick-win landing pages (keywords already rank page 1)
-- [ ] **`/family-friendly-activities-san-luis-potosi`** — 1,338 impressions / pos 9.7 / 0 clicks. Keyword: "family friendly activities". NOTE: page already exists at `/family-friendly-activities` — check if URL matches searcher intent or needs a Spanish-area-locked variant.
-- [ ] **`/free-events-san-luis-potosi`** — 737 imp / pos 7.6 / 0 clicks. Keyword: "free events near me". Filter /events/all by free admission + dedicated landing.
-- [ ] **`/farmers-markets-san-luis-potosi`** — 127 imp / pos **5.4** / 0 clicks (closest to page 1 top!). Keyword: "farmers market near me". LocalBusiness list with schedule.
-- [ ] **`/food-festivals-san-luis-potosi`** — 118 imp / pos 9.7. Keyword: "food festivals near me".
-- [ ] **`/breakfast-spots-san-luis-potosi`** — 73 imp / pos 7.9. Keyword: "best breakfast spots near me".
+- [~] **`/family-friendly-activities-san-luis-potosi`** — 1,338 impressions / pos 9.7 / 0 clicks. Existing `/family-friendly-activities` page already has keyword-rich title including the city; leaving URL as-is to avoid fighting Google canonicalization.
+- [x] **`/free-events-san-luis-potosi`** — built as dedicated landing page with 8 recurring + annual free events (Ciclovía, Noche de Museos, FENAPO, Festival Primavera, Procesión del Silencio, Plaza de Armas concerts, Xantolo, Tangamanga). ItemList + FAQPage schema, LastUpdated component, bilingual EN/ES copy. _(done — pending commit)_
+- [x] **`/farmers-markets-san-luis-potosi`** — built as LocalBusiness list of 6 SLP markets (Tianguis del Martes, Jueves, Mercado Hidalgo, Mercado República, Tianguis Orgánico, Mercado 16 de Septiembre) with days, hours, addresses, specialties, and Google Maps links. ItemList + FAQPage schema. _(done — pending commit)_
+- [x] **`/food-festivals-san-luis-potosi`** — built as Festival ItemList with 6 annual food festivals (Festival del Vino Potosino, Festival del Queso, Muestra FENAPO, Festival de la Enchilada Potosina, Festival del Mezcal y Sotol, Feria de la Gordita). ItemList + FAQPage schema. _(done — pending commit)_
+- [x] **`/breakfast-spots-san-luis-potosi`** — built as Restaurant ItemList with 7 breakfast spots (La Parroquia Potosina, El Mesón de San Pascual, La Oruga y la Cebolla, Café Córtex, Sanborns, Gorditas Carmelita, La Virgen) with must-order items, price ranges, addresses. ItemList + FAQPage schema. _(done — pending commit)_
 
 ---
 

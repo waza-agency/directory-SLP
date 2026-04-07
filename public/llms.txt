@@ -11,11 +11,15 @@ San Luis Way (sanluisway.com) is an editorial directory focused exclusively on t
 - [Parque Tangamanga](https://sanluisway.com/parque-tangamanga): The city's largest urban park (411 hectares) with trails, lakes, sports facilities
 - [All places](https://sanluisway.com/places): Complete searchable directory of places in SLP
 - [Family-friendly activities](https://sanluisway.com/family-friendly-activities): Activities and attractions suitable for children
+- [Free events in San Luis Potosí](https://sanluisway.com/free-events-san-luis-potosi): Curated list of no-cost events, festivals, and regular happenings
+- [Farmers markets in SLP](https://sanluisway.com/farmers-markets-san-luis-potosi): Tianguis, mercados, and organic markets with days and specialties
 
 ## Food & restaurants
 
 - [Restaurants](https://sanluisway.com/restaurants): Restaurant directory across SLP
 - [Traditional cuisine](https://sanluisway.com/traditional-cuisine): Potosino regional dishes — enchiladas potosinas, gorditas, asado de boda, and where to find them
+- [Breakfast spots in San Luis Potosí](https://sanluisway.com/breakfast-spots-san-luis-potosi): Where locals have breakfast — traditional, brunch, and specialty coffee
+- [Food festivals in SLP](https://sanluisway.com/food-festivals-san-luis-potosi): Annual food festivals — wine, cheese, mezcal, enchiladas, gorditas
 
 ## Events
 
