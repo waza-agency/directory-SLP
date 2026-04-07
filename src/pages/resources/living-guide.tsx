@@ -5,6 +5,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ShareButton from '@/components/sharing/ShareButton';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function LivingGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -168,8 +169,9 @@ export default function LivingGuidePage() {
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 Ultimate Guide to Living in San Luis Potosí
               </h1>
+              <LastUpdated date="2026-04-07" className="text-white/80 mb-3" />
               <p className="text-xl text-white/90 mb-4">
-                Everything you need to know about expat life in SLP (2025)
+                Everything you need to know about expat life in SLP
               </p>
               <div className="flex justify-center mb-6">
                 <ShareButton 

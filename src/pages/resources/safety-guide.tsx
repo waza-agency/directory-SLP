@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import LastUpdated from '@/components/common/LastUpdated';
 
 export default function SafetyGuidePage() {
   const { t } = useTranslation('common');
@@ -81,6 +82,7 @@ export default function SafetyGuidePage() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Is San Luis Potosí Safe?
             </h1>
+            <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
             <p className="text-xl text-gray-300 mb-6">
               A data-driven analysis with crime statistics, local perception surveys, and real expat experiences.
             </p>

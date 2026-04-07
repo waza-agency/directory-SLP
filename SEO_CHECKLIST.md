@@ -93,7 +93,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 ## MEDIUM — within 1 month
 
 - [ ] **Rewrite event detail URLs** from `/events/{category}/{uuid}` to `/events/{category}/{slug}-{short-id}` for keyword relevance. Add 301 redirects from old UUIDs.
-- [ ] **Add "Last updated" dates** visible on all `/resources/*` and `/cultural/*` guides. Use a shared `<LastUpdated date={...}/>` component.
+- [~] **Add "Last updated" dates** visible on guides — shared `<LastUpdated>` component created at `src/components/common/LastUpdated.tsx` (renders "Reviewed on …" in EN / "Revisado el …" in ES, uses `<time dateTime>` element for machine-readable freshness signal). Integrated under the `<h1>` on `/resources/safety-guide`, `/resources/living-guide`, `/resources/neighborhoods-san-luis-potosi`. Remaining `/resources/*` and `/cultural/*` guides TBD. _(partial — pending commit)_
 - [ ] **Add author bylines** to editorial content — blog posts, resources, guides. Create `Person` schema for each author and link via `author` property on BlogPosting/Article.
 - [~] **Sitemap improvements** — bumped all `lastmod` from stale `2025-12-08` to `2026-04-07`, unified host from `www.sanluisway.com` to apex (matches GSC property + robots.txt), removed private routes that were being crawled but disallowed (`/admin/newsletter`, `/checkout`, `/signin`, `/signup`, `/index-backup-20251021-155913`). Still static — per-page `lastmod` from DB data and splitting into an index remains a larger refactor for later. _(partial — pending commit)_
 - [ ] **Optimize top-10 images** — convert to WebP/AVIF, add responsive `srcset`/`sizes`. Target: save the 525–631 KB PSI flagged.

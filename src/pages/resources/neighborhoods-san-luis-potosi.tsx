@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LastUpdated from '@/components/common/LastUpdated';
 
 const neighborhoods = [
   {
@@ -265,8 +266,9 @@ export default function NeighborhoodsGuidePage() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Ultimate Neighborhoods Guide
             </h1>
+            <LastUpdated date="2026-04-07" className="text-gray-300 mb-4" />
             <p className="text-xl text-gray-300 mb-6">
-              Where to Live in San Luis Potosí — Complete 2025 Guide for Expats
+              Where to Live in San Luis Potosí — A Complete Guide for Expats
             </p>
             <div className="flex flex-wrap gap-3 text-sm">
               <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full">✓ Verified Dec 2025</span>
