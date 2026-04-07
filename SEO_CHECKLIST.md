@@ -68,7 +68,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] **BreadcrumbList** schema on every non-home page (add to `_app.tsx` or Layout).
 
 ### GEO / AI search readiness
-- [ ] **Publish `/public/llms.txt`** following the llmstxt.org spec — name, description, top-level URLs by category (Events, Places, Resources, Blog), link to a `/llms-full.txt` variant.
+- [x] **Published `/public/llms.txt`** following llmstxt.org spec — name, description, top-level URLs grouped by Places, Food, Events, Cultural, Living/Expat, Community. _(done — current commit)_
 - [ ] **Add sameAs links** on Organization schema pointing to Wikidata (Q80786 for San Luis Potosí city), Wikipedia, Instagram, LinkedIn — strengthens brand entity graph.
 - [ ] **Convert guide H2/H3s to question form** where possible ("How safe is SLP?", "Where should expats live in SLP?") — AI Overviews prefer Q&A headings.
 - [ ] **Add structured tables** for data-dense guides (rent by neighborhood, crime stats, school tuition ranges) — AI systems prefer extractable tables.
