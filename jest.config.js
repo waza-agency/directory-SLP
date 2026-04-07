@@ -1,16 +1,24 @@
+// Babel config lives at ./babel.jest.config.js (non-standard name) so that
+// Next.js's SWC compiler does NOT detect it and fall back to Babel. Keeping
+// SWC active is required by next/font in _app.tsx.
+const path = require('path');
+
+const babelJestConfigFile = path.resolve(__dirname, 'babel.jest.config.js');
+const babelJestTransform = {
+  '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: babelJestConfigFile }],
+};
+const moduleNameMapper = { '^@/(.*)$': '<rootDir>/src/$1' };
+const setupFilesAfterEnv = ['<rootDir>/jest.setup.js'];
+
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
-  },
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  },
+  transform: babelJestTransform,
+  moduleNameMapper,
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv,
   collectCoverageFrom: [
     'src/pages/api/**/*.{ts,tsx}',
     'src/lib/**/*.{ts,tsx}',
@@ -30,19 +38,17 @@ module.exports = {
       displayName: 'API Tests',
       testMatch: ['<rootDir>/src/pages/api/**/*.test.ts'],
       testEnvironment: 'node',
-      moduleNameMapper: {
-        '^@/(.*)$': '<rootDir>/src/$1'
-      },
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+      transform: babelJestTransform,
+      moduleNameMapper,
+      setupFilesAfterEnv,
     },
     {
       displayName: 'Integration Tests',
       testMatch: ['<rootDir>/__tests__/**/*.test.ts'],
       testEnvironment: 'node',
-      moduleNameMapper: {
-        '^@/(.*)$': '<rootDir>/src/$1'
-      },
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+      transform: babelJestTransform,
+      moduleNameMapper,
+      setupFilesAfterEnv,
     },
     {
       displayName: 'Component Tests',
@@ -52,19 +58,17 @@ module.exports = {
         '<rootDir>/src/components/**/*.test.tsx',
       ],
       testEnvironment: 'jsdom',
-      moduleNameMapper: {
-        '^@/(.*)$': '<rootDir>/src/$1'
-      },
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+      transform: babelJestTransform,
+      moduleNameMapper,
+      setupFilesAfterEnv,
     },
     {
       displayName: 'Lib Tests',
       testMatch: ['<rootDir>/src/lib/**/*.test.ts'],
       testEnvironment: 'node',
-      moduleNameMapper: {
-        '^@/(.*)$': '<rootDir>/src/$1'
-      },
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-    }
-  ]
-}
+      transform: babelJestTransform,
+      moduleNameMapper,
+      setupFilesAfterEnv,
+    },
+  ],
+};

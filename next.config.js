@@ -10,49 +10,24 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-    images: {
-    // Disabled Next.js image optimization for external images (causes 400 errors in production)
-    unoptimized: true,
-    domains: [
-      'localhost',
-      'sanluisway.com',
-      'omxporaecrqsqhzjzvnx.supabase.co',
-      'static.wixstatic.com',
-      'assets.seobotai.com',
-      'images.unsplash.com',
-      'lh3.googleusercontent.com'
-    ],
+  images: {
+    // Image optimization enabled (was previously disabled with unoptimized: true
+    // which was a temporary workaround for 400 errors on remote hosts not listed
+    // in remotePatterns; remotePatterns is now correctly configured below).
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'omxporaecrqsqhzjzvnx.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'static.wixstatic.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'assets.seobotai.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-      }
+      { protocol: 'https', hostname: '*.supabase.co' },
+      { protocol: 'https', hostname: 'static.wixstatic.com' },
+      { protocol: 'https', hostname: 'assets.seobotai.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: 'sanluisway.com' },
+      { protocol: 'https', hostname: 'www.sanluisway.com' },
     ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
-    dangerouslyAllowSVG: true
+    dangerouslyAllowSVG: true,
   },
   trailingSlash: false,
   // Enable more detailed output during builds
