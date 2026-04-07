@@ -162,6 +162,34 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
         keywords="San Luis Potosí museums, teatros san luis potosi, cultural attractions slp, historical sites mexico, art galleries, heritage monuments, colonial architecture, centro historico san luis potosi"
         ogImage="/images/cultural/cultural-attractions-hero.jpg"
         ogType="website"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Cultural Attractions in San Luis Potosí',
+          description: 'Museums, theaters, sacred sites and cultural centers in San Luis Potosí, Mexico.',
+          url: 'https://sanluisway.com/cultural-attractions',
+          numberOfItems: featuredAttractions.length,
+          itemListElement: featuredAttractions.map((attraction, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            item: {
+              '@type': 'TouristAttraction',
+              name: attraction.name,
+              description: attraction.description,
+              image: `https://sanluisway.com${attraction.image}`,
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: attraction.address,
+                addressLocality: 'San Luis Potosí',
+                addressRegion: 'SLP',
+                addressCountry: 'MX',
+              },
+              openingHours: attraction.hours,
+              isAccessibleForFree: attraction.admission.toLowerCase().includes('free'),
+              touristType: ['Cultural tourists', 'Heritage tourists'],
+            },
+          })),
+        }}
       />
 
       {/* Hero Section */}

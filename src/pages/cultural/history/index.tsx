@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import Head from 'next/head';
+import SEO from '@/components/common/SEO';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -100,17 +100,39 @@ export default function History() {
 
   return (
     <>
-      <Head>
-        <title>History of San Luis Potosí | San Luis Way</title>
-        <meta
-          name="description"
-          content="Discover the rich history of San Luis Potosí, from its founding to modern times. Learn about the city's colonial past, cultural heritage, and historical significance."
-        />
-        <meta
-          name="keywords"
-          content="San Luis Potosí history, colonial history, Mexican history, historical landmarks, cultural heritage"
-        />
-      </Head>
+      <SEO
+        title="History of San Luis Potosí: Founding, Colonial Era & Heritage"
+        description="The story of San Luis Potosí from its 1592 Spanish founding through the colonial silver-mining era to the modern UNESCO-listed historic center. Timeline, key landmarks and cultural heritage."
+        keywords="San Luis Potosí history, colonial history, Mexican history, historical landmarks, cultural heritage, 1592 founding, silver mining"
+        ogImage="/images/history/timeline/founding.jpg"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: 'History of San Luis Potosí',
+          description: 'The story of San Luis Potosí from its 1592 Spanish founding through the colonial silver-mining era to the modern UNESCO-listed historic center.',
+          image: 'https://sanluisway.com/images/history/timeline/founding.jpg',
+          author: {
+            '@type': 'Organization',
+            name: 'San Luis Way',
+            url: 'https://sanluisway.com',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'San Luis Way',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://sanluisway.com/og-image.jpg',
+            },
+          },
+          mainEntityOfPage: 'https://sanluisway.com/cultural/history',
+          about: {
+            '@type': 'Place',
+            name: 'San Luis Potosí',
+            sameAs: 'https://www.wikidata.org/wiki/Q80786',
+          },
+          inLanguage: ['en', 'es'],
+        }}
+      />
 
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}

@@ -54,11 +54,11 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 
 ### Schema / structured data
 - [x] **TouristInformationCenter + Organization + WebSite** schema on homepage. Includes `areaServed`, `geo`, `priceRange`, `address`, `sameAs` (Wikidata Q80786 + Wikipedia), and SearchAction. _(done — current commit)_
-- [ ] **TouristAttraction / Place** schema on:
-  - [ ] `/parque-tangamanga` (done as part of metadata fix)
-  - [ ] `/centro-historico`
-  - [ ] `/cultural/history`
-  - [ ] `/cultural-attractions`
+- [x] **TouristAttraction / Place** schema on:
+  - [x] `/parque-tangamanga` (done as part of metadata fix in commit 3fc19b29)
+  - [x] `/centro-historico` _(done — current commit)_
+  - [x] `/cultural/history` (Article + about Place w/ Wikidata link) _(done — current commit)_
+  - [x] `/cultural-attractions` (ItemList of TouristAttractions) _(done — current commit)_
 - [ ] **Event** schema on each event detail page (`src/pages/events/[category]/[id].tsx`) with `@type: Event`, `name`, `startDate`, `endDate`, `location` (Place with address + geo), `image`, `offers` if ticketed, `organizer`.
 - [ ] **ItemList** schema on:
   - [ ] `/events/[category]` index pages (wraps event list)

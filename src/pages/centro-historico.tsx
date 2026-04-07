@@ -36,6 +36,37 @@ export default function CentroHistorico() {
         title={t('centroHistorico.seo.title')}
         description={t('centroHistorico.seo.description')}
         keywords="Centro Historico San Luis Potosi, colonial architecture, Plaza de Armas, Cathedral, expat guide, historic downtown"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'TouristAttraction',
+          name: 'Centro Histórico de San Luis Potosí',
+          alternateName: 'Historic Center of San Luis Potosí',
+          description: 'UNESCO World Heritage-listed colonial downtown of San Luis Potosí, Mexico. Home to Plaza de Armas, the Cathedral, Templo del Carmen, Teatro de la Paz and centuries-old baroque architecture.',
+          image: 'https://sanluisway.com/images/blog/centro-san-luis/hero-Centro-Historico.jpg',
+          url: 'https://sanluisway.com/centro-historico',
+          touristType: ['Cultural tourists', 'Heritage tourists', 'Expats', 'Families'],
+          isAccessibleForFree: true,
+          publicAccess: true,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Plaza de Armas',
+            addressLocality: 'San Luis Potosí',
+            addressRegion: 'SLP',
+            postalCode: '78000',
+            addressCountry: 'MX',
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 22.1511,
+            longitude: -100.9756,
+          },
+          hasMap: 'https://www.google.com/maps/place/Plaza+de+Armas,+Centro+Hist%C3%B3rico,+San+Luis+Potos%C3%AD',
+          isPartOf: {
+            '@type': 'City',
+            name: 'San Luis Potosí',
+            sameAs: 'https://www.wikidata.org/wiki/Q80786',
+          },
+        }}
       />
 
       {/* Hero Section */}
