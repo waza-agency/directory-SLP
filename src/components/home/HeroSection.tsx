@@ -20,7 +20,9 @@ export default function HeroSection({ glitchWords }: HeroSectionProps) {
           fill
           className="object-cover scale-105 opacity-60"
           priority
+          fetchPriority="high"
           sizes="100vw"
+          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />

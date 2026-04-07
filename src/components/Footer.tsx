@@ -71,9 +71,10 @@ export default function Footer() {
               <Image
                 src="/images/logo.jpeg"
                 alt="SLP Descubre Logo"
-                width={500}
-                height={50}
+                width={200}
+                height={200}
                 className="h-18 w-auto"
+                sizes="(max-width: 640px) 72px, 96px"
               />
             </Link>
             <p className="text-gray-300 mb-6 text-base leading-relaxed">

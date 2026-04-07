@@ -41,9 +41,10 @@ export default function Header() {
               <Image
                 src="/images/logo.jpeg"
                 alt="SLP Descubre Logo"
-                width={480}
-                height={48}
+                width={200}
+                height={200}
                 className="h-12 w-auto"
+                sizes="(max-width: 640px) 48px, 96px"
                 priority
               />
             </Link>
