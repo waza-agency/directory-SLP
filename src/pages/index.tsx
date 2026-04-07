@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       id: post.id,
       name: post.title,
       description: post.excerpt,
-      imageUrl: post.imageUrl || 'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?q=80&w=1000',
+      imageUrl: post.imageUrl || '/images/hero-bg.jpg',
       ctaUrl: `/blog/${post.slug}`
     }));
 

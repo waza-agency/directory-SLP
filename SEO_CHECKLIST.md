@@ -38,7 +38,11 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 - [ ] **Add `fetchpriority="high"`** to the LCP image.
 - [ ] **Reserve hero container** with `aspect-ratio` CSS or explicit min-height so nothing shifts (fixes CLS 0.206).
 - [ ] **Gate Stripe** (`js.stripe.com`) to `/checkout` route only — currently nothing actively loads it, but `js.stripe.com` stays in CSP allowlist; remove from CSP too if checkout feature remains disabled.
-- [ ] **Optimize font loading** — Google Fonts (`Inter` + `Crimson Pro`) are currently loaded via render-blocking `<link rel="stylesheet">`. Migrate to `next/font/google` for automatic self-hosting + zero layout shift.
+- [x] **Optimize font loading** — Inter + Crimson Pro migrated to `next/font/google`. Fonts now self-hosted at build time, render-blocking stylesheet removed, `adjustFontFallback` eliminates CLS on swap. _(done — commit pending)_
+
+### Image optimization (next.config.js)
+- [ ] **`unoptimized: true` in `next.config.js`** globally disables Next.js image optimization. All `next/image` tags fall back to raw `<img>` with no AVIF/WebP, no responsive srcset, no automatic resizing. Comment says "causes 400 errors in production" but `remotePatterns` are now correctly configured. Flip to `unoptimized: false` in a standalone test PR to measure the impact without risk of a bundled rollback.
+- [ ] **Remove deprecated `domains` array** from `next.config.js` images config. It is fully superseded by `remotePatterns` and adds confusion.
 
 ### GSC sitemap warnings
 - [ ] Open Google Search Console → Indexing → Sitemaps → `sitemap.xml` → review the **121 warnings**. Common causes: 4xx URLs in sitemap, canonicalized-away URLs, noindex URLs. Remove affected URLs from sitemap.

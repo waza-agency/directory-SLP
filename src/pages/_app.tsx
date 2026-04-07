@@ -6,6 +6,27 @@ import Footer from '@/components/Footer';
 import React from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
+import { Inter, Crimson_Pro } from 'next/font/google';
+
+// Self-hosted Google Fonts via next/font. Fonts are downloaded at build time
+// and served from /_next/static/media, eliminating the render-blocking
+// stylesheet from fonts.googleapis.com and the extra round-trip to
+// fonts.gstatic.com. adjustFontFallback (default: true) computes a metrics-
+// matching fallback so there is no CLS when the real font swaps in.
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700', '800'],
+});
+
+const crimsonPro = Crimson_Pro({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-crimson-pro',
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+});
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
@@ -164,7 +185,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         >
           <AuthProvider>
             {/* MARKETPLACE DISABLED - Removed CartProvider */}
-            <div className="min-h-screen flex flex-col">
+            <div className={`min-h-screen flex flex-col ${inter.variable} ${crimsonPro.variable}`}>
               <Header />
               <main className="flex-grow">
                 <ErrorBoundary>
