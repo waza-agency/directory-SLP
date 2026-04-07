@@ -68,6 +68,26 @@ export default function SafetyGuidePage() {
         <meta property="og:title" content="Is San Luis Potosí Safe? Complete Safety Guide" />
         <meta property="og:description" content="Comprehensive safety analysis with verified data, local perception, and practical tips for living in SLP." />
         <link rel="canonical" href="https://sanluisway.com/resources/safety-guide" />
+        {/* FAQPage JSON-LD — mirrors the visible Q&A list below so Google can
+            surface the answers as rich results. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              '@id': 'https://sanluisway.com/resources/safety-guide#faq',
+              mainEntity: faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: f.a,
+                },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50">
@@ -146,7 +166,7 @@ export default function SafetyGuidePage() {
             <div className="lg:col-span-3 space-y-12">
               {/* Overview */}
               <section id="overview" className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Overview: Safety in San Luis Potosí</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">How safe is San Luis Potosí overall?</h2>
 
                 <div className="prose prose-lg max-w-none">
                   <p>
@@ -178,7 +198,7 @@ export default function SafetyGuidePage() {
 
               {/* Statistics */}
               <section id="statistics" className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Crime Statistics: What the Numbers Say</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">What do the crime statistics actually show?</h2>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
                   <div className="bg-gray-50 rounded-xl p-6 text-center">
@@ -262,7 +282,7 @@ export default function SafetyGuidePage() {
 
               {/* Local Perception */}
               <section id="perception" className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Local Perception: What Residents Say</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">How do residents perceive safety in San Luis Potosí?</h2>
 
                 <p className="text-gray-700 mb-6">
                   The INEGI (Mexico&apos;s national statistics institute) conducts quarterly surveys on perceived safety.
@@ -305,7 +325,7 @@ export default function SafetyGuidePage() {
 
               {/* Neighborhoods */}
               <section id="neighborhoods" className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Safe Neighborhoods for Expats</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Which neighborhoods are safest for expats in San Luis Potosí?</h2>
 
                 <div className="space-y-4">
                   <div className="border-l-4 border-emerald-500 bg-emerald-50 p-4 rounded-r-xl">
@@ -361,7 +381,7 @@ export default function SafetyGuidePage() {
 
               {/* Expat Experience */}
               <section id="expat-experience" className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">What Expats Actually Say</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">What do expats report about living safely in SLP?</h2>
 
                 <p className="text-gray-700 mb-6">
                   Real experiences from foreigners living in San Luis Potosí, gathered from expat forums and communities:
@@ -400,7 +420,7 @@ export default function SafetyGuidePage() {
 
               {/* Safety Tips */}
               <section id="practical-tips" className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Practical Safety Tips</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">What practical safety tips should I follow in SLP?</h2>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">

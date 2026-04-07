@@ -70,7 +70,7 @@ Legend: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked
 ### GEO / AI search readiness
 - [x] **Published `/public/llms.txt`** following llmstxt.org spec — name, description, top-level URLs grouped by Places, Food, Events, Cultural, Living/Expat, Community. _(done — current commit)_
 - [x] **Added sameAs links** on Organization schema pointing to Wikidata Q80786 + Wikipedia. Instagram/LinkedIn pending until accounts confirmed. _(done — current commit)_
-- [ ] **Convert guide H2/H3s to question form** where possible ("How safe is SLP?", "Where should expats live in SLP?") — AI Overviews prefer Q&A headings.
+- [x] **Convert guide H2/H3s to question form** — applied to the flagship `/resources/safety-guide` page. Six top-level H2s rewritten: "Overview: Safety" → "How safe is San Luis Potosí overall?", "Crime Statistics" → "What do the crime statistics actually show?", "Local Perception" → "How do residents perceive safety in SLP?", "Safe Neighborhoods for Expats" → "Which neighborhoods are safest for expats in SLP?", "What Expats Actually Say" → "What do expats report about living safely in SLP?", "Practical Safety Tips" → "What practical safety tips should I follow in SLP?". Also added `FAQPage` JSON-LD in `<Head>` that mirrors the existing `faqs` array so Google can surface the Q&A as rich results. Pattern can be replicated on other guides. _(done — pending commit)_
 - [ ] **Add structured tables** for data-dense guides (rent by neighborhood, crime stats, school tuition ranges) — AI systems prefer extractable tables.
 
 ### HTML lang & og:locale
