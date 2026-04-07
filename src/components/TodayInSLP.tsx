@@ -217,7 +217,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             <div className="flex items-start justify-between mb-3">
               {getWeatherIcon(weather?.condition)}
               {weather && (
-                <span className="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">
+                <span className="text-xs font-medium text-amber-800 bg-amber-100 px-2 py-1 rounded-full">
                   UV {weather.uvIndex}
                 </span>
               )}
@@ -252,7 +252,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
           <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-100 overflow-hidden">
             <div className="flex items-start justify-between mb-3">
               <span className="text-3xl">{currentCurrency.flag}</span>
-              <span className="text-xs font-medium text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">
+              <span className="text-xs font-medium text-emerald-800 bg-emerald-100 px-2 py-1 rounded-full">
                 {t('todayInSLP.live')}
               </span>
             </div>
@@ -310,7 +310,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                   {t('todayInSLP.traffic')}
                 </span>
               </div>
-              <span className="text-xs font-medium text-cyan-600 bg-cyan-100 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-medium text-cyan-800 bg-cyan-100 px-2 py-0.5 rounded-full">
                 {t('todayInSLP.live')}
               </span>
             </div>
@@ -327,10 +327,11 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               href="https://www.google.com/maps/@22.1565,-100.9855,14z/data=!5m1!1e1"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1 w-full py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium rounded-lg transition-colors"
+              className="flex items-center justify-center gap-1 w-full py-1.5 bg-cyan-800 hover:bg-cyan-900 text-white text-xs font-semibold rounded-lg transition-colors"
+              aria-label={`${t('todayInSLP.viewLiveTraffic')} (Google Maps)`}
             >
               {t('todayInSLP.viewLiveTraffic')}
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
@@ -344,7 +345,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
               <span className="text-xl">💡</span>
             </div>
             <div>
-              <p className="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-1">
+              <p className="text-xs font-semibold text-amber-800 uppercase tracking-wider mb-1">
                 {t('todayInSLP.tipOfDay')}
               </p>
               <p className="text-gray-700">
@@ -443,10 +444,10 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <span className={`text-xs font-semibold uppercase tracking-wider ${
-                      news.category === 'social' ? 'text-rose-600' :
-                      news.category === 'community' ? 'text-emerald-600' :
-                      news.category === 'culture' ? 'text-violet-600' :
-                      'text-blue-600'
+                      news.category === 'social' ? 'text-rose-700' :
+                      news.category === 'community' ? 'text-emerald-700' :
+                      news.category === 'culture' ? 'text-violet-700' :
+                      'text-blue-700'
                     }`}>
                       {t(`todayInSLP.${news.category}`)}
                     </span>

@@ -120,8 +120,8 @@ export default function ImageCarousel({
                 {/* Badge */}
                 {item.badge && (
                   <div className="absolute top-4 left-4">
-                    <span className={`inline-block px-3 py-1 rounded-full text-white text-xs font-semibold ${
-                      item.badgeColor || 'bg-primary'
+                    <span className={`inline-block px-3 py-1 rounded-full text-white text-xs font-semibold shadow-md ${
+                      item.badgeColor || 'bg-secondary'
                     }`}>
                       {item.badge}
                     </span>
@@ -146,7 +146,7 @@ export default function ImageCarousel({
                   {item.title}
                 </h3>
 
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-700 text-sm mb-4 line-clamp-3">
                   {item.description}
                 </p>
 
@@ -154,7 +154,7 @@ export default function ImageCarousel({
                 {item.link && (
                   <Link
                     href={item.link}
-                    className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium text-sm transition-colors"
+                    className="inline-flex items-center gap-2 text-primary-800 hover:text-primary-900 font-semibold text-sm transition-colors"
                     aria-label={item.linkText ? `${item.linkText}: ${item.title}` : `Learn more about ${item.title}`}
                   >
                     {item.linkText || `Learn more about ${item.title}`}

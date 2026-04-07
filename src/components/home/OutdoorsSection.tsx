@@ -27,7 +27,7 @@ export default function OutdoorsSection({ activities }: OutdoorsSectionProps) {
     <section id="outdoors-001" className="py-32 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.outdoors.badge')}</span>
+          <span className="inline-block text-primary-800 font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.outdoors.badge')}</span>
           <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             {t('homepage.outdoors.title')}
           </h2>

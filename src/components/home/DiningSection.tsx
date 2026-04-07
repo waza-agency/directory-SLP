@@ -43,7 +43,7 @@ export default function DiningSection() {
     <section id="dining-001" className="py-32 bg-white">
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.dining.badge')}</span>
+          <span className="inline-block text-primary-800 font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.dining.badge')}</span>
           <h2 className="font-serif text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             {t('homepage.dining.title')}
           </h2>
@@ -72,7 +72,11 @@ export default function DiningSection() {
                 <p className="text-gray-600 mb-4 leading-relaxed">
                   {t(`homepage.dining.${category.key}.description`)}
                 </p>
-                <Link href={category.link} className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                <Link
+                  href={category.link}
+                  className="inline-flex items-center gap-2 text-primary-800 font-semibold hover:gap-3 transition-all"
+                  aria-label={`${t(`homepage.dining.${category.key}.link`)}: ${t(`homepage.dining.${category.key}.title`)}`}
+                >
                   {t(`homepage.dining.${category.key}.link`)} →
                 </Link>
               </div>

@@ -48,7 +48,7 @@ export default function CultureSection() {
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4 bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-2 rounded-full">
+            <span className="inline-block text-emerald-900 font-semibold text-sm tracking-widest uppercase mb-4 bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-2 rounded-full">
               {t('homepage.culture.badge')}
             </span>
             <h2 className="font-serif text-5xl font-bold text-gray-900 mb-6 leading-tight">
@@ -85,10 +85,10 @@ export default function CultureSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/events/cultural"
-                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-secondary px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 {t('homepage.culture.viewCalendar')}
-                <CalendarIcon className="w-5 h-5" />
+                <CalendarIcon className="w-5 h-5" aria-hidden="true" />
               </Link>
               <Link
                 href="/cultural-tours"

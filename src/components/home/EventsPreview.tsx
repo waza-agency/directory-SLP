@@ -21,7 +21,7 @@ export default function EventsPreview({ events }: EventsPreviewProps) {
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex justify-between items-end mb-16">
           <div className="max-w-2xl">
-            <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.events.badge')}</span>
+            <span className="inline-block text-primary-800 font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.events.badge')}</span>
             <h2 className="font-serif text-5xl font-bold text-gray-900 mb-4 leading-tight">
               {t('homepage.events.title')}
             </h2>
@@ -53,7 +53,7 @@ export default function EventsPreview({ events }: EventsPreviewProps) {
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 text-center">
                     <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-3 min-w-[70px]">
-                      <div className="text-2xl font-bold text-primary">
+                      <div className="text-2xl font-bold text-primary-900">
                         {new Date(event.start_date).toLocaleDateString(locale, { day: 'numeric' })}
                       </div>
                       <div className="text-xs font-semibold text-gray-600 uppercase">
@@ -89,7 +89,7 @@ export default function EventsPreview({ events }: EventsPreviewProps) {
                       )}
 
                       {event.category && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary capitalize">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary-900 capitalize">
                           {event.category.replace('-', ' ')}
                         </span>
                       )}

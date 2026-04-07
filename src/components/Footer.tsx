@@ -54,9 +54,9 @@ export default function Footer() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-full group-hover:bg-primary-dark transition-colors">
+              <div className="flex items-center gap-2 px-6 py-3 bg-primary text-secondary font-semibold rounded-full group-hover:bg-primary-dark transition-colors">
                 {t('b2b.footer.cta')}
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </div>

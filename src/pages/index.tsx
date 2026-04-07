@@ -135,7 +135,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       link: '/outdoors#hiking',
       linkText: t('homepage.outdoors.hiking.linkText'),
       badge: t('homepage.outdoors.hiking.badge'),
-      badgeColor: 'bg-green-500'
+      badgeColor: 'bg-green-700'
     },
     {
       id: 'camping',
@@ -145,7 +145,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       link: '/outdoors#camping',
       linkText: t('homepage.outdoors.camping.linkText'),
       badge: t('homepage.outdoors.camping.badge'),
-      badgeColor: 'bg-blue-500'
+      badgeColor: 'bg-blue-700'
     },
     {
       id: 'real-catorce',
@@ -155,7 +155,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       link: '/outdoors#real-catorce',
       linkText: t('homepage.outdoors.realCatorce.linkText'),
       badge: t('homepage.outdoors.realCatorce.badge'),
-      badgeColor: 'bg-purple-500'
+      badgeColor: 'bg-purple-700'
     },
     {
       id: 'media-luna',
@@ -165,7 +165,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       link: '/outdoors#media-luna',
       linkText: t('homepage.outdoors.mediaLuna.linkText'),
       badge: t('homepage.outdoors.mediaLuna.badge'),
-      badgeColor: 'bg-cyan-500'
+      badgeColor: 'bg-cyan-700'
     },
     {
       id: 'huasteca',
@@ -175,7 +175,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       link: '/outdoors#huasteca',
       linkText: t('homepage.outdoors.huasteca.linkText'),
       badge: t('homepage.outdoors.huasteca.badge'),
-      badgeColor: 'bg-teal-500'
+      badgeColor: 'bg-teal-700'
     },
     {
       id: 'xilitla',
@@ -185,7 +185,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
       link: '/outdoors#xilitla',
       linkText: t('homepage.outdoors.xilitla.linkText'),
       badge: t('homepage.outdoors.xilitla.badge'),
-      badgeColor: 'bg-pink-500'
+      badgeColor: 'bg-pink-700'
     }
   ];
 

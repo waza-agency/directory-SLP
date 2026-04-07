@@ -23,7 +23,7 @@ export default function FeaturedPlaces({ places }: FeaturedPlacesProps) {
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex justify-between items-end mb-16">
           <div className="max-w-2xl">
-            <span className="inline-block text-primary font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.places.badge')}</span>
+            <span className="inline-block text-primary-800 font-semibold text-sm tracking-widest uppercase mb-4">{t('homepage.places.badge')}</span>
             <h2 className="font-serif text-5xl font-bold text-gray-900 mb-4 leading-tight">
               {t('homepage.places.title')}
             </h2>
@@ -69,10 +69,11 @@ export default function FeaturedPlaces({ places }: FeaturedPlacesProps) {
                 </p>
                 <Link
                   href={place.ctaUrl}
-                  className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-primary-800 font-semibold hover:gap-3 transition-all"
+                  aria-label={`${t('homepage.places.discoverMore')}: ${place.name}`}
                 >
                   {t('homepage.places.discoverMore')}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
