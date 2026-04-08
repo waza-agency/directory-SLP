@@ -67,7 +67,7 @@ export default function SafetyGuidePage() {
         <meta name="keywords" content="San Luis Potosí safety, is SLP safe, crime statistics Mexico, safe neighborhoods SLP, expat safety Mexico" />
         <meta property="og:title" content="Is San Luis Potosí Safe? Complete Safety Guide" />
         <meta property="og:description" content="Comprehensive safety analysis with verified data, local perception, and practical tips for living in SLP." />
-        <link rel="canonical" href="https://sanluisway.com/resources/safety-guide" />
+        <link rel="canonical" href="https://www.sanluisway.com/resources/safety-guide" />
         {/* FAQPage JSON-LD — mirrors the visible Q&A list below so Google can
             surface the answers as rich results. */}
         <script
@@ -76,7 +76,7 @@ export default function SafetyGuidePage() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'FAQPage',
-              '@id': 'https://sanluisway.com/resources/safety-guide#faq',
+              '@id': 'https://www.sanluisway.com/resources/safety-guide#faq',
               mainEntity: faqs.map((f) => ({
                 '@type': 'Question',
                 name: f.q,

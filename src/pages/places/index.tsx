@@ -151,13 +151,13 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
             ? `Curated directory of ${places.length} places in San Luis Potosí, Mexico.`
             : `Curated directory of ${services.length} local service providers in San Luis Potosí, Mexico.`,
           url: activeTab === 'places'
-            ? 'https://sanluisway.com/places'
-            : 'https://sanluisway.com/places?tab=services',
+            ? 'https://www.sanluisway.com/places'
+            : 'https://www.sanluisway.com/places?tab=services',
           numberOfItems: activeTab === 'places' ? places.length : services.length,
           itemListElement: (activeTab === 'places' ? places : services).slice(0, 20).map((item, idx) => ({
             '@type': 'ListItem',
             position: idx + 1,
-            url: `https://sanluisway.com/places/${item.id}`,
+            url: `https://www.sanluisway.com/places/${item.id}`,
             name: item.name,
           })),
         }}

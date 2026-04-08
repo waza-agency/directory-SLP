@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 //   - dynamic [id]/[slug] segments where the human label would be a UUID
 //     (those pages should mount the full <Breadcrumbs> component themselves
 //     with explicit labels — see /places/[id] and /blog/[slug])
-const SITE_URL = 'https://sanluisway.com';
+const SITE_URL = 'https://www.sanluisway.com';
 
 const formatLabel = (segment: string): string =>
   segment

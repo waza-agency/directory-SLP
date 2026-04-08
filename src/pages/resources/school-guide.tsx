@@ -413,9 +413,9 @@ export default function SchoolGuidePage() {
         <meta name="keywords" content="San Luis Potosí schools, international schools SLP, education Mexico expats, bilingual schools, universities San Luis Potosí, school enrollment Mexico, Colegio Terranova, Colegio Motolinia, UASLP" />
         <meta property="og:title" content="Ultimate School Guide San Luis Potosí | Education for Expat Families" />
         <meta property="og:description" content="Complete guide to education options in San Luis Potosí. Find the perfect school for your children with detailed information on enrollment, costs, and curriculum." />
-        <meta property="og:url" content="https://sanluisway.com/resources/school-guide" />
+        <meta property="og:url" content="https://www.sanluisway.com/resources/school-guide" />
         <meta property="og:type" content="article" />
-        <link rel="canonical" href="https://sanluisway.com/resources/school-guide" />
+        <link rel="canonical" href="https://www.sanluisway.com/resources/school-guide" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -451,9 +451,9 @@ export default function SchoolGuidePage() {
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
               "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://sanluisway.com" },
-                { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://sanluisway.com/resources" },
-                { "@type": "ListItem", "position": 3, "name": "School Guide", "item": "https://sanluisway.com/resources/school-guide" }
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sanluisway.com" },
+                { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://www.sanluisway.com/resources" },
+                { "@type": "ListItem", "position": 3, "name": "School Guide", "item": "https://www.sanluisway.com/resources/school-guide" }
               ]
             })
           }}

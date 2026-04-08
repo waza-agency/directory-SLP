@@ -182,22 +182,22 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
               "@type": "Blog",
               "name": "San Luis Way Blog",
               "description": "Your complete guide to living as an expat in San Luis Potosí",
-              "url": "https://sanluisway.com/blog",
+              "url": "https://www.sanluisway.com/blog",
               "publisher": {
                 "@type": "Organization",
                 "name": "San Luis Way",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://sanluisway.com/og-image.jpg"
+                  "url": "https://www.sanluisway.com/og-image.jpg"
                 }
               },
               "blogPost": posts.slice(0, 10).map(post => ({
                 "@type": "BlogPosting",
                 "headline": post.title,
                 "description": post.excerpt,
-                "url": `https://sanluisway.com/blog/${post.slug}`,
+                "url": `https://www.sanluisway.com/blog/${post.slug}`,
                 "datePublished": post.publishedAt,
-                "image": post.imageUrl || "https://sanluisway.com/og-image.jpg"
+                "image": post.imageUrl || "https://www.sanluisway.com/og-image.jpg"
               }))
             })
           }}

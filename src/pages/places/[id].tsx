@@ -24,7 +24,7 @@ const CATEGORY_TO_SCHEMA: Record<string, string> = {
 };
 
 function buildPlaceStructuredData(place: Place) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
   const schemaType = CATEGORY_TO_SCHEMA[place.category] || 'LocalBusiness';
   const priceRange = place.priceLevel
     ? '$'.repeat(Math.max(1, Math.min(4, place.priceLevel)))

@@ -138,7 +138,7 @@ export default function ResourcesHubPage() {
         <meta name="keywords" content="San Luis Potosí resources, SLP guides, expat resources, living in Mexico guides, San Luis Potosí schools, healthcare SLP" />
         <meta property="og:title" content="Resources Hub | San Luis Way" />
         <meta property="og:description" content="Your complete resource center for living in San Luis Potosí." />
-        <meta property="og:url" content="https://sanluisway.com/resources" />
+        <meta property="og:url" content="https://www.sanluisway.com/resources" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -147,14 +147,14 @@ export default function ResourcesHubPage() {
               "@type": "CollectionPage",
               "name": "Resources Hub - San Luis Way",
               "description": "Complete resource center for living in San Luis Potosí",
-              "url": "https://sanluisway.com/resources",
+              "url": "https://www.sanluisway.com/resources",
               "mainEntity": {
                 "@type": "ItemList",
                 "itemListElement": guides.map((guide, index) => ({
                   "@type": "ListItem",
                   "position": index + 1,
                   "name": guide.title,
-                  "url": `https://sanluisway.com${guide.href}`
+                  "url": `https://www.sanluisway.com${guide.href}`
                 }))
               }
             })

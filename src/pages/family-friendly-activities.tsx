@@ -280,8 +280,8 @@ export default function FamilyFriendlyActivities() {
 
       <Head>
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-        <link rel="canonical" href="https://sanluisway.com/family-friendly-activities" />
-        <meta property="og:url" content="https://sanluisway.com/family-friendly-activities" />
+        <link rel="canonical" href="https://www.sanluisway.com/family-friendly-activities" />
+        <meta property="og:url" content="https://www.sanluisway.com/family-friendly-activities" />
         <meta property="og:locale" content={isEs ? 'es_MX' : 'en_US'} />
 
         {/* ItemList structured data */}

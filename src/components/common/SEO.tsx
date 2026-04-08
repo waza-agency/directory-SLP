@@ -33,11 +33,11 @@ const SEO: React.FC<SEOProps> = ({
   const path = router.asPath.split('?')[0].split('#')[0];
   // Strip trailing slash except for root, normalize root to ''
   const cleanPath = path === '/' ? '' : path.replace(/\/$/, '');
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
   const currentLocale = router.locale || DEFAULT_LOCALE;
 
   // Build the public URL for a given locale + current path. Default locale
-  // (en) lives at the apex; others live under /<locale>.
+  // (en) lives at the root path; others live under /<locale>.
   const urlForLocale = (locale: string) => {
     if (locale === DEFAULT_LOCALE) return cleanPath ? `${siteUrl}${cleanPath}` : siteUrl;
     return cleanPath ? `${siteUrl}/${locale}${cleanPath}` : `${siteUrl}/${locale}`;

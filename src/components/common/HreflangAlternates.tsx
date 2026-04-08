@@ -12,8 +12,8 @@ const DEFAULT_LOCALE = 'en';
  * the SEO component.
  *
  * URL shape:
- *   - en (default) → https://sanluisway.com{path}
- *   - es/de/ja     → https://sanluisway.com/{locale}{path}
+ *   - en (default) → https://www.sanluisway.com{path}
+ *   - es/de/ja     → https://www.sanluisway.com/{locale}{path}
  *
  * Canonical emission here is the single source of truth — the SEO
  * component no longer emits its own canonical to avoid duplication.
@@ -23,7 +23,7 @@ export default function HreflangAlternates() {
   // Strip query string and hash — hreflang URLs should be the canonical path only.
   const path = router.asPath.split('?')[0].split('#')[0];
   const cleanPath = path === '/' ? '' : path.replace(/\/$/, '');
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sanluisway.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
   const currentLocale = router.locale || DEFAULT_LOCALE;
 
   const urlForLocale = (locale: string) => {

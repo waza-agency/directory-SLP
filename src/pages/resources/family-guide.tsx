@@ -488,7 +488,7 @@ export default function FamilyGuidePage() {
         <title>Ultimate Family Life Guide San Luis Potosí | Schools, Parks, Activities</title>
         <meta name="description" content="Complete guide to family life in San Luis Potosí. Schools, parks, pediatric care, childcare, sports, and family-friendly neighborhoods for expats." />
         <meta name="keywords" content="San Luis Potosí families, schools SLP, kids activities Mexico, family neighborhoods, expat families" />
-        <link rel="canonical" href="https://sanluisway.com/resources/family-guide" />
+        <link rel="canonical" href="https://www.sanluisway.com/resources/family-guide" />
       </Head>
 
       <div className="min-h-screen bg-gray-50">

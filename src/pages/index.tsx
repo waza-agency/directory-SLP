@@ -253,10 +253,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
           '@graph': [
             {
               '@type': 'Organization',
-              '@id': 'https://sanluisway.com/#organization',
+              '@id': 'https://www.sanluisway.com/#organization',
               name: 'San Luis Way',
-              url: 'https://sanluisway.com',
-              logo: 'https://sanluisway.com/og-image.jpg',
+              url: 'https://www.sanluisway.com',
+              logo: 'https://www.sanluisway.com/og-image.jpg',
               description: 'Editorial expat and visitor guide to San Luis Potosí, Mexico — restaurants, places, events, neighborhoods and practical living resources.',
               areaServed: {
                 '@type': 'City',
@@ -270,10 +270,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             },
             {
               '@type': 'TouristInformationCenter',
-              '@id': 'https://sanluisway.com/#tic',
+              '@id': 'https://www.sanluisway.com/#tic',
               name: 'San Luis Way — San Luis Potosí Visitor & Expat Guide',
-              url: 'https://sanluisway.com',
-              image: 'https://sanluisway.com/og-image.jpg',
+              url: 'https://www.sanluisway.com',
+              image: 'https://www.sanluisway.com/og-image.jpg',
               description: 'Curated information for visitors and expats living in San Luis Potosí, S.L.P., Mexico. Restaurants, cultural attractions, events, neighborhoods and practical resources.',
               priceRange: 'Free',
               areaServed: [
@@ -295,20 +295,20 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
               hasMap: 'https://www.google.com/maps/place/San+Luis+Potos%C3%AD,+S.L.P.',
               isAccessibleForFree: true,
               publicAccess: true,
-              parentOrganization: { '@id': 'https://sanluisway.com/#organization' },
+              parentOrganization: { '@id': 'https://www.sanluisway.com/#organization' },
             },
             {
               '@type': 'WebSite',
-              '@id': 'https://sanluisway.com/#website',
-              url: 'https://sanluisway.com',
+              '@id': 'https://www.sanluisway.com/#website',
+              url: 'https://www.sanluisway.com',
               name: 'San Luis Way',
-              publisher: { '@id': 'https://sanluisway.com/#organization' },
+              publisher: { '@id': 'https://www.sanluisway.com/#organization' },
               inLanguage: ['en', 'es'],
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
-                  urlTemplate: 'https://sanluisway.com/places?q={search_term_string}',
+                  urlTemplate: 'https://www.sanluisway.com/places?q={search_term_string}',
                 },
                 'query-input': 'required name=search_term_string',
               },

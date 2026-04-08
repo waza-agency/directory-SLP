@@ -146,7 +146,7 @@ export default function ExpatGuidePage() {
         <meta property="og:title" content="Complete Expat Guide to San Luis Potosí | Essential Info" />
         <meta property="og:description" content="Everything you need to know about living in San Luis Potosí as an expat. Emergency contacts, healthcare, housing, banking, immigration, and transportation." />
         <meta property="og:image" content="/images/cultura-2.jpg" />
-        <meta property="og:url" content="https://sanluisway.com/expat-guide" />
+        <meta property="og:url" content="https://www.sanluisway.com/expat-guide" />
 
         {/* FAQ Schema for Featured Snippets */}
         <script
@@ -221,13 +221,13 @@ export default function ExpatGuidePage() {
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "https://sanluisway.com"
+                  "item": "https://www.sanluisway.com"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "Expat Guide",
-                  "item": "https://sanluisway.com/expat-guide"
+                  "item": "https://www.sanluisway.com/expat-guide"
                 }
               ]
             })

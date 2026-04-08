@@ -20,8 +20,8 @@ const tangamangaStructuredData = {
   alternateName: 'Parque Tangamanga',
   description:
     'Parque Tangamanga I is one of the largest urban parks in Mexico (411 hectares), located in San Luis Potosí. It features a zoo, planetarium, aquarium, Japanese garden, botanical garden, museums, theater, lakes, sports facilities, and over 400,000 trees.',
-  url: 'https://sanluisway.com/parque-tangamanga',
-  image: 'https://sanluisway.com/images/parque-tangamanga/hero.jpg',
+  url: 'https://www.sanluisway.com/parque-tangamanga',
+  image: 'https://www.sanluisway.com/images/parque-tangamanga/hero.jpg',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Av. Dr. Salvador Nava Martínez',

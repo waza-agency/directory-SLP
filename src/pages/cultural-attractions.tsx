@@ -167,7 +167,7 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
           '@type': 'ItemList',
           name: 'Cultural Attractions in San Luis Potosí',
           description: 'Museums, theaters, sacred sites and cultural centers in San Luis Potosí, Mexico.',
-          url: 'https://sanluisway.com/cultural-attractions',
+          url: 'https://www.sanluisway.com/cultural-attractions',
           numberOfItems: featuredAttractions.length,
           itemListElement: featuredAttractions.map((attraction, idx) => ({
             '@type': 'ListItem',
@@ -176,7 +176,7 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
               '@type': 'TouristAttraction',
               name: attraction.name,
               description: attraction.description,
-              image: `https://sanluisway.com${attraction.image}`,
+              image: `https://www.sanluisway.com${attraction.image}`,
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: attraction.address,

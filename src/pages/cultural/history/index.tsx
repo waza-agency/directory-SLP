@@ -111,21 +111,21 @@ export default function History() {
           '@type': 'Article',
           headline: 'History of San Luis Potosí',
           description: 'The story of San Luis Potosí from its 1592 Spanish founding through the colonial silver-mining era to the modern UNESCO-listed historic center.',
-          image: 'https://sanluisway.com/images/history/timeline/founding.jpg',
+          image: 'https://www.sanluisway.com/images/history/timeline/founding.jpg',
           author: {
             '@type': 'Organization',
             name: 'San Luis Way',
-            url: 'https://sanluisway.com',
+            url: 'https://www.sanluisway.com',
           },
           publisher: {
             '@type': 'Organization',
             name: 'San Luis Way',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://sanluisway.com/og-image.jpg',
+              url: 'https://www.sanluisway.com/og-image.jpg',
             },
           },
-          mainEntityOfPage: 'https://sanluisway.com/cultural/history',
+          mainEntityOfPage: 'https://www.sanluisway.com/cultural/history',
           about: {
             '@type': 'Place',
             name: 'San Luis Potosí',

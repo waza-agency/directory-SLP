@@ -84,33 +84,33 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               "@type": "Article",
               "headline": seoTitle,
               "description": seoDescription,
-              "image": post.imageUrl || "https://sanluisway.com/og-image.jpg",
+              "image": post.imageUrl || "https://www.sanluisway.com/og-image.jpg",
               "datePublished": post.publishedAt,
               "dateModified": post.createdAt,
               "author": {
                 "@type": "Person",
-                "@id": "https://sanluisway.com/about#editorial-team",
+                "@id": "https://www.sanluisway.com/about#editorial-team",
                 "name": "San Luis Way Editorial",
-                "url": "https://sanluisway.com/about",
+                "url": "https://www.sanluisway.com/about",
                 "jobTitle": "Editorial Team",
                 "worksFor": {
                   "@type": "Organization",
-                  "@id": "https://sanluisway.com/#organization",
+                  "@id": "https://www.sanluisway.com/#organization",
                   "name": "San Luis Way"
                 }
               },
               "publisher": {
                 "@type": "Organization",
-                "@id": "https://sanluisway.com/#organization",
+                "@id": "https://www.sanluisway.com/#organization",
                 "name": "San Luis Way",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://sanluisway.com/og-image.jpg"
+                  "url": "https://www.sanluisway.com/og-image.jpg"
                 }
               },
               "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": `https://sanluisway.com/blog/${post.slug}`
+                "@id": `https://www.sanluisway.com/blog/${post.slug}`
               },
               "keywords": post.tags?.join(', ') || '',
               "articleSection": post.category || "Expat Guide"

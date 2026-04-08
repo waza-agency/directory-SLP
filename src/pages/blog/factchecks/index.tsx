@@ -388,7 +388,7 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
               "@type": "CollectionPage",
               "name": "San Luis Way Fact-Check Reports",
               "description": "Transparent fact-checking of blog content with detailed source verification",
-              "url": "https://sanluisway.com/blog/factchecks",
+              "url": "https://www.sanluisway.com/blog/factchecks",
               "publisher": {
                 "@type": "Organization",
                 "name": "San Luis Way"
