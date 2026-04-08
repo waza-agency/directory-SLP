@@ -29,7 +29,6 @@ import CollaborationBanner from '@/components/CollaborationBanner';
 import RobotMindBanner from '@/components/RobotMindBanner';
 import TodayInSLP from '@/components/TodayInSLP';
 import FestivalPrimaveraBanner from '@/components/FestivalPrimaveraBanner';
-import CopaPotosiBanner from '@/components/CopaPotosiBanner';
 import FamilyActivitiesBanner from '@/components/FamilyActivitiesBanner';
 import BlogCarousel from '@/components/BlogCarousel';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -261,11 +260,12 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
               areaServed: {
                 '@type': 'City',
                 name: 'San Luis Potosí',
-                sameAs: 'https://www.wikidata.org/wiki/Q80786',
+                sameAs: 'https://www.wikidata.org/wiki/Q204271',
               },
               sameAs: [
-                'https://www.wikidata.org/wiki/Q80786',
-                'https://en.wikipedia.org/wiki/San_Luis_Potos%C3%AD_City',
+                'https://www.wikidata.org/wiki/Q139031973',
+                'https://www.wikidata.org/wiki/Q204271',
+                'https://en.wikipedia.org/wiki/San_Luis_Potos%C3%AD_(city)',
               ],
             },
             {
@@ -355,9 +355,6 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* FESTIVAL DE PRIMAVERA 2026 BANNER */}
         <FestivalPrimaveraBanner />
-
-        {/* COPA POTOSI 2026 BANNER */}
-        <CopaPotosiBanner />
 
         {/* EVENTS PREVIEW */}
         <EventsPreview events={events} />

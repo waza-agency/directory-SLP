@@ -64,7 +64,7 @@ export default function CentroHistorico() {
           isPartOf: {
             '@type': 'City',
             name: 'San Luis Potosí',
-            sameAs: 'https://www.wikidata.org/wiki/Q80786',
+            sameAs: 'https://www.wikidata.org/wiki/Q204271',
           },
         }}
       />

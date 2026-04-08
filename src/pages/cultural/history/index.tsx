@@ -129,7 +129,7 @@ export default function History() {
           about: {
             '@type': 'Place',
             name: 'San Luis Potosí',
-            sameAs: 'https://www.wikidata.org/wiki/Q80786',
+            sameAs: 'https://www.wikidata.org/wiki/Q204271',
           },
           inLanguage: ['en', 'es'],
         }}
