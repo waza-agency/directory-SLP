@@ -73,7 +73,6 @@ const STATIC_ROUTES: Array<Omit<SitemapUrl, 'lastmod'>> = [
   { loc: '/food-festivals-san-luis-potosi',          changefreq: 'monthly', priority: 0.7 },
   { loc: '/breakfast-spots-san-luis-potosi',         changefreq: 'monthly', priority: 0.7 },
   { loc: '/weekend-getaways',                        changefreq: 'monthly', priority: 0.7 },
-  { loc: '/copa-potosi-2026',                        changefreq: 'weekly',  priority: 0.7 },
   { loc: '/festival-primavera-2026',                 changefreq: 'weekly',  priority: 0.7 },
   { loc: '/resources/expat-guide',                   changefreq: 'monthly', priority: 0.8 },
   { loc: '/resources/living-guide',                  changefreq: 'monthly', priority: 0.8 },

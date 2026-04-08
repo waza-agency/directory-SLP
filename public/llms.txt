@@ -28,7 +28,6 @@ San Luis Way (sanluisway.com) is an editorial directory focused exclusively on t
 - [Sports events](https://www.sanluisway.com/events/sports): Sporting events and tournaments
 - [Family events](https://www.sanluisway.com/events/family): Family-friendly events
 - [Festival de Primavera 2026](https://www.sanluisway.com/festival-primavera-2026): Annual spring festival
-- [Copa Potosí 2026](https://www.sanluisway.com/copa-potosi-2026): Football tournament
 
 ## Cultural guides
 
