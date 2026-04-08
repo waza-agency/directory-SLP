@@ -14,7 +14,10 @@ function generateBrandSlug(name: string, category: string, city?: string | null)
     .replace(/^-|-$/g, '');
 }
 
-const SITE_URL = 'https://sanluisway.com';
+// Must match the production canonical host exactly — Google rejects
+// sitemaps whose inner <loc> URLs don't match the host the sitemap was
+// fetched from. The canonical host is www (Netlify redirects apex → www).
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.sanluisway.com';
 
 type ChangeFreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 

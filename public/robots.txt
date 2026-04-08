@@ -77,4 +77,4 @@ Disallow: /checkout
 Disallow: /order-confirmation
 
 # Sitemap (apex host — matches GSC property)
-Sitemap: https://sanluisway.com/sitemap.xml
+Sitemap: https://www.sanluisway.com/sitemap.xml
