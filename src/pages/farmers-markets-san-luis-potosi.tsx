@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
 import LastUpdated from '@/components/common/LastUpdated';
+import TrackedMapLink from '@/components/common/TrackedMapLink';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -207,14 +209,13 @@ export default function FarmersMarketsSLP() {
                     </span>
                   ))}
                 </div>
-                <a
+                <TrackedMapLink
                   href={`https://www.google.com/maps/search/${m.map}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  placeName={m.name}
                   className="inline-flex items-center text-sm text-emerald-700 hover:underline font-medium"
                 >
                   {isEs ? 'Ver en Google Maps →' : 'View on Google Maps →'}
-                </a>
+                </TrackedMapLink>
               </article>
             ))}
           </div>
@@ -233,11 +234,12 @@ export default function FarmersMarketsSLP() {
             </dl>
           </section>
 
-          <div className="mt-8 text-center">
-            <Link href="/places" className="inline-flex items-center text-emerald-700 hover:underline font-medium">
-              {isEs ? '← Ver todos los lugares en SLP' : '← Browse all places in SLP'}
-            </Link>
-          </div>
+          <GuideCTA relatedLinks={[
+            { href: '/breakfast-spots-san-luis-potosi', label: 'Best Breakfast Spots in SLP', labelEs: 'Mejores Desayunos en SLP' },
+            { href: '/traditional-cuisine', label: 'Traditional Potosino Cuisine', labelEs: 'Cocina Tradicional Potosina' },
+            { href: '/free-events-san-luis-potosi', label: 'Free Events in SLP', labelEs: 'Eventos Gratis en SLP' },
+            { href: '/places', label: 'Browse All Places in SLP', labelEs: 'Todos los Lugares en SLP' },
+          ]} />
         </section>
       </main>
 

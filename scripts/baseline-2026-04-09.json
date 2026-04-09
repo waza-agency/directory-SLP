@@ -1,0 +1,56 @@
+{
+  "captured_at": "2026-04-09",
+  "period": "2026-03-12 to 2026-04-08 (28 days)",
+  "gsc": {
+    "sitemap": {
+      "submitted": 244,
+      "indexed": 0,
+      "warnings": 0,
+      "errors": 0,
+      "note": "Sitemap resubmitted 2026-04-08 after fixing apex/www host mismatch. indexed=0 is expected — give 2-4 weeks."
+    },
+    "totals_28d": {
+      "clicks": 35,
+      "impressions": 2100,
+      "ctr_pct": 1.67,
+      "avg_position": 12.5
+    },
+    "top_queries": [
+      { "query": "copa potosi 2026", "clicks": 7, "impressions": 215, "ctr": 3.26, "position": 9.7 },
+      { "query": "copa potosí 2026", "clicks": 4, "impressions": 39, "ctr": 10.26, "position": 7.6 },
+      { "query": "copa san luis 2026", "clicks": 2, "impressions": 22, "ctr": 9.09, "position": 10.0 },
+      { "query": "absenta speakeasy", "clicks": 0, "impressions": 12, "ctr": 0, "position": 9.8 },
+      { "query": "absenta slp", "clicks": 0, "impressions": 10, "ctr": 0, "position": 10.7 }
+    ],
+    "top_pages": [
+      { "page": "/events/sports/047fcef9...", "clicks": 21, "impressions": 1229, "ctr": 1.71, "position": 9.5 },
+      { "page": "/", "clicks": 5, "impressions": 21, "ctr": 23.81, "position": 14.7 },
+      { "page": "/copa-potosi-2026", "clicks": 3, "impressions": 19, "ctr": 15.79, "position": 3.1 },
+      { "page": "/events/san-luis-en-primavera-2025", "clicks": 2, "impressions": 35, "ctr": 5.71, "position": 17.5 }
+    ]
+  },
+  "ga4_organic": {
+    "sessions": 151,
+    "users": 139,
+    "pageviews": 220,
+    "avg_daily_sessions": 5.4,
+    "top_pages": [
+      { "page": "/events/sports/{copa}", "sessions": 21, "engagement_rate": 38.1 },
+      { "page": "/events/all", "sessions": 19, "engagement_rate": 52.6 },
+      { "page": "/", "sessions": 11, "engagement_rate": 72.7 },
+      { "page": "/resources/safety-guide", "sessions": 11, "engagement_rate": 63.6 },
+      { "page": "/events/arts-culture/{uuid}", "sessions": 8, "engagement_rate": 25.0 },
+      { "page": "/parque-tangamanga", "sessions": 6, "engagement_rate": 66.7 },
+      { "page": "/es/festival-primavera-2026", "sessions": 6, "engagement_rate": 66.7 },
+      { "page": "/cultural/history", "sessions": 6, "engagement_rate": 0.0 }
+    ]
+  },
+  "key_insights": [
+    "Copa Potosí 2026 is the #1 traffic driver (21 sessions + 1229 GSC impressions)",
+    "Safety guide already attracts engaged users (11 sessions, 63.6% engagement)",
+    "Homepage has best engagement (72.7%) but only 11 organic sessions",
+    "Parque Tangamanga gets good engagement (66.7%) from only 6 sessions — high growth potential",
+    "New landing pages (farmers-markets, free-events, etc.) have 0 traffic — expected, not yet indexed",
+    "GSC indexed=0 because sitemap was broken until 2026-04-08 — this is THE main blocker that was just fixed"
+  ]
+}

@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
 import LastUpdated from '@/components/common/LastUpdated';
+import TrackedMapLink from '@/components/common/TrackedMapLink';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -217,14 +219,13 @@ export default function FreeEventsSLP() {
                 </p>
                 <p className="text-gray-600 mb-3">{isEs ? e.desc : e.descEn}</p>
                 <p className="text-sm text-gray-500 mb-3">📍 {e.where}</p>
-                <a
+                <TrackedMapLink
                   href={`https://www.google.com/maps/search/${e.map}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  placeName={e.name}
                   className="inline-flex items-center text-sm text-blue-700 hover:underline font-medium"
                 >
                   {isEs ? 'Cómo llegar →' : 'Get directions →'}
-                </a>
+                </TrackedMapLink>
               </article>
             ))}
           </div>
@@ -243,11 +244,12 @@ export default function FreeEventsSLP() {
             </dl>
           </section>
 
-          <div className="mt-8 text-center">
-            <Link href="/events/all" className="inline-flex items-center text-blue-700 hover:underline font-medium">
-              {isEs ? '← Ver todos los eventos en SLP' : '← Browse all events in SLP'}
-            </Link>
-          </div>
+          <GuideCTA relatedLinks={[
+            { href: '/food-festivals-san-luis-potosi', label: 'Food Festivals in SLP', labelEs: 'Festivales Gastronómicos en SLP' },
+            { href: '/family-friendly-activities', label: 'Family-Friendly Activities', labelEs: 'Actividades Familiares' },
+            { href: '/farmers-markets-san-luis-potosi', label: 'Farmers Markets in SLP', labelEs: 'Tianguis y Mercados en SLP' },
+            { href: '/events/all', label: 'Browse All Events', labelEs: 'Todos los Eventos' },
+          ]} />
         </section>
       </main>
 

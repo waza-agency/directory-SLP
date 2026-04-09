@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { EnvelopeIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'next-i18next';
+import { ConversionEvents } from '@/lib/analytics';
 
 interface NewsletterSignupProps {
   variant?: 'footer' | 'inline' | 'modal';
@@ -41,6 +42,9 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       }
 
       setStatus('success');
+      if (!data.alreadySubscribed) {
+        ConversionEvents.newsletterSignup(variant);
+      }
       setMessage(data.alreadySubscribed
         ? t('newsletter.alreadySubscribed')
         : data.resubscribed

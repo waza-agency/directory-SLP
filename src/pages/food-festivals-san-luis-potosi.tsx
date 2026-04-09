@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
 import LastUpdated from '@/components/common/LastUpdated';
+import TrackedMapLink from '@/components/common/TrackedMapLink';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -193,14 +195,13 @@ export default function FoodFestivalsSLP() {
                     </span>
                   ))}
                 </div>
-                <a
+                <TrackedMapLink
                   href={`https://www.google.com/maps/search/${f.map}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  placeName={f.name}
                   className="inline-flex items-center text-sm text-rose-700 hover:underline font-medium"
                 >
                   {isEs ? 'Cómo llegar →' : 'Get directions →'}
-                </a>
+                </TrackedMapLink>
               </article>
             ))}
           </div>
@@ -219,11 +220,12 @@ export default function FoodFestivalsSLP() {
             </dl>
           </section>
 
-          <div className="mt-8 text-center">
-            <Link href="/events/all" className="inline-flex items-center text-rose-700 hover:underline font-medium">
-              {isEs ? '← Ver todos los eventos' : '← Browse all events'}
-            </Link>
-          </div>
+          <GuideCTA relatedLinks={[
+            { href: '/free-events-san-luis-potosi', label: 'Free Events in SLP', labelEs: 'Eventos Gratis en SLP' },
+            { href: '/breakfast-spots-san-luis-potosi', label: 'Best Breakfast Spots', labelEs: 'Mejores Desayunos' },
+            { href: '/farmers-markets-san-luis-potosi', label: 'Farmers Markets in SLP', labelEs: 'Tianguis y Mercados' },
+            { href: '/events/all', label: 'Browse All Events', labelEs: 'Todos los Eventos' },
+          ]} />
         </section>
       </main>
 

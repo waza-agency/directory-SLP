@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import ReCAPTCHA from 'react-google-recaptcha';
 import SEO from '@/components/common/SEO';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { ConversionEvents } from '@/lib/analytics';
 
 interface ContactFormData {
   name: string;
@@ -87,6 +88,7 @@ export default function Contact() {
       }
 
       setSubmitSuccess(true);
+      ConversionEvents.contactFormSubmit(data.subject);
       reset();
       setRecaptchaValue(null);
       recaptchaRef.current?.reset();

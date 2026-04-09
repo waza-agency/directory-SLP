@@ -17,6 +17,27 @@ export function trackFbEvent(eventName: string, params?: Record<string, unknown>
   }
 }
 
+// Conversion events
+export const ConversionEvents = {
+  newsletterSignup: (source: string) =>
+    trackEvent('newsletter_signup', { source, method: 'email' }),
+
+  contactFormSubmit: (subject?: string) =>
+    trackEvent('contact_form_submit', { subject: subject || 'general' }),
+
+  outboundMapClick: (placeName: string, page: string) =>
+    trackEvent('outbound_click', { link_type: 'google_maps', place_name: placeName, page }),
+
+  outboundAffiliateClick: (partner: string, destination: string, page: string) =>
+    trackEvent('outbound_click', { link_type: 'affiliate', partner, destination, page }),
+
+  ctaClick: (ctaId: string, ctaText: string, page: string) =>
+    trackEvent('cta_click', { cta_id: ctaId, cta_text: ctaText, page }),
+
+  guideEngagement: (guidePath: string, section: string) =>
+    trackEvent('guide_section_view', { guide: guidePath, section }),
+};
+
 // Subscription funnel events
 export const SubscriptionEvents = {
   viewPricing: () => trackEvent('view_pricing', { page: 'business_subscription' }),

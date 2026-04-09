@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
 import LastUpdated from '@/components/common/LastUpdated';
+import TrackedMapLink from '@/components/common/TrackedMapLink';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -212,14 +214,13 @@ export default function BreakfastSpotsSLP() {
                     </span>
                   ))}
                 </div>
-                <a
+                <TrackedMapLink
                   href={`https://www.google.com/maps/search/${s.map}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  placeName={s.name}
                   className="inline-flex items-center text-sm text-amber-700 hover:underline font-medium"
                 >
                   {isEs ? 'Ver en Google Maps →' : 'View on Google Maps →'}
-                </a>
+                </TrackedMapLink>
               </article>
             ))}
           </div>
@@ -238,11 +239,12 @@ export default function BreakfastSpotsSLP() {
             </dl>
           </section>
 
-          <div className="mt-8 text-center">
-            <Link href="/traditional-cuisine" className="inline-flex items-center text-amber-700 hover:underline font-medium">
-              {isEs ? '← Ver la cocina tradicional potosina' : '← Explore traditional Potosino cuisine'}
-            </Link>
-          </div>
+          <GuideCTA relatedLinks={[
+            { href: '/farmers-markets-san-luis-potosi', label: 'Farmers Markets in SLP', labelEs: 'Tianguis y Mercados en SLP' },
+            { href: '/food-festivals-san-luis-potosi', label: 'Food Festivals in SLP', labelEs: 'Festivales Gastronómicos en SLP' },
+            { href: '/traditional-cuisine', label: 'Traditional Potosino Cuisine', labelEs: 'Cocina Tradicional Potosina' },
+            { href: '/restaurants', label: 'Restaurant Directory', labelEs: 'Directorio de Restaurantes' },
+          ]} />
         </section>
       </main>
 

@@ -12,6 +12,8 @@
     "start": "next start",
     "lint": "next lint",
     "seo:report": "node scripts/sitemap-report.js",
+    "seo:weekly": "node scripts/seo-weekly.js",
+    "seo:weekly:json": "node scripts/seo-weekly.js --json",
     "lastupdated:check": "node scripts/refresh-lastupdated.js --check",
     "lastupdated:refresh": "node scripts/refresh-lastupdated.js",
     "test": "jest",
