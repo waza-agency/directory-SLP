@@ -602,6 +602,38 @@
     "description": "サンルイスポトシ最大のフェスティバル第5回が、聖週間に歴史地区をアート、音楽、文化のステージに変えます。9カ国からのアーティスト、オアハカのゲラゲッツァ、ゲスト国スペイン、そして象徴的な沈黙の行列。",
     "cta": "プログラムを見る"
   },
+  "eventCarousel": {
+    "metalFest": {
+      "badge": "2026年5月16日〜17日",
+      "title": "サンルイス・メタルフェスト",
+      "description": "第1回開催。入場無料。Marduk、Possessed、Metal ChurchなどがFENAPO会場に集結。",
+      "cta": "ラインナップを見る",
+      "stat1Value": "2", "stat1Label": "日間",
+      "stat2Value": "3万+", "stat2Label": "来場者",
+      "stat3Value": "無料", "stat3Label": "入場",
+      "stat4Value": "8+", "stat4Label": "カ国"
+    },
+    "maraton": {
+      "badge": "2026年6月28日",
+      "title": "タンガマンガ・マラソン",
+      "description": "40周年記念大会。タンガマンガ公園とSLP歴史地区を走る5K、10K、21K、42K。",
+      "cta": "情報・参加登録",
+      "stat1Value": "40", "stat1Label": "回目",
+      "stat2Value": "1.5万+", "stat2Label": "ランナー",
+      "stat3Value": "4", "stat3Label": "距離",
+      "stat4Value": "FMAA", "stat4Label": "公認"
+    },
+    "fenapo": {
+      "badge": "2026年8月",
+      "title": "FENAPO 2026",
+      "description": "メキシコで最も伝統的な祭典が復活。Grupo Firme、Sin Bandera、Los Acostaほか出演者続々発表。",
+      "cta": "出演者を見る",
+      "stat1Value": "24", "stat1Label": "日間",
+      "stat2Value": "3+", "stat2Label": "アーティスト",
+      "stat3Value": "無料", "stat3Label": "一般入場",
+      "stat4Value": "6", "stat4Label": "エリア"
+    }
+  },
   "festival": {
     "title": "サンルイス国際春祭り 2026",
     "viewSchedule": "公式スケジュールを見る",

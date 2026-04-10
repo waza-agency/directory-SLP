@@ -889,6 +889,38 @@
     "description": "The 5th edition of San Luis Potosí's biggest festival transforms the Historic Center into a stage of art, music and culture during Holy Week. Artists from 9 countries, Oaxaca's Guelaguetza, Spain as guest country and the iconic Procession of Silence.",
     "cta": "See full schedule"
   },
+  "eventCarousel": {
+    "metalFest": {
+      "badge": "May 16 — 17, 2026",
+      "title": "San Luis Metal Fest",
+      "description": "1st edition. FREE ENTRY. Marduk, Possessed, Metal Church and more at FENAPO grounds.",
+      "cta": "See full lineup",
+      "stat1Value": "2", "stat1Label": "Days",
+      "stat2Value": "30K+", "stat2Label": "Attendees",
+      "stat3Value": "Free", "stat3Label": "Entry",
+      "stat4Value": "8+", "stat4Label": "Countries"
+    },
+    "maraton": {
+      "badge": "Jun 28, 2026",
+      "title": "Tangamanga Marathon",
+      "description": "40th Anniversary. 5K, 10K, 21K & 42K through Tangamanga Park and SLP Historic Center.",
+      "cta": "Info & registration",
+      "stat1Value": "40th", "stat1Label": "Edition",
+      "stat2Value": "15K+", "stat2Label": "Runners",
+      "stat3Value": "4", "stat3Label": "Distances",
+      "stat4Value": "FMAA", "stat4Label": "Certified"
+    },
+    "fenapo": {
+      "badge": "August 2026",
+      "title": "FENAPO 2026",
+      "description": "Mexico's most traditional fair returns. Grupo Firme, Sin Bandera, Los Acosta and more artists TBA.",
+      "cta": "See confirmed artists",
+      "stat1Value": "24", "stat1Label": "Days",
+      "stat2Value": "3+", "stat2Label": "Artists",
+      "stat3Value": "Free", "stat3Label": "Gen. Entry",
+      "stat4Value": "6", "stat4Label": "Zones"
+    }
+  },
   "festival": {
     "title": "International Spring Festival San Luis 2026",
     "viewSchedule": "View official schedule",

@@ -854,6 +854,38 @@
     "description": "Die 5. Ausgabe des größten Festivals von San Luis Potosí verwandelt das historische Zentrum in der Karwoche in eine Bühne für Kunst, Musik und Kultur. Künstler aus 9 Ländern, die Guelaguetza aus Oaxaca, Spanien als Gastland und die ikonische Prozession der Stille.",
     "cta": "Vollständiges Programm"
   },
+  "eventCarousel": {
+    "metalFest": {
+      "badge": "16. — 17. Mai 2026",
+      "title": "San Luis Metal Fest",
+      "description": "1. Ausgabe. KOSTENLOSER EINTRITT. Marduk, Possessed, Metal Church und mehr auf dem FENAPO-Gelände.",
+      "cta": "Komplettes Line-up",
+      "stat1Value": "2", "stat1Label": "Tage",
+      "stat2Value": "30K+", "stat2Label": "Besucher",
+      "stat3Value": "Gratis", "stat3Label": "Eintritt",
+      "stat4Value": "8+", "stat4Label": "Länder"
+    },
+    "maraton": {
+      "badge": "28. Juni 2026",
+      "title": "Tangamanga-Marathon",
+      "description": "40. Jubiläum. 5K, 10K, 21K & 42K durch den Tangamanga-Park und die Altstadt von SLP.",
+      "cta": "Info & Anmeldung",
+      "stat1Value": "40.", "stat1Label": "Ausgabe",
+      "stat2Value": "15K+", "stat2Label": "Läufer",
+      "stat3Value": "4", "stat3Label": "Distanzen",
+      "stat4Value": "FMAA", "stat4Label": "Zertifiziert"
+    },
+    "fenapo": {
+      "badge": "August 2026",
+      "title": "FENAPO 2026",
+      "description": "Mexikos traditionsreichste Messe kehrt zurück. Grupo Firme, Sin Bandera, Los Acosta und weitere Künstler folgen.",
+      "cta": "Bestätigte Künstler",
+      "stat1Value": "24", "stat1Label": "Tage",
+      "stat2Value": "3+", "stat2Label": "Künstler",
+      "stat3Value": "Gratis", "stat3Label": "Allg. Eintritt",
+      "stat4Value": "6", "stat4Label": "Bereiche"
+    }
+  },
   "festival": {
     "title": "Internationales Frühlingsfestival San Luis 2026",
     "viewSchedule": "Offiziellen Spielplan ansehen",
