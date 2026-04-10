@@ -1463,6 +1463,143 @@
     "recentInquiries": "Neueste Anfragen",
     "new": "neu"
   },
+  "fenapo2026": {
+    "seo": {
+      "title": "FENAPO 2026 — Nationale Messe von Potosí | San Luis Potosí",
+      "description": "FENAPO 2026: Mexikos traditionsreichste Messe. August 2026. Grupo Firme, Sin Bandera, Los Acosta. Programm, Künstler und Besucherguide.",
+      "keywords": "fenapo 2026, feria nacional potosina, fenapo san luis potosi, fenapo programm 2026"
+    },
+    "hero": {
+      "badge": "AUSGABE 2026",
+      "date": "August 2026",
+      "title": "FENAPO 2026",
+      "subtitle": "Feria Nacional Potosina",
+      "description": "Mexikos traditionsreichste Messe kehrt mit Konzerten, Gastronomie, Kultur und Unterhaltung für die ganze Familie zurück. Bestätigte Künstler: Grupo Firme, Sin Bandera, Los Acosta.",
+      "note": "Vollständiges Programm wird noch bekannt gegeben — diese Seite wird aktualisiert.",
+      "cta": "Offizielle Website",
+      "ctaArtists": "Künstler ansehen"
+    },
+    "stats": {
+      "days": "Tage",
+      "daysValue": "~24",
+      "artists": "Bestätigte Künstler",
+      "artistsValue": "3+",
+      "entry": "Allgemeiner Eintritt",
+      "entryValue": "Gratis",
+      "zones": "Bereiche",
+      "zonesValue": "6+"
+    },
+    "about": {
+      "title": "Was ist FENAPO?",
+      "p1": "Die Feria Nacional Potosina (FENAPO) ist Mexikos wichtigste und traditionsreichste Messe. Sie findet jedes Jahr im August in San Luis Potosí statt und fällt mit den Patronatsfesten zu Ehren von San Luis Rey de Francia (25. August) zusammen.",
+      "p2": "Mit über einem halben Jahrhundert Geschichte vereint die FENAPO Kultur, Unterhaltung, Gastronomie und Handel auf dem Recinto Ferial, einem über 30 Hektar großen Gelände.",
+      "p3": "Die Messe erzielt einen wirtschaftlichen Effekt von über 2 Milliarden Pesos und zieht pro Ausgabe mehr als 3 Millionen Besucher an.",
+      "highlights": {
+        "title": "Was dich bei FENAPO erwartet:",
+        "item1": "Teatro del Pueblo mit nationalen und internationalen Künstlern (kostenloser Eintritt)",
+        "item2": "Palenque mit den besten Vertretern regionaler Musik (Tickets)",
+        "item3": "Gastronomie-Zone mit potosiner, mexikanischer und internationaler Küche",
+        "item4": "Handelsausstellung mit lokalen und nationalen Produkten",
+        "item5": "Fahrgeschäfte und Familienunterhaltung",
+        "item6": "Vieh- und Landwirtschaftsausstellung",
+        "item7": "Kulturpavillon mit Kunst und Kunsthandwerk",
+        "item8": "Krönungszeremonie der FENAPO-Königin"
+      }
+    },
+    "artists": {
+      "title": "Bestätigte Künstler",
+      "subtitle": "Das Line-up wird bei Bekanntgabe aktualisiert.",
+      "teatroTitle": "Teatro del Pueblo",
+      "teatroNote": "Kostenloser Eintritt",
+      "palenqueTitle": "Palenque",
+      "palenqueNote": "Tickets im Verkauf",
+      "tbc": "Weitere Künstler folgen",
+      "sinBandera": "Sin Bandera",
+      "losAcosta": "Los Acosta",
+      "grupoFirme": "Grupo Firme"
+    },
+    "areas": {
+      "title": "Messebereiche",
+      "subtitle": "Das Gelände ist in Zonen unterteilt.",
+      "teatro": { "name": "Teatro del Pueblo", "desc": "Hauptbühne mit erstklassigen Künstlern. Kostenlose Konzerte jeden Abend." },
+      "palenque": { "name": "Palenque", "desc": "Premium-Shows mit der besten mexikanischen Musik." },
+      "gastro": { "name": "Gastronomie-Zone", "desc": "Potosiner, mexikanische und internationale Küche." },
+      "commercial": { "name": "Handelsausstellung", "desc": "Lokale und nationale Produkte und Dienstleistungen." },
+      "rides": { "name": "Fahrgeschäfte", "desc": "Achterbahn, Riesenrad, Autoscooter und mehr." },
+      "cultural": { "name": "Kulturpavillon", "desc": "Kunstausstellungen, Kunsthandwerk und traditionelle Musik." },
+      "livestock": { "name": "Viehausstellung", "desc": "Viehausstellung, Charreadas und Ranchtraditionen." },
+      "kids": { "name": "Kinderzone", "desc": "Aktivitäten und Shows für die Jüngsten." }
+    },
+    "visitorGuide": {
+      "title": "Besucherguide",
+      "subtitle": "Alles für deinen FENAPO-Besuch.",
+      "bestDaysTitle": "Beste Tage",
+      "bestDaysDesc": "Montag bis Donnerstag weniger voll. Freitag/Samstag beste Shows. Sonntags ideal für Familien.",
+      "bringTitle": "Was mitbringen",
+      "bringDesc": "Bequeme Schuhe, Sonnenschutz, Bargeld, Powerbank.",
+      "safetyTitle": "Sicherheit",
+      "safetyDesc": "Private Sicherheit und Polizeipräsenz. Auf Wertsachen achten.",
+      "familyTitle": "Familienbesuche",
+      "familyDesc": "Kinderzone und Fahrgeschäfte ideal für Kinder. Freitag/Samstag mit kleinen Kindern meiden."
+    },
+    "gettingThere": {
+      "title": "Anfahrt",
+      "venue": "Recinto Ferial de la FENAPO",
+      "address": "Av. Fco. Martínez de la Vega Nr. 255, San Luis Potosí",
+      "byCarTitle": "Mit dem Auto",
+      "byCarDesc": "Ausreichend Parkplätze. Vom Zentrum Av. Salvador Nava Richtung Süden (~15 Min.).",
+      "byTransitTitle": "ÖPNV",
+      "byTransitDesc": "Buslinien: 10, 12, 17. Spezialbusse während der Messe. Taxis und Uber verfügbar.",
+      "byPlaneTitle": "Vom Flughafen",
+      "byPlaneDesc": "Flughafen SLP: 20 Minuten entfernt.",
+      "distanceTitle": "Vom Zentrum",
+      "distanceDesc": "15 Minuten vom Centro Histórico über Av. Salvador Nava."
+    },
+    "accommodation": {
+      "title": "Unterkunft",
+      "description": "August ist der geschäftigste Monat wegen der FENAPO. Frühzeitig buchen.",
+      "nearbyTitle": "Nahe dem Gelände",
+      "nearbyDesc": "Hotels an Av. Salvador Nava und Tangamanga Süd, 5-10 Min.",
+      "centroTitle": "Altstadt",
+      "centroDesc": "Boutique- und Kolonialhotels, 15 Min. entfernt.",
+      "budgetTitle": "Spartipp",
+      "budgetDesc": "2-3 Monate vorher buchen spart bis zu 40%."
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": "Wann sind die genauen Termine der FENAPO 2026?",
+      "a1": "Die offiziellen Termine sind noch nicht bestätigt. Traditionell findet die Messe den ganzen August statt.",
+      "q2": "Was kosten Palenque-Tickets?",
+      "a2": "Preise variieren je nach Künstler, von 500 bis 3.000+ MXN. Ticketverkauf über Ticketmaster.",
+      "q3": "Ist der allgemeine Eintritt kostenlos?",
+      "a3": "Ja, Gelände und Teatro del Pueblo sind kostenlos. Palenque, Fahrgeschäfte und Sondershows kosten extra.",
+      "q4": "Gibt es Parkplätze?",
+      "a4": "Ja, auf dem Gelände und in der Nähe. Am Wochenende früh kommen.",
+      "q5": "Darf man Essen mitbringen?",
+      "a5": "Nein. Es gibt eine große Gastronomie-Zone mit Optionen für jedes Budget.",
+      "q6": "Wann hat die Messe geöffnet?",
+      "a6": "Mo-Do 11:00-24:00, Fr-Sa 11:00-2:00. Zeiten können variieren.",
+      "q7": "Ist die FENAPO sicher?",
+      "a7": "Ja. Private Sicherheit und Polizei vor Ort. Wertsachen im Auge behalten.",
+      "q8": "Sind Haustiere erlaubt?",
+      "a8": "Nein, aus Sicherheits- und Tierschutzgründen.",
+      "q9": "Gibt es Geldautomaten?",
+      "a9": "Ja, aber mit möglichen Warteschlangen. Bargeld mitbringen.",
+      "q10": "Ist es kinderfreundlich?",
+      "a10": "Ja. Kinderzone, Kinderfahrgeschäfte, Familienvorstellungen. Sonntags am besten mit Kindern.",
+      "q11": "Gibt es einen Dresscode?",
+      "a11": "Nein. Bequeme Freizeitkleidung. Geschlossene Schuhe empfohlen. Für den Palenque kleidet man sich eleganter.",
+      "q12": "Ist es barrierefrei?",
+      "a12": "Ja. Rampen und ausgewiesene Bereiche vorhanden. Früh kommen empfohlen."
+    },
+    "cta": {
+      "title": "Verpasse die FENAPO 2026 nicht!",
+      "description": "Mexikos traditionsreichste Messe. Fast ein Monat Kultur, Unterhaltung, Gastronomie und Spaß.",
+      "official": "Offizielle Website",
+      "newsletter": "Updates abonnieren",
+      "moreEvents": "Mehr Events in SLP"
+    }
+  },
   "b2b": {
     "nav": "Für Unternehmen",
     "footer": {

@@ -1498,6 +1498,143 @@
     "recentInquiries": "Recent Inquiries",
     "new": "new"
   },
+  "fenapo2026": {
+    "seo": {
+      "title": "FENAPO 2026 — National Potosino Fair | San Luis Potosí",
+      "description": "FENAPO 2026: Mexico's most traditional fair. August 2026 in San Luis Potosí. Grupo Firme, Sin Bandera, Los Acosta. Teatro del Pueblo, Palenque, gastronomy, rides. Program, artists and visitor guide.",
+      "keywords": "fenapo 2026, feria nacional potosina, fenapo san luis potosi, fenapo lineup 2026, grupo firme fenapo, palenque fenapo, teatro del pueblo"
+    },
+    "hero": {
+      "badge": "2026 EDITION",
+      "date": "August 2026",
+      "title": "FENAPO 2026",
+      "subtitle": "Feria Nacional Potosina",
+      "description": "Mexico's most traditional fair returns to San Luis Potosí with concerts, gastronomy, culture and entertainment for the whole family. Confirmed artists: Grupo Firme, Sin Bandera, Los Acosta.",
+      "note": "Full program TBC — this page updates as artists and dates are announced.",
+      "cta": "Official website",
+      "ctaArtists": "See artists"
+    },
+    "stats": {
+      "days": "Days",
+      "daysValue": "~24",
+      "artists": "Confirmed artists",
+      "artistsValue": "3+",
+      "entry": "General entry",
+      "entryValue": "Free",
+      "zones": "Zones",
+      "zonesValue": "6+"
+    },
+    "about": {
+      "title": "What is FENAPO?",
+      "p1": "The Feria Nacional Potosina (FENAPO) is Mexico's most important and traditional fair. Held every year during August in San Luis Potosí, it coincides with the patron saint festivities honoring San Luis Rey de Francia (August 25), the city's patron saint.",
+      "p2": "With over half a century of history, FENAPO brings together culture, entertainment, gastronomy and commerce at the Recinto Ferial, a 30+ hectare venue that transforms for nearly a month into the center of Potosino social life.",
+      "p3": "The fair generates over 2 billion pesos in economic impact and attracts more than 3 million visitors each edition, making it the state's most important tourism event.",
+      "highlights": {
+        "title": "What you'll find at FENAPO:",
+        "item1": "Teatro del Pueblo with national and international artists (free entry)",
+        "item2": "Palenque with the best of regional Mexican music (ticketed)",
+        "item3": "Gastronomy zone with Potosino, Mexican and international cuisine",
+        "item4": "Commercial exhibition with local and national products",
+        "item5": "Mechanical rides and family entertainment",
+        "item6": "Livestock and agricultural exhibition",
+        "item7": "Cultural pavilion with art and handicrafts",
+        "item8": "FENAPO queen coronation ceremony"
+      }
+    },
+    "artists": {
+      "title": "Confirmed Artists",
+      "subtitle": "The lineup updates as artists are announced. Check back for the latest news.",
+      "teatroTitle": "Teatro del Pueblo",
+      "teatroNote": "Free entry",
+      "palenqueTitle": "Palenque",
+      "palenqueNote": "Tickets on sale",
+      "tbc": "More artists TBA",
+      "sinBandera": "Sin Bandera",
+      "losAcosta": "Los Acosta",
+      "grupoFirme": "Grupo Firme"
+    },
+    "areas": {
+      "title": "Fair Areas",
+      "subtitle": "The fairgrounds are divided into zones so you can find exactly what you're looking for.",
+      "teatro": { "name": "Teatro del Pueblo", "desc": "Main stage with top-tier artists. Free concerts every night." },
+      "palenque": { "name": "Palenque", "desc": "Premium shows with the best of Mexican and regional music." },
+      "gastro": { "name": "Gastronomy Zone", "desc": "Potosino, Mexican and international food. Enchiladas, gorditas, asado de boda and more." },
+      "commercial": { "name": "Commercial Exhibition", "desc": "Local and national products and services. Exclusive fair deals and promotions." },
+      "rides": { "name": "Mechanical Rides", "desc": "Roller coaster, Ferris wheel, bumper cars and more fun for the whole family." },
+      "cultural": { "name": "Cultural Pavilion", "desc": "Art exhibitions, handicrafts, dance and traditional Potosino music." },
+      "livestock": { "name": "Livestock Exhibition", "desc": "Cattle exhibition, charreadas and ranching traditions of San Luis Potosí." },
+      "kids": { "name": "Kids Zone", "desc": "Activities and shows designed for the youngest members of the family." }
+    },
+    "visitorGuide": {
+      "title": "Visitor Guide",
+      "subtitle": "Everything you need to know to make the most of your FENAPO visit.",
+      "bestDaysTitle": "Best days to go",
+      "bestDaysDesc": "Monday to Thursday is less crowded and easier to get around. Fridays and Saturdays offer the best shows but expect crowds. Sundays are ideal for families.",
+      "bringTitle": "What to bring",
+      "bringDesc": "Comfortable walking shoes, sun protection, cash (some vendors don't accept cards), portable phone charger.",
+      "safetyTitle": "Safety",
+      "safetyDesc": "The venue has private security and police presence. Watch your belongings in crowded areas. Information and first aid stations are available.",
+      "familyTitle": "Family visits",
+      "familyDesc": "The kids zone and rides are ideal for children. Avoid Fridays and Saturdays if bringing young children due to crowds."
+    },
+    "gettingThere": {
+      "title": "Getting There",
+      "venue": "Recinto Ferial de la FENAPO",
+      "address": "Av. Fco. Martínez de la Vega No. 255, San Luis Potosí",
+      "byCarTitle": "By car",
+      "byCarDesc": "Ample parking inside and outside the venue. From downtown, take Av. Salvador Nava south (~15 min). Expect traffic during peak fair hours.",
+      "byTransitTitle": "Public transit",
+      "byTransitDesc": "Bus routes: 10, 12, 17. Special transport services operate during the fair. Taxis and Uber available.",
+      "byPlaneTitle": "From the airport",
+      "byPlaneDesc": "SLP Airport is 20 minutes away. Taxis available at the terminal.",
+      "distanceTitle": "From downtown",
+      "distanceDesc": "The venue is 15 minutes from the Historic Center via Av. Salvador Nava."
+    },
+    "accommodation": {
+      "title": "Accommodation",
+      "description": "August is SLP's busiest month due to FENAPO. Book in advance.",
+      "nearbyTitle": "Near the venue",
+      "nearbyDesc": "Hotels along Av. Salvador Nava and Tangamanga Sur, 5-10 minutes from the venue.",
+      "centroTitle": "Historic Center",
+      "centroDesc": "Boutique and colonial hotels downtown, 15 minutes away. Ideal if you want to explore the city beyond the fair.",
+      "budgetTitle": "Budget tip",
+      "budgetDesc": "Hotel prices rise during FENAPO. Booking 2-3 months ahead can save you up to 40%."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "When are the exact dates for FENAPO 2026?",
+      "a1": "Official dates for FENAPO 2026 are not yet confirmed. Traditionally the fair runs throughout August, starting the first week and closing around the 31st. This page will be updated when exact dates are announced.",
+      "q2": "How much do Palenque tickets cost?",
+      "a2": "Palenque prices vary by artist, from $500 to $3,000+ MXN. Tickets are sold through Ticketmaster and at venue box offices. Popular artists sell out quickly.",
+      "q3": "Is general admission free?",
+      "a3": "Entry to the fairgrounds and Teatro del Pueblo is free. The Palenque, rides and some special shows have additional costs.",
+      "q4": "Is there parking?",
+      "a4": "Yes, parking is available inside the venue and in nearby lots. Cost varies. Arrive early on weekends to find a spot.",
+      "q5": "Can I bring food into the venue?",
+      "a5": "Outside food and drinks are not allowed. There's a large gastronomy zone with options for all budgets.",
+      "q6": "What are the fair hours?",
+      "a6": "Generally 11:00 AM to 12:00 AM (midnight) Monday-Thursday, and 11:00 AM to 2:00 AM Friday-Saturday. Hours may vary.",
+      "q7": "Is FENAPO safe?",
+      "a7": "Yes. The venue has private security, police presence and assistance stations. As with any mass event, watch your belongings and avoid carrying unnecessary valuables.",
+      "q8": "Are pets allowed?",
+      "a8": "No, pets are not allowed inside the fairgrounds for safety and animal welfare reasons.",
+      "q9": "Are there ATMs?",
+      "a9": "Yes, there are ATMs inside the venue. However, lines can be long. Bringing enough cash is recommended.",
+      "q10": "Is it kid-friendly?",
+      "a10": "Yes, FENAPO is a family event. There's a kids zone, children's rides and family shows. Sundays are usually the best days to go with children.",
+      "q11": "Is there a dress code?",
+      "a11": "No formal dress code. Casual and comfortable clothing. Closed shoes are recommended for the venue terrain. For Palenque, people tend to dress up more.",
+      "q12": "Is it accessible for people with disabilities?",
+      "a12": "The venue has access ramps and designated areas. Teatro del Pueblo and Palenque have accessible sections. Arriving early is recommended to secure a spot."
+    },
+    "cta": {
+      "title": "Don't Miss FENAPO 2026!",
+      "description": "Mexico's most traditional fair. Nearly a month of culture, entertainment, gastronomy and fun for the whole family in San Luis Potosí.",
+      "official": "Official website",
+      "newsletter": "Subscribe for updates",
+      "moreEvents": "See more events in SLP"
+    }
+  },
   "b2b": {
     "nav": "For Businesses",
     "footer": {

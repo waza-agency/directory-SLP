@@ -1498,6 +1498,143 @@
     "recentInquiries": "Consultas Recientes",
     "new": "nuevas"
   },
+  "fenapo2026": {
+    "seo": {
+      "title": "FENAPO 2026 — Feria Nacional Potosina | San Luis Potosí",
+      "description": "FENAPO 2026: La feria más tradicional de México. Agosto 2026 en San Luis Potosí. Grupo Firme, Sin Bandera, Los Acosta. Teatro del Pueblo, Palenque, gastronomía, juegos mecánicos. Programa, artistas y guía del visitante.",
+      "keywords": "fenapo 2026, feria nacional potosina, fenapo san luis potosi, cartelera fenapo 2026, grupo firme fenapo, palenque fenapo, teatro del pueblo fenapo"
+    },
+    "hero": {
+      "badge": "EDICIÓN 2026",
+      "date": "Agosto 2026",
+      "title": "FENAPO 2026",
+      "subtitle": "Feria Nacional Potosina",
+      "description": "La feria más tradicional de México regresa a San Luis Potosí con conciertos, gastronomía, cultura y entretenimiento para toda la familia. Artistas confirmados: Grupo Firme, Sin Bandera, Los Acosta.",
+      "note": "Programa completo por confirmar — esta página se actualiza conforme se anuncien artistas y fechas.",
+      "cta": "Sitio oficial",
+      "ctaArtists": "Ver artistas"
+    },
+    "stats": {
+      "days": "Días",
+      "daysValue": "~24",
+      "artists": "Artistas confirmados",
+      "artistsValue": "3+",
+      "entry": "Entrada general",
+      "entryValue": "Gratis",
+      "zones": "Zonas",
+      "zonesValue": "6+"
+    },
+    "about": {
+      "title": "¿Qué es la FENAPO?",
+      "p1": "La Feria Nacional Potosina (FENAPO) es la feria más importante y tradicional de México. Se celebra cada año durante el mes de agosto en San Luis Potosí, coincidiendo con las fiestas patronales en honor a San Luis Rey de Francia (25 de agosto), patrono de la ciudad.",
+      "p2": "Con más de medio siglo de historia, la FENAPO reúne cultura, entretenimiento, gastronomía y comercio en el Recinto Ferial, un espacio de más de 30 hectáreas que se transforma durante casi un mes en el centro de la vida social potosina.",
+      "p3": "La feria tiene un impacto económico superior a los 2,000 millones de pesos y atrae a más de 3 millones de visitantes cada edición, consolidándose como el evento turístico más importante del estado.",
+      "highlights": {
+        "title": "Lo que encontrarás en FENAPO:",
+        "item1": "Teatro del Pueblo con artistas nacionales e internacionales (entrada gratuita)",
+        "item2": "Palenque con los mejores exponentes de la música regional (boletos)",
+        "item3": "Zona gastronómica con cocina potosina, mexicana e internacional",
+        "item4": "Exposición comercial con productos locales y nacionales",
+        "item5": "Juegos mecánicos y entretenimiento familiar",
+        "item6": "Exposición ganadera y agropecuaria",
+        "item7": "Pabellón cultural con arte y artesanías",
+        "item8": "Coronación de la reina de la FENAPO"
+      }
+    },
+    "artists": {
+      "title": "Artistas Confirmados",
+      "subtitle": "La cartelera se actualiza conforme se anuncian artistas. Regresa pronto para ver las últimas novedades.",
+      "teatroTitle": "Teatro del Pueblo",
+      "teatroNote": "Entrada gratuita",
+      "palenqueTitle": "Palenque",
+      "palenqueNote": "Boletos a la venta",
+      "tbc": "Más artistas por confirmar",
+      "sinBandera": "Sin Bandera",
+      "losAcosta": "Los Acosta",
+      "grupoFirme": "Grupo Firme"
+    },
+    "areas": {
+      "title": "Áreas de la Feria",
+      "subtitle": "El Recinto Ferial se divide en zonas para que encuentres exactamente lo que buscas.",
+      "teatro": { "name": "Teatro del Pueblo", "desc": "Escenario principal con artistas de primer nivel. Conciertos gratuitos todas las noches." },
+      "palenque": { "name": "Palenque", "desc": "Espectáculos premium con los mejores exponentes de la música mexicana y regional." },
+      "gastro": { "name": "Zona Gastronómica", "desc": "Comida potosina, mexicana e internacional. Enchiladas, gorditas, asado de boda y más." },
+      "commercial": { "name": "Exposición Comercial", "desc": "Productos y servicios locales y nacionales. Ofertas y promociones exclusivas de feria." },
+      "rides": { "name": "Juegos Mecánicos", "desc": "Montaña rusa, rueda de la fortuna, carros chocones y más diversión para toda la familia." },
+      "cultural": { "name": "Pabellón Cultural", "desc": "Exposiciones de arte, artesanías, danza y música tradicional potosina." },
+      "livestock": { "name": "Exposición Ganadera", "desc": "Exhibición de ganado, charreadas y tradiciones rancheras de San Luis Potosí." },
+      "kids": { "name": "Zona Infantil", "desc": "Actividades y espectáculos diseñados para los más pequeños de la familia." }
+    },
+    "visitorGuide": {
+      "title": "Guía del Visitante",
+      "subtitle": "Todo lo que necesitas saber para disfrutar al máximo tu visita a la FENAPO.",
+      "bestDaysTitle": "Mejores días para ir",
+      "bestDaysDesc": "De lunes a jueves hay menos gente y es más fácil moverse. Los viernes y sábados ofrecen los mejores espectáculos pero prepárate para multitudes. Los domingos son ideales para familias.",
+      "bringTitle": "Qué llevar",
+      "bringDesc": "Zapatos cómodos para caminar, protección solar, efectivo (algunos puestos no aceptan tarjeta), batería portátil para tu celular.",
+      "safetyTitle": "Seguridad",
+      "safetyDesc": "El recinto cuenta con seguridad privada y presencia policial. Cuida tus pertenencias en zonas concurridas. Hay módulos de información y primeros auxilios.",
+      "familyTitle": "Visitas familiares",
+      "familyDesc": "La zona infantil y los juegos mecánicos son ideales para niños. Evita los viernes y sábados si llevas niños pequeños por las multitudes."
+    },
+    "gettingThere": {
+      "title": "Cómo Llegar",
+      "venue": "Recinto Ferial de la FENAPO",
+      "address": "Av. Fco. Martínez de la Vega No. 255, San Luis Potosí",
+      "byCarTitle": "En auto",
+      "byCarDesc": "Estacionamiento amplio dentro y fuera del recinto. Desde el centro, toma Av. Salvador Nava hacia el sur (~15 min). Espera tráfico en horas pico de la feria.",
+      "byTransitTitle": "Transporte público",
+      "byTransitDesc": "Rutas de camión: 10, 12, 17. Servicios especiales de transporte operan durante la feria. Taxis y Uber disponibles.",
+      "byPlaneTitle": "Desde el aeropuerto",
+      "byPlaneDesc": "El Aeropuerto de SLP está a 20 minutos. Taxis disponibles en la terminal.",
+      "distanceTitle": "Desde el centro",
+      "distanceDesc": "El recinto está a 15 minutos del Centro Histórico por Av. Salvador Nava."
+    },
+    "accommodation": {
+      "title": "Hospedaje",
+      "description": "Agosto es el mes más concurrido en SLP por la FENAPO. Reserva con anticipación.",
+      "nearbyTitle": "Cerca del recinto",
+      "nearbyDesc": "Hoteles en la zona de Av. Salvador Nava y Tangamanga Sur, a 5-10 minutos del recinto.",
+      "centroTitle": "Centro Histórico",
+      "centroDesc": "Hoteles boutique y coloniales en el centro, a 15 minutos. Ideal si quieres explorar la ciudad además de la feria.",
+      "budgetTitle": "Presupuesto",
+      "budgetDesc": "Los precios de hotel suben durante la FENAPO. Reservar con 2-3 meses de anticipación puede ahorrarte hasta un 40%."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "q1": "¿Cuándo son las fechas exactas de FENAPO 2026?",
+      "a1": "Las fechas oficiales de FENAPO 2026 aún no se confirman. Tradicionalmente la feria se celebra durante todo agosto, arrancando la primera semana y cerrando alrededor del 31. Esta página se actualizará cuando se anuncien las fechas exactas.",
+      "q2": "¿Cuánto cuestan los boletos del Palenque?",
+      "a2": "Los precios del Palenque varían según el artista, desde $500 hasta $3,000+ MXN. Los boletos se venden por Ticketmaster y en taquillas del recinto. Se agotan rápido para artistas populares.",
+      "q3": "¿La entrada general es gratuita?",
+      "a3": "La entrada al recinto ferial y al Teatro del Pueblo es gratuita. El Palenque, juegos mecánicos y algunos espectáculos especiales tienen costo adicional.",
+      "q4": "¿Hay estacionamiento?",
+      "a4": "Sí, hay estacionamiento dentro del recinto y en lotes aledaños. El costo varía. Llega temprano los fines de semana para encontrar lugar.",
+      "q5": "¿Se puede llevar comida al recinto?",
+      "a5": "No se permite ingresar alimentos ni bebidas al recinto. Hay una amplia zona gastronómica con opciones para todos los presupuestos.",
+      "q6": "¿Cuál es el horario de la feria?",
+      "a6": "Generalmente de 11:00 AM a 12:00 AM (medianoche) de lunes a jueves, y de 11:00 AM a 2:00 AM viernes y sábados. Los horarios pueden variar.",
+      "q7": "¿Es seguro ir a la FENAPO?",
+      "a7": "Sí. El recinto cuenta con seguridad privada, presencia policial y módulos de atención. Como en cualquier evento masivo, cuida tus pertenencias y evita llevar objetos de valor innecesarios.",
+      "q8": "¿Se permiten mascotas?",
+      "a8": "No, no se permiten mascotas dentro del recinto ferial por razones de seguridad y bienestar animal.",
+      "q9": "¿Hay cajeros automáticos?",
+      "a9": "Sí, hay cajeros dentro del recinto. Sin embargo, pueden tener filas largas. Se recomienda llevar efectivo suficiente.",
+      "q10": "¿Es apto para niños?",
+      "a10": "Sí, la FENAPO es un evento familiar. Hay zona infantil, juegos mecánicos para niños y espectáculos familiares. Los domingos suelen ser los mejores días para ir con niños.",
+      "q11": "¿Cómo es el dress code?",
+      "a11": "No hay dress code formal. Ropa casual y cómoda. Zapatos cerrados son recomendables por el terreno del recinto. Para el Palenque, la gente suele vestirse más arreglada.",
+      "q12": "¿Hay accesibilidad para personas con discapacidad?",
+      "a12": "El recinto cuenta con rampas de acceso y áreas designadas. Para el Teatro del Pueblo y Palenque hay secciones accesibles. Se recomienda llegar temprano para asegurar lugar."
+    },
+    "cta": {
+      "title": "¡No te pierdas la FENAPO 2026!",
+      "description": "La feria más tradicional de México. Casi un mes de cultura, entretenimiento, gastronomía y diversión para toda la familia en San Luis Potosí.",
+      "official": "Sitio oficial",
+      "newsletter": "Suscríbete para actualizaciones",
+      "moreEvents": "Ver más eventos en SLP"
+    }
+  },
   "b2b": {
     "nav": "Para Negocios",
     "footer": {
