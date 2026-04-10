@@ -1002,6 +1002,138 @@
       "moreEvents": "Mehr Events in SLP"
     }
   },
+  "maraton2026": {
+    "seo": {
+      "title": "Tangamanga-Marathon 2026 — 40. Jubiläum | San Luis Potosí",
+      "description": "BMW Internationaler Tangamanga-Marathon 2026: 28. Juni. 40. Jubiläum. 5K, 10K, 21K & 42K. World Athletics & FMAA zertifiziert. Anmeldung, Strecke und Läuferguide.",
+      "keywords": "tangamanga marathon 2026, marathon san luis potosi, halbmarathon slp, 42k tangamanga"
+    },
+    "hero": {
+      "badge": "40. JUBILÄUM",
+      "date": "28. Juni 2026",
+      "title": "Tangamanga-Marathon",
+      "subtitle": "BMW Internationaler Marathon — 40. Ausgabe",
+      "description": "Einer der ältesten und prestigeträchtigsten Straßenläufe Mexikos feiert 40 Jahre. Laufe durch den Tangamanga-Park und die Altstadt von San Luis Potosí in 4 Distanzen.",
+      "cta": "Jetzt anmelden",
+      "ctaRoute": "Strecke ansehen"
+    },
+    "stats": {
+      "edition": "Ausgabe",
+      "editionValue": "40.",
+      "runners": "Läufer",
+      "runnersValue": "15.000+",
+      "distances": "Distanzen",
+      "distancesValue": "4",
+      "certified": "Zertifizierung",
+      "certifiedValue": "World Athletics"
+    },
+    "distances": {
+      "title": "Kategorien & Distanzen",
+      "subtitle": "Wähle deine Distanz und bereite dich auf eines der ikonischsten Rennen Mexikos vor.",
+      "fiveK": {
+        "name": "5K Volkslauf",
+        "description": "Ideal für Anfänger und Familien. Strecke im Tangamanga-Park.",
+        "age": "Mindestalter: 15 Jahre",
+        "start": "Start: 7:30 Uhr"
+      },
+      "tenK": {
+        "name": "10K",
+        "description": "Gemischte Strecke durch Park und umliegende Straßen. Alters- und Geschlechtskategorien.",
+        "age": "Mindestalter: 16 Jahre",
+        "start": "Start: 7:00 Uhr"
+      },
+      "halfMarathon": {
+        "name": "Halbmarathon (21K)",
+        "description": "FMAA-zertifizierte Strecke durch Tangamanga-Park, Av. Salvador Nava und Altstadt.",
+        "age": "Mindestalter: 18 Jahre",
+        "start": "Start: 6:30 Uhr"
+      },
+      "marathon": {
+        "name": "Marathon (42K)",
+        "description": "Volle World Athletics & FMAA-zertifizierte Strecke. Die ikonischste Route in SLP.",
+        "age": "Mindestalter: 20 Jahre",
+        "start": "Start: 6:00 Uhr"
+      }
+    },
+    "route": {
+      "title": "Streckenkarte",
+      "subtitle": "Die Strecke führt durch die ikonischsten Landschaften von San Luis Potosí.",
+      "description": "Die Route startet im Tangamanga-Park I, führt die Av. Salvador Nava hinauf zur Altstadt, vorbei an der Plaza de los Fundadores und der Kathedrale und zurück zum Park.",
+      "hydration": "Verpflegungspunkte alle 2,5 km mit Wasser und Sportgetränk.",
+      "medical": "Medizinische Stationen bei km 5, 10, 15, 21, 30 und Ziel.",
+      "landmarks": "Sehenswürdigkeiten: Tangamanga-Park, Av. Carranza, Plaza de Armas, Metropolitankathedrale, Teatro de la Paz."
+    },
+    "runnerGuide": {
+      "title": "Läuferguide",
+      "subtitle": "Wichtige Tipps fürs Laufen in San Luis Potosí.",
+      "altitudeTitle": "Höhenlage",
+      "altitudeDesc": "San Luis Potosí liegt auf 1.860 m über dem Meeresspiegel. Komme mindestens 2 Tage vorher zur Akklimatisierung. Die Höhe beeinflusst dein Tempo und deine Erholung.",
+      "weatherTitle": "Wetter im Juni",
+      "weatherDesc": "Temperaturen zwischen 15°C (Start) und 28°C (Mittag). Mögliche Nachmittagsschauer. Leichte Kleidung, Kappe und Sonnenschutz tragen.",
+      "hydrationTitle": "Flüssigkeitszufuhr",
+      "hydrationDesc": "In dieser Höhe brauchst du mehr Wasser als gewöhnlich. Trinke 500ml 2 Stunden vor dem Start.",
+      "warmupTitle": "Aufwärmen",
+      "warmupDesc": "Die Aufwärmzone befindet sich auf der Hauptesplanade des Tangamanga-Parks. Komme mindestens 45 Minuten vor deiner Startzeit."
+    },
+    "kit": {
+      "title": "Läuferpaket",
+      "subtitle": "Alles was du erhältst und zur Paketabholung wissen musst.",
+      "includes": "Paket enthält",
+      "includesList": "Offizielles 40-Jubiläums-Shirt, Startnummer, Zeitmesschip, Finisher-Medaille, Läufertasche mit Sponsorprodukten",
+      "pickupTitle": "Paketabholung",
+      "pickupDesc": "Marathon-Expo im Tangamanga-Park. Freitag 26. und Samstag 27. Juni, 10:00-19:00 Uhr. Anmeldebestätigung und Ausweis mitbringen.",
+      "docsTitle": "Erforderliche Dokumente",
+      "docsDesc": "Anmeldebestätigung (gedruckt oder digital), gültiger Ausweis, Sportärztliches Attest (Pflicht für 21K und 42K)."
+    },
+    "spectators": {
+      "title": "Info für Zuschauer",
+      "subtitle": "Unterstütze deinen Läufer von den besten Aussichtspunkten.",
+      "viewingTitle": "Beste Zuschauerpunkte",
+      "viewingDesc": "Ziel im Tangamanga-Park, Av. Salvador Nava (km 8-10), Plaza de Armas (km 15), Av. Carranza (km 18-20).",
+      "parkingTitle": "Parken",
+      "parkingDesc": "Parkplätze am Tangamanga-Park und in umliegenden Straßen. Früh kommen — Plätze füllen sich schnell am Renntag.",
+      "activitiesTitle": "Aktivitäten beim Warten",
+      "activitiesDesc": "Der Park bietet Grünflächen, einen See, Spielplätze und Cafés. Die Altstadt ist 15 Minuten entfernt."
+    },
+    "accommodation": {
+      "title": "Unterkunft & Anreise",
+      "airportTitle": "Vom Flughafen",
+      "airportDesc": "Der Flughafen SLP (BJX) ist 25 Minuten vom Tangamanga-Park entfernt.",
+      "busTitle": "Vom Busbahnhof",
+      "busDesc": "Der Busbahnhof ist 20 Minuten vom Park entfernt. Direktverbindungen von Mexiko-Stadt, Monterrey, Guadalajara und Querétaro.",
+      "hotelsTitle": "Empfohlene Hotels",
+      "hotelsDesc": "Tangamanga-Süd: Hotels 5-10 Min. vom Park. Altstadt: Kolonialhotels 15 Min. entfernt. Frühzeitig buchen — Juni ist Hochsaison."
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": "Wann öffnet die Anmeldung?",
+      "a1": "Die Anmeldung öffnet gewöhnlich im Januar. Aktuelle Termine und Preise auf maratontangamanga.com.",
+      "q2": "Brauche ich ein ärztliches Attest?",
+      "a2": "Ja, für 21K und 42K ist ein sportärztliches Attest (max. 6 Monate alt) bei der Paketabholung erforderlich.",
+      "q3": "Gibt es Tempomacher?",
+      "a3": "Ja. Offizielle Pacemaker für 3:30, 4:00, 4:30 und 5:00 im Marathon sowie 1:45 und 2:00 im Halbmarathon.",
+      "q4": "Was ist das Zeitlimit?",
+      "a4": "Marathon: 6 Stunden. Halbmarathon: 3 Stunden. 10K: 1:30 Stunden. 5K: 45 Minuten.",
+      "q5": "Beeinflusst die Höhe die Leistung?",
+      "a5": "Ja. Auf 1.860m erwarte 5-10% weniger Leistung als auf Meereshöhe. Komme 2-3 Tage vorher.",
+      "q6": "Kann ich die Distanz nach der Anmeldung ändern?",
+      "a6": "Änderungen sind bis 2 Wochen vor dem Event möglich, abhängig von Verfügbarkeit.",
+      "q7": "Gibt es eine Gepäckaufbewahrung?",
+      "a7": "Ja, im Start-/Zielbereich im Tangamanga-Park. Keine Wertsachen abgeben.",
+      "q8": "Wie sehe ich meine Ergebnisse?",
+      "a8": "Ergebnisse werden live auf der Marathon-Website und der offiziellen App veröffentlicht.",
+      "q9": "Gibt es Verpflegungsstationen?",
+      "a9": "Ja, alle 2,5 km mit Wasser, Sportgetränk und teilweise Obst (Banane und Orange).",
+      "q10": "Darf ich mit Kopfhörern laufen?",
+      "a10": "Ja, aber mit niedriger Lautstärke, um Anweisungen von Streckenposten und Einsatzfahrzeugen zu hören."
+    },
+    "cta": {
+      "title": "Laufe den Tangamanga-Marathon 2026",
+      "description": "Feiere 40 Jahre Geschichte bei einem der ikonischsten Straßenläufe Mexikos. 4 Distanzen, zertifizierte Strecke.",
+      "register": "Jetzt anmelden",
+      "moreEvents": "Mehr Events in SLP"
+    }
+  },
   "festival": {
     "title": "Internationales Frühlingsfestival San Luis 2026",
     "viewSchedule": "Offiziellen Spielplan ansehen",

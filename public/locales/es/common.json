@@ -1037,6 +1037,138 @@
       "moreEvents": "Ver más eventos en SLP"
     }
   },
+  "maraton2026": {
+    "seo": {
+      "title": "Maratón Tangamanga 2026 — 40 Aniversario | San Luis Potosí",
+      "description": "BMW Maratón Internacional Tangamanga 2026: 28 de junio. 40 Aniversario. 5K, 10K, 21K y 42K. Certificado por World Athletics y FMAA. Inscripción, ruta, guía del corredor y toda la información.",
+      "keywords": "maraton tangamanga 2026, maraton san luis potosi, medio maraton slp, carrera 10k slp, 42k tangamanga, inscripcion maraton tangamanga"
+    },
+    "hero": {
+      "badge": "40 ANIVERSARIO",
+      "date": "28 de Junio, 2026",
+      "title": "Maratón Tangamanga",
+      "subtitle": "BMW Maratón Internacional — 40ª Edición",
+      "description": "Una de las carreras más antiguas y prestigiosas de México celebra 40 años. Corre por el Parque Tangamanga y el Centro Histórico de San Luis Potosí en 4 distancias.",
+      "cta": "Inscríbete",
+      "ctaRoute": "Ver ruta"
+    },
+    "stats": {
+      "edition": "Edición",
+      "editionValue": "40ª",
+      "runners": "Corredores",
+      "runnersValue": "15,000+",
+      "distances": "Distancias",
+      "distancesValue": "4",
+      "certified": "Certificación",
+      "certifiedValue": "World Athletics"
+    },
+    "distances": {
+      "title": "Categorías y Distancias",
+      "subtitle": "Elige tu distancia y prepárate para correr en una de las carreras más emblemáticas de México.",
+      "fiveK": {
+        "name": "5K Recreativa",
+        "description": "Ideal para principiantes y familias. Recorrido dentro del Parque Tangamanga.",
+        "age": "Edad mínima: 15 años",
+        "start": "Salida: 7:30 AM"
+      },
+      "tenK": {
+        "name": "10K",
+        "description": "Ruta mixta por el parque y calles aledañas. Categorías por edad y género.",
+        "age": "Edad mínima: 16 años",
+        "start": "Salida: 7:00 AM"
+      },
+      "halfMarathon": {
+        "name": "Medio Maratón (21K)",
+        "description": "Recorrido certificado FMAA por Parque Tangamanga, Av. Salvador Nava y Centro Histórico.",
+        "age": "Edad mínima: 18 años",
+        "start": "Salida: 6:30 AM"
+      },
+      "marathon": {
+        "name": "Maratón (42K)",
+        "description": "Ruta completa certificada World Athletics y FMAA. El recorrido más emblemático de SLP.",
+        "age": "Edad mínima: 20 años",
+        "start": "Salida: 6:00 AM"
+      }
+    },
+    "route": {
+      "title": "Mapa de Ruta",
+      "subtitle": "El recorrido atraviesa los paisajes más icónicos de San Luis Potosí.",
+      "description": "La ruta parte del Parque Tangamanga I, sube por Av. Salvador Nava hacia el Centro Histórico, pasa por la Plaza de los Fundadores y la Catedral, y regresa al parque. El maratón completo repite un circuito modificado.",
+      "hydration": "Puntos de hidratación cada 2.5 km con agua y bebida isotónica.",
+      "medical": "Puestos de atención médica en km 5, 10, 15, 21, 30 y meta.",
+      "landmarks": "Puntos de interés: Parque Tangamanga, Av. Carranza, Plaza de Armas, Catedral Metropolitana, Teatro de la Paz."
+    },
+    "runnerGuide": {
+      "title": "Guía del Corredor",
+      "subtitle": "Consejos esenciales para tu carrera en San Luis Potosí.",
+      "altitudeTitle": "Altitud",
+      "altitudeDesc": "San Luis Potosí está a 1,860 metros sobre el nivel del mar. Si vienes de una ciudad baja, llega al menos 2 días antes para aclimatarte. La altitud afecta tu ritmo y recuperación.",
+      "weatherTitle": "Clima en junio",
+      "weatherDesc": "Temperatura entre 15°C (salida) y 28°C (mediodía). Posibles lluvias vespertinas. Usa ropa ligera, gorra y protector solar. Hidrátate más de lo habitual.",
+      "hydrationTitle": "Hidratación",
+      "hydrationDesc": "Por la altitud, necesitas más agua de lo normal. Bebe 500ml 2 horas antes de la salida. Aprovecha cada punto de hidratación en la ruta.",
+      "warmupTitle": "Calentamiento",
+      "warmupDesc": "La zona de calentamiento está en la explanada principal del Parque Tangamanga. Llega al menos 45 minutos antes de tu hora de salida."
+    },
+    "kit": {
+      "title": "Kit del Corredor",
+      "subtitle": "Todo lo que recibes y necesitas saber para la entrega de paquetes.",
+      "includes": "El kit incluye",
+      "includesList": "Playera oficial del 40 aniversario, número de competidor, chip de cronometraje, medalla finisher (al completar), bolsa de corredor con productos patrocinadores",
+      "pickupTitle": "Entrega de paquetes",
+      "pickupDesc": "Expo Maratón en Parque Tangamanga. Viernes 26 y sábado 27 de junio, de 10:00 AM a 7:00 PM. Lleva tu comprobante de inscripción e identificación oficial.",
+      "docsTitle": "Documentos necesarios",
+      "docsDesc": "Comprobante de inscripción (impreso o digital), identificación oficial vigente, certificado médico deportivo (obligatorio para 21K y 42K)."
+    },
+    "spectators": {
+      "title": "Info para Acompañantes",
+      "subtitle": "Apoya a tu corredor desde los mejores puntos del recorrido.",
+      "viewingTitle": "Mejores puntos para ver la carrera",
+      "viewingDesc": "Meta en Parque Tangamanga (llegada), Av. Salvador Nava (km 8-10), Plaza de Armas en Centro Histórico (km 15), Av. Carranza (km 18-20).",
+      "parkingTitle": "Estacionamiento",
+      "parkingDesc": "Estacionamientos disponibles en el Parque Tangamanga y calles aledañas. Llega temprano — los espacios se llenan rápido el día de la carrera.",
+      "activitiesTitle": "Qué hacer mientras esperas",
+      "activitiesDesc": "El Parque Tangamanga cuenta con áreas verdes, lago, zona de juegos infantiles y cafeterías. El Centro Histórico está a 15 minutos."
+    },
+    "accommodation": {
+      "title": "Hospedaje y Transporte",
+      "airportTitle": "Desde el aeropuerto",
+      "airportDesc": "El Aeropuerto Internacional de SLP (BJX) está a 25 minutos del Parque Tangamanga. Taxis y servicio de transporte disponibles.",
+      "busTitle": "Desde la central de autobuses",
+      "busDesc": "La Central de Autobuses está a 20 minutos del parque. Conexiones directas desde CDMX, Monterrey, Guadalajara y Querétaro.",
+      "hotelsTitle": "Hoteles recomendados",
+      "hotelsDesc": "Zona Tangamanga Sur: hoteles a 5-10 min del parque. Centro Histórico: hoteles con encanto colonial a 15 min. Reserva con anticipación — junio es temporada alta por el maratón."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "q1": "¿Cuándo abren las inscripciones?",
+      "a1": "Las inscripciones generalmente abren en enero. Consulta maratontangamanga.com para fechas exactas y precios por categoría. Los precios suben conforme se acerca el evento.",
+      "q2": "¿Necesito certificado médico?",
+      "a2": "Sí, para las distancias de 21K y 42K es obligatorio presentar un certificado médico deportivo vigente (máximo 6 meses de antigüedad) al recoger tu kit.",
+      "q3": "¿Hay servicio de pacemakers?",
+      "a3": "Sí, el maratón cuenta con pacemakers oficiales para los tiempos de 3:30, 4:00, 4:30 y 5:00 horas en el maratón, y 1:45 y 2:00 en el medio maratón.",
+      "q4": "¿Cuál es el tiempo límite?",
+      "a4": "Maratón: 6 horas. Medio maratón: 3 horas. 10K: 1 hora 30 minutos. 5K: 45 minutos.",
+      "q5": "¿La altitud afecta el rendimiento?",
+      "a5": "Sí. A 1,860m sobre el nivel del mar, espera un rendimiento 5-10% menor que a nivel del mar. Llega 2-3 días antes para aclimatarte y ajusta tu ritmo objetivo.",
+      "q6": "¿Puedo cambiar de distancia después de inscribirme?",
+      "a6": "Los cambios de distancia están sujetos a disponibilidad y se permiten hasta 2 semanas antes del evento, con posible ajuste de tarifa.",
+      "q7": "¿Hay guardería de bolsas?",
+      "a7": "Sí, hay servicio de guardería de bolsas en la zona de salida/meta en el Parque Tangamanga. Se recomienda no dejar objetos de valor.",
+      "q8": "¿Cómo consulto mis resultados?",
+      "a8": "Los resultados se publican en tiempo real en la web del maratón y en la app oficial. El chip de cronometraje registra tiempos parciales y netos.",
+      "q9": "¿Hay estaciones de hidratación?",
+      "a9": "Sí, cada 2.5 km hay estaciones de hidratación con agua, bebida isotónica y en algunos puntos, fruta (plátano y naranja).",
+      "q10": "¿Se permite correr con audífonos?",
+      "a10": "Sí, se permite el uso de audífonos, pero se recomienda usarlos a bajo volumen para escuchar instrucciones de los jueces y vehículos de emergencia."
+    },
+    "cta": {
+      "title": "Corre el Maratón Tangamanga 2026",
+      "description": "Celebra 40 años de historia en una de las carreras más emblemáticas de México. 4 distancias, ruta certificada y el paisaje de San Luis Potosí.",
+      "register": "Inscríbete ahora",
+      "moreEvents": "Ver más eventos en SLP"
+    }
+  },
   "festival": {
     "title": "Festival Internacional San Luis en Primavera 2026",
     "viewSchedule": "Ver cartelera oficial",
