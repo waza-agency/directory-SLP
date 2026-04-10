@@ -886,6 +886,122 @@
       "stat4Value": "6", "stat4Label": "Bereiche"
     }
   },
+  "metalFest2026": {
+    "seo": {
+      "title": "San Luis Metal Fest 2026 — Kostenloses Metal-Festival in San Luis Potosí",
+      "description": "San Luis Metal Fest 2026: 16.–17. Mai. KOSTENLOSER EINTRITT. Marduk, Possessed, Metal Church, Grave, Armored Saint und mehr. Erstes internationales Metal-Festival in SLP.",
+      "keywords": "san luis metal fest 2026, metal festival san luis potosi, metal fest slp, metal konzerte mexiko, marduk mexiko 2026"
+    },
+    "hero": {
+      "badge": "1. AUSGABE — KOSTENLOSER EINTRITT",
+      "date": "16. — 17. Mai 2026",
+      "title": "San Luis Metal Fest",
+      "subtitle": "Das Erwachen der Dunkelheit",
+      "description": "Das erste internationale Metal-Festival in San Luis Potosí. Zwei Tage legendäre Bands aus 8 Ländern, Gastronomie, Huasteca-Kultur und Mexikos beste Metal-Community.",
+      "cta": "Kostenlos registrieren",
+      "ctaLineup": "Line-up ansehen"
+    },
+    "stats": {
+      "days": "Tage",
+      "daysValue": "2",
+      "bands": "Bands",
+      "bandsValue": "15+",
+      "attendees": "Erwartete Besucher",
+      "attendeesValue": "30.000+",
+      "countries": "Länder",
+      "countriesValue": "8+",
+      "price": "Eintritt",
+      "priceValue": "Gratis"
+    },
+    "lineup": {
+      "title": "Offizielles Line-up",
+      "subtitle": "Legendäre Bands aus Thrash, Death, Black und Heavy Metal aus aller Welt.",
+      "day1": "Tag 1 — Samstag, 16. Mai",
+      "day2": "Tag 2 — Sonntag, 17. Mai",
+      "headliners": "Headliner",
+      "scheduleTbc": "Zeiten werden noch bekannt gegeben",
+      "bands": {
+        "marduk": { "name": "Marduk", "genre": "Black Metal", "country": "Schweden" },
+        "metalChurch": { "name": "Metal Church", "genre": "Heavy / Power Metal", "country": "USA" },
+        "possessed": { "name": "Possessed", "genre": "Death Metal", "country": "USA" },
+        "grave": { "name": "Grave", "genre": "Death Metal", "country": "Schweden" },
+        "armoredSaint": { "name": "Armored Saint", "genre": "Heavy Metal", "country": "USA" },
+        "crimsonGlory": { "name": "Crimson Glory", "genre": "Progressive Metal", "country": "USA" },
+        "pestilence": { "name": "Pestilence", "genre": "Death Metal", "country": "Niederlande" },
+        "sacrifice": { "name": "Sacrifice", "genre": "Thrash Metal", "country": "Kanada" },
+        "hirax": { "name": "Hirax", "genre": "Thrash Metal", "country": "USA" },
+        "hellripper": { "name": "Hellripper", "genre": "Speed / Black Metal", "country": "Schottland" },
+        "bloodFeast": { "name": "Blood Feast", "genre": "Thrash Metal", "country": "USA" }
+      }
+    },
+    "registration": {
+      "title": "So registrierst du dich",
+      "subtitle": "Der Eintritt ist kostenlos, erfordert aber eine Voranmeldung.",
+      "step1Title": "Offizielle Website besuchen",
+      "step1Desc": "Gehe zur Registrierungsseite des San Luis Metal Fest.",
+      "step2Title": "Registrierung abschließen",
+      "step2Desc": "Gib deinen Namen, deine E-Mail-Adresse und einen gültigen Ausweis an.",
+      "step3Title": "Bestätigung erhalten",
+      "step3Desc": "Du erhältst eine E-Mail mit deinem Zugangscode und Veranstaltungshinweisen.",
+      "note": "Ein gültiger amtlicher Ausweis ist für den Zugang erforderlich."
+    },
+    "attendeeGuide": {
+      "title": "Besucherleitfaden",
+      "subtitle": "Alles, was du wissen musst, um das Festival zu genießen.",
+      "bringTitle": "Was mitbringen",
+      "bringItems": "Sonnenschutz, Ohrstöpsel, wiederverwendbare Wasserflasche, Bargeld und Karten, bequeme Kleidung und Schuhe, Ausweis",
+      "prohibitedTitle": "Verbotene Gegenstände",
+      "prohibitedItems": "Waffen und scharfe Gegenstände, Glasflaschen, illegale Drogen, Haustiere, Drohnen, Klappstühle",
+      "tipsTitle": "Pit-Etikette",
+      "tipsDesc": "Wenn jemand fällt, hilf ihm auf. Respektiere die Grenzen anderer. Bleib zwischen den Sets hydriert. Seitenbereiche sind ideal, wenn du ohne Kontakt zusehen möchtest."
+    },
+    "culture": {
+      "title": "Mehr als Metal: Essen & Kultur",
+      "subtitle": "Das Festival bietet einzigartige Erlebnisse, die den Reichtum von San Luis Potosí feiern.",
+      "gastroTitle": "Gastronomie-Pavillon",
+      "gastroDesc": "Probiere Enchiladas Potosinas, Huasteca-Tacos, Zacahuil und weitere regionale Spezialitäten. Food Trucks und Craft-Getränke.",
+      "huastecaTitle": "Huasteca-Kulturpavillon",
+      "huastecaDesc": "Huasteca-Kunstausstellung, traditionelle Tänze, Kunsthandwerk und Huapango-Musik. Ein Fenster zum kulturellen Erbe des Bundesstaates."
+    },
+    "gettingThere": {
+      "title": "Anfahrt",
+      "venue": "Teatro del Pueblo — FENAPO-Gelände",
+      "address": "Av. Fco. Martínez de la Vega Nr. 255, San Luis Potosí",
+      "byCarTitle": "Mit dem Auto",
+      "byCarDesc": "Ausreichend Parkplätze am Veranstaltungsort. Vom Zentrum die Av. Salvador Nava Richtung Süden nehmen (~15 Min.).",
+      "byTransitTitle": "Öffentliche Verkehrsmittel",
+      "byTransitDesc": "Buslinien am FENAPO-Gelände: 10, 12, 17. Taxis und Uber verfügbar.",
+      "byPlaneTitle": "Vom Flughafen",
+      "byPlaneDesc": "Der Flughafen SLP (BJX) ist 20 Autominuten entfernt. Taxis am Terminal verfügbar.",
+      "hotelsTitle": "Hotels in der Nähe",
+      "hotelsDesc": "Hotels an der Av. Carranza und im Centro Histórico (10-15 Min. vom Gelände). Frühzeitig buchen."
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": "Ist das San Luis Metal Fest wirklich kostenlos?",
+      "a1": "Ja. Der Eintritt ist völlig kostenlos, aber eine Online-Voranmeldung ist erforderlich. Du erhältst einen Zugangscode per E-Mail.",
+      "q2": "Dürfen Minderjährige teilnehmen?",
+      "a2": "Ja, Minderjährige können in Begleitung eines verantwortlichen Erwachsenen mit gültigem Ausweis teilnehmen. Gehörschutz wird für Kinder empfohlen.",
+      "q3": "Kann ich eigenes Wasser mitbringen?",
+      "a3": "Ja, wiederverwendbare Wasserflaschen sind erlaubt (kein Glas). Kostenlose Trinkstationen sind ebenfalls im Gelände verfügbar.",
+      "q4": "Ist Wiedereintritt möglich?",
+      "a4": "Ja, Wiedereintritt ist mit dem Zugangsarmband möglich. Verliere dein Armband nicht.",
+      "q5": "Gibt es Geldautomaten am Veranstaltungsort?",
+      "a5": "Ja, es gibt Geldautomaten auf dem FENAPO-Gelände. Bargeld wird empfohlen, da einige Essensstände keine Karten akzeptieren.",
+      "q6": "Darf ich eine Kamera mitbringen?",
+      "a6": "Kompaktkameras und Handys sind erlaubt. Profikameras mit Wechselobjektiven erfordern eine Presseakkreditierung.",
+      "q7": "Ist der Veranstaltungsort barrierefrei?",
+      "a7": "Ja, das FENAPO-Gelände verfügt über Rampen und ausgewiesene Bereiche für Menschen mit Behinderungen.",
+      "q8": "Wann sollte ich ankommen?",
+      "a8": "Die Tore öffnen um 12:00 Uhr. Frühes Kommen wird empfohlen, um Warteschlangen zu vermeiden und einen guten Platz vor der Bühne zu bekommen."
+    },
+    "cta": {
+      "title": "Verpasse nicht das San Luis Metal Fest 2026",
+      "description": "Das erste internationale Metal-Festival in San Luis Potosí. Zwei Tage Extremmusik, Gastronomie und Kultur. Kostenloser Eintritt.",
+      "register": "Kostenlos registrieren",
+      "moreEvents": "Mehr Events in SLP"
+    }
+  },
   "festival": {
     "title": "Internationales Frühlingsfestival San Luis 2026",
     "viewSchedule": "Offiziellen Spielplan ansehen",

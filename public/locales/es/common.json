@@ -921,6 +921,122 @@
       "stat4Value": "6", "stat4Label": "Zonas"
     }
   },
+  "metalFest2026": {
+    "seo": {
+      "title": "San Luis Metal Fest 2026 — Festival de Metal Gratuito en San Luis Potosí",
+      "description": "San Luis Metal Fest 2026: 16-17 de mayo. Entrada GRATUITA. Marduk, Possessed, Metal Church, Grave, Armored Saint y más. Primer festival internacional de metal en SLP. Cartel, horarios y guía del asistente.",
+      "keywords": "san luis metal fest 2026, festival metal san luis potosi, metal fest slp, conciertos metal mexico, marduk mexico 2026, possessed mexico 2026"
+    },
+    "hero": {
+      "badge": "1RA EDICIÓN — ENTRADA GRATUITA",
+      "date": "16 — 17 de Mayo, 2026",
+      "title": "San Luis Metal Fest",
+      "subtitle": "El Despertar de la Oscuridad",
+      "description": "El primer festival internacional de metal en San Luis Potosí. Dos días de bandas legendarias de 8 países, gastronomía, cultura Huasteca y la mejor comunidad metalera de México.",
+      "cta": "Regístrate gratis",
+      "ctaLineup": "Ver cartel"
+    },
+    "stats": {
+      "days": "Días",
+      "daysValue": "2",
+      "bands": "Bandas",
+      "bandsValue": "15+",
+      "attendees": "Asistentes esperados",
+      "attendeesValue": "30,000+",
+      "countries": "Países",
+      "countriesValue": "8+",
+      "price": "Entrada",
+      "priceValue": "Gratis"
+    },
+    "lineup": {
+      "title": "Cartel Oficial",
+      "subtitle": "Bandas legendarias de thrash, death, black y heavy metal de todo el mundo.",
+      "day1": "Día 1 — Sábado 16 de Mayo",
+      "day2": "Día 2 — Domingo 17 de Mayo",
+      "headliners": "Headliners",
+      "scheduleTbc": "Horarios por confirmar",
+      "bands": {
+        "marduk": { "name": "Marduk", "genre": "Black Metal", "country": "Suecia" },
+        "metalChurch": { "name": "Metal Church", "genre": "Heavy / Power Metal", "country": "EE.UU." },
+        "possessed": { "name": "Possessed", "genre": "Death Metal", "country": "EE.UU." },
+        "grave": { "name": "Grave", "genre": "Death Metal", "country": "Suecia" },
+        "armoredSaint": { "name": "Armored Saint", "genre": "Heavy Metal", "country": "EE.UU." },
+        "crimsonGlory": { "name": "Crimson Glory", "genre": "Progressive Metal", "country": "EE.UU." },
+        "pestilence": { "name": "Pestilence", "genre": "Death Metal", "country": "Países Bajos" },
+        "sacrifice": { "name": "Sacrifice", "genre": "Thrash Metal", "country": "Canadá" },
+        "hirax": { "name": "Hirax", "genre": "Thrash Metal", "country": "EE.UU." },
+        "hellripper": { "name": "Hellripper", "genre": "Speed / Black Metal", "country": "Escocia" },
+        "bloodFeast": { "name": "Blood Feast", "genre": "Thrash Metal", "country": "EE.UU." }
+      }
+    },
+    "registration": {
+      "title": "Cómo Registrarse",
+      "subtitle": "La entrada es gratuita pero requiere registro previo.",
+      "step1Title": "Visita el sitio oficial",
+      "step1Desc": "Accede a la página de registro del San Luis Metal Fest.",
+      "step2Title": "Completa tu registro",
+      "step2Desc": "Proporciona tu nombre, correo electrónico e identificación oficial.",
+      "step3Title": "Recibe tu confirmación",
+      "step3Desc": "Recibirás un correo con tu código de acceso y las instrucciones del evento.",
+      "note": "Se requiere identificación oficial vigente para el acceso."
+    },
+    "attendeeGuide": {
+      "title": "Guía del Asistente",
+      "subtitle": "Todo lo que necesitas saber para disfrutar el festival.",
+      "bringTitle": "Qué llevar",
+      "bringItems": "Protector solar, tapones para oídos, agua reutilizable, efectivo y tarjetas, ropa y calzado cómodo, identificación oficial",
+      "prohibitedTitle": "Objetos prohibidos",
+      "prohibitedItems": "Armas y objetos punzocortantes, botellas de vidrio, drogas ilegales, mascotas, drones, sillas plegables",
+      "tipsTitle": "Tips para el Pit",
+      "tipsDesc": "Si alguien se cae, levántalo. Respeta los límites de los demás. Mantente hidratado entre sets. Las áreas laterales son ideales si prefieres ver sin contacto."
+    },
+    "culture": {
+      "title": "Más que Metal: Gastronomía y Cultura",
+      "subtitle": "El festival incluye experiencias únicas que celebran la riqueza de San Luis Potosí.",
+      "gastroTitle": "Pabellón Gastronómico",
+      "gastroDesc": "Prueba enchiladas potosinas, tacos huastecos, zacahuil y más delicias regionales. Food trucks y bebidas artesanales.",
+      "huastecaTitle": "Pabellón de Cultura Huasteca",
+      "huastecaDesc": "Exposición de arte huasteco, danzas tradicionales, artesanías y música de huapango. Una ventana a la herencia cultural del estado."
+    },
+    "gettingThere": {
+      "title": "Cómo Llegar",
+      "venue": "Teatro del Pueblo — Recinto FENAPO",
+      "address": "Av. Fco. Martínez de la Vega No. 255, San Luis Potosí",
+      "byCarTitle": "En auto",
+      "byCarDesc": "Estacionamiento amplio disponible en el recinto. Desde el centro, toma Av. Salvador Nava hacia el sur (~15 min).",
+      "byTransitTitle": "Transporte público",
+      "byTransitDesc": "Rutas de camión que pasan por el recinto FENAPO: 10, 12, 17. Taxis y Uber disponibles.",
+      "byPlaneTitle": "Desde el aeropuerto",
+      "byPlaneDesc": "El Aeropuerto de SLP (BJX) está a 20 minutos en auto. Taxis disponibles en la terminal.",
+      "hotelsTitle": "Hospedaje cercano",
+      "hotelsDesc": "Hoteles en la zona de Av. Carranza y Centro Histórico (10-15 min del recinto). Reserva con anticipación."
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "q1": "¿El San Luis Metal Fest es realmente gratis?",
+      "a1": "Sí. La entrada es completamente gratuita, pero se requiere registro previo en línea. Recibirás un código de acceso por correo electrónico.",
+      "q2": "¿Pueden entrar menores de edad?",
+      "a2": "Sí, menores de edad pueden asistir acompañados de un adulto responsable con identificación oficial. Se recomienda protección auditiva para niños.",
+      "q3": "¿Puedo llevar mi propia agua?",
+      "a3": "Sí, se permite llevar botellas de agua reutilizables (no vidrio). También habrá estaciones de hidratación gratuitas dentro del recinto.",
+      "q4": "¿Hay reingreso?",
+      "a4": "Sí, se permite el reingreso mostrando tu pulsera de acceso. No pierdas tu pulsera.",
+      "q5": "¿Hay cajeros automáticos en el recinto?",
+      "a5": "Sí, hay cajeros dentro del recinto FENAPO. Sin embargo, se recomienda traer efectivo ya que algunos puestos de comida no aceptan tarjeta.",
+      "q6": "¿Puedo llevar cámara fotográfica?",
+      "a6": "Cámaras compactas y teléfonos están permitidos. Cámaras profesionales con lente desmontable requieren acreditación de prensa.",
+      "q7": "¿El recinto es accesible para personas con discapacidad?",
+      "a7": "Sí, el Recinto FENAPO cuenta con rampas de acceso y áreas designadas para personas con discapacidad.",
+      "q8": "¿A qué hora debo llegar?",
+      "a8": "Las puertas abren a las 12:00 PM. Se recomienda llegar temprano para evitar filas y asegurar buen lugar frente al escenario."
+    },
+    "cta": {
+      "title": "No te pierdas el San Luis Metal Fest 2026",
+      "description": "El primer festival internacional de metal en San Luis Potosí. Dos días de música extrema, gastronomía y cultura. Entrada gratuita.",
+      "register": "Regístrate gratis",
+      "moreEvents": "Ver más eventos en SLP"
+    }
+  },
   "festival": {
     "title": "Festival Internacional San Luis en Primavera 2026",
     "viewSchedule": "Ver cartelera oficial",

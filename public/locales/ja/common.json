@@ -634,6 +634,122 @@
       "stat4Value": "6", "stat4Label": "エリア"
     }
   },
+  "metalFest2026": {
+    "seo": {
+      "title": "サンルイス・メタルフェスト 2026 — サンルイスポトシの無料メタルフェスティバル",
+      "description": "サンルイス・メタルフェスト 2026：5月16〜17日。入場無料。Marduk、Possessed、Metal Church、Grave、Armored Saintほか。SLP初の国際メタルフェスティバル。",
+      "keywords": "サンルイス メタルフェスト 2026, メタル フェスティバル メキシコ, metal fest slp"
+    },
+    "hero": {
+      "badge": "第1回 — 入場無料",
+      "date": "2026年5月16日〜17日",
+      "title": "サンルイス・メタルフェスト",
+      "subtitle": "闇の覚醒",
+      "description": "サンルイスポトシ初の国際メタルフェスティバル。8カ国から伝説的バンドが集結する2日間。グルメ、ワステカ文化、メキシコ最高のメタルコミュニティ。",
+      "cta": "無料で登録",
+      "ctaLineup": "ラインナップを見る"
+    },
+    "stats": {
+      "days": "日間",
+      "daysValue": "2",
+      "bands": "バンド",
+      "bandsValue": "15+",
+      "attendees": "予想来場者数",
+      "attendeesValue": "3万+",
+      "countries": "カ国",
+      "countriesValue": "8+",
+      "price": "入場",
+      "priceValue": "無料"
+    },
+    "lineup": {
+      "title": "公式ラインナップ",
+      "subtitle": "世界中のスラッシュ、デス、ブラック、ヘヴィメタルの伝説的バンド。",
+      "day1": "1日目 — 5月16日（土）",
+      "day2": "2日目 — 5月17日（日）",
+      "headliners": "ヘッドライナー",
+      "scheduleTbc": "タイムテーブル確認中",
+      "bands": {
+        "marduk": { "name": "Marduk", "genre": "ブラックメタル", "country": "スウェーデン" },
+        "metalChurch": { "name": "Metal Church", "genre": "ヘヴィ / パワーメタル", "country": "アメリカ" },
+        "possessed": { "name": "Possessed", "genre": "デスメタル", "country": "アメリカ" },
+        "grave": { "name": "Grave", "genre": "デスメタル", "country": "スウェーデン" },
+        "armoredSaint": { "name": "Armored Saint", "genre": "ヘヴィメタル", "country": "アメリカ" },
+        "crimsonGlory": { "name": "Crimson Glory", "genre": "プログレッシブメタル", "country": "アメリカ" },
+        "pestilence": { "name": "Pestilence", "genre": "デスメタル", "country": "オランダ" },
+        "sacrifice": { "name": "Sacrifice", "genre": "スラッシュメタル", "country": "カナダ" },
+        "hirax": { "name": "Hirax", "genre": "スラッシュメタル", "country": "アメリカ" },
+        "hellripper": { "name": "Hellripper", "genre": "スピード / ブラックメタル", "country": "スコットランド" },
+        "bloodFeast": { "name": "Blood Feast", "genre": "スラッシュメタル", "country": "アメリカ" }
+      }
+    },
+    "registration": {
+      "title": "登録方法",
+      "subtitle": "入場無料ですが事前登録が必要です。",
+      "step1Title": "公式サイトにアクセス",
+      "step1Desc": "サンルイス・メタルフェストの登録ページにアクセスしてください。",
+      "step2Title": "登録を完了",
+      "step2Desc": "氏名、メールアドレス、身分証明書を提供してください。",
+      "step3Title": "確認を受け取る",
+      "step3Desc": "アクセスコードとイベント案内がメールで届きます。",
+      "note": "入場には有効な身分証明書が必要です。"
+    },
+    "attendeeGuide": {
+      "title": "来場者ガイド",
+      "subtitle": "フェスティバルを楽しむために知っておくべきすべて。",
+      "bringTitle": "持ち物",
+      "bringItems": "日焼け止め、耳栓、再利用可能な水筒、現金とカード、動きやすい服と靴、身分証明書",
+      "prohibitedTitle": "禁止物",
+      "prohibitedItems": "武器・刃物、ガラス瓶、違法薬物、ペット、ドローン、折りたたみ椅子",
+      "tipsTitle": "ピットのマナー",
+      "tipsDesc": "誰かが倒れたら助け起こしましょう。他の人の境界を尊重しましょう。セット間に水分補給を。接触なしで見たい場合はサイドエリアがおすすめです。"
+    },
+    "culture": {
+      "title": "メタルだけじゃない：グルメ＆文化",
+      "subtitle": "サンルイスポトシの豊かさを祝うユニークな体験もあります。",
+      "gastroTitle": "グルメパビリオン",
+      "gastroDesc": "エンチラーダス・ポトシーナス、ワステカタコス、サカウィルなど郷土料理を堪能。フードトラックとクラフトドリンクも。",
+      "huastecaTitle": "ワステカ文化パビリオン",
+      "huastecaDesc": "ワステカアート展示、伝統舞踊、工芸品、ワパンゴ音楽。州の文化遺産への窓。"
+    },
+    "gettingThere": {
+      "title": "アクセス",
+      "venue": "テアトロ・デル・プエブロ — FENAPO会場",
+      "address": "Av. Fco. Martínez de la Vega No. 255, サンルイスポトシ",
+      "byCarTitle": "車で",
+      "byCarDesc": "会場に広い駐車場あり。市街中心部からAv. Salvador Navaを南へ（約15分）。",
+      "byTransitTitle": "公共交通機関",
+      "byTransitDesc": "FENAPO会場を通るバス路線：10、12、17番。タクシーとUberも利用可能。",
+      "byPlaneTitle": "空港から",
+      "byPlaneDesc": "SLP空港（BJX）から車で20分。ターミナルでタクシー利用可能。",
+      "hotelsTitle": "近くのホテル",
+      "hotelsDesc": "Av. Carranza沿いとセントロ・イストリコ周辺のホテル（会場まで10〜15分）。早めの予約を推奨。"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "q1": "サンルイス・メタルフェストは本当に無料ですか？",
+      "a1": "はい。入場は完全無料ですが、事前のオンライン登録が必要です。メールでアクセスコードが届きます。",
+      "q2": "未成年者は参加できますか？",
+      "a2": "はい。身分証明書を持つ責任ある大人の同伴があれば参加可能です。お子様には聴覚保護を推奨します。",
+      "q3": "水を持ち込めますか？",
+      "a3": "はい。再利用可能な水筒の持ち込みは可能です（ガラス不可）。会場内に無料の給水ステーションもあります。",
+      "q4": "再入場は可能ですか？",
+      "a4": "はい。アクセスリストバンドを提示すれば再入場可能です。リストバンドをなくさないでください。",
+      "q5": "会場にATMはありますか？",
+      "a5": "はい。FENAPO会場内にATMがあります。ただし、一部の飲食店ではカードが使えないため現金を持参することを推奨します。",
+      "q6": "カメラを持ち込めますか？",
+      "a6": "コンパクトカメラとスマートフォンは持ち込み可能です。交換レンズ付きプロ用カメラにはプレス認定が必要です。",
+      "q7": "会場はバリアフリーですか？",
+      "a7": "はい。FENAPO会場にはスロープと障がい者専用エリアがあります。",
+      "q8": "何時に到着すべきですか？",
+      "a8": "開場は午後12時です。行列を避け、ステージ前の良い場所を確保するために早めの到着をお勧めします。"
+    },
+    "cta": {
+      "title": "サンルイス・メタルフェスト 2026をお見逃しなく",
+      "description": "サンルイスポトシ初の国際メタルフェスティバル。2日間のエクストリーム音楽、グルメ、文化。入場無料。",
+      "register": "無料で登録",
+      "moreEvents": "SLPのイベントをもっと見る"
+    }
+  },
   "festival": {
     "title": "サンルイス国際春祭り 2026",
     "viewSchedule": "公式スケジュールを見る",
