@@ -28,7 +28,7 @@ import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
 import RobotMindBanner from '@/components/RobotMindBanner';
 import TodayInSLP from '@/components/TodayInSLP';
-import FestivalPrimaveraBanner from '@/components/FestivalPrimaveraBanner';
+import EventCarouselBanner from '@/components/EventCarouselBanner';
 import FamilyActivitiesBanner from '@/components/FamilyActivitiesBanner';
 import BlogCarousel from '@/components/BlogCarousel';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -353,8 +353,8 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* TODAY IN SLP - Daily Dashboard */}
         <TodayInSLP />
 
-        {/* FESTIVAL DE PRIMAVERA 2026 BANNER */}
-        <FestivalPrimaveraBanner />
+        {/* EVENT CAROUSEL BANNER */}
+        <EventCarouselBanner />
 
         {/* EVENTS PREVIEW */}
         <EventsPreview events={events} />
