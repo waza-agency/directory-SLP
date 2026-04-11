@@ -246,11 +246,55 @@ export default function NeighborhoodsGuidePage() {
     ));
   };
 
+  const seoFaqs = [
+    { q: 'What is the best neighborhood for expats in San Luis Potosí?', a: 'Lomas del Tecnológico is the most popular expat neighborhood. It\'s walkable, has excellent restaurants and cafes, is well-patrolled, and has a mix of modern apartments and houses. Rent for a 2-bedroom starts at $12,000-18,000 MXN ($700-1,050 USD).' },
+    { q: 'How much is rent in San Luis Potosí?', a: 'Rent varies widely by neighborhood: budget apartments in Zona Industrial start at $7,000 MXN ($400 USD), mid-range in Lomas or Tangamanga runs $12,000-20,000 MXN ($700-1,200 USD), and premium homes in Villa Magna or La Loma Golf start at $35,000 MXN ($2,000+ USD).' },
+    { q: 'Is Centro Histórico safe to live in?', a: 'During the day, Centro is very safe and well-patrolled — it\'s the tourist heart of the city. At night, exercise caution after 11 PM in quieter streets. Many expats love living in Centro for the colonial architecture, walkability, and cultural life, but prefer Lomas for family living.' },
+    { q: 'Which neighborhoods have the best schools nearby?', a: 'Lomas del Tecnológico is closest to Colegio Terranova and Colegio Motolinia (the top bilingual schools). Del Valle is near several private schools. For university-area living, the Zona Universitaria around UASLP offers affordable options near the main campus.' },
+  ];
+
   return (
     <>
       <Head>
         <title>Ultimate Neighborhoods Guide San Luis Potosí | Where to Live</title>
         <meta name="description" content="Complete guide to neighborhoods in San Luis Potosí for expats. Rental prices, safety ratings, schools, and detailed profiles for Lomas, Pedregal, Centro, and more." />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Best Neighborhoods to Live in San Luis Potosí for Expats',
+              description: 'Complete guide to neighborhoods in San Luis Potosí: rent prices, safety ratings, walkability, and which areas are best for expats and families.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                url: 'https://www.sanluisway.com/about',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/resources/neighborhoods-san-luis-potosi',
+              about: { '@type': 'Place', name: 'San Luis Potosí', sameAs: 'https://www.wikidata.org/wiki/Q204271' },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: seoFaqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50">
@@ -765,6 +809,21 @@ export default function NeighborhoodsGuidePage() {
               <p className="text-yellow-800 text-sm">
                 All rental prices were verified against active listings on major Mexican real estate portals. Housing prices in SLP increased 10.3% in 2024 and 9% in early 2025. Market conditions change frequently. This guide is updated quarterly.
               </p>
+            </div>
+          </section>
+
+          <section className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {seoFaqs.map((faq, index) => (
+                <details key={index} className="group bg-gray-50 rounded-xl">
+                  <summary className="flex justify-between items-center cursor-pointer p-4 font-medium text-gray-900">
+                    {faq.q}
+                    <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-4 pb-4 text-gray-700">{faq.a}</div>
+                </details>
+              ))}
             </div>
           </section>
 

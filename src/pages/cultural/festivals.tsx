@@ -7,15 +7,65 @@ import GuideCTA from '@/components/common/GuideCTA';
 
 export default function FestivalsPage() {
 
+  const faqs = [
+    {
+      question: 'What is the biggest festival in San Luis Potosí?',
+      answer: 'FENAPO (Feria Nacional Potosina) in August is the largest — a 3-week state fair with free concerts, livestock expo, cultural pavilions, and the famous Teatro del Pueblo. Festival Internacional San Luis en Primavera (April) is the biggest cultural festival.',
+    },
+    {
+      question: 'When is the Procesión del Silencio?',
+      answer: 'The Procesión del Silencio takes place every Good Friday (Viernes Santo) starting at 8 PM from the Templo del Carmen through Centro Histórico. Over 2,000 robed participants walk in complete silence. It\'s one of Mexico\'s most important Holy Week traditions.',
+    },
+    {
+      question: 'Are festivals in San Luis Potosí free?',
+      answer: 'Many are. Festival de Primavera outdoor concerts, FENAPO Teatro del Pueblo, Noche de Museos (last Friday monthly), and most plaza events are free. Some FENAPO concerts and palenque shows require tickets.',
+    },
+  ];
+
   return (
     <>
       <Head>
-        <title>Local Festivities & Events - SLP Descubre</title>
+        <title>Festivals &amp; Cultural Events in San Luis Potosí | San Luis Way</title>
         <meta name="description" content="Discover the vibrant festivals and cultural events of San Luis Potosí, with expat-friendly guides explaining traditions and customs." />
         <meta name="keywords" content="San Luis Potosí festivals, cultural events, traditional celebrations, Feria Nacional Potosina, Festival de la Luz, Día de los Muertos" />
-        <meta property="og:title" content="Local Festivities & Events - SLP Descubre" />
+        <meta property="og:title" content="Festivals & Cultural Events in San Luis Potosí | San Luis Way" />
         <meta property="og:description" content="Experience the vibrant cultural celebrations and traditions of San Luis Potosí." />
         <meta property="og:image" content="/images/festivals.jpeg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Festivals & Cultural Events in San Luis Potosí',
+              description: 'Discover the vibrant festivals and cultural events of San Luis Potosí, with expat-friendly guides explaining traditions and customs.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/cultural/festivals',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-white">
@@ -309,6 +359,21 @@ export default function FestivalsPage() {
               </div>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          <section className="mt-16 mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                {faqs.map((faq, idx) => (
+                  <div key={idx} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
           <GuideCTA relatedLinks={[
             { href: '/cultural/religious-practices', label: 'Religious Traditions', labelEs: 'Tradiciones Religiosas' },

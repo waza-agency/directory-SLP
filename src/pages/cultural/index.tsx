@@ -26,15 +26,67 @@ export default function CulturalPage({ events }: CulturalPageProps) {
     }).format(date);
   };
 
+  const faqs = [
+    {
+      question: 'What is San Luis Potosí known for culturally?',
+      answer: 'SLP is renowned for its colonial architecture, the Procesión del Silencio (a silent Holy Week procession declared Intangible Cultural Heritage), Huapango music from the Huasteca region, Potosino cuisine (enchiladas potosinas, gorditas), and its Centro Histórico with over 20 historic churches and plazas.',
+    },
+    {
+      question: 'What are the main cultural events in San Luis Potosí?',
+      answer: 'The biggest are: Festival Internacional San Luis en Primavera (April — free concerts, ballet, theater), FENAPO (August — Mexico\'s traditional state fair), Procesión del Silencio (Good Friday), Xantolo (Day of the Dead in the Huasteca), and Día de San Luis Rey (June 19).',
+    },
+    {
+      question: 'Is there a good arts scene in San Luis Potosí?',
+      answer: 'Yes. SLP has world-class museums like Museo Federico Silva (contemporary sculpture), Centro de las Artes (housed in a former prison), Museo Nacional de la Máscara, and Teatro de la Paz. The city produces several annual art biennials and has a growing contemporary gallery scene.',
+    },
+  ];
+
   return (
     <>
       <SEO
-        title="Cultural Heritage of San Luis Potosí"
+        title="Cultural Heritage of San Luis Potosí | San Luis Way"
         description="Discover the rich cultural heritage, traditions, arts, and customs of San Luis Potosí - a comprehensive guide for expatriates and visitors."
         keywords="San Luis Potosí culture, traditions, museums, arts, cultural events, Mexican heritage, festivals, historical sites, colonial architecture, local customs"
         ogImage="/images/cultural/san-luis-potosi-cathedral.jpg"
         ogType="website"
       />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Cultural Heritage of San Luis Potosí',
+              description: 'Discover the rich cultural heritage, traditions, arts, and customs of San Luis Potosí - a comprehensive guide for expatriates and visitors.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/cultural',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            }),
+          }}
+        />
+      </Head>
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
@@ -500,6 +552,21 @@ export default function CulturalPage({ events }: CulturalPageProps) {
                     Read Guide →
                   </Link>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ Section */}
+          <section className="mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                {faqs.map((faq, idx) => (
+                  <div key={idx} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>

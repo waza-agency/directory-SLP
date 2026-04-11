@@ -8,15 +8,65 @@ import GuideCTA from '@/components/common/GuideCTA';
 
 export default function CulinaryTraditionsPage() {
 
+  const faqs = [
+    {
+      question: 'What is the most famous food from San Luis Potosí?',
+      answer: 'Enchiladas potosinas — red corn tortillas stuffed with cheese, rolled, and served with sour cream and salsa. Other iconic dishes are gorditas (thick corn cakes with fillings), asado de boda (pork in a sweet chocolate-chile sauce), and queso de tuna (cactus fruit cheese).',
+    },
+    {
+      question: 'What should I try at a Potosino market?',
+      answer: 'At Mercado Hidalgo: asado de boda, gorditas de horno, tacos de cecina. At the tianguis: fresh gorditas with nopales or chicharrón, licuados (fresh smoothies), and seasonal fruits like tunas (cactus fruit). Don\'t miss the café de olla and atole.',
+    },
+    {
+      question: 'Does San Luis Potosí have its own wine and mezcal?',
+      answer: 'Yes. The state has a mezcal appellation of origin — artisan producers make mezcal from 8+ agave varieties. SLP\'s wine scene centers on the annual Festival del Vino Potosino (October). The region has been producing wine since colonial times.',
+    },
+  ];
+
   return (
     <>
       <Head>
-        <title>Culinary Traditions of San Luis Potosí - SLP Descubre</title>
+        <title>Culinary Traditions of San Luis Potosí | San Luis Way</title>
         <meta name="description" content="Explore the rich culinary traditions and regional dishes of San Luis Potosí, from enchiladas potosinas to traditional huasteca cuisine." />
         <meta name="keywords" content="San Luis Potosí food, Mexican cuisine, regional dishes, traditional recipes, food culture" />
-        <meta property="og:title" content="Culinary Traditions of San Luis Potosí - SLP Descubre" />
+        <meta property="og:title" content="Culinary Traditions of San Luis Potosí | San Luis Way" />
         <meta property="og:description" content="Discover the flavors, ingredients, and culinary heritage that define San Luis Potosí's unique food culture." />
         <meta property="og:image" content="/images/cultural/culinary-traditions.jpeg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Culinary Traditions of San Luis Potosí',
+              description: 'Explore the rich culinary traditions and regional dishes of San Luis Potosí, from enchiladas potosinas to traditional huasteca cuisine.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/cultural/culinary-traditions',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-white">
@@ -424,6 +474,21 @@ export default function CulinaryTraditionsPage() {
               </div>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          <section className="mt-16 mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                {faqs.map((faq, idx) => (
+                  <div key={idx} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
           <GuideCTA relatedLinks={[
             { href: '/traditional-cuisine', label: 'Where to Eat Traditional Food', labelEs: 'Dónde Comer' },

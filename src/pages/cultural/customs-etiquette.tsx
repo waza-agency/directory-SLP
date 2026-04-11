@@ -7,15 +7,65 @@ import GuideCTA from '@/components/common/GuideCTA';
 
 export default function CustomsEtiquettePage() {
 
+  const faqs = [
+    {
+      question: 'What are the main social customs in San Luis Potosí?',
+      answer: 'Greeting with a kiss on the cheek (women) or handshake (men), arriving 15-30 minutes late to social events (la hora mexicana), addressing people formally with Usted until invited to use tú, and always saying \'provecho\' (enjoy your meal) when passing people eating.',
+    },
+    {
+      question: 'Is San Luis Potosí conservative?',
+      answer: 'SLP is more conservative than Mexico City or Oaxaca. It\'s a traditionally Catholic city with strong family values. Sunday mass is important, religious holidays are widely observed, and social norms around dress and behavior tend to be more traditional, especially outside the Centro/Lomas areas.',
+    },
+    {
+      question: 'What should I avoid doing in San Luis Potosí?',
+      answer: 'Avoid criticizing Mexico or Mexican culture publicly, don\'t refuse food or drink when offered (at least try it), don\'t discuss politics or religion at casual gatherings, and avoid wearing very revealing clothing at churches or traditional events.',
+    },
+  ];
+
   return (
     <>
       <Head>
-        <title>Customs & Etiquette in San Luis Potosí - SLP Descubre</title>
+        <title>Customs &amp; Etiquette in San Luis Potosí | San Luis Way</title>
         <meta name="description" content="Learn about local customs, social etiquette, and cultural norms in San Luis Potosí to help you integrate smoothly into the local community." />
         <meta name="keywords" content="San Luis Potosí customs, Mexican etiquette, cultural norms, social customs, expat guide" />
-        <meta property="og:title" content="Customs & Etiquette in San Luis Potosí - SLP Descubre" />
+        <meta property="og:title" content="Customs & Etiquette in San Luis Potosí | San Luis Way" />
         <meta property="og:description" content="Navigate local customs and cultural norms in San Luis Potosí with our comprehensive guide for newcomers and visitors." />
         <meta property="og:image" content="/images/cultural/customs-etiquette.jpeg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Customs & Etiquette in San Luis Potosí',
+              description: 'Learn about local customs, social etiquette, and cultural norms in San Luis Potosí to help you integrate smoothly into the local community.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/cultural/customs-etiquette',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-white">
@@ -340,6 +390,21 @@ export default function CustomsEtiquettePage() {
               </div>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          <section className="mt-16 mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                {faqs.map((faq, idx) => (
+                  <div key={idx} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
           <GuideCTA relatedLinks={[
             { href: '/cultural/religious-practices', label: 'Religious Practices', labelEs: 'Prácticas Religiosas' },

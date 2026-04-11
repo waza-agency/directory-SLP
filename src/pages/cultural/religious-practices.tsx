@@ -8,15 +8,65 @@ import GuideCTA from '@/components/common/GuideCTA';
 
 export default function ReligiousPracticesPage() {
 
+  const faqs = [
+    {
+      question: 'What is the Procesión del Silencio?',
+      answer: 'The Procesión del Silencio is a solemn Good Friday procession where over 2,000 participants dressed in biblical-era robes walk in absolute silence through the streets of Centro Histórico. Declared Intangible Cultural Heritage, it draws tens of thousands of spectators and is one of Mexico\'s most powerful religious traditions.',
+    },
+    {
+      question: 'How important is Catholicism in San Luis Potosí?',
+      answer: 'Very. SLP is one of Mexico\'s most traditionally Catholic cities. The Centro Histórico alone has over 20 churches, and religious holidays (Semana Santa, Día de la Virgen de Guadalupe, Día de Muertos) are widely observed with processions, masses, and community celebrations.',
+    },
+    {
+      question: 'What is the connection between Wixárika (Huichol) culture and SLP?',
+      answer: 'The Wixárika people make annual pilgrimages to Wirikuta (near Real de Catorce) in the SLP desert — a sacred site central to their cosmology. The peyote cactus grows there and is central to their spiritual ceremonies. Wirikuta is one of the most important Wixárika sacred sites.',
+    },
+  ];
+
   return (
     <>
       <Head>
-        <title>Spiritual Traditions in San Luis Potosí - SLP Descubre</title>
+        <title>Spiritual &amp; Religious Traditions in San Luis Potosí | San Luis Way</title>
         <meta name="description" content="Explore the rich pre-Hispanic spiritual heritage and Indigenous traditions of San Luis Potosí, from Huichol ceremonies to desert rituals and contemporary practices." />
         <meta name="keywords" content="San Luis Potosí spirituality, Huichol traditions, pre-Hispanic ceremonies, desert rituals, Wixárika pilgrimages" />
-        <meta property="og:title" content="Spiritual Traditions in San Luis Potosí - SLP Descubre" />
+        <meta property="og:title" content="Spiritual & Religious Traditions in San Luis Potosí | San Luis Way" />
         <meta property="og:description" content="Discover the ancient spiritual practices and Indigenous traditions that shape the cultural identity of San Luis Potosí." />
         <meta property="og:image" content="/images/cultural/spiritual-traditions.jpeg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Spiritual & Religious Traditions in San Luis Potosí',
+              description: 'Explore the rich pre-Hispanic spiritual heritage and Indigenous traditions of San Luis Potosí, from Huichol ceremonies to desert rituals and contemporary practices.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/cultural/religious-practices',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-white">
@@ -473,6 +523,21 @@ export default function ReligiousPracticesPage() {
               </table>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          <section className="mt-16 mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                {faqs.map((faq, idx) => (
+                  <div key={idx} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
           <GuideCTA relatedLinks={[
             { href: '/cultural/festivals', label: 'Festivals & Events', labelEs: 'Festivales' },

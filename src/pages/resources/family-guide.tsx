@@ -483,6 +483,13 @@ export default function FamilyGuidePage() {
     { name: 'La Loma Centro Deportivo', url: 'https://www.laloma.mx', type: 'Institution' },
   ];
 
+  const seoFaqs = [
+    { q: 'Is San Luis Potosí a good city for families with children?', a: 'Yes. SLP has excellent international and bilingual schools (Colegio Terranova, Motolinia), large parks like Tangamanga I and II, indoor play centers (Kidiverso, Jumparks), and a low cost of living that lets families enjoy a comfortable lifestyle. Many expat families with children from the BMW, GM, and Ford plants live here.' },
+    { q: 'How much does it cost to raise a family in San Luis Potosí?', a: 'A family of 4 can live comfortably on $2,500-3,500 USD/month including housing in a good neighborhood (Lomas, Del Valle), private school tuition ($200-600 USD/month), groceries, and entertainment. This is roughly 40% less than comparable living in the US.' },
+    { q: 'Are there English-speaking pediatricians in SLP?', a: 'Yes. Hospital Lomas de San Luis and Star Médica have English-speaking pediatricians. Several private clinics in the Lomas area also cater to expat families. Expect to pay $30-60 USD per consultation.' },
+    { q: 'What family-friendly activities are available on weekends?', a: 'Weekends in SLP are packed: Sunday Ciclovía on Av. Carranza (free bike riding), Parque Tangamanga (free zoo + science museum), Kidiverso, Jumparks, bowling at Bol Tanga, go-karts, and the Laberinto de las Ciencias interactive museum.' },
+  ];
+
   return (
     <>
       <Head>
@@ -490,6 +497,43 @@ export default function FamilyGuidePage() {
         <meta name="description" content="Complete guide to family life in San Luis Potosí. Schools, parks, pediatric care, childcare, sports, and family-friendly neighborhoods for expats." />
         <meta name="keywords" content="San Luis Potosí families, schools SLP, kids activities Mexico, family neighborhoods, expat families" />
         <link rel="canonical" href="https://www.sanluisway.com/resources/family-guide" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Ultimate Family Life Guide — San Luis Potosí',
+              description: 'Complete guide to family life in San Luis Potosí: schools, parks, activities, costs, and community for expat families.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                url: 'https://www.sanluisway.com/about',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/resources/family-guide',
+              about: { '@type': 'Place', name: 'San Luis Potosí', sameAs: 'https://www.wikidata.org/wiki/Q204271' },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: seoFaqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -929,6 +973,21 @@ export default function FamilyGuidePage() {
               <p className="text-xs text-gray-500 mt-4">
                 Prices and information may change. Always verify current rates.
               </p>
+            </div>
+          </section>
+
+          <section className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {seoFaqs.map((faq, index) => (
+                <details key={index} className="group bg-gray-50 rounded-xl">
+                  <summary className="flex justify-between items-center cursor-pointer p-4 font-medium text-gray-900">
+                    {faq.q}
+                    <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-4 pb-4 text-gray-700">{faq.a}</div>
+                </details>
+              ))}
             </div>
           </section>
 

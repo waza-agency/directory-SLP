@@ -138,6 +138,13 @@ export default function ArrivalChecklistPage() {
     return map[categoryId] || categoryId;
   };
 
+  const faqs = [
+    { q: 'What documents do I need to move to San Luis Potosí?', a: 'At minimum: valid passport, visa (FMM for <180 days, Temporary Resident visa for longer), proof of address, CURP (Mexican ID number), and your birth certificate with apostille if applying for residency. Bring certified copies of everything.' },
+    { q: 'Can I open a bank account in San Luis Potosí as a foreigner?', a: 'Yes. You need your passport, proof of Mexican address (utility bill or lease), and either an FMM or resident visa. BBVA and Banorte are the most expat-friendly banks. The process takes 1-2 hours at the branch. Some banks require a minimum deposit of $2,000-5,000 MXN.' },
+    { q: 'How do I get a Mexican phone number?', a: 'Buy a prepaid SIM card from Telcel, AT&T México, or Movistar at any OXXO or convenience store for ~$100-200 MXN. Telcel has the best coverage in SLP. For postpaid plans, you\'ll need a Mexican ID (INE) or your passport + proof of address.' },
+    { q: 'How long does it take to get settled in SLP?', a: 'Most expats report being functionally settled within 2-4 weeks: housing secured (week 1), bank account and phone (week 2), grocery routines and basic Spanish phrases (weeks 3-4). Full social integration takes 3-6 months, especially if you join expat groups and take Spanish classes.' },
+  ];
+
   return (
     <>
       <Head>
@@ -147,6 +154,43 @@ export default function ArrivalChecklistPage() {
         <meta property="og:title" content={t('arrivalChecklist.meta.ogTitle')} />
         <meta property="og:description" content={t('arrivalChecklist.meta.ogDescription')} />
         <meta property="og:url" content="https://www.sanluisway.com/resources/arrival-checklist" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Arrival Checklist for Moving to San Luis Potosí',
+              description: 'Step-by-step checklist for expats arriving in San Luis Potosí: documents, housing, banking, phone, transportation, and settling in.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                url: 'https://www.sanluisway.com/about',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/resources/arrival-checklist',
+              about: { '@type': 'Place', name: 'San Luis Potosí', sameAs: 'https://www.wikidata.org/wiki/Q204271' },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50">
@@ -255,6 +299,26 @@ export default function ArrivalChecklistPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-12">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <section className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <details key={index} className="group bg-gray-50 rounded-xl">
+                    <summary className="flex justify-between items-center cursor-pointer p-4 font-medium text-gray-900">
+                      {faq.q}
+                      <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div className="px-4 pb-4 text-gray-700">{faq.a}</div>
+                  </details>
+                ))}
+              </div>
+            </section>
           </div>
         </section>
 

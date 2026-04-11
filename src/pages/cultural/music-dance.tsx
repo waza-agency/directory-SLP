@@ -10,6 +10,21 @@ import GuideCTA from '@/components/common/GuideCTA';
 export default function MusicDancePage() {
   const [activeGenre, setActiveGenre] = useState('mariachi');
 
+  const faqs = [
+    {
+      question: 'What is Huapango?',
+      answer: 'Huapango is the traditional music of the Huasteca Potosina region — characterized by violin, jarana, and quinta huapanguera (guitars), with falsetto singing and zapateado (foot stomping dance). Xilitla and Ciudad Valles host annual Huapango festivals.',
+    },
+    {
+      question: 'Where can I see traditional dance in San Luis Potosí?',
+      answer: 'At the Festival de Primavera (April), FENAPO (August), and cultural events at Centro de las Artes. During Xantolo (November), the Huasteca comes alive with traditional dances like the Danza de los Huehues and Danza de los Viejitos.',
+    },
+    {
+      question: 'What is the Danza de los Huehues?',
+      answer: 'The Danza de los Huehues (Dance of the Old Ones) is performed during Xantolo celebrations in the Huasteca region. Dancers wear carved wooden masks, costumes representing old men and women, and perform comedic, satirical dances honoring the dead.',
+    },
+  ];
+
   const musicGenres = {
     mariachi: {
       name: "Mariachi",
@@ -139,12 +154,47 @@ export default function MusicDancePage() {
   return (
     <>
       <Head>
-        <title>Traditional Music & Dance | San Luis Potosí Culture</title>
+        <title>Traditional Music &amp; Dance of San Luis Potosí | San Luis Way</title>
         <meta name="description" content="Discover the rich musical traditions of San Luis Potosí - from mariachi and huapango to traditional dances. Your guide to experiencing authentic Mexican music and culture." />
         <meta name="keywords" content="mariachi San Luis Potosí, huapango huasteco, Mexican traditional music, folk dances Mexico, norteño music, son mexicano, cultural traditions SLP" />
-        <meta property="og:title" content="Traditional Music & Dance | San Luis Potosí Culture" />
+        <meta property="og:title" content="Traditional Music & Dance of San Luis Potosí | San Luis Way" />
         <meta property="og:description" content="Discover the rich musical traditions of San Luis Potosí - from mariachi and huapango to traditional dances." />
         <meta property="og:image" content="/images/music-dance.jpg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Traditional Music & Dance of San Luis Potosí',
+              description: 'Discover the rich musical traditions of San Luis Potosí - from mariachi and huapango to traditional dances. Your guide to experiencing authentic Mexican music and culture.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/cultural/music-dance',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <main className="min-h-screen bg-white">
@@ -475,6 +525,21 @@ export default function MusicDancePage() {
         </section>
 
         <div className="container mx-auto px-6 md:px-12 lg:px-20">
+          {/* FAQ Section */}
+          <section className="py-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-6">
+                {faqs.map((faq, idx) => (
+                  <div key={idx} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <GuideCTA relatedLinks={[
             { href: '/cultural/festivals', label: 'Festivals & Events', labelEs: 'Festivales' },
             { href: '/cultural/customs-etiquette', label: 'Customs & Etiquette', labelEs: 'Costumbres' },

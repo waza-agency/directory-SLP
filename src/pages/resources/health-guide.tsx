@@ -492,6 +492,13 @@ export default function HealthGuidePage() {
     { name: 'BUPA Global Health', url: 'https://www.bupaglobal.com', type: 'Insurance' },
   ];
 
+  const seoFaqs = [
+    { q: 'How much does a doctor visit cost in San Luis Potosí?', a: 'A general practitioner consultation costs $400-800 MXN ($25-50 USD) at private clinics. Specialists like cardiologists or dermatologists charge $800-1,500 MXN ($50-90 USD). Many pharmacy clinics (Similares, Farmacias Guadalajara) offer consultations for $35-50 MXN ($2-3 USD).' },
+    { q: 'Which hospitals in SLP have English-speaking doctors?', a: 'Hospital Lomas de San Luis, Star Médica San Luis Potosí, and Hospital Ángeles are the main private hospitals with English-speaking staff. Hospital Central Dr. Ignacio Morones Prieto is the largest public hospital but English is limited.' },
+    { q: 'Do I need private health insurance as an expat in SLP?', a: 'Strongly recommended. While IMSS (public healthcare) is available to residents for ~$500 USD/year, wait times are long and English support is minimal. Private insurance (GNP, AXA, BUPA) costs $1,500-3,000 USD/year and gives access to the private hospital network with much shorter wait times.' },
+    { q: 'Can I buy prescription medication without a prescription in Mexico?', a: 'Most medications except controlled substances (opioids, benzodiazepines, antibiotics since 2010) can be purchased over-the-counter at Mexican pharmacies. Prices are typically 50-80% lower than in the US. Always bring a copy of your prescription for controlled medications.' },
+  ];
+
   return (
     <>
       <Head>
@@ -499,6 +506,43 @@ export default function HealthGuidePage() {
         <meta name="description" content="Complete guide to healthcare in San Luis Potosí. Hospitals, clinics, specialists, insurance options, pharmacies, and step-by-step guides for expats." />
         <meta name="keywords" content="San Luis Potosí healthcare, hospitals SLP, doctors Mexico, health insurance expats, pharmacies San Luis Potosí" />
         <link rel="canonical" href="https://www.sanluisway.com/resources/health-guide" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Ultimate Healthcare Guide for Expats — San Luis Potosí',
+              description: 'Complete guide to healthcare in San Luis Potosí: hospitals, doctors, insurance, pharmacies, and step-by-step guides for expats.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                url: 'https://www.sanluisway.com/about',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/resources/health-guide',
+              about: { '@type': 'Place', name: 'San Luis Potosí', sameAs: 'https://www.wikidata.org/wiki/Q204271' },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: seoFaqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
+          }}
+        />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -978,6 +1022,21 @@ export default function HealthGuidePage() {
               <p className="text-xs text-gray-500 mt-4">
                 Last updated: December 2024 | Prices and information may change. Always verify current rates.
               </p>
+            </div>
+          </section>
+
+          <section className="bg-white rounded-2xl shadow-lg p-8 mb-16">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {seoFaqs.map((faq, index) => (
+                <details key={index} className="group bg-gray-50 rounded-xl">
+                  <summary className="flex justify-between items-center cursor-pointer p-4 font-medium text-gray-900">
+                    {faq.q}
+                    <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform">▼</span>
+                  </summary>
+                  <div className="px-4 pb-4 text-gray-700">{faq.a}</div>
+                </details>
+              ))}
             </div>
           </section>
 
