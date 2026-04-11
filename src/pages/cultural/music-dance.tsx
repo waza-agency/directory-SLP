@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function MusicDancePage() {
   const [activeGenre, setActiveGenre] = useState('mariachi');
@@ -472,6 +473,15 @@ export default function MusicDancePage() {
             </div>
           </div>
         </section>
+
+        <div className="container mx-auto px-6 md:px-12 lg:px-20">
+          <GuideCTA relatedLinks={[
+            { href: '/cultural/festivals', label: 'Festivals & Events', labelEs: 'Festivales' },
+            { href: '/cultural/customs-etiquette', label: 'Customs & Etiquette', labelEs: 'Costumbres' },
+            { href: '/cultural', label: 'Cultural Heritage', labelEs: 'Patrimonio Cultural' },
+            { href: '/events/all', label: 'Upcoming Events', labelEs: 'Próximos Eventos' },
+          ]} />
+        </div>
       </main>
     </>
   );

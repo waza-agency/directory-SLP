@@ -7,6 +7,7 @@ import AdUnit from '../../components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function ExpatGuidePage() {
   const [activeSection, setActiveSection] = useState('emergency');
@@ -400,22 +401,12 @@ export default function ExpatGuidePage() {
               <AdUnit adSlot="1234567894" adFormat="rectangle" style={{ display: 'block', textAlign: 'center', margin: '30px auto', maxWidth: '750px', backgroundColor: '#f8fafc', padding: '20px', borderRadius: '8px' }} />
             </section>
 
-            {/* More Resources CTA */}
-            <div className="bg-gradient-to-r from-primary to-secondary rounded-xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-white mb-4">Explore More Resources</h3>
-              <p className="text-white/90 mb-6">Discover our other comprehensive guides for life in San Luis Potosí</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/resources/living-guide" className="px-6 py-3 bg-white text-primary font-semibold rounded-full hover:bg-gray-100 transition-colors">
-                  Living Guide
-                </Link>
-                <Link href="/resources/school-guide" className="px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-                  School Guide
-                </Link>
-                <Link href="/resources/health-guide" className="px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-                  Health Services
-                </Link>
-              </div>
-            </div>
+            <GuideCTA relatedLinks={[
+              { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+              { href: '/resources/living-guide', label: 'Living Guide', labelEs: 'Guía de Vida' },
+              { href: '/resources/neighborhoods-san-luis-potosi', label: 'Neighborhoods', labelEs: 'Colonias' },
+              { href: '/resources/arrival-checklist', label: 'Arrival Checklist', labelEs: 'Checklist de Llegada' },
+            ]} />
           </div>
 
           <section className="mt-12 mb-8">

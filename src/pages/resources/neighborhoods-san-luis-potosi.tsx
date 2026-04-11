@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 const neighborhoods = [
   {
@@ -767,23 +768,12 @@ export default function NeighborhoodsGuidePage() {
             </div>
           </section>
 
-          {/* CTA */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 rounded-2xl text-white">
-            <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-3xl font-bold mb-4">Need Help Finding Your Home in SLP?</h3>
-              <p className="text-lg text-blue-100 mb-6">
-                We connect expats with trusted real estate agents, relocation services, and local resources.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact" className="inline-block bg-white text-blue-600 font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors">
-                  Contact Us →
-                </Link>
-                <Link href="/subscribe" className="inline-block bg-blue-500 text-white font-bold px-8 py-4 rounded-lg hover:bg-blue-400 transition-colors border-2 border-white/30">
-                  Get Weekly Updates
-                </Link>
-              </div>
-            </div>
-          </div>
+          <GuideCTA relatedLinks={[
+            { href: '/resources/living-guide', label: 'Living Guide', labelEs: 'Guía de Vida' },
+            { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+            { href: '/resources/school-guide', label: 'School Guide', labelEs: 'Guía Escolar' },
+            { href: '/resources/expat-guide', label: 'Expat Guide', labelEs: 'Guía Expat' },
+          ]} />
         </div>
       </main>
     </>

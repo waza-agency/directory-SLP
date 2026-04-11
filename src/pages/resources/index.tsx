@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import B2BBanner from '@/components/B2BBanner';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 interface GuideCard {
   id: string;
@@ -351,29 +352,15 @@ export default function ResourcesHubPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-primary to-secondary">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Can't find what you're looking for?
-            </h2>
-            <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-              Our blog has hundreds of articles about life in San Luis Potosí. Search for specific topics or browse our latest posts.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/blog"
-                className="px-8 py-3 bg-white text-primary font-semibold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                Browse Blog
-              </Link>
-              <Link
-                href="/contact"
-                className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-colors"
-              >
-                Contact Us
-              </Link>
-            </div>
+        {/* Related Guides */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <GuideCTA relatedLinks={[
+              { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+              { href: '/resources/living-guide', label: 'Living Guide', labelEs: 'Guía de Vida' },
+              { href: '/resources/expat-guide', label: 'Expat Guide', labelEs: 'Guía Expat' },
+              { href: '/resources/school-guide', label: 'School Guide', labelEs: 'Guía Escolar' },
+            ]} />
           </div>
         </section>
       </main>

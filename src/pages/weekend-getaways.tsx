@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
+import GuideCTA from '@/components/common/GuideCTA';
 
 // Weekend destinations data
 const weekendGetaways = [
@@ -578,6 +579,15 @@ const WeekendGetawaysPage: NextPage = () => {
           </div>
         </div>
       </section>
+
+      <div className="container mx-auto px-4 py-8">
+        <GuideCTA relatedLinks={[
+          { href: '/family-friendly-activities', label: 'Family Activities', labelEs: 'Actividades Familiares' },
+          { href: '/parque-tangamanga', label: 'Parque Tangamanga', labelEs: 'Tangamanga' },
+          { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+          { href: '/resources/living-guide', label: 'Living Guide', labelEs: 'Guía de Vida' },
+        ]} />
+      </div>
 
       {/* CTA Section */}
       <section className="py-16 bg-primary/5">

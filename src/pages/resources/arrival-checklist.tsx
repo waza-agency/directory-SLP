@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 interface ChecklistItem {
   id: string;
@@ -257,14 +258,15 @@ export default function ArrivalChecklistPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-12 bg-gradient-to-r from-primary to-secondary">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">{t('arrivalChecklist.cta.title')}</h2>
-            <p className="text-white/90 mb-6">{t('arrivalChecklist.cta.subtitle')}</p>
-            <Link href="/contact" className="inline-block px-8 py-3 bg-white text-primary font-semibold rounded-full hover:bg-gray-100 transition-colors">
-              {t('arrivalChecklist.cta.button')}
-            </Link>
+        {/* Related Guides */}
+        <section className="py-12">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <GuideCTA relatedLinks={[
+              { href: '/resources/expat-guide', label: 'Expat Guide', labelEs: 'Guía Expat' },
+              { href: '/resources/living-guide', label: 'Living Guide', labelEs: 'Guía de Vida' },
+              { href: '/resources/neighborhoods-san-luis-potosi', label: 'Neighborhoods', labelEs: 'Colonias' },
+              { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+            ]} />
           </div>
         </section>
       </main>

@@ -6,6 +6,7 @@ import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
 import SEO from '@/components/common/SEO';
+import GuideCTA from '@/components/common/GuideCTA';
 
 interface TraditionalCuisinePageProps {
   places: Place[];
@@ -93,6 +94,18 @@ const TraditionalCuisinePage: NextPage<TraditionalCuisinePageProps> = ({ places 
               />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* GuideCTA */}
+      <section className="py-8 px-4">
+        <div className="container mx-auto">
+          <GuideCTA relatedLinks={[
+            { href: '/breakfast-spots-san-luis-potosi', label: 'Best Breakfast Spots', labelEs: 'Mejores Desayunos' },
+            { href: '/food-festivals-san-luis-potosi', label: 'Food Festivals', labelEs: 'Festivales Gastronómicos' },
+            { href: '/restaurants', label: 'All Restaurants', labelEs: 'Restaurantes' },
+            { href: '/farmers-markets-san-luis-potosi', label: 'Farmers Markets', labelEs: 'Tianguis' },
+          ]} />
         </div>
       </section>
 

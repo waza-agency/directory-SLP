@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { CalendarIcon, MapPinIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import EventList from '@/components/EventList';
 import SEO from '@/components/common/SEO';
+import GuideCTA from '@/components/common/GuideCTA';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface CulturalPageProps {
@@ -502,6 +503,13 @@ export default function CulturalPage({ events }: CulturalPageProps) {
               </div>
             </div>
           </section>
+
+          <GuideCTA relatedLinks={[
+            { href: '/cultural/festivals', label: 'Festivals & Events', labelEs: 'Festivales y Eventos' },
+            { href: '/cultural/culinary-traditions', label: 'Culinary Traditions', labelEs: 'Tradiciones Culinarias' },
+            { href: '/cultural/history', label: 'History of SLP', labelEs: 'Historia de SLP' },
+            { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+          ]} />
         </div>
       </main>
     </>

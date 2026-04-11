@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ShareButton from '@/components/sharing/ShareButton';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function LivingGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -799,22 +800,12 @@ export default function LivingGuidePage() {
               </div>
             </section>
 
-            {/* CTA */}
-            <div className="bg-gradient-to-r from-terracotta to-terracotta/80 rounded-xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-white mb-4">Explore More Resources</h3>
-              <p className="text-white/90 mb-6">Check out our other comprehensive guides for life in San Luis Potosí</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/resources/expat-guide" className="px-6 py-3 bg-white text-terracotta font-semibold rounded-full hover:bg-gray-100 transition-colors">
-                  Expat Essentials
-                </Link>
-                <Link href="/resources/school-guide" className="px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-                  School Guide
-                </Link>
-                <Link href="/resources/health-guide" className="px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-                  Health Services
-                </Link>
-              </div>
-            </div>
+            <GuideCTA relatedLinks={[
+              { href: '/resources/neighborhoods-san-luis-potosi', label: 'Neighborhoods Guide', labelEs: 'Guía de Colonias' },
+              { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+              { href: '/resources/health-guide', label: 'Healthcare Guide', labelEs: 'Guía de Salud' },
+              { href: '/resources/expat-guide', label: 'Expat Essentials', labelEs: 'Guía Expat' },
+            ]} />
           </div>
         </div>
       </main>

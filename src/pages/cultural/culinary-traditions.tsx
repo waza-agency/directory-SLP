@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function CulinaryTraditionsPage() {
 
@@ -423,6 +424,13 @@ export default function CulinaryTraditionsPage() {
               </div>
             </div>
           </div>
+
+          <GuideCTA relatedLinks={[
+            { href: '/traditional-cuisine', label: 'Where to Eat Traditional Food', labelEs: 'Dónde Comer' },
+            { href: '/food-festivals-san-luis-potosi', label: 'Food Festivals', labelEs: 'Festivales Gastronómicos' },
+            { href: '/breakfast-spots-san-luis-potosi', label: 'Best Breakfast Spots', labelEs: 'Mejores Desayunos' },
+            { href: '/farmers-markets-san-luis-potosi', label: 'Farmers Markets', labelEs: 'Tianguis y Mercados' },
+          ]} />
         </div>
       </main>
     </>

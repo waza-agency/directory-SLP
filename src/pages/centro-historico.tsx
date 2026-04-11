@@ -17,6 +17,7 @@ import {
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import SEO from '@/components/common/SEO';
+import GuideCTA from '@/components/common/GuideCTA';
 import { motion } from 'framer-motion';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -721,6 +722,15 @@ export default function CentroHistorico() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <GuideCTA relatedLinks={[
+          { href: '/cultural/history', label: 'History of SLP', labelEs: 'Historia de SLP' },
+          { href: '/traditional-cuisine', label: 'Traditional Cuisine', labelEs: 'Cocina Tradicional' },
+          { href: '/cultural-attractions', label: 'Cultural Attractions', labelEs: 'Atracciones Culturales' },
+          { href: '/places', label: 'All Places', labelEs: 'Todos los Lugares' },
+        ]} />
       </div>
 
       {/* Closing CTA Section */}

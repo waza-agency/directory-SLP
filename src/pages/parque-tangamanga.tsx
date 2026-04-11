@@ -4,6 +4,7 @@ import { ClockIcon, MapPinIcon, TicketIcon, SunIcon, UsersIcon, SparklesIcon, He
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import SEO from '@/components/common/SEO';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -941,6 +942,15 @@ export default function ParqueTangamanga() {
               </ul>
             </div>
           </div>
+        </div>
+
+        <div className="container mx-auto px-4">
+          <GuideCTA relatedLinks={[
+            { href: '/family-friendly-activities', label: 'Family Activities', labelEs: 'Actividades Familiares' },
+            { href: '/free-events-san-luis-potosi', label: 'Free Events', labelEs: 'Eventos Gratis' },
+            { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+            { href: '/places', label: 'All Places', labelEs: 'Todos los Lugares' },
+          ]} />
         </div>
       </div>
     </div>

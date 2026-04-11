@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function ReligiousPracticesPage() {
 
@@ -472,6 +473,13 @@ export default function ReligiousPracticesPage() {
               </table>
             </div>
           </div>
+
+          <GuideCTA relatedLinks={[
+            { href: '/cultural/festivals', label: 'Festivals & Events', labelEs: 'Festivales' },
+            { href: '/cultural/customs-etiquette', label: 'Customs & Etiquette', labelEs: 'Costumbres' },
+            { href: '/cultural/history', label: 'History of SLP', labelEs: 'Historia de SLP' },
+            { href: '/cultural', label: 'Cultural Heritage', labelEs: 'Patrimonio Cultural' },
+          ]} />
         </div>
       </main>
     </>

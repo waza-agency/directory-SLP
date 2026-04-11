@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function FamilyGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -931,15 +932,12 @@ export default function FamilyGuidePage() {
             </div>
           </section>
 
-          {/* Navigation */}
-          <div className="flex flex-col sm:flex-row justify-between gap-4 pt-8 border-t">
-            <Link href="/resources" className="text-purple-600 hover:text-purple-800 flex items-center gap-2">
-              ← Back to Resources Hub
-            </Link>
-            <Link href="/resources/school-guide" className="text-purple-600 hover:text-purple-800 flex items-center gap-2">
-              School Guide →
-            </Link>
-          </div>
+          <GuideCTA relatedLinks={[
+            { href: '/resources/school-guide', label: 'School Guide', labelEs: 'Guía Escolar' },
+            { href: '/family-friendly-activities', label: 'Family Activities', labelEs: 'Actividades Familiares' },
+            { href: '/resources/health-guide', label: 'Healthcare Guide', labelEs: 'Guía de Salud' },
+            { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+          ]} />
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import SEO from '@/components/common/SEO';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -504,6 +505,15 @@ export default function FamilyFriendlyActivities() {
             </div>
           </div>
         </section>
+
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-8">
+          <GuideCTA relatedLinks={[
+            { href: '/free-events-san-luis-potosi', label: 'Free Events', labelEs: 'Eventos Gratis' },
+            { href: '/parque-tangamanga', label: 'Parque Tangamanga Guide', labelEs: 'Guía Tangamanga' },
+            { href: '/weekend-getaways', label: 'Weekend Getaways', labelEs: 'Escapadas de Fin de Semana' },
+            { href: '/resources/family-guide', label: 'Family Guide', labelEs: 'Guía Familiar' },
+          ]} />
+        </div>
 
         {/* CTA */}
         <section className="py-16 bg-gradient-to-br from-orange-500 via-pink-500 to-purple-600 text-white">

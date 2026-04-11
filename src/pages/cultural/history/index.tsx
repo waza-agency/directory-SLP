@@ -5,6 +5,7 @@ import LastUpdated from '@/components/common/LastUpdated';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import GuideCTA from '@/components/common/GuideCTA';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -544,6 +545,13 @@ export default function History() {
               </div>
             </div>
           </section>
+
+          <GuideCTA relatedLinks={[
+            { href: '/cultural/festivals', label: 'Festivals & Events', labelEs: 'Festivales' },
+            { href: '/centro-historico', label: 'Centro Histórico Guide', labelEs: 'Guía del Centro Histórico' },
+            { href: '/cultural/religious-practices', label: 'Religious Traditions', labelEs: 'Tradiciones Religiosas' },
+            { href: '/cultural', label: 'Cultural Heritage', labelEs: 'Patrimonio Cultural' },
+          ]} />
         </div>
       </div>
     </>

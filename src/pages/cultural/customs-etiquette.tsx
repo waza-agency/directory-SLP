@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function CustomsEtiquettePage() {
 
@@ -339,6 +340,13 @@ export default function CustomsEtiquettePage() {
               </div>
             </div>
           </div>
+
+          <GuideCTA relatedLinks={[
+            { href: '/cultural/religious-practices', label: 'Religious Practices', labelEs: 'Prácticas Religiosas' },
+            { href: '/resources/expat-guide', label: 'Expat Guide', labelEs: 'Guía Expat' },
+            { href: '/cultural/culinary-traditions', label: 'Culinary Traditions', labelEs: 'Tradiciones Culinarias' },
+            { href: '/cultural', label: 'Cultural Heritage', labelEs: 'Patrimonio Cultural' },
+          ]} />
         </div>
       </main>
     </>

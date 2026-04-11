@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function FestivalsPage() {
 
@@ -308,6 +309,13 @@ export default function FestivalsPage() {
               </div>
             </div>
           </div>
+
+          <GuideCTA relatedLinks={[
+            { href: '/cultural/religious-practices', label: 'Religious Traditions', labelEs: 'Tradiciones Religiosas' },
+            { href: '/cultural/music-dance', label: 'Music & Dance', labelEs: 'Música y Danza' },
+            { href: '/free-events-san-luis-potosi', label: 'Free Events in SLP', labelEs: 'Eventos Gratis' },
+            { href: '/cultural', label: 'Cultural Heritage', labelEs: 'Patrimonio Cultural' },
+          ]} />
         </div>
       </main>
     </>

@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function SchoolGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -1077,22 +1078,12 @@ export default function SchoolGuidePage() {
               </div>
             </section>
 
-            {/* More Resources CTA */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-white mb-4">Explore More Resources</h3>
-              <p className="text-white/90 mb-6">Check out our other comprehensive guides for life in San Luis Potosí</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/resources/living-guide" className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-gray-100 transition-colors">
-                  Living Guide
-                </Link>
-                <Link href="/resources/expat-guide" className="px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-                  Expat Essentials
-                </Link>
-                <Link href="/resources/health-guide" className="px-6 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-                  Health Services
-                </Link>
-              </div>
-            </div>
+            <GuideCTA relatedLinks={[
+              { href: '/resources/family-guide', label: 'Family Guide', labelEs: 'Guía Familiar' },
+              { href: '/resources/health-guide', label: 'Healthcare Guide', labelEs: 'Guía de Salud' },
+              { href: '/resources/neighborhoods-san-luis-potosi', label: 'Neighborhoods', labelEs: 'Colonias' },
+              { href: '/resources/arrival-checklist', label: 'Arrival Checklist', labelEs: 'Checklist de Llegada' },
+            ]} />
           </div>
         </div>
       </main>
