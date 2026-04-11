@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import LastUpdated from '@/components/common/LastUpdated';
+import GuideCTA from '@/components/common/GuideCTA';
 
 export default function SafetyGuidePage() {
   const { t } = useTranslation('common');
@@ -26,6 +27,9 @@ export default function SafetyGuidePage() {
     { id: 'statistics', name: 'Crime Statistics' },
     { id: 'perception', name: 'Local Perception' },
     { id: 'neighborhoods', name: 'Safe Neighborhoods' },
+    { id: 'female-travelers', name: 'Solo Female Safety' },
+    { id: 'tourists', name: 'For Tourists' },
+    { id: 'driving', name: 'Driving Safety' },
     { id: 'expat-experience', name: 'Expat Experience' },
     { id: 'practical-tips', name: 'Safety Tips' },
     { id: 'emergency', name: 'Emergency Contacts' },
@@ -57,6 +61,22 @@ export default function SafetyGuidePage() {
       q: 'Is Uber/taxi safe?',
       a: 'Yes. Uber and DiDi operate safely in SLP. For traditional taxis, use Taxi Seguro (444 817 2111) or Radio Taxi (444 812 0000). Avoid unmarked cabs.'
     },
+    {
+      q: 'Is San Luis Potosí safe for solo female travelers?',
+      a: 'Yes, with standard urban precautions. Solo female travelers report feeling safe walking in Lomas, Centro Histórico, and commercial areas during the day. At night, stick to Uber/DiDi and well-lit areas. Catcalling exists (as in most of Mexico) but physical harassment is rare. Many female expats live alone in SLP without issues.'
+    },
+    {
+      q: 'Is San Luis Potosí safe for American tourists?',
+      a: 'Yes. The US State Department classifies SLP as Level 2 (Exercise Increased Caution) with zero travel restrictions for government employees. SLP is in the same safety tier as popular tourist states like Querétaro and Puebla. Most American visitors experience no safety issues, especially in tourist areas like Centro Histórico and Lomas.'
+    },
+    {
+      q: 'Is it safe to drive through San Luis Potosí?',
+      a: 'During the day on toll roads (cuotas), yes. Avoid Highway 57 (the free road to Matehuala/Monterrey) after dark — it has historically been a high-crime stretch at night. Use the cuota (toll) alternative instead. Within the city, driving is safe during normal hours with standard urban caution.'
+    },
+    {
+      q: 'Is San Luis Potosí safe to live in long-term?',
+      a: 'Yes. SLP has a growing expat community (especially around the BMW/GM automotive plants) and ranks among the top 10 safest Mexican states for homicides. Long-term residents report feeling safer than in many US cities of similar size. Choose neighborhoods like Lomas, Polanco, or Del Valle for maximum safety and walkability.'
+    },
   ];
 
   return (
@@ -68,6 +88,29 @@ export default function SafetyGuidePage() {
         <meta property="og:title" content="Is San Luis Potosí Safe? Complete Safety Guide" />
         <meta property="og:description" content="Comprehensive safety analysis with verified data, local perception, and practical tips for living in SLP." />
         <link rel="canonical" href="https://www.sanluisway.com/resources/safety-guide" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Is San Luis Potosí Safe? Complete Safety Guide',
+              description: 'Data-driven safety analysis of San Luis Potosí with crime statistics, neighborhood ratings, expat experiences, and practical tips.',
+              datePublished: '2025-01-01',
+              dateModified: '2026-04-10',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                url: 'https://www.sanluisway.com/about',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
+              mainEntityOfPage: 'https://www.sanluisway.com/resources/safety-guide',
+              about: { '@type': 'Place', name: 'San Luis Potosí', sameAs: 'https://www.wikidata.org/wiki/Q204271' },
+            }),
+          }}
+        />
         {/* FAQPage JSON-LD — mirrors the visible Q&A list below so Google can
             surface the answers as rich results. */}
         <script
@@ -370,10 +413,155 @@ export default function SafetyGuidePage() {
                 <div className="mt-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-xl">
                   <h3 className="font-bold text-red-900">Areas to Avoid (Especially at Night)</h3>
                   <ul className="text-red-800 text-sm mt-2 space-y-1">
-                    <li>• Colonia Satélite</li>
-                    <li>• Colonia Progreso</li>
-                    <li>• Peripheral industrial areas after dark</li>
+                    <li>• <strong>Colonia Satélite</strong> — higher incidence of petty crime and car theft</li>
+                    <li>• <strong>Colonia Progreso</strong> — rougher area, especially after dark</li>
+                    <li>• <strong>Delegación La Pila</strong> — south end of the metro area, elevated crime rates</li>
+                    <li>• <strong>Soledad de Graciano Sánchez</strong> (east side) — industrial suburbs with less policing</li>
+                    <li>• Peripheral industrial zones and unlit areas after dark</li>
                   </ul>
+                </div>
+              </section>
+
+              {/* Solo Female Travelers */}
+              <section id="female-travelers" className="bg-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Is San Luis Potosí safe for solo female travelers?</h2>
+                <p className="text-gray-700 mb-4">
+                  <strong>Yes, with standard urban precautions.</strong> Solo female travelers and expats living in SLP report
+                  feeling safe walking alone in Lomas, Centro Histórico, and commercial areas during daytime. Many women live
+                  alone in the city without issues.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div className="bg-emerald-50 rounded-xl p-4">
+                    <h3 className="font-bold text-emerald-900 mb-2">Safe behaviors</h3>
+                    <ul className="text-emerald-800 text-sm space-y-1">
+                      <li>✓ Walking in Lomas, Centro, Polanco during the day</li>
+                      <li>✓ Using Uber/DiDi at night (always share trip)</li>
+                      <li>✓ Dining out solo in restaurant zones</li>
+                      <li>✓ Jogging in Parque Tangamanga mornings</li>
+                    </ul>
+                  </div>
+                  <div className="bg-amber-50 rounded-xl p-4">
+                    <h3 className="font-bold text-amber-900 mb-2">Exercise caution</h3>
+                    <ul className="text-amber-800 text-sm space-y-1">
+                      <li>! Walking alone after 11 PM in any area</li>
+                      <li>! Using unmarked taxis</li>
+                      <li>! Sharing your home address with strangers</li>
+                      <li>! Catcalling exists but physical harassment is rare</li>
+                    </ul>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm">
+                  SLP has a growing community of solo female expats, many working remotely or employed at the automotive plants.
+                  The city is more conservative than Oaxaca or CDMX, which some women find makes it feel <em>more</em> respectful.
+                </p>
+              </section>
+
+              {/* American Tourists */}
+              <section id="tourists" className="bg-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Is San Luis Potosí safe for American tourists?</h2>
+                <p className="text-gray-700 mb-4">
+                  <strong>Yes.</strong> The US State Department classifies SLP as <strong>Level 2 (Exercise Increased Caution)</strong> —
+                  the same tier as tourist favorites Querétaro, Aguascalientes, and Puebla. There are <strong>zero travel restrictions</strong> for
+                  US government employees in the state.
+                </p>
+                <div className="overflow-x-auto mb-4">
+                  <table className="w-full text-left text-sm border-collapse">
+                    <caption className="sr-only">US State Department safety levels for Mexican states popular with tourists</caption>
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th scope="col" className="p-3 border">City/State</th>
+                        <th scope="col" className="p-3 border">Level</th>
+                        <th scope="col" className="p-3 border">Crime Index</th>
+                        <th scope="col" className="p-3 border">Safety Index</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" className="p-3 border font-semibold">San Luis Potosí</th>
+                        <td className="p-3 border text-emerald-700 font-semibold">Level 2</td>
+                        <td className="p-3 border">52.6</td>
+                        <td className="p-3 border text-emerald-700">47.4</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <th scope="row" className="p-3 border font-semibold">Querétaro</th>
+                        <td className="p-3 border">Level 2</td>
+                        <td className="p-3 border">42.3</td>
+                        <td className="p-3 border">57.7</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" className="p-3 border font-semibold">Mérida</th>
+                        <td className="p-3 border">Level 2</td>
+                        <td className="p-3 border">29.4</td>
+                        <td className="p-3 border">70.6</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <th scope="row" className="p-3 border font-semibold">Guadalajara</th>
+                        <td className="p-3 border">Level 2</td>
+                        <td className="p-3 border">61.4</td>
+                        <td className="p-3 border">38.6</td>
+                      </tr>
+                      <tr>
+                        <th scope="row" className="p-3 border font-semibold">Mexico City</th>
+                        <td className="p-3 border text-amber-700">Level 2</td>
+                        <td className="p-3 border text-red-600">66.8</td>
+                        <td className="p-3 border text-red-600">33.2</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <th scope="row" className="p-3 border font-semibold">Oaxaca</th>
+                        <td className="p-3 border">Level 2</td>
+                        <td className="p-3 border">35.2</td>
+                        <td className="p-3 border">64.8</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-sm text-gray-500">
+                  Source: <a href="https://www.numbeo.com/crime/rankings.jsp?title=2025&region=019" target="_blank" rel="noopener noreferrer" className="underline">Numbeo Crime Index 2025</a> +{' '}
+                  <a href="https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/mexico-travel-advisory.html" target="_blank" rel="noopener noreferrer" className="underline">US State Department</a>
+                </p>
+                <p className="text-gray-700 mt-4">
+                  SLP is safer than Guadalajara and Mexico City by Numbeo&apos;s index. It&apos;s less safe than Mérida or Oaxaca
+                  but significantly more affordable. Travel Off Path named SLP one of the{' '}
+                  <a href="https://www.traveloffpath.com/these-are-4-of-the-most-cultural-and-safe-cities-in-mexico/" target="_blank" rel="noopener noreferrer" className="underline text-emerald-700">
+                    4 most cultural and safe cities in Mexico
+                  </a>.
+                </p>
+              </section>
+
+              {/* Driving Safety */}
+              <section id="driving" className="bg-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Is it safe to drive through San Luis Potosí?</h2>
+                <p className="text-gray-700 mb-4">
+                  <strong>During the day on toll roads, yes.</strong> Within the city, driving is safe with standard urban caution.
+                  The main risk is on <strong>inter-city highways at night</strong>.
+                </p>
+                <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl mb-4">
+                  <h3 className="font-bold text-red-900">Highway 57 Warning</h3>
+                  <p className="text-red-800 text-sm mt-1">
+                    The free highway to Matehuala and Monterrey (Highway 57 libre) has historically been a high-crime stretch
+                    after dark. <strong>Always use the toll road (cuota)</strong> if driving north, especially at night.
+                    The toll costs ~$300-500 MXN but is significantly safer and faster.
+                  </p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-emerald-50 rounded-xl p-4">
+                    <h3 className="font-bold text-emerald-900 mb-2">Safe</h3>
+                    <ul className="text-emerald-800 text-sm space-y-1">
+                      <li>✓ City driving during daytime</li>
+                      <li>✓ Toll roads (cuotas) any time</li>
+                      <li>✓ Highway to Querétaro (well-patrolled)</li>
+                      <li>✓ Road to Huasteca Potosina (daylight)</li>
+                    </ul>
+                  </div>
+                  <div className="bg-red-50 rounded-xl p-4">
+                    <h3 className="font-bold text-red-900 mb-2">Avoid</h3>
+                    <ul className="text-red-800 text-sm space-y-1">
+                      <li>✗ Highway 57 libre after dark</li>
+                      <li>✗ Any free highway at night alone</li>
+                      <li>✗ Rural roads near Tamaulipas border</li>
+                      <li>✗ Parking in unlit areas at night</li>
+                    </ul>
+                  </div>
                 </div>
               </section>
 
@@ -590,21 +778,12 @@ export default function SafetyGuidePage() {
                 </ul>
               </section>
 
-              {/* CTA */}
-              <section className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-white text-center">
-                <h2 className="text-2xl font-bold mb-4">Need More Help?</h2>
-                <p className="text-emerald-100 mb-6">
-                  Explore our other guides or connect with our community for personalized advice.
-                </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Link href="/resources/neighborhoods-san-luis-potosi" className="bg-white text-emerald-700 font-semibold px-6 py-3 rounded-lg hover:bg-emerald-50 transition-colors">
-                    Neighborhoods Guide
-                  </Link>
-                  <Link href="/resources/expat-guide" className="bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-emerald-800 transition-colors border border-emerald-500">
-                    Expat Essentials
-                  </Link>
-                </div>
-              </section>
+              <GuideCTA relatedLinks={[
+                { href: '/resources/neighborhoods-san-luis-potosi', label: 'Neighborhoods Guide: Where to Live', labelEs: 'Guía de Colonias: Dónde Vivir' },
+                { href: '/resources/expat-guide', label: 'Expat Essentials: Moving to SLP', labelEs: 'Guía Expat: Mudarse a SLP' },
+                { href: '/resources/health-guide', label: 'Healthcare Guide for Expats', labelEs: 'Guía de Salud para Expats' },
+                { href: '/resources/living-guide', label: 'Complete Living Guide', labelEs: 'Guía Completa de Vida' },
+              ]} />
             </div>
           </div>
         </div>
