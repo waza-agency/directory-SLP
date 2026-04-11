@@ -418,7 +418,17 @@
   "tangamangaBanner": {
     "title": "Parque Tangamanga",
     "description": "El pulmón verde más importante de San Luis Potosí, con más de 420 hectáreas de áreas verdes, lagos artificiales, canchas deportivas y senderos para disfrutar de la naturaleza.",
-    "cta": "Descubre más"
+    "cta": "Descubre más",
+    "badge": "Guía Completa",
+    "subtitle": "Zoológico · Planetario · Museo · Jardín Japonés",
+    "altText": "Parque Tangamanga I — zoológico, senderos y lago en San Luis Potosí",
+    "stats": {
+      "hectares": "hectáreas",
+      "trees": "árboles",
+      "entry": "entrada",
+      "species": "especies",
+      "free": "GRATIS"
+    }
   },
   "tangamanga": {
     "title": "Parque Tangamanga I",
@@ -528,6 +538,19 @@
       "tip6": "El parque cierra los lunes por la tarde - planifica tu visita",
       "tip7": "Respeta las áreas designadas y la vida silvestre",
       "tip8": "No dejes basura - ayuda a mantener limpio el pulmón verde de la ciudad"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes sobre el Parque Tangamanga",
+      "q1": "Es gratis la entrada al Parque Tangamanga?",
+      "a1": "Si. El Parque Tangamanga I es completamente gratuito, incluyendo el zoologico, el Laberinto de las Ciencias, el jardin botanico y todos los senderos. Algunas atracciones como el planetario y el acuario tienen cuotas menores ($20-50 MXN).",
+      "q2": "Cual es el horario del Parque Tangamanga?",
+      "a2": "Lunes: 5 AM a 11 AM (dia de mantenimiento). Martes a sabado: 5 AM a 10:30 PM. Domingo: 5 AM a 6 PM. El zoologico abre de martes a domingo 9 AM a 5 PM.",
+      "q3": "Que se puede hacer en el Parque Tangamanga?",
+      "a3": "Zoologico gratuito con mas de 100 especies, planetario, acuario (Splash), Laberinto de las Ciencias, jardin japones, jardin botanico, teatro al aire libre, lagos con lanchas de pedal, senderos, canchas deportivas, areas de picnic y renta de bicicletas.",
+      "q4": "Es seguro el Parque Tangamanga?",
+      "a4": "Si. El parque esta bien vigilado durante el horario de apertura. Evita ir solo despues del anochecer entre semana. Las mananas de fin de semana son las mas seguras.",
+      "q5": "Que tan grande es el Parque Tangamanga?",
+      "a5": "El Parque Tangamanga I cubre 411 hectareas, mas grande que Central Park en Nueva York (341 ha). Tiene mas de 400,000 arboles."
     }
   },
   "circleOfTrust": {

@@ -418,7 +418,17 @@
   "tangamangaBanner": {
     "title": "Tangamanga-Park",
     "description": "Die wichtigste grüne Lunge von San Luis Potosí mit über 420 Hektar Grünflächen, künstlichen Seen, Sportplätzen und Wanderwegen zum Genießen der Natur.",
-    "cta": "Mehr entdecken"
+    "cta": "Mehr entdecken",
+    "badge": "Vollständiger Reiseführer",
+    "subtitle": "Zoo · Planetarium · Museum · Japanischer Garten",
+    "altText": "Parque Tangamanga I — Zoo, Wanderwege und See in San Luis Potosí",
+    "stats": {
+      "hectares": "Hektar",
+      "trees": "Bäume",
+      "entry": "Eintritt",
+      "species": "Arten",
+      "free": "FREI"
+    }
   },
   "tangamanga": {
     "title": "Tangamanga-Park",
@@ -493,6 +503,19 @@
       "tip4": "Veranstaltungskalender prüfen",
       "tip5": "Ausgewiesene Bereiche respektieren",
       "tip6": "Keinen Müll hinterlassen"
+    },
+    "faq": {
+      "title": "Haufig gestellte Fragen zum Parque Tangamanga",
+      "q1": "Ist der Eintritt zum Parque Tangamanga kostenlos?",
+      "a1": "Ja. Der Parque Tangamanga I ist komplett kostenlos, einschliesslich Zoo, Wissenschaftsmuseum, Botanischer Garten und alle Wanderwege. Planetarium und Aquarium haben geringe Gebuhren (20-50 MXN).",
+      "q2": "Welche Offnungszeiten hat der Parque Tangamanga?",
+      "a2": "Montag: 5 bis 11 Uhr (Wartungstag). Dienstag bis Samstag: 5 bis 22:30 Uhr. Sonntag: 5 bis 18 Uhr. Zoo: Dienstag bis Sonntag 9 bis 17 Uhr.",
+      "q3": "Was kann man im Parque Tangamanga machen?",
+      "a3": "Kostenloser Zoo mit uber 100 Arten, Planetarium, Aquarium, Wissenschaftsmuseum, Japanischer Garten, Botanischer Garten, Freilichttheater, Seen mit Tretbooten, Lauf- und Radwege, Sportplatze, Picknickplatze und Fahrradverleih.",
+      "q4": "Ist der Parque Tangamanga sicher?",
+      "a4": "Ja. Der Park wird wahrend der Offnungszeiten gut bewacht. Vermeiden Sie es, unter der Woche nach Einbruch der Dunkelheit allein zu gehen.",
+      "q5": "Wie gross ist der Parque Tangamanga?",
+      "a5": "Der Parque Tangamanga I umfasst 411 Hektar, grosser als der Central Park in New York (341 ha). Er hat uber 400.000 Baume."
     }
   },
   "circleOfTrust": {

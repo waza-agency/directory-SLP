@@ -418,7 +418,17 @@
   "tangamangaBanner": {
     "title": "Tangamanga Park",
     "description": "The most important green lung of San Luis Potosí, with over 420 hectares of green areas, artificial lakes, sports courts, and trails to enjoy nature.",
-    "cta": "Discover More"
+    "cta": "Discover More",
+    "badge": "Complete Guide",
+    "subtitle": "Zoo · Planetarium · Museum · Japanese Garden",
+    "altText": "Parque Tangamanga I — zoo, trails and lake in San Luis Potosí",
+    "stats": {
+      "hectares": "hectares",
+      "trees": "trees",
+      "entry": "entry",
+      "species": "species",
+      "free": "FREE"
+    }
   },
   "tangamanga": {
     "title": "Tangamanga Park I",
@@ -528,6 +538,19 @@
       "tip6": "The park closes Monday afternoons - plan your visit accordingly",
       "tip7": "Respect designated areas and wildlife",
       "tip8": "Don't leave trash - help keep the city's green lung clean"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions about Parque Tangamanga",
+      "q1": "Is Parque Tangamanga free to enter?",
+      "a1": "Yes. Parque Tangamanga I is completely free to enter, including the zoo, the Laberinto de las Ciencias (interactive science museum), the botanical garden, and all walking/running trails. Some attractions like the planetarium and aquarium have small fees ($20-50 MXN).",
+      "q2": "What are the hours for Parque Tangamanga?",
+      "a2": "Monday: 5 AM to 11 AM (maintenance day). Tuesday to Saturday: 5 AM to 10:30 PM. Sunday: 5 AM to 6 PM. The zoo opens Tuesday to Sunday 9 AM to 5 PM.",
+      "q3": "What can you do at Parque Tangamanga?",
+      "a3": "Free zoo with 100+ species, planetarium, aquarium (Splash), Laberinto de las Ciencias science museum, Japanese garden, botanical garden, open-air theater, lakes for pedal boats, running and cycling trails, sports courts, picnic areas, and bike rental.",
+      "q4": "Is Parque Tangamanga safe?",
+      "a4": "Yes. The park is well-patrolled during opening hours. Avoid visiting alone after dark on weekdays. Weekend mornings are the busiest and safest time.",
+      "q5": "How big is Parque Tangamanga compared to other parks?",
+      "a5": "Parque Tangamanga I covers 411 hectares, larger than Central Park in New York (341 ha). It has over 400,000 trees."
     }
   },
   "circleOfTrust": {

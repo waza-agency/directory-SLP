@@ -74,26 +74,11 @@ export default function ParqueTangamanga() {
   const { t } = useTranslation('common');
 
   const faqs = [
-    {
-      q: 'Is Parque Tangamanga free to enter?',
-      a: 'Yes. Parque Tangamanga I is completely free to enter, including the zoo, the Laberinto de las Ciencias (interactive science museum), the botanical garden, and all walking/running trails. Some attractions like the planetarium and aquarium have small fees ($20-50 MXN).',
-    },
-    {
-      q: 'What are the hours for Parque Tangamanga?',
-      a: 'Monday: 5 AM – 11 AM (maintenance day, limited access). Tuesday to Saturday: 5 AM – 10:30 PM. Sunday: 5 AM – 6 PM. The zoo opens Tuesday to Sunday 9 AM – 5 PM. The planetarium operates Tuesday to Friday 9 AM – 2 PM.',
-    },
-    {
-      q: 'What can you do at Parque Tangamanga?',
-      a: 'The park has a free zoo with over 100 species, a planetarium, an aquarium (Splash), the Laberinto de las Ciencias interactive science museum, a Japanese garden, a botanical garden, an open-air theater, lakes for pedal boats, running and cycling trails, sports courts (soccer, basketball, tennis), picnic areas, and bike rental stations.',
-    },
-    {
-      q: 'Is Parque Tangamanga safe?',
-      a: 'Yes. The park is well-patrolled during opening hours and is popular with families, joggers, and cyclists. Avoid visiting alone after dark on weekdays. Weekend mornings are the busiest and safest time. The park has security staff, restrooms, food vendors, and first aid stations.',
-    },
-    {
-      q: 'How big is Parque Tangamanga compared to other parks?',
-      a: 'Parque Tangamanga I covers 411 hectares (1,015 acres), making it one of the largest urban parks in Latin America — larger than New York\'s Central Park (341 ha) and Mexico City\'s Chapultepec (678 ha total, but only 40 ha of the first section are publicly accessible). It has over 400,000 trees.',
-    },
+    { q: t('tangamanga.faq.q1'), a: t('tangamanga.faq.a1') },
+    { q: t('tangamanga.faq.q2'), a: t('tangamanga.faq.a2') },
+    { q: t('tangamanga.faq.q3'), a: t('tangamanga.faq.a3') },
+    { q: t('tangamanga.faq.q4'), a: t('tangamanga.faq.a4') },
+    { q: t('tangamanga.faq.q5'), a: t('tangamanga.faq.a5') },
   ];
 
   return (
@@ -1011,7 +996,7 @@ export default function ParqueTangamanga() {
         {/* FAQ Section */}
         <div className="container mx-auto px-4 py-12 max-w-4xl">
           <section className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions about Parque Tangamanga</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tangamanga.faq.title')}</h2>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <details key={index} className="group bg-gray-50 rounded-xl">

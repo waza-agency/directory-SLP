@@ -423,7 +423,17 @@
   "tangamangaBanner": {
     "title": "タンガマンガ公園",
     "description": "420ヘクタール以上の緑地、人工湖、スポーツコート、自然を楽しむトレイルを持つ、サンルイスポトシで最も重要な緑の肺。",
-    "cta": "詳細を見る"
+    "cta": "詳細を見る",
+    "badge": "完全ガイド",
+    "subtitle": "動物園 · プラネタリウム · 博物館 · 日本庭園",
+    "altText": "タンガマンガ公園I — サンルイスポトシの動物園、トレイル、湖",
+    "stats": {
+      "hectares": "ヘクタール",
+      "trees": "本の木",
+      "entry": "入場",
+      "species": "種以上",
+      "free": "無料"
+    }
   },
   "tangamanga": {
     "title": "タンガマンガ公園I",
@@ -533,6 +543,19 @@
       "tip6": "月曜午後は公園が閉まるため計画的に",
       "tip7": "指定エリアと野生動物を尊重",
       "tip8": "ゴミを残さず、街の緑の肺を清潔に保つ手助けを"
+    },
+    "faq": {
+      "title": "FAQ",
+      "q1": "Is the park free?",
+      "a1": "Yes, completely free including zoo and science museum. Planetarium and aquarium have small fees (20-50 MXN).",
+      "q2": "What are the hours?",
+      "a2": "Monday: 5-11 AM. Tuesday-Saturday: 5 AM-10:30 PM. Sunday: 5 AM-6 PM. Zoo: Tuesday-Sunday 9 AM-5 PM.",
+      "q3": "What can you do there?",
+      "a3": "Free zoo (100+ species), planetarium, aquarium, science museum, Japanese garden, botanical garden, theater, lakes, running trails, sports courts, bike rental.",
+      "q4": "Is it safe?",
+      "a4": "Yes, well-patrolled during hours. Avoid going alone after dark on weekdays.",
+      "q5": "How big is it?",
+      "a5": "411 hectares, larger than Central Park NYC (341 ha). Over 400,000 trees."
     }
   },
   "circleOfTrust": {

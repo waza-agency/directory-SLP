@@ -1,12 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 
 export default function TangamangaBanner() {
   const { t } = useTranslation('common');
-  const { locale } = useRouter();
-  const isEs = locale === 'es';
 
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-r from-green-700 via-emerald-600 to-green-800">
@@ -25,10 +22,10 @@ export default function TangamangaBanner() {
           <div className="flex-shrink-0">
             <div className="grid grid-cols-2 gap-3">
               {[
-                { value: '411', label: isEs ? 'hectáreas' : 'hectares' },
-                { value: '400K', label: isEs ? 'árboles' : 'trees' },
-                { value: 'FREE', label: isEs ? 'entrada' : 'entry' },
-                { value: '100+', label: isEs ? 'especies' : 'species' },
+                { value: '411', label: t('tangamangaBanner.stats.hectares') },
+                { value: '400K', label: t('tangamangaBanner.stats.trees') },
+                { value: t('tangamangaBanner.stats.free'), label: t('tangamangaBanner.stats.entry') },
+                { value: '100+', label: t('tangamangaBanner.stats.species') },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -45,14 +42,14 @@ export default function TangamangaBanner() {
           <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 mb-4">
               <span className="text-white text-xs font-bold uppercase tracking-widest">
-                {isEs ? 'Guía Completa' : 'Complete Guide'}
+                {t('tangamangaBanner.badge')}
               </span>
             </div>
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-4 leading-tight">
               {t('tangamangaBanner.title')}
               <span className="block text-lg md:text-xl font-light text-white/70 mt-2">
-                {isEs ? 'Zoológico · Planetario · Museo · Jardín Japonés' : 'Zoo · Planetarium · Museum · Japanese Garden'}
+                {t('tangamangaBanner.subtitle')}
               </span>
             </h2>
 
@@ -75,7 +72,7 @@ export default function TangamangaBanner() {
           <div className="flex-shrink-0 w-full lg:w-80 relative h-64 lg:h-80">
             <Image
               src="/images/parque-tangamanga/banner.jpg"
-              alt={isEs ? 'Parque Tangamanga I — zoológico, senderos y lago en San Luis Potosí' : 'Parque Tangamanga I — zoo, trails and lake in San Luis Potosí'}
+              alt={t('tangamangaBanner.altText')}
               fill
               className="object-cover rounded-2xl shadow-xl"
               sizes="(max-width: 1024px) 100vw, 320px"
