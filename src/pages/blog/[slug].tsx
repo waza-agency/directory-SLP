@@ -7,11 +7,13 @@ import SEO from '@/components/common/SEO';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import Byline from '@/components/common/Byline';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import GuideCTA from '@/components/common/GuideCTA';
 import ShareButton from '@/components/sharing/ShareButton';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BlogPostPageProps {
   post: BlogPost;
+  relatedPosts: Pick<BlogPost, 'slug' | 'title' | 'imageUrl' | 'category'>[];
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -38,10 +40,27 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context)
     };
   }
 
+  // Fetch related posts by matching category
+  const allPosts = await getBlogPosts();
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== slug && p.category === post.category)
+    .slice(0, 3)
+    .map(({ slug, title, imageUrl, category }) => ({ slug, title, imageUrl, category }));
+
+  // If fewer than 3 category matches, fill with recent posts
+  if (relatedPosts.length < 3) {
+    const fillPosts = allPosts
+      .filter((p) => p.slug !== slug && !relatedPosts.some((r) => r.slug === p.slug))
+      .slice(0, 3 - relatedPosts.length)
+      .map(({ slug, title, imageUrl, category }) => ({ slug, title, imageUrl, category }));
+    relatedPosts.push(...fillPosts);
+  }
+
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'es', ['common'])),
       post,
+      relatedPosts,
     },
     revalidate: 60,
   };
@@ -54,7 +73,7 @@ export const getStaticProps: GetStaticProps<BlogPostPageProps> = async (context)
  * @param post - The blog post data used to populate page content, SEO fields, metadata, and structured data
  * @returns A JSX element representing the rendered blog post page
  */
-export default function BlogPostPage({ post }: BlogPostPageProps) {
+export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) {
   // Use dedicated SEO fields when available, fallback to title/excerpt
   const seoTitle = post.metaTitle || post.title;
   const seoDescription = post.metaDescription || post.excerpt;
@@ -178,8 +197,37 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             </div>
           )}
 
+          {/* Related Posts */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <h3 className="mb-6 text-xl font-bold text-gray-900">You might also like</h3>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {relatedPosts.map((rp) => (
+                  <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group block rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                    {rp.imageUrl && (
+                      <div className="relative h-32 w-full">
+                        <Image src={rp.imageUrl} alt={rp.title} fill className="object-cover group-hover:scale-105 transition-transform" sizes="(max-width: 640px) 100vw, 33vw" />
+                      </div>
+                    )}
+                    <div className="p-3">
+                      <p className="text-xs text-blue-600 font-medium mb-1">{rp.category}</p>
+                      <p className="text-sm font-semibold text-gray-900 line-clamp-2">{rp.title}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Newsletter CTA - End of Article */}
           <NewsletterBanner variant="blog-end" />
+
+          <GuideCTA relatedLinks={[
+            { href: '/resources/safety-guide', label: 'Is SLP Safe?', labelEs: '¿Es Seguro SLP?' },
+            { href: '/resources/living-guide', label: 'Living Guide', labelEs: 'Guía de Vida' },
+            { href: '/resources/expat-guide', label: 'Expat Essentials', labelEs: 'Guía Expat' },
+            { href: '/blog', label: 'All Blog Posts', labelEs: 'Todos los Artículos' },
+          ]} />
         </div>
       </main>
     </>
