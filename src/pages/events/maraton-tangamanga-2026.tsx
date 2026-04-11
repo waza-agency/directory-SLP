@@ -83,7 +83,7 @@ export default function MaratonTangamanga2026() {
         title={t('maraton2026.seo.title')}
         description={t('maraton2026.seo.description')}
         keywords={t('maraton2026.seo.keywords')}
-        ogImage="/images/events/maraton-tangamanga-2026.jpg"
+        ogImage="/images/events/maraton-runners.jpg"
         structuredData={structuredData as Record<string, unknown>}
       />
 
@@ -103,9 +103,13 @@ export default function MaratonTangamanga2026() {
                 {t('maraton2026.hero.badge')}
               </span>
             </div>
-            <div className="flex items-center gap-3 mb-3 text-emerald-300">
+            <div className="flex items-center gap-3 mb-2 text-emerald-300">
               <CalendarIcon className="w-5 h-5" />
               <span className="font-medium">{t('maraton2026.hero.date')}</span>
+            </div>
+            <div className="flex items-center gap-3 mb-3 text-emerald-300/80">
+              <MapPinIcon className="w-5 h-5" />
+              <span className="text-sm">{t('maraton2026.hero.location')}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold font-serif mb-3">
               {t('maraton2026.hero.title')}

@@ -22,11 +22,17 @@
     "settings": "Settings"
   },
   "categories": {
-    "cultural": "CULTURAL",
-    "places": "PLACES",
-    "events": "EVENTS",
-    "services": "SERVICES",
-    "new": "NEW"
+    "food": "Food",
+    "beverages": "Beverages",
+    "outdoorActivities": "Outdoor Activities",
+    "service": "Service",
+    "sportsFitness": "Sports & Fitness",
+    "privateDiningRooms": "Private Dining Rooms",
+    "languageExchangeCafes": "Language Exchange Cafes",
+    "familyActivities": "Family Activities",
+    "terraces": "Terraces",
+    "liveMusic": "Live Music",
+    "other": "Other"
   },
   "search": {
     "placeholder": "Search places, events...",
@@ -554,21 +560,23 @@
     }
   },
   "todayInSLP": {
-    "title": "What You Need to Know Today",
-    "weather": "Weather",
-    "humidity": "Humidity",
-    "wind": "Wind",
+    "title": "What you need to know today",
+    "localTime": "Local time",
+    "viewCalendar": "View calendar",
+    "eventsToday": "events today",
     "traffic": "Traffic",
-    "trafficNormal": "Normal Flow",
-    "trafficSlow": "Slow Traffic",
-    "noAlerts": "No alerts in the city",
-    "alerts": "active alerts",
-    "events": "Events Today",
-    "eventsCount": "events",
-    "viewEvents": "View all events →",
-    "tipOfDay": "Tip of the Day",
-    "updatedAt": "Updated at",
-    "seeMore": "See more"
+    "live": "Live",
+    "viewLiveTraffic": "View live traffic",
+    "tipOfDay": "Tip of the day",
+    "slpNews": "SLP NEWS",
+    "loadingNews": "Loading news...",
+    "communityLife": "Community Life",
+    "notAvailable": "Not available",
+    "social": "Social",
+    "community": "Community",
+    "culture": "Culture",
+    "local": "Local",
+    "dailyTip": "March tip: The spring equinox (March 20-21) is celebrated with ancestral ceremonies in the Huasteca Potosina. Visit Tamtoc or Tamuín!"
   },
   "blog": {
     "title": "From the Blog",
@@ -863,25 +871,6 @@
     "Tours": "Tours",
     "Culture": "Culture"
   },
-  "todayInSLP": {
-    "title": "What you need to know today",
-    "localTime": "Local time",
-    "viewCalendar": "View calendar",
-    "eventsToday": "events today",
-    "traffic": "Traffic",
-    "live": "Live",
-    "viewLiveTraffic": "View live traffic",
-    "tipOfDay": "Tip of the day",
-    "slpNews": "SLP NEWS",
-    "loadingNews": "Loading news...",
-    "communityLife": "Community Life",
-    "notAvailable": "Not available",
-    "social": "Social",
-    "community": "Community",
-    "culture": "Culture",
-    "local": "Local",
-    "dailyTip": "March tip: The spring equinox (March 20-21) is celebrated with ancestral ceremonies in the Huasteca Potosina. Visit Tamtoc or Tamuín!"
-  },
   "festivalBanner": {
     "badge": "Mar 28 — Apr 4, 2026",
     "title": "San Luis Spring Festival",
@@ -895,30 +884,42 @@
       "title": "San Luis Metal Fest",
       "description": "1st edition. FREE ENTRY. Marduk, Possessed, Metal Church and more at FENAPO grounds.",
       "cta": "See full lineup",
-      "stat1Value": "2", "stat1Label": "Days",
-      "stat2Value": "30K+", "stat2Label": "Attendees",
-      "stat3Value": "Free", "stat3Label": "Entry",
-      "stat4Value": "8+", "stat4Label": "Countries"
+      "stat1Value": "2",
+      "stat1Label": "Days",
+      "stat2Value": "30K+",
+      "stat2Label": "Attendees",
+      "stat3Value": "Free",
+      "stat3Label": "Entry",
+      "stat4Value": "8+",
+      "stat4Label": "Countries"
     },
     "maraton": {
       "badge": "Jun 28, 2026",
       "title": "Tangamanga Marathon",
       "description": "40th Anniversary. 5K, 10K, 21K & 42K through Tangamanga Park and SLP Historic Center.",
       "cta": "Info & registration",
-      "stat1Value": "40th", "stat1Label": "Edition",
-      "stat2Value": "15K+", "stat2Label": "Runners",
-      "stat3Value": "4", "stat3Label": "Distances",
-      "stat4Value": "FMAA", "stat4Label": "Certified"
+      "stat1Value": "40th",
+      "stat1Label": "Edition",
+      "stat2Value": "15K+",
+      "stat2Label": "Runners",
+      "stat3Value": "4",
+      "stat3Label": "Distances",
+      "stat4Value": "FMAA",
+      "stat4Label": "Certified"
     },
     "fenapo": {
       "badge": "August 2026",
       "title": "FENAPO 2026",
       "description": "Mexico's most traditional fair returns. Grupo Firme, Sin Bandera, Los Acosta and more artists TBA.",
       "cta": "See confirmed artists",
-      "stat1Value": "24", "stat1Label": "Days",
-      "stat2Value": "3+", "stat2Label": "Artists",
-      "stat3Value": "Free", "stat3Label": "Gen. Entry",
-      "stat4Value": "6", "stat4Label": "Zones"
+      "stat1Value": "24",
+      "stat1Label": "Days",
+      "stat2Value": "3+",
+      "stat2Label": "Artists",
+      "stat3Value": "Free",
+      "stat3Label": "Gen. Entry",
+      "stat4Value": "6",
+      "stat4Label": "Zones"
     }
   },
   "metalFest2026": {
@@ -934,7 +935,8 @@
       "subtitle": "The Awakening of Darkness",
       "description": "The first international metal festival in San Luis Potosí. Two days of legendary bands from 8 countries, gastronomy, Huasteca culture and Mexico's best metal community.",
       "cta": "Register for free",
-      "ctaLineup": "See lineup"
+      "ctaLineup": "See lineup",
+      "location": "San Luis Potosí, capital of the state of San Luis Potosí, Mexico"
     },
     "stats": {
       "days": "Days",
@@ -956,17 +958,61 @@
       "headliners": "Headliners",
       "scheduleTbc": "Schedule TBC",
       "bands": {
-        "marduk": { "name": "Marduk", "genre": "Black Metal", "country": "Sweden" },
-        "metalChurch": { "name": "Metal Church", "genre": "Heavy / Power Metal", "country": "USA" },
-        "possessed": { "name": "Possessed", "genre": "Death Metal", "country": "USA" },
-        "grave": { "name": "Grave", "genre": "Death Metal", "country": "Sweden" },
-        "armoredSaint": { "name": "Armored Saint", "genre": "Heavy Metal", "country": "USA" },
-        "crimsonGlory": { "name": "Crimson Glory", "genre": "Progressive Metal", "country": "USA" },
-        "pestilence": { "name": "Pestilence", "genre": "Death Metal", "country": "Netherlands" },
-        "sacrifice": { "name": "Sacrifice", "genre": "Thrash Metal", "country": "Canada" },
-        "hirax": { "name": "Hirax", "genre": "Thrash Metal", "country": "USA" },
-        "hellripper": { "name": "Hellripper", "genre": "Speed / Black Metal", "country": "Scotland" },
-        "bloodFeast": { "name": "Blood Feast", "genre": "Thrash Metal", "country": "USA" }
+        "marduk": {
+          "name": "Marduk",
+          "genre": "Black Metal",
+          "country": "Sweden"
+        },
+        "metalChurch": {
+          "name": "Metal Church",
+          "genre": "Heavy / Power Metal",
+          "country": "USA"
+        },
+        "possessed": {
+          "name": "Possessed",
+          "genre": "Death Metal",
+          "country": "USA"
+        },
+        "grave": {
+          "name": "Grave",
+          "genre": "Death Metal",
+          "country": "Sweden"
+        },
+        "armoredSaint": {
+          "name": "Armored Saint",
+          "genre": "Heavy Metal",
+          "country": "USA"
+        },
+        "crimsonGlory": {
+          "name": "Crimson Glory",
+          "genre": "Progressive Metal",
+          "country": "USA"
+        },
+        "pestilence": {
+          "name": "Pestilence",
+          "genre": "Death Metal",
+          "country": "Netherlands"
+        },
+        "sacrifice": {
+          "name": "Sacrifice",
+          "genre": "Thrash Metal",
+          "country": "Canada"
+        },
+        "hirax": {
+          "name": "Hirax",
+          "genre": "Thrash Metal",
+          "country": "USA"
+        },
+        "hellripper": {
+          "name": "Hellripper",
+          "genre": "Speed / Black Metal",
+          "country": "Scotland"
+        },
+        "bloodFeast": {
+          "name": "Blood Feast",
+          "genre": "Thrash Metal",
+          "country": "USA"
+        }
       }
     },
     "registration": {
@@ -1050,7 +1096,8 @@
       "subtitle": "BMW International Marathon — 40th Edition",
       "description": "One of Mexico's oldest and most prestigious road races celebrates 40 years. Run through Tangamanga Park and the Historic Center of San Luis Potosí in 4 distances.",
       "cta": "Register now",
-      "ctaRoute": "See route"
+      "ctaRoute": "See route",
+      "location": "San Luis Potosí, capital of the state of San Luis Potosí, Mexico"
     },
     "stats": {
       "edition": "Edition",
@@ -1180,19 +1227,6 @@
     "improvingDaily": "We're improving every day. Found a bug?",
     "letUsKnow": "Let us know",
     "dismiss": "Dismiss"
-  },
-  "categories": {
-    "food": "Food",
-    "beverages": "Beverages",
-    "outdoorActivities": "Outdoor Activities",
-    "service": "Service",
-    "sportsFitness": "Sports & Fitness",
-    "privateDiningRooms": "Private Dining Rooms",
-    "languageExchangeCafes": "Language Exchange Cafes",
-    "familyActivities": "Family Activities",
-    "terraces": "Terraces",
-    "liveMusic": "Live Music",
-    "other": "Other"
   },
   "factchecks": {
     "seoTitle": "Fact-Check Reports | San Luis Way",
@@ -1400,75 +1434,192 @@
       "firstWeek": {
         "title": "First Week Essentials",
         "items": {
-          "sim": { "title": "Get a Mexican SIM card", "description": "Telcel (best coverage), AT&T, or Movistar. Available at OXXO or carrier stores. $150-300 MXN." },
-          "apps": { "title": "Download essential apps", "description": "Uber, DiDi (rides), Rappi (delivery), Google Maps, WhatsApp (primary messaging)." },
-          "atm": { "title": "Withdraw pesos from ATM", "description": "Use ATMs inside banks (Santander, BBVA). Decline conversion to home currency." },
-          "cash": { "title": "Keep cash on hand", "description": "Many places are cash-only. Keep $500-1,000 MXN for daily needs." },
-          "spanish": { "title": "Learn basic Spanish phrases", "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"." },
-          "translate": { "title": "Download Google Translate", "description": "Get the Spanish offline pack. Camera feature helps with menus and signs." }
+          "sim": {
+            "title": "Get a Mexican SIM card",
+            "description": "Telcel (best coverage), AT&T, or Movistar. Available at OXXO or carrier stores. $150-300 MXN."
+          },
+          "apps": {
+            "title": "Download essential apps",
+            "description": "Uber, DiDi (rides), Rappi (delivery), Google Maps, WhatsApp (primary messaging)."
+          },
+          "atm": {
+            "title": "Withdraw pesos from ATM",
+            "description": "Use ATMs inside banks (Santander, BBVA). Decline conversion to home currency."
+          },
+          "cash": {
+            "title": "Keep cash on hand",
+            "description": "Many places are cash-only. Keep $500-1,000 MXN for daily needs."
+          },
+          "spanish": {
+            "title": "Learn basic Spanish phrases",
+            "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"."
+          },
+          "translate": {
+            "title": "Download Google Translate",
+            "description": "Get the Spanish offline pack. Camera feature helps with menus and signs."
+          }
         }
       },
       "administrative": {
         "title": "Administrative Tasks",
         "items": {
-          "inm": { "title": "INM address registration", "description": "Required within 90 days if you have residency. Bring passport, residency card, proof of address." },
-          "curp": { "title": "Get your CURP", "description": "Mexico's population ID. Free at Registro Civil with passport and residency card." },
-          "rfc": { "title": "Obtain RFC (if working)", "description": "Tax ID for employment. Apply at SAT office with CURP, passport, proof of address." },
-          "consulate": { "title": "Register at your consulate", "description": "For emergency assistance and voting abroad. Most done online." },
-          "license": { "title": "Mexican driver's license (optional)", "description": "Apply at Secretaría de Seguridad Pública. Cost: ~$800-1,200 MXN." }
+          "inm": {
+            "title": "INM address registration",
+            "description": "Required within 90 days if you have residency. Bring passport, residency card, proof of address."
+          },
+          "curp": {
+            "title": "Get your CURP",
+            "description": "Mexico's population ID. Free at Registro Civil with passport and residency card."
+          },
+          "rfc": {
+            "title": "Obtain RFC (if working)",
+            "description": "Tax ID for employment. Apply at SAT office with CURP, passport, proof of address."
+          },
+          "consulate": {
+            "title": "Register at your consulate",
+            "description": "For emergency assistance and voting abroad. Most done online."
+          },
+          "license": {
+            "title": "Mexican driver's license (optional)",
+            "description": "Apply at Secretaría de Seguridad Pública. Cost: ~$800-1,200 MXN."
+          }
         }
       },
       "homeServices": {
         "title": "Home & Services",
         "items": {
-          "electricity": { "title": "Set up electricity (CFE)", "description": "Transfer account at CFE office with lease and ID. Pay at OXXO or online." },
-          "water": { "title": "Set up water (INTERAPAS)", "description": "Transfer at INTERAPAS office. Bills typically $150-400 MXN/month." },
-          "gas": { "title": "Arrange gas delivery", "description": "Providers: Gas Express Nieto, Zeta Gas. Stationary tanks refilled, portable exchanged." },
-          "internet": { "title": "Set up internet", "description": "Telmex (most coverage), Totalplay (fiber), Izzi. Plans $400-800 MXN/month." },
-          "garrafon": { "title": "Buy water garrafones", "description": "Tap water NOT drinkable. Buy 5-gallon jugs from Bonafont, Ciel. ~$30-40 MXN each." },
-          "dispenser": { "title": "Get a garrafón dispenser", "description": "Available at Soriana, Walmart, Amazon Mexico. $500-2,000 MXN." }
+          "electricity": {
+            "title": "Set up electricity (CFE)",
+            "description": "Transfer account at CFE office with lease and ID. Pay at OXXO or online."
+          },
+          "water": {
+            "title": "Set up water (INTERAPAS)",
+            "description": "Transfer at INTERAPAS office. Bills typically $150-400 MXN/month."
+          },
+          "gas": {
+            "title": "Arrange gas delivery",
+            "description": "Providers: Gas Express Nieto, Zeta Gas. Stationary tanks refilled, portable exchanged."
+          },
+          "internet": {
+            "title": "Set up internet",
+            "description": "Telmex (most coverage), Totalplay (fiber), Izzi. Plans $400-800 MXN/month."
+          },
+          "garrafon": {
+            "title": "Buy water garrafones",
+            "description": "Tap water NOT drinkable. Buy 5-gallon jugs from Bonafont, Ciel. ~$30-40 MXN each."
+          },
+          "dispenser": {
+            "title": "Get a garrafón dispenser",
+            "description": "Available at Soriana, Walmart, Amazon Mexico. $500-2,000 MXN."
+          }
         }
       },
       "financial": {
         "title": "Financial Setup",
         "items": {
-          "bank": { "title": "Open Mexican bank account", "description": "BBVA, Santander (expat-friendly), Banorte. Need: passport, residency, CURP, proof of address." },
-          "mercadoPago": { "title": "Set up Mercado Pago", "description": "Mexico's popular digital wallet. Works at many stores, transfers to friends, pay bills." },
-          "spei": { "title": "Learn SPEI transfers", "description": "Mexico's instant bank transfer system. Free, fast, widely used for rent and services." },
-          "international": { "title": "Set up international transfers", "description": "Wise (best rates), Remitly, or wire transfer for regular transfers." },
-          "bills": { "title": "Understand bill payments", "description": "Pay at OXXO (24/7), bank apps, online portals. OXXO is easiest for most services." }
+          "bank": {
+            "title": "Open Mexican bank account",
+            "description": "BBVA, Santander (expat-friendly), Banorte. Need: passport, residency, CURP, proof of address."
+          },
+          "mercadoPago": {
+            "title": "Set up Mercado Pago",
+            "description": "Mexico's popular digital wallet. Works at many stores, transfers to friends, pay bills."
+          },
+          "spei": {
+            "title": "Learn SPEI transfers",
+            "description": "Mexico's instant bank transfer system. Free, fast, widely used for rent and services."
+          },
+          "international": {
+            "title": "Set up international transfers",
+            "description": "Wise (best rates), Remitly, or wire transfer for regular transfers."
+          },
+          "bills": {
+            "title": "Understand bill payments",
+            "description": "Pay at OXXO (24/7), bank apps, online portals. OXXO is easiest for most services."
+          }
         }
       },
       "healthcare": {
         "title": "Healthcare",
         "items": {
-          "doctor": { "title": "Find a general doctor", "description": "Ask in expat groups for English speakers. Consultations: $400-800 MXN." },
-          "dentist": { "title": "Find a dentist", "description": "Dental care is excellent and affordable. Cleaning: $400-800 MXN." },
-          "pharmacy": { "title": "Locate pharmacies", "description": "Farmacias Guadalajara, Farmacias del Ahorro. Many meds available without prescription." },
-          "insurance": { "title": "Set up health insurance", "description": "IMSS (~$6,000 MXN/year) or private: GNP, Seguros Monterrey, Bupa." },
-          "emergency": { "title": "Save emergency numbers", "description": "911 (emergency), 066 (police), 065 (ambulance/Red Cross)." }
+          "doctor": {
+            "title": "Find a general doctor",
+            "description": "Ask in expat groups for English speakers. Consultations: $400-800 MXN."
+          },
+          "dentist": {
+            "title": "Find a dentist",
+            "description": "Dental care is excellent and affordable. Cleaning: $400-800 MXN."
+          },
+          "pharmacy": {
+            "title": "Locate pharmacies",
+            "description": "Farmacias Guadalajara, Farmacias del Ahorro. Many meds available without prescription."
+          },
+          "insurance": {
+            "title": "Set up health insurance",
+            "description": "IMSS (~$6,000 MXN/year) or private: GNP, Seguros Monterrey, Bupa."
+          },
+          "emergency": {
+            "title": "Save emergency numbers",
+            "description": "911 (emergency), 066 (police), 065 (ambulance/Red Cross)."
+          }
         }
       },
       "social": {
         "title": "Social & Community",
         "items": {
-          "facebook": { "title": "Join expat Facebook groups", "description": "Search \"Expats in San Luis Potosí\". Great for advice and meeting others." },
-          "exchange": { "title": "Find language exchange partners", "description": "Practice Spanish, help with English. Check Meetup, university boards, cafes." },
-          "classes": { "title": "Enroll in Spanish classes", "description": "UASLP offers courses. Private tutors: $150-300 MXN/hour." },
-          "neighborhoods": { "title": "Explore neighborhoods", "description": "Walk Centro Histórico, Parque Tangamanga, Lomas. Best way to feel at home." },
-          "events": { "title": "Attend local events", "description": "Check our events calendar. FENAPO (August) is the biggest annual fair." },
-          "neighbors": { "title": "Meet your neighbors", "description": "A simple \"Buenos días\" goes a long way. Neighbors are valuable for recommendations." }
+          "facebook": {
+            "title": "Join expat Facebook groups",
+            "description": "Search \"Expats in San Luis Potosí\". Great for advice and meeting others."
+          },
+          "exchange": {
+            "title": "Find language exchange partners",
+            "description": "Practice Spanish, help with English. Check Meetup, university boards, cafes."
+          },
+          "classes": {
+            "title": "Enroll in Spanish classes",
+            "description": "UASLP offers courses. Private tutors: $150-300 MXN/hour."
+          },
+          "neighborhoods": {
+            "title": "Explore neighborhoods",
+            "description": "Walk Centro Histórico, Parque Tangamanga, Lomas. Best way to feel at home."
+          },
+          "events": {
+            "title": "Attend local events",
+            "description": "Check our events calendar. FENAPO (August) is the biggest annual fair."
+          },
+          "neighbors": {
+            "title": "Meet your neighbors",
+            "description": "A simple \"Buenos días\" goes a long way. Neighbors are valuable for recommendations."
+          }
         }
       },
       "dailyLife": {
         "title": "Practical Daily Life",
         "items": {
-          "supermarkets": { "title": "Find supermarkets", "description": "Soriana (local), Walmart, HEB (premium), Costco (membership)." },
-          "markets": { "title": "Explore local markets", "description": "Mercado Hidalgo (Centro), Mercado República. Fresh produce at better prices." },
-          "rides": { "title": "Download ride apps", "description": "Uber and DiDi work throughout the city. Safer than street taxis." },
-          "gym": { "title": "Find a gym", "description": "Smart Fit ($400-600 MXN/mo), Sport City (premium), local gyms ($300-500 MXN/mo)." },
-          "park": { "title": "Explore Parque Tangamanga", "description": "One of Mexico's largest urban parks. Running, cycling, picnics. Free entry." },
-          "amazon": { "title": "Set up Amazon Mexico", "description": "Delivery available. Prime offers faster shipping. Great for hard-to-find items." }
+          "supermarkets": {
+            "title": "Find supermarkets",
+            "description": "Soriana (local), Walmart, HEB (premium), Costco (membership)."
+          },
+          "markets": {
+            "title": "Explore local markets",
+            "description": "Mercado Hidalgo (Centro), Mercado República. Fresh produce at better prices."
+          },
+          "rides": {
+            "title": "Download ride apps",
+            "description": "Uber and DiDi work throughout the city. Safer than street taxis."
+          },
+          "gym": {
+            "title": "Find a gym",
+            "description": "Smart Fit ($400-600 MXN/mo), Sport City (premium), local gyms ($300-500 MXN/mo)."
+          },
+          "park": {
+            "title": "Explore Parque Tangamanga",
+            "description": "One of Mexico's largest urban parks. Running, cycling, picnics. Free entry."
+          },
+          "amazon": {
+            "title": "Set up Amazon Mexico",
+            "description": "Delivery available. Prime offers faster shipping. Great for hard-to-find items."
+          }
         }
       }
     }
@@ -1512,7 +1663,8 @@
       "description": "Mexico's most traditional fair returns to San Luis Potosí with concerts, gastronomy, culture and entertainment for the whole family. Confirmed artists: Grupo Firme, Sin Bandera, Los Acosta.",
       "note": "Full program TBC — this page updates as artists and dates are announced.",
       "cta": "Official website",
-      "ctaArtists": "See artists"
+      "ctaArtists": "See artists",
+      "location": "San Luis Potosí, capital of the state of San Luis Potosí, Mexico"
     },
     "stats": {
       "days": "Days",
@@ -1539,7 +1691,8 @@
         "item6": "Livestock and agricultural exhibition",
         "item7": "Cultural pavilion with art and handicrafts",
         "item8": "FENAPO queen coronation ceremony"
-      }
+      },
+      "organizer": "Organized annually by the Government of the State of San Luis Potosí, FENAPO is one of the largest state fairs in Mexico."
     },
     "artists": {
       "title": "Confirmed Artists",
@@ -1556,14 +1709,38 @@
     "areas": {
       "title": "Fair Areas",
       "subtitle": "The fairgrounds are divided into zones so you can find exactly what you're looking for.",
-      "teatro": { "name": "Teatro del Pueblo", "desc": "Main stage with top-tier artists. Free concerts every night." },
-      "palenque": { "name": "Palenque", "desc": "Premium shows with the best of Mexican and regional music." },
-      "gastro": { "name": "Gastronomy Zone", "desc": "Potosino, Mexican and international food. Enchiladas, gorditas, asado de boda and more." },
-      "commercial": { "name": "Commercial Exhibition", "desc": "Local and national products and services. Exclusive fair deals and promotions." },
-      "rides": { "name": "Mechanical Rides", "desc": "Roller coaster, Ferris wheel, bumper cars and more fun for the whole family." },
-      "cultural": { "name": "Cultural Pavilion", "desc": "Art exhibitions, handicrafts, dance and traditional Potosino music." },
-      "livestock": { "name": "Livestock Exhibition", "desc": "Cattle exhibition, charreadas and ranching traditions of San Luis Potosí." },
-      "kids": { "name": "Kids Zone", "desc": "Activities and shows designed for the youngest members of the family." }
+      "teatro": {
+        "name": "Teatro del Pueblo",
+        "desc": "Main stage with top-tier artists. Free concerts every night."
+      },
+      "palenque": {
+        "name": "Palenque",
+        "desc": "Premium shows with the best of Mexican and regional music."
+      },
+      "gastro": {
+        "name": "Gastronomy Zone",
+        "desc": "Potosino, Mexican and international food. Enchiladas, gorditas, asado de boda and more."
+      },
+      "commercial": {
+        "name": "Commercial Exhibition",
+        "desc": "Local and national products and services. Exclusive fair deals and promotions."
+      },
+      "rides": {
+        "name": "Mechanical Rides",
+        "desc": "Roller coaster, Ferris wheel, bumper cars and more fun for the whole family."
+      },
+      "cultural": {
+        "name": "Cultural Pavilion",
+        "desc": "Art exhibitions, handicrafts, dance and traditional Potosino music."
+      },
+      "livestock": {
+        "name": "Livestock Exhibition",
+        "desc": "Cattle exhibition, charreadas and ranching traditions of San Luis Potosí."
+      },
+      "kids": {
+        "name": "Kids Zone",
+        "desc": "Activities and shows designed for the youngest members of the family."
+      }
     },
     "visitorGuide": {
       "title": "Visitor Guide",

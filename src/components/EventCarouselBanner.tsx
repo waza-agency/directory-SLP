@@ -7,6 +7,8 @@ interface EventSlide {
   key: string;
   href: string;
   image: string;
+  imageFit?: 'cover' | 'contain';
+  bgColor?: string;
   gradient: string;
   badgeBg: string;
   badgeText: string;
@@ -44,7 +46,9 @@ const slides: EventSlide[] = [
   {
     key: 'fenapo',
     href: '/events/fenapo-2026',
-    image: '/images/events/fenapo-fair.jpg',
+    image: '/images/events/fenapo-2026-logo.png',
+    imageFit: 'contain',
+    bgColor: 'bg-black',
     gradient: 'from-blue-950/80 via-purple-900/70 to-indigo-950/80',
     badgeBg: 'bg-purple-400/20 border-purple-400/30',
     badgeText: 'text-purple-300',
@@ -95,13 +99,22 @@ const EventCarouselBanner = () => {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
+      {/* Base background color (shown when image uses contain) */}
+      {slide.bgColor && <div className={`absolute inset-0 ${slide.bgColor}`} />}
+
       {/* Background image */}
-      <div className="absolute inset-0">
+      <div
+        className={
+          slide.imageFit === 'contain'
+            ? 'absolute inset-6 md:inset-10 lg:inset-12'
+            : 'absolute inset-0'
+        }
+      >
         <Image
           src={slide.image}
           alt={t(`${ns}.title`)}
           fill
-          className={`object-cover transition-opacity duration-500 ${fading ? 'opacity-0' : 'opacity-100'}`}
+          className={`${slide.imageFit === 'contain' ? 'object-contain' : 'object-cover'} transition-opacity duration-500 ${fading ? 'opacity-0' : 'opacity-100'}`}
           priority
         />
       </div>

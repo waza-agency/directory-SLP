@@ -89,7 +89,7 @@ export default function SanLuisMetalFest2026() {
         title={t('metalFest2026.seo.title')}
         description={t('metalFest2026.seo.description')}
         keywords={t('metalFest2026.seo.keywords')}
-        ogImage="/images/events/metal-fest-2026.jpg"
+        ogImage="/images/events/metal-fest-stage.jpg"
         structuredData={structuredData as Record<string, unknown>}
       />
 
@@ -109,9 +109,13 @@ export default function SanLuisMetalFest2026() {
                 {t('metalFest2026.hero.badge')}
               </span>
             </div>
-            <div className="flex items-center gap-3 mb-3 text-red-300">
+            <div className="flex items-center gap-3 mb-2 text-red-300">
               <CalendarIcon className="w-5 h-5" />
               <span className="font-medium">{t('metalFest2026.hero.date')}</span>
+            </div>
+            <div className="flex items-center gap-3 mb-3 text-red-300/80">
+              <MapPinIcon className="w-5 h-5" />
+              <span className="text-sm">{t('metalFest2026.hero.location')}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold font-serif mb-3">
               {t('metalFest2026.hero.title')}

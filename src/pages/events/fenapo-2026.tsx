@@ -84,7 +84,7 @@ export default function Fenapo2026() {
         title={t('fenapo2026.seo.title')}
         description={t('fenapo2026.seo.description')}
         keywords={t('fenapo2026.seo.keywords')}
-        ogImage="/images/events/fenapo-2026.jpg"
+        ogImage="/images/events/fenapo-2026-logo.png"
         structuredData={structuredData as Record<string, unknown>}
       />
 
@@ -106,9 +106,13 @@ export default function Fenapo2026() {
                 {t('fenapo2026.hero.badge')}
               </span>
             </div>
-            <div className="flex items-center gap-3 mb-3 text-purple-300">
+            <div className="flex items-center gap-3 mb-2 text-purple-300">
               <CalendarIcon className="w-5 h-5" />
               <span className="font-medium">{t('fenapo2026.hero.date')}</span>
+            </div>
+            <div className="flex items-center gap-3 mb-3 text-purple-300/80">
+              <MapPinIcon className="w-5 h-5" />
+              <span className="text-sm">{t('fenapo2026.hero.location')}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold font-serif mb-3">
               {t('fenapo2026.hero.title')}
@@ -162,6 +166,7 @@ export default function Fenapo2026() {
             <p>{t('fenapo2026.about.p1')}</p>
             <p>{t('fenapo2026.about.p2')}</p>
             <p>{t('fenapo2026.about.p3')}</p>
+            <p className="text-purple-200 font-medium">{t('fenapo2026.about.organizer')}</p>
           </div>
           <div className="bg-gray-900 rounded-2xl p-6 md:p-8">
             <h3 className="font-bold text-lg text-purple-400 mb-5">{t('fenapo2026.about.highlights.title')}</h3>

@@ -22,11 +22,17 @@
     "settings": "Configuración"
   },
   "categories": {
-    "cultural": "CULTURAL",
-    "places": "LUGARES",
-    "events": "EVENTOS",
-    "services": "SERVICIOS",
-    "new": "NUEVO"
+    "food": "Comida",
+    "beverages": "Bebidas",
+    "outdoorActivities": "Actividades al Aire Libre",
+    "service": "Servicio",
+    "sportsFitness": "Deportes y Fitness",
+    "privateDiningRooms": "Salones Privados",
+    "languageExchangeCafes": "Cafés de Intercambio de Idiomas",
+    "familyActivities": "Actividades Familiares",
+    "terraces": "Terrazas",
+    "liveMusic": "Música en Vivo",
+    "other": "Otro"
   },
   "search": {
     "placeholder": "Buscar lugares, eventos...",
@@ -554,21 +560,23 @@
     }
   },
   "todayInSLP": {
-    "title": "Lo Que Debes Saber Hoy",
-    "weather": "Clima",
-    "humidity": "Humedad",
-    "wind": "Viento",
+    "title": "Lo que necesitas saber hoy",
+    "localTime": "Hora local",
+    "viewCalendar": "Ver calendario",
+    "eventsToday": "eventos hoy",
     "traffic": "Tráfico",
-    "trafficNormal": "Flujo Normal",
-    "trafficSlow": "Tráfico Lento",
-    "noAlerts": "Sin alertas en la ciudad",
-    "alerts": "alertas activas",
-    "events": "Eventos Hoy",
-    "eventsCount": "eventos",
-    "viewEvents": "Ver todos los eventos →",
-    "tipOfDay": "Tip del Día",
-    "updatedAt": "Actualizado a las",
-    "seeMore": "Ver más"
+    "live": "En vivo",
+    "viewLiveTraffic": "Ver tráfico en vivo",
+    "tipOfDay": "Tip del día",
+    "slpNews": "NOTICIAS SLP",
+    "loadingNews": "Cargando noticias...",
+    "communityLife": "Vida Comunitaria",
+    "notAvailable": "No disponible",
+    "social": "Social",
+    "community": "Comunidad",
+    "culture": "Cultura",
+    "local": "Local",
+    "dailyTip": "Tip de marzo: El equinoccio de primavera (20-21 marzo) se celebra en la Huasteca Potosina con ceremonias ancestrales. ¡Visita Tamtoc o Tamuín!"
   },
   "blog": {
     "title": "Del Blog",
@@ -863,25 +871,6 @@
     "Tours": "Tours",
     "Culture": "Cultura"
   },
-  "todayInSLP": {
-    "title": "Lo que necesitas saber hoy",
-    "localTime": "Hora local",
-    "viewCalendar": "Ver calendario",
-    "eventsToday": "eventos hoy",
-    "traffic": "Tráfico",
-    "live": "En vivo",
-    "viewLiveTraffic": "Ver tráfico en vivo",
-    "tipOfDay": "Tip del día",
-    "slpNews": "NOTICIAS SLP",
-    "loadingNews": "Cargando noticias...",
-    "communityLife": "Vida Comunitaria",
-    "notAvailable": "No disponible",
-    "social": "Social",
-    "community": "Comunidad",
-    "culture": "Cultura",
-    "local": "Local",
-    "dailyTip": "Tip de marzo: El equinoccio de primavera (20-21 marzo) se celebra en la Huasteca Potosina con ceremonias ancestrales. ¡Visita Tamtoc o Tamuín!"
-  },
   "festivalBanner": {
     "badge": "28 Mar — 4 Abr 2026",
     "title": "Festival San Luis en Primavera",
@@ -895,30 +884,42 @@
       "title": "San Luis Metal Fest",
       "description": "1ra edición. Entrada GRATUITA. Marduk, Possessed, Metal Church y más en el recinto FENAPO.",
       "cta": "Ver cartel completo",
-      "stat1Value": "2", "stat1Label": "Días",
-      "stat2Value": "30K+", "stat2Label": "Asistentes",
-      "stat3Value": "Gratis", "stat3Label": "Entrada",
-      "stat4Value": "8+", "stat4Label": "Países"
+      "stat1Value": "2",
+      "stat1Label": "Días",
+      "stat2Value": "30K+",
+      "stat2Label": "Asistentes",
+      "stat3Value": "Gratis",
+      "stat3Label": "Entrada",
+      "stat4Value": "8+",
+      "stat4Label": "Países"
     },
     "maraton": {
       "badge": "28 Jun 2026",
       "title": "Maratón Tangamanga",
       "description": "40 Aniversario. 5K, 10K, 21K y 42K por el Parque Tangamanga y Centro Histórico de SLP.",
       "cta": "Info e inscripción",
-      "stat1Value": "40°", "stat1Label": "Edición",
-      "stat2Value": "15K+", "stat2Label": "Corredores",
-      "stat3Value": "4", "stat3Label": "Distancias",
-      "stat4Value": "FMAA", "stat4Label": "Certificado"
+      "stat1Value": "40°",
+      "stat1Label": "Edición",
+      "stat2Value": "15K+",
+      "stat2Label": "Corredores",
+      "stat3Value": "4",
+      "stat3Label": "Distancias",
+      "stat4Value": "FMAA",
+      "stat4Label": "Certificado"
     },
     "fenapo": {
       "badge": "Agosto 2026",
       "title": "FENAPO 2026",
       "description": "La feria más tradicional de México regresa. Grupo Firme, Sin Bandera, Los Acosta y más artistas por confirmar.",
       "cta": "Ver artistas confirmados",
-      "stat1Value": "24", "stat1Label": "Días",
-      "stat2Value": "3+", "stat2Label": "Artistas",
-      "stat3Value": "Gratis", "stat3Label": "Entrada Gral.",
-      "stat4Value": "6", "stat4Label": "Zonas"
+      "stat1Value": "24",
+      "stat1Label": "Días",
+      "stat2Value": "3+",
+      "stat2Label": "Artistas",
+      "stat3Value": "Gratis",
+      "stat3Label": "Entrada Gral.",
+      "stat4Value": "6",
+      "stat4Label": "Zonas"
     }
   },
   "metalFest2026": {
@@ -934,7 +935,8 @@
       "subtitle": "El Despertar de la Oscuridad",
       "description": "El primer festival internacional de metal en San Luis Potosí. Dos días de bandas legendarias de 8 países, gastronomía, cultura Huasteca y la mejor comunidad metalera de México.",
       "cta": "Regístrate gratis",
-      "ctaLineup": "Ver cartel"
+      "ctaLineup": "Ver cartel",
+      "location": "San Luis Potosí, capital del estado de San Luis Potosí, México"
     },
     "stats": {
       "days": "Días",
@@ -956,17 +958,61 @@
       "headliners": "Headliners",
       "scheduleTbc": "Horarios por confirmar",
       "bands": {
-        "marduk": { "name": "Marduk", "genre": "Black Metal", "country": "Suecia" },
-        "metalChurch": { "name": "Metal Church", "genre": "Heavy / Power Metal", "country": "EE.UU." },
-        "possessed": { "name": "Possessed", "genre": "Death Metal", "country": "EE.UU." },
-        "grave": { "name": "Grave", "genre": "Death Metal", "country": "Suecia" },
-        "armoredSaint": { "name": "Armored Saint", "genre": "Heavy Metal", "country": "EE.UU." },
-        "crimsonGlory": { "name": "Crimson Glory", "genre": "Progressive Metal", "country": "EE.UU." },
-        "pestilence": { "name": "Pestilence", "genre": "Death Metal", "country": "Países Bajos" },
-        "sacrifice": { "name": "Sacrifice", "genre": "Thrash Metal", "country": "Canadá" },
-        "hirax": { "name": "Hirax", "genre": "Thrash Metal", "country": "EE.UU." },
-        "hellripper": { "name": "Hellripper", "genre": "Speed / Black Metal", "country": "Escocia" },
-        "bloodFeast": { "name": "Blood Feast", "genre": "Thrash Metal", "country": "EE.UU." }
+        "marduk": {
+          "name": "Marduk",
+          "genre": "Black Metal",
+          "country": "Suecia"
+        },
+        "metalChurch": {
+          "name": "Metal Church",
+          "genre": "Heavy / Power Metal",
+          "country": "EE.UU."
+        },
+        "possessed": {
+          "name": "Possessed",
+          "genre": "Death Metal",
+          "country": "EE.UU."
+        },
+        "grave": {
+          "name": "Grave",
+          "genre": "Death Metal",
+          "country": "Suecia"
+        },
+        "armoredSaint": {
+          "name": "Armored Saint",
+          "genre": "Heavy Metal",
+          "country": "EE.UU."
+        },
+        "crimsonGlory": {
+          "name": "Crimson Glory",
+          "genre": "Progressive Metal",
+          "country": "EE.UU."
+        },
+        "pestilence": {
+          "name": "Pestilence",
+          "genre": "Death Metal",
+          "country": "Países Bajos"
+        },
+        "sacrifice": {
+          "name": "Sacrifice",
+          "genre": "Thrash Metal",
+          "country": "Canadá"
+        },
+        "hirax": {
+          "name": "Hirax",
+          "genre": "Thrash Metal",
+          "country": "EE.UU."
+        },
+        "hellripper": {
+          "name": "Hellripper",
+          "genre": "Speed / Black Metal",
+          "country": "Escocia"
+        },
+        "bloodFeast": {
+          "name": "Blood Feast",
+          "genre": "Thrash Metal",
+          "country": "EE.UU."
+        }
       }
     },
     "registration": {
@@ -1050,7 +1096,8 @@
       "subtitle": "BMW Maratón Internacional — 40ª Edición",
       "description": "Una de las carreras más antiguas y prestigiosas de México celebra 40 años. Corre por el Parque Tangamanga y el Centro Histórico de San Luis Potosí en 4 distancias.",
       "cta": "Inscríbete",
-      "ctaRoute": "Ver ruta"
+      "ctaRoute": "Ver ruta",
+      "location": "San Luis Potosí, capital del estado de San Luis Potosí, México"
     },
     "stats": {
       "edition": "Edición",
@@ -1180,19 +1227,6 @@
     "improvingDaily": "Mejoramos cada día. ¿Encontraste un error?",
     "letUsKnow": "Cuéntanos",
     "dismiss": "Cerrar"
-  },
-  "categories": {
-    "food": "Comida",
-    "beverages": "Bebidas",
-    "outdoorActivities": "Actividades al Aire Libre",
-    "service": "Servicio",
-    "sportsFitness": "Deportes y Fitness",
-    "privateDiningRooms": "Salones Privados",
-    "languageExchangeCafes": "Cafés de Intercambio de Idiomas",
-    "familyActivities": "Actividades Familiares",
-    "terraces": "Terrazas",
-    "liveMusic": "Música en Vivo",
-    "other": "Otro"
   },
   "factchecks": {
     "seoTitle": "Informes de Verificación | San Luis Way",
@@ -1400,75 +1434,192 @@
       "firstWeek": {
         "title": "Esenciales de la Primera Semana",
         "items": {
-          "sim": { "title": "Obtén un chip mexicano", "description": "Telcel (mejor cobertura), AT&T o Movistar. Disponibles en OXXO o tiendas de las compañías. $150-300 MXN." },
-          "apps": { "title": "Descarga apps esenciales", "description": "Uber, DiDi (transporte), Rappi (delivery), Google Maps, WhatsApp (mensajería principal)." },
-          "atm": { "title": "Retira pesos del cajero", "description": "Usa cajeros dentro de bancos (Santander, BBVA). Rechaza la conversión a tu moneda." },
-          "cash": { "title": "Ten efectivo a la mano", "description": "Muchos lugares solo aceptan efectivo. Ten $500-1,000 MXN para necesidades diarias." },
-          "spanish": { "title": "Aprende frases básicas en español", "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"." },
-          "translate": { "title": "Descarga Google Translate", "description": "Obtén el paquete offline de español. La función de cámara ayuda con menús y letreros." }
+          "sim": {
+            "title": "Obtén un chip mexicano",
+            "description": "Telcel (mejor cobertura), AT&T o Movistar. Disponibles en OXXO o tiendas de las compañías. $150-300 MXN."
+          },
+          "apps": {
+            "title": "Descarga apps esenciales",
+            "description": "Uber, DiDi (transporte), Rappi (delivery), Google Maps, WhatsApp (mensajería principal)."
+          },
+          "atm": {
+            "title": "Retira pesos del cajero",
+            "description": "Usa cajeros dentro de bancos (Santander, BBVA). Rechaza la conversión a tu moneda."
+          },
+          "cash": {
+            "title": "Ten efectivo a la mano",
+            "description": "Muchos lugares solo aceptan efectivo. Ten $500-1,000 MXN para necesidades diarias."
+          },
+          "spanish": {
+            "title": "Aprende frases básicas en español",
+            "description": "\"Buenos días\", \"Gracias\", \"¿Cuánto cuesta?\", \"La cuenta, por favor\"."
+          },
+          "translate": {
+            "title": "Descarga Google Translate",
+            "description": "Obtén el paquete offline de español. La función de cámara ayuda con menús y letreros."
+          }
         }
       },
       "administrative": {
         "title": "Trámites Administrativos",
         "items": {
-          "inm": { "title": "Registro de domicilio en INM", "description": "Requerido dentro de 90 días si tienes residencia. Lleva pasaporte, tarjeta de residencia, comprobante de domicilio." },
-          "curp": { "title": "Obtén tu CURP", "description": "ID de población de México. Gratis en Registro Civil con pasaporte y tarjeta de residencia." },
-          "rfc": { "title": "Obtén RFC (si trabajas)", "description": "ID fiscal para empleo. Aplica en oficina del SAT con CURP, pasaporte, comprobante de domicilio." },
-          "consulate": { "title": "Regístrate en tu consulado", "description": "Para asistencia de emergencia y votación en el extranjero. La mayoría se hace en línea." },
-          "license": { "title": "Licencia de conducir mexicana (opcional)", "description": "Aplica en Secretaría de Seguridad Pública. Costo: ~$800-1,200 MXN." }
+          "inm": {
+            "title": "Registro de domicilio en INM",
+            "description": "Requerido dentro de 90 días si tienes residencia. Lleva pasaporte, tarjeta de residencia, comprobante de domicilio."
+          },
+          "curp": {
+            "title": "Obtén tu CURP",
+            "description": "ID de población de México. Gratis en Registro Civil con pasaporte y tarjeta de residencia."
+          },
+          "rfc": {
+            "title": "Obtén RFC (si trabajas)",
+            "description": "ID fiscal para empleo. Aplica en oficina del SAT con CURP, pasaporte, comprobante de domicilio."
+          },
+          "consulate": {
+            "title": "Regístrate en tu consulado",
+            "description": "Para asistencia de emergencia y votación en el extranjero. La mayoría se hace en línea."
+          },
+          "license": {
+            "title": "Licencia de conducir mexicana (opcional)",
+            "description": "Aplica en Secretaría de Seguridad Pública. Costo: ~$800-1,200 MXN."
+          }
         }
       },
       "homeServices": {
         "title": "Hogar y Servicios",
         "items": {
-          "electricity": { "title": "Configura electricidad (CFE)", "description": "Transfiere cuenta en oficina CFE con contrato y ID. Paga en OXXO o en línea." },
-          "water": { "title": "Configura agua (INTERAPAS)", "description": "Transfiere en oficina INTERAPAS. Facturas típicas $150-400 MXN/mes." },
-          "gas": { "title": "Arregla entrega de gas", "description": "Proveedores: Gas Express Nieto, Zeta Gas. Tanques estacionarios se rellenan, portátiles se intercambian." },
-          "internet": { "title": "Configura internet", "description": "Telmex (más cobertura), Totalplay (fibra), Izzi. Planes $400-800 MXN/mes." },
-          "garrafon": { "title": "Compra garrafones de agua", "description": "El agua de la llave NO es potable. Compra garrafones de 19L de Bonafont, Ciel. ~$30-40 MXN cada uno." },
-          "dispenser": { "title": "Consigue un dispensador de garrafón", "description": "Disponibles en Soriana, Walmart, Amazon México. $500-2,000 MXN." }
+          "electricity": {
+            "title": "Configura electricidad (CFE)",
+            "description": "Transfiere cuenta en oficina CFE con contrato y ID. Paga en OXXO o en línea."
+          },
+          "water": {
+            "title": "Configura agua (INTERAPAS)",
+            "description": "Transfiere en oficina INTERAPAS. Facturas típicas $150-400 MXN/mes."
+          },
+          "gas": {
+            "title": "Arregla entrega de gas",
+            "description": "Proveedores: Gas Express Nieto, Zeta Gas. Tanques estacionarios se rellenan, portátiles se intercambian."
+          },
+          "internet": {
+            "title": "Configura internet",
+            "description": "Telmex (más cobertura), Totalplay (fibra), Izzi. Planes $400-800 MXN/mes."
+          },
+          "garrafon": {
+            "title": "Compra garrafones de agua",
+            "description": "El agua de la llave NO es potable. Compra garrafones de 19L de Bonafont, Ciel. ~$30-40 MXN cada uno."
+          },
+          "dispenser": {
+            "title": "Consigue un dispensador de garrafón",
+            "description": "Disponibles en Soriana, Walmart, Amazon México. $500-2,000 MXN."
+          }
         }
       },
       "financial": {
         "title": "Configuración Financiera",
         "items": {
-          "bank": { "title": "Abre cuenta bancaria mexicana", "description": "BBVA, Santander (amigable con expats), Banorte. Necesitas: pasaporte, residencia, CURP, comprobante de domicilio." },
-          "mercadoPago": { "title": "Configura Mercado Pago", "description": "Billetera digital popular en México. Funciona en muchas tiendas, transferencias a amigos, pago de servicios." },
-          "spei": { "title": "Aprende transferencias SPEI", "description": "Sistema de transferencia instantánea de México. Gratis, rápido, muy usado para renta y servicios." },
-          "international": { "title": "Configura transferencias internacionales", "description": "Wise (mejores tasas), Remitly, o transferencia bancaria para transferencias regulares." },
-          "bills": { "title": "Entiende pagos de servicios", "description": "Paga en OXXO (24/7), apps bancarias, portales en línea. OXXO es el más fácil para la mayoría." }
+          "bank": {
+            "title": "Abre cuenta bancaria mexicana",
+            "description": "BBVA, Santander (amigable con expats), Banorte. Necesitas: pasaporte, residencia, CURP, comprobante de domicilio."
+          },
+          "mercadoPago": {
+            "title": "Configura Mercado Pago",
+            "description": "Billetera digital popular en México. Funciona en muchas tiendas, transferencias a amigos, pago de servicios."
+          },
+          "spei": {
+            "title": "Aprende transferencias SPEI",
+            "description": "Sistema de transferencia instantánea de México. Gratis, rápido, muy usado para renta y servicios."
+          },
+          "international": {
+            "title": "Configura transferencias internacionales",
+            "description": "Wise (mejores tasas), Remitly, o transferencia bancaria para transferencias regulares."
+          },
+          "bills": {
+            "title": "Entiende pagos de servicios",
+            "description": "Paga en OXXO (24/7), apps bancarias, portales en línea. OXXO es el más fácil para la mayoría."
+          }
         }
       },
       "healthcare": {
         "title": "Salud",
         "items": {
-          "doctor": { "title": "Encuentra un médico general", "description": "Pregunta en grupos de expats por doctores que hablen inglés. Consultas: $400-800 MXN." },
-          "dentist": { "title": "Encuentra un dentista", "description": "La atención dental es excelente y accesible. Limpieza: $400-800 MXN." },
-          "pharmacy": { "title": "Localiza farmacias", "description": "Farmacias Guadalajara, Farmacias del Ahorro. Muchos medicamentos disponibles sin receta." },
-          "insurance": { "title": "Configura seguro de salud", "description": "IMSS (~$6,000 MXN/año) o privado: GNP, Seguros Monterrey, Bupa." },
-          "emergency": { "title": "Guarda números de emergencia", "description": "911 (emergencia), 066 (policía), 065 (ambulancia/Cruz Roja)." }
+          "doctor": {
+            "title": "Encuentra un médico general",
+            "description": "Pregunta en grupos de expats por doctores que hablen inglés. Consultas: $400-800 MXN."
+          },
+          "dentist": {
+            "title": "Encuentra un dentista",
+            "description": "La atención dental es excelente y accesible. Limpieza: $400-800 MXN."
+          },
+          "pharmacy": {
+            "title": "Localiza farmacias",
+            "description": "Farmacias Guadalajara, Farmacias del Ahorro. Muchos medicamentos disponibles sin receta."
+          },
+          "insurance": {
+            "title": "Configura seguro de salud",
+            "description": "IMSS (~$6,000 MXN/año) o privado: GNP, Seguros Monterrey, Bupa."
+          },
+          "emergency": {
+            "title": "Guarda números de emergencia",
+            "description": "911 (emergencia), 066 (policía), 065 (ambulancia/Cruz Roja)."
+          }
         }
       },
       "social": {
         "title": "Social y Comunidad",
         "items": {
-          "facebook": { "title": "Únete a grupos de Facebook de expats", "description": "Busca \"Expats in San Luis Potosí\". Excelente para consejos y conocer gente." },
-          "exchange": { "title": "Encuentra compañeros de intercambio de idiomas", "description": "Practica español, ayuda con inglés. Revisa Meetup, tableros universitarios, cafés." },
-          "classes": { "title": "Inscríbete en clases de español", "description": "UASLP ofrece cursos. Tutores privados: $150-300 MXN/hora." },
-          "neighborhoods": { "title": "Explora las colonias", "description": "Camina por el Centro Histórico, Parque Tangamanga, Lomas. La mejor forma de sentirte en casa." },
-          "events": { "title": "Asiste a eventos locales", "description": "Revisa nuestro calendario de eventos. FENAPO (agosto) es la feria anual más grande." },
-          "neighbors": { "title": "Conoce a tus vecinos", "description": "Un simple \"Buenos días\" hace mucho. Los vecinos son valiosos para recomendaciones." }
+          "facebook": {
+            "title": "Únete a grupos de Facebook de expats",
+            "description": "Busca \"Expats in San Luis Potosí\". Excelente para consejos y conocer gente."
+          },
+          "exchange": {
+            "title": "Encuentra compañeros de intercambio de idiomas",
+            "description": "Practica español, ayuda con inglés. Revisa Meetup, tableros universitarios, cafés."
+          },
+          "classes": {
+            "title": "Inscríbete en clases de español",
+            "description": "UASLP ofrece cursos. Tutores privados: $150-300 MXN/hora."
+          },
+          "neighborhoods": {
+            "title": "Explora las colonias",
+            "description": "Camina por el Centro Histórico, Parque Tangamanga, Lomas. La mejor forma de sentirte en casa."
+          },
+          "events": {
+            "title": "Asiste a eventos locales",
+            "description": "Revisa nuestro calendario de eventos. FENAPO (agosto) es la feria anual más grande."
+          },
+          "neighbors": {
+            "title": "Conoce a tus vecinos",
+            "description": "Un simple \"Buenos días\" hace mucho. Los vecinos son valiosos para recomendaciones."
+          }
         }
       },
       "dailyLife": {
         "title": "Vida Diaria Práctica",
         "items": {
-          "supermarkets": { "title": "Encuentra supermercados", "description": "Soriana (local), Walmart, HEB (premium), Costco (membresía)." },
-          "markets": { "title": "Explora mercados locales", "description": "Mercado Hidalgo (Centro), Mercado República. Productos frescos a mejores precios." },
-          "rides": { "title": "Descarga apps de transporte", "description": "Uber y DiDi funcionan en toda la ciudad. Más seguros que taxis de calle." },
-          "gym": { "title": "Encuentra un gimnasio", "description": "Smart Fit ($400-600 MXN/mes), Sport City (premium), gimnasios locales ($300-500 MXN/mes)." },
-          "park": { "title": "Explora Parque Tangamanga", "description": "Uno de los parques urbanos más grandes de México. Correr, ciclismo, picnics. Entrada gratis." },
-          "amazon": { "title": "Configura Amazon México", "description": "Envíos disponibles. Prime ofrece envío más rápido. Ideal para artículos difíciles de encontrar." }
+          "supermarkets": {
+            "title": "Encuentra supermercados",
+            "description": "Soriana (local), Walmart, HEB (premium), Costco (membresía)."
+          },
+          "markets": {
+            "title": "Explora mercados locales",
+            "description": "Mercado Hidalgo (Centro), Mercado República. Productos frescos a mejores precios."
+          },
+          "rides": {
+            "title": "Descarga apps de transporte",
+            "description": "Uber y DiDi funcionan en toda la ciudad. Más seguros que taxis de calle."
+          },
+          "gym": {
+            "title": "Encuentra un gimnasio",
+            "description": "Smart Fit ($400-600 MXN/mes), Sport City (premium), gimnasios locales ($300-500 MXN/mes)."
+          },
+          "park": {
+            "title": "Explora Parque Tangamanga",
+            "description": "Uno de los parques urbanos más grandes de México. Correr, ciclismo, picnics. Entrada gratis."
+          },
+          "amazon": {
+            "title": "Configura Amazon México",
+            "description": "Envíos disponibles. Prime ofrece envío más rápido. Ideal para artículos difíciles de encontrar."
+          }
         }
       }
     }
@@ -1512,7 +1663,8 @@
       "description": "La feria más tradicional de México regresa a San Luis Potosí con conciertos, gastronomía, cultura y entretenimiento para toda la familia. Artistas confirmados: Grupo Firme, Sin Bandera, Los Acosta.",
       "note": "Programa completo por confirmar — esta página se actualiza conforme se anuncien artistas y fechas.",
       "cta": "Sitio oficial",
-      "ctaArtists": "Ver artistas"
+      "ctaArtists": "Ver artistas",
+      "location": "San Luis Potosí, capital del estado de San Luis Potosí, México"
     },
     "stats": {
       "days": "Días",
@@ -1539,7 +1691,8 @@
         "item6": "Exposición ganadera y agropecuaria",
         "item7": "Pabellón cultural con arte y artesanías",
         "item8": "Coronación de la reina de la FENAPO"
-      }
+      },
+      "organizer": "Organizada anualmente por el Gobierno del Estado de San Luis Potosí, la FENAPO es una de las ferias estatales más grandes de México."
     },
     "artists": {
       "title": "Artistas Confirmados",
@@ -1556,14 +1709,38 @@
     "areas": {
       "title": "Áreas de la Feria",
       "subtitle": "El Recinto Ferial se divide en zonas para que encuentres exactamente lo que buscas.",
-      "teatro": { "name": "Teatro del Pueblo", "desc": "Escenario principal con artistas de primer nivel. Conciertos gratuitos todas las noches." },
-      "palenque": { "name": "Palenque", "desc": "Espectáculos premium con los mejores exponentes de la música mexicana y regional." },
-      "gastro": { "name": "Zona Gastronómica", "desc": "Comida potosina, mexicana e internacional. Enchiladas, gorditas, asado de boda y más." },
-      "commercial": { "name": "Exposición Comercial", "desc": "Productos y servicios locales y nacionales. Ofertas y promociones exclusivas de feria." },
-      "rides": { "name": "Juegos Mecánicos", "desc": "Montaña rusa, rueda de la fortuna, carros chocones y más diversión para toda la familia." },
-      "cultural": { "name": "Pabellón Cultural", "desc": "Exposiciones de arte, artesanías, danza y música tradicional potosina." },
-      "livestock": { "name": "Exposición Ganadera", "desc": "Exhibición de ganado, charreadas y tradiciones rancheras de San Luis Potosí." },
-      "kids": { "name": "Zona Infantil", "desc": "Actividades y espectáculos diseñados para los más pequeños de la familia." }
+      "teatro": {
+        "name": "Teatro del Pueblo",
+        "desc": "Escenario principal con artistas de primer nivel. Conciertos gratuitos todas las noches."
+      },
+      "palenque": {
+        "name": "Palenque",
+        "desc": "Espectáculos premium con los mejores exponentes de la música mexicana y regional."
+      },
+      "gastro": {
+        "name": "Zona Gastronómica",
+        "desc": "Comida potosina, mexicana e internacional. Enchiladas, gorditas, asado de boda y más."
+      },
+      "commercial": {
+        "name": "Exposición Comercial",
+        "desc": "Productos y servicios locales y nacionales. Ofertas y promociones exclusivas de feria."
+      },
+      "rides": {
+        "name": "Juegos Mecánicos",
+        "desc": "Montaña rusa, rueda de la fortuna, carros chocones y más diversión para toda la familia."
+      },
+      "cultural": {
+        "name": "Pabellón Cultural",
+        "desc": "Exposiciones de arte, artesanías, danza y música tradicional potosina."
+      },
+      "livestock": {
+        "name": "Exposición Ganadera",
+        "desc": "Exhibición de ganado, charreadas y tradiciones rancheras de San Luis Potosí."
+      },
+      "kids": {
+        "name": "Zona Infantil",
+        "desc": "Actividades y espectáculos diseñados para los más pequeños de la familia."
+      }
     },
     "visitorGuide": {
       "title": "Guía del Visitante",

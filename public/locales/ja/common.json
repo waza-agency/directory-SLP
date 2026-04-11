@@ -608,30 +608,42 @@
       "title": "サンルイス・メタルフェスト",
       "description": "第1回開催。入場無料。Marduk、Possessed、Metal ChurchなどがFENAPO会場に集結。",
       "cta": "ラインナップを見る",
-      "stat1Value": "2", "stat1Label": "日間",
-      "stat2Value": "3万+", "stat2Label": "来場者",
-      "stat3Value": "無料", "stat3Label": "入場",
-      "stat4Value": "8+", "stat4Label": "カ国"
+      "stat1Value": "2",
+      "stat1Label": "日間",
+      "stat2Value": "3万+",
+      "stat2Label": "来場者",
+      "stat3Value": "無料",
+      "stat3Label": "入場",
+      "stat4Value": "8+",
+      "stat4Label": "カ国"
     },
     "maraton": {
       "badge": "2026年6月28日",
       "title": "タンガマンガ・マラソン",
       "description": "40周年記念大会。タンガマンガ公園とSLP歴史地区を走る5K、10K、21K、42K。",
       "cta": "情報・参加登録",
-      "stat1Value": "40", "stat1Label": "回目",
-      "stat2Value": "1.5万+", "stat2Label": "ランナー",
-      "stat3Value": "4", "stat3Label": "距離",
-      "stat4Value": "FMAA", "stat4Label": "公認"
+      "stat1Value": "40",
+      "stat1Label": "回目",
+      "stat2Value": "1.5万+",
+      "stat2Label": "ランナー",
+      "stat3Value": "4",
+      "stat3Label": "距離",
+      "stat4Value": "FMAA",
+      "stat4Label": "公認"
     },
     "fenapo": {
       "badge": "2026年8月",
       "title": "FENAPO 2026",
       "description": "メキシコで最も伝統的な祭典が復活。Grupo Firme、Sin Bandera、Los Acostaほか出演者続々発表。",
       "cta": "出演者を見る",
-      "stat1Value": "24", "stat1Label": "日間",
-      "stat2Value": "3+", "stat2Label": "アーティスト",
-      "stat3Value": "無料", "stat3Label": "一般入場",
-      "stat4Value": "6", "stat4Label": "エリア"
+      "stat1Value": "24",
+      "stat1Label": "日間",
+      "stat2Value": "3+",
+      "stat2Label": "アーティスト",
+      "stat3Value": "無料",
+      "stat3Label": "一般入場",
+      "stat4Value": "6",
+      "stat4Label": "エリア"
     }
   },
   "metalFest2026": {
@@ -647,7 +659,8 @@
       "subtitle": "闇の覚醒",
       "description": "サンルイスポトシ初の国際メタルフェスティバル。8カ国から伝説的バンドが集結する2日間。グルメ、ワステカ文化、メキシコ最高のメタルコミュニティ。",
       "cta": "無料で登録",
-      "ctaLineup": "ラインナップを見る"
+      "ctaLineup": "ラインナップを見る",
+      "location": "サンルイス・ポトシ、サンルイス・ポトシ州の州都、メキシコ"
     },
     "stats": {
       "days": "日間",
@@ -669,17 +682,61 @@
       "headliners": "ヘッドライナー",
       "scheduleTbc": "タイムテーブル確認中",
       "bands": {
-        "marduk": { "name": "Marduk", "genre": "ブラックメタル", "country": "スウェーデン" },
-        "metalChurch": { "name": "Metal Church", "genre": "ヘヴィ / パワーメタル", "country": "アメリカ" },
-        "possessed": { "name": "Possessed", "genre": "デスメタル", "country": "アメリカ" },
-        "grave": { "name": "Grave", "genre": "デスメタル", "country": "スウェーデン" },
-        "armoredSaint": { "name": "Armored Saint", "genre": "ヘヴィメタル", "country": "アメリカ" },
-        "crimsonGlory": { "name": "Crimson Glory", "genre": "プログレッシブメタル", "country": "アメリカ" },
-        "pestilence": { "name": "Pestilence", "genre": "デスメタル", "country": "オランダ" },
-        "sacrifice": { "name": "Sacrifice", "genre": "スラッシュメタル", "country": "カナダ" },
-        "hirax": { "name": "Hirax", "genre": "スラッシュメタル", "country": "アメリカ" },
-        "hellripper": { "name": "Hellripper", "genre": "スピード / ブラックメタル", "country": "スコットランド" },
-        "bloodFeast": { "name": "Blood Feast", "genre": "スラッシュメタル", "country": "アメリカ" }
+        "marduk": {
+          "name": "Marduk",
+          "genre": "ブラックメタル",
+          "country": "スウェーデン"
+        },
+        "metalChurch": {
+          "name": "Metal Church",
+          "genre": "ヘヴィ / パワーメタル",
+          "country": "アメリカ"
+        },
+        "possessed": {
+          "name": "Possessed",
+          "genre": "デスメタル",
+          "country": "アメリカ"
+        },
+        "grave": {
+          "name": "Grave",
+          "genre": "デスメタル",
+          "country": "スウェーデン"
+        },
+        "armoredSaint": {
+          "name": "Armored Saint",
+          "genre": "ヘヴィメタル",
+          "country": "アメリカ"
+        },
+        "crimsonGlory": {
+          "name": "Crimson Glory",
+          "genre": "プログレッシブメタル",
+          "country": "アメリカ"
+        },
+        "pestilence": {
+          "name": "Pestilence",
+          "genre": "デスメタル",
+          "country": "オランダ"
+        },
+        "sacrifice": {
+          "name": "Sacrifice",
+          "genre": "スラッシュメタル",
+          "country": "カナダ"
+        },
+        "hirax": {
+          "name": "Hirax",
+          "genre": "スラッシュメタル",
+          "country": "アメリカ"
+        },
+        "hellripper": {
+          "name": "Hellripper",
+          "genre": "スピード / ブラックメタル",
+          "country": "スコットランド"
+        },
+        "bloodFeast": {
+          "name": "Blood Feast",
+          "genre": "スラッシュメタル",
+          "country": "アメリカ"
+        }
       }
     },
     "registration": {
@@ -763,7 +820,8 @@
       "subtitle": "BMW国際マラソン — 第40回",
       "description": "メキシコで最も歴史と格式あるロードレースのひとつが40周年。タンガマンガ公園とサンルイスポトシ歴史地区を4つの距離で走ろう。",
       "cta": "今すぐ登録",
-      "ctaRoute": "コースを見る"
+      "ctaRoute": "コースを見る",
+      "location": "サンルイス・ポトシ、サンルイス・ポトシ州の州都、メキシコ"
     },
     "stats": {
       "edition": "回目",
@@ -1393,75 +1451,192 @@
       "firstWeek": {
         "title": "最初の1週間の必需品",
         "items": {
-          "sim": { "title": "メキシコのSIMカードを入手", "description": "Telcel（最も良い通信範囲）、AT&T、またはMovistar。OXXOまたはキャリアストアで購入可能。150-300 MXN。" },
-          "apps": { "title": "必須アプリをダウンロード", "description": "Uber、DiDi（配車）、Rappi（デリバリー）、Googleマップ、WhatsApp（主要メッセージアプリ）。" },
-          "atm": { "title": "ATMでペソを引き出す", "description": "銀行内のATM（Santander、BBVA）を使用。自国通貨への変換は断ってください。" },
-          "cash": { "title": "現金を持ち歩く", "description": "多くの場所は現金のみ。日常のニーズに500-1,000 MXNを保持。" },
-          "spanish": { "title": "基本的なスペイン語フレーズを学ぶ", "description": "「Buenos días」「Gracias」「¿Cuánto cuesta?」「La cuenta, por favor」。" },
-          "translate": { "title": "Google翻訳をダウンロード", "description": "スペイン語オフラインパックを取得。カメラ機能はメニューや看板に役立ちます。" }
+          "sim": {
+            "title": "メキシコのSIMカードを入手",
+            "description": "Telcel（最も良い通信範囲）、AT&T、またはMovistar。OXXOまたはキャリアストアで購入可能。150-300 MXN。"
+          },
+          "apps": {
+            "title": "必須アプリをダウンロード",
+            "description": "Uber、DiDi（配車）、Rappi（デリバリー）、Googleマップ、WhatsApp（主要メッセージアプリ）。"
+          },
+          "atm": {
+            "title": "ATMでペソを引き出す",
+            "description": "銀行内のATM（Santander、BBVA）を使用。自国通貨への変換は断ってください。"
+          },
+          "cash": {
+            "title": "現金を持ち歩く",
+            "description": "多くの場所は現金のみ。日常のニーズに500-1,000 MXNを保持。"
+          },
+          "spanish": {
+            "title": "基本的なスペイン語フレーズを学ぶ",
+            "description": "「Buenos días」「Gracias」「¿Cuánto cuesta?」「La cuenta, por favor」。"
+          },
+          "translate": {
+            "title": "Google翻訳をダウンロード",
+            "description": "スペイン語オフラインパックを取得。カメラ機能はメニューや看板に役立ちます。"
+          }
         }
       },
       "administrative": {
         "title": "行政手続き",
         "items": {
-          "inm": { "title": "INM住所登録", "description": "居住権がある場合、90日以内に必要。パスポート、居住カード、住所証明を持参。" },
-          "curp": { "title": "CURPを取得", "description": "メキシコの人口ID。パスポートと居住カードでRegistro Civilにて無料。" },
-          "rfc": { "title": "RFC取得（就労の場合）", "description": "就労のための税務ID。CURP、パスポート、住所証明でSATオフィスで申請。" },
-          "consulate": { "title": "自国の領事館に登録", "description": "緊急援助と海外投票のため。ほとんどはオンラインで完了。" },
-          "license": { "title": "メキシコの運転免許証（任意）", "description": "Secretaría de Seguridad Públicaで申請。費用：約800-1,200 MXN。" }
+          "inm": {
+            "title": "INM住所登録",
+            "description": "居住権がある場合、90日以内に必要。パスポート、居住カード、住所証明を持参。"
+          },
+          "curp": {
+            "title": "CURPを取得",
+            "description": "メキシコの人口ID。パスポートと居住カードでRegistro Civilにて無料。"
+          },
+          "rfc": {
+            "title": "RFC取得（就労の場合）",
+            "description": "就労のための税務ID。CURP、パスポート、住所証明でSATオフィスで申請。"
+          },
+          "consulate": {
+            "title": "自国の領事館に登録",
+            "description": "緊急援助と海外投票のため。ほとんどはオンラインで完了。"
+          },
+          "license": {
+            "title": "メキシコの運転免許証（任意）",
+            "description": "Secretaría de Seguridad Públicaで申請。費用：約800-1,200 MXN。"
+          }
         }
       },
       "homeServices": {
         "title": "住居とサービス",
         "items": {
-          "electricity": { "title": "電気を設定（CFE）", "description": "賃貸契約書とIDでCFEオフィスでアカウント移管。OXXOまたはオンラインで支払い。" },
-          "water": { "title": "水道を設定（INTERAPAS）", "description": "INTERAPASオフィスで移管。請求書は通常150-400 MXN/月。" },
-          "gas": { "title": "ガス配達を手配", "description": "プロバイダー：Gas Express Nieto、Zeta Gas。固定タンクは補充、ポータブルは交換。" },
-          "internet": { "title": "インターネットを設定", "description": "Telmex（最も広いカバー範囲）、Totalplay（光ファイバー）、Izzi。プラン400-800 MXN/月。" },
-          "garrafon": { "title": "水用ガラフォンを購入", "description": "水道水は飲めません。Bonafont、Cielの19Lボトルを購入。各約30-40 MXN。" },
-          "dispenser": { "title": "ガラフォンディスペンサーを入手", "description": "Soriana、Walmart、Amazon Mexicoで購入可能。500-2,000 MXN。" }
+          "electricity": {
+            "title": "電気を設定（CFE）",
+            "description": "賃貸契約書とIDでCFEオフィスでアカウント移管。OXXOまたはオンラインで支払い。"
+          },
+          "water": {
+            "title": "水道を設定（INTERAPAS）",
+            "description": "INTERAPASオフィスで移管。請求書は通常150-400 MXN/月。"
+          },
+          "gas": {
+            "title": "ガス配達を手配",
+            "description": "プロバイダー：Gas Express Nieto、Zeta Gas。固定タンクは補充、ポータブルは交換。"
+          },
+          "internet": {
+            "title": "インターネットを設定",
+            "description": "Telmex（最も広いカバー範囲）、Totalplay（光ファイバー）、Izzi。プラン400-800 MXN/月。"
+          },
+          "garrafon": {
+            "title": "水用ガラフォンを購入",
+            "description": "水道水は飲めません。Bonafont、Cielの19Lボトルを購入。各約30-40 MXN。"
+          },
+          "dispenser": {
+            "title": "ガラフォンディスペンサーを入手",
+            "description": "Soriana、Walmart、Amazon Mexicoで購入可能。500-2,000 MXN。"
+          }
         }
       },
       "financial": {
         "title": "金融セットアップ",
         "items": {
-          "bank": { "title": "メキシコの銀行口座を開設", "description": "BBVA、Santander（駐在員に優しい）、Banorte。必要：パスポート、居住権、CURP、住所証明。" },
-          "mercadoPago": { "title": "Mercado Pagoを設定", "description": "メキシコで人気のデジタルウォレット。多くの店舗で使用可能、友人への送金、請求書支払い。" },
-          "spei": { "title": "SPEI送金を学ぶ", "description": "メキシコの即時銀行送金システム。無料、高速、家賃やサービスに広く使用。" },
-          "international": { "title": "国際送金を設定", "description": "Wise（最良のレート）、Remitly、または定期送金用の銀行振込。" },
-          "bills": { "title": "請求書支払いを理解する", "description": "OXXO（24/7）、銀行アプリ、オンラインポータルで支払い。OXXOがほとんどのサービスで最も簡単。" }
+          "bank": {
+            "title": "メキシコの銀行口座を開設",
+            "description": "BBVA、Santander（駐在員に優しい）、Banorte。必要：パスポート、居住権、CURP、住所証明。"
+          },
+          "mercadoPago": {
+            "title": "Mercado Pagoを設定",
+            "description": "メキシコで人気のデジタルウォレット。多くの店舗で使用可能、友人への送金、請求書支払い。"
+          },
+          "spei": {
+            "title": "SPEI送金を学ぶ",
+            "description": "メキシコの即時銀行送金システム。無料、高速、家賃やサービスに広く使用。"
+          },
+          "international": {
+            "title": "国際送金を設定",
+            "description": "Wise（最良のレート）、Remitly、または定期送金用の銀行振込。"
+          },
+          "bills": {
+            "title": "請求書支払いを理解する",
+            "description": "OXXO（24/7）、銀行アプリ、オンラインポータルで支払い。OXXOがほとんどのサービスで最も簡単。"
+          }
         }
       },
       "healthcare": {
         "title": "医療",
         "items": {
-          "doctor": { "title": "一般医を探す", "description": "駐在員グループで英語を話す医師を尋ねる。診察：400-800 MXN。" },
-          "dentist": { "title": "歯科医を探す", "description": "歯科治療は優れており、手頃な価格。クリーニング：400-800 MXN。" },
-          "pharmacy": { "title": "薬局を見つける", "description": "Farmacias Guadalajara、Farmacias del Ahorro。多くの薬が処方箋なしで入手可能。" },
-          "insurance": { "title": "健康保険を設定", "description": "IMSS（約6,000 MXN/年）またはプライベート：GNP、Seguros Monterrey、Bupa。" },
-          "emergency": { "title": "緊急連絡先を保存", "description": "911（緊急）、066（警察）、065（救急車/赤十字）。" }
+          "doctor": {
+            "title": "一般医を探す",
+            "description": "駐在員グループで英語を話す医師を尋ねる。診察：400-800 MXN。"
+          },
+          "dentist": {
+            "title": "歯科医を探す",
+            "description": "歯科治療は優れており、手頃な価格。クリーニング：400-800 MXN。"
+          },
+          "pharmacy": {
+            "title": "薬局を見つける",
+            "description": "Farmacias Guadalajara、Farmacias del Ahorro。多くの薬が処方箋なしで入手可能。"
+          },
+          "insurance": {
+            "title": "健康保険を設定",
+            "description": "IMSS（約6,000 MXN/年）またはプライベート：GNP、Seguros Monterrey、Bupa。"
+          },
+          "emergency": {
+            "title": "緊急連絡先を保存",
+            "description": "911（緊急）、066（警察）、065（救急車/赤十字）。"
+          }
         }
       },
       "social": {
         "title": "社会とコミュニティ",
         "items": {
-          "facebook": { "title": "駐在員Facebookグループに参加", "description": "「Expats in San Luis Potosí」を検索。アドバイスや人との出会いに最適。" },
-          "exchange": { "title": "言語交換パートナーを見つける", "description": "スペイン語を練習、英語を教える。Meetup、大学の掲示板、カフェをチェック。" },
-          "classes": { "title": "スペイン語クラスに登録", "description": "UASLPがコースを提供。プライベートチューター：150-300 MXN/時。" },
-          "neighborhoods": { "title": "地域を探索", "description": "Centro Histórico、Parque Tangamanga、Lomasを歩く。自分の居場所を感じる最良の方法。" },
-          "events": { "title": "地元のイベントに参加", "description": "イベントカレンダーをチェック。FENAPO（8月）は最大の年間フェア。" },
-          "neighbors": { "title": "近所の人に会う", "description": "シンプルな「Buenos días」が大きな効果。近所の人は推薦に貴重。" }
+          "facebook": {
+            "title": "駐在員Facebookグループに参加",
+            "description": "「Expats in San Luis Potosí」を検索。アドバイスや人との出会いに最適。"
+          },
+          "exchange": {
+            "title": "言語交換パートナーを見つける",
+            "description": "スペイン語を練習、英語を教える。Meetup、大学の掲示板、カフェをチェック。"
+          },
+          "classes": {
+            "title": "スペイン語クラスに登録",
+            "description": "UASLPがコースを提供。プライベートチューター：150-300 MXN/時。"
+          },
+          "neighborhoods": {
+            "title": "地域を探索",
+            "description": "Centro Histórico、Parque Tangamanga、Lomasを歩く。自分の居場所を感じる最良の方法。"
+          },
+          "events": {
+            "title": "地元のイベントに参加",
+            "description": "イベントカレンダーをチェック。FENAPO（8月）は最大の年間フェア。"
+          },
+          "neighbors": {
+            "title": "近所の人に会う",
+            "description": "シンプルな「Buenos días」が大きな効果。近所の人は推薦に貴重。"
+          }
         }
       },
       "dailyLife": {
         "title": "日常生活の実用",
         "items": {
-          "supermarkets": { "title": "スーパーマーケットを見つける", "description": "Soriana（地元）、Walmart、HEB（プレミアム）、Costco（会員制）。" },
-          "markets": { "title": "地元の市場を探索", "description": "Mercado Hidalgo（Centro）、Mercado República。より良い価格で新鮮な食材。" },
-          "rides": { "title": "配車アプリをダウンロード", "description": "UberとDiDiは市内全域で利用可能。路上タクシーより安全。" },
-          "gym": { "title": "ジムを見つける", "description": "Smart Fit（400-600 MXN/月）、Sport City（プレミアム）、地元のジム（300-500 MXN/月）。" },
-          "park": { "title": "Parque Tangamangaを探索", "description": "メキシコ最大級の都市公園の1つ。ランニング、サイクリング、ピクニック。入場無料。" },
-          "amazon": { "title": "Amazon Mexicoを設定", "description": "配達利用可能。Primeはより速い配送を提供。見つけにくいアイテムに最適。" }
+          "supermarkets": {
+            "title": "スーパーマーケットを見つける",
+            "description": "Soriana（地元）、Walmart、HEB（プレミアム）、Costco（会員制）。"
+          },
+          "markets": {
+            "title": "地元の市場を探索",
+            "description": "Mercado Hidalgo（Centro）、Mercado República。より良い価格で新鮮な食材。"
+          },
+          "rides": {
+            "title": "配車アプリをダウンロード",
+            "description": "UberとDiDiは市内全域で利用可能。路上タクシーより安全。"
+          },
+          "gym": {
+            "title": "ジムを見つける",
+            "description": "Smart Fit（400-600 MXN/月）、Sport City（プレミアム）、地元のジム（300-500 MXN/月）。"
+          },
+          "park": {
+            "title": "Parque Tangamangaを探索",
+            "description": "メキシコ最大級の都市公園の1つ。ランニング、サイクリング、ピクニック。入場無料。"
+          },
+          "amazon": {
+            "title": "Amazon Mexicoを設定",
+            "description": "配達利用可能。Primeはより速い配送を提供。見つけにくいアイテムに最適。"
+          }
         }
       }
     }
@@ -1505,7 +1680,8 @@
       "description": "メキシコで最も伝統的な祭典がサンルイスポトシに帰ってきます。コンサート、グルメ、文化、家族向けエンターテイメント。出演確定：Grupo Firme、Sin Bandera、Los Acosta。",
       "note": "プログラム詳細は確認次第更新します。",
       "cta": "公式サイト",
-      "ctaArtists": "アーティストを見る"
+      "ctaArtists": "アーティストを見る",
+      "location": "サンルイス・ポトシ、サンルイス・ポトシ州の州都、メキシコ"
     },
     "stats": {
       "days": "日間",
@@ -1532,7 +1708,8 @@
         "item6": "畜産・農業展示",
         "item7": "文化パビリオン — アートと工芸品",
         "item8": "FENAPOクイーン戴冠式"
-      }
+      },
+      "organizer": "FENAPOはサンルイス・ポトシ州政府が毎年主催し、メキシコで最大級の州フェアの一つです。"
     },
     "artists": {
       "title": "出演確定アーティスト",
@@ -1549,14 +1726,38 @@
     "areas": {
       "title": "祭典エリア",
       "subtitle": "会場はゾーンに分かれています。",
-      "teatro": { "name": "テアトロ・デル・プエブロ", "desc": "メインステージ。毎晩無料コンサート。" },
-      "palenque": { "name": "パレンケ", "desc": "メキシコ音楽のプレミアムショー。" },
-      "gastro": { "name": "グルメゾーン", "desc": "ポトシ料理、メキシコ料理、国際料理。" },
-      "commercial": { "name": "商業展示", "desc": "地元・全国の製品とサービス。" },
-      "rides": { "name": "遊園地", "desc": "ジェットコースター、観覧車、バンパーカーなど。" },
-      "cultural": { "name": "文化パビリオン", "desc": "美術展、工芸品、伝統音楽。" },
-      "livestock": { "name": "畜産展示", "desc": "家畜展示とチャレアーダ。" },
-      "kids": { "name": "キッズゾーン", "desc": "お子様向けアクティビティとショー。" }
+      "teatro": {
+        "name": "テアトロ・デル・プエブロ",
+        "desc": "メインステージ。毎晩無料コンサート。"
+      },
+      "palenque": {
+        "name": "パレンケ",
+        "desc": "メキシコ音楽のプレミアムショー。"
+      },
+      "gastro": {
+        "name": "グルメゾーン",
+        "desc": "ポトシ料理、メキシコ料理、国際料理。"
+      },
+      "commercial": {
+        "name": "商業展示",
+        "desc": "地元・全国の製品とサービス。"
+      },
+      "rides": {
+        "name": "遊園地",
+        "desc": "ジェットコースター、観覧車、バンパーカーなど。"
+      },
+      "cultural": {
+        "name": "文化パビリオン",
+        "desc": "美術展、工芸品、伝統音楽。"
+      },
+      "livestock": {
+        "name": "畜産展示",
+        "desc": "家畜展示とチャレアーダ。"
+      },
+      "kids": {
+        "name": "キッズゾーン",
+        "desc": "お子様向けアクティビティとショー。"
+      }
     },
     "visitorGuide": {
       "title": "訪問者ガイド",
