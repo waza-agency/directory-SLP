@@ -97,8 +97,8 @@ function App({ Component, pageProps }: AppProps) {
         _document.tsx and executed during HTML parse, pushing mobile LCP to 18.2s.
       */}
 
-      {/* Google Tag Manager */}
-      <Script id="gtm" strategy="afterInteractive">
+      {/* Google Tag Manager — lazyOnload so it doesn't compete with interactivity */}
+      <Script id="gtm" strategy="lazyOnload">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -106,30 +106,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-T4LHTQ9C');`}
       </Script>
 
-      {/* Google Analytics 4 (property-level) */}
+      {/* GA4 + Google Ads — single gtag.js load (was 2 separate downloads) */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-5R48THR70E"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="ga4" strategy="afterInteractive">
+      <Script id="ga4-ads" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-5R48THR70E');
-        `}
-      </Script>
-
-      {/* Google Ads (conversion tracking) */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-17635572319"
-        strategy="afterInteractive"
-      />
-      <Script id="google-ads" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
           gtag('config', 'AW-17635572319');
         `}
       </Script>

@@ -20,7 +20,7 @@
   from = "https://sanluisway.com/*"
   to = "https://www.sanluisway.com/:splat"
   status = 301
-  force = false
+  force = true
 
 # Headers for security
 [[headers]]
