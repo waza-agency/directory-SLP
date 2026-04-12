@@ -1,4 +1,4 @@
-import { apiSuccess, apiError, setCacheHeaders } from '../response';
+import { apiSuccess, apiError, setCacheHeaders, methodNotAllowed } from '../response';
 
 describe('apiSuccess', () => {
   it('wraps data in standard envelope', () => {
@@ -50,6 +50,19 @@ describe('setCacheHeaders', () => {
     expect(setHeader).toHaveBeenCalledWith(
       'Cache-Control',
       'public, s-maxage=60, stale-while-revalidate=120'
+    );
+  });
+});
+
+describe('methodNotAllowed', () => {
+  it('returns 405 with error envelope', () => {
+    const json = jest.fn();
+    const status = jest.fn().mockReturnValue({ json });
+    const res = { status } as any;
+    methodNotAllowed(res);
+    expect(status).toHaveBeenCalledWith(405);
+    expect(json).toHaveBeenCalledWith(
+      expect.objectContaining({ ok: false, error: expect.objectContaining({ code: 'METHOD_NOT_ALLOWED' }) })
     );
   });
 });
