@@ -1,4 +1,9 @@
 {
+  "agentConnect": {
+    "bannerCta": "Conecta Tu Agente",
+    "bannerResponse": "\u2192 12 eventos pr\u00f3ximos en SLP",
+    "bannerTags": "MCP \u00b7 CLI \u00b7 OpenClaw"
+  },
   "nav": {
     "home": "Inicio",
     "explore": "Explorar",

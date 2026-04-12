@@ -27,6 +27,7 @@ import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
 import RobotMindBanner from '@/components/RobotMindBanner';
+import AgentConnectBanner from '@/components/AgentConnectBanner';
 import TodayInSLP from '@/components/TodayInSLP';
 import EventCarouselBanner from '@/components/EventCarouselBanner';
 import FamilyActivitiesBanner from '@/components/FamilyActivitiesBanner';
@@ -259,6 +260,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* HERO SECTION */}
         <HeroSection glitchWords={glitchWords} />
+
+        {/* AGENT CONNECT BANNER - Terminal Dark */}
+        <AgentConnectBanner />
 
         {/* TODAY IN SLP - Daily Dashboard */}
         <TodayInSLP />

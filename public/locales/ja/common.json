@@ -1,4 +1,9 @@
 {
+  "agentConnect": {
+    "bannerCta": "\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u3092\u63a5\u7d9a",
+    "bannerResponse": "\u2192 SLP\u306e\u4eca\u5f8c\u306e\u30a4\u30d9\u30f3\u30c812\u4ef6",
+    "bannerTags": "MCP \u00b7 CLI \u00b7 OpenClaw"
+  },
   "nav": {
     "home": "ホーム",
     "explore": "探索",
