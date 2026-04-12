@@ -1,0 +1,33 @@
+name: sanluisway
+description: Query San Luis Potosí data — events, places, guides, weather, news, and more
+version: 0.1.0
+author: San Luis Way
+homepage: https://www.sanluisway.com/agent-connect
+commands:
+  - name: events
+    description: List upcoming events in SLP
+    usage: npx @sanluisway/cli events --json
+  - name: places
+    description: List places (restaurants, cafés, museums, bars)
+    usage: npx @sanluisway/cli places --json
+  - name: search
+    description: Search across all SLP content
+    usage: npx @sanluisway/cli search "<query>" --json
+  - name: weather
+    description: Get current weather in SLP
+    usage: npx @sanluisway/cli weather --json
+  - name: guides
+    description: Get practical visitor and resident guides
+    usage: npx @sanluisway/cli guides --json
+  - name: outdoor
+    description: Get outdoor activities
+    usage: npx @sanluisway/cli outdoor --json
+  - name: culture
+    description: Get cultural and historic sites
+    usage: npx @sanluisway/cli culture --json
+  - name: news
+    description: Get local news headlines
+    usage: npx @sanluisway/cli news --json
+  - name: exchange-rates
+    description: Get MXN exchange rates
+    usage: npx @sanluisway/cli exchange-rates --json
