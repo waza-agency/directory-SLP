@@ -36,10 +36,6 @@ import HreflangAlternates from '@/components/common/HreflangAlternates';
 import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 
-const PageAgentWidget = dynamic(() => import('@/components/PageAgentWidget'), {
-  ssr: false,
-});
-
 // Toast notifications are only fired on a couple of auth flows — lazy-load
 // the whole react-toastify bundle + its stylesheet so first paint isn't
 // blocked by code that won't run until the user clicks something.
@@ -173,8 +169,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </main>
               <Footer />
             </div>
-
-            <PageAgentWidget />
 
             <Toaster />
           </AuthProvider>
