@@ -3,44 +3,40 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { CalendarIcon } from '@heroicons/react/24/outline';
+import { cultureSites } from '@/data/culture';
+
+// Icons are presentation-only — keyed by slug from the shared data
+const cultureIcons: Record<string, React.ReactNode> = {
+  history: (
+    <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  festivals: (
+    <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
+    </svg>
+  ),
+  language: (
+    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+    </svg>
+  ),
+};
 
 export default function CultureSection() {
   const { t } = useTranslation('common');
 
-  const culturalFeatures = [
-    {
-      key: 'history',
-      icon: (
-        <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      link: '/cultural/history'
-    },
-    {
-      key: 'festivals',
-      icon: (
-        <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-        </svg>
-      ),
-      link: '/cultural/festivals'
-    },
-    {
-      key: 'language',
-      icon: (
-        <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-        </svg>
-      ),
-      link: '/cultural/language'
-    }
-  ];
+  const culturalFeatures = cultureSites.map((site) => ({
+    key: site.slug,
+    icon: cultureIcons[site.slug],
+    link: site.path,
+  }));
 
   const images = [
-    { src: '/images/cultura-1.jpg', altKey: 'colonialArch', colSpan: 'col-span-7' },
-    { src: '/images/cultura-2.jpg', altKey: 'traditionalFestivals', colSpan: 'col-span-5' },
-    { src: '/images/cultura-3.jpg', altKey: 'localArtisans', colSpan: 'col-span-5' }
+    { src: cultureSites[0]?.image ?? '/images/cultura-1.jpg', altKey: 'colonialArch', colSpan: 'col-span-7' },
+    { src: cultureSites[1]?.image ?? '/images/cultura-2.jpg', altKey: 'traditionalFestivals', colSpan: 'col-span-5' },
+    { src: cultureSites[2]?.image ?? '/images/cultura-3.jpg', altKey: 'localArtisans', colSpan: 'col-span-5' },
   ];
 
   return (

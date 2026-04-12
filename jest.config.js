@@ -70,5 +70,13 @@ module.exports = {
       moduleNameMapper,
       setupFilesAfterEnv,
     },
+    {
+      displayName: 'Data Tests',
+      testMatch: ['<rootDir>/src/data/**/*.test.ts'],
+      testEnvironment: 'node',
+      transform: babelJestTransform,
+      moduleNameMapper,
+      setupFilesAfterEnv,
+    },
   ],
 };

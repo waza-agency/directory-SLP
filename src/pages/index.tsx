@@ -34,6 +34,8 @@ import BlogCarousel from '@/components/BlogCarousel';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { outdoorActivities as outdoorData } from '@/data/outdoor';
+import { guides as guidesData } from '@/data/guides';
 
 // Lazy load heavy components for better performance
 const PlaceModal = lazy(() => import('@/components/PlaceModal'));
@@ -124,121 +126,29 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
     t('homepage.hero.glitchWords.word14'),
   ], [t]);
 
-  // Outdoor activities data
-  const outdoorActivities = [
-    {
-      id: 'hiking',
-      title: t('homepage.outdoors.hiking.title'),
-      description: t('homepage.outdoors.hiking.description'),
-      image: '/images/outdoors/hiking.jpg',
-      link: '/outdoors#hiking',
-      linkText: t('homepage.outdoors.hiking.linkText'),
-      badge: t('homepage.outdoors.hiking.badge'),
-      badgeColor: 'bg-green-700'
-    },
-    {
-      id: 'camping',
-      title: t('homepage.outdoors.camping.title'),
-      description: t('homepage.outdoors.camping.description'),
-      image: '/images/outdoors/camping.jpg',
-      link: '/outdoors#camping',
-      linkText: t('homepage.outdoors.camping.linkText'),
-      badge: t('homepage.outdoors.camping.badge'),
-      badgeColor: 'bg-blue-700'
-    },
-    {
-      id: 'real-catorce',
-      title: t('homepage.outdoors.realCatorce.title'),
-      description: t('homepage.outdoors.realCatorce.description'),
-      image: '/images/outdoors/real-de-catorce-main.jpg',
-      link: '/outdoors#real-catorce',
-      linkText: t('homepage.outdoors.realCatorce.linkText'),
-      badge: t('homepage.outdoors.realCatorce.badge'),
-      badgeColor: 'bg-purple-700'
-    },
-    {
-      id: 'media-luna',
-      title: t('homepage.outdoors.mediaLuna.title'),
-      description: t('homepage.outdoors.mediaLuna.description'),
-      image: '/images/outdoors/media-luna.jpg',
-      link: '/outdoors#media-luna',
-      linkText: t('homepage.outdoors.mediaLuna.linkText'),
-      badge: t('homepage.outdoors.mediaLuna.badge'),
-      badgeColor: 'bg-cyan-700'
-    },
-    {
-      id: 'huasteca',
-      title: t('homepage.outdoors.huasteca.title'),
-      description: t('homepage.outdoors.huasteca.description'),
-      image: '/images/outdoors/huasteca-waterfall.jpg',
-      link: '/outdoors#huasteca',
-      linkText: t('homepage.outdoors.huasteca.linkText'),
-      badge: t('homepage.outdoors.huasteca.badge'),
-      badgeColor: 'bg-teal-700'
-    },
-    {
-      id: 'xilitla',
-      title: t('homepage.outdoors.xilitla.title'),
-      description: t('homepage.outdoors.xilitla.description'),
-      image: '/images/outdoors/xilitla.webp',
-      link: '/outdoors#xilitla',
-      linkText: t('homepage.outdoors.xilitla.linkText'),
-      badge: t('homepage.outdoors.xilitla.badge'),
-      badgeColor: 'bg-pink-700'
-    }
-  ];
+  // Outdoor activities data — resolved from shared data file
+  const outdoorActivities = outdoorData.map((a) => ({
+    id: a.slug,
+    title: t(a.titleKey),
+    description: t(a.descriptionKey),
+    image: a.image,
+    link: a.path,
+    linkText: t(a.linkTextKey),
+    badge: t(a.badgeKey),
+    badgeColor: a.badgeColor,
+  }));
 
-  // Practical guides data
-  const practicalGuides = [
-    {
-      id: 'family',
-      title: t('homepage.practical.family.title'),
-      description: t('homepage.practical.family.description'),
-      image: '/images/practical-categories/family-activities.webp',
-      link: '/category/family-activities',
-      badge: t('homepage.practical.family.badge'),
-    },
-    {
-      id: 'rainy-day',
-      title: t('homepage.practical.rainyDay.title'),
-      description: t('homepage.practical.rainyDay.description'),
-      image: '/images/practical-categories/activities-rainy-day.jpg',
-      link: '/category/rainy-day-activities',
-      badge: t('homepage.practical.rainyDay.badge'),
-    },
-    {
-      id: 'playgrounds',
-      title: t('homepage.practical.playgrounds.title'),
-      description: t('homepage.practical.playgrounds.description'),
-      image: '/images/practical-categories/restaurants-with-playgrounds.png',
-      link: '/category/restaurants-with-playgrounds',
-      badge: t('homepage.practical.playgrounds.badge'),
-    },
-    {
-      id: 'healthcare',
-      title: t('homepage.practical.healthcare.title'),
-      description: t('homepage.practical.healthcare.description'),
-      image: '/images/practical-categories/english-speaking-healthcare.jpg',
-      link: '/category/english-speaking-healthcare',
-      badge: t('homepage.practical.healthcare.badge'),
-    },
-    {
-      id: 'markets',
-      title: t('homepage.practical.markets.title'),
-      description: t('homepage.practical.markets.description'),
-      image: '/images/practical-categories/international-markets.jpg',
-      link: '/category/international-markets',
-      badge: t('homepage.practical.markets.badge'),
-    },
-    {
-      id: 'parking',
-      title: t('homepage.practical.parking.title'),
-      description: t('homepage.practical.parking.description'),
-      image: '/images/practical-categories/easy-parking-spots.png',
-      link: '/category/easy-parking-spots',
-      badge: t('homepage.practical.parking.badge'),
-    }
-  ];
+  // Practical guides data — resolved from shared data file (only category guides)
+  const practicalGuides = guidesData
+    .filter((g) => g.path.startsWith('/category/'))
+    .map((g) => ({
+      id: g.slug,
+      title: t(g.titleKey),
+      description: t(g.descriptionKey),
+      image: g.image,
+      link: g.path,
+      badge: t(g.badgeKey),
+    }));
 
   return (
     <div className="slp-root bg-white">
