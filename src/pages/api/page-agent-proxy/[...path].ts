@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       : [];
 
     const body: Record<string, any> = {
-      model: 'gemini-2.0-flash',
+      model: 'gemini-2.0-flash-lite',
       messages,
       stream: false,
     };

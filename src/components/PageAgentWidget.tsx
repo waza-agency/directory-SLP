@@ -26,7 +26,7 @@ export default function PageAgentWidget() {
 
     import('page-agent').then(({ PageAgent }) => {
       const agent = new PageAgent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-2.0-flash-lite',
         baseURL: '/api/page-agent-proxy',
         apiKey: 'proxy',
         language: 'en-US',
