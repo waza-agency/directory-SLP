@@ -64,7 +64,7 @@ const nextConfig = {
   },
   // Modern Next.js config optimized for Node.js 18+
   compiler: {
-    styledComponents: true,
+    // styledComponents removed — project uses Tailwind CSS only
   },
   // Exclude test files from pages directory
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'].filter(ext => !ext.includes('test.')),
