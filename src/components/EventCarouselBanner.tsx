@@ -95,7 +95,7 @@ const EventCarouselBanner = () => {
 
   return (
     <section
-      className="relative overflow-hidden"
+      className="relative overflow-hidden min-h-[420px] md:min-h-[380px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -115,7 +115,8 @@ const EventCarouselBanner = () => {
           alt={t(`${ns}.title`)}
           fill
           className={`${slide.imageFit === 'contain' ? 'object-contain' : 'object-cover'} transition-opacity duration-500 ${fading ? 'opacity-0' : 'opacity-100'}`}
-          priority
+          sizes="100vw"
+          loading="lazy"
         />
       </div>
 

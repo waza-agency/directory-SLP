@@ -35,6 +35,16 @@ export default function Document(props: DocumentProps) {
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/* Fonts are self-hosted via next/font/google in _app.tsx — no external stylesheet or preconnect needed */}
+
+        {/* Preload LCP hero image for faster discovery — matches HeroSection priority image */}
+        <link
+          rel="preload"
+          as="image"
+          type="image/avif"
+          imageSrcSet="/_next/image?url=%2Fimages%2Fhero-bg.jpg&w=640&q=75 640w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=750&q=75 750w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=828&q=75 828w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=1080&q=75 1080w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=1200&q=75 1200w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=1920&q=75 1920w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=2048&q=75 2048w, /_next/image?url=%2Fimages%2Fhero-bg.jpg&w=3840&q=75 3840w"
+          imageSizes="100vw"
+          fetchPriority="high"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
       </Head>
