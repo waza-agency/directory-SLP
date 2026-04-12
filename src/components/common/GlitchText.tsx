@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface GlitchTextProps {
   words: string[];
@@ -16,16 +15,20 @@ const GlitchText: React.FC<GlitchTextProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isGlitching, setIsGlitching] = useState(false);
+  const [phase, setPhase] = useState<'enter' | 'visible' | 'exit'>('visible');
   const containerRef = useRef<HTMLSpanElement>(null);
 
   const triggerGlitch = useCallback(() => {
     setIsGlitching(true);
+    setPhase('exit');
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % words.length);
+      setPhase('enter');
       setTimeout(() => {
+        setPhase('visible');
         setIsGlitching(false);
-      }, 200);
-    }, 350);
+      }, 250);
+    }, 300);
   }, [words.length]);
 
   useEffect(() => {
@@ -46,6 +49,13 @@ const GlitchText: React.FC<GlitchTextProps> = ({
     return 0.65;
   };
 
+  const phaseStyles: React.CSSProperties =
+    phase === 'enter'
+      ? { opacity: 0, transform: `translateY(8px) scale(0.9)`, filter: 'blur(4px)' }
+      : phase === 'exit'
+        ? { opacity: 0, transform: `translateY(-8px) scale(0.9)`, filter: 'blur(4px)' }
+        : { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0px)' };
+
   return (
     <span
       ref={containerRef}
@@ -57,29 +67,18 @@ const GlitchText: React.FC<GlitchTextProps> = ({
         textAlign: 'center'
       }}
     >
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={currentIndex}
-          className={`glitch-text ${isGlitching ? 'glitching' : ''}`}
-          initial={{ opacity: 0, y: 8, filter: 'blur(4px)', scale: 0.9 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            scale: 1
-          }}
-          exit={{ opacity: 0, y: -8, filter: 'blur(4px)', scale: 0.9 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          data-text={currentWord}
-          style={{
-            display: 'inline-block',
-            fontSize: `${getFontScale()}em`,
-            transition: 'font-size 0.3s ease'
-          }}
-        >
-          {currentWord}
-        </motion.span>
-      </AnimatePresence>
+      <span
+        className={`glitch-text ${isGlitching ? 'glitching' : ''}`}
+        data-text={currentWord}
+        style={{
+          display: 'inline-block',
+          fontSize: `${getFontScale()}em`,
+          transition: 'opacity 0.25s ease-out, transform 0.25s ease-out, filter 0.25s ease-out, font-size 0.3s ease',
+          ...phaseStyles,
+        }}
+      >
+        {currentWord}
+      </span>
 
       <style jsx>{`
         .glitch-wrapper {
