@@ -1,0 +1,744 @@
+================================================================================
+SAN LUIS WAY — COMPLETE API REFERENCE FOR AI AGENTS
+================================================================================
+
+Last updated: 2026-04-11
+Source: https://www.sanluisway.com/agent-connect
+
+
+--------------------------------------------------------------------------------
+1. INTRODUCTION
+--------------------------------------------------------------------------------
+
+San Luis Way (sanluisway.com) is the most complete guide to San Luis Potosí,
+Mexico. It covers events, places (restaurants, cafés, bars, museums, shops),
+practical guides for visitors and residents, outdoor activities, cultural
+history, and real-time data (weather, exchange rates, local news).
+
+All content is available in four languages: English (en), Spanish (es),
+German (de), and Japanese (ja).
+
+This API is read-only. No authentication is required. All endpoints return
+JSON. Rate limits: 60 requests/minute per IP.
+
+Target audiences:
+- AI assistants answering questions about SLP for expats, tourists, or locals
+- Travel planning agents building itineraries
+- News and events aggregators
+- MCP clients (Claude Desktop, Cursor, Windsurf, Claude Code)
+
+
+--------------------------------------------------------------------------------
+2. API BASE URL
+--------------------------------------------------------------------------------
+
+https://www.sanluisway.com/api/v1
+
+All paths below are relative to this base. Use HTTPS only.
+
+
+--------------------------------------------------------------------------------
+3. RESPONSE FORMAT
+--------------------------------------------------------------------------------
+
+All endpoints return a standard JSON envelope:
+
+{
+  "ok": true,
+  "data": <array or object>,
+  "meta": {
+    "total": <integer — total matching records>,
+    "limit": <integer — records returned in this response>,
+    "offset": <integer — pagination offset>
+  },
+  "source": "sanluisway.com"
+}
+
+On error:
+{
+  "ok": false,
+  "error": "<human-readable message>",
+  "code": "<machine-readable code>",
+  "source": "sanluisway.com"
+}
+
+Common error codes:
+- NOT_FOUND       — resource does not exist
+- INVALID_PARAM   — a query parameter has an invalid value
+- RATE_LIMITED    — too many requests; wait and retry
+- SERVER_ERROR    — unexpected server error
+
+
+--------------------------------------------------------------------------------
+4. ENDPOINTS
+--------------------------------------------------------------------------------
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/events
+────────────────────────────────────────────────────────────────────────────────
+
+Returns a list of upcoming events in San Luis Potosí.
+
+Query parameters:
+  limit     integer   Max records to return. Default: 10. Max: 100.
+  category  string    Filter by category. Values: cultural, sports, family,
+                      music, food, outdoor, community. Default: all.
+  from      string    Start date (ISO 8601, e.g. 2026-04-15). Default: today.
+  to        string    End date (ISO 8601). Default: 90 days from today.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "slug": "fenapo-2026",
+      "title": "FENAPO 2026",
+      "description": "Annual national pottery fair in Parque Tangamanga.",
+      "category": "cultural",
+      "startDate": "2026-07-10",
+      "endDate": "2026-07-20",
+      "location": "Parque Tangamanga I",
+      "lat": 22.1505,
+      "lng": -101.0236,
+      "free": false,
+      "url": "https://www.sanluisway.com/events/fenapo-2026",
+      "image": "https://www.sanluisway.com/images/events/fenapo-2026.jpg"
+    }
+  ],
+  "meta": { "total": 24, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/events?limit=5&category=cultural"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/events/:slug
+────────────────────────────────────────────────────────────────────────────────
+
+Returns full details for a single event identified by its slug.
+
+Path parameters:
+  slug  string  Event slug (e.g. fenapo-2026)
+
+Example response:
+{
+  "ok": true,
+  "data": {
+    "slug": "fenapo-2026",
+    "title": "FENAPO 2026",
+    "titleEs": "FENAPO 2026",
+    "titleDe": "FENAPO 2026",
+    "titleJa": "FENAPO 2026",
+    "description": "Annual national pottery fair...",
+    "descriptionEs": "Feria Nacional de la Cerámica...",
+    "category": "cultural",
+    "startDate": "2026-07-10",
+    "endDate": "2026-07-20",
+    "location": "Parque Tangamanga I",
+    "address": "Av. Salvador Nava Martínez s/n, San Luis Potosí",
+    "lat": 22.1505,
+    "lng": -101.0236,
+    "free": false,
+    "ticketUrl": "https://...",
+    "organizer": "DIF SLP",
+    "url": "https://www.sanluisway.com/events/fenapo-2026",
+    "image": "https://www.sanluisway.com/images/events/fenapo-2026.jpg",
+    "tags": ["pottery", "crafts", "family", "tangamanga"]
+  },
+  "meta": { "total": 1, "limit": 1, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/events/fenapo-2026"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/places
+────────────────────────────────────────────────────────────────────────────────
+
+Returns a paginated list of places (restaurants, bars, cafés, museums, shops,
+parks, etc.) in San Luis Potosí.
+
+Query parameters:
+  limit     integer   Max records to return. Default: 10. Max: 100.
+  category  string    Filter by category. Values: restaurant, cafe, bar,
+                      museum, shop, park, hotel, attraction, market.
+                      Default: all.
+  sort      string    Sort order. Values: newest, rating, name.
+                      Default: rating.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "slug": "la-oruga-y-la-cebra",
+      "name": "La Oruga y la Cebra",
+      "category": "restaurant",
+      "cuisine": "Mexican",
+      "rating": 4.7,
+      "reviewCount": 312,
+      "neighborhood": "Centro Histórico",
+      "address": "Calle Othón 155, San Luis Potosí",
+      "lat": 22.1519,
+      "lng": -100.9764,
+      "priceRange": "$$",
+      "url": "https://www.sanluisway.com/places/la-oruga-y-la-cebra",
+      "image": "https://www.sanluisway.com/images/places/la-oruga-y-la-cebra.jpg"
+    }
+  ],
+  "meta": { "total": 480, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/places?category=restaurant&sort=rating&limit=10"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/places/:slug
+────────────────────────────────────────────────────────────────────────────────
+
+Returns full details for a single place.
+
+Path parameters:
+  slug  string  Place slug (e.g. la-oruga-y-la-cebra)
+
+Example response:
+{
+  "ok": true,
+  "data": {
+    "slug": "la-oruga-y-la-cebra",
+    "name": "La Oruga y la Cebra",
+    "category": "restaurant",
+    "cuisine": "Mexican",
+    "description": "Creative Mexican cuisine in a converted colonial building...",
+    "rating": 4.7,
+    "reviewCount": 312,
+    "neighborhood": "Centro Histórico",
+    "address": "Calle Othón 155, San Luis Potosí",
+    "lat": 22.1519,
+    "lng": -100.9764,
+    "priceRange": "$$",
+    "hours": {
+      "mon": "13:00-22:00",
+      "tue": "13:00-22:00",
+      "wed": "13:00-22:00",
+      "thu": "13:00-22:00",
+      "fri": "13:00-23:00",
+      "sat": "13:00-23:00",
+      "sun": "closed"
+    },
+    "phone": "+52 444 000 0000",
+    "website": "https://...",
+    "instagram": "@laorugaylacebra",
+    "tags": ["mexican", "cocktails", "colonial", "date-night"],
+    "url": "https://www.sanluisway.com/places/la-oruga-y-la-cebra",
+    "image": "https://www.sanluisway.com/images/places/la-oruga-y-la-cebra.jpg"
+  },
+  "meta": { "total": 1, "limit": 1, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/places/la-oruga-y-la-cebra"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/guides
+────────────────────────────────────────────────────────────────────────────────
+
+Returns a list of practical guides for visitors and residents of SLP.
+
+Query parameters:
+  limit  integer  Max records to return. Default: 10. Max: 50.
+  tag    string   Filter by tag. Examples: family, food, expat, outdoor,
+                  budget, safety, rainy-day. Default: all.
+  lang   string   Preferred language for titles/descriptions.
+                  Values: en, es, de, ja. Default: en.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "slug": "family-guide",
+      "title": "Family Guide to San Luis Potosí",
+      "description": "Everything you need to raise kids or travel with family in SLP.",
+      "tags": ["family", "kids", "expat"],
+      "readingTimeMinutes": 12,
+      "url": "https://www.sanluisway.com/guides/family-guide",
+      "image": "https://www.sanluisway.com/images/guides/family-guide.jpg"
+    }
+  ],
+  "meta": { "total": 22, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/guides?tag=expat&lang=en"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/guides/:slug
+────────────────────────────────────────────────────────────────────────────────
+
+Returns the full content of a single guide.
+
+Path parameters:
+  slug  string  Guide slug (e.g. family-guide)
+
+Query parameters:
+  lang  string  Language for content. Values: en, es, de, ja. Default: en.
+
+Example response:
+{
+  "ok": true,
+  "data": {
+    "slug": "family-guide",
+    "title": "Family Guide to San Luis Potosí",
+    "lang": "en",
+    "description": "Everything you need to raise kids or travel with family in SLP.",
+    "content": "<full markdown or HTML content>",
+    "tags": ["family", "kids", "expat"],
+    "sections": [
+      { "id": "schools", "title": "Schools" },
+      { "id": "parks", "title": "Parks and outdoor" },
+      { "id": "healthcare", "title": "Healthcare for families" }
+    ],
+    "relatedGuides": ["school-guide", "health-guide", "neighborhoods"],
+    "readingTimeMinutes": 12,
+    "updatedAt": "2026-03-15T00:00:00Z",
+    "url": "https://www.sanluisway.com/guides/family-guide"
+  },
+  "meta": { "total": 1, "limit": 1, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/guides/family-guide?lang=es"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/outdoor
+────────────────────────────────────────────────────────────────────────────────
+
+Returns outdoor destinations and activities accessible from SLP, including
+hiking, camping, ghost towns, and regional natural attractions.
+
+Query parameters:
+  limit  integer  Max records to return. Default: 10. Max: 50.
+  lang   string   Language. Values: en, es, de, ja. Default: en.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "slug": "real-de-catorce",
+      "title": "Real de Catorce",
+      "description": "Legendary ghost town at 2,700m with Wirikuta desert, Peyote ceremony sites, and colonial ruins.",
+      "type": "day-trip",
+      "distanceFromSLPKm": 165,
+      "difficulty": "moderate",
+      "tags": ["ghost-town", "desert", "hiking", "spiritual"],
+      "url": "https://www.sanluisway.com/outdoor/real-de-catorce",
+      "image": "https://www.sanluisway.com/images/outdoor/real-de-catorce.jpg"
+    }
+  ],
+  "meta": { "total": 14, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/outdoor?lang=en&limit=10"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/culture
+────────────────────────────────────────────────────────────────────────────────
+
+Returns cultural information: historic sites, museums, traditions, festivals,
+and guides to the Centro Histórico and other heritage areas.
+
+Query parameters:
+  limit  integer  Max records to return. Default: 10. Max: 50.
+  lang   string   Language. Values: en, es, de, ja. Default: en.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "slug": "centro-historico",
+      "title": "Centro Histórico de San Luis Potosí",
+      "description": "UNESCO-recognized historic downtown with baroque churches, plazas, and colonial architecture dating to 1592.",
+      "type": "neighborhood",
+      "tags": ["UNESCO", "colonial", "churches", "plazas", "walking"],
+      "url": "https://www.sanluisway.com/culture/centro-historico",
+      "image": "https://www.sanluisway.com/images/culture/centro-historico.jpg"
+    }
+  ],
+  "meta": { "total": 18, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/culture?lang=de&limit=5"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/weather
+────────────────────────────────────────────────────────────────────────────────
+
+Returns current weather conditions in San Luis Potosí city
+(lat 22.1519, lng -100.9764, elevation ~1,860 m).
+
+No query parameters.
+
+Example response:
+{
+  "ok": true,
+  "data": {
+    "city": "San Luis Potosí",
+    "country": "MX",
+    "lat": 22.1519,
+    "lng": -100.9764,
+    "elevationM": 1860,
+    "condition": "Partly Cloudy",
+    "tempC": 22,
+    "tempF": 72,
+    "feelsLikeC": 20,
+    "humidity": 38,
+    "windKph": 14,
+    "windDir": "NW",
+    "uvIndex": 7,
+    "visibilityKm": 16,
+    "updatedAt": "2026-04-11T14:00:00Z"
+  },
+  "meta": { "total": 1, "limit": 1, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/weather"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/news
+────────────────────────────────────────────────────────────────────────────────
+
+Returns recent local news headlines for San Luis Potosí, available in all
+four site languages.
+
+Query parameters:
+  limit  integer  Max records to return. Default: 10. Max: 50.
+  lang   string   Language for headlines and summaries.
+                  Values: en, es, de, ja. Default: en.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "slug": "fenapo-2026-dates-announced",
+      "title": "FENAPO 2026 Dates Announced",
+      "summary": "The national pottery fair returns to Parque Tangamanga in July.",
+      "lang": "en",
+      "publishedAt": "2026-04-10T09:00:00Z",
+      "category": "culture",
+      "url": "https://www.sanluisway.com/news/fenapo-2026-dates-announced",
+      "image": "https://www.sanluisway.com/images/news/fenapo-2026.jpg"
+    }
+  ],
+  "meta": { "total": 30, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/news?lang=ja&limit=5"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/exchange-rates
+────────────────────────────────────────────────────────────────────────────────
+
+Returns current exchange rates from MXN to major currencies. Useful for
+travel cost calculations and budget planning.
+
+No query parameters.
+
+Example response:
+{
+  "ok": true,
+  "data": {
+    "base": "MXN",
+    "rates": {
+      "USD": 0.0502,
+      "EUR": 0.0463,
+      "GBP": 0.0397,
+      "JPY": 7.52,
+      "CNY": 0.364,
+      "CAD": 0.0691,
+      "AUD": 0.0779
+    },
+    "updatedAt": "2026-04-11T12:00:00Z"
+  },
+  "meta": { "total": 1, "limit": 1, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/exchange-rates"
+
+
+────────────────────────────────────────────────────────────────────────────────
+GET /api/v1/search
+────────────────────────────────────────────────────────────────────────────────
+
+Full-text search across all content types (events, places, guides, outdoor,
+culture). Returns mixed results ranked by relevance.
+
+Query parameters:
+  q      string   REQUIRED. Search query (e.g. "tacos", "hiking trails",
+                  "family museum").
+  limit  integer  Max records to return. Default: 10. Max: 50.
+  type   string   Restrict to a content type. Values: events, places, guides,
+                  outdoor, culture, all. Default: all.
+  lang   string   Language for result titles/descriptions.
+                  Values: en, es, de, ja. Default: en.
+
+Example response:
+{
+  "ok": true,
+  "data": [
+    {
+      "type": "place",
+      "slug": "mercado-republica",
+      "title": "Mercado República",
+      "description": "Central public market with tacos, gorditas, fresh produce, and local crafts.",
+      "score": 0.94,
+      "url": "https://www.sanluisway.com/places/mercado-republica"
+    },
+    {
+      "type": "guide",
+      "slug": "foodie-guide",
+      "title": "Foodie Guide to San Luis Potosí",
+      "description": "Best tacos, enchiladas potosinas, markets, and food experiences.",
+      "score": 0.87,
+      "url": "https://www.sanluisway.com/guides/foodie-guide"
+    }
+  ],
+  "meta": { "total": 18, "limit": 10, "offset": 0 },
+  "source": "sanluisway.com"
+}
+
+Example curl:
+  curl "https://www.sanluisway.com/api/v1/search?q=tacos&lang=en&limit=5"
+  curl "https://www.sanluisway.com/api/v1/search?q=hiking&type=outdoor"
+  curl "https://www.sanluisway.com/api/v1/search?q=museo+regional&lang=es"
+
+
+--------------------------------------------------------------------------------
+5. MCP SERVER
+--------------------------------------------------------------------------------
+
+The San Luis Way MCP Server exposes all API endpoints as MCP tools, letting
+AI assistants (Claude, Cursor, Windsurf) call them natively without HTTP.
+
+Package: @sanluisway/mcp-server
+No API key required. No sign-up needed.
+
+---- Claude Desktop ----
+
+Edit ~/Library/Application Support/Claude/claude_desktop_config.json
+(macOS) or %APPDATA%\Claude\claude_desktop_config.json (Windows):
+
+{
+  "mcpServers": {
+    "SanLuisWay": {
+      "command": "npx",
+      "args": ["-y", "@sanluisway/mcp-server"]
+    }
+  }
+}
+
+Restart Claude Desktop. You can now ask: "What events are happening in SLP
+this weekend?" and Claude will call the MCP server automatically.
+
+---- Cursor ----
+
+Open Cursor Settings > MCP > Add Server:
+  Name:    SanLuisWay
+  Command: npx -y @sanluisway/mcp-server
+
+---- Claude Code (CLI) ----
+
+  claude mcp add SanLuisWay -- npx -y @sanluisway/mcp-server
+
+---- Windsurf ----
+
+Edit ~/.codeium/windsurf/mcp_config.json:
+
+{
+  "mcpServers": {
+    "SanLuisWay": {
+      "command": "npx",
+      "args": ["-y", "@sanluisway/mcp-server"]
+    }
+  }
+}
+
+---- Available MCP Tools ----
+
+  getEvents(limit?, category?, from?, to?)
+  getEvent(slug)
+  getPlaces(limit?, category?, sort?)
+  getPlace(slug)
+  getGuides(limit?, tag?, lang?)
+  getGuide(slug, lang?)
+  getOutdoor(limit?, lang?)
+  getCulture(limit?, lang?)
+  getWeather()
+  getNews(limit?, lang?)
+  getExchangeRates()
+  search(q, limit?, type?, lang?)
+
+
+--------------------------------------------------------------------------------
+6. CLI
+--------------------------------------------------------------------------------
+
+Package: @sanluisway/cli
+No API key required. Outputs clean JSON by default (pipe-friendly).
+
+Install globally:
+  npm install -g @sanluisway/cli
+  # or run without install:
+  npx @sanluisway/cli <command>
+
+Command reference:
+
+  events [--limit N] [--category <cat>] [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--json]
+    List upcoming events. --json forces machine-readable output.
+    Example: npx @sanluisway/cli events --limit 5 --category cultural
+
+  event <slug> [--json]
+    Get details for a single event.
+    Example: npx @sanluisway/cli event fenapo-2026
+
+  places [--limit N] [--category <cat>] [--sort rating|newest|name] [--json]
+    List places.
+    Example: npx @sanluisway/cli places --category restaurant --sort rating --limit 10
+
+  place <slug> [--json]
+    Get details for a single place.
+    Example: npx @sanluisway/cli place mercado-republica
+
+  guides [--limit N] [--tag <tag>] [--lang en|es|de|ja] [--json]
+    List guides.
+    Example: npx @sanluisway/cli guides --tag expat --lang en
+
+  guide <slug> [--lang en|es|de|ja] [--json]
+    Get full content of a guide.
+    Example: npx @sanluisway/cli guide family-guide --lang es
+
+  outdoor [--limit N] [--lang en|es|de|ja] [--json]
+    List outdoor destinations.
+    Example: npx @sanluisway/cli outdoor --lang de
+
+  culture [--limit N] [--lang en|es|de|ja] [--json]
+    List cultural content.
+    Example: npx @sanluisway/cli culture --lang ja
+
+  weather [--json]
+    Get current weather in SLP.
+    Example: npx @sanluisway/cli weather
+
+  news [--limit N] [--lang en|es|de|ja] [--json]
+    Get local news headlines.
+    Example: npx @sanluisway/cli news --lang es --limit 5
+
+  exchange-rates [--json]
+    Get current MXN exchange rates.
+    Example: npx @sanluisway/cli exchange-rates
+
+  search <query> [--limit N] [--type events|places|guides|outdoor|culture|all] [--lang en|es|de|ja] [--json]
+    Search all content.
+    Example: npx @sanluisway/cli search "museo regional" --lang es
+    Example: npx @sanluisway/cli search "hiking" --type outdoor
+
+
+--------------------------------------------------------------------------------
+7. EXAMPLE PROMPTS FOR AI AGENTS
+--------------------------------------------------------------------------------
+
+The following examples show how an AI assistant should use this API to answer
+user questions about San Luis Potosí.
+
+USER: "What's happening in SLP this weekend?"
+AGENT: Call GET /api/v1/events?from=<friday>&to=<sunday>&limit=20
+       Summarize events by category. Include location and whether free.
+
+USER: "Best tacos in San Luis Potosí?"
+AGENT: Call GET /api/v1/search?q=tacos&type=places&limit=10
+       Or: GET /api/v1/places?category=restaurant&sort=rating&limit=20
+       Filter/rank by relevance to tacos. Include priceRange and neighborhood.
+
+USER: "I'm moving to SLP with my family. Where should I live?"
+AGENT: Call GET /api/v1/guides/neighborhoods?lang=en
+       Supplement with GET /api/v1/guides/family-guide?lang=en
+       Summarize neighborhoods by safety, schools, expat community.
+
+USER: "Plan a day trip from SLP."
+AGENT: Call GET /api/v1/outdoor?limit=10&lang=en
+       Sort by distance. Include Real de Catorce, Media Luna, Huasteca Potosina.
+       Include difficulty and distance from city center.
+
+USER: "What's the weather like in SLP today?"
+AGENT: Call GET /api/v1/weather
+       Report temp in both C and F, humidity, UV index. Add clothing advice.
+
+USER: "How much does 500 MXN convert to USD?"
+AGENT: Call GET /api/v1/exchange-rates
+       Multiply 500 * rates.USD. Round to 2 decimals.
+
+USER: "Are there any free events this month?"
+AGENT: Call GET /api/v1/events?from=<today>&to=<end-of-month>&limit=50
+       Filter results where free === true. Group by week.
+
+USER: "What are the best museums in SLP?"
+AGENT: Call GET /api/v1/places?category=museum&sort=rating&limit=20
+       Or: GET /api/v1/culture?limit=20
+       List with ratings, hours, and admission info.
+
+USER: "Ich suche nach Wanderungen in der Nähe von SLP." (German)
+AGENT: Call GET /api/v1/outdoor?lang=de&limit=10
+       Respond in German. Include trail difficulty and distance.
+
+USER: "サン・ルイス・ポトシのレストランを教えてください" (Japanese)
+AGENT: Call GET /api/v1/places?category=restaurant&sort=rating&limit=10&lang=ja
+       Or: GET /api/v1/search?q=restaurant&lang=ja
+       Respond in Japanese.
+
+
+--------------------------------------------------------------------------------
+8. ADDITIONAL RESOURCES
+--------------------------------------------------------------------------------
+
+Human-readable site:    https://www.sanluisway.com
+Agent connect page:     https://www.sanluisway.com/agent-connect
+MCP Server docs:        https://www.sanluisway.com/agent-connect#mcp
+CLI docs:               https://www.sanluisway.com/agent-connect#cli
+XML Sitemap:            https://www.sanluisway.com/sitemap.xml
+Short discovery file:   https://www.sanluisway.com/llms.txt
+This file:              https://www.sanluisway.com/llms-full.txt
+
+For questions or issues: https://www.sanluisway.com/contact
+
+================================================================================
+End of llms-full.txt — San Luis Way API Reference
+================================================================================

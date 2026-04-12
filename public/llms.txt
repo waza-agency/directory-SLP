@@ -1,65 +1,22 @@
 # San Luis Way
+> The most complete guide to San Luis Potosí, Mexico — for AI agents and humans.
 
-> The expat and visitor guide to San Luis Potosí, Mexico — restaurants, places, cultural attractions, events, neighborhoods, and practical living resources for residents and travelers. Bilingual (English / Spanish).
+## Agent Access
+- MCP Server: npx @sanluisway/mcp-server (no API keys needed)
+- CLI: npx @sanluisway/cli (no API keys needed)
+- Docs: https://www.sanluisway.com/agent-connect
+- API Base: https://www.sanluisway.com/api/v1
 
-San Luis Way (sanluisway.com) is an editorial directory focused exclusively on the city and metropolitan area of San Luis Potosí, S.L.P., Mexico. Content is written from the perspective of residents and long-term expats. Most pages are available in both English and Spanish; Spanish routes are prefixed with `/es/`.
+## Available Data (all read-only JSON)
+- Events: upcoming events, festivals, conferences in SLP
+- Places: restaurants, cafés, bars, museums, shops with ratings and reviews
+- Guides: practical visitor and resident guides (family, rainy day, foodie, etc.)
+- Outdoor: hiking, camping, Real de Catorce, Huasteca Potosina
+- Culture: historic sites, museums, Centro Histórico
+- Weather: current conditions in SLP
+- News: local headlines in 4 languages (en, es, de, ja)
+- Exchange Rates: MXN to USD, EUR, GBP, JPY, CNY
 
-## Places & attractions
-
-- [Cultural attractions](https://www.sanluisway.com/cultural-attractions): Museums, theaters, galleries, and historic landmarks in the city
-- [Centro Histórico](https://www.sanluisway.com/centro-historico): Guide to the UNESCO-listed historic downtown
-- [Parque Tangamanga](https://www.sanluisway.com/parque-tangamanga): The city's largest urban park (411 hectares) with trails, lakes, sports facilities
-- [All places](https://www.sanluisway.com/places): Complete searchable directory of places in SLP
-- [Family-friendly activities](https://www.sanluisway.com/family-friendly-activities): Activities and attractions suitable for children
-- [Free events in San Luis Potosí](https://www.sanluisway.com/free-events-san-luis-potosi): Curated list of no-cost events, festivals, and regular happenings
-- [Farmers markets in SLP](https://www.sanluisway.com/farmers-markets-san-luis-potosi): Tianguis, mercados, and organic markets with days and specialties
-
-## Food & restaurants
-
-- [Restaurants](https://www.sanluisway.com/restaurants): Restaurant directory across SLP
-- [Traditional cuisine](https://www.sanluisway.com/traditional-cuisine): Potosino regional dishes — enchiladas potosinas, gorditas, asado de boda, and where to find them
-- [Breakfast spots in San Luis Potosí](https://www.sanluisway.com/breakfast-spots-san-luis-potosi): Where locals have breakfast — traditional, brunch, and specialty coffee
-- [Food festivals in SLP](https://www.sanluisway.com/food-festivals-san-luis-potosi): Annual food festivals — wine, cheese, mezcal, enchiladas, gorditas
-
-## Events
-
-- [All events](https://www.sanluisway.com/events/all): Live event calendar for San Luis Potosí
-- [Cultural events](https://www.sanluisway.com/events/cultural): Concerts, exhibits, theater
-- [Sports events](https://www.sanluisway.com/events/sports): Sporting events and tournaments
-- [Family events](https://www.sanluisway.com/events/family): Family-friendly events
-- [Festival de Primavera 2026](https://www.sanluisway.com/festival-primavera-2026): Annual spring festival
-
-## Cultural guides
-
-- [Cultural overview](https://www.sanluisway.com/cultural): Index of cultural traditions and practices
-- [Festivals](https://www.sanluisway.com/cultural/festivals): Annual festivals and religious celebrations
-- [Music & dance](https://www.sanluisway.com/cultural/music-dance): Traditional and contemporary
-- [Religious practices](https://www.sanluisway.com/cultural/religious-practices): Catholic traditions, Holy Week, Procesión del Silencio
-- [Customs & etiquette](https://www.sanluisway.com/cultural/customs-etiquette): Local social norms
-- [Culinary traditions](https://www.sanluisway.com/cultural/culinary-traditions): Food history and customs
-
-## Living in SLP (expat resources)
-
-- [Resources index](https://www.sanluisway.com/resources): All practical guides for residents
-- [Expat guide](https://www.sanluisway.com/resources/expat-guide): Comprehensive guide for foreigners moving to SLP
-- [Living guide](https://www.sanluisway.com/resources/living-guide): Day-to-day practical information
-- [Neighborhoods](https://www.sanluisway.com/resources/neighborhoods-san-luis-potosi): Where expats live, rent ranges, character of each area
-- [Family guide](https://www.sanluisway.com/resources/family-guide): Living in SLP with children
-- [School guide](https://www.sanluisway.com/resources/school-guide): Public, private, bilingual, and international schools
-- [Health guide](https://www.sanluisway.com/resources/health-guide): Hospitals, clinics, IMSS, private insurance
-- [Safety guide](https://www.sanluisway.com/resources/safety-guide): Public safety information and recommendations
-- [Arrival checklist](https://www.sanluisway.com/resources/arrival-checklist): Step-by-step for new arrivals
-- [Spouse hub](https://www.sanluisway.com/spouse-hub): Resources for trailing spouses
-- [Weekend getaways](https://www.sanluisway.com/weekend-getaways): Day trips and short trips from SLP
-
-## Community
-
-- [Community](https://www.sanluisway.com/community): Community resources and groups
-- [About](https://www.sanluisway.com/about): About San Luis Way
-- [Contact](https://www.sanluisway.com/contact): Contact form
-- [Newsletter](https://www.sanluisway.com/newsletter): Sign up for updates
-
-## Optional
-
-- [Sitemap (XML)](https://www.sanluisway.com/sitemap.xml): Machine-readable sitemap
-- [Sitemap (HTML)](https://www.sanluisway.com/sitemap): Human-readable sitemap
+## Quick Start
+MCP: Add to Claude Desktop config: {"mcpServers":{"SanLuisWay":{"command":"npx","args":["-y","@sanluisway/mcp-server"]}}}
+CLI: npx @sanluisway/cli events --limit 5 --json
