@@ -130,6 +130,11 @@ const nextConfig = {
         destination: '/resources/expat-guide',
         permanent: true,
       },
+      {
+        source: '/events',
+        destination: '/events/all',
+        permanent: true,
+      },
     ];
   },
   env: {

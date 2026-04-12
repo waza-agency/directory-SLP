@@ -90,6 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         featuredBrands: featuredBrandsData || [],
         blogPosts: blogPostsData.slice(0, 6) || [],
       },
+      revalidate: 300,
     };
   } catch (error) {
     logger.error('Error fetching data:', error);
@@ -101,6 +102,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         featuredBrands: [],
         blogPosts: [],
       },
+      revalidate: 60,
     };
   }
 };

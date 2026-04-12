@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,7 +15,7 @@ interface ContactFormData {
   phone?: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'es', ['common'])),

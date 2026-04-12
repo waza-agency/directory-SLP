@@ -29,3 +29,31 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "origin-when-cross-origin"
+
+# CDN cache for static/ISR pages — serve stale while revalidating in background
+[[headers]]
+  for = "/"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=300, stale-while-revalidate=3600"
+
+[[headers]]
+  for = "/events/*"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=300, stale-while-revalidate=3600"
+
+[[headers]]
+  for = "/blog/*"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=300, stale-while-revalidate=3600"
+
+# Long cache for optimized images
+[[headers]]
+  for = "/_next/image*"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=31536000, immutable"
+
+# Long cache for static assets (JS, CSS, fonts)
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=31536000, immutable"

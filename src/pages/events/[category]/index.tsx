@@ -66,6 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         categoryCounts,
         category,
       },
+      revalidate: 300,
     };
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -78,6 +79,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         categoryCounts: empty,
         category: (params?.category as string) || 'all',
       },
+      revalidate: 60,
     };
   }
 };
