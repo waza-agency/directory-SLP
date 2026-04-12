@@ -58,8 +58,10 @@ describe('methodNotAllowed', () => {
   it('returns 405 with error envelope', () => {
     const json = jest.fn();
     const status = jest.fn().mockReturnValue({ json });
-    const res = { status } as any;
+    const setHeader = jest.fn();
+    const res = { status, setHeader } as any;
     methodNotAllowed(res);
+    expect(setHeader).toHaveBeenCalledWith('Allow', 'GET');
     expect(status).toHaveBeenCalledWith(405);
     expect(json).toHaveBeenCalledWith(
       expect.objectContaining({ ok: false, error: expect.objectContaining({ code: 'METHOD_NOT_ALLOWED' }) })

@@ -46,5 +46,6 @@ export function setCacheHeaders(res: NextApiResponse, maxAge = 300): void {
 }
 
 export function methodNotAllowed(res: NextApiResponse): void {
+  res.setHeader('Allow', 'GET');
   res.status(405).json(apiError('METHOD_NOT_ALLOWED', 'Only GET is allowed'));
 }
