@@ -115,7 +115,10 @@
     "otherProjects": "Wazaの他のプロジェクト：",
     "wazaSlogan": "私たちはWAZA。よりクールな世界をコーディング中。",
     "followInstagram": "San Luis WayをInstagramでフォロー（@sanluisway）",
-    "followTiktok": "San Luis WayをTikTokでフォロー（@sanluisway）"
+    "followTiktok": "San Luis WayをTikTokでフォロー（@sanluisway）",
+    "aiAgents": "AIエージェント",
+    "agentConnect": "エージェント接続",
+    "mcpServer": "MCPサーバー"
   },
   "account": {
     "title": "アカウント"

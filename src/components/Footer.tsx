@@ -64,7 +64,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Enhanced Brand Section */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block mb-6 hover-scale transition-transform duration-200">
@@ -204,6 +204,34 @@ export default function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                   {t('footer.contactForm')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* AI Agents Section */}
+          <div className="relative pl-6">
+            <div className="absolute left-0 top-0 w-1 h-16 bg-gradient-to-b from-secondary to-secondary-light rounded-full"></div>
+            <h3 className="text-lg font-bold text-white tracking-wide mb-6">
+              {t('footer.aiAgents')}
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <Link href="/agent-connect" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
+                  <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
+                  {t('footer.agentConnect')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/mcp" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
+                  <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
+                  {t('footer.mcpServer')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/cli" className="text-base text-gray-300 hover:text-secondary transition-all duration-200 hover:translate-x-1 inline-flex items-center group">
+                  <span className="w-1 h-1 bg-secondary/60 rounded-full mr-3 transition-all duration-200 group-hover:bg-secondary group-hover:scale-125"></span>
+                  CLI
                 </Link>
               </li>
             </ul>
