@@ -14,14 +14,14 @@ const mockFetchResponse = (body: unknown) =>
   Promise.resolve({ json: () => Promise.resolve(body) } as Response);
 
 describe('GET /api/v1/weather', () => {
-  const originalKey = process.env.OPENWEATHER_API_KEY;
+  const originalKey = process.env.OPENWEATHERMAP_API_KEY;
 
   beforeEach(() => {
-    process.env.OPENWEATHER_API_KEY = 'test-key';
+    process.env.OPENWEATHERMAP_API_KEY = 'test-key';
   });
 
   afterEach(() => {
-    process.env.OPENWEATHER_API_KEY = originalKey;
+    process.env.OPENWEATHERMAP_API_KEY = originalKey;
     jest.restoreAllMocks();
   });
 
@@ -62,8 +62,8 @@ describe('GET /api/v1/weather', () => {
     expect(status).toHaveBeenCalledWith(405);
   });
 
-  it('returns 503 when OPENWEATHER_API_KEY is not set', async () => {
-    delete process.env.OPENWEATHER_API_KEY;
+  it('returns 503 when OPENWEATHERMAP_API_KEY is not set', async () => {
+    delete process.env.OPENWEATHERMAP_API_KEY;
     const { req, res, status, json } = createMocks('GET');
     await handler(req, res);
     expect(status).toHaveBeenCalledWith(503);

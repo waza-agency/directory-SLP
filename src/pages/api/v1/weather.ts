@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'GET') return methodNotAllowed(res);
 
   try {
-    const apiKey = process.env.OPENWEATHER_API_KEY;
+    const apiKey = process.env.OPENWEATHERMAP_API_KEY;
     if (!apiKey) {
       return res.status(503).json(apiError('SERVICE_UNAVAILABLE', 'Weather service not configured'));
     }

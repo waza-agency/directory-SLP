@@ -1454,7 +1454,17 @@
         "title": "San Luis Way Reiseführer",
         "neighborhoods": "Stadtviertel-Guide →",
         "healthcare": "Gesundheits-Guide →",
-        "expat": "Expat-Grundlagen →"
+        "expat": "Expat-Grundlagen →",
+        "foodie": {
+          "title": "Feinschmecker-Guide",
+          "description": "Entdecke die beste traditionelle und moderne Küche in San Luis Potosí",
+          "badge": "Essen"
+        },
+        "wine": {
+          "title": "Potosiner Weinszene",
+          "description": "Erkunde die aufkommende Weinkultur und die besten Orte in SLP",
+          "badge": "Wein"
+        }
       }
     },
     "cta": {

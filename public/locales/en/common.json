@@ -1489,7 +1489,17 @@
         "title": "San Luis Way Guides",
         "neighborhoods": "Neighborhoods Guide →",
         "healthcare": "Healthcare Guide →",
-        "expat": "Expat Essentials →"
+        "expat": "Expat Essentials →",
+        "foodie": {
+          "title": "Foodie Guide",
+          "description": "Discover the best traditional and modern cuisine in San Luis Potosí",
+          "badge": "Food"
+        },
+        "wine": {
+          "title": "Potosino Wine Scene",
+          "description": "Explore the emerging wine culture and best spots in SLP",
+          "badge": "Wine"
+        }
       }
     },
     "cta": {

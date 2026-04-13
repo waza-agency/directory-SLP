@@ -1506,7 +1506,17 @@
         "title": "San Luis Way ガイド",
         "neighborhoods": "地域ガイド →",
         "healthcare": "医療ガイド →",
-        "expat": "駐在員必須情報 →"
+        "expat": "駐在員必須情報 →",
+        "foodie": {
+          "title": "グルメガイド",
+          "description": "サンルイスポトシの最高の伝統料理とモダン料理を発見",
+          "badge": "グルメ"
+        },
+        "wine": {
+          "title": "ポトシーノワインシーン",
+          "description": "SLPの新興ワイン文化とベストスポットを探索",
+          "badge": "ワイン"
+        }
       }
     },
     "cta": {

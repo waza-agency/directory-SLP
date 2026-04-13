@@ -1489,7 +1489,17 @@
         "title": "Guías de San Luis Way",
         "neighborhoods": "Guía de Colonias →",
         "healthcare": "Guía de Salud →",
-        "expat": "Guía para Expatriados →"
+        "expat": "Guía para Expatriados →",
+        "foodie": {
+          "title": "Guía Gastronómica",
+          "description": "Descubre la mejor cocina tradicional y moderna de San Luis Potosí",
+          "badge": "Comida"
+        },
+        "wine": {
+          "title": "Escena Vinícola Potosina",
+          "description": "Explora la cultura vinícola emergente y los mejores spots en SLP",
+          "badge": "Vino"
+        }
       }
     },
     "cta": {
