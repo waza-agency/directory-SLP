@@ -60,6 +60,13 @@ export default function EventCard({ event, variant = 'grid' }: EventCardProps) {
         <span className={`absolute top-3 right-3 px-2.5 py-1 text-xs font-semibold rounded-full ${catInfo.bg} ${catInfo.text}`}>
           {catInfo.label}
         </span>
+        {/* Family Friendly badge */}
+        {event.family_friendly && (
+          <span className="absolute bottom-3 left-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 flex items-center gap-1">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" /><path d="M15.5 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm3.5 7.5a5.5 5.5 0 00-7 0" /></svg>
+            Family Friendly
+          </span>
+        )}
       </div>
 
       {/* Content */}

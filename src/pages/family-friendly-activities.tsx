@@ -1,17 +1,32 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, CalendarIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import SEO from '@/components/common/SEO';
 import GuideCTA from '@/components/common/GuideCTA';
+import { supabase } from '@/lib/supabase';
+import { Event } from '@/types';
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'es', ['common'])),
-  },
-});
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { data: familyEvents } = await supabase
+    .from('events')
+    .select('*')
+    .eq('family_friendly', true)
+    .gte('end_date', new Date().toISOString())
+    .order('start_date', { ascending: true })
+    .limit(6);
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+      familyEvents: familyEvents || [],
+    },
+    revalidate: 3600,
+  };
+};
 
 const outdoorPlaces = [
   {
@@ -259,7 +274,7 @@ const colorMap: Record<string, { bg: string; border: string; text: string; badge
   orange: { bg: 'bg-orange-50', border: 'border-orange-300', text: 'text-orange-700', badge: 'bg-orange-600' },
 };
 
-export default function FamilyFriendlyActivities() {
+export default function FamilyFriendlyActivities({ familyEvents = [] }: { familyEvents?: Event[] }) {
   const { locale } = useRouter();
   const isEs = locale === 'es';
 
@@ -393,6 +408,7 @@ export default function FamilyFriendlyActivities() {
               { href: '#culture', label: '🎨 Cultural' },
               { href: '#plans', label: isEs ? '📋 Planes' : '📋 Day Plans' },
               { href: '#tips', label: isEs ? '💡 Consejos' : '💡 Tips' },
+              ...(familyEvents.length > 0 ? [{ href: '#events', label: isEs ? '📅 Eventos' : '📅 Events' }] : []),
             ].map((l) => (
               <a key={l.href} href={l.href} className="hover:text-orange-300 transition-colors">{l.label}</a>
             ))}
@@ -514,6 +530,79 @@ export default function FamilyFriendlyActivities() {
             { href: '/resources/family-guide', label: 'Family Guide', labelEs: 'Guía Familiar' },
           ]} />
         </div>
+
+        {/* UPCOMING FAMILY EVENTS */}
+        {familyEvents.length > 0 && (
+          <section className="py-16 bg-green-50" id="events">
+            <div className="container mx-auto px-4 md:px-8 lg:px-16">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 text-center">
+                {isEs ? 'Eventos Familiares Próximos' : 'Upcoming Family Events'}
+              </h2>
+              <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+                {isEs ? 'Eventos especiales para disfrutar en familia' : 'Special events to enjoy with the whole family'}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {familyEvents.map((event) => (
+                  <Link
+                    key={event.id}
+                    href={`/events/${event.category}/${event.id}`}
+                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      {event.image_url ? (
+                        <Image
+                          src={event.image_url}
+                          alt={event.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600" />
+                      )}
+                      <span className="absolute top-3 left-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                        Family Friendly
+                      </span>
+                      {event.cost && (
+                        <span className="absolute top-3 right-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-white text-gray-800">
+                          {event.cost}
+                        </span>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
+                        {event.title}
+                      </h3>
+                      <div className="space-y-1.5 text-sm text-gray-500 mb-3">
+                        <p className="flex items-center gap-1.5">
+                          <CalendarIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                          {new Date(event.start_date).toLocaleDateString(isEs ? 'es-MX' : 'en-US', {
+                            weekday: 'long', month: 'long', day: 'numeric',
+                            timeZone: 'America/Mexico_City',
+                          })}
+                        </p>
+                        <p className="flex items-center gap-1.5">
+                          <MapPinIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                          <span className="truncate">{event.location}</span>
+                        </p>
+                      </div>
+                      {event.description && (
+                        <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <Link
+                  href="/events/community-social"
+                  className="inline-flex items-center gap-2 bg-green-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-green-700 transition-colors"
+                >
+                  {isEs ? 'Ver todos los eventos familiares' : 'View all family events'} →
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="py-16 bg-gradient-to-br from-orange-500 via-pink-500 to-purple-600 text-white">

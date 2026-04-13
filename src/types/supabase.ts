@@ -207,6 +207,9 @@ export interface Database {
           created_at: string
           updated_at: string
           show_in_cultural_calendar: boolean | null
+          family_friendly: boolean
+          cost: string | null
+          organizer: string | null
         }
         Insert: {
           id?: string
@@ -222,6 +225,9 @@ export interface Database {
           created_at?: string
           updated_at?: string
           show_in_cultural_calendar?: boolean | null
+          family_friendly?: boolean
+          cost?: string | null
+          organizer?: string | null
         }
         Update: {
           id?: string
@@ -237,6 +243,9 @@ export interface Database {
           created_at?: string
           updated_at?: string
           show_in_cultural_calendar?: boolean | null
+          family_friendly?: boolean
+          cost?: string | null
+          organizer?: string | null
         }
       }
       featured_photos: {

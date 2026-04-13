@@ -53,13 +53,16 @@ export interface Event {
   start_date: string;
   end_date: string;
   location: string;
-  category: 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'other';
+  category: 'sports' | 'cultural' | 'arts-culture' | 'music' | 'culinary' | 'community-social' | 'wellness' | 'other';
   image_url: string | null;
   featured: boolean;
   place_id?: string | null;
   created_at?: string;
   updated_at?: string;
   show_in_cultural_calendar?: boolean;
+  family_friendly?: boolean;
+  cost?: string | null;
+  organizer?: string | null;
 }
 
 export interface Service {
