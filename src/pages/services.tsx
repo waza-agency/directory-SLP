@@ -353,7 +353,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
         {/* Ad Unit */}
         <section className="py-8 bg-gray-50">
           <div className="container mx-auto px-4">
-            <AdUnit style={{ display: 'block', margin: '0 auto', maxWidth: '728px' }} />
+            <AdUnit placement="mid-content" />
           </div>
         </section>
       </main>

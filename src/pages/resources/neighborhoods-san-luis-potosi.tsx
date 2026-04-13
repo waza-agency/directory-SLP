@@ -829,7 +829,7 @@ export default function NeighborhoodsGuidePage() {
           </section>
 
           <section className="my-8">
-            <AdUnit adFormat="rectangle" style={{ display: 'block', textAlign: 'center', margin: '30px auto', maxWidth: '728px' }} />
+            <AdUnit placement="mid-content" />
           </section>
 
           <GuideCTA relatedLinks={[
