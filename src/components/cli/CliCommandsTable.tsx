@@ -37,7 +37,7 @@ export default function CliCommandsTable() {
             <tbody>
               {COMMANDS.map(({ cmd, key }, i) => (
                 <tr key={key} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  <td className="px-4 py-3 font-mono text-[#6e40c9] whitespace-nowrap">{cmd}</td>
+                  <td className="px-4 py-3 font-mono text-secondary whitespace-nowrap">{cmd}</td>
                   <td className="px-4 py-3 text-gray-600">{t(`cliPage.${key}`)}</td>
                   <td className="px-4 py-3 font-mono text-xs text-gray-500">{t(`cliPage.${key}_flags`)}</td>
                 </tr>

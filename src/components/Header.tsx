@@ -156,6 +156,40 @@ export default function Header() {
               {t('nav.contact')}
             </Link>
 
+            {/* Developer pages */}
+            <div className="pt-3 border-t border-gray-100">
+              <p className="px-3 py-1.5 text-xs font-semibold text-secondary uppercase tracking-wider flex items-center gap-2">
+                {t('nav.developersAgents', 'Developers & Agents')}
+                <span className="px-1.5 py-0.5 text-[9px] font-bold bg-secondary text-white rounded-full">
+                  MCP
+                </span>
+                <span className="px-1.5 py-0.5 text-[9px] font-bold bg-primary text-white rounded-full">
+                  CLI
+                </span>
+              </p>
+              <Link
+                href="/agent-connect"
+                onClick={closeMenu}
+                className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-secondary rounded-lg transition-all duration-150 active:scale-98 font-medium"
+              >
+                {t('nav.agentConnect', 'Agent Connect')}
+              </Link>
+              <Link
+                href="/mcp"
+                onClick={closeMenu}
+                className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-secondary rounded-lg transition-all duration-150 active:scale-98 font-medium"
+              >
+                {t('nav.mcp', 'MCP Server')}
+              </Link>
+              <Link
+                href="/cli"
+                onClick={closeMenu}
+                className="block py-2.5 px-3 text-gray-700 hover:bg-gray-50 hover:text-secondary rounded-lg transition-all duration-150 active:scale-98 font-medium"
+              >
+                {t('nav.cli', 'CLI')}
+              </Link>
+            </div>
+
             <div className="pt-3 border-t border-gray-100">
               <LanguageSwitcher variant="mobile" />
             </div>

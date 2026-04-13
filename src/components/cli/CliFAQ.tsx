@@ -38,7 +38,7 @@ export default function CliFAQ() {
                     {t(`cliPage.${key}q`)}
                   </span>
                   <svg
-                    className={`h-5 w-5 text-[#6e40c9] flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                    className={`h-5 w-5 text-secondary flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

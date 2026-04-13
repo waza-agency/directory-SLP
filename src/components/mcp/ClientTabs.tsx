@@ -78,7 +78,7 @@ export default function ClientTabs() {
               onClick={() => setActive(key)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 active === key
-                  ? 'bg-[#6e40c9] text-white'
+                  ? 'bg-secondary text-white'
                   : 'bg-[#161b22] text-[#8b949e] hover:text-white border border-[#30363d]'
               }`}
             >
@@ -89,7 +89,7 @@ export default function ClientTabs() {
         <div>
           <p className="text-sm text-[#8b949e] mb-2">{t(`mcpPage.${current.descKey}`)}</p>
           {current.isCmd ? (
-            <div className="bg-[#161b22] rounded-lg p-4 font-mono text-xs text-[#3fb950] overflow-x-auto relative border border-[#30363d]">
+            <div className="bg-[#161b22] rounded-lg p-4 font-mono text-xs text-primary overflow-x-auto relative border border-[#30363d]">
               <CopyButton text={current.config} />
               <span className="text-[#8b949e]">$ </span>{current.config}
             </div>

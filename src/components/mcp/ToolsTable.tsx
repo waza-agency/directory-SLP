@@ -37,7 +37,7 @@ export default function ToolsTable() {
             <tbody className="divide-y divide-gray-100">
               {TOOLS.map(({ name, key, params }) => (
                 <tr key={name} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 font-mono text-xs text-[#6e40c9]">{name}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-secondary">{name}</td>
                   <td className="px-4 py-3 text-gray-600">{t(`mcpPage.${key}`)}</td>
                   <td className="px-4 py-3 font-mono text-xs text-gray-500">{params}</td>
                 </tr>

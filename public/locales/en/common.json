@@ -1,5 +1,7 @@
 {
   "agentConnect": {
+    "bannerLabel": "New",
+    "bannerHeadline": "Your AI agent can now access San Luis Way data",
     "bannerCta": "Connect Your Agent",
     "bannerResponse": "→ 12 upcoming events in SLP",
     "bannerTags": "MCP · CLI · OpenClaw",
@@ -60,7 +62,13 @@
     "searchPlaceholder": "Search places, events...",
     "searching": "Searching",
     "dashboard": "Dashboard",
-    "settings": "Settings"
+    "settings": "Settings",
+    "more": "More",
+    "developers": "Developers",
+    "developersAgents": "Developers & Agents",
+    "agentConnect": "Agent Connect",
+    "mcp": "MCP Server",
+    "cli": "CLI"
   },
   "categories": {
     "food": "Food",

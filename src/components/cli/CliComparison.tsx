@@ -17,8 +17,8 @@ export default function CliComparison() {
             <thead>
               <tr className="bg-gray-50 text-left">
                 <th className="px-4 py-3 font-semibold text-gray-700">{t('cliPage.compFeatureHeader')}</th>
-                <th className="px-4 py-3 font-semibold text-[#6e40c9]">{t('cliPage.compCliHeader')}</th>
-                <th className="px-4 py-3 font-semibold text-[#6e40c9]">{t('cliPage.compMcpHeader')}</th>
+                <th className="px-4 py-3 font-semibold text-secondary">{t('cliPage.compCliHeader')}</th>
+                <th className="px-4 py-3 font-semibold text-secondary">{t('cliPage.compMcpHeader')}</th>
               </tr>
             </thead>
             <tbody>

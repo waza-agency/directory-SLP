@@ -1,5 +1,7 @@
 {
   "agentConnect": {
+    "bannerLabel": "Neu",
+    "bannerHeadline": "Dein KI-Agent kann jetzt auf San Luis Way Daten zugreifen",
     "bannerCta": "Verbinde Deinen Agenten",
     "bannerResponse": "→ 12 bevorstehende Veranstaltungen in SLP",
     "bannerTags": "MCP · CLI · OpenClaw",
@@ -60,7 +62,13 @@
     "searchPlaceholder": "Orte, Veranstaltungen suchen...",
     "searching": "Suchen",
     "dashboard": "Dashboard",
-    "settings": "Einstellungen"
+    "settings": "Einstellungen",
+    "more": "Mehr",
+    "developers": "Entwickler",
+    "developersAgents": "Entwickler & Agenten",
+    "agentConnect": "Agent Connect",
+    "mcp": "MCP Server",
+    "cli": "CLI"
   },
   "categories": {
     "food": "Essen",

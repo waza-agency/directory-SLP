@@ -47,10 +47,10 @@ export default function McpPage() {
 
       {/* Hero */}
       <section className="relative py-20 bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0d1117] overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(110,64,201,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,0,122,0.15),transparent_60%)]" />
         <div className="relative container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 bg-[#6e40c9]/20 text-[#a371f7] text-sm font-mono px-4 py-1.5 rounded-full mb-6">
-            <span className="h-2 w-2 rounded-full bg-[#3fb950] animate-pulse" />
+          <div className="inline-flex items-center gap-2 bg-secondary/20 text-[#6666b3] text-sm font-mono px-4 py-1.5 rounded-full mb-6">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
             {t('mcpPage.heroTag')}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -93,8 +93,8 @@ export default function McpPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
             {CAPABILITIES.map(({ key, icon }) => (
               <div key={key} className="bg-gray-50 rounded-xl p-5 text-center hover:shadow-md transition-shadow">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-[#6e40c9]/10 rounded-lg mb-3">
-                  <svg className="w-6 h-6 text-[#6e40c9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-secondary/10 rounded-lg mb-3">
+                  <svg className="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={icon} />
                   </svg>
                 </div>
@@ -118,7 +118,7 @@ export default function McpPage() {
           <div className="space-y-3">
             {PROMPTS.map((key) => (
               <div key={key} className="bg-[#0d1117] rounded-lg px-5 py-3 border border-[#30363d] font-mono text-sm text-[#e6edf3]">
-                <span className="text-[#a371f7]">&gt;</span> {t(`mcpPage.${key}`)}
+                <span className="text-[#6666b3]">&gt;</span> {t(`mcpPage.${key}`)}
               </div>
             ))}
           </div>
@@ -130,7 +130,7 @@ export default function McpPage() {
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('mcpPage.whatIsMcpTitle')}</h2>
           <p className="text-lg text-gray-600 leading-relaxed">{t('mcpPage.whatIsMcpText')}</p>
-          <Link href="/agent-connect" className="inline-block mt-6 text-sm text-[#6e40c9] hover:underline font-medium">
+          <Link href="/agent-connect" className="inline-block mt-6 text-sm text-secondary hover:underline font-medium">
             &larr; {t('agentConnect.pageTitle')}
           </Link>
         </div>

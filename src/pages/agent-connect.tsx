@@ -51,10 +51,10 @@ export default function AgentConnectPage() {
 
       {/* Hero */}
       <section className="relative py-20 bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0d1117] overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(110,64,201,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,0,122,0.15),transparent_60%)]" />
         <div className="relative container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 bg-[#6e40c9]/20 text-[#a371f7] text-sm font-mono px-4 py-1.5 rounded-full mb-6">
-            <span className="h-2 w-2 rounded-full bg-[#3fb950] animate-pulse" />
+          <div className="inline-flex items-center gap-2 bg-secondary/20 text-[#6666b3] text-sm font-mono px-4 py-1.5 rounded-full mb-6">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
             MCP &middot; CLI &middot; OpenClaw
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -75,8 +75,8 @@ export default function AgentConnectPage() {
           {/* MCP card */}
           <div className="rounded-xl border border-[#30363d] bg-[#161b22] p-6">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-[#6e40c9]/20 flex items-center justify-center">
-                <svg className="w-5 h-5 text-[#a371f7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-[#6666b3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
                 </svg>
               </div>
@@ -97,8 +97,8 @@ export default function AgentConnectPage() {
           {/* CLI card */}
           <div className="rounded-xl border border-[#30363d] bg-[#161b22] p-6">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-[#2ea043]/20 flex items-center justify-center">
-                <svg className="w-5 h-5 text-[#3fb950]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
@@ -107,7 +107,7 @@ export default function AgentConnectPage() {
                 <p className="text-sm text-[#8b949e]">{t('agentConnect.cliDesc')}</p>
               </div>
             </div>
-            <div className="bg-[#0d1117] rounded-lg p-3 font-mono text-xs text-[#3fb950] overflow-x-auto relative">
+            <div className="bg-[#0d1117] rounded-lg p-3 font-mono text-xs text-primary overflow-x-auto relative">
               <CopyButton text={CLI_COMMAND} />
               <span className="text-[#8b949e]">$ </span>{CLI_COMMAND}
             </div>
@@ -133,7 +133,7 @@ export default function AgentConnectPage() {
             </div>
             <div>
               <p className="text-xs text-[#8b949e] font-mono mb-1">Terminal</p>
-              <div className="bg-[#0d1117] rounded-lg p-4 font-mono text-xs text-[#3fb950] overflow-x-auto relative border border-[#30363d]">
+              <div className="bg-[#0d1117] rounded-lg p-4 font-mono text-xs text-primary overflow-x-auto relative border border-[#30363d]">
                 <CopyButton text={CLI_COMMAND} />
                 <span className="text-[#8b949e]">$ </span>{CLI_COMMAND}
               </div>
