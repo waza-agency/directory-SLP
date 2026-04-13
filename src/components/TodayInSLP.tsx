@@ -18,6 +18,7 @@ import {
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
 import type { WeatherData, ExchangeRate, NewsHeadline, CommunityNews } from '@/lib/api/dashboard-data';
+import { getTipOfTheDay } from '@/data/daily-tips';
 
 interface TodayEvent {
   id: string;
@@ -133,7 +134,20 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
         { id: '1', text: t('todayInSLP.loadingNews'), summary: '' }
       ];
 
-  const dailyTip = t('todayInSLP.dailyTip');
+  // Auto-rotate news carousel every 8 seconds
+  useEffect(() => {
+    if (tickerHeadlines.length <= 1) return;
+    const interval = setInterval(() => {
+      setNewsIndex(prev => (prev + 1) % tickerHeadlines.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [tickerHeadlines.length]);
+
+  const todayTip = getTipOfTheDay();
+  const dailyTip = locale === 'es' ? todayTip.es
+    : locale === 'de' ? todayTip.de
+    : locale === 'ja' ? todayTip.ja
+    : todayTip.en;
 
   // Default community news fallback
   const defaultCommunityNews: CommunityNews[] = [
