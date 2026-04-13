@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LastUpdated from '@/components/common/LastUpdated';
 import GuideCTA from '@/components/common/GuideCTA';
+import AdUnit from '@/components/common/AdUnit';
 
 export default function HealthGuidePage() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -1038,6 +1039,10 @@ export default function HealthGuidePage() {
                 </details>
               ))}
             </div>
+          </section>
+
+          <section className="my-8">
+            <AdUnit adFormat="rectangle" style={{ display: 'block', textAlign: 'center', margin: '30px auto', maxWidth: '728px' }} />
           </section>
 
           <GuideCTA relatedLinks={[

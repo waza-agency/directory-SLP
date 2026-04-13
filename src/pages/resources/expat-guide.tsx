@@ -148,7 +148,7 @@ export default function ExpatGuidePage() {
 
         <section className="py-4">
           <div className="container mx-auto px-4">
-            <AdUnit adSlot="1234567893" style={{ display: 'block', textAlign: 'center', margin: '20px 0' }} />
+            <AdUnit style={{ display: 'block', textAlign: 'center', margin: '20px 0' }} />
           </div>
         </section>
 
@@ -398,7 +398,7 @@ export default function ExpatGuidePage() {
             </section>
 
             <section className="my-8">
-              <AdUnit adSlot="1234567894" adFormat="rectangle" style={{ display: 'block', textAlign: 'center', margin: '30px auto', maxWidth: '750px', backgroundColor: '#f8fafc', padding: '20px', borderRadius: '8px' }} />
+              <AdUnit adFormat="rectangle" style={{ display: 'block', textAlign: 'center', margin: '30px auto', maxWidth: '750px', backgroundColor: '#f8fafc', padding: '20px', borderRadius: '8px' }} />
             </section>
 
             <GuideCTA relatedLinks={[
@@ -410,7 +410,7 @@ export default function ExpatGuidePage() {
           </div>
 
           <section className="mt-12 mb-8">
-            <AdUnit adSlot="1234567895" style={{ display: 'block', textAlign: 'center', margin: '20px 0' }} />
+            <AdUnit style={{ display: 'block', textAlign: 'center', margin: '20px 0' }} />
           </section>
         </div>
       </main>

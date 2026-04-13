@@ -7,100 +7,78 @@ interface AdUnitProps {
   isRelaxed?: boolean;
 }
 
+const AD_CLIENT = 'ca-pub-7339948154887436';
+const DEFAULT_SLOT = '9795283286';
+const RELAXED_SLOT = '3028550605';
+
 const AdUnit: React.FC<AdUnitProps> = ({
   adSlot,
   adFormat = 'auto',
   style,
-  isRelaxed = false
+  isRelaxed = false,
 }) => {
   const adRef = useRef<HTMLModElement>(null);
   const [isClient, setIsClient] = useState(false);
-  const [adLoaded, setAdLoaded] = useState(false);
+  const pushedRef = useRef(false);
 
-  // Use the relaxed ad slot if isRelaxed is true, otherwise use the default slot
-  const finalAdSlot = isRelaxed ? "3028550605" : (adSlot || "9795283286");
-  const finalAdFormat = isRelaxed ? "autorelaxed" : adFormat;
+  const finalAdSlot = isRelaxed ? RELAXED_SLOT : (adSlot || DEFAULT_SLOT);
+  const finalAdFormat = isRelaxed ? 'autorelaxed' : adFormat;
 
-  // Handle client-side rendering
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!isClient || !adRef.current || adLoaded) return;
+    if (!isClient || !adRef.current || pushedRef.current) return;
 
-    // Check if we're in development mode
-    const isDevelopment = process.env.NODE_ENV === 'development';
+    const el = adRef.current;
 
-    if (isDevelopment) {
-      console.log('AdSense: Development mode detected - ads may not load');
-      // Show placeholder in development
-      if (adRef.current) {
-        adRef.current.innerHTML = `
-          <div style="
-            background: #f3f4f6;
-            border: 2px dashed #d1d5db;
-            padding: 20px;
-            text-align: center;
-            color: #6b7280;
-            border-radius: 8px;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          ">
-            <div>
-              <div style="font-size: 14px; margin-bottom: 5px;">AdSense Ad Placeholder</div>
-              <div style="font-size: 12px;">Slot: ${finalAdSlot}</div>
-              <div style="font-size: 12px;">Format: ${finalAdFormat}</div>
-            </div>
-          </div>
-        `;
+    const pushAd = () => {
+      if (pushedRef.current || el.getAttribute('data-adsbygoogle-status')) return;
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        pushedRef.current = true;
+      } catch {
+        // AdSense may throw if the slot is already filled
       }
+    };
+
+    // If adsbygoogle script is already loaded, push immediately
+    if (window.adsbygoogle) {
+      pushAd();
       return;
     }
 
-    try {
-      // Check if the ad element already has ads loaded
-      const adElement = adRef.current;
-      if (adElement.getAttribute('data-adsbygoogle-status')) {
-        console.log('AdSense: Ad already loaded');
-        return;
+    // Otherwise wait for the lazyOnload script to finish loading
+    const observer = new MutationObserver(() => {
+      if (window.adsbygoogle) {
+        pushAd();
+        observer.disconnect();
       }
+    });
 
-      // Ensure adsbygoogle is available
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
-        console.log('AdSense: Initializing ad unit', { slot: finalAdSlot, format: finalAdFormat });
+    observer.observe(document.head, { childList: true, subtree: true });
 
-        // Push the ad configuration
-        window.adsbygoogle.push({});
-        setAdLoaded(true);
+    // Fallback timeout in case MutationObserver misses it
+    const timer = setTimeout(() => {
+      if (window.adsbygoogle) pushAd();
+      observer.disconnect();
+    }, 8000);
 
-        // Add error handling for ad loading
-        setTimeout(() => {
-          if (adElement && !adElement.getAttribute('data-adsbygoogle-status')) {
-            console.warn('AdSense: Ad may not have loaded properly');
-          }
-        }, 3000);
-      } else {
-        console.error('AdSense: adsbygoogle not available');
-      }
-    } catch (err) {
-      console.error('AdSense: Error initializing ad unit:', err);
-    }
-  }, [isClient, finalAdSlot, finalAdFormat, adLoaded]);
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, [isClient, finalAdSlot, finalAdFormat]);
 
-  // Don't render anything on server-side to prevent hydration issues
-  if (!isClient) {
-    return null;
-  }
+  if (!isClient) return null;
 
   return (
     <ins
       ref={adRef}
       className="adsbygoogle"
       style={style || { display: 'block' }}
-      data-ad-client="ca-pub-7339948154887436"
+      data-ad-client={AD_CLIENT}
       data-ad-slot={finalAdSlot}
       data-ad-format={finalAdFormat}
       data-full-width-responsive="true"
