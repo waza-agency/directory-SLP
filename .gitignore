@@ -60,6 +60,28 @@ tmpclaude-*
 # Playwright MCP
 .playwright-mcp/
 
+# Test screenshots and temporary images (root level only)
+/adsense-*.jpeg
+/page-agent-*.png
+/news-*.png
+/sanluisway-homepage.png
+/fenapo-2026-*.png
+/pexels-carnival.png
+/Captura de pantalla*.png
+/festival-*.png
+
+# Temporary JSON reports
+/psi_mobile*.json
+/sitemaps-report.json
+
+# CLI test artifacts
+packages/cli/test-*.png
+packages/cli/nav-*.yml
+
+# Plugin local state
+.firecrawl/
+.superpowers/
+
 # Claude Code settings (contains API keys and user-specific paths)
 .claude/settings.local.json
 
