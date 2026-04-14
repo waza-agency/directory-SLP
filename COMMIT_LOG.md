@@ -4,6 +4,25 @@ Log detallado de todos los commits realizados en el proyecto San Luis Way.
 
 ---
 
+## DB Update: 2026-04-13
+
+**Descripción:** Agregar eventos familiares de abril a Supabase (family_friendly: true)
+
+**Eventos agregados (6 registros en tabla `events`):**
+- Cuenta que Cuenta — Librerías Gandhi (11 y 18 abril, 12:00 PM, Sucursal Centro / Edificio Ipiña)
+- Cuenta Cuentos: Amigos en todas partes — Gandhi Carranza (12 y 19 abril, 12:00 PM)
+- Ensamble Jóvenes Talentos Potosinos — 18° Festival Música Libre (16 abril, 19:00, Centro de las Artes)
+- 18° Festival Música Libre — Conciertos y Clase Magistral (15-24 abril, Centro de las Artes)
+
+**Acciones realizadas:**
+- Subida de 4 flyers a Supabase Storage (`blog-images/events/`)
+- Inserción de 6 eventos con `family_friendly: true`, `cost: 'Gratis'`
+- Eliminación de 2 duplicados previos con títulos en inglés
+- Actualización de descripciones con copy adaptado de Gandhi
+- Todos aparecen en: `/family-friendly-activities`, `/events/arts-culture`, `/events/music`
+
+---
+
 ## Commit: 7bd6aa8a - 2026-03-25
 
 **Mensaje:** feat: Homepage refactoring + neighborhood pages + social sharing + monetization
