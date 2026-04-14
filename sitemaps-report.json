@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-04-08T03:16:44.902Z",
+  "generatedAt": "2026-04-11T02:47:52.795Z",
   "canonicalIsGlobal": true,
-  "totalPages": 100,
+  "totalPages": 102,
   "pagesSkipped": [
     {
       "route": "/events",
@@ -16,7 +16,7 @@
       "reason": "noindex"
     }
   ],
-  "pagesWithFullSeo": 97,
+  "pagesWithFullSeo": 99,
   "pagesMissingTitle": [],
   "pagesMissingDescription": [],
   "pagesMissingCanonical": [],
