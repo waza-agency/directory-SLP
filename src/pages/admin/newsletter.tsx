@@ -39,6 +39,11 @@ interface GeneratedNewsletter {
   html_content?: string;
 }
 
+interface LinkValidation {
+  total_sanluisway_links: number;
+  broken_links_replaced: string[];
+}
+
 export default function NewsletterAdminPage() {
   const [adminKey, setAdminKey] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,6 +62,7 @@ export default function NewsletterAdminPage() {
   const [beehiivResult, setBeehiivResult] = useState<BeehiivResult | null>(null);
   const [generationMessage, setGenerationMessage] = useState('');
   const [generatedNewsletter, setGeneratedNewsletter] = useState<GeneratedNewsletter | null>(null);
+  const [linkValidation, setLinkValidation] = useState<LinkValidation | null>(null);
   const [copied, setCopied] = useState(false);
   const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
   const [showEditor, setShowEditor] = useState(false);
@@ -127,6 +133,7 @@ export default function NewsletterAdminPage() {
     setBeehiivResult(null);
     setGenerationMessage('');
     setGeneratedNewsletter(null);
+    setLinkValidation(null);
     setCopied(false);
 
     try {
@@ -163,6 +170,7 @@ export default function NewsletterAdminPage() {
         setBeehiivResult(data.beehiiv);
         setGenerationMessage(data.message);
         setGeneratedNewsletter(data.newsletter);
+        setLinkValidation(data.link_validation || null);
       } else {
         throw new Error(data.error || data.message || 'Failed to generate');
       }
@@ -599,6 +607,37 @@ export default function NewsletterAdminPage() {
                   <div className="mb-8 p-6 rounded-lg bg-green-50 border border-green-200">
                     <h3 className="font-bold text-lg mb-2">Newsletter Generated!</h3>
                     <p className="text-gray-700 mb-4">{generationMessage}</p>
+
+                    {/* Link Validation Summary */}
+                    {linkValidation && (
+                      linkValidation.broken_links_replaced.length > 0 ? (
+                        <div className="mb-4 p-4 rounded-lg bg-amber-50 border border-amber-300">
+                          <div className="flex items-start gap-2">
+                            <span className="text-amber-600 text-xl">⚠️</span>
+                            <div className="flex-1">
+                              <p className="font-semibold text-amber-900 mb-1">
+                                {linkValidation.broken_links_replaced.length} broken link{linkValidation.broken_links_replaced.length === 1 ? '' : 's'} detected and replaced
+                              </p>
+                              <p className="text-sm text-amber-800 mb-2">
+                                The AI generated {linkValidation.total_sanluisway_links} sanluisway.com links. {linkValidation.broken_links_replaced.length} returned 404 and were automatically replaced with https://www.sanluisway.com/events.
+                              </p>
+                              <details className="text-sm">
+                                <summary className="cursor-pointer text-amber-900 font-medium">View replaced links</summary>
+                                <ul className="mt-2 ml-4 list-disc text-amber-800 font-mono text-xs space-y-1">
+                                  {linkValidation.broken_links_replaced.map((url) => (
+                                    <li key={url} className="break-all">{url}</li>
+                                  ))}
+                                </ul>
+                              </details>
+                            </div>
+                          </div>
+                        </div>
+                      ) : linkValidation.total_sanluisway_links > 0 ? (
+                        <div className="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-300 text-sm text-emerald-900">
+                          ✅ All {linkValidation.total_sanluisway_links} sanluisway.com link{linkValidation.total_sanluisway_links === 1 ? '' : 's'} verified (200 OK)
+                        </div>
+                      ) : null
+                    )}
 
                     {/* Subject with copy button */}
                     <div className="mb-4">

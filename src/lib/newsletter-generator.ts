@@ -137,10 +137,10 @@ export const CLOSING_AND_FOOTER_HTML = `
                     </a>
                   </td>
                   <td width="33%" style="text-align: center; padding: 10px;">
-                    <a href="https://www.sanluisway.com/directory" style="text-decoration: none;">
+                    <a href="https://www.sanluisway.com/places" style="text-decoration: none;">
                       <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; border: 1px solid #E5E7EB;">
                         <span style="font-size: 24px;">📍</span>
-                        <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Directory</p>
+                        <p style="margin: 8px 0 0 0; font-size: 13px; color: #1F2937; font-weight: bold;">Places</p>
                       </div>
                     </a>
                   </td>
@@ -1008,63 +1008,173 @@ export async function fetchAdsForPlacement(
   }
 }
 
-// Function to validate and clean URLs in HTML
-function validateAndCleanUrls(html: string): string {
-  let cleaned = html;
+// Known-good fallback URLs for broken/unverified links
+const FALLBACK_URL = 'https://www.sanluisway.com/events';
 
-  // Allowed domains for external links
-  const allowedDomains = [
-    'sanluisway.com',
-    'www.sanluisway.com',
-    'facebook.com',
-    'instagram.com',
-    'twitter.com',
-    'tiktok.com',
-    'google.com',
-    'maps.google.com',
-    'maps.app.goo.gl',
-    'goo.gl',
-    'ticketmaster.com.mx',
-    'superboletos.com',
-    'eventbrite.com',
-    'eventbrite.com.mx',
-  ];
+// Allowed external domains (links to these are kept even if we can't HEAD-check them)
+const ALLOWED_EXTERNAL_DOMAINS = [
+  'facebook.com',
+  'instagram.com',
+  'twitter.com',
+  'x.com',
+  'tiktok.com',
+  'youtube.com',
+  'youtu.be',
+  'google.com',
+  'maps.google.com',
+  'maps.app.goo.gl',
+  'goo.gl',
+  'wa.me',
+  'ticketmaster.com.mx',
+  'superboletos.com',
+  'eventbrite.com',
+  'eventbrite.com.mx',
+];
 
-  // Find all href attributes and validate them
+// Template placeholders that are legitimate and should be skipped by the validator.
+// These are replaced later in the pipeline (e.g., by Beehiiv for unsubscribe/preferences).
+const LEGITIMATE_PLACEHOLDERS = new Set([
+  '[UNSUBSCRIBE_URL]',
+  '[PREFERENCES_URL]',
+]);
+
+// Substrings that mark a URL as an unfilled placeholder or obvious dummy.
+// Used only when the href is NOT in LEGITIMATE_PLACEHOLDERS.
+const PLACEHOLDER_SUBSTRINGS = ['example.com', 'placeholder', 'test.com', 'your-site', 'yoursite'];
+
+function looksLikePlaceholder(url: string): boolean {
+  if (LEGITIMATE_PLACEHOLDERS.has(url)) return false;
+  if (/\[[^\]]+\]/.test(url)) return true;
+  const lowered = url.toLowerCase();
+  return PLACEHOLDER_SUBSTRINGS.some((p) => lowered.includes(p));
+}
+
+function isDomainAllowed(url: string): boolean {
+  try {
+    const { hostname } = new URL(url);
+    return ALLOWED_EXTERNAL_DOMAINS.some(
+      (domain) => hostname === domain || hostname.endsWith('.' + domain)
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Verifies a single sanluisway.com URL by issuing a HEAD request.
+ * Follows redirects (a 200 after redirect is still considered valid).
+ * Times out after 5 seconds to avoid hanging the newsletter build.
+ */
+async function isSanluiswayUrlValid(url: string): Promise<boolean> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const resp = await fetch(url, {
+      method: 'HEAD',
+      redirect: 'follow',
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    return resp.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Statically cleans placeholder/suspicious URLs. Synchronous pass used for
+ * obvious pattern-based cleanup before we call the async validator.
+ */
+function staticallyCleanUrls(html: string): string {
   const hrefRegex = /href=["']([^"']+)["']/gi;
-  cleaned = cleaned.replace(hrefRegex, (match, url) => {
+  return html.replace(hrefRegex, (match, url) => {
     // Allow anchor links and mailto
     if (url.startsWith('#') || url.startsWith('mailto:')) {
       return match;
     }
 
-    // Allow sanluisway.com URLs
+    // Allow legitimate template placeholders (Beehiiv replaces these later)
+    if (LEGITIMATE_PLACEHOLDERS.has(url)) {
+      return match;
+    }
+
+    // Catch unfilled placeholders and obvious dummies (e.g. [LINK_1], example.com)
+    if (looksLikePlaceholder(url)) {
+      return `href="${FALLBACK_URL}"`;
+    }
+
+    // Allow sanluisway.com URLs (the async validator will HEAD-check these)
     if (url.includes('sanluisway.com')) {
       return match;
     }
 
-    // Check if URL is from allowed domains
-    try {
-      const urlObj = new URL(url);
-      const isAllowed = allowedDomains.some(domain =>
-        urlObj.hostname === domain || urlObj.hostname.endsWith('.' + domain)
-      );
-      if (isAllowed) {
-        return match;
-      }
-    } catch {
-      // Invalid URL - replace with events page
+    if (isDomainAllowed(url)) {
+      return match;
     }
 
-    // For unverified external links, replace with our events page
-    return 'href="https://www.sanluisway.com/events"';
+    // Unknown external domain - replace with fallback
+    return `href="${FALLBACK_URL}"`;
   });
+}
 
-  // Remove any remaining placeholder-looking links (containing brackets or suspicious patterns)
-  cleaned = cleaned.replace(/href=["'][^"']*(?:\[|\]|example\.com|placeholder|test\.com)[^"']*["']/gi,
-    'href="https://www.sanluisway.com/events"');
+export interface LinkValidationResult {
+  html: string;
+  brokenLinks: string[];
+  totalSanluiswayLinks: number;
+}
 
-  return cleaned;
+/**
+ * Asynchronously verifies every sanluisway.com link in the HTML by issuing
+ * HEAD requests. Any link that returns non-2xx is replaced with FALLBACK_URL.
+ * Deduplicates URLs so we don't check the same one twice.
+ */
+async function verifySanluiswayLinks(html: string): Promise<LinkValidationResult> {
+  const hrefRegex = /href=["'](https?:\/\/(?:www\.)?sanluisway\.com[^"']*)["']/gi;
+  const urlsInHtml = new Set<string>();
+  let match;
+  while ((match = hrefRegex.exec(html)) !== null) {
+    urlsInHtml.add(match[1]);
+  }
+
+  if (urlsInHtml.size === 0) {
+    return { html, brokenLinks: [], totalSanluiswayLinks: 0 };
+  }
+
+  const uniqueUrls = Array.from(urlsInHtml);
+  console.log(`   🔍 Verifying ${uniqueUrls.length} sanluisway.com link(s)...`);
+
+  const results = await Promise.all(
+    uniqueUrls.map(async (url) => ({ url, valid: await isSanluiswayUrlValid(url) }))
+  );
+
+  const brokenUrls = results.filter((r) => !r.valid).map((r) => r.url);
+  if (brokenUrls.length === 0) {
+    console.log('   ✅ All sanluisway.com links verified (200 OK)');
+    return { html, brokenLinks: [], totalSanluiswayLinks: uniqueUrls.length };
+  }
+
+  console.warn(`   ⚠️ Found ${brokenUrls.length} broken link(s), replacing with fallback:`);
+  brokenUrls.forEach((u) => console.warn(`      - ${u} → ${FALLBACK_URL}`));
+
+  let cleaned = html;
+  for (const brokenUrl of brokenUrls) {
+    // Replace only the href="..." occurrences, preserve the rest of the HTML
+    const escaped = brokenUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const replaceRegex = new RegExp(`href=["']${escaped}["']`, 'gi');
+    cleaned = cleaned.replace(replaceRegex, `href="${FALLBACK_URL}"`);
+  }
+
+  return { html: cleaned, brokenLinks: brokenUrls, totalSanluiswayLinks: uniqueUrls.length };
+}
+
+/**
+ * Full URL validation pipeline: static cleanup followed by async HEAD
+ * verification of all remaining sanluisway.com links. Returns the cleaned
+ * HTML plus diagnostic info (broken links that were replaced).
+ */
+async function validateAndCleanUrls(html: string): Promise<LinkValidationResult> {
+  const staticPass = staticallyCleanUrls(html);
+  return verifySanluiswayLinks(staticPass);
 }
 
 // Function to rewrite custom content in a friendly tone using AI
@@ -2124,9 +2234,10 @@ Overall Summary: ${weatherForecast.summary}
   console.log('6. 🧹 Cleaning HTML for Beehiiv compatibility...');
   htmlContent = cleanHtmlForBeehiiv(htmlContent);
 
-  // Validate and clean URLs
+  // Validate and clean URLs (static cleanup + async HEAD verification of sanluisway.com links)
   console.log('7. 🔗 Validating and cleaning URLs...');
-  htmlContent = validateAndCleanUrls(htmlContent);
+  const linkValidation = await validateAndCleanUrls(htmlContent);
+  htmlContent = linkValidation.html;
 
   // Extract and save content to avoid repetition in future newsletters
   console.log('7. 💾 Extracting and saving content to prevent repetition...');
@@ -2283,6 +2394,10 @@ Overall Summary: ${weatherForecast.summary}
   return {
     subject: `San Luis Way Weekly | ${dateRangeStr}`,
     html_content: htmlContent,
-    date_range: dateRangeStr
+    date_range: dateRangeStr,
+    link_validation: {
+      total_sanluisway_links: linkValidation.totalSanluiswayLinks,
+      broken_links_replaced: linkValidation.brokenLinks,
+    },
   };
 }
