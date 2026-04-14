@@ -205,7 +205,7 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
                       Understanding service costs is crucial when planning your move to SLP. Our comprehensive guide breaks down real costs for utilities, healthcare, transportation, and more.
                     </p>
                     <a
-                      href="/blog/costo-de-vida-san-luis-potosi-2025"
+                      href="/blog/cost-of-living-san-luis-potosi-2025"
                       className="inline-flex items-center text-green-600 hover:text-green-800 font-semibold transition-colors"
                     >
                       View 2025 Cost of Living Analysis →

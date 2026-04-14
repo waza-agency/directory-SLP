@@ -286,7 +286,7 @@ const CulturalAttractionsPage: NextPage<CulturalAttractionsPageProps> = ({ place
                     Living in San Luis Potosí means enjoying world-class culture at fraction of the cost. Our comprehensive cost of living guide helps you budget for your new lifestyle, including entertainment and cultural activities.
                   </p>
                   <a
-                    href="/blog/costo-de-vida-san-luis-potosi-2025"
+                    href="/blog/cost-of-living-san-luis-potosi-2025"
                     className="inline-flex items-center text-purple-600 hover:text-purple-800 font-semibold transition-colors"
                   >
                     Explore Real Cost of Living in SLP →

@@ -22,10 +22,10 @@ export const cultureSites: CultureSite[] = [
     path: '/cultural/festivals',
   },
   {
-    slug: 'language',
+    slug: 'customs',
     titleKey: 'homepage.culture.language.title',
     descriptionKey: 'homepage.culture.language.description',
     image: '/images/cultura-3.jpg',
-    path: '/cultural/language',
+    path: '/cultural/customs-etiquette',
   },
 ];

@@ -19,7 +19,7 @@ export default function ServiceCards() {
       description: t('serviceCards.culturalImmersion.description'),
       icon: <UserGroupIcon className="w-12 h-12 text-orange-500" />,
       buttonText: t('serviceCards.culturalImmersion.button'),
-      href: '/cultural-experiences',
+      href: '/cultural-attractions',
       buttonClass: 'bg-orange-500 hover:bg-orange-600'
     },
     {

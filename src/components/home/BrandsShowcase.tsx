@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
+import { generateBrandSlug } from '@/lib/brands';
 
 interface Brand {
   id: number;
@@ -10,6 +11,7 @@ interface Brand {
   image_url: string;
   slug: string;
   category?: string;
+  city?: string;
 }
 
 interface BrandsShowcaseProps {
@@ -58,7 +60,7 @@ export default function BrandsShowcase({ brands }: BrandsShowcaseProps) {
                   {brand.description}
                 </p>
                 <Link
-                  href={`/brands/${brand.slug}`}
+                  href={`/brands/${brand.slug || generateBrandSlug(brand.name, brand.category || '', brand.city)}`}
                   className="inline-flex items-center gap-2 text-primary-800 font-semibold hover:gap-3 transition-all"
                   aria-label={`${t('homepage.brands.discoverBrand')}: ${brand.name}`}
                 >

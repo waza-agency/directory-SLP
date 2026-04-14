@@ -319,7 +319,7 @@ export default function LivingGuidePage() {
                     Before moving to SLP, it's essential to understand the real cost of living. Our comprehensive 2025 analysis covers housing, food, transportation, healthcare, and more.
                   </p>
                   <a
-                    href="/blog/costo-de-vida-san-luis-potosi-2025"
+                    href="/blog/cost-of-living-san-luis-potosi-2025"
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors"
                   >
                     Read the Complete Cost of Living Analysis →

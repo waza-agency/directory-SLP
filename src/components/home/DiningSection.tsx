@@ -15,7 +15,7 @@ export default function DiningSection() {
     {
       key: 'modern',
       image: '/images/restaurants-and-bars/modern-restaurants.webp',
-      link: '/modern-dining'
+      link: '/restaurants'
     },
     {
       key: 'cocktails',

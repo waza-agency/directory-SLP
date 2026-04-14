@@ -547,7 +547,7 @@ const WeekendGetawaysPage: NextPage = () => {
               <div className="p-6">
                 <h3 className="font-bold text-xl mb-2">Cultural Experiences</h3>
                 <p className="text-gray-600 mb-4">Immerse yourself in the rich cultural heritage, museums, and historical sites of the region.</p>
-                <Link href="/cultural-experiences" className="text-primary hover:underline font-medium inline-flex items-center">
+                <Link href="/cultural-attractions" className="text-primary hover:underline font-medium inline-flex items-center">
                   Discover Culture
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
