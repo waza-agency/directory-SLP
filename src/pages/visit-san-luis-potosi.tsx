@@ -159,16 +159,36 @@ export default function VisitSanLuisPotosiPage() {
                 <p className="text-gray-600 mb-6">{t('visitGuide.attractions.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    { href: '/centro-historico', nameKey: 'visitGuide.attractions.centro', descKey: 'visitGuide.attractions.centroDesc' },
-                    { href: '/parque-tangamanga', nameKey: 'visitGuide.attractions.tangamanga', descKey: 'visitGuide.attractions.tangamangaDesc' },
-                    { href: '/cultural-attractions', nameKey: 'visitGuide.attractions.museums', descKey: 'visitGuide.attractions.museumsDesc' },
-                    { href: '/cultural/history', nameKey: 'visitGuide.attractions.history', descKey: 'visitGuide.attractions.historyDesc' },
+                    { href: '/centro-historico', nameKey: 'visitGuide.attractions.centro', descKey: 'visitGuide.attractions.centroDesc', img: '/images/blog/centro-san-luis/hero-Centro-Historico.jpg' },
+                    { href: '/parque-tangamanga', nameKey: 'visitGuide.attractions.tangamanga', descKey: 'visitGuide.attractions.tangamangaDesc', img: '/images/parque-tangamanga/hero.jpg' },
+                    { href: '/cultural-attractions', nameKey: 'visitGuide.attractions.museums', descKey: 'visitGuide.attractions.museumsDesc', img: '/images/cultural/museo-federico-silva.jpg' },
+                    { href: '/cultural/history', nameKey: 'visitGuide.attractions.history', descKey: 'visitGuide.attractions.historyDesc', img: '/images/cultural/san-luis-potosi-cathedral.jpg' },
                   ].map((a) => (
-                    <Link key={a.href} href={a.href} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <h3 className="font-semibold text-gray-900 mb-2">{t(a.nameKey)}</h3>
-                      <p className="text-sm text-gray-600">{t(a.descKey)}</p>
+                    <Link key={a.href} href={a.href} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="relative aspect-[16/10]">
+                        <Image src={a.img} alt={t(a.nameKey)} fill className="object-cover" />
+                      </div>
+                      <div className="p-5">
+                        <h3 className="font-semibold text-gray-900 mb-2">{t(a.nameKey)}</h3>
+                        <p className="text-sm text-gray-600">{t(a.descKey)}</p>
+                      </div>
                     </Link>
                   ))}
+                </div>
+              </section>
+
+              {/* Video: SLP Travel Guide */}
+              <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <h3 className="font-semibold text-gray-900 mb-3">Descubriendo los secretos de San Luis Potosí</h3>
+                <div className="relative aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/cUmwjwnMf48"
+                    title="Descubriendo los secretos de San Luis Potosí, México"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                    loading="lazy"
+                  />
                 </div>
               </section>
 
@@ -197,6 +217,17 @@ export default function VisitSanLuisPotosiPage() {
               {/* Food & Dining */}
               <section id="food">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.food.title')}</h2>
+                <div className="grid grid-cols-3 gap-3 mb-4">
+                  {[
+                    { src: '/images/food/enchiladas-potosinas.jpg', alt: 'Enchiladas Potosinas' },
+                    { src: '/images/food/asado-de-boda.jpg', alt: 'Asado de Boda' },
+                    { src: '/images/food/street-food-main.jpg', alt: 'Street food in SLP' },
+                  ].map((img) => (
+                    <div key={img.src} className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                    </div>
+                  ))}
+                </div>
                 <p className="text-gray-600 mb-4">{t('visitGuide.food.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {[
@@ -220,11 +251,20 @@ export default function VisitSanLuisPotosiPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.dayTrips.title')}</h2>
                 <p className="text-gray-600 mb-4">{t('visitGuide.dayTrips.intro')}</p>
                 <div className="grid sm:grid-cols-3 gap-4">
-                  {['huasteca', 'realDeCatorce', 'xilitla'].map((key) => (
-                    <div key={key} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-                      <h3 className="font-semibold text-gray-900 mb-2">{t(`visitGuide.dayTrips.${key}.name`)}</h3>
-                      <p className="text-sm text-gray-600 mb-1">{t(`visitGuide.dayTrips.${key}.description`)}</p>
-                      <span className="text-xs text-gray-400">{t(`visitGuide.dayTrips.${key}.distance`)}</span>
+                  {[
+                    { key: 'huasteca', img: '/images/outdoors/huasteca-waterfall.jpg' },
+                    { key: 'realDeCatorce', img: '/images/outdoors/real-de-catorce-main.jpg' },
+                    { key: 'xilitla', img: '/images/outdoors/xilitla.webp' },
+                  ].map(({ key, img }) => (
+                    <div key={key} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                      <div className="relative aspect-[4/3]">
+                        <Image src={img} alt={t(`visitGuide.dayTrips.${key}.name`)} fill className="object-cover" />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-gray-900 mb-2">{t(`visitGuide.dayTrips.${key}.name`)}</h3>
+                        <p className="text-sm text-gray-600 mb-1">{t(`visitGuide.dayTrips.${key}.description`)}</p>
+                        <span className="text-xs text-gray-400">{t(`visitGuide.dayTrips.${key}.distance`)}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -233,9 +273,27 @@ export default function VisitSanLuisPotosiPage() {
                 </Link>
               </section>
 
+              {/* Video: Pueblos Mágicos */}
+              <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <h3 className="font-semibold text-gray-900 mb-3">Pueblos Mágicos de San Luis Potosí</h3>
+                <div className="relative aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/deqYC4PSPEo"
+                    title="Pueblos Mágicos de San Luis Potosí"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                    loading="lazy"
+                  />
+                </div>
+              </section>
+
               {/* Cultural Experiences */}
               <section id="culture">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.culture.title')}</h2>
+                <div className="relative aspect-[21/9] rounded-xl overflow-hidden mb-4">
+                  <Image src="/images/cultural/teatro-de-la-paz.jpg" alt="Teatro de la Paz — San Luis Potosí" fill className="object-cover" />
+                </div>
                 <p className="text-gray-600 mb-4">{t('visitGuide.culture.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {[

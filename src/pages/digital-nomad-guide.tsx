@@ -169,10 +169,39 @@ export default function DigitalNomadGuidePage() {
               {/* Coworking */}
               <section id="coworking">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.coworking.title')}</h2>
+                <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-4">
+                  <Image src="/images/blog/cafes/cafe-sideral.jpg" alt="Cafe Sideral — coworking-friendly cafe in San Luis Potosí" fill className="object-cover" />
+                </div>
                 <p className="text-gray-600 mb-4">{t('nomadGuide.coworking.intro')}</p>
+                <div className="grid sm:grid-cols-3 gap-3 mb-4">
+                  {[
+                    { src: '/images/blog/cafes/capital-coffee.jpg', alt: 'Capital Coffee SLP' },
+                    { src: '/images/blog/cafes/las-castanas-new.jpg', alt: 'Las Castañas cafe' },
+                    { src: '/images/blog/cafes/500-noches.jpg', alt: '500 Noches cafe' },
+                  ].map((img) => (
+                    <div key={img.src} className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                    </div>
+                  ))}
+                </div>
                 <Link href="/category/remote-work-cafes" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
                   {t('nomadGuide.coworking.cta')} →
                 </Link>
+              </section>
+
+              {/* Video: Expats & Nomads in SLP */}
+              <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <h3 className="font-semibold text-gray-900 mb-3">Co-Working Space in San Luis Potosí + Airbnb Tour</h3>
+                <div className="relative aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/F9uCFB5rfmY"
+                    title="Co-Working Space in San Luis Potosí + Airbnb Tour"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                    loading="lazy"
+                  />
+                </div>
               </section>
 
               <AdUnit slot="nomad-guide-mid" />
@@ -257,10 +286,19 @@ export default function DigitalNomadGuidePage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.neighborhoods.title')}</h2>
                 <p className="text-gray-600 mb-4">{t('nomadGuide.neighborhoods.intro')}</p>
                 <div className="grid sm:grid-cols-3 gap-4">
-                  {['lomas', 'centro', 'tangamanga'].map((key) => (
-                    <div key={key} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-                      <h3 className="font-semibold text-gray-900 mb-2">{t(`nomadGuide.neighborhoods.${key}.name`)}</h3>
-                      <p className="text-sm text-gray-600">{t(`nomadGuide.neighborhoods.${key}.description`)}</p>
+                  {[
+                    { key: 'lomas', img: '/images/practical-categories/easy-parking-spots.png' },
+                    { key: 'centro', img: '/images/blog/centro-san-luis/centro-san-luis-potosi-home.jpg' },
+                    { key: 'tangamanga', img: '/images/parque-tangamanga/hero.jpg' },
+                  ].map(({ key, img }) => (
+                    <div key={key} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                      <div className="relative aspect-[4/3]">
+                        <Image src={img} alt={key} fill className="object-cover" />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold text-gray-900 mb-2">{t(`nomadGuide.neighborhoods.${key}.name`)}</h3>
+                        <p className="text-sm text-gray-600">{t(`nomadGuide.neighborhoods.${key}.description`)}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -278,6 +316,21 @@ export default function DigitalNomadGuidePage() {
                 <Link href="/resources/health-guide" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
                   {t('nomadGuide.healthcare.cta')} →
                 </Link>
+              </section>
+
+              {/* Video: SLP for Expats */}
+              <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <h3 className="font-semibold text-gray-900 mb-3">SAN LUIS POTOSI — Expats Are Missing Out on This City!</h3>
+                <div className="relative aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/eDzBdzmiMyQ"
+                    title="SAN LUIS POTOSI — Expats are missing out on this city"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                    loading="lazy"
+                  />
+                </div>
               </section>
 
               {/* Lifestyle */}
