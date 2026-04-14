@@ -193,8 +193,8 @@ const FoodieGuidePage: NextPage = () => {
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
                       <iframe
-                        src="https://www.youtube-nocookie.com/embed/cyhvB9HbmKg"
-                        title="Discover Traditional Potosino Cuisine"
+                        src="https://www.youtube-nocookie.com/embed/XcHbH4IJR7k"
+                        title="Enchiladas Potosinas — Traditional Recipe"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -226,8 +226,8 @@ const FoodieGuidePage: NextPage = () => {
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
                       <iframe
-                        src="https://www.youtube-nocookie.com/embed/N3hPoQ1v_Gg"
-                        title="Experience Modern Fusion Cuisine in SLP"
+                        src="https://www.youtube-nocookie.com/embed/UmqdBVr0M4k"
+                        title="San Luis Potosí — Restaurants and Gastronomy"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -259,8 +259,8 @@ const FoodieGuidePage: NextPage = () => {
                     </div>
                     <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md h-96">
                       <iframe
-                        src="https://www.youtube-nocookie.com/embed/zgz5iamCjSE"
-                        title="Street Food Tour of San Luis Potosí"
+                        src="https://www.youtube-nocookie.com/embed/VnWAETZ7C2k"
+                        title="Enchiladas Potosinas — Simple Recipe with Great Flavor"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
