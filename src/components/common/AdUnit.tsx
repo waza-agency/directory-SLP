@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 type AdPlacement = 'top-banner' | 'mid-content' | 'in-article' | 'sidebar' | 'matched' | 'default';
 
@@ -29,7 +29,6 @@ const AdUnit: React.FC<AdUnitProps> = ({
   className,
 }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const [isClient, setIsClient] = useState(false);
   const pushedRef = useRef(false);
 
   const config = SLOTS[placement];
@@ -37,11 +36,7 @@ const AdUnit: React.FC<AdUnitProps> = ({
   const finalAdFormat = adFormat || config.format;
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient || !adRef.current || pushedRef.current) return;
+    if (!adRef.current || pushedRef.current) return;
 
     const el = adRef.current;
 
@@ -55,32 +50,27 @@ const AdUnit: React.FC<AdUnitProps> = ({
       }
     };
 
-    if (window.adsbygoogle) {
+    if (typeof window !== 'undefined' && window.adsbygoogle) {
       pushAd();
       return;
     }
 
-    const observer = new MutationObserver(() => {
-      if (window.adsbygoogle) {
+    // Poll for the adsbygoogle global while the AdSense script loads.
+    // More reliable than MutationObserver across lazyOnload/afterInteractive.
+    const interval = setInterval(() => {
+      if (typeof window !== 'undefined' && window.adsbygoogle) {
         pushAd();
-        observer.disconnect();
+        clearInterval(interval);
       }
-    });
+    }, 300);
 
-    observer.observe(document.head, { childList: true, subtree: true });
-
-    const timer = setTimeout(() => {
-      if (window.adsbygoogle) pushAd();
-      observer.disconnect();
-    }, 8000);
+    const timeout = setTimeout(() => clearInterval(interval), 15000);
 
     return () => {
-      observer.disconnect();
-      clearTimeout(timer);
+      clearInterval(interval);
+      clearTimeout(timeout);
     };
-  }, [isClient, finalAdSlot, finalAdFormat]);
-
-  if (!isClient) return null;
+  }, [finalAdSlot, finalAdFormat]);
 
   const defaultStyle: React.CSSProperties = placement === 'sidebar'
     ? { display: 'inline-block', width: 300, height: 250 }
@@ -88,6 +78,8 @@ const AdUnit: React.FC<AdUnitProps> = ({
       ? { display: 'block', textAlign: 'center' as const }
       : { display: 'block' };
 
+  // Render the <ins> tag on both server and client so Google's crawler can
+  // see the ad placement and so hydration doesn't flash missing ads.
   return (
     <ins
       ref={adRef}

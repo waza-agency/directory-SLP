@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import SEO from '@/components/common/SEO';
+import AdUnit from '@/components/common/AdUnit';
 
 export default function OutdoorsPage() {
 
@@ -67,6 +68,10 @@ export default function OutdoorsPage() {
             <Link href="#adventures" className="text-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
               <h3 className="font-semibold">More Adventures</h3>
             </Link>
+          </div>
+
+          <div className="mb-12">
+            <AdUnit placement="top-banner" />
           </div>
 
           {/* Hiking Section */}

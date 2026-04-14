@@ -9,6 +9,7 @@ import Byline from '@/components/common/Byline';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import GuideCTA from '@/components/common/GuideCTA';
 import ShareButton from '@/components/sharing/ShareButton';
+import AdUnit from '@/components/common/AdUnit';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BlogPostPageProps {
@@ -179,10 +180,18 @@ export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) 
         </div>
 
         <div className="container mx-auto max-w-3xl px-4 pb-12">
+          <div className="mb-8">
+            <AdUnit placement="top-banner" />
+          </div>
+
           <div
             className="prose prose-lg max-w-none prose-headings:scroll-mt-24"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+
+          <div className="my-10">
+            <AdUnit placement="in-article" />
+          </div>
 
           {post.tags && post.tags.length > 0 && (
             <div className="mt-12 pt-8 border-t border-gray-200">

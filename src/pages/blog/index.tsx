@@ -7,6 +7,7 @@ import { BlogPost, getBlogPosts, SupportedLocale } from '@/lib/blog';
 import SEO from '@/components/common/SEO';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import SubscriptionCTA from '@/components/SubscriptionCTA';
+import AdUnit from '@/components/common/AdUnit';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -218,6 +219,11 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               {t('blog.heroDescription')}
             </p>
+          </div>
+
+          {/* AdSense Banner */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <AdUnit placement="top-banner" />
           </div>
 
           {/* Fact-Checking Disclaimer - Original */}

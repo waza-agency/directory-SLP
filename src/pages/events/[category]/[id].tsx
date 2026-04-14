@@ -14,6 +14,7 @@ import {
 import { Event } from '@/types';
 import { supabase } from '@/lib/supabase';
 import SEO from '@/components/common/SEO';
+import AdUnit from '@/components/common/AdUnit';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface EventDetailProps {
@@ -320,6 +321,9 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
       {/* Event Details */}
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
+          <div className="mb-10">
+            <AdUnit placement="top-banner" />
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
               <h2 className="text-3xl font-bold mb-6 font-serif">Sobre el evento</h2>

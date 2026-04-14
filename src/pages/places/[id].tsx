@@ -5,6 +5,7 @@ import type { Place } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import SEO from '@/components/common/SEO';
+import AdUnit from '@/components/common/AdUnit';
 import Breadcrumbs from '@/components/common/Breadcrumbs';
 import { PlaceDetailSkeleton } from '@/components/common/Skeleton';
 import B2BBanner from '@/components/B2BBanner';
@@ -163,6 +164,11 @@ export default function PlacePage({ place, error }: { place: Place | null; error
               </span>
             </div>
           </div>
+        </div>
+
+        {/* AdSense Banner */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <AdUnit placement="top-banner" />
         </div>
 
         {/* Content: 2-column layout */}

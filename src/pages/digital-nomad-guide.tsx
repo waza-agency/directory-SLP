@@ -204,7 +204,7 @@ export default function DigitalNomadGuidePage() {
                 </div>
               </section>
 
-              <AdUnit slot="nomad-guide-mid" />
+              <AdUnit placement="mid-content" />
 
               {/* Internet */}
               <section id="internet">
@@ -307,7 +307,7 @@ export default function DigitalNomadGuidePage() {
                 </Link>
               </section>
 
-              <AdUnit slot="nomad-guide-bottom" />
+              <AdUnit placement="in-article" />
 
               {/* Healthcare */}
               <section id="healthcare">

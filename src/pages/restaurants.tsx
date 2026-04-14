@@ -6,6 +6,7 @@ import PlaceCard from '@/components/PlaceCard';
 import PlaceModal from '@/components/PlaceModal';
 import FeaturedPlaces from '@/components/FeaturedPlaces';
 import SEO from '@/components/common/SEO';
+import AdUnit from '@/components/common/AdUnit';
 
 interface RestaurantsPageProps {
   places: Place[];
@@ -78,6 +79,13 @@ const RestaurantsPage: NextPage<RestaurantsPageProps> = ({ places }) => {
           onPlaceSelect={(place) => setSelectedPlace(place)}
         />
       )}
+
+      {/* AdSense Banner */}
+      <section className="py-4 px-4">
+        <div className="container mx-auto">
+          <AdUnit placement="top-banner" />
+        </div>
+      </section>
 
       {/* All Modern Restaurants */}
       <section className="py-16 px-4">

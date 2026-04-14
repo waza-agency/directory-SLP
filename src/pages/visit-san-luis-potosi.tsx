@@ -212,7 +212,7 @@ export default function VisitSanLuisPotosiPage() {
                 </div>
               </section>
 
-              <AdUnit slot="visit-guide-mid" />
+              <AdUnit placement="mid-content" />
 
               {/* Food & Dining */}
               <section id="food">
@@ -310,7 +310,7 @@ export default function VisitSanLuisPotosiPage() {
                 </div>
               </section>
 
-              <AdUnit slot="visit-guide-bottom" />
+              <AdUnit placement="in-article" />
 
               {/* Getting Here */}
               <section id="getting-here">
