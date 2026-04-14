@@ -63,6 +63,8 @@
     "searching": "Buscando",
     "dashboard": "Panel",
     "settings": "Configuración",
+    "visit": "Visita SLP",
+    "nomads": "Nómadas Digitales",
     "more": "Más",
     "developers": "Desarrolladores",
     "developersAgents": "Desarrolladores & Agentes",
@@ -245,7 +247,7 @@
   },
   "homepage": {
     "hero": {
-      "badge": "Tu Guía Expat en SLP",
+      "badge": "Tu Guía de San Luis Potosí",
       "titlePrefix": "Tu Vida",
       "titleSuffix": "en",
       "glitchWords": {
@@ -265,7 +267,7 @@
         "word14": "Cultural"
       },
       "title2": "San Luis Potosí",
-      "description": "Descubre un estilo de vida sofisticado donde el encanto colonial se encuentra con la comodidad moderna. Tu guía curada para vivir, explorar y prosperar en la joya escondida de México.",
+      "description": "Descubre un estilo de vida sofisticado donde el encanto colonial se encuentra con la comodidad moderna. Tu guía curada para visitar, trabajar en remoto y vivir en la joya escondida de México.",
       "cta1": "Comenzar a Explorar",
       "cta2": "Ver Lugares"
     },
@@ -285,7 +287,7 @@
       },
       "community": {
         "title": "Comunidad Acogedora",
-        "description": "Únete a una comunidad de expatriados en crecimiento mientras experimentas la auténtica hospitalidad mexicana y conexiones locales cálidas.",
+        "description": "Únete a una comunidad creciente de viajeros, trabajadores remotos y expatriados mientras experimentas la auténtica hospitalidad mexicana y conexiones locales cálidas.",
         "detail": "Más de 1,000 miembros activos"
       },
       "recognition": {
@@ -2138,5 +2140,228 @@
     "faq3a": "Si. Agrega --json a cualquier comando para obtener salida JSON estructurada que puedes canalizar a jq, parsear en scripts o alimentar a otras herramientas.",
     "faq4q": "En que se diferencia del servidor MCP?",
     "faq4a": "El CLI te da acceso directo desde la terminal para scripts y automatizacion. El servidor MCP se integra en asistentes de IA para consultas en lenguaje natural. Ambos acceden a los mismos datos."
+  },
+  "nomadGuide": {
+    "meta": {
+      "title": "Guía para Nómadas Digitales en San Luis Potosí | Trabajo Remoto en México",
+      "description": "Todo lo que los nómadas digitales necesitan saber sobre San Luis Potosí: coworking, velocidad de internet, costo de vida, opciones de visa, colonias y estilo de vida."
+    },
+    "breadcrumb": "Guía Nómada Digital",
+    "hero": {
+      "title": "Trabaja en Remoto desde San Luis Potosí",
+      "subtitle": "Vida accesible, internet rápido, cultura rica — descubre por qué SLP es el secreto mejor guardado de México para nómadas digitales."
+    },
+    "nav": {
+      "title": "En Esta Guía",
+      "whySlp": "¿Por Qué SLP?",
+      "coworking": "Coworking y Cafés",
+      "internet": "Internet",
+      "costOfLiving": "Costo de Vida",
+      "visas": "Visas",
+      "neighborhoods": "Colonias",
+      "healthcare": "Salud",
+      "lifestyle": "Estilo de Vida",
+      "faq": "Preguntas Frecuentes"
+    },
+    "whySlp": {
+      "title": "¿Por Qué San Luis Potosí para Trabajo Remoto?",
+      "intro": "San Luis Potosí combina accesibilidad, seguridad, cultura y conectividad de una forma que pocas ciudades mexicanas igualan. Zona horaria central (CST/CDT), vuelos directos a EE.UU. y un costo de vida 60-70% menor que ciudades comparables en EE.UU.",
+      "timezone": {
+        "title": "Misma Zona Horaria que EE.UU.",
+        "description": "CST/CDT — igual que Chicago, Dallas y Houston. Perfecto para clientes y equipos en EE.UU."
+      },
+      "safety": {
+        "title": "Segura y Caminable",
+        "description": "Una de las ciudades medianas más seguras de México. El centro histórico y las zonas residenciales son bien mantenidas y caminables."
+      },
+      "cost": {
+        "title": "Bajo Costo de Vida",
+        "description": "Vive cómodamente con $1,000-$1,500 USD/mes. Disfruta una calidad de vida que costaría 3 veces más en EE.UU."
+      },
+      "culture": {
+        "title": "Rica Escena Cultural",
+        "description": "Arquitectura barroca, festivales todo el año, gastronomía de clase mundial y una comunidad local acogedora."
+      }
+    },
+    "coworking": {
+      "title": "Espacios de Coworking y Cafés con WiFi",
+      "intro": "SLP tiene un número creciente de cafés y espacios de coworking con WiFi confiable, enchufes y asientos cómodos. La mayoría ofrece pases por día o membresías mensuales.",
+      "cta": "Ver Cafés para Trabajo Remoto"
+    },
+    "internet": {
+      "title": "Internet y Conectividad",
+      "intro": "El internet de fibra óptica está ampliamente disponible en SLP. La mayoría de las colonias tienen acceso a 100+ Mbps, y muchos cafés ofrecen 50-100 Mbps. La cobertura de datos móviles (4G/5G) es fuerte con Telcel, AT&T México y Movistar.",
+      "provider": "Proveedor",
+      "speed": "Velocidad",
+      "price": "Precio"
+    },
+    "costOfLiving": {
+      "title": "Desglose del Costo de Vida",
+      "intro": "San Luis Potosí es una de las ciudades más accesibles del centro de México. Aquí tienes un presupuesto mensual realista para un nómada digital viviendo cómodamente.",
+      "category": "Categoría",
+      "range": "Mensual (USD)",
+      "cta": "Guía Completa de Vida"
+    },
+    "visas": {
+      "title": "Opciones de Visa para Nómadas",
+      "intro": "México es uno de los países más fáciles para trabajadores remotos. No necesitas un permiso de trabajo para trabajar en remoto para un empleador extranjero — la distinción clave es que no estás empleado por una empresa mexicana."
+    },
+    "neighborhoods": {
+      "title": "Mejores Colonias para Nómadas",
+      "intro": "Tu elección de colonia depende de tu estilo de vida. Aquí están las tres mejores para trabajadores remotos.",
+      "lomas": {
+        "name": "Lomas",
+        "description": "Moderna, segura, caminable. Cerca de restaurantes, gimnasios y plazas comerciales. Popular entre expatriados y profesionales."
+      },
+      "centro": {
+        "name": "Centro Histórico",
+        "description": "Encanto colonial, cafés en cada esquina, sedes culturales. Ideal para quienes quieren estar en el corazón de la acción."
+      },
+      "tangamanga": {
+        "name": "Zona Tangamanga",
+        "description": "Tranquila, verde, cerca del parque urbano más grande de México. Ideal para corredores, ciclistas y amantes de la naturaleza."
+      },
+      "cta": "Guía Completa de Colonias"
+    },
+    "healthcare": {
+      "title": "Salud para Nómadas",
+      "intro": "La atención médica privada en SLP es accesible y de alta calidad. Una consulta médica cuesta $30-$50 USD, y hospitales como Hospital Lomas y Hospital Ángeles cuentan con personal que habla inglés.",
+      "cta": "Guía Completa de Salud"
+    },
+    "lifestyle": {
+      "title": "Vida Fuera del Trabajo",
+      "intro": "SLP ofrece mucho que hacer en tu tiempo libre — desde senderismo y escapadas de fin de semana hasta museos y música en vivo.",
+      "outdoors": "Actividades al Aire Libre",
+      "getaways": "Escapadas de Fin de Semana",
+      "culture": "Atracciones Culturales",
+      "cafes": "Mejores Cafés para Trabajar"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes"
+    }
+  },
+  "visitGuide": {
+    "meta": {
+      "title": "Visita San Luis Potosí — Guía de Viaje | Qué Hacer y Ver",
+      "description": "Planea tu viaje a San Luis Potosí, México. Principales atracciones, itinerario de 48 horas, guía gastronómica, excursiones a la Huasteca Potosina y consejos prácticos."
+    },
+    "breadcrumb": "Visita San Luis Potosí",
+    "hero": {
+      "title": "Visita San Luis Potosí",
+      "subtitle": "Encanto colonial, maravillas naturales y gastronomía de clase mundial — descubre una de las ciudades más hermosas y auténticas de México."
+    },
+    "nav": {
+      "title": "En Esta Guía",
+      "attractions": "Principales Atracciones",
+      "itinerary": "Itinerario 48 Horas",
+      "food": "Gastronomía",
+      "dayTrips": "Excursiones",
+      "culture": "Experiencias Culturales",
+      "gettingHere": "Cómo Llegar",
+      "bestTime": "Mejor Época",
+      "faq": "Preguntas Frecuentes"
+    },
+    "attractions": {
+      "title": "Principales Atracciones",
+      "intro": "El centro histórico de San Luis Potosí es un tesoro de arquitectura barroca y neoclásica, grandes plazas y museos de clase mundial.",
+      "centro": "Centro Histórico",
+      "centroDesc": "Recorre plazas coloniales, iglesias barrocas y calles peatonales. El corazón de la ciudad y candidato a Patrimonio de la Humanidad UNESCO.",
+      "tangamanga": "Parque Tangamanga",
+      "tangamangaDesc": "Uno de los parques urbanos más grandes de México con 57 hectáreas de senderos, lagos, instalaciones deportivas y jardines botánicos.",
+      "museums": "Museos y Galerías",
+      "museumsDesc": "Del Museo Nacional de la Máscara al Centro de las Artes — SLP tiene más de 20 museos por explorar.",
+      "history": "Patrimonio Histórico",
+      "historyDesc": "Descubre 400+ años de historia desde la minería colonial de plata hasta la Revolución Mexicana."
+    },
+    "itinerary": {
+      "title": "Itinerario de 48 Horas",
+      "morning": "Mañana",
+      "afternoon": "Tarde",
+      "evening": "Noche",
+      "day1": {
+        "title": "Día 1 — Centro Histórico y Cultura",
+        "morning": "Comienza en la Plaza de Armas, visita la Catedral y el Palacio de Gobierno. Café en una terraza de la Plaza del Carmen.",
+        "afternoon": "Museo Nacional de la Máscara, camina por la Calle Zaragoza, explora la Plaza de los Fundadores y el Templo del Carmen.",
+        "evening": "Cena en un restaurante tradicional potosino. Prueba las enchiladas potosinas y el asado de boda."
+      },
+      "day2": {
+        "title": "Día 2 — Parques, Mercados y Comida",
+        "morning": "Parque Tangamanga para una caminata o carrera matutina. Visita el jardín botánico y el lago.",
+        "afternoon": "Mercado Hidalgo para comida callejera y compras locales. Dirígete a la Calzada de Guadalupe para el paseo escénico.",
+        "evening": "Explora la escena de cantinas o disfruta música en vivo. Termina con mezcal en un bar de azotea."
+      }
+    },
+    "food": {
+      "title": "Gastronomía",
+      "intro": "La cocina potosina es uno de los secretos culinarios mejor guardados de México. Desde enchiladas potosinas hasta gorditas y mezcal artesanal, la escena gastronómica es vibrante y accesible.",
+      "restaurants": "Directorio de Restaurantes",
+      "foodie": "Guía Foodie",
+      "traditional": "Cocina Tradicional",
+      "breakfast": "Lugares de Desayuno",
+      "markets": "Mercados y Tianguis",
+      "festivals": "Festivales Gastronómicos"
+    },
+    "dayTrips": {
+      "title": "Excursiones y Escapadas de Fin de Semana",
+      "intro": "Algunas de las maravillas naturales más espectaculares de México están a pocas horas de SLP.",
+      "huasteca": {
+        "name": "Huasteca Potosina",
+        "description": "Cascadas turquesas, ríos en la selva y pozas naturales surrealistas. El paraíso de la aventura en México.",
+        "distance": "4-5 horas al este"
+      },
+      "realDeCatorce": {
+        "name": "Real de Catorce",
+        "description": "Pueblo fantasma convertido en pueblo mágico. Llega a través de un túnel de 2.3 km a un paisaje desértico místico.",
+        "distance": "3 horas al norte"
+      },
+      "xilitla": {
+        "name": "Xilitla y Las Pozas",
+        "description": "El jardín surrealista de Edward James en la selva. Un parque de esculturas onírico escondido en la Sierra Madre.",
+        "distance": "5 horas al este"
+      },
+      "cta": "Todas las Escapadas"
+    },
+    "culture": {
+      "title": "Experiencias Culturales",
+      "intro": "SLP tiene uno de los calendarios culturales más ricos de México, desde festivales de la época colonial hasta arte contemporáneo.",
+      "festivals": "Festivales y Celebraciones",
+      "music": "Música y Danza",
+      "culinary": "Tradiciones Culinarias",
+      "events": "Próximos Eventos"
+    },
+    "gettingHere": {
+      "title": "Cómo Llegar y Moverse",
+      "byAir": {
+        "title": "Por Avión",
+        "description": "El Aeropuerto Internacional Ponciano Arriaga (SLP) tiene vuelos directos desde CDMX (VivaAerobus, Volaris), Monterrey, Dallas, Houston y Chicago. El aeropuerto está a 15 minutos del centro."
+      },
+      "byBus": {
+        "title": "Por Autobús",
+        "description": "Autobuses de primera clase (Primera Plus, ETN) conectan SLP con CDMX (4-5 hrs), Querétaro (3 hrs), Guadalajara (4 hrs) y Monterrey (5 hrs). La central de autobuses es moderna y bien conectada."
+      }
+    },
+    "bestTime": {
+      "title": "Mejor Época para Visitar",
+      "intro": "SLP tiene un clima semiárido con días cálidos y noches frescas. La ciudad está a 1,850m de elevación, manteniendo temperaturas cómodas todo el año.",
+      "octDec": {
+        "title": "Oct – Dic",
+        "description": "Clima ideal (18-25°C). Celebraciones de Día de Muertos, mercados navideños y Festival de Luz."
+      },
+      "janMar": {
+        "title": "Ene – Mar",
+        "description": "Fresco y seco (12-22°C). Carnaval en febrero, procesiones de Semana Santa en marzo/abril."
+      },
+      "aprJun": {
+        "title": "Abr – Jun",
+        "description": "Cálido (22-32°C). Festival de San Luis en junio, temporada cultural de primavera."
+      },
+      "julSep": {
+        "title": "Jul – Sep",
+        "description": "Temporada de lluvias, aguaceros vespertinos (20-28°C). FENAPO — el festival más grande — en agosto."
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes"
+    }
   }
 }

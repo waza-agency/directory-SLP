@@ -87,6 +87,8 @@ const STATIC_ROUTES: Array<Omit<SitemapUrl, 'lastmod'>> = [
   { loc: '/resources/neighborhoods-san-luis-potosi', changefreq: 'monthly', priority: 0.8 },
   { loc: '/guides/foodie-guide',                     changefreq: 'monthly', priority: 0.7 },
   { loc: '/guides/potosino-wine-scene',              changefreq: 'monthly', priority: 0.7 },
+  { loc: '/digital-nomad-guide',                     changefreq: 'monthly', priority: 0.8 },
+  { loc: '/visit-san-luis-potosi',                   changefreq: 'monthly', priority: 0.8 },
 ];
 
 /**

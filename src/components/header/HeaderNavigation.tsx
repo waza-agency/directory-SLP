@@ -30,6 +30,8 @@ const devLinks = [
 ];
 
 const moreLinks = [
+  { href: '/visit-san-luis-potosi', labelKey: 'nav.visit', fallback: 'Visit SLP', badge: 'New', badgeClass: 'from-blue-500 to-cyan-500' },
+  { href: '/digital-nomad-guide', labelKey: 'nav.nomads', fallback: 'Digital Nomads', badge: 'New', badgeClass: 'from-green-500 to-emerald-500' },
   { href: '/resources', labelKey: 'nav.resources' },
   { href: '/spouse-hub', labelKey: 'nav.spouseHub', badge: 'New', badgeClass: 'from-rose-500 to-purple-500' },
   { href: '/community', labelKey: 'nav.community', fallback: 'Community', badge: 'Soon', badgeClass: 'from-purple-500 to-pink-500' },

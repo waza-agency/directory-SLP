@@ -156,9 +156,9 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
   return (
     <div className="slp-root bg-white">
       <SEO
-        title="San Luis Potosí Expat Guide: Things to Do, Places to Eat & Live"
-        description="Your complete guide to San Luis Potosí, Mexico. Curated restaurants, events, neighborhoods, cultural attractions and expat resources to help you discover and live well in SLP."
-        keywords="San Luis Potosí, SLP, expat guide San Luis Potosi, things to do san luis potosi, living in san luis potosi, Mexico expat, cultural experiences, digital nomad mexico"
+        title="San Luis Potosí Guide: Explore, Live & Thrive in SLP"
+        description="Your complete guide to San Luis Potosí, Mexico. Curated restaurants, events, neighborhoods, cultural attractions and resources for travelers, digital nomads and expats."
+        keywords="San Luis Potosí, SLP, expat guide San Luis Potosi, things to do san luis potosi, living in san luis potosi, Mexico expat, cultural experiences, digital nomad mexico, digital nomad San Luis Potosi, visit San Luis Potosi, travel guide SLP, coworking San Luis Potosi, remote work Mexico"
         ogImage="/og-image.jpg"
         structuredData={{
           '@context': 'https://schema.org',
@@ -169,7 +169,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
               name: 'San Luis Way',
               url: 'https://www.sanluisway.com',
               logo: 'https://www.sanluisway.com/og-image.jpg',
-              description: 'Editorial expat and visitor guide to San Luis Potosí, Mexico — restaurants, places, events, neighborhoods and practical living resources.',
+              description: 'Editorial guide to San Luis Potosí, Mexico — for travelers, digital nomads and expats. Restaurants, places, events, neighborhoods and practical resources.',
               areaServed: {
                 '@type': 'City',
                 name: 'San Luis Potosí',
@@ -184,10 +184,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
             {
               '@type': 'TouristInformationCenter',
               '@id': 'https://www.sanluisway.com/#tic',
-              name: 'San Luis Way — San Luis Potosí Visitor & Expat Guide',
+              name: 'San Luis Way — San Luis Potosí Travel, Nomad & Expat Guide',
               url: 'https://www.sanluisway.com',
               image: 'https://www.sanluisway.com/og-image.jpg',
-              description: 'Curated information for visitors and expats living in San Luis Potosí, S.L.P., Mexico. Restaurants, cultural attractions, events, neighborhoods and practical resources.',
+              description: 'Curated information for travelers, digital nomads and expats in San Luis Potosí, S.L.P., Mexico. Restaurants, cultural attractions, events, neighborhoods and practical resources.',
               priceRange: 'Free',
               areaServed: [
                 { '@type': 'City', name: 'San Luis Potosí' },

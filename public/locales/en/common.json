@@ -63,6 +63,8 @@
     "searching": "Searching",
     "dashboard": "Dashboard",
     "settings": "Settings",
+    "visit": "Visit SLP",
+    "nomads": "Digital Nomads",
     "more": "More",
     "developers": "Developers",
     "developersAgents": "Developers & Agents",
@@ -245,7 +247,7 @@
   },
   "homepage": {
     "hero": {
-      "badge": "Your Expat Guide to SLP",
+      "badge": "Your Guide to San Luis Potosí",
       "titlePrefix": "Your",
       "titleSuffix": "Life in",
       "glitchWords": {
@@ -265,7 +267,7 @@
         "word14": "Cultural"
       },
       "title2": "San Luis Potosí",
-      "description": "Discover a sophisticated lifestyle where colonial charm meets modern comfort. Your curated guide to living, exploring, and thriving in Mexico's hidden gem.",
+      "description": "Discover a sophisticated lifestyle where colonial charm meets modern comfort. Your curated guide to visiting, working remotely, and living in Mexico's hidden gem.",
       "cta1": "Start Exploring",
       "cta2": "View Places"
     },
@@ -285,7 +287,7 @@
       },
       "community": {
         "title": "Welcoming Community",
-        "description": "Join a growing expat community while experiencing authentic Mexican hospitality and warm local connections.",
+        "description": "Join a growing community of travelers, remote workers and expats while experiencing authentic Mexican hospitality and warm local connections.",
         "detail": "1,000+ active expat members"
       },
       "recognition": {
@@ -2138,5 +2140,228 @@
     "faq3a": "Yes. Add --json to any command to get structured JSON output that you can pipe into jq, parse in scripts, or feed into other tools.",
     "faq4q": "How is this different from the MCP server?",
     "faq4a": "The CLI gives you direct terminal access for scripts and automation. The MCP server integrates into AI assistants for natural language queries. Both access the same data."
+  },
+  "nomadGuide": {
+    "meta": {
+      "title": "Digital Nomad Guide to San Luis Potosí | Remote Work in Mexico",
+      "description": "Everything digital nomads need to know about San Luis Potosí: coworking spaces, internet speeds, cost of living, visa options, neighborhoods and lifestyle."
+    },
+    "breadcrumb": "Digital Nomad Guide",
+    "hero": {
+      "title": "Work Remotely from San Luis Potosí",
+      "subtitle": "Affordable living, fast internet, rich culture — discover why SLP is Mexico's best-kept secret for digital nomads."
+    },
+    "nav": {
+      "title": "In This Guide",
+      "whySlp": "Why SLP",
+      "coworking": "Coworking & Cafes",
+      "internet": "Internet",
+      "costOfLiving": "Cost of Living",
+      "visas": "Visas",
+      "neighborhoods": "Neighborhoods",
+      "healthcare": "Healthcare",
+      "lifestyle": "Lifestyle",
+      "faq": "FAQ"
+    },
+    "whySlp": {
+      "title": "Why San Luis Potosí for Remote Work?",
+      "intro": "San Luis Potosí combines affordability, safety, culture and connectivity in a way few Mexican cities can match. Central timezone (CST/CDT), direct flights to the US, and a cost of living 60-70% lower than comparable US cities.",
+      "timezone": {
+        "title": "US-Aligned Timezone",
+        "description": "CST/CDT — same as Chicago, Dallas and Houston. Perfect for US-based clients and teams."
+      },
+      "safety": {
+        "title": "Safe & Walkable",
+        "description": "One of Mexico's safest mid-size cities. The historic center and residential areas are well-maintained and walkable."
+      },
+      "cost": {
+        "title": "Low Cost of Living",
+        "description": "Live comfortably on $1,000-$1,500 USD/month. Enjoy a quality of life that would cost 3x in the US."
+      },
+      "culture": {
+        "title": "Rich Cultural Scene",
+        "description": "Baroque architecture, year-round festivals, world-class gastronomy and a welcoming local community."
+      }
+    },
+    "coworking": {
+      "title": "Coworking Spaces & WiFi Cafes",
+      "intro": "SLP has a growing number of work-friendly cafes and coworking spaces with reliable WiFi, power outlets and comfortable seating. Most offer day passes or monthly memberships.",
+      "cta": "Browse Remote Work Cafes"
+    },
+    "internet": {
+      "title": "Internet & Connectivity",
+      "intro": "Fiber optic internet is widely available in SLP. Most neighborhoods have access to 100+ Mbps, and many cafes offer 50-100 Mbps. Mobile data coverage (4G/5G) is strong with Telcel, AT&T Mexico and Movistar.",
+      "provider": "Provider",
+      "speed": "Speed",
+      "price": "Price"
+    },
+    "costOfLiving": {
+      "title": "Cost of Living Breakdown",
+      "intro": "San Luis Potosí is one of the most affordable cities in central Mexico. Here's a realistic monthly budget for a digital nomad living comfortably.",
+      "category": "Category",
+      "range": "Monthly (USD)",
+      "cta": "Full Living Guide"
+    },
+    "visas": {
+      "title": "Visa Options for Nomads",
+      "intro": "Mexico is one of the easiest countries for remote workers. You don't need a work visa to work remotely for a foreign employer — the key distinction is that you're not employed by a Mexican company."
+    },
+    "neighborhoods": {
+      "title": "Best Neighborhoods for Nomads",
+      "intro": "Your neighborhood choice depends on your lifestyle. Here are the top three for remote workers.",
+      "lomas": {
+        "name": "Lomas",
+        "description": "Modern, safe, walkable. Close to restaurants, gyms and malls. Popular with expats and professionals."
+      },
+      "centro": {
+        "name": "Centro Histórico",
+        "description": "Colonial charm, cafes at every corner, cultural venues. Best for those who want to be in the heart of the action."
+      },
+      "tangamanga": {
+        "name": "Tangamanga Area",
+        "description": "Quiet, green, near Mexico's largest urban park. Great for runners, cyclists and nature lovers."
+      },
+      "cta": "Full Neighborhoods Guide"
+    },
+    "healthcare": {
+      "title": "Healthcare for Nomads",
+      "intro": "Private healthcare in SLP is affordable and high-quality. A doctor's visit costs $30-$50 USD, and major hospitals like Hospital Lomas and Hospital Angeles have English-speaking staff.",
+      "cta": "Full Health Guide"
+    },
+    "lifestyle": {
+      "title": "Life Outside Work",
+      "intro": "SLP offers plenty to do on your off-hours — from hiking and weekend getaways to museums and live music.",
+      "outdoors": "Outdoor Activities",
+      "getaways": "Weekend Getaways",
+      "culture": "Cultural Attractions",
+      "cafes": "Best Cafes for Work"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions"
+    }
+  },
+  "visitGuide": {
+    "meta": {
+      "title": "Visit San Luis Potosí — Travel Guide | Things to Do & See",
+      "description": "Plan your trip to San Luis Potosí, Mexico. Top attractions, 48-hour itinerary, food guide, day trips to Huasteca Potosina, and practical travel tips."
+    },
+    "breadcrumb": "Visit San Luis Potosí",
+    "hero": {
+      "title": "Visit San Luis Potosí",
+      "subtitle": "Colonial charm, natural wonders and world-class gastronomy — discover one of Mexico's most beautiful and authentic cities."
+    },
+    "nav": {
+      "title": "In This Guide",
+      "attractions": "Top Attractions",
+      "itinerary": "48-Hour Itinerary",
+      "food": "Food & Dining",
+      "dayTrips": "Day Trips",
+      "culture": "Cultural Experiences",
+      "gettingHere": "Getting Here",
+      "bestTime": "Best Time to Visit",
+      "faq": "FAQ"
+    },
+    "attractions": {
+      "title": "Top Attractions",
+      "intro": "San Luis Potosí's historic center is a treasure trove of baroque and neoclassical architecture, grand plazas and world-class museums.",
+      "centro": "Centro Histórico",
+      "centroDesc": "Walk through colonial plazas, baroque churches, and pedestrian streets. The heart of the city and a candidate for UNESCO World Heritage status.",
+      "tangamanga": "Parque Tangamanga",
+      "tangamangaDesc": "One of Mexico's largest urban parks with 57 hectares of trails, lakes, sports facilities and botanical gardens.",
+      "museums": "Museums & Galleries",
+      "museumsDesc": "From the Museo Nacional de la Máscara to the Centro de las Artes — SLP has over 20 museums to explore.",
+      "history": "Historical Heritage",
+      "historyDesc": "Discover 400+ years of history from colonial silver mining to the Mexican Revolution."
+    },
+    "itinerary": {
+      "title": "48-Hour Itinerary",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "day1": {
+        "title": "Day 1 — Historic Center & Culture",
+        "morning": "Start at Plaza de Armas, visit the Cathedral and Palacio de Gobierno. Coffee at a terrace cafe on Plaza del Carmen.",
+        "afternoon": "Museo Nacional de la Máscara, walk Calle Zaragoza, explore Plaza de los Fundadores and Templo del Carmen.",
+        "evening": "Dinner at a traditional Potosino restaurant. Try enchiladas potosinas and asado de boda."
+      },
+      "day2": {
+        "title": "Day 2 — Parks, Markets & Food",
+        "morning": "Parque Tangamanga for a morning walk or run. Visit the botanical garden and lake.",
+        "afternoon": "Mercado Hidalgo for street food and local shopping. Head to Calzada de Guadalupe for the scenic walk.",
+        "evening": "Explore the cantina scene or catch live music. End with mezcal at a rooftop bar."
+      }
+    },
+    "food": {
+      "title": "Food & Dining",
+      "intro": "Potosino cuisine is one of Mexico's best-kept culinary secrets. From enchiladas potosinas to gorditas and craft mezcal, the food scene is vibrant and affordable.",
+      "restaurants": "Restaurant Directory",
+      "foodie": "Foodie Guide",
+      "traditional": "Traditional Cuisine",
+      "breakfast": "Breakfast Spots",
+      "markets": "Farmers Markets",
+      "festivals": "Food Festivals"
+    },
+    "dayTrips": {
+      "title": "Day Trips & Weekend Getaways",
+      "intro": "Some of Mexico's most spectacular natural wonders are within a few hours of SLP.",
+      "huasteca": {
+        "name": "Huasteca Potosina",
+        "description": "Turquoise waterfalls, jungle rivers, and surreal natural pools. Mexico's adventure paradise.",
+        "distance": "4-5 hours east"
+      },
+      "realDeCatorce": {
+        "name": "Real de Catorce",
+        "description": "Ghost town turned magic pueblo. Arrive through a 2.3km tunnel into a mystical desert landscape.",
+        "distance": "3 hours north"
+      },
+      "xilitla": {
+        "name": "Xilitla & Las Pozas",
+        "description": "Edward James' surrealist garden in the jungle. A dreamlike sculpture park hidden in the Sierra Madre.",
+        "distance": "5 hours east"
+      },
+      "cta": "All Weekend Getaways"
+    },
+    "culture": {
+      "title": "Cultural Experiences",
+      "intro": "SLP has one of Mexico's richest cultural calendars, from colonial-era festivals to contemporary art.",
+      "festivals": "Festivals & Celebrations",
+      "music": "Music & Dance",
+      "culinary": "Culinary Traditions",
+      "events": "Upcoming Events"
+    },
+    "gettingHere": {
+      "title": "Getting Here & Around",
+      "byAir": {
+        "title": "By Air",
+        "description": "Ponciano Arriaga International Airport (SLP) has direct flights from Mexico City (VivaAerobus, Volaris), Monterrey, Dallas, Houston and Chicago. The airport is 15 minutes from downtown."
+      },
+      "byBus": {
+        "title": "By Bus",
+        "description": "First-class buses (Primera Plus, ETN) connect SLP to Mexico City (4-5 hrs), Querétaro (3 hrs), Guadalajara (4 hrs) and Monterrey (5 hrs). The central bus station is modern and well-connected."
+      }
+    },
+    "bestTime": {
+      "title": "Best Time to Visit",
+      "intro": "SLP has a semi-arid climate with warm days and cool nights. The city sits at 1,850m elevation, keeping temperatures comfortable year-round.",
+      "octDec": {
+        "title": "Oct – Dec",
+        "description": "Ideal weather (18-25°C). Día de Muertos celebrations, holiday markets, and Festival de Luz."
+      },
+      "janMar": {
+        "title": "Jan – Mar",
+        "description": "Cool and dry (12-22°C). Carnival in February, Holy Week processions in March/April."
+      },
+      "aprJun": {
+        "title": "Apr – Jun",
+        "description": "Warm (22-32°C). Festival de San Luis in June, spring cultural season."
+      },
+      "julSep": {
+        "title": "Jul – Sep",
+        "description": "Rainy season, afternoon showers (20-28°C). FENAPO — the biggest festival — in August."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions"
+    }
   }
 }

@@ -63,6 +63,8 @@
     "searching": "Suchen",
     "dashboard": "Dashboard",
     "settings": "Einstellungen",
+    "visit": "SLP besuchen",
+    "nomads": "Digitale Nomaden",
     "more": "Mehr",
     "developers": "Entwickler",
     "developersAgents": "Entwickler & Agenten",
@@ -245,7 +247,7 @@
   },
   "homepage": {
     "hero": {
-      "badge": "Ihr Expat-Reiseführer für SLP",
+      "badge": "Ihr Reiseführer für San Luis Potosí",
       "titlePrefix": "Ihr",
       "titleSuffix": "Leben in",
       "glitchWords": {
@@ -265,7 +267,7 @@
         "word14": "Kulturell"
       },
       "title2": "San Luis Potosí",
-      "description": "Entdecken Sie einen anspruchsvollen Lebensstil, wo kolonialer Charme auf modernen Komfort trifft. Ihr kuratierter Führer zum Leben, Entdecken und Gedeihen in Mexikos verstecktem Juwel.",
+      "description": "Entdecken Sie einen anspruchsvollen Lebensstil, wo kolonialer Charme auf modernen Komfort trifft. Ihr kuratierter Führer zum Besuchen, Remote-Arbeiten und Leben in Mexikos verstecktem Juwel.",
       "cta1": "Erkunden starten",
       "cta2": "Orte ansehen"
     },
@@ -285,7 +287,7 @@
       },
       "community": {
         "title": "Einladende Gemeinschaft",
-        "description": "Schließen Sie sich einer wachsenden Expat-Gemeinschaft an und erleben Sie authentische mexikanische Gastfreundschaft und herzliche lokale Verbindungen.",
+        "description": "Schließen Sie sich einer wachsenden Gemeinschaft von Reisenden, Remote-Arbeitern und Expats an und erleben Sie authentische mexikanische Gastfreundschaft und herzliche lokale Verbindungen.",
         "detail": "1.000+ aktive Expat-Mitglieder"
       },
       "recognition": {
@@ -2103,5 +2105,117 @@
     "faq3a": "Ja. Fuege --json zu jedem Befehl hinzu fuer strukturierte JSON-Ausgabe, die du in jq pipen, in Skripten parsen oder in andere Tools einspeisen kannst.",
     "faq4q": "Wie unterscheidet es sich vom MCP-Server?",
     "faq4a": "Das CLI gibt dir direkten Terminalzugang fuer Skripte und Automatisierung. Der MCP-Server integriert sich in KI-Assistenten fuer Abfragen in natuerlicher Sprache. Beide greifen auf die gleichen Daten zu."
+  },
+  "nomadGuide": {
+    "meta": {
+      "title": "Digitale Nomaden Guide fuer San Luis Potosí | Remote-Arbeit in Mexiko",
+      "description": "Alles, was digitale Nomaden ueber San Luis Potosí wissen muessen: Coworking, Internetgeschwindigkeit, Lebenshaltungskosten, Visum, Stadtviertel und Lebensstil."
+    },
+    "breadcrumb": "Digitale Nomaden Guide",
+    "hero": {
+      "title": "Remote arbeiten aus San Luis Potosí",
+      "subtitle": "Guenstiges Leben, schnelles Internet, reiche Kultur — entdecken Sie, warum SLP Mexikos bestgehuetetes Geheimnis fuer digitale Nomaden ist."
+    },
+    "nav": {
+      "title": "In diesem Guide",
+      "whySlp": "Warum SLP",
+      "coworking": "Coworking & Cafes",
+      "internet": "Internet",
+      "costOfLiving": "Lebenshaltungskosten",
+      "visas": "Visum",
+      "neighborhoods": "Stadtviertel",
+      "healthcare": "Gesundheit",
+      "lifestyle": "Lebensstil",
+      "faq": "FAQ"
+    },
+    "whySlp": {
+      "title": "Warum San Luis Potosí fuer Remote-Arbeit?",
+      "intro": "San Luis Potosí vereint Erschwinglichkeit, Sicherheit, Kultur und Konnektivitaet wie kaum eine andere mexikanische Stadt. Zentrale Zeitzone (CST/CDT), Direktfluege in die USA und 60-70% niedrigere Lebenshaltungskosten.",
+      "timezone": { "title": "US-kompatible Zeitzone", "description": "CST/CDT — gleich wie Chicago, Dallas und Houston. Perfekt fuer US-basierte Kunden und Teams." },
+      "safety": { "title": "Sicher & begehbar", "description": "Eine der sichersten mittelgrossen Staedte Mexikos. Das historische Zentrum und Wohngebiete sind gepflegt und begehbar." },
+      "cost": { "title": "Niedrige Lebenshaltungskosten", "description": "Leben Sie komfortabel mit $1.000-$1.500 USD/Monat. Geniessen Sie Lebensqualitaet, die in den USA 3x so viel kosten wuerde." },
+      "culture": { "title": "Reiche Kulturszene", "description": "Barockarchitektur, ganzjaehrige Festivals, Weltklasse-Gastronomie und eine einladende lokale Gemeinschaft." }
+    },
+    "coworking": { "title": "Coworking-Spaces & WiFi-Cafes", "intro": "SLP hat eine wachsende Anzahl arbeitsfreundlicher Cafes und Coworking-Spaces mit zuverlaessigem WiFi, Steckdosen und bequemen Sitzplaetzen.", "cta": "Remote-Work-Cafes durchsuchen" },
+    "internet": { "title": "Internet & Konnektivitaet", "intro": "Glasfaser-Internet ist in SLP weit verbreitet. Die meisten Stadtviertel haben Zugang zu 100+ Mbps, und viele Cafes bieten 50-100 Mbps.", "provider": "Anbieter", "speed": "Geschwindigkeit", "price": "Preis" },
+    "costOfLiving": { "title": "Lebenshaltungskosten im Detail", "intro": "San Luis Potosí ist eine der guenstigsten Staedte in Zentralmexiko. Hier ist ein realistisches Monatsbudget fuer einen digitalen Nomaden.", "category": "Kategorie", "range": "Monatlich (USD)", "cta": "Vollstaendiger Lebensguide" },
+    "visas": { "title": "Visum-Optionen fuer Nomaden", "intro": "Mexiko ist eines der einfachsten Laender fuer Remote-Arbeiter. Sie benoetigen kein Arbeitsvisum, um remote fuer einen auslaendischen Arbeitgeber zu arbeiten." },
+    "neighborhoods": {
+      "title": "Beste Stadtviertel fuer Nomaden",
+      "intro": "Ihre Wahl des Stadtviertels haengt von Ihrem Lebensstil ab. Hier sind die drei besten fuer Remote-Arbeiter.",
+      "lomas": { "name": "Lomas", "description": "Modern, sicher, begehbar. Nahe an Restaurants, Fitnessstudios und Einkaufszentren." },
+      "centro": { "name": "Centro Histórico", "description": "Kolonialer Charme, Cafes an jeder Ecke, Kulturstaetten. Ideal fuer alle, die mittendrin sein wollen." },
+      "tangamanga": { "name": "Tangamanga-Gebiet", "description": "Ruhig, gruen, nahe am groessten Stadtpark Mexikos. Ideal fuer Laeufer, Radfahrer und Naturliebhaber." },
+      "cta": "Vollstaendiger Stadtviertel-Guide"
+    },
+    "healthcare": { "title": "Gesundheit fuer Nomaden", "intro": "Private Gesundheitsversorgung in SLP ist erschwinglich und hochwertig. Ein Arztbesuch kostet $30-$50 USD.", "cta": "Vollstaendiger Gesundheits-Guide" },
+    "lifestyle": { "title": "Leben ausserhalb der Arbeit", "intro": "SLP bietet viel fuer Ihre Freizeit — von Wandern und Wochenendausfluegen bis zu Museen und Live-Musik.", "outdoors": "Outdoor-Aktivitaeten", "getaways": "Wochenendausfluege", "culture": "Kulturelle Attraktionen", "cafes": "Beste Cafes zum Arbeiten" },
+    "faq": { "title": "Haeufig gestellte Fragen" }
+  },
+  "visitGuide": {
+    "meta": {
+      "title": "San Luis Potosí besuchen — Reisefuehrer | Sehenswuerdigkeiten & Aktivitaeten",
+      "description": "Planen Sie Ihre Reise nach San Luis Potosí, Mexiko. Top-Attraktionen, 48-Stunden-Reiseplan, kulinarischer Guide, Tagesausfluege zur Huasteca Potosina und praktische Reisetipps."
+    },
+    "breadcrumb": "San Luis Potosí besuchen",
+    "hero": {
+      "title": "San Luis Potosí besuchen",
+      "subtitle": "Kolonialer Charme, Naturwunder und Weltklasse-Gastronomie — entdecken Sie eine der schoensten und authentischsten Staedte Mexikos."
+    },
+    "nav": {
+      "title": "In diesem Guide",
+      "attractions": "Top-Attraktionen",
+      "itinerary": "48-Stunden-Plan",
+      "food": "Essen & Trinken",
+      "dayTrips": "Tagesausfluege",
+      "culture": "Kulturelle Erlebnisse",
+      "gettingHere": "Anreise",
+      "bestTime": "Beste Reisezeit",
+      "faq": "FAQ"
+    },
+    "attractions": {
+      "title": "Top-Attraktionen",
+      "intro": "Das historische Zentrum von San Luis Potosí ist ein Schatz barocker und neoklassischer Architektur, grosser Plaetze und erstklassiger Museen.",
+      "centro": "Centro Histórico", "centroDesc": "Spazieren Sie durch koloniale Plaetze, barocke Kirchen und Fussgaengerzonen. Das Herz der Stadt und UNESCO-Welterbe-Kandidat.",
+      "tangamanga": "Parque Tangamanga", "tangamangaDesc": "Einer der groessten Stadtparks Mexikos mit 57 Hektar Wegen, Seen, Sportanlagen und botanischen Gaerten.",
+      "museums": "Museen & Galerien", "museumsDesc": "Vom Museo Nacional de la Máscara bis zum Centro de las Artes — SLP hat ueber 20 Museen.",
+      "history": "Historisches Erbe", "historyDesc": "Entdecken Sie 400+ Jahre Geschichte von der kolonialen Silbergewinnung bis zur Mexikanischen Revolution."
+    },
+    "itinerary": {
+      "title": "48-Stunden-Reiseplan",
+      "morning": "Morgen", "afternoon": "Nachmittag", "evening": "Abend",
+      "day1": { "title": "Tag 1 — Historisches Zentrum & Kultur", "morning": "Start an der Plaza de Armas, Besuch der Kathedrale und des Regierungspalastes. Kaffee auf einer Terrasse an der Plaza del Carmen.", "afternoon": "Museo Nacional de la Máscara, Spaziergang durch die Calle Zaragoza, Plaza de los Fundadores und Templo del Carmen.", "evening": "Abendessen in einem traditionellen potosino Restaurant. Probieren Sie Enchiladas Potosinas und Asado de Boda." },
+      "day2": { "title": "Tag 2 — Parks, Maerkte & Essen", "morning": "Parque Tangamanga fuer einen Morgenspaziergang oder Lauf. Botanischer Garten und See.", "afternoon": "Mercado Hidalgo fuer Strassenessen und lokales Shopping. Calzada de Guadalupe fuer den malerischen Spaziergang.", "evening": "Entdecken Sie die Cantina-Szene oder geniessen Sie Live-Musik. Abschluss mit Mezcal in einer Rooftop-Bar." }
+    },
+    "food": {
+      "title": "Essen & Trinken",
+      "intro": "Die potosino Kueche ist eines der bestgehueteten kulinarischen Geheimnisse Mexikos.",
+      "restaurants": "Restaurant-Verzeichnis", "foodie": "Feinschmecker-Guide", "traditional": "Traditionelle Kueche", "breakfast": "Fruehstueckslokale", "markets": "Bauernmaerkte", "festivals": "Food-Festivals"
+    },
+    "dayTrips": {
+      "title": "Tagesausfluege & Wochenendreisen",
+      "intro": "Einige der spektakulaersten Naturwunder Mexikos liegen nur wenige Stunden von SLP entfernt.",
+      "huasteca": { "name": "Huasteca Potosina", "description": "Tuerkise Wasserfaelle, Dschungelfluesse und surreale Naturbecken. Mexikos Abenteuerparadies.", "distance": "4-5 Stunden oestlich" },
+      "realDeCatorce": { "name": "Real de Catorce", "description": "Geisterstadt zum Pueblo Mágico geworden. Ankunft durch einen 2,3 km langen Tunnel in mystischer Wuestenlandschaft.", "distance": "3 Stunden noerdlich" },
+      "xilitla": { "name": "Xilitla & Las Pozas", "description": "Edward James' surrealistischer Garten im Dschungel. Ein traumhafter Skulpturenpark in der Sierra Madre.", "distance": "5 Stunden oestlich" },
+      "cta": "Alle Wochenendausfluege"
+    },
+    "culture": {
+      "title": "Kulturelle Erlebnisse", "intro": "SLP hat einen der reichsten Kulturkalender Mexikos.",
+      "festivals": "Festivals & Feiern", "music": "Musik & Tanz", "culinary": "Kulinarische Traditionen", "events": "Kommende Veranstaltungen"
+    },
+    "gettingHere": {
+      "title": "Anreise & Fortbewegung",
+      "byAir": { "title": "Per Flugzeug", "description": "Der Internationale Flughafen Ponciano Arriaga (SLP) hat Direktfluege von Mexiko-Stadt, Monterrey, Dallas, Houston und Chicago. 15 Minuten vom Zentrum." },
+      "byBus": { "title": "Per Bus", "description": "Erstklassige Busse (Primera Plus, ETN) verbinden SLP mit Mexiko-Stadt (4-5 Std.), Querétaro (3 Std.), Guadalajara (4 Std.) und Monterrey (5 Std.)." }
+    },
+    "bestTime": {
+      "title": "Beste Reisezeit", "intro": "SLP hat ein halbtrockenes Klima mit warmen Tagen und kuehlen Naechten. Die Stadt liegt auf 1.850 m Hoehe.",
+      "octDec": { "title": "Okt – Dez", "description": "Ideales Wetter (18-25°C). Día de Muertos, Weihnachtsmaerkte und Festival de Luz." },
+      "janMar": { "title": "Jan – Maer", "description": "Kuehl und trocken (12-22°C). Karneval im Februar, Karwoche im Maerz/April." },
+      "aprJun": { "title": "Apr – Jun", "description": "Warm (22-32°C). Festival de San Luis im Juni, kulturelle Fruehjahrssaison." },
+      "julSep": { "title": "Jul – Sep", "description": "Regenzeit, nachmittaegliche Schauer (20-28°C). FENAPO — das groesste Festival — im August." }
+    },
+    "faq": { "title": "Haeufig gestellte Fragen" }
   }
 }

@@ -9,7 +9,7 @@ export default function AboutPage() {
   const values = [
     {
       title: 'Cultural Bridge',
-      description: 'We bridge the gap between expatriates and local culture, fostering meaningful connections and understanding.',
+      description: 'We bridge the gap between visitors, remote workers, expats and local culture, fostering meaningful connections and understanding.',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -30,7 +30,7 @@ export default function AboutPage() {
     },
     {
       title: 'Community Focus',
-      description: 'We believe in building and nurturing a strong, supportive expatriate community in San Luis Potosí.',
+      description: 'We believe in building and nurturing a strong, supportive community of travelers, nomads and expats in San Luis Potosí.',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -69,8 +69,8 @@ export default function AboutPage() {
     <>
       <SEO
         title="About Us - San Luis Way"
-        description="Learn about San Luis Way's mission to help expatriates discover and integrate into the rich cultural landscape of San Luis Potosí."
-        keywords="San Luis Way, about us, San Luis Potosí, expat community, cultural integration, expatriate services, Mexico relocation"
+        description="Learn about San Luis Way's mission to help travelers, digital nomads and expats discover and integrate into the rich cultural landscape of San Luis Potosí."
+        keywords="San Luis Way, about us, San Luis Potosí, expat community, digital nomads, cultural integration, travel guide, Mexico relocation"
         ogImage="/images/cultura-1.jpg"
       />
 
@@ -105,7 +105,7 @@ export default function AboutPage() {
               </h1>
 
               <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-3xl">
-                We help expatriates discover, understand, and embrace the rich cultural heritage of San Luis Potosí through authentic experiences and meaningful connections.
+                We help travelers, digital nomads and expats discover, understand, and embrace the rich cultural heritage of San Luis Potosí through authentic experiences and meaningful connections.
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function AboutPage() {
                   Helping You Discover the Heart of Potosino Culture
                 </h2>
                 <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                  San Luis Way was founded with a clear mission: to help expatriates discover, understand, and integrate into the rich cultural tapestry of San Luis Potosí.
+                  San Luis Way was founded with a clear mission: to help travelers, remote workers and expats discover, understand, and integrate into the rich cultural tapestry of San Luis Potosí.
                 </p>
                 <p className="text-lg text-gray-600 leading-relaxed mb-8">
                   We believe that cultural understanding leads to stronger communities and more enriching experiences for both newcomers and locals alike. Every connection we facilitate, every experience we curate, is designed to bridge cultures and build lasting relationships.
