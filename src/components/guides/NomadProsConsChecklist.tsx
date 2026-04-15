@@ -14,7 +14,6 @@ const pros = [
 const cons = [
   'Smaller nomad community than CDMX, Oaxaca or Mérida',
   'Limited English outside tourist/business zones',
-  'Business pace slower than US/EU (mañana mentality)',
   'Fewer vegan / international cuisine options',
   'Cold winter nights (most homes lack heating)',
   'Dust & dry air Feb-May can irritate skin/sinuses',
