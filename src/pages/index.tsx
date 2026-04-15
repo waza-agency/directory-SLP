@@ -26,7 +26,7 @@ import NewsletterBanner from '@/components/NewsletterBanner';
 import CircleOfTrustBanner from '@/components/CircleOfTrustBanner';
 import BetaBanner from '@/components/BetaBanner';
 import CollaborationBanner from '@/components/CollaborationBanner';
-import RobotMindBanner from '@/components/RobotMindBanner';
+import GlamLocalBanner from '@/components/GlamLocalBanner';
 import AgentConnectBanner from '@/components/AgentConnectBanner';
 import TodayInSLP from '@/components/TodayInSLP';
 import EventCarouselBanner from '@/components/EventCarouselBanner';
@@ -276,7 +276,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         <EventsPreview events={events} />
 
         {/* ROBOTMIND BANNER - Primary (after events, high visibility) */}
-        <RobotMindBanner variant="primary" />
+        <GlamLocalBanner variant="primary" />
 
         {/* FEATURED PLACES */}
         <FeaturedPlaces places={featuredAdvertisers} />
@@ -285,7 +285,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         <FamilyActivitiesBanner />
 
         {/* ROBOTMIND BANNER - Slim (between places and dining) */}
-        <RobotMindBanner variant="slim" />
+        <GlamLocalBanner variant="slim" />
 
         {/* RESTAURANTS & BARS */}
         <DiningSection />
@@ -300,7 +300,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         )}
 
         {/* ROBOTMIND BANNER - Time (after blog, before culture) */}
-        <RobotMindBanner variant="time" />
+        <GlamLocalBanner variant="time" />
 
         {/* CULTURAL HERITAGE */}
         <CultureSection />
@@ -321,7 +321,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         <BrandsShowcase brands={featuredBrands} />
 
         {/* ROBOTMIND BANNER - Sponsored */}
-        <RobotMindBanner variant="growth" />
+        <GlamLocalBanner variant="growth" />
 
         {/* LIFESTYLE BENEFITS */}
         <LifestyleBenefits />
@@ -330,7 +330,7 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         <CircleOfTrustBanner />
 
         {/* ROBOTMIND BANNER - Sponsored */}
-        <RobotMindBanner variant="slim" />
+        <GlamLocalBanner variant="slim" />
 
         {/* NEWSLETTER BANNER - Mid Content */}
         <div className="container mx-auto px-6 md:px-12 lg:px-20">
