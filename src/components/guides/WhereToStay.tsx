@@ -23,7 +23,7 @@ const tiers = [
     emoji: '✨',
     accent: 'from-amber-500 to-rose-500',
     description: 'Restored palaces and design-forward boutique hotels offering a full five-star experience.',
-    options: ['Hotel Museo Palacio de San Agustín', 'Quinta Real San Luis', 'Hotel Hilton SLP'],
+    options: ['Hotel Museo Palacio de San Agustín', 'Fiesta Americana San Luis Potosí', 'Hotel Hilton SLP'],
     tip: 'Hotel Museo is a former aristocratic mansion — even non-guests can book afternoon tea.',
   },
 ];
