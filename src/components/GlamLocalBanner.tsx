@@ -35,12 +35,12 @@ const ArrowIcon = () => (
 const VARIANTS = {
   primary: {
     headline: 'Encuentra el salón de uñas perfecto en SLP',
-    text: '68 salones verificados, filtros inteligentes por zona, precio y estilo. Reserva por WhatsApp en segundos.',
+    text: '68 salones verificados, filtros inteligentes por zona, precio y estilo. Encuentra tu favorito en segundos.',
     cta: 'Explorar directorio',
   },
   growth: {
     headline: '68 salones verificados en San Luis Potosí',
-    text: 'Sin reseñas falsas, sin info desactualizada. Compara precios, ubicación y servicios antes de reservar.',
+    text: 'Sin reseñas falsas, sin info desactualizada. Compara precios, ubicación y servicios antes de ir.',
     cta: 'Ver salones cerca de ti',
   },
   time: {
@@ -50,7 +50,7 @@ const VARIANTS = {
   },
   slim: {
     headline: 'Glam Local · Directorio de uñas SLP',
-    text: '68 salones verificados, reserva por WhatsApp.',
+    text: '68 salones verificados, filtros por zona y precio.',
     cta: 'Explorar',
   },
 };
