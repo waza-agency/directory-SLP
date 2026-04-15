@@ -9,16 +9,35 @@ import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import LastUpdated from '@/components/common/LastUpdated';
 import GuideCTA from '@/components/common/GuideCTA';
+import VisitQuickFacts from '@/components/guides/VisitQuickFacts';
+import ExtendedItinerary from '@/components/guides/ExtendedItinerary';
+import WhereToStay from '@/components/guides/WhereToStay';
+import GettingAround from '@/components/guides/GettingAround';
+import MoneyAndCosts from '@/components/guides/MoneyAndCosts';
+import SafetyTips from '@/components/guides/SafetyTips';
+import PhotoSpots from '@/components/guides/PhotoSpots';
+import ToursAndExperiences from '@/components/guides/ToursAndExperiences';
+import SouvenirGuide from '@/components/guides/SouvenirGuide';
+import PueblosMagicos from '@/components/guides/PueblosMagicos';
+import WeatherCalendar from '@/components/guides/WeatherCalendar';
 
 const sections = [
-  { id: 'attractions', nameKey: 'visitGuide.nav.attractions' },
-  { id: 'itinerary', nameKey: 'visitGuide.nav.itinerary' },
-  { id: 'food', nameKey: 'visitGuide.nav.food' },
-  { id: 'day-trips', nameKey: 'visitGuide.nav.dayTrips' },
-  { id: 'culture', nameKey: 'visitGuide.nav.culture' },
-  { id: 'getting-here', nameKey: 'visitGuide.nav.gettingHere' },
-  { id: 'best-time', nameKey: 'visitGuide.nav.bestTime' },
-  { id: 'faq', nameKey: 'visitGuide.nav.faq' },
+  { id: 'attractions', nameKey: 'visitGuide.nav.attractions', fallback: 'Top Attractions' },
+  { id: 'itinerary', nameKey: 'visitGuide.nav.itinerary', fallback: 'Itinerary' },
+  { id: 'where-to-stay', fallback: 'Where to Stay' },
+  { id: 'getting-around', fallback: 'Getting Around' },
+  { id: 'food', nameKey: 'visitGuide.nav.food', fallback: 'Food' },
+  { id: 'money', fallback: 'Money & Costs' },
+  { id: 'tours', fallback: 'Tours & Experiences' },
+  { id: 'photo-spots', fallback: 'Photo Spots' },
+  { id: 'day-trips', nameKey: 'visitGuide.nav.dayTrips', fallback: 'Day Trips' },
+  { id: 'pueblos-magicos', fallback: 'Pueblos Mágicos' },
+  { id: 'culture', nameKey: 'visitGuide.nav.culture', fallback: 'Culture' },
+  { id: 'souvenirs', fallback: 'Souvenirs' },
+  { id: 'safety', fallback: 'Safety Tips' },
+  { id: 'getting-here', nameKey: 'visitGuide.nav.gettingHere', fallback: 'Getting Here' },
+  { id: 'best-time', nameKey: 'visitGuide.nav.bestTime', fallback: 'Best Time' },
+  { id: 'faq', nameKey: 'visitGuide.nav.faq', fallback: 'FAQ' },
 ];
 
 const faqItems = [
@@ -115,25 +134,50 @@ export default function VisitSanLuisPotosiPage() {
         </div>
 
         {/* Hero */}
-        <section className="relative h-[40vh] min-h-[300px] bg-secondary">
+        <section className="relative h-[55vh] min-h-[420px] bg-secondary overflow-hidden">
           <div className="absolute inset-0">
-            <Image src="/images/cultura-1.jpg" alt="San Luis Potosí historic center" fill className="object-cover opacity-50" priority />
+            <Image src="/images/cultura-1.jpg" alt="San Luis Potosí historic center" fill className="object-cover" priority />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
           </div>
-          <div className="relative container mx-auto px-4 h-full flex items-center">
+          <div className="relative container mx-auto px-4 h-full flex items-end pb-10 md:pb-14">
             <div className="max-w-3xl text-white">
-              <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">{t('visitGuide.hero.title')}</h1>
-              <p className="text-lg md:text-xl text-gray-200">{t('visitGuide.hero.subtitle')}</p>
-              <LastUpdated date="2026-04-13" className="mt-4" />
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-3 py-1 text-xs font-medium mb-4">
+                <span>🧭</span>
+                <span>Travel Guide</span>
+                <span className="opacity-60">·</span>
+                <span className="opacity-80">San Luis Potosí</span>
+              </div>
+              <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4 leading-tight drop-shadow-md">
+                {t('visitGuide.hero.title')}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-100 max-w-2xl drop-shadow">
+                {t('visitGuide.hero.subtitle')}
+              </p>
+              <div className="flex flex-wrap items-center gap-2 mt-5">
+                <span className="inline-flex items-center gap-1.5 bg-amber-500/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+                  ✨ UNESCO World Heritage
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-emerald-500/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+                  ⏱ 12 min read
+                </span>
+                <LastUpdated
+                  date="2026-04-13"
+                  className="!mt-0 !text-white bg-white/10 backdrop-blur border border-white/20 rounded-full px-3 py-1.5 text-xs"
+                />
+              </div>
             </div>
           </div>
         </section>
 
+        {/* Quick facts strip */}
+        <VisitQuickFacts />
+
         {/* Content */}
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar */}
             <aside className="lg:col-span-1">
-              <div className="sticky top-24 bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+              <div className="sticky top-24 bg-white rounded-xl shadow-sm p-4 border border-gray-100 max-h-[calc(100vh-7rem)] overflow-y-auto">
                 <h3 className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider">{t('visitGuide.nav.title')}</h3>
                 <nav className="space-y-1">
                   {sections.map((s) => (
@@ -144,7 +188,7 @@ export default function VisitSanLuisPotosiPage() {
                         activeSection === s.id ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 hover:bg-gray-50'
                       }`}
                     >
-                      {t(s.nameKey)}
+                      {s.nameKey ? t(s.nameKey) : s.fallback}
                     </button>
                   ))}
                 </nav>
@@ -152,7 +196,7 @@ export default function VisitSanLuisPotosiPage() {
             </aside>
 
             {/* Main content */}
-            <div className="lg:col-span-3 space-y-12">
+            <div className="lg:col-span-3 space-y-14">
               {/* Top Attractions */}
               <section id="attractions">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.attractions.title')}</h2>
@@ -164,12 +208,12 @@ export default function VisitSanLuisPotosiPage() {
                     { href: '/cultural-attractions', nameKey: 'visitGuide.attractions.museums', descKey: 'visitGuide.attractions.museumsDesc', img: '/images/cultural/museo-federico-silva.jpg' },
                     { href: '/cultural/history', nameKey: 'visitGuide.attractions.history', descKey: 'visitGuide.attractions.historyDesc', img: '/images/cultural/san-luis-potosi-cathedral.jpg' },
                   ].map((a) => (
-                    <Link key={a.href} href={a.href} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="relative aspect-[16/10]">
-                        <Image src={a.img} alt={t(a.nameKey)} fill className="object-cover" />
+                    <Link key={a.href} href={a.href} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        <Image src={a.img} alt={t(a.nameKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                       <div className="p-5">
-                        <h3 className="font-semibold text-gray-900 mb-2">{t(a.nameKey)}</h3>
+                        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">{t(a.nameKey)}</h3>
                         <p className="text-sm text-gray-600">{t(a.descKey)}</p>
                       </div>
                     </Link>
@@ -192,27 +236,16 @@ export default function VisitSanLuisPotosiPage() {
                 </div>
               </section>
 
-              {/* 48-Hour Itinerary */}
-              <section id="itinerary">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.itinerary.title')}</h2>
-                <div className="space-y-6">
-                  {['day1', 'day2'].map((day) => (
-                    <div key={day} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-                      <h3 className="font-semibold text-gray-900 mb-3">{t(`visitGuide.itinerary.${day}.title`)}</h3>
-                      <div className="space-y-2">
-                        {['morning', 'afternoon', 'evening'].map((time) => (
-                          <div key={time} className="flex gap-3 text-sm">
-                            <span className="font-medium text-primary min-w-[80px] capitalize">{t(`visitGuide.itinerary.${time}`)}</span>
-                            <span className="text-gray-600">{t(`visitGuide.itinerary.${day}.${time}`)}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
+              {/* Extended 3-day itinerary */}
+              <ExtendedItinerary />
+
+              {/* Where to stay */}
+              <WhereToStay />
 
               <AdUnit placement="mid-content" />
+
+              {/* Getting around */}
+              <GettingAround />
 
               {/* Food & Dining */}
               <section id="food">
@@ -223,8 +256,8 @@ export default function VisitSanLuisPotosiPage() {
                     { src: '/images/food/asado-de-boda.jpg', alt: 'Asado de Boda' },
                     { src: '/images/food/street-food-main.jpg', alt: 'Street food in SLP' },
                   ].map((img) => (
-                    <div key={img.src} className="relative aspect-[4/3] rounded-lg overflow-hidden">
-                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                    <div key={img.src} className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                      <Image src={img.src} alt={img.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                   ))}
                 </div>
@@ -238,13 +271,24 @@ export default function VisitSanLuisPotosiPage() {
                     { href: '/farmers-markets-san-luis-potosi', labelKey: 'visitGuide.food.markets' },
                     { href: '/food-festivals-san-luis-potosi', labelKey: 'visitGuide.food.festivals' },
                   ].map((link) => (
-                    <Link key={link.href} href={link.href} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 transition-colors text-gray-700 font-medium text-sm shadow-sm">
+                    <Link key={link.href} href={link.href} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-300 text-gray-700 font-medium text-sm shadow-sm">
                       <span className="text-primary">→</span>
                       {t(link.labelKey)}
                     </Link>
                   ))}
                 </div>
               </section>
+
+              {/* Money & costs */}
+              <MoneyAndCosts />
+
+              {/* Tours & experiences */}
+              <ToursAndExperiences />
+
+              <AdUnit placement="in-article" />
+
+              {/* Photo spots */}
+              <PhotoSpots />
 
               {/* Day Trips */}
               <section id="day-trips">
@@ -256,9 +300,9 @@ export default function VisitSanLuisPotosiPage() {
                     { key: 'realDeCatorce', img: '/images/outdoors/real-de-catorce-main.jpg' },
                     { key: 'xilitla', img: '/images/outdoors/xilitla.webp' },
                   ].map(({ key, img }) => (
-                    <div key={key} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm">
-                      <div className="relative aspect-[4/3]">
-                        <Image src={img} alt={t(`visitGuide.dayTrips.${key}.name`)} fill className="object-cover" />
+                    <div key={key} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image src={img} alt={t(`visitGuide.dayTrips.${key}.name`)} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                       <div className="p-4">
                         <h3 className="font-semibold text-gray-900 mb-2">{t(`visitGuide.dayTrips.${key}.name`)}</h3>
@@ -272,6 +316,9 @@ export default function VisitSanLuisPotosiPage() {
                   {t('visitGuide.dayTrips.cta')} →
                 </Link>
               </section>
+
+              {/* Pueblos Mágicos */}
+              <PueblosMagicos />
 
               {/* Video: Pueblos Mágicos */}
               <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
@@ -291,8 +338,8 @@ export default function VisitSanLuisPotosiPage() {
               {/* Cultural Experiences */}
               <section id="culture">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.culture.title')}</h2>
-                <div className="relative aspect-[21/9] rounded-xl overflow-hidden mb-4">
-                  <Image src="/images/cultural/teatro-de-la-paz.jpg" alt="Teatro de la Paz — San Luis Potosí" fill className="object-cover" />
+                <div className="relative aspect-[21/9] rounded-xl overflow-hidden mb-4 group">
+                  <Image src="/images/cultural/teatro-de-la-paz.jpg" alt="Teatro de la Paz — San Luis Potosí" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <p className="text-gray-600 mb-4">{t('visitGuide.culture.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
@@ -302,7 +349,7 @@ export default function VisitSanLuisPotosiPage() {
                     { href: '/cultural/culinary-traditions', labelKey: 'visitGuide.culture.culinary' },
                     { href: '/events', labelKey: 'visitGuide.culture.events' },
                   ].map((link) => (
-                    <Link key={link.href} href={link.href} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 transition-colors text-gray-700 font-medium text-sm shadow-sm">
+                    <Link key={link.href} href={link.href} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-300 text-gray-700 font-medium text-sm shadow-sm">
                       <span className="text-primary">→</span>
                       {t(link.labelKey)}
                     </Link>
@@ -310,17 +357,23 @@ export default function VisitSanLuisPotosiPage() {
                 </div>
               </section>
 
-              <AdUnit placement="in-article" />
+              {/* Souvenirs */}
+              <SouvenirGuide />
+
+              {/* Safety & practical tips */}
+              <SafetyTips />
 
               {/* Getting Here */}
               <section id="getting-here">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.gettingHere.title')}</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                    <div className="text-2xl mb-2">✈️</div>
                     <h3 className="font-semibold text-gray-900 mb-2">{t('visitGuide.gettingHere.byAir.title')}</h3>
                     <p className="text-sm text-gray-600">{t('visitGuide.gettingHere.byAir.description')}</p>
                   </div>
-                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                    <div className="text-2xl mb-2">🚌</div>
                     <h3 className="font-semibold text-gray-900 mb-2">{t('visitGuide.gettingHere.byBus.title')}</h3>
                     <p className="text-sm text-gray-600">{t('visitGuide.gettingHere.byBus.description')}</p>
                   </div>
@@ -330,15 +383,16 @@ export default function VisitSanLuisPotosiPage() {
               {/* Best Time to Visit */}
               <section id="best-time">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('visitGuide.bestTime.title')}</h2>
-                <p className="text-gray-600 mb-4">{t('visitGuide.bestTime.intro')}</p>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <p className="text-gray-600 mb-5">{t('visitGuide.bestTime.intro')}</p>
+                <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   {['octDec', 'janMar', 'aprJun', 'julSep'].map((key) => (
-                    <div key={key} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                    <div key={key} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                       <h3 className="font-semibold text-gray-900 mb-1">{t(`visitGuide.bestTime.${key}.title`)}</h3>
                       <p className="text-sm text-gray-600">{t(`visitGuide.bestTime.${key}.description`)}</p>
                     </div>
                   ))}
                 </div>
+                <WeatherCalendar />
               </section>
 
               {/* FAQ */}
@@ -346,7 +400,7 @@ export default function VisitSanLuisPotosiPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('visitGuide.faq.title')}</h2>
                 <div className="space-y-4">
                   {faqItems.map((item, i) => (
-                    <details key={i} className="bg-white rounded-xl border border-gray-100 shadow-sm group">
+                    <details key={i} className="bg-white rounded-xl border border-gray-100 shadow-sm group hover:shadow-md transition-shadow">
                       <summary className="px-5 py-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between">
                         {item.q}
                         <svg className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

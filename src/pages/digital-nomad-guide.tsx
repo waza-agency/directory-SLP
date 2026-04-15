@@ -5,21 +5,56 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import {
+  ArrowLeftIcon,
+  ClockIcon,
+  SignalIcon,
+  CurrencyDollarIcon,
+  HomeIcon,
+  ShoppingCartIcon,
+  TruckIcon,
+  SparklesIcon,
+  IdentificationIcon,
+  GlobeAmericasIcon,
+} from '@heroicons/react/24/outline';
 import AdUnit from '@/components/common/AdUnit';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import LastUpdated from '@/components/common/LastUpdated';
 import GuideCTA from '@/components/common/GuideCTA';
+import NomadQuickFacts from '@/components/guides/NomadQuickFacts';
+import NomadCoworkingList from '@/components/guides/NomadCoworkingList';
+import { NomadSimSection, NomadBankingSection } from '@/components/guides/NomadSimBanking';
+import {
+  NomadAppsSection,
+  NomadClimateSection,
+} from '@/components/guides/NomadAppsClimate';
+import {
+  NomadHousingSection,
+  NomadCommunitySection,
+} from '@/components/guides/NomadHousingCommunity';
+import {
+  NomadProsConsSection,
+  NomadArrivalChecklist,
+} from '@/components/guides/NomadProsConsChecklist';
 
 const sections = [
-  { id: 'why-slp', nameKey: 'nomadGuide.nav.whySlp' },
-  { id: 'coworking', nameKey: 'nomadGuide.nav.coworking' },
-  { id: 'internet', nameKey: 'nomadGuide.nav.internet' },
-  { id: 'cost-of-living', nameKey: 'nomadGuide.nav.costOfLiving' },
-  { id: 'visas', nameKey: 'nomadGuide.nav.visas' },
-  { id: 'neighborhoods', nameKey: 'nomadGuide.nav.neighborhoods' },
-  { id: 'healthcare', nameKey: 'nomadGuide.nav.healthcare' },
-  { id: 'lifestyle', nameKey: 'nomadGuide.nav.lifestyle' },
-  { id: 'faq', nameKey: 'nomadGuide.nav.faq' },
+  { id: 'why-slp', nameKey: 'nomadGuide.nav.whySlp', label: 'Why SLP' },
+  { id: 'coworking', nameKey: 'nomadGuide.nav.coworking', label: 'Coworking & Cafés' },
+  { id: 'internet', nameKey: 'nomadGuide.nav.internet', label: 'Internet' },
+  { id: 'sim-mobile', nameKey: '', label: 'SIM & Mobile' },
+  { id: 'banking', nameKey: '', label: 'Banking' },
+  { id: 'apps', nameKey: '', label: 'Apps' },
+  { id: 'cost-of-living', nameKey: 'nomadGuide.nav.costOfLiving', label: 'Cost of Living' },
+  { id: 'climate', nameKey: '', label: 'Climate' },
+  { id: 'visas', nameKey: 'nomadGuide.nav.visas', label: 'Visas' },
+  { id: 'neighborhoods', nameKey: 'nomadGuide.nav.neighborhoods', label: 'Neighborhoods' },
+  { id: 'housing', nameKey: '', label: 'Housing' },
+  { id: 'healthcare', nameKey: 'nomadGuide.nav.healthcare', label: 'Healthcare' },
+  { id: 'lifestyle', nameKey: 'nomadGuide.nav.lifestyle', label: 'Lifestyle' },
+  { id: 'community', nameKey: '', label: 'Community' },
+  { id: 'pros-cons', nameKey: '', label: 'Pros & Cons' },
+  { id: 'arrival-checklist', nameKey: '', label: 'Arrival Checklist' },
+  { id: 'faq', nameKey: 'nomadGuide.nav.faq', label: 'FAQ' },
 ];
 
 const faqItems = [
@@ -43,6 +78,42 @@ const faqItems = [
     q: 'Is there a digital nomad community in SLP?',
     a: 'The community is growing. While smaller than Mexico City or Oaxaca, SLP has an active expat and remote worker scene with language exchanges, coworking events, and social meetups.',
   },
+];
+
+const internetProviders = [
+  {
+    name: 'Totalplay',
+    speed: '200-500 Mbps',
+    price: '$499 - $899 MXN/mo',
+    highlight: 'Fastest fiber',
+    note: 'Includes streaming bundle. Best for heavy uploads.',
+    color: 'from-violet-500 to-purple-600',
+  },
+  {
+    name: 'Telmex Infinitum',
+    speed: '100-200 Mbps',
+    price: '$399 - $599 MXN/mo',
+    highlight: 'Most reliable',
+    note: 'Widest coverage, quickest install (3-5 days).',
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    name: 'Izzi',
+    speed: '100-300 Mbps',
+    price: '$449 - $699 MXN/mo',
+    highlight: 'Cable',
+    note: 'Cable (not fiber) — solid in Centro & Lomas.',
+    color: 'from-red-500 to-orange-500',
+  },
+];
+
+const costItems = [
+  { Icon: HomeIcon, label: 'Rent (1BR furnished)', range: '$400 - $700', color: 'bg-blue-50 text-blue-600' },
+  { Icon: ShoppingCartIcon, label: 'Food & groceries', range: '$200 - $350', color: 'bg-emerald-50 text-emerald-600' },
+  { Icon: SparklesIcon, label: 'Coworking / cafés', range: '$80 - $150', color: 'bg-purple-50 text-purple-600' },
+  { Icon: TruckIcon, label: 'Transport (Uber/DiDi)', range: '$50 - $100', color: 'bg-amber-50 text-amber-600' },
+  { Icon: GlobeAmericasIcon, label: 'Entertainment', range: '$100 - $200', color: 'bg-rose-50 text-rose-600' },
+  { Icon: IdentificationIcon, label: 'Phone + utilities', range: '$40 - $80', color: 'bg-indigo-50 text-indigo-600' },
 ];
 
 export default function DigitalNomadGuidePage() {
@@ -114,18 +185,54 @@ export default function DigitalNomadGuidePage() {
         </div>
 
         {/* Hero */}
-        <section className="relative h-[40vh] min-h-[300px] bg-secondary">
+        <section className="relative h-[55vh] min-h-[420px] bg-secondary overflow-hidden">
           <div className="absolute inset-0">
-            <Image src="/images/hero-bg.jpg" alt="San Luis Potosí for digital nomads" fill className="object-cover opacity-50" priority />
+            <Image
+              src="/images/hero-bg.jpg"
+              alt="San Luis Potosí for digital nomads"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/70 via-primary-dark/60 to-secondary/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           </div>
-          <div className="relative container mx-auto px-4 h-full flex items-center">
+          <div className="relative container mx-auto px-4 h-full flex items-center pb-24 md:pb-32">
             <div className="max-w-3xl text-white">
-              <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">{t('nomadGuide.hero.title')}</h1>
-              <p className="text-lg md:text-xl text-gray-200">{t('nomadGuide.hero.subtitle')}</p>
-              <LastUpdated date="2026-04-13" className="mt-4" />
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md hover:bg-white/25 transition-colors text-white text-sm font-medium px-4 py-2 rounded-full mb-5 border border-white/20"
+              >
+                <ArrowLeftIcon className="w-4 h-4" />
+                Back to home
+              </Link>
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  Updated April 2026
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                  <ClockIcon className="w-3.5 h-3.5" />
+                  12 min read
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                  <SignalIcon className="w-3.5 h-3.5" />
+                  2026 Edition
+                </span>
+              </div>
+              <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4 leading-tight drop-shadow-lg">
+                {t('nomadGuide.hero.title')}
+              </h1>
+              <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed drop-shadow">
+                {t('nomadGuide.hero.subtitle')}
+              </p>
+              <LastUpdated date="2026-04-13" className="mt-4 text-white/80" />
             </div>
           </div>
         </section>
+
+        {/* Quick Facts strip */}
+        <NomadQuickFacts />
 
         {/* Content */}
         <div className="container mx-auto px-4 py-12">
@@ -133,17 +240,21 @@ export default function DigitalNomadGuidePage() {
             {/* Sidebar */}
             <aside className="lg:col-span-1">
               <div className="sticky top-24 bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-                <h3 className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider">{t('nomadGuide.nav.title')}</h3>
-                <nav className="space-y-1">
+                <h3 className="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider">
+                  {t('nomadGuide.nav.title')}
+                </h3>
+                <nav className="space-y-1 max-h-[70vh] overflow-y-auto pr-1">
                   {sections.map((s) => (
                     <button
                       key={s.id}
                       onClick={() => scrollToSection(s.id)}
                       className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                        activeSection === s.id ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 hover:bg-gray-50'
+                        activeSection === s.id
+                          ? 'bg-primary/10 text-primary font-medium'
+                          : 'text-gray-600 hover:bg-gray-50'
                       }`}
                     >
-                      {t(s.nameKey)}
+                      {s.nameKey ? t(s.nameKey) : s.label}
                     </button>
                   ))}
                 </nav>
@@ -151,14 +262,17 @@ export default function DigitalNomadGuidePage() {
             </aside>
 
             {/* Main content */}
-            <div className="lg:col-span-3 space-y-12">
+            <div className="lg:col-span-3 space-y-14">
               {/* Why SLP */}
               <section id="why-slp">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.whySlp.title')}</h2>
                 <p className="text-gray-600 mb-6">{t('nomadGuide.whySlp.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {['timezone', 'safety', 'cost', 'culture'].map((key) => (
-                    <div key={key} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                    <div
+                      key={key}
+                      className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                    >
                       <h3 className="font-semibold text-gray-900 mb-2">{t(`nomadGuide.whySlp.${key}.title`)}</h3>
                       <p className="text-sm text-gray-600">{t(`nomadGuide.whySlp.${key}.description`)}</p>
                     </div>
@@ -168,30 +282,37 @@ export default function DigitalNomadGuidePage() {
 
               {/* Coworking */}
               <section id="coworking">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.coworking.title')}</h2>
-                <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-4">
-                  <Image src="/images/blog/cafes/cafe-sideral.jpg" alt="Cafe Sideral — coworking-friendly cafe in San Luis Potosí" fill className="object-cover" />
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  {t('nomadGuide.coworking.title')}
+                </h2>
+                <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-4 shadow-lg">
+                  <Image
+                    src="/images/blog/cafes/cafe-sideral.jpg"
+                    alt="Cafe Sideral — coworking-friendly cafe in San Luis Potosí"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
+                    <p className="text-white text-sm md:text-base font-medium drop-shadow-lg max-w-md">
+                      Six hand-picked spots where nomads actually get work done — verified wifi, prices and hours.
+                    </p>
+                  </div>
                 </div>
-                <p className="text-gray-600 mb-4">{t('nomadGuide.coworking.intro')}</p>
-                <div className="grid sm:grid-cols-3 gap-3 mb-4">
-                  {[
-                    { src: '/images/blog/cafes/capital-coffee.jpg', alt: 'Capital Coffee SLP' },
-                    { src: '/images/blog/cafes/las-castanas-new.jpg', alt: 'Las Castañas cafe' },
-                    { src: '/images/blog/cafes/500-noches.jpg', alt: '500 Noches cafe' },
-                  ].map((img) => (
-                    <div key={img.src} className="relative aspect-[4/3] rounded-lg overflow-hidden">
-                      <Image src={img.src} alt={img.alt} fill className="object-cover" />
-                    </div>
-                  ))}
-                </div>
-                <Link href="/category/remote-work-cafes" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
+                <p className="text-gray-600 mb-6">{t('nomadGuide.coworking.intro')}</p>
+                <NomadCoworkingList />
+                <Link
+                  href="/category/remote-work-cafes"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:underline mt-6"
+                >
                   {t('nomadGuide.coworking.cta')} →
                 </Link>
               </section>
 
               {/* Video: Expats & Nomads in SLP */}
               <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-                <h3 className="font-semibold text-gray-900 mb-3">Co-Working Space in San Luis Potosí + Airbnb Tour</h3>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  Co-Working Space in San Luis Potosí + Airbnb Tour
+                </h3>
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                   <iframe
                     src="https://www.youtube.com/embed/F9uCFB5rfmY"
@@ -209,58 +330,97 @@ export default function DigitalNomadGuidePage() {
               {/* Internet */}
               <section id="internet">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.internet.title')}</h2>
-                <p className="text-gray-600 mb-4">{t('nomadGuide.internet.intro')}</p>
-                <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2 text-gray-900">{t('nomadGuide.internet.provider')}</th>
-                        <th className="text-left py-2 text-gray-900">{t('nomadGuide.internet.speed')}</th>
-                        <th className="text-left py-2 text-gray-900">{t('nomadGuide.internet.price')}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-gray-600">
-                      <tr className="border-b"><td className="py-2">Telmex Infinitum</td><td>100-200 Mbps</td><td>$399-$599 MXN/mo</td></tr>
-                      <tr className="border-b"><td className="py-2">Totalplay</td><td>200-500 Mbps</td><td>$499-$899 MXN/mo</td></tr>
-                      <tr><td className="py-2">Izzi</td><td>100-300 Mbps</td><td>$449-$699 MXN/mo</td></tr>
-                    </tbody>
-                  </table>
+                <p className="text-gray-600 mb-6">{t('nomadGuide.internet.intro')}</p>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {internetProviders.map((p) => (
+                    <div
+                      key={p.name}
+                      className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div className={`bg-gradient-to-r ${p.color} text-white px-5 py-4`}>
+                        <div className="text-xs uppercase tracking-wider opacity-90 font-semibold">
+                          {p.highlight}
+                        </div>
+                        <div className="text-xl font-bold">{p.name}</div>
+                      </div>
+                      <div className="p-5">
+                        <div className="flex items-baseline gap-2 mb-3">
+                          <SignalIcon className="w-5 h-5 text-primary" />
+                          <span className="text-lg font-bold text-gray-900">{p.speed}</span>
+                        </div>
+                        <div className="text-sm text-primary font-bold mb-3">{p.price}</div>
+                        <p className="text-xs text-gray-600 leading-relaxed">{p.note}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </section>
 
+              {/* SIM & Mobile */}
+              <NomadSimSection />
+
+              {/* Banking */}
+              <NomadBankingSection />
+
+              {/* Apps */}
+              <NomadAppsSection />
+
+              <AdUnit placement="in-article" />
+
               {/* Cost of Living */}
               <section id="cost-of-living">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.costOfLiving.title')}</h2>
-                <p className="text-gray-600 mb-4">{t('nomadGuide.costOfLiving.intro')}</p>
-                <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2 text-gray-900">{t('nomadGuide.costOfLiving.category')}</th>
-                        <th className="text-left py-2 text-gray-900">{t('nomadGuide.costOfLiving.range')}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-gray-600">
-                      <tr className="border-b"><td className="py-2">Rent (1BR furnished)</td><td>$400-$700 USD</td></tr>
-                      <tr className="border-b"><td className="py-2">Food & groceries</td><td>$200-$350 USD</td></tr>
-                      <tr className="border-b"><td className="py-2">Coworking / cafes</td><td>$80-$150 USD</td></tr>
-                      <tr className="border-b"><td className="py-2">Transport (Uber/DiDi)</td><td>$50-$100 USD</td></tr>
-                      <tr className="border-b"><td className="py-2">Entertainment</td><td>$100-$200 USD</td></tr>
-                      <tr className="font-semibold text-gray-900"><td className="py-2">Total</td><td>$830-$1,500 USD</td></tr>
-                    </tbody>
-                  </table>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  {t('nomadGuide.costOfLiving.title')}
+                </h2>
+                <p className="text-gray-600 mb-6">{t('nomadGuide.costOfLiving.intro')}</p>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {costItems.map(({ Icon, label, range, color }) => (
+                    <div
+                      key={label}
+                      className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div
+                        className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${color} mb-3`}
+                      >
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div className="text-sm text-gray-500 mb-1">{label}</div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {range}
+                        <span className="text-sm font-medium text-gray-500 ml-1">USD</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <Link href="/resources/living-guide" className="inline-flex items-center gap-2 text-primary font-medium hover:underline mt-4">
-                  {t('nomadGuide.costOfLiving.cta')} →
-                </Link>
+                <div className="mt-5 bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 text-white shadow-lg">
+                  <div className="flex items-center justify-between flex-wrap gap-3">
+                    <div>
+                      <div className="text-xs uppercase tracking-wider opacity-80">
+                        Comfortable monthly total
+                      </div>
+                      <div className="text-3xl md:text-4xl font-bold">
+                        $870 - $1,580 <span className="text-lg opacity-80">USD/mo</span>
+                      </div>
+                    </div>
+                    <Link
+                      href="/resources/living-guide"
+                      className="bg-white text-primary font-semibold px-5 py-2.5 rounded-full hover:bg-gray-100 transition-colors"
+                    >
+                      Full living guide →
+                    </Link>
+                  </div>
+                </div>
               </section>
+
+              {/* Climate */}
+              <NomadClimateSection />
 
               {/* Visas */}
               <section id="visas">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.visas.title')}</h2>
                 <p className="text-gray-600 mb-4">{t('nomadGuide.visas.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     <h3 className="font-semibold text-gray-900 mb-2">FMM Tourist Permit</h3>
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>Up to 180 days</li>
@@ -269,7 +429,7 @@ export default function DigitalNomadGuidePage() {
                       <li>Extendable at INM office</li>
                     </ul>
                   </div>
-                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                  <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     <h3 className="font-semibold text-gray-900 mb-2">Temporary Resident Visa</h3>
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>1-4 years, renewable</li>
@@ -283,7 +443,9 @@ export default function DigitalNomadGuidePage() {
 
               {/* Neighborhoods */}
               <section id="neighborhoods">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.neighborhoods.title')}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  {t('nomadGuide.neighborhoods.title')}
+                </h2>
                 <p className="text-gray-600 mb-4">{t('nomadGuide.neighborhoods.intro')}</p>
                 <div className="grid sm:grid-cols-3 gap-4">
                   {[
@@ -291,36 +453,56 @@ export default function DigitalNomadGuidePage() {
                     { key: 'centro', img: '/images/blog/centro-san-luis/centro-san-luis-potosi-home.jpg' },
                     { key: 'tangamanga', img: '/images/parque-tangamanga/hero.jpg' },
                   ].map(({ key, img }) => (
-                    <div key={key} className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                    <div
+                      key={key}
+                      className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                    >
                       <div className="relative aspect-[4/3]">
                         <Image src={img} alt={key} fill className="object-cover" />
                       </div>
                       <div className="p-4">
-                        <h3 className="font-semibold text-gray-900 mb-2">{t(`nomadGuide.neighborhoods.${key}.name`)}</h3>
-                        <p className="text-sm text-gray-600">{t(`nomadGuide.neighborhoods.${key}.description`)}</p>
+                        <h3 className="font-semibold text-gray-900 mb-2">
+                          {t(`nomadGuide.neighborhoods.${key}.name`)}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {t(`nomadGuide.neighborhoods.${key}.description`)}
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <Link href="/resources/neighborhoods-san-luis-potosi" className="inline-flex items-center gap-2 text-primary font-medium hover:underline mt-4">
+                <Link
+                  href="/resources/neighborhoods-san-luis-potosi"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:underline mt-4"
+                >
                   {t('nomadGuide.neighborhoods.cta')} →
                 </Link>
               </section>
+
+              {/* Housing platforms */}
+              <NomadHousingSection />
 
               <AdUnit placement="in-article" />
 
               {/* Healthcare */}
               <section id="healthcare">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.healthcare.title')}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  {t('nomadGuide.healthcare.title')}
+                </h2>
                 <p className="text-gray-600 mb-4">{t('nomadGuide.healthcare.intro')}</p>
-                <Link href="/resources/health-guide" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
+                <Link
+                  href="/resources/health-guide"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
+                >
                   {t('nomadGuide.healthcare.cta')} →
                 </Link>
               </section>
 
               {/* Video: SLP for Expats */}
               <section className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-                <h3 className="font-semibold text-gray-900 mb-3">SAN LUIS POTOSI — Expats Are Missing Out on This City!</h3>
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  SAN LUIS POTOSI — Expats Are Missing Out on This City!
+                </h3>
                 <div className="relative aspect-video rounded-lg overflow-hidden">
                   <iframe
                     src="https://www.youtube.com/embed/eDzBdzmiMyQ"
@@ -335,7 +517,9 @@ export default function DigitalNomadGuidePage() {
 
               {/* Lifestyle */}
               <section id="lifestyle">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('nomadGuide.lifestyle.title')}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  {t('nomadGuide.lifestyle.title')}
+                </h2>
                 <p className="text-gray-600 mb-4">{t('nomadGuide.lifestyle.intro')}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {[
@@ -344,7 +528,11 @@ export default function DigitalNomadGuidePage() {
                     { href: '/cultural-attractions', labelKey: 'nomadGuide.lifestyle.culture' },
                     { href: '/category/remote-work-cafes', labelKey: 'nomadGuide.lifestyle.cafes' },
                   ].map((link) => (
-                    <Link key={link.href} href={link.href} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 transition-colors text-gray-700 font-medium text-sm shadow-sm">
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 transition-colors text-gray-700 font-medium text-sm shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                    >
                       <span className="text-primary">→</span>
                       {t(link.labelKey)}
                     </Link>
@@ -352,15 +540,32 @@ export default function DigitalNomadGuidePage() {
                 </div>
               </section>
 
+              {/* Community */}
+              <NomadCommunitySection />
+
+              {/* Pros & Cons */}
+              <NomadProsConsSection />
+
+              {/* Arrival Checklist */}
+              <NomadArrivalChecklist />
+
               {/* FAQ */}
               <section id="faq">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('nomadGuide.faq.title')}</h2>
                 <div className="space-y-4">
                   {faqItems.map((item, i) => (
-                    <details key={i} className="bg-white rounded-xl border border-gray-100 shadow-sm group">
+                    <details
+                      key={i}
+                      className="bg-white rounded-xl border border-gray-100 shadow-sm group hover:shadow-md transition-shadow"
+                    >
                       <summary className="px-5 py-4 cursor-pointer font-medium text-gray-900 flex items-center justify-between">
                         {item.q}
-                        <svg className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </summary>
