@@ -134,35 +134,52 @@ export default function VisitSanLuisPotosiPage() {
         </div>
 
         {/* Hero */}
-        <section className="relative h-[55vh] min-h-[420px] bg-secondary overflow-hidden">
+        <section className="relative h-[60vh] min-h-[460px] bg-secondary overflow-hidden">
           <div className="absolute inset-0">
-            <Image src="/images/cultura-1.jpg" alt="San Luis Potosí historic center" fill className="object-cover" priority />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
+            <Image
+              src="/images/cultura-1.jpg"
+              alt="San Luis Potosí historic center"
+              fill
+              className="object-cover scale-105"
+              priority
+            />
+            {/* Stronger layered overlays so title always pops */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/95" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
           </div>
-          <div className="relative container mx-auto px-4 h-full flex items-end pb-10 md:pb-14">
-            <div className="max-w-3xl text-white">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-3 py-1 text-xs font-medium mb-4">
+          <div className="relative container mx-auto px-4 h-full flex items-end pb-12 md:pb-16">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 rounded-full px-4 py-1.5 text-xs font-semibold text-white mb-5 shadow-lg">
                 <span>🧭</span>
                 <span>Travel Guide</span>
                 <span className="opacity-60">·</span>
-                <span className="opacity-80">San Luis Potosí</span>
+                <span className="opacity-90">San Luis Potosí</span>
               </div>
-              <h1 className="font-serif text-4xl md:text-6xl font-bold mb-4 leading-tight drop-shadow-md">
-                {t('visitGuide.hero.title')}
+              <h1
+                className="font-serif text-5xl md:text-7xl font-extrabold mb-5 leading-[1.05] tracking-tight"
+                style={{ textShadow: '0 4px 24px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.5)' }}
+              >
+                <span className="block text-white">Visit</span>
+                <span className="block bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">
+                  San Luis Potosí
+                </span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-100 max-w-2xl drop-shadow">
+              <p
+                className="text-lg md:text-2xl text-white/95 max-w-2xl leading-relaxed font-light"
+                style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}
+              >
                 {t('visitGuide.hero.subtitle')}
               </p>
-              <div className="flex flex-wrap items-center gap-2 mt-5">
-                <span className="inline-flex items-center gap-1.5 bg-amber-500/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+              <div className="flex flex-wrap items-center gap-2 mt-6">
+                <span className="inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-bold px-3.5 py-2 rounded-full shadow-lg ring-1 ring-amber-300/50">
                   ✨ UNESCO World Heritage
                 </span>
-                <span className="inline-flex items-center gap-1.5 bg-emerald-500/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-500 text-white text-xs font-bold px-3.5 py-2 rounded-full shadow-lg ring-1 ring-emerald-300/50">
                   ⏱ 12 min read
                 </span>
                 <LastUpdated
                   date="2026-04-13"
-                  className="!mt-0 !text-white bg-white/10 backdrop-blur border border-white/20 rounded-full px-3 py-1.5 text-xs"
+                  className="!mt-0 !text-white bg-white/15 backdrop-blur-md border border-white/30 rounded-full px-3.5 py-2 text-xs font-semibold shadow-lg"
                 />
               </div>
             </div>
