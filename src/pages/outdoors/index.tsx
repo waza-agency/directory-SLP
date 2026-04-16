@@ -163,6 +163,10 @@ export default function OutdoorsPage() {
             </div>
           </section>
 
+          <div className="mb-12">
+            <AdUnit placement="in-article" />
+          </div>
+
           {/* Camping Section */}
           <section id="camping" className="mb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

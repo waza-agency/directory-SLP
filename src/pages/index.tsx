@@ -32,6 +32,7 @@ import TodayInSLP from '@/components/TodayInSLP';
 import EventCarouselBanner from '@/components/EventCarouselBanner';
 import FamilyActivitiesBanner from '@/components/FamilyActivitiesBanner';
 import BlogCarousel from '@/components/BlogCarousel';
+import AdUnit from '@/components/common/AdUnit';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -269,6 +270,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
         {/* TODAY IN SLP - Daily Dashboard */}
         <TodayInSLP />
 
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-6">
+          <AdUnit placement="top-banner" />
+        </div>
+
         {/* EVENT CAROUSEL BANNER */}
         <EventCarouselBanner />
 
@@ -289,6 +294,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* RESTAURANTS & BARS */}
         <DiningSection />
+
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-6">
+          <AdUnit placement="mid-content" />
+        </div>
 
         {/* BLOG CAROUSEL - From the Blog */}
         {blogPosts.length > 0 && (
@@ -316,6 +325,10 @@ export default function Home({ events = [], featuredAdvertisers = [], featuredBr
 
         {/* FAMILY & PRACTICAL GUIDES */}
         <PracticalGuidesSection guides={practicalGuides} />
+
+        <div className="container mx-auto px-6 md:px-12 lg:px-20 py-6">
+          <AdUnit placement="matched" />
+        </div>
 
         {/* POTOSINO BRANDS */}
         <BrandsShowcase brands={featuredBrands} />

@@ -9,6 +9,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MapPinIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import PlaceFilters, { FilterState, SortOption } from '@/components/PlaceFilters';
 import Pagination from '@/components/Pagination';
+import AdUnit from '@/components/common/AdUnit';
 
 const LOGO_PLACEHOLDER = '/images/logo.jpeg';
 
@@ -373,6 +374,11 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
           </section>
         )}
 
+        {/* AD — between featured and full directory */}
+        <div className="container mx-auto px-4 py-6">
+          <AdUnit placement="top-banner" />
+        </div>
+
         {/* All Items Section */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
@@ -500,6 +506,10 @@ const PlacesPage: React.FC<PlacesPageProps> = ({ places, featuredPlaces, service
               )}
 
               <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
+
+              <div className="mt-12">
+                <AdUnit placement="matched" />
+              </div>
             </div>
           </div>
         </section>

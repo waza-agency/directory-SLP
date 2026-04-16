@@ -208,6 +208,11 @@ export default function PlacePage({ place, error }: { place: Place | null; error
                 </div>
               )}
 
+              {/* In-Article Ad */}
+              <div className="my-6">
+                <AdUnit placement="in-article" />
+              </div>
+
               {/* Reviews */}
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Reviews</h2>
@@ -320,6 +325,10 @@ export default function PlacePage({ place, error }: { place: Place | null; error
                     Browse all places
                   </Link>
                 </div>
+              </div>
+
+              <div className="mt-6 hidden lg:flex justify-center">
+                <AdUnit placement="sidebar" />
               </div>
             </div>
           </div>

@@ -309,6 +309,11 @@ export default function BlogIndexPage({ posts }: BlogIndexProps) {
             )
           )}
 
+          {/* Related/Matched Content Ad */}
+          <div className="max-w-5xl mx-auto mt-12">
+            <AdUnit placement="matched" />
+          </div>
+
           {/* Newsletter CTA */}
           <div className="max-w-4xl mx-auto">
             <NewsletterBanner variant="mid-content" className="mt-16" />

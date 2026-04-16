@@ -109,6 +109,13 @@ const ServicesPage: NextPage<ServicesPageProps> = ({ services, featuredServices 
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
         </section>
 
+        {/* Top Banner Ad */}
+        <section className="py-6 bg-white">
+          <div className="container mx-auto px-4">
+            <AdUnit placement="top-banner" />
+          </div>
+        </section>
+
         {/* Featured Services Section */}
         {featuredServices.length > 0 && (
           <section className="py-16 bg-white">

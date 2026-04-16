@@ -100,6 +100,10 @@ const RestaurantsPage: NextPage<RestaurantsPageProps> = ({ places }) => {
               />
             ))}
           </div>
+
+          <div className="mt-12">
+            <AdUnit placement="matched" />
+          </div>
         </div>
       </section>
 

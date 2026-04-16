@@ -331,7 +331,9 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
                 <p>{event.description}</p>
               </div>
 
-
+              <div className="mb-12">
+                <AdUnit placement="in-article" />
+              </div>
             </div>
 
             <div>
