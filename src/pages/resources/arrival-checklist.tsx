@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import LastUpdated from '@/components/common/LastUpdated';
 import GuideCTA from '@/components/common/GuideCTA';
+import AffiliateCard from '@/components/affiliate/AffiliateCard';
 
 interface ChecklistItem {
   id: string;
@@ -274,6 +275,20 @@ export default function ArrivalChecklistPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Recommended Essentials */}
+        <section className="py-12">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {t('affiliate.sectionTitle')}
+            </h2>
+            <p className="text-gray-600 mb-6">{t('affiliate.sectionSubtitle')}</p>
+            <div className="space-y-3">
+              <AffiliateCard productId="brita-jarra-filtro" variant="checklist" />
+              <AffiliateCard productId="levoit-purificador-aire" variant="checklist" />
+            </div>
           </div>
         </section>
 

@@ -2364,5 +2364,46 @@
     "faq": {
       "title": "Frequently Asked Questions"
     }
+  },
+  "affiliate": {
+    "disclosure": "Affiliate link",
+    "disclosureLong": "Affiliate link — we may earn a commission at no extra cost to you.",
+    "cta": "View on Mercado Libre",
+    "sectionTitle": "Essentials for San Luis Potosí",
+    "sectionSubtitle": "Gear and home items our community recommends for life and adventure in SLP.",
+    "products": {
+      "brita": {
+        "title": "Brita Metro water filter pitcher",
+        "description": "Clean drinking water at home — a must-have setup item for expats arriving in Mexico."
+      },
+      "termo": {
+        "title": "Stainless steel insulated thermos",
+        "description": "Keeps drinks cold or hot for hours. Perfect for hikes, coworking, or daily commute."
+      },
+      "columbia": {
+        "title": "Columbia men's hiking trail shoes",
+        "description": "Trail-ready grip for Real de Catorce, Huasteca Potosina, and Sierra de San Miguelito."
+      },
+      "mochila": {
+        "title": "Tactical hydration backpack 3L",
+        "description": "Hands-free hydration for long days at Cascadas de Tamul, Sierra trails, or biking."
+      },
+      "dubery": {
+        "title": "Dubery D620 polarized sunglasses UV400",
+        "description": "SLP sits at 1,860m — full UV protection matters. Polarized lenses cut desert glare."
+      },
+      "sandalias": {
+        "title": "All-terrain water sandals",
+        "description": "Grip wet stone at Media Luna, Puente de Dios, and Huasteca waterfalls without slipping."
+      },
+      "levoit": {
+        "title": "Levoit HEPA air purifier",
+        "description": "SLP is dry and dusty. A HEPA purifier helps expats avoid respiratory issues in the first months."
+      },
+      "blackdiamond": {
+        "title": "Black Diamond Storm 500-R headlamp",
+        "description": "Rechargeable, 500 lumens, water-resistant. Essential for camping Real de Catorce or night treks."
+      }
+    }
   }
 }

@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SEO from '@/components/common/SEO';
 import AdUnit from '@/components/common/AdUnit';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
 
 export default function OutdoorsPage() {
 
@@ -436,6 +438,19 @@ export default function OutdoorsPage() {
             </div>
           </section>
 
+          {/* Affiliate Gear Section */}
+          <AffiliateGrid
+            productIds={[
+              'columbia-tenis-senderismo',
+              'mochila-hidratacion-tactica',
+              'dubery-lentes-polarizados',
+              'black-diamond-lampara-frontal',
+              'termo-acero-inoxidable',
+            ]}
+            titleKey="affiliate.sectionTitle"
+            subtitleKey="affiliate.sectionSubtitle"
+          />
+
           {/* Resources Section */}
           <section className="bg-gray-50 rounded-xl p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Resources & Guides</h2>
@@ -476,9 +491,10 @@ export default function OutdoorsPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
     },
   };
 };

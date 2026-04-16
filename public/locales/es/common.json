@@ -2364,5 +2364,46 @@
     "faq": {
       "title": "Preguntas Frecuentes"
     }
+  },
+  "affiliate": {
+    "disclosure": "Enlace de afiliado",
+    "disclosureLong": "Enlace de afiliado — podemos ganar una comisión sin costo extra para ti.",
+    "cta": "Ver en Mercado Libre",
+    "sectionTitle": "Esenciales para San Luis Potosí",
+    "sectionSubtitle": "Equipo y artículos para el hogar que nuestra comunidad recomienda para vivir y aventurarse en SLP.",
+    "products": {
+      "brita": {
+        "title": "Jarra con filtro Brita Metro",
+        "description": "Agua potable limpia en casa — un básico para expats recién llegados a México."
+      },
+      "termo": {
+        "title": "Termo de acero inoxidable con aislamiento",
+        "description": "Mantiene bebidas frías o calientes por horas. Ideal para caminatas, coworking o el día a día."
+      },
+      "columbia": {
+        "title": "Tenis Columbia de senderismo para hombre",
+        "description": "Agarre confiable para Real de Catorce, Huasteca Potosina y Sierra de San Miguelito."
+      },
+      "mochila": {
+        "title": "Mochila de hidratación táctica 3L",
+        "description": "Hidratación manos libres para días largos en Cascadas de Tamul, senderos o ciclismo."
+      },
+      "dubery": {
+        "title": "Lentes polarizados Dubery D620 UV400",
+        "description": "SLP está a 1,860m — la protección UV importa. Los cristales polarizados cortan el reflejo del desierto."
+      },
+      "sandalias": {
+        "title": "Sandalias acuáticas todo terreno",
+        "description": "Agarre en piedra mojada en Media Luna, Puente de Dios y cascadas de la Huasteca."
+      },
+      "levoit": {
+        "title": "Purificador de aire Levoit HEPA",
+        "description": "SLP es seco y polvoriento. Un purificador HEPA ayuda a los expats a evitar problemas respiratorios los primeros meses."
+      },
+      "blackdiamond": {
+        "title": "Lámpara frontal Black Diamond Storm 500-R",
+        "description": "Recargable, 500 lúmenes, resistente al agua. Esencial para camping en Real de Catorce o caminatas nocturnas."
+      }
+    }
   }
 }
