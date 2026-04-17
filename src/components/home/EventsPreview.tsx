@@ -30,7 +30,7 @@ export default function EventsPreview({ events }: EventsPreviewProps) {
             </p>
           </div>
           <Link
-            href="/events"
+            href="/events/all"
             className="hidden md:inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-primary transition-colors group"
           >
             {t('homepage.events.viewAll')}
@@ -113,7 +113,7 @@ export default function EventsPreview({ events }: EventsPreviewProps) {
 
         <div className="mt-12 text-center md:hidden">
           <Link
-            href="/events"
+            href="/events/all"
             className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-all"
           >
             {t('homepage.events.viewAll')}

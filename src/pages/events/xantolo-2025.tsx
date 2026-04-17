@@ -382,7 +382,7 @@ export default function Xantolo2025() {
               <ArrowTopRightOnSquareIcon className="w-5 h-5" />
             </Link>
             <Link
-              href="/events"
+              href="/events/all"
               className="bg-transparent hover:bg-white/10 border-2 border-white text-white font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 transition-colors"
             >
               {'View Other Events'}

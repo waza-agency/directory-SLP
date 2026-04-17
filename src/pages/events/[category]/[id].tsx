@@ -147,7 +147,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
             Lo sentimos, el evento que estás buscando no existe o ha sido removido.
           </p>
           <Link
-            href="/events"
+            href="/events/all"
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary hover:bg-primary-dark transition-colors"
           >
             <ArrowLeftIcon className="w-5 h-5 mr-2" />
@@ -229,7 +229,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
         <div className="relative container mx-auto px-4 py-24 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
           <div className="max-w-4xl">
             <Link
-              href="/events"
+              href="/events/all"
               className="inline-flex items-center text-white/80 hover:text-white mb-6 transition-colors"
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
@@ -442,7 +442,7 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
             Explora nuestra agenda completa de eventos deportivos, culturales y de entretenimiento en la ciudad.
           </p>
           <Link
-            href="/events"
+            href="/events/all"
             className="bg-white hover:bg-white/90 text-primary font-bold px-8 py-4 rounded-full inline-flex items-center gap-2 transition-colors"
           >
             Ver todos los eventos

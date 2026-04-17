@@ -505,7 +505,7 @@ export default function MusicDancePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/events"
+                  href="/events/all"
                   className="inline-flex items-center justify-center gap-3 bg-white text-amber-600 px-10 py-5 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
                   Browse Cultural Events

@@ -335,7 +335,7 @@ export default function SanLuisMetalFest2026() {
               <TicketIcon className="w-5 h-5" />
             </a>
             <Link
-              href="/events"
+              href="/events/all"
               className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-8 py-4 rounded-full transition-colors"
             >
               {t('metalFest2026.cta.moreEvents')}

@@ -103,7 +103,7 @@ const communityLinks = [
     Icon: CalendarDaysIcon,
     title: 'Local Events',
     desc: 'Language exchanges, art nights, rooftop parties',
-    href: '/events',
+    href: '/events/all',
     color: 'from-blue-500 to-indigo-500',
   },
   {

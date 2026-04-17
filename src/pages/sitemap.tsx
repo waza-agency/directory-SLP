@@ -19,7 +19,7 @@ export default function SitemapPage() {
       icon: '🔍',
       links: [
         { href: '/places', label: 'All Places' },
-        { href: '/events', label: 'Events Calendar' },
+        { href: '/events/all', label: 'Events Calendar' },
         { href: '/services', label: 'Services' },
         { href: '/outdoors', label: 'Outdoor Activities' },
       ],
@@ -137,7 +137,7 @@ export default function SitemapPage() {
                   🗺️ Explore Places
                 </Link>
                 <Link
-                  href="/events"
+                  href="/events/all"
                   className="bg-white px-6 py-3 rounded-lg shadow hover:shadow-md transition-shadow font-medium text-gray-700 hover:text-primary"
                 >
                   📅 Upcoming Events

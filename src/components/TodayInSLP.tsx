@@ -309,7 +309,7 @@ const TodayInSLP: React.FC<TodayInSLPProps> = ({ todayEvents = [] }) => {
             <p className="text-sm text-gray-600 mb-2">
               {t('todayInSLP.localTime')}
             </p>
-            <Link href="/events" className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+            <Link href="/events/all" className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-medium">
               <CalendarDaysIcon className="w-3 h-3" />
               {todayEvents.length > 0 ? `${todayEvents.length} ${t('todayInSLP.eventsToday')}` : t('todayInSLP.viewCalendar')}
             </Link>

@@ -274,7 +274,7 @@ export default function CulturalPage({ events }: CulturalPageProps) {
               <EventList events={events} />
               <div className="text-center mt-8">
                 <Link
-                  href="/events"
+                  href="/events/all"
                   className="inline-block px-6 py-3 bg-white border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
                 >
                   View All Events

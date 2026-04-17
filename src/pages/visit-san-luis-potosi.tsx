@@ -365,7 +365,7 @@ export default function VisitSanLuisPotosiPage() {
                     { href: '/cultural/festivals', labelKey: 'visitGuide.culture.festivals' },
                     { href: '/cultural/music-dance', labelKey: 'visitGuide.culture.music' },
                     { href: '/cultural/culinary-traditions', labelKey: 'visitGuide.culture.culinary' },
-                    { href: '/events', labelKey: 'visitGuide.culture.events' },
+                    { href: '/events/all', labelKey: 'visitGuide.culture.events' },
                   ].map((link) => (
                     <Link key={link.href} href={link.href} className="flex items-center gap-2 p-3 rounded-lg bg-white border border-gray-100 hover:bg-gray-50 hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-300 text-gray-700 font-medium text-sm shadow-sm">
                       <span className="text-primary">→</span>

@@ -107,7 +107,7 @@ export default function ArrivalChecklistPage() {
         { id: 'exchange', link: '/category/language-exchange-cafes' },
         { id: 'classes' },
         { id: 'neighborhoods' },
-        { id: 'events', link: '/events' },
+        { id: 'events', link: '/events/all' },
         { id: 'neighbors' },
       ]
     },

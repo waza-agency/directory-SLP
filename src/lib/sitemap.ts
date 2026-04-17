@@ -50,7 +50,7 @@ const STATIC_ROUTES: Array<Omit<SitemapUrl, 'lastmod'>> = [
   { loc: '/services',                                changefreq: 'monthly', priority: 0.7 },
   { loc: '/community',                               changefreq: 'monthly', priority: 0.6 },
   { loc: '/places',                                  changefreq: 'daily',   priority: 0.9 },
-  { loc: '/events',                                  changefreq: 'daily',   priority: 0.9 },
+  { loc: '/events/all',                              changefreq: 'daily',   priority: 0.9 },
   { loc: '/blog',                                    changefreq: 'daily',   priority: 0.9 },
   { loc: '/brands',                                  changefreq: 'weekly',  priority: 0.8 },
   { loc: '/restaurants',                             changefreq: 'weekly',  priority: 0.8 },
