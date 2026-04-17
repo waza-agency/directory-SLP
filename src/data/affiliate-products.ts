@@ -109,3 +109,48 @@ export function getAffiliateProductsByTag(tag: string): AffiliateProduct[] {
 export function getAffiliateProductsByAudience(audience: AffiliateAudience): AffiliateProduct[] {
   return AFFILIATE_PRODUCTS.filter((p) => p.audience === audience || p.audience === 'mixed');
 }
+
+export function getAffiliateProductsForPost(options: {
+  tags?: string[];
+  category?: string;
+  slug?: string;
+  limit?: number;
+}): AffiliateProduct[] {
+  const { tags = [], category, slug, limit = 3 } = options;
+
+  const searchTerms = new Set<string>();
+  tags.forEach((t) => searchTerms.add(t.toLowerCase()));
+  if (category) searchTerms.add(category.toLowerCase());
+  if (slug) {
+    slug
+      .toLowerCase()
+      .split(/[-_\s/]+/)
+      .forEach((part) => {
+        if (part.length >= 4) searchTerms.add(part);
+      });
+  }
+
+  if (searchTerms.size === 0) return [];
+
+  const searchTermList = Array.from(searchTerms);
+  const scored = AFFILIATE_PRODUCTS.map((product) => {
+    const productTerms = product.tags.map((t) => t.toLowerCase());
+    let score = 0;
+    for (const term of searchTermList) {
+      for (const pt of productTerms) {
+        if (pt === term) {
+          score += 3;
+        } else if (term.length >= 4 && (pt.includes(term) || term.includes(pt))) {
+          score += 1;
+        }
+      }
+    }
+    return { product, score };
+  });
+
+  return scored
+    .filter((s) => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((s) => s.product);
+}

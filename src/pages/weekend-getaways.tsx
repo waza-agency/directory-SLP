@@ -2,8 +2,10 @@ import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ResponsiveImage } from '@/components/common/ResponsiveImage';
 import GuideCTA from '@/components/common/GuideCTA';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
 
 // Weekend destinations data
 const weekendGetaways = [
@@ -606,6 +608,16 @@ const WeekendGetawaysPage: NextPage = () => {
               meaningful journeys don't require plane tickets or vacation days, just the decision to see what
               wonders lie beyond the familiar.
             </p>
+            <AffiliateGrid
+              productIds={[
+                'columbia-tenis-senderismo',
+                'mochila-hidratacion-tactica',
+                'sandalias-acuaticas',
+                'dubery-lentes-polarizados',
+                'black-diamond-lampara-frontal',
+              ]}
+            />
+            <p className="text-lg text-gray-700 mb-8 mt-8">&nbsp;</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="https://www.corazondexoconostle.com/index.php/en/"
@@ -631,9 +643,10 @@ const WeekendGetawaysPage: NextPage = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
+      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
     },
   };
 };

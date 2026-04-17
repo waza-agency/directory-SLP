@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import AdUnit from '@/components/common/AdUnit';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import LastUpdated from '@/components/common/LastUpdated';
 import GuideCTA from '@/components/common/GuideCTA';
@@ -429,6 +430,15 @@ export default function VisitSanLuisPotosiPage() {
                   ))}
                 </div>
               </section>
+
+              <AffiliateGrid
+                productIds={[
+                  'dubery-lentes-polarizados',
+                  'termo-acero-inoxidable',
+                  'columbia-tenis-senderismo',
+                  'mochila-hidratacion-tactica',
+                ]}
+              />
 
               <NewsletterBanner />
 

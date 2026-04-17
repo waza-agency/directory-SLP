@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
 
 const activities = [
   { category: 'fitnessWellness', icon: '🧘', items: [
@@ -443,6 +444,16 @@ export default function SpouseHubPage() {
               </div>
             </section>
           )}
+        </div>
+
+        <div className="container mx-auto px-4 max-w-6xl">
+          <AffiliateGrid
+            productIds={[
+              'brita-jarra-filtro',
+              'levoit-purificador-aire',
+              'termo-acero-inoxidable',
+            ]}
+          />
         </div>
 
         {/* Final CTA */}

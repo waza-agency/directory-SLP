@@ -5,6 +5,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
 import {
   ArrowLeftIcon,
   ClockIcon,
@@ -574,6 +575,15 @@ export default function DigitalNomadGuidePage() {
                   ))}
                 </div>
               </section>
+
+              <AffiliateGrid
+                productIds={[
+                  'termo-acero-inoxidable',
+                  'levoit-purificador-aire',
+                  'dubery-lentes-polarizados',
+                  'brita-jarra-filtro',
+                ]}
+              />
 
               <NewsletterBanner />
 

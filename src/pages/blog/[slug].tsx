@@ -10,6 +10,8 @@ import NewsletterBanner from '@/components/NewsletterBanner';
 import GuideCTA from '@/components/common/GuideCTA';
 import ShareButton from '@/components/sharing/ShareButton';
 import AdUnit from '@/components/common/AdUnit';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
+import { getAffiliateProductsForPost } from '@/data/affiliate-products';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface BlogPostPageProps {
@@ -192,6 +194,23 @@ export default function BlogPostPage({ post, relatedPosts }: BlogPostPageProps) 
           <div className="my-10">
             <AdUnit placement="in-article" />
           </div>
+
+          {(() => {
+            const matchedProducts = getAffiliateProductsForPost({
+              tags: post.tags,
+              category: post.category,
+              slug: post.slug,
+              limit: 3,
+            });
+            if (matchedProducts.length === 0) return null;
+            return (
+              <AffiliateGrid
+                productIds={matchedProducts.map((p) => p.id)}
+                titleKey="affiliate.sectionTitle"
+                subtitleKey="affiliate.sectionSubtitle"
+              />
+            );
+          })()}
 
           {post.tags && post.tags.length > 0 && (
             <div className="mt-12 pt-8 border-t border-gray-200">

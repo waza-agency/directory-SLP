@@ -4,6 +4,7 @@ import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import Link from 'next/link';
 import AdUnit from '../components/common/AdUnit';
+import AffiliateGrid from '@/components/affiliate/AffiliateGrid';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -523,6 +524,15 @@ export default function ExpatGuidePage() {
               />
             </section>
           </div>
+
+          <AffiliateGrid
+            productIds={[
+              'brita-jarra-filtro',
+              'levoit-purificador-aire',
+              'termo-acero-inoxidable',
+              'dubery-lentes-polarizados',
+            ]}
+          />
 
           {/* Bottom ad */}
           <section className="mt-12 mb-8">

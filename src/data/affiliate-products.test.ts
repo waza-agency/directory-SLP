@@ -3,6 +3,7 @@ import {
   getAffiliateProduct,
   getAffiliateProductsByTag,
   getAffiliateProductsByAudience,
+  getAffiliateProductsForPost,
 } from './affiliate-products';
 
 describe('affiliate-products data', () => {
@@ -47,6 +48,31 @@ describe('affiliate-products data', () => {
     const hiking = getAffiliateProductsByTag('hiking');
     expect(hiking.length).toBeGreaterThan(0);
     hiking.forEach((p) => expect(p.tags).toContain('hiking'));
+  });
+
+  it('getAffiliateProductsForPost returns empty when no tags/category/slug given', () => {
+    expect(getAffiliateProductsForPost({})).toEqual([]);
+  });
+
+  it('getAffiliateProductsForPost matches huasteca-tagged products via tag', () => {
+    const results = getAffiliateProductsForPost({ tags: ['huasteca'] });
+    expect(results.length).toBeGreaterThan(0);
+    results.forEach((p) => {
+      expect(p.tags.some((t) => t.includes('huasteca'))).toBe(true);
+    });
+  });
+
+  it('getAffiliateProductsForPost matches via slug keyword', () => {
+    const results = getAffiliateProductsForPost({ slug: 'real-de-catorce-camping-guide' });
+    expect(results.length).toBeGreaterThan(0);
+  });
+
+  it('getAffiliateProductsForPost respects limit', () => {
+    const results = getAffiliateProductsForPost({
+      tags: ['outdoor', 'hiking', 'hydration', 'camping'],
+      limit: 2,
+    });
+    expect(results.length).toBeLessThanOrEqual(2);
   });
 
   it('getAffiliateProductsByAudience includes mixed products for every audience', () => {
