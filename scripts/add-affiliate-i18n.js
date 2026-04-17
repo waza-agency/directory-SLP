@@ -15,8 +15,8 @@ const translations = {
         description: 'Clean drinking water at home — a must-have setup item for expats arriving in Mexico.',
       },
       termo: {
-        title: 'Stainless steel insulated thermos',
-        description: 'Keeps drinks cold or hot for hours. Perfect for hikes, coworking, or daily commute.',
+        title: 'Stanley Quencher H2.0 40oz insulated tumbler',
+        description: 'Viral for a reason — keeps water icy for 11+ hours. Perfect for hikes, coworking, and long drives.',
       },
       columbia: {
         title: 'Columbia men\'s hiking trail shoes',
@@ -56,8 +56,8 @@ const translations = {
         description: 'Agua potable limpia en casa — un básico para expats recién llegados a México.',
       },
       termo: {
-        title: 'Termo de acero inoxidable con aislamiento',
-        description: 'Mantiene bebidas frías o calientes por horas. Ideal para caminatas, coworking o el día a día.',
+        title: 'Termo Stanley Quencher H2.0 40oz',
+        description: 'Viral por una razón — mantiene el agua helada 11+ horas. Ideal para caminatas, coworking y viajes largos.',
       },
       columbia: {
         title: 'Tenis Columbia de senderismo para hombre',
@@ -97,8 +97,8 @@ const translations = {
         description: 'Sauberes Trinkwasser zu Hause — ein Muss für Expats, die neu in Mexiko ankommen.',
       },
       termo: {
-        title: 'Isolierte Edelstahl-Thermoskanne',
-        description: 'Hält Getränke stundenlang kalt oder heiß. Perfekt für Wanderungen, Coworking oder den Alltag.',
+        title: 'Stanley Quencher H2.0 40oz Isolierbecher',
+        description: 'Viral aus gutem Grund — hält Wasser 11+ Stunden eiskalt. Perfekt für Wanderungen, Coworking und lange Fahrten.',
       },
       columbia: {
         title: 'Columbia Herren-Wanderschuhe',
@@ -138,8 +138,8 @@ const translations = {
         description: 'メキシコに到着した駐在員にとって必須の、家庭での清潔な飲料水。',
       },
       termo: {
-        title: 'ステンレス製断熱ボトル',
-        description: '冷たい飲み物も温かい飲み物も数時間保温。ハイキング、コワーキング、通勤に最適。',
+        title: 'Stanley Quencher H2.0 40oz 断熱タンブラー',
+        description: 'バイラル人気商品 — 水を11時間以上冷たく保ちます。ハイキング、コワーキング、長距離ドライブに最適。',
       },
       columbia: {
         title: 'コロンビア メンズ ハイキングシューズ',
