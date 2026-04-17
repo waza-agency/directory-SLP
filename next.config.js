@@ -130,11 +130,9 @@ const nextConfig = {
         destination: '/resources/expat-guide',
         permanent: true,
       },
-      {
-        source: '/events',
-        destination: '/events/all',
-        permanent: true,
-      },
+      // /events now renders its own page — no redirect. If you need to
+      // change this, also delete src/pages/events/index.tsx so next.config
+      // rules take precedence again.
     ];
   },
   env: {

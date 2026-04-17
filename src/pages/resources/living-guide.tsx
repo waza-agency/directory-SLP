@@ -37,25 +37,25 @@ export default function LivingGuidePage() {
   ];
 
   const quickStats = [
-    { label: 'Monthly Budget', value: '$800-$1,500 USD' },
-    { label: '1BR Rent', value: '$300-$600 USD/mo' },
-    { label: 'Meal Out', value: '$5-$15 USD' },
-    { label: 'Population', value: '1.29 million' },
+    { label: 'Monthly Budget (2026)', value: '$1,200-$2,000 USD' },
+    { label: '1BR Rent Centro', value: '$450-$750 USD/mo' },
+    { label: 'Meal Out', value: '$13-$43 USD' },
+    { label: 'Population (metro)', value: '1.31 million' },
     { label: 'Altitude', value: '1,864m (6,115 ft)' },
-    { label: 'Climate', value: 'Semi-arid, avg 17°C' },
+    { label: 'MXN/USD (Mar 2026)', value: '~17.5' },
   ];
 
   const visaTypes = [
-    { type: 'Tourist (FMM)', duration: '180 days', work: 'No', bestFor: 'Short visits' },
-    { type: 'Temporary Resident', duration: '1-4 years', work: 'With permit', bestFor: 'Long-term expats' },
+    { type: 'Tourist (FMM)', duration: '180 days', work: 'No', bestFor: 'Short visits, nomads testing SLP' },
+    { type: 'Temporary Resident', duration: '1-4 years', work: 'With permit', bestFor: 'Remote workers ($4,185/mo income)' },
     { type: 'Permanent Resident', duration: 'Indefinite', work: 'Yes', bestFor: 'Retirees, long-term' },
-    { type: 'Work Visa', duration: '1-4 years', work: 'Yes (employer-specific)', bestFor: 'Employment' },
+    { type: 'Work Visa', duration: '1-4 years', work: 'Yes (employer-specific)', bestFor: 'BMW, GM, Valeo transferees' },
   ];
 
   const neighborhoods = [
     {
       name: 'Lomas',
-      rent: '$800-$1,500 USD',
+      rent: '$800-$1,500 USD (2026)',
       bestFor: 'Families, professionals',
       safety: 5,
       description: 'Upscale, family-friendly with tree-lined streets, modern shopping, excellent schools',
@@ -64,7 +64,7 @@ export default function LivingGuidePage() {
     },
     {
       name: 'Centro Histórico',
-      rent: '$400-$800 USD',
+      rent: '$450-$750 USD (2026)',
       bestFor: 'Culture lovers, singles',
       safety: 4,
       description: 'UNESCO World Heritage historic center, colonial architecture, best restaurants',
@@ -73,7 +73,7 @@ export default function LivingGuidePage() {
     },
     {
       name: 'Tangamanga',
-      rent: '$500-$900 USD',
+      rent: '$550-$950 USD (2026)',
       bestFor: 'Active lifestyle, nature lovers',
       safety: 4,
       description: 'Adjacent to Parque Tangamanga (one of Mexico\'s largest urban parks)',
@@ -82,7 +82,7 @@ export default function LivingGuidePage() {
     },
     {
       name: 'Zona Industrial / Morales',
-      rent: '$350-$600 USD',
+      rent: '$400-$700 USD (2026)',
       bestFor: 'Budget-conscious, workers',
       safety: 3,
       description: 'Near industrial parks, excellent value, new construction',
@@ -115,13 +115,16 @@ export default function LivingGuidePage() {
     { q: 'Can I bring pets?', a: 'Yes. Requirements: health certificate (within 10 days), current rabies vaccination (15 days to 1 year before travel). Many apartments allow pets. Good veterinary care: $30-50 USD for routine visits.' },
     { q: 'Are there international schools?', a: 'Yes: Instituto Potosino (bilingual), Colegio Motolinia (Catholic, bilingual), American School of San Luis Potosí. Tuition: $3,000-$10,000 USD/year.' },
     { q: 'Can I use my foreign driver\'s license?', a: 'Valid for 6 months as tourist. Once resident, obtain Mexican license (proof of residency, medical exam, written/practical tests). Cost: ~$50-100 USD total.' },
+    { q: 'Is San Luis Potosí good for digital nomads in 2026?', a: 'Yes and growing fast. The city has 51+ coworking spaces as of March 2026 (vs ~25 in 2024), fiber internet at 100-500 Mbps in all major neighborhoods, and direct flights to Houston and Dallas. Monthly nomad budget averages $1,800 USD. Entidad Nómada in Centro Histórico is the default first-stop coworking space.' },
+    { q: 'What changed in Mexican residency visas for 2026?', a: 'Two things: (1) In July 2025, Mexican consulates shifted to UMA-based economic solvency calculations instead of minimum wage. For 2026 the threshold is ~$4,185 USD monthly income or ~$69,750 USD in savings. (2) Government processing fees for residency visas and cards were roughly doubled effective November 7, 2025.' },
+    { q: 'How many days should a tourist plan for San Luis Potosí?', a: '3 days for the city (Centro Histórico, Parque Tangamanga, a day trip to Real de Catorce). Add 3-4 more days for the Huasteca Potosina (Cascada de Tamul, Xilitla Surrealist Gardens, Tamasopo). A full state visit is 7-8 days.' },
   ];
 
   return (
     <>
       <Head>
-        <title>Ultimate Guide to Living in San Luis Potosí | Expat Guide</title>
-        <meta name="description" content="Comprehensive expat guide to San Luis Potosí covering visas, cost of living, neighborhoods, healthcare, banking, transportation. 35-50% lower cost than Mexico City." />
+        <title>Ultimate Guide to Living in San Luis Potosí 2026 | Expat, Nomad &amp; Traveler Guide</title>
+        <meta name="description" content="Complete 2026 guide to San Luis Potosí: verified March 2026 prices, new UMA visa rules, 51+ coworking spaces, neighborhoods, healthcare. For expats, digital nomads, and slow travelers. 35-50% lower cost than Mexico City." />
         <meta name="keywords" content="San Luis Potosí expat guide, living in SLP, cost of living Mexico, expat visa Mexico, neighborhoods SLP" />
         <meta property="og:title" content="Ultimate Guide to Living in San Luis Potosí | Expat Guide" />
         <meta property="og:url" content="https://www.sanluisway.com/resources/living-guide" />
@@ -131,10 +134,10 @@ export default function LivingGuidePage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
-              "headline": "Ultimate Guide to Living in San Luis Potosí as an Expat",
-              "description": "Comprehensive guide covering visas, cost of living, neighborhoods, healthcare, and practical information for expats.",
+              "headline": "Ultimate Guide to Living in San Luis Potosí 2026",
+              "description": "Comprehensive 2026 guide covering visas (UMA rules), cost of living, neighborhoods, healthcare, coworking — for expats, digital nomads, and slow travelers.",
               "datePublished": "2025-01-01",
-              "dateModified": "2026-04-07"
+              "dateModified": "2026-03-17"
             })
           }}
         />
@@ -186,11 +189,11 @@ export default function LivingGuidePage() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                Ultimate Guide to Living in San Luis Potosí
+                Ultimate Guide to Living in San Luis Potosí 2026
               </h1>
-              <LastUpdated date="2026-04-07" className="text-white/80 mb-3" />
+              <LastUpdated date="2026-03-17" className="text-white/80 mb-3" />
               <p className="text-xl text-white/90 mb-4">
-                Everything you need to know about expat life in SLP
+                For expats, digital nomads, and slow travelers — everything you need to live, work, or visit SLP in 2026
               </p>
               <div className="flex justify-center mb-6">
                 <ShareButton 

@@ -61,6 +61,41 @@ async function checkMigration() {
   }
 }
 
+function extractJSON(text) {
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  const raw = fenced ? fenced[1].trim() : text;
+
+  const start = raw.indexOf('{');
+  if (start === -1) return null;
+
+  let depth = 0;
+  let end = -1;
+  for (let i = start; i < raw.length; i++) {
+    const ch = raw[i];
+    if (ch === '{') depth++;
+    else if (ch === '}') { depth--; if (depth === 0) { end = i; break; } }
+    else if (ch === '"') {
+      i++;
+      while (i < raw.length && raw[i] !== '"') { if (raw[i] === '\\') i++; i++; }
+    }
+  }
+
+  if (end === -1) return null;
+  const jsonStr = raw.substring(start, end + 1);
+
+  try {
+    return JSON.parse(jsonStr);
+  } catch (e) {
+    const cleaned = jsonStr.replace(/,\s*([}\]])/g, '$1');
+    try {
+      return JSON.parse(cleaned);
+    } catch (e2) {
+      console.error('   JSON parse failed:', e2.message);
+      return null;
+    }
+  }
+}
+
 async function fetchNewsWithClaude() {
   if (!anthropicApiKey) {
     console.log('   No hay API key de Anthropic');
@@ -84,7 +119,7 @@ async function fetchNewsWithClaude() {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 4000,
+      max_tokens: 8000,
       tools: [{
         type: 'web_search_20250305',
         name: 'web_search',
@@ -94,53 +129,15 @@ async function fetchNewsWithClaude() {
         role: 'user',
         content: `HOY ES: ${today}
 
-Busca noticias POSITIVAS/NEUTRALES de San Luis Potosí, México para HOY.
+Busca noticias POSITIVAS/NEUTRALES de San Luis Potosí, México de hoy o esta semana.
 
-IMPORTANTE - TRADUCCIONES A 4 IDIOMAS:
-Debes proporcionar TODAS las traducciones en: Español (es), English (en), Deutsch (de), 日本語 (ja).
-Cada resumen debe tener 2-3 oraciones con:
-- Cifras específicas (montos, empleos, fechas)
-- Nombres de empresas, funcionarios o instituciones involucradas
-- Fechas de cuándo ocurrirá o cuándo se anunció
-- Impacto o beneficio para la población
+Cada resumen debe tener 2-3 oraciones con cifras, nombres e impacto.
 
-Ejemplo de buen resumen español:
-"BMW invertirá $800 millones USD en su planta de Villa de Reyes, anunció el gobernador Ricardo Gallardo el 28 de diciembre. Se crearán 1,500 empleos directos."
+Devuelve SOLO JSON puro sin markdown ni backticks. Formato exacto:
 
-Devuelve EXACTAMENTE este formato JSON con TODOS los campos de idiomas:
+{"communityNews":[{"title_es":"...","title_en":"...","summary_es":"...","summary_en":"...","category":"community","priority":1}],"headlines":[{"text_es":"...","text_en":"...","summary_es":"...","summary_en":"...","source":"...","priority":1}]}
 
-{
-  "communityNews": [
-    {
-      "title_es": "Título en español",
-      "title_en": "Title in English",
-      "title_de": "Titel auf Deutsch",
-      "title_ja": "日本語のタイトル",
-      "summary_es": "Resumen DETALLADO de 2-3 oraciones",
-      "summary_en": "DETAILED summary of 2-3 sentences",
-      "summary_de": "DETAILLIERTE Zusammenfassung in 2-3 Sätzen",
-      "summary_ja": "2〜3文の詳細な要約",
-      "category": "community",
-      "priority": 1
-    }
-  ],
-  "headlines": [
-    {
-      "text_es": "Titular en español",
-      "text_en": "Headline in English",
-      "text_de": "Schlagzeile auf Deutsch",
-      "text_ja": "日本語の見出し",
-      "summary_es": "Resumen DETALLADO de 2-3 oraciones",
-      "summary_en": "DETAILED summary of 2-3 sentences",
-      "summary_de": "DETAILLIERTE Zusammenfassung in 2-3 Sätzen",
-      "summary_ja": "2〜3文の詳細な要約",
-      "source": "Nombre del medio",
-      "priority": 1
-    }
-  ]
-}
-
-Genera exactamente 3 communityNews y 5 headlines. TODOS los campos de idiomas son OBLIGATORIOS.`
+Genera exactamente 3 communityNews y 5 headlines.`
       }]
     })
   });
@@ -155,16 +152,13 @@ Genera exactamente 3 communityNews y 5 headlines. TODOS los campos de idiomas so
   let content = '';
   for (const block of data.content || []) {
     if (block.type === 'text') {
-      content = block.text;
+      content += block.text;
     }
   }
 
   if (!content) return null;
 
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) return null;
-
-  return JSON.parse(jsonMatch[0]);
+  return extractJSON(content);
 }
 
 function getDefaultNews() {
@@ -303,7 +297,7 @@ async function updateNews() {
     source: h.source,
     priority: h.priority,
     active: true,
-    expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+    expires_at: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
   }));
 
   const { error: headlinesError } = await supabase
