@@ -384,16 +384,62 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "CollectionPage",
-              "name": "San Luis Way Fact-Check Reports",
-              "description": "Transparent fact-checking of blog content with detailed source verification",
-              "url": "https://www.sanluisway.com/blog/factchecks",
-              "publisher": {
-                "@type": "Organization",
-                "name": "San Luis Way"
-              }
-            })
+              '@context': 'https://schema.org',
+              '@type': 'CollectionPage',
+              '@id': 'https://www.sanluisway.com/blog/factchecks',
+              name: 'San Luis Way Fact-Check Reports',
+              description:
+                'Transparent fact-checking of blog content with detailed source verification, per-claim ClaimReview data, and reliability scoring.',
+              url: 'https://www.sanluisway.com/blog/factchecks',
+              inLanguage: 'en',
+              publisher: {
+                '@type': 'Organization',
+                name: 'San Luis Way',
+                url: 'https://www.sanluisway.com',
+              },
+              isPartOf: {
+                '@type': 'WebSite',
+                name: 'San Luis Way',
+                url: 'https://www.sanluisway.com',
+              },
+              hasPart: factchecks.map((fc) => ({
+                '@type': 'Article',
+                '@id': `https://www.sanluisway.com/blog/factchecks/${fc.slug}`,
+                headline: fc.title,
+                url: `https://www.sanluisway.com/blog/factchecks/${fc.slug}`,
+                datePublished: fc.verificationDate,
+                author: { '@type': 'Organization', name: 'San Luis Way' },
+              })),
+              mainEntity: {
+                '@type': 'ItemList',
+                numberOfItems: factchecks.length,
+                itemListElement: factchecks.map((fc, idx) => ({
+                  '@type': 'ListItem',
+                  position: idx + 1,
+                  url: `https://www.sanluisway.com/blog/factchecks/${fc.slug}`,
+                  name: fc.title,
+                })),
+              },
+              speakable: {
+                '@type': 'SpeakableSpecification',
+                cssSelector: ['.speakable', '#factchecks-intro'],
+              },
+            }),
+          }}
+        />
+
+        {/* Breadcrumb schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Blog', item: 'https://www.sanluisway.com/blog' },
+                { '@type': 'ListItem', position: 2, name: 'Fact-Checks', item: 'https://www.sanluisway.com/blog/factchecks' },
+              ],
+            }),
           }}
         />
       </Head>
@@ -420,16 +466,25 @@ export default function FactChecksPage({ factchecks }: FactChecksPageProps) {
                 <ShieldCheckIcon className="w-11 h-11 text-white" />
               </motion.div>
 
-              <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-                {t('factchecks.heroTitle')}
-              </h1>
+              <div id="factchecks-intro" className="speakable">
+                <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                  {t('factchecks.heroTitle')}
+                </h1>
 
-              <p className="text-xl md:text-2xl text-blue-100 mb-4 leading-relaxed">
-                {t('factchecks.heroTagline')}
-              </p>
-              <p className="text-lg md:text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
-                {t('factchecks.heroDescription')}
-              </p>
+                <p className="text-xl md:text-2xl text-blue-100 mb-4 leading-relaxed">
+                  {t('factchecks.heroTagline')}
+                </p>
+                <p className="text-lg md:text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
+                  {t('factchecks.heroDescription')}
+                </p>
+                <p className="sr-only">
+                  San Luis Way publishes {factchecks.length} transparent fact-check reports
+                  covering {factchecks.reduce((acc, fc) => acc + fc.totalClaims, 0)} individual
+                  verified claims about San Luis Potosí. Every claim is reviewed against primary
+                  sources and scored on a 10-point reliability scale, with Google-standard
+                  ClaimReview structured data on every page.
+                </p>
+              </div>
 
               <div className="flex flex-wrap justify-center gap-6 mt-10">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-4 border border-white/20">
