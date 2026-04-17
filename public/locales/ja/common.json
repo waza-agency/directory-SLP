@@ -620,7 +620,17 @@
       "q9": "What can kids do at Parque Tangamanga?",
       "a9": "Splash aquarium, the free zoo, Laberinto de las Ciencias (science museum), paddle boats on the lake, the Japanese garden, open theater performances on weekends, bike rentals, and multiple playgrounds. Most activities are free.",
       "q10": "What's the difference between Tangamanga I and Tangamanga II?",
-      "a10": "Tangamanga I (this page) is the 411-hectare tourist park with the zoo, planetarium, aquarium, and gardens. Tangamanga II is a 189-hectare sports park built over SLP's old airport — focused on archery, running tracks, auto racing, and soccer fields. Both are free and both are in San Luis Potosí city limits."
+      "a10": "Tangamanga I (this page) is the 411-hectare tourist park with the zoo, planetarium, aquarium, and gardens. Tangamanga II is a 189-hectare sports park built over SLP's old airport — focused on archery, running tracks, auto racing, and soccer fields. Both are free and both are in San Luis Potosí city limits.",
+      "q11": "Is Parque Tangamanga bigger than Central Park?",
+      "a11": "Yes. Parque Tangamanga I covers 411 hectares (1,015 acres), which is 70 hectares larger than New York's Central Park (341 ha / 843 acres). It is the second-largest urban park in Mexico.",
+      "q12": "How long does it take to visit Parque Tangamanga?",
+      "a12": "Plan at least 3 to 4 hours for the main attractions (zoo, Japanese garden, lakes). A full visit including the planetarium, Splash aquarium, and Laberinto de las Ciencias takes a full day. Bring water and sunscreen — the park's altitude (1,864 m) and open layout make sun exposure significant.",
+      "q13": "Are dogs allowed at Parque Tangamanga?",
+      "a13": "Yes, dogs are allowed on leash in the public walking areas of Parque Tangamanga I. Dogs are not permitted inside the zoo, planetarium, or aquarium. For an off-leash experience, Parque Tangamanga II has a dedicated fenced pet zone.",
+      "q14": "Can I bring food to Parque Tangamanga?",
+      "a14": "Yes. Picnics are welcome in the designated lawn areas. Glass containers and alcohol are not permitted. There are also food vendors and small restaurants inside the park, most active on weekends.",
+      "q15": "What is the best time to visit Parque Tangamanga?",
+      "a15": "Weekend mornings (8 AM to noon) offer the best experience: cool temperatures, active zoo animals, open food stalls, and free weekend events at the open-air theater. Weekday mornings are quietest. Avoid Monday if you want full access — most attractions close for maintenance Monday afternoons."
     },
     "maraton": {
       "badge": "Annual Event",
@@ -645,6 +655,31 @@
       "bicentenarioDesc": "Smaller urban park celebrating Mexico's bicentennial. Good for afternoon walks and family picnics.",
       "t2Name": "Parque Tangamanga II",
       "t2Desc": "The sports park — archery, running, auto racing, pet zone."
+    },
+    "quickAnswer": {
+      "title": "Parque Tangamanga I at a glance",
+      "definition": "Parque Tangamanga I is a 411-hectare public urban park in San Luis Potosí, Mexico. It is the second-largest urban park in Mexico and is 70 hectares larger than New York's Central Park. The park opened in 1980 and is operated by CECURT (Centro Cultural Universitario Rafael del Villar). Entry to the park, the zoo, the Laberinto de las Ciencias, and the gardens is free of charge.",
+      "keyFactsTitle": "Key facts",
+      "keyFacts": [
+        "Size: 411 hectares (1,015 acres) — #2 urban park in Mexico",
+        "Admission: free (planetarium and aquarium charge $20–50 MXN)",
+        "Hours: Tuesday–Saturday 5 AM–10:30 PM · Sunday 5 AM–6 PM · Monday 5–11 AM (maintenance)",
+        "Location: Av. Dr. Salvador Nava, southeast San Luis Potosí",
+        "Opened: 1980 (zoo added in 1985)",
+        "Operator: CECURT (Centro Cultural Universitario Rafael del Villar)",
+        "Trees: over 400,000",
+        "Main attractions: zoo, planetarium, Splash aquarium, Laberinto de las Ciencias, Japanese garden, botanical garden, open-air theater, lakes"
+      ],
+      "lastVerified": "Last verified by San Luis Way editorial team: April 17, 2026"
+    },
+    "sources": {
+      "title": "Sources used on this page",
+      "items": [
+        "CECURT — official park operator (cecurt.slp.gob.mx)",
+        "Gobierno de San Luis Potosí — municipal records",
+        "INEGI 2020 Census — surrounding demographic data",
+        "Maratón Tangamanga — official race organizer (maratontangamanga.com)"
+      ]
     }
   },
   "circleOfTrust": {
@@ -2514,7 +2549,37 @@
       "q4": "Can I do archery at Tangamanga II?",
       "a4": "Yes. Club de Tiro con Arco Tangamanga offers open practice and beginner lessons. Contact them directly via their Facebook page for current schedule and rates.",
       "q5": "Is it safe to run at Tangamanga II at dawn?",
-      "a5": "Yes. Tangamanga II is popular with runners precisely because it's well-lit and monitored from 5:30 AM. Weekend mornings are the busiest and safest."
+      "a5": "Yes. Tangamanga II is popular with runners precisely because it's well-lit and monitored from 5:30 AM. Weekend mornings are the busiest and safest.",
+      "q6": "Is Parque Tangamanga II bigger or smaller than Tangamanga I?",
+      "a6": "Tangamanga II (189 ha) is smaller than Tangamanga I (411 ha). But Tangamanga II is still the second-largest green space in San Luis Potosí city and is dedicated specifically to sports and athletics.",
+      "q7": "What sports can I do at Parque Tangamanga II?",
+      "a7": "Tangamanga II offers: archery (Club de Tiro con Arco Tangamanga), auto racing (permanent circuit), soccer, basketball, tennis, volleyball, running, cycling, and walking. Most public courts are free; specialty clubs (archery academy, racing events) charge their own fees.",
+      "q8": "How do I get to Parque Tangamanga II by car or transit?",
+      "a8": "By car: Av. Salvador Nava Martínez, Fracc. Tangamanga, postal code 78260. Free parking at multiple gates. By transit: city bus routes serving Av. Salvador Nava stop near the main gates; rideshare drops visitors at any entrance."
+    },
+    "quickAnswer": {
+      "title": "Parque Tangamanga II at a glance",
+      "definition": "Parque Tangamanga II is a 189-hectare sports-focused public park in San Luis Potosí, Mexico. It was built in 1985 on the site of the city's original municipal airport. The park specializes in sports infrastructure — archery, auto racing, running loops, soccer fields, tennis, basketball, and a dedicated off-leash pet zone. Entry is free.",
+      "keyFactsTitle": "Key facts",
+      "keyFacts": [
+        "Size: 189 hectares (467 acres) — second-largest green space in SLP",
+        "Admission: free",
+        "Hours: Tuesday–Sunday 5:30 AM–7 PM · Monday 5:30–11 AM",
+        "Location: south-west SLP, Av. Salvador Nava Martínez",
+        "Built: 1985 — over the city's old municipal airport",
+        "40th anniversary: 2025",
+        "Main attractions: archery club, auto racing track, sports courts, pet zone, kids zone, running loops"
+      ],
+      "lastVerified": "Last verified by San Luis Way editorial team: April 17, 2026"
+    },
+    "sources": {
+      "title": "Sources used on this page",
+      "items": [
+        "CECURT — official park operator (cecurt.slp.gob.mx)",
+        "Club de Tiro con Arco Tangamanga — archery facility (Facebook page)",
+        "Líder Empresarial — 40th anniversary coverage (2025)",
+        "Municipal records — San Luis Potosí city archives"
+      ]
     }
   }
 }

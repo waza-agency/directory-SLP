@@ -615,7 +615,17 @@
       "q9": "¿Qué pueden hacer los niños en el Parque Tangamanga?",
       "a9": "Acuario Splash, zoológico gratuito, Laberinto de las Ciencias, lanchas de pedal en el lago, jardín japonés, funciones de teatro al aire libre los fines de semana, renta de bicicletas y varios juegos infantiles. La mayoría de actividades son gratis.",
       "q10": "¿Cuál es la diferencia entre Tangamanga I y Tangamanga II?",
-      "a10": "Tangamanga I (esta página) es el parque turístico de 411 hectáreas con zoológico, planetario, acuario y jardines. Tangamanga II es un parque deportivo de 189 hectáreas construido sobre el antiguo aeropuerto de SLP — enfocado en tiro con arco, pistas de correr, autódromo y canchas. Ambos son gratuitos y están dentro de la ciudad."
+      "a10": "Tangamanga I (esta página) es el parque turístico de 411 hectáreas con zoológico, planetario, acuario y jardines. Tangamanga II es un parque deportivo de 189 hectáreas construido sobre el antiguo aeropuerto de SLP — enfocado en tiro con arco, pistas de correr, autódromo y canchas. Ambos son gratuitos y están dentro de la ciudad.",
+      "q11": "¿El Parque Tangamanga es más grande que Central Park?",
+      "a11": "Sí. El Parque Tangamanga I tiene 411 hectáreas (1,015 acres), 70 hectáreas más grande que el Central Park de Nueva York (341 ha / 843 acres). Es el segundo parque urbano más grande de México.",
+      "q12": "¿Cuánto tiempo toma visitar el Parque Tangamanga?",
+      "a12": "Planea mínimo 3 a 4 horas para las atracciones principales (zoológico, jardín japonés, lagos). Una visita completa con planetario, acuario Splash y Laberinto de las Ciencias toma un día entero. Lleva agua y protector solar — la altitud del parque (1,864 m) y el diseño abierto hacen que la exposición al sol sea significativa.",
+      "q13": "¿Se permiten perros en el Parque Tangamanga?",
+      "a13": "Sí, los perros son bienvenidos con correa en las áreas de caminata del Parque Tangamanga I. No se permiten dentro del zoológico, planetario ni acuario. Si buscas una zona sin correa, el Parque Tangamanga II tiene un área cercada exclusiva para mascotas.",
+      "q14": "¿Puedo llevar comida al Parque Tangamanga?",
+      "a14": "Sí. Los días de campo son bienvenidos en las áreas de césped designadas. No se permiten envases de vidrio ni alcohol. También hay puestos de comida y pequeños restaurantes dentro del parque, más activos los fines de semana.",
+      "q15": "¿Cuál es la mejor hora para visitar el Parque Tangamanga?",
+      "a15": "Las mañanas de fin de semana (8 AM a mediodía) son la mejor opción: temperaturas frescas, animales del zoológico activos, puestos de comida abiertos y funciones gratuitas en el teatro al aire libre. Las mañanas entre semana son las más tranquilas. Evita el lunes si quieres acceso completo — la mayoría de atracciones cierran por mantenimiento las tardes de lunes."
     },
     "maraton": {
       "badge": "Evento Anual",
@@ -640,6 +650,31 @@
       "bicentenarioDesc": "Parque urbano más pequeño dedicado al bicentenario de México. Bueno para caminatas vespertinas y días de campo familiares.",
       "t2Name": "Parque Tangamanga II",
       "t2Desc": "El parque deportivo — tiro con arco, carreras, autódromo, zona de mascotas."
+    },
+    "quickAnswer": {
+      "title": "Parque Tangamanga I en breve",
+      "definition": "El Parque Tangamanga I es un parque público urbano de 411 hectáreas en San Luis Potosí, México. Es el segundo parque urbano más grande de México y es 70 hectáreas más grande que el Central Park de Nueva York. El parque abrió en 1980 y es operado por CECURT (Centro Cultural Universitario Rafael del Villar). La entrada al parque, al zoológico, al Laberinto de las Ciencias y a los jardines es gratuita.",
+      "keyFactsTitle": "Datos clave",
+      "keyFacts": [
+        "Tamaño: 411 hectáreas (1,015 acres) — #2 parque urbano de México",
+        "Entrada: gratis (planetario y acuario cobran $20–50 MXN)",
+        "Horario: Martes–Sábado 5 AM–10:30 PM · Domingo 5 AM–6 PM · Lunes 5–11 AM (mantenimiento)",
+        "Ubicación: Av. Dr. Salvador Nava, sureste de San Luis Potosí",
+        "Inaugurado: 1980 (zoológico añadido en 1985)",
+        "Operador: CECURT (Centro Cultural Universitario Rafael del Villar)",
+        "Árboles: más de 400,000",
+        "Atracciones principales: zoológico, planetario, acuario Splash, Laberinto de las Ciencias, jardín japonés, jardín botánico, teatro al aire libre, lagos"
+      ],
+      "lastVerified": "Última verificación del equipo editorial de San Luis Way: 17 de abril, 2026"
+    },
+    "sources": {
+      "title": "Fuentes utilizadas en esta página",
+      "items": [
+        "CECURT — operador oficial del parque (cecurt.slp.gob.mx)",
+        "Gobierno de San Luis Potosí — registros municipales",
+        "INEGI Censo 2020 — datos demográficos del entorno",
+        "Maratón Tangamanga — organizador oficial de la carrera (maratontangamanga.com)"
+      ]
     }
   },
   "circleOfTrust": {
@@ -2497,7 +2532,37 @@
       "q4": "¿Puedo practicar tiro con arco en Tangamanga II?",
       "a4": "Sí. El Club de Tiro con Arco Tangamanga ofrece práctica abierta y clases para principiantes. Contáctalos por su página de Facebook para horario y tarifas actualizadas.",
       "q5": "¿Es seguro correr en Tangamanga II al amanecer?",
-      "a5": "Sí. Tangamanga II es popular entre corredores justamente porque está bien iluminado y vigilado desde las 5:30 AM. Las mañanas de fin de semana son las más concurridas y seguras."
+      "a5": "Sí. Tangamanga II es popular entre corredores justamente porque está bien iluminado y vigilado desde las 5:30 AM. Las mañanas de fin de semana son las más concurridas y seguras.",
+      "q6": "¿El Parque Tangamanga II es más grande o más chico que Tangamanga I?",
+      "a6": "Tangamanga II (189 ha) es más chico que Tangamanga I (411 ha). Pero Tangamanga II sigue siendo el segundo espacio verde más grande de la ciudad de San Luis Potosí y está dedicado específicamente al deporte.",
+      "q7": "¿Qué deportes puedo practicar en el Parque Tangamanga II?",
+      "a7": "Tangamanga II ofrece: tiro con arco (Club de Tiro con Arco Tangamanga), automovilismo (autódromo permanente), fútbol, básquetbol, tenis, voleibol, correr, ciclismo y caminar. La mayoría de canchas públicas son gratuitas; los clubes especializados (escuela de arquería, eventos de automovilismo) cobran sus propias cuotas.",
+      "q8": "¿Cómo llego al Parque Tangamanga II en auto o transporte público?",
+      "a8": "En auto: Av. Salvador Nava Martínez, Fracc. Tangamanga, CP 78260. Estacionamiento gratis en varias puertas. En transporte público: varias rutas urbanas que recorren Av. Salvador Nava paran cerca de los accesos principales; taxis y apps de transporte dejan visitantes en cualquier entrada."
+    },
+    "quickAnswer": {
+      "title": "Parque Tangamanga II en breve",
+      "definition": "El Parque Tangamanga II es un parque público de 189 hectáreas enfocado al deporte en San Luis Potosí, México. Se construyó en 1985 sobre el antiguo aeropuerto municipal de la ciudad. El parque se especializa en infraestructura deportiva — tiro con arco, automovilismo, circuitos para correr, canchas de fútbol, tenis, básquetbol y una zona cercada exclusiva para mascotas. La entrada es gratuita.",
+      "keyFactsTitle": "Datos clave",
+      "keyFacts": [
+        "Tamaño: 189 hectáreas (467 acres) — segundo espacio verde más grande de SLP",
+        "Entrada: gratis",
+        "Horario: Martes–Domingo 5:30 AM–7 PM · Lunes 5:30–11 AM",
+        "Ubicación: suroeste de SLP, Av. Salvador Nava Martínez",
+        "Construido: 1985 — sobre el antiguo aeropuerto municipal de la ciudad",
+        "40 aniversario: 2025",
+        "Atracciones principales: club de tiro con arco, autódromo, canchas deportivas, zona de mascotas, zona infantil, circuitos para correr"
+      ],
+      "lastVerified": "Última verificación del equipo editorial de San Luis Way: 17 de abril, 2026"
+    },
+    "sources": {
+      "title": "Fuentes utilizadas en esta página",
+      "items": [
+        "CECURT — operador oficial del parque (cecurt.slp.gob.mx)",
+        "Club de Tiro con Arco Tangamanga — recinto de arquería (página de Facebook)",
+        "Líder Empresarial — cobertura del 40 aniversario (2025)",
+        "Registros municipales — archivos de la ciudad de San Luis Potosí"
+      ]
     }
   }
 }

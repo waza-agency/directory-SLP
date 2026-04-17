@@ -61,13 +61,10 @@ const tangamanga2StructuredData = {
 export default function ParqueTangamanga2() {
   const { t } = useTranslation('common');
 
-  const faqs = [
-    { q: t('tangamanga2.faq.q1'), a: t('tangamanga2.faq.a1') },
-    { q: t('tangamanga2.faq.q2'), a: t('tangamanga2.faq.a2') },
-    { q: t('tangamanga2.faq.q3'), a: t('tangamanga2.faq.a3') },
-    { q: t('tangamanga2.faq.q4'), a: t('tangamanga2.faq.a4') },
-    { q: t('tangamanga2.faq.q5'), a: t('tangamanga2.faq.a5') },
-  ];
+  const faqs = Array.from({ length: 8 }, (_, i) => ({
+    q: t(`tangamanga2.faq.q${i + 1}`),
+    a: t(`tangamanga2.faq.a${i + 1}`),
+  }));
 
   const attractions = [
     { icon: '🏹', titleKey: 'archeryTitle', descKey: 'archeryDesc' },
@@ -89,6 +86,40 @@ export default function ParqueTangamanga2() {
       />
 
       <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Article',
+              headline: 'Parque Tangamanga II: Complete Sports Park Guide',
+              description:
+                '189-hectare sports park in San Luis Potosí built over the old municipal airport in 1985. Archery, auto racing, sports courts, pet zone, running loops.',
+              datePublished: '2026-04-17',
+              dateModified: '2026-04-17',
+              author: {
+                '@type': 'Person',
+                '@id': 'https://www.sanluisway.com/about#editorial-team',
+                name: 'San Luis Way Editorial',
+                worksFor: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization' },
+              },
+              publisher: {
+                '@type': 'Organization',
+                '@id': 'https://www.sanluisway.com/#organization',
+                name: 'San Luis Way',
+              },
+              mainEntityOfPage: 'https://www.sanluisway.com/parque-tangamanga-ii',
+              speakable: {
+                '@type': 'SpeakableSpecification',
+                cssSelector: ['.speakable', '[id="quick-answer-heading"]'],
+              },
+              citation: [
+                { '@type': 'CreativeWork', name: 'CECURT', url: 'https://cecurt.slp.gob.mx/' },
+                { '@type': 'CreativeWork', name: 'Club de Tiro con Arco Tangamanga' },
+              ],
+            }),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -144,6 +175,30 @@ export default function ParqueTangamanga2() {
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto space-y-10">
+            {/* Quick Answer — GEO-optimized opening */}
+            <section aria-labelledby="quick-answer-heading" className="speakable bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 md:p-8 shadow-sm">
+              <h2 id="quick-answer-heading" className="text-2xl font-bold text-blue-900 mb-4">
+                {t('tangamanga2.quickAnswer.title')}
+              </h2>
+              <p className="text-base md:text-lg text-gray-800 leading-relaxed mb-6">
+                {t('tangamanga2.quickAnswer.definition')}
+              </p>
+              <h3 className="text-lg font-bold text-blue-900 mb-3">
+                {t('tangamanga2.quickAnswer.keyFactsTitle')}
+              </h3>
+              <ul className="space-y-2 mb-4">
+                {(t('tangamanga2.quickAnswer.keyFacts', { returnObjects: true }) as string[]).map((fact, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-gray-800">
+                    <span className="text-blue-600 mt-1" aria-hidden>•</span>
+                    <span>{fact}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-gray-600 italic mt-4 pt-3 border-t border-blue-200">
+                {t('tangamanga2.quickAnswer.lastVerified')}
+              </p>
+            </section>
+
             {/* Quick Facts */}
             <section className="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tangamanga2.quickFacts.title')}</h2>
@@ -235,21 +290,36 @@ export default function ParqueTangamanga2() {
             </section>
 
             {/* FAQ */}
-            <section className="bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tangamanga2.faq.title')}</h2>
+            <section aria-labelledby="faq-heading" className="speakable bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-100">
+              <h2 id="faq-heading" className="text-2xl font-bold text-gray-900 mb-6">{t('tangamanga2.faq.title')}</h2>
               <div className="space-y-3">
                 {faqs.map((faq, index) => (
-                  <details key={index} className="group bg-gray-50 rounded-xl">
+                  <details key={index} className="group bg-gray-50 rounded-xl" open={index < 3}>
                     <summary className="flex justify-between items-center cursor-pointer p-4 font-medium text-gray-900">
-                      {faq.q}
+                      <span>{faq.q}</span>
                       <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform">
                         &#9660;
                       </span>
                     </summary>
-                    <div className="px-4 pb-4 text-gray-700">{faq.a}</div>
+                    <div className="px-4 pb-4 text-gray-700 faq-answer">{faq.a}</div>
                   </details>
                 ))}
               </div>
+            </section>
+
+            {/* Sources */}
+            <section aria-labelledby="sources-heading" className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+              <h2 id="sources-heading" className="text-lg font-bold text-gray-900 mb-3">
+                {t('tangamanga2.sources.title')}
+              </h2>
+              <ul className="space-y-1 text-sm text-gray-700">
+                {(t('tangamanga2.sources.items', { returnObjects: true }) as string[]).map((src, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-gray-400 mt-1" aria-hidden>›</span>
+                    <span>{src}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
           </div>
         </div>

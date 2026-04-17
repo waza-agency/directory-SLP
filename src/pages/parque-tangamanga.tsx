@@ -74,18 +74,10 @@ const tangamangaStructuredData = {
 export default function ParqueTangamanga() {
   const { t } = useTranslation('common');
 
-  const faqs = [
-    { q: t('tangamanga.faq.q1'), a: t('tangamanga.faq.a1') },
-    { q: t('tangamanga.faq.q2'), a: t('tangamanga.faq.a2') },
-    { q: t('tangamanga.faq.q3'), a: t('tangamanga.faq.a3') },
-    { q: t('tangamanga.faq.q4'), a: t('tangamanga.faq.a4') },
-    { q: t('tangamanga.faq.q5'), a: t('tangamanga.faq.a5') },
-    { q: t('tangamanga.faq.q6'), a: t('tangamanga.faq.a6') },
-    { q: t('tangamanga.faq.q7'), a: t('tangamanga.faq.a7') },
-    { q: t('tangamanga.faq.q8'), a: t('tangamanga.faq.a8') },
-    { q: t('tangamanga.faq.q9'), a: t('tangamanga.faq.a9') },
-    { q: t('tangamanga.faq.q10'), a: t('tangamanga.faq.a10') },
-  ];
+  const faqs = Array.from({ length: 15 }, (_, i) => ({
+    q: t(`tangamanga.faq.q${i + 1}`),
+    a: t(`tangamanga.faq.a${i + 1}`),
+  }));
 
   return (
     <>
@@ -107,7 +99,7 @@ export default function ParqueTangamanga() {
               headline: 'Parque Tangamanga I: Complete Guide to SLP\'s Largest Urban Park',
               description: '411 hectares, free zoo, planetarium, science museum, Japanese garden and 400,000 trees. Hours, what to do, and visitor tips.',
               datePublished: '2025-01-01',
-              dateModified: '2026-04-10',
+              dateModified: '2026-04-17',
               author: {
                 '@type': 'Person',
                 '@id': 'https://www.sanluisway.com/about#editorial-team',
@@ -116,6 +108,15 @@ export default function ParqueTangamanga() {
               },
               publisher: { '@type': 'Organization', '@id': 'https://www.sanluisway.com/#organization', name: 'San Luis Way' },
               mainEntityOfPage: 'https://www.sanluisway.com/parque-tangamanga',
+              speakable: {
+                '@type': 'SpeakableSpecification',
+                cssSelector: ['.speakable', '[id="quick-answer-heading"]'],
+              },
+              citation: [
+                { '@type': 'CreativeWork', name: 'CECURT', url: 'https://cecurt.slp.gob.mx/' },
+                { '@type': 'CreativeWork', name: 'INEGI Censo 2020', url: 'https://www.inegi.org.mx/' },
+                { '@type': 'CreativeWork', name: 'Maratón Tangamanga', url: 'https://maratontangamanga.com/' },
+              ],
             }),
           }}
         />
@@ -150,7 +151,7 @@ export default function ParqueTangamanga() {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               {t('tangamanga.title')}
             </h1>
-            <LastUpdated date="2026-04-10" className="text-green-200 mb-2" />
+            <LastUpdated date="2026-04-17" className="text-green-200 mb-2" />
             <p className="text-xl text-white/90 max-w-2xl">
               {t('tangamanga.subtitle')}
             </p>
@@ -163,6 +164,30 @@ export default function ParqueTangamanga() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Description */}
           <div className="lg:col-span-2 space-y-12">
+            {/* Quick Answer — GEO-optimized opening block */}
+            <section aria-labelledby="quick-answer-heading" className="speakable bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 md:p-8 shadow-sm">
+              <h2 id="quick-answer-heading" className="text-2xl font-bold text-green-900 mb-4">
+                {t('tangamanga.quickAnswer.title')}
+              </h2>
+              <p className="text-base md:text-lg text-gray-800 leading-relaxed mb-6">
+                {t('tangamanga.quickAnswer.definition')}
+              </p>
+              <h3 className="text-lg font-bold text-green-900 mb-3">
+                {t('tangamanga.quickAnswer.keyFactsTitle')}
+              </h3>
+              <ul className="space-y-2 mb-4">
+                {(t('tangamanga.quickAnswer.keyFacts', { returnObjects: true }) as string[]).map((fact, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-gray-800">
+                    <span className="text-green-600 mt-1" aria-hidden>•</span>
+                    <span>{fact}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-gray-600 italic mt-4 pt-3 border-t border-green-200">
+                {t('tangamanga.quickAnswer.lastVerified')}
+              </p>
+            </section>
+
             {/* Quick Navigation */}
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <h2 className="text-xl font-semibold mb-4 text-gray-800">Navegación Rápida</h2>
@@ -298,22 +323,62 @@ export default function ParqueTangamanga() {
               </div>
             </section>
 
-            {/* Tangamanga I vs II Comparison */}
-            <section className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{t('tangamanga.comparison.title')}</h2>
+            {/* Tangamanga I vs II Comparison Table (GEO-optimized) */}
+            <section aria-labelledby="comparison-heading" className="speakable bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100">
+              <h2 id="comparison-heading" className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{t('tangamanga.comparison.title')}</h2>
               <p className="text-gray-700 mb-6">{t('tangamanga.comparison.description')}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-green-50 border-2 border-green-200 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-green-900 mb-3">🌳 {t('tangamanga.comparison.t1Title')}</h3>
-                  <p className="text-green-900 text-sm leading-relaxed">{t('tangamanga.comparison.t1Desc')}</p>
-                </div>
-                <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-blue-900 mb-3">🏃 {t('tangamanga.comparison.t2Title')}</h3>
-                  <p className="text-blue-900 text-sm leading-relaxed mb-4">{t('tangamanga.comparison.t2Desc')}</p>
-                  <Link href="/parque-tangamanga-ii" className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-semibold text-sm">
-                    {t('tangamanga.comparison.ctaText')} <span aria-hidden>→</span>
-                  </Link>
-                </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm md:text-base border-collapse">
+                  <thead>
+                    <tr className="bg-gray-50 border-b-2 border-gray-200">
+                      <th className="text-left font-bold text-gray-900 p-3">Feature</th>
+                      <th className="text-left font-bold text-green-900 p-3">🌳 Tangamanga I</th>
+                      <th className="text-left font-bold text-blue-900 p-3">🏃 Tangamanga II</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    <tr>
+                      <td className="p-3 font-semibold text-gray-700">Size</td>
+                      <td className="p-3 text-gray-800">411 ha (1,015 acres)</td>
+                      <td className="p-3 text-gray-800">189 ha (467 acres)</td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="p-3 font-semibold text-gray-700">Opened</td>
+                      <td className="p-3 text-gray-800">1980</td>
+                      <td className="p-3 text-gray-800">1985 (over old airport)</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-gray-700">Admission</td>
+                      <td className="p-3 text-gray-800">Free</td>
+                      <td className="p-3 text-gray-800">Free</td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="p-3 font-semibold text-gray-700">Location</td>
+                      <td className="p-3 text-gray-800">Southeast SLP, Av. Dr. Salvador Nava</td>
+                      <td className="p-3 text-gray-800">Southwest SLP, Av. Salvador Nava Martínez</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-gray-700">Main attractions</td>
+                      <td className="p-3 text-gray-800">Zoo, planetarium, Splash aquarium, Japanese garden, Laberinto de las Ciencias, theater, lakes</td>
+                      <td className="p-3 text-gray-800">Archery, auto racing track, sports courts, pet zone, running loops</td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="p-3 font-semibold text-gray-700">Best for</td>
+                      <td className="p-3 text-gray-800">Families, tourists, first-time visitors</td>
+                      <td className="p-3 text-gray-800">Athletes, runners, pet owners, motorsport fans</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-semibold text-gray-700">Trees</td>
+                      <td className="p-3 text-gray-800">400,000+</td>
+                      <td className="p-3 text-gray-800">Perimeter groves + open lawn</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-6">
+                <Link href="/parque-tangamanga-ii" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-5 py-2.5 transition-colors">
+                  {t('tangamanga.comparison.ctaText')} <span aria-hidden>→</span>
+                </Link>
               </div>
             </section>
 
@@ -1060,19 +1125,36 @@ export default function ParqueTangamanga() {
 
         {/* FAQ Section */}
         <div className="container mx-auto px-4 py-12 max-w-4xl">
-          <section className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('tangamanga.faq.title')}</h2>
+          <section aria-labelledby="faq-heading" className="speakable bg-white rounded-2xl shadow-lg p-8">
+            <h2 id="faq-heading" className="text-2xl font-bold text-gray-900 mb-6">{t('tangamanga.faq.title')}</h2>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <details key={index} className="group bg-gray-50 rounded-xl">
+                <details key={index} className="group bg-gray-50 rounded-xl" open={index < 3}>
                   <summary className="flex justify-between items-center cursor-pointer p-4 font-medium text-gray-900">
-                    {faq.q}
+                    <span>{faq.q}</span>
                     <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform">&#9660;</span>
                   </summary>
-                  <div className="px-4 pb-4 text-gray-700">{faq.a}</div>
+                  <div className="px-4 pb-4 text-gray-700 faq-answer">{faq.a}</div>
                 </details>
               ))}
             </div>
+          </section>
+        </div>
+
+        {/* Sources — Authority signal for LLMs */}
+        <div className="container mx-auto px-4 pb-12 max-w-4xl">
+          <section aria-labelledby="sources-heading" className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+            <h2 id="sources-heading" className="text-lg font-bold text-gray-900 mb-3">
+              {t('tangamanga.sources.title')}
+            </h2>
+            <ul className="space-y-1 text-sm text-gray-700">
+              {(t('tangamanga.sources.items', { returnObjects: true }) as string[]).map((src, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-gray-400 mt-1" aria-hidden>›</span>
+                  <span>{src}</span>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
 
