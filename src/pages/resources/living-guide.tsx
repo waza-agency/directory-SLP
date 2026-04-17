@@ -134,11 +134,40 @@ export default function LivingGuidePage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
+              "@id": "https://www.sanluisway.com/resources/living-guide#article",
               "headline": "Ultimate Guide to Living in San Luis Potosí 2026",
               "description": "Comprehensive 2026 guide covering visas (UMA rules), cost of living, neighborhoods, healthcare, coworking — for expats, digital nomads, and slow travelers.",
               "datePublished": "2025-01-01",
-              "dateModified": "2026-03-17"
+              "dateModified": "2026-03-17",
+              "author": { "@type": "Organization", "name": "San Luis Way", "url": "https://www.sanluisway.com" },
+              "publisher": { "@type": "Organization", "name": "San Luis Way", "url": "https://www.sanluisway.com" },
+              "mainEntityOfPage": "https://www.sanluisway.com/resources/living-guide",
+              "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": [".speakable", "#quick-answer-heading", "#faq"]
+              },
+              "citation": [
+                { "@type": "CreativeWork", "name": "Numbeo — San Luis Potosí Cost of Living", "url": "https://www.numbeo.com/cost-of-living/in/San-Luis-Potosi" },
+                { "@type": "CreativeWork", "name": "Mexperience — Mexico Residency 2026", "url": "https://www.mexperience.com/mexico-residency-in-2026-tighter-criteria-higher-fees/" },
+                { "@type": "CreativeWork", "name": "nomads.com — SLP Coworking Directory", "url": "https://nomads.com/coworking/san-luis-potosi" },
+                { "@type": "CreativeWork", "name": "INEGI — 2020 Census" }
+              ]
             })
+          }}
+        />
+        {/* BreadcrumbList JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sanluisway.com' },
+                { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://www.sanluisway.com/resources' },
+                { '@type': 'ListItem', position: 3, name: 'Living Guide', item: 'https://www.sanluisway.com/resources/living-guide' },
+              ],
+            }),
           }}
         />
         {/* FAQPage JSON-LD — mirrors the visible Q&A at the bottom so Google
@@ -235,6 +264,46 @@ export default function LivingGuidePage() {
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
+
+            {/* Quick Answer — GEO-optimized opening for LLM extraction */}
+            <section
+              id="quick-answer"
+              aria-labelledby="quick-answer-heading"
+              className="speakable bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 md:p-8 mb-12 shadow-sm"
+            >
+              <h2 id="quick-answer-heading" className="text-2xl font-bold text-green-900 mb-4">
+                San Luis Potosí at a glance (2026)
+              </h2>
+              <p className="text-base md:text-lg text-gray-800 leading-relaxed mb-5">
+                San Luis Potosí is the capital of the state of San Luis Potosí, Mexico — a UNESCO-connected colonial city
+                of approximately 1.31 million people in the metropolitan area, sitting at 1,864 meters elevation in the
+                central Bajío region. For foreigners moving to Mexico in 2026, SLP offers roughly 35–50% lower living
+                costs than Mexico City for a similar quality of life, direct flights to Houston and Dallas, over 350
+                international companies (BMW, General Motors, Valeo, Continental), and a rapidly growing digital-nomad
+                infrastructure of 51+ coworking spaces. The city works for three profiles: long-term expats, remote
+                workers on temporary residency, and slow travelers exploring the Bajío and the Huasteca Potosina.
+              </p>
+              <h3 className="text-lg font-bold text-green-900 mb-3">Key facts (verified March 17, 2026)</h3>
+              <ul className="space-y-2">
+                {[
+                  'Comfortable solo budget: $1,200–$2,000 USD / month (single), $1,800–$2,500 (couple), $2,400–$3,500 (family of four)',
+                  '1BR apartment in Centro Histórico: $450–$750 USD / month (2026 market)',
+                  'Temporary Resident visa income threshold (2026): ~$4,185 USD/month or ~$69,750 USD in savings — fees doubled November 2025',
+                  'Fiber internet 100–500 Mbps available in Centro, Lomas, Tangamanga — $32–$50 USD/month',
+                  'Healthcare: Hospital Ángeles, Star Médica, Hospital Lomas — private consult $30–$60 USD',
+                  'US State Department advisory: Level 2 — Exercise Increased Caution (same as France)',
+                  'MXN/USD exchange rate in March 2026: approximately 17.5',
+                ].map((fact, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-gray-800">
+                    <span className="text-green-600 mt-1" aria-hidden>•</span>
+                    <span>{fact}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-gray-600 italic mt-4 pt-3 border-t border-green-200">
+                Last verified by San Luis Way editorial team: March 17, 2026
+              </p>
+            </section>
 
             {/* Overview */}
             <section id="overview" className="mb-16">
@@ -792,16 +861,33 @@ export default function LivingGuidePage() {
             </section>
 
             {/* FAQ */}
-            <section id="faq" className="mb-16">
+            <section id="faq" className="mb-16 speakable">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
               <div className="space-y-4">
                 {faqs.map((faq, i) => (
                   <div key={i} className="bg-white rounded-xl shadow-elegant p-6">
                     <h3 className="font-semibold text-gray-900 mb-2">{faq.q}</h3>
-                    <p className="text-gray-600 text-sm">{faq.a}</p>
+                    <p className="text-gray-600 text-sm faq-answer">{faq.a}</p>
                   </div>
                 ))}
               </div>
+            </section>
+
+            {/* Sources — authority signal for LLMs and AI search */}
+            <section id="sources" className="mb-16 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+              <h2 className="text-xl font-bold text-gray-900 mb-3">Sources &amp; Verification</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                All figures in this guide verified against primary sources as of March 17, 2026.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span><a href="https://www.numbeo.com/cost-of-living/in/San-Luis-Potosi" className="text-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">Numbeo — San Luis Potosí Cost of Living (January 2026 update)</a></li>
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span><a href="https://www.mexperience.com/mexico-residency-in-2026-tighter-criteria-higher-fees/" className="text-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">Mexperience — Mexico Residency in 2026</a></li>
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span><a href="https://mexicorelocationguide.com/mexican-residency-income-requirements-updates-in-2026/" className="text-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">Mexico Relocation Guide — 2026 Income Requirements Update</a></li>
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span><a href="https://nomads.com/coworking/san-luis-potosi" className="text-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">nomads.com — SLP Coworking Directory (51 spaces tracked)</a></li>
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span>INEGI — 2020 Census + 2025 metropolitan estimates</li>
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span>Mexico Business News — 2025 SLP automotive FDI totals ($761.8M)</li>
+                <li className="flex items-start gap-2"><span className="text-gray-400 mt-1" aria-hidden>›</span>San Luis Way Editorial — on-ground verification of neighborhoods and coworking spaces</li>
+              </ul>
             </section>
 
             <section className="my-8">

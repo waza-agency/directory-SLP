@@ -9,7 +9,62 @@ const SLUG = 'ultimate-guide-living-san-luis-potosi-2026';
 const PUBLISHED = '2026-03-17';
 
 // Deep-dive content following BLOG_DEEP_DIVE_STYLE_GUIDE.md
-const contentEN = `<div class="not-prose mb-8">
+// FAQPage + Breadcrumb + Speakable JSON-LD injected inline so the blog
+// slug page picks it up automatically — mirrors the 8 FAQs below and
+// the canonical breadcrumb trail.
+const inlineJsonLd = `<script type="application/ld+json">
+${JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://www.sanluisway.com/blog/ultimate-guide-living-san-luis-potosi-2026#faq',
+      mainEntity: [
+        { '@type': 'Question', name: 'How much does it cost to live in San Luis Potosí in 2026?', acceptedAnswer: { '@type': 'Answer', text: 'A comfortable middle-class lifestyle costs $1,200–$2,000 USD per month for a single person, $1,800–$2,500 for a couple, and $2,400–$3,500 for a family of four. A digital nomad with a dedicated coworking membership typically budgets $1,800 USD/month. Numbers verified against Numbeo (January 2026 update) and local listings.' } },
+        { '@type': 'Question', name: 'Is San Luis Potosí safe for tourists and nomads?', acceptedAnswer: { '@type': 'Answer', text: 'The US State Department rates San Luis Potosí at Level 2 — Exercise Increased Caution, the same level as France. The city itself is among the safer mid-size Mexican cities. Petty crime is the main concern; violent crime is rare in neighborhoods where foreign residents concentrate.' } },
+        { '@type': 'Question', name: 'Can I live in San Luis Potosí without speaking Spanish?', acceptedAnswer: { '@type': 'Answer', text: 'Only with significant friction. Unlike San Miguel de Allende, SLP has limited English-speaking infrastructure. Most doctors, landlords, and government services operate in Spanish. Basic Spanish (A2 level) is realistic after six months of immersion.' } },
+        { '@type': 'Question', name: 'What is the best visa for a digital nomad in San Luis Potosí?', acceptedAnswer: { '@type': 'Answer', text: 'For stays under 180 days, the Tourist FMM is free and automatic. For longer stays, the Temporary Resident visa (1–4 years) is the standard route. As of 2026, you need ~$4,185 USD/month income for 6–12 months, or ~$69,750 USD in savings. Government fees roughly doubled in November 2025.' } },
+        { '@type': 'Question', name: 'How reliable is the internet in San Luis Potosí?', acceptedAnswer: { '@type': 'Answer', text: 'Very reliable. Fiber internet at 100–500 Mbps is available across Centro, Lomas, Tangamanga, and most middle-class neighborhoods through Izzi, Totalplay, and Megacable. Monthly costs run $32–$50 USD for 200+ Mbps.' } },
+        { '@type': 'Question', name: 'How do I get to San Luis Potosí?', acceptedAnswer: { '@type': 'Answer', text: 'Ponciano Arriaga International Airport (SLP) has direct flights from Houston (United), Dallas (American, Volaris), and Mexico City. Querétaro (QRO) and León (BJX) are each 2.5–3 hours by car or first-class bus.' } },
+        { '@type': 'Question', name: 'What is the best time of year to visit San Luis Potosí?', acceptedAnswer: { '@type': 'Answer', text: 'October to March for dry, mild weather. Late March for the Procesión del Silencio. Late June for the BMW Maratón Tangamanga. Avoid mid-July through August for crowds at FENAPO and school holidays.' } },
+        { '@type': 'Question', name: 'Can I drink tap water in San Luis Potosí?', acceptedAnswer: { '@type': 'Answer', text: 'No. Use garrafones (20-liter purified water jugs) delivered to your home for roughly 35–50 MXN. Mid-range restaurants use purified ice and water.' } },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://www.sanluisway.com/blog/ultimate-guide-living-san-luis-potosi-2026#breadcrumbs',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sanluisway.com' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.sanluisway.com/blog' },
+        { '@type': 'ListItem', position: 3, name: 'Ultimate Guide to San Luis Potosí 2026', item: 'https://www.sanluisway.com/blog/ultimate-guide-living-san-luis-potosi-2026' },
+      ],
+    },
+    {
+      '@type': 'Article',
+      '@id': 'https://www.sanluisway.com/blog/ultimate-guide-living-san-luis-potosi-2026#article',
+      headline: 'The Ultimate Guide to San Luis Potosí 2026: For Expats, Digital Nomads & Travelers',
+      datePublished: '2026-03-17',
+      dateModified: '2026-03-17',
+      author: { '@type': 'Organization', name: 'San Luis Way', url: 'https://www.sanluisway.com' },
+      publisher: { '@type': 'Organization', name: 'San Luis Way', url: 'https://www.sanluisway.com' },
+      inLanguage: 'en',
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['.speakable', '#quick-summary', '#faq-heading'],
+      },
+      citation: [
+        { '@type': 'CreativeWork', name: 'Numbeo — San Luis Potosí Cost of Living', url: 'https://www.numbeo.com/cost-of-living/in/San-Luis-Potosi' },
+        { '@type': 'CreativeWork', name: 'Mexperience — Mexico Residency 2026', url: 'https://www.mexperience.com/mexico-residency-in-2026-tighter-criteria-higher-fees/' },
+        { '@type': 'CreativeWork', name: 'Mexico Relocation Guide — 2026 Income Requirements', url: 'https://mexicorelocationguide.com/mexican-residency-income-requirements-updates-in-2026/' },
+        { '@type': 'CreativeWork', name: 'nomads.com — SLP Coworking Directory', url: 'https://nomads.com/coworking/san-luis-potosi' },
+      ],
+    },
+  ],
+}, null, 0)}
+</script>
+`;
+
+const contentEN = inlineJsonLd + `<div class="not-prose mb-8">
   <div class="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl mb-8">
     <img src="${IMG.hero}" alt="San Luis Potosí Centro Histórico at golden hour — guide for expats, digital nomads, and tourists 2026" class="w-full h-full object-cover" loading="eager" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end">
@@ -50,7 +105,7 @@ const contentEN = `<div class="not-prose mb-8">
 
 <section id="overview" class="mb-16 scroll-mt-8">
 <div class="not-prose mb-6">
-  <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 border-b-4 border-blue-500 pb-3 inline-block">At a Glance: San Luis Potosí in 2026</h2>
+  <h2 id="quick-summary" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 border-b-4 border-blue-500 pb-3 inline-block">At a Glance: San Luis Potosí in 2026</h2>
 </div>
 
 <div class="speakable bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 md:p-8 mb-8">
@@ -451,9 +506,9 @@ const contentEN = `<div class="not-prose mb-8">
   <div class="flex items-center justify-center"><div class="border-t-2 border-gray-300 flex-grow"></div><span class="px-6 text-gray-400 text-4xl">✦</span><div class="border-t-2 border-gray-300 flex-grow"></div></div>
 </div>
 
-<section id="faq" class="mb-16 scroll-mt-8">
+<section id="faq" class="mb-16 scroll-mt-8 speakable">
 <div class="not-prose mb-6">
-  <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 border-b-4 border-blue-500 pb-3 inline-block">Frequently Asked Questions</h2>
+  <h2 id="faq-heading" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 border-b-4 border-blue-500 pb-3 inline-block">Frequently Asked Questions</h2>
 </div>
 
 <div class="space-y-5">
