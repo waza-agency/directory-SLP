@@ -219,12 +219,14 @@ export default function EventDetail({ event, relatedEvents }: EventDetailProps) 
               src={event.image_url}
               alt={event.title}
               fill
-              className="object-cover opacity-40"
+              className="object-cover opacity-30"
               priority
             />
           )}
+          {/* Dark gradient overlay for text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50" />
         </div>
-        <div className="relative container mx-auto px-4 py-24 text-white">
+        <div className="relative container mx-auto px-4 py-24 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
           <div className="max-w-4xl">
             <Link
               href="/events"
