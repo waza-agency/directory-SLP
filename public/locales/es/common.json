@@ -605,7 +605,41 @@
       "q4": "Es seguro el Parque Tangamanga?",
       "a4": "Si. El parque esta bien vigilado durante el horario de apertura. Evita ir solo despues del anochecer entre semana. Las mananas de fin de semana son las mas seguras.",
       "q5": "Que tan grande es el Parque Tangamanga?",
-      "a5": "El Parque Tangamanga I cubre 411 hectareas, mas grande que Central Park en Nueva York (341 ha). Tiene mas de 400,000 arboles."
+      "a5": "El Parque Tangamanga I cubre 411 hectareas, mas grande que Central Park en Nueva York (341 ha). Tiene mas de 400,000 arboles.",
+      "q6": "¿Cuándo es el Maratón BMW Tangamanga?",
+      "a6": "El Maratón Internacional Tangamanga se corre cada año el último domingo de junio. La edición 40 es el 28 de junio de 2026, con salida y meta en Parque Tangamanga I. Las inscripciones abren en enero.",
+      "q7": "¿Hay estacionamiento en el Parque Tangamanga?",
+      "a7": "Sí, estacionamiento gratuito en múltiples accesos. Los principales están junto al zoológico (entrada este) y junto al teatro (entrada norte). Fines de semana y días festivos los lotes se llenan antes de las 11 AM — llega temprano o usa transporte por aplicación.",
+      "q8": "¿Cómo llego al Parque Tangamanga en transporte público?",
+      "a8": "El parque está sobre Av. Dr. Salvador Nava. Varias rutas urbanas paran en los accesos principales: Ruta 23, 32 y 52 llegan al lado este (zoológico). Taxis y apps de transporte pueden dejarte en cualquiera de las 8 puertas.",
+      "q9": "¿Qué pueden hacer los niños en el Parque Tangamanga?",
+      "a9": "Acuario Splash, zoológico gratuito, Laberinto de las Ciencias, lanchas de pedal en el lago, jardín japonés, funciones de teatro al aire libre los fines de semana, renta de bicicletas y varios juegos infantiles. La mayoría de actividades son gratis.",
+      "q10": "¿Cuál es la diferencia entre Tangamanga I y Tangamanga II?",
+      "a10": "Tangamanga I (esta página) es el parque turístico de 411 hectáreas con zoológico, planetario, acuario y jardines. Tangamanga II es un parque deportivo de 189 hectáreas construido sobre el antiguo aeropuerto de SLP — enfocado en tiro con arco, pistas de correr, autódromo y canchas. Ambos son gratuitos y están dentro de la ciudad."
+    },
+    "maraton": {
+      "badge": "Evento Anual",
+      "title": "BMW Maratón Internacional Tangamanga 2026 — 40 Aniversario",
+      "subtitle": "El evento deportivo más grande de la ciudad se corre aquí en Tangamanga I cada año. Más de 17,000 corredores, cuatro distancias certificadas (5K, 10K, medio maratón, maratón completo), y cuarenta años de tradición.",
+      "date": "28 de junio, 2026",
+      "linkText": "Ver guía completa de la carrera"
+    },
+    "comparison": {
+      "title": "Parque Tangamanga I vs Tangamanga II",
+      "description": "San Luis Potosí tiene dos Tangamangas. Comparten nombre y filosofía, pero están pensados para visitantes distintos.",
+      "t1Title": "Tangamanga I — 411 ha",
+      "t1Desc": "El parque icónico. Zoológico, planetario, acuario, jardín japonés, teatro, lagos y 400,000 árboles. Ideal para familias, turistas y primera visita.",
+      "t2Title": "Tangamanga II — 189 ha",
+      "t2Desc": "Construido sobre el antiguo aeropuerto de la ciudad. Enfocado a deporte: tiro con arco, autódromo, canchas de fútbol, básquetbol, tenis, zona de mascotas y área infantil. Ideal para atletas y corredores.",
+      "ctaText": "Visita la guía de Tangamanga II"
+    },
+    "nearbyParks": {
+      "title": "Otros Parques Cercanos",
+      "description": "Complementa tu visita con estos otros espacios verdes de San Luis Potosí.",
+      "bicentenarioName": "Parque Bicentenario",
+      "bicentenarioDesc": "Parque urbano más pequeño dedicado al bicentenario de México. Bueno para caminatas vespertinas y días de campo familiares.",
+      "t2Name": "Parque Tangamanga II",
+      "t2Desc": "El parque deportivo — tiro con arco, carreras, autódromo, zona de mascotas."
     }
   },
   "circleOfTrust": {
@@ -2404,6 +2438,66 @@
         "title": "Lámpara frontal Black Diamond Storm 500-R",
         "description": "Recargable, 500 lúmenes, resistente al agua. Esencial para camping en Real de Catorce o caminatas nocturnas."
       }
+    }
+  },
+  "tangamanga2": {
+    "seo": {
+      "title": "Parque Tangamanga II: Guía del Parque Deportivo de SLP 2026",
+      "description": "189 ha construidas sobre el antiguo aeropuerto de SLP. Tiro con arco, autódromo, canchas deportivas, zona de mascotas, pistas de correr. Horarios, cómo llegar, qué hacer — guía completa.",
+      "keywords": "parque tangamanga 2, parque tangamanga ii, tangamanga ii san luis potosi, pista tangamanga, tiro con arco tangamanga, parque deportivo slp"
+    },
+    "title": "Parque Tangamanga II",
+    "subtitle": "El parque deportivo de San Luis Potosí — 189 hectáreas sobre el antiguo aeropuerto. Tiro con arco, autódromo, pistas de correr, zona de mascotas.",
+    "hero": {
+      "badge": "Parque Deportivo",
+      "size": "189 ha",
+      "admission": "Gratis",
+      "year": "Desde 1985"
+    },
+    "quickFacts": {
+      "title": "Datos Rápidos",
+      "location": "Suroeste de SLP, sobre el antiguo aeropuerto",
+      "address": "Av. Salvador Nava Martínez, Fracc. Tangamanga",
+      "phone": "+52 (444) 811 5396",
+      "inaugurated": "1985 — 40 aniversario en 2025",
+      "hours": "Mar–Dom 5:30 AM–7 PM, Lun 5:30–11 AM"
+    },
+    "history": {
+      "title": "Un Parque Construido Sobre una Pista",
+      "body": "El Parque Tangamanga II abrió en 1985 en el sitio del antiguo aeropuerto municipal de San Luis Potosí. Cuando el estado trasladó el aeropuerto a su ubicación actual sobre la carretera a México, la antigua pista y la plataforma de la terminal se reconvirtieron en un espacio verde urbano dedicado al deporte y la recreación. La geometría larga y plana de la pista anterior lo hizo ideal para circuitos de correr, ciclismo y un autódromo — rasgos que definen la identidad de Tangamanga II hasta hoy."
+    },
+    "attractions": {
+      "title": "Atracciones Principales",
+      "archeryTitle": "Club de Tiro con Arco",
+      "archeryDesc": "Sede del Club de Tiro con Arco Tangamanga, uno de los recintos más activos de México. Campos de práctica abierta más escuela para principiantes y competidores.",
+      "racingTitle": "Autódromo",
+      "racingDesc": "Pista asfaltada que aloja eventos regionales y nacionales de automovilismo. Único autódromo permanente de la ciudad.",
+      "sportsTitle": "Canchas Deportivas",
+      "sportsDesc": "Canchas de fútbol, básquetbol, tenis, voleibol y pista de atletismo. Uso gratuito, orden de llegada.",
+      "petTitle": "Zona de Mascotas",
+      "petDesc": "Área cercada sin correa con equipo de agilidad. Una de las pocas zonas dog-friendly de este tamaño en el centro de México.",
+      "kidsTitle": "Zona Infantil",
+      "kidsDesc": "Juegos infantiles, campos abiertos y eventos familiares de temporada. Popular para fiestas infantiles los fines de semana.",
+      "runningTitle": "Circuitos para Correr",
+      "runningDesc": "Circuitos planos y sombreados de 1km, 2.5km y 5km usando la antigua pista y los senderos perimetrales. Favoritos de los maratonistas locales."
+    },
+    "compare": {
+      "title": "¿Tangamanga I o Tangamanga II?",
+      "body": "Si es tu primera vez en San Luis Potosí, ve a Tangamanga I — el parque grande con zoológico, planetario y jardines. Elige Tangamanga II si vas a correr, entrenar un deporte, llevar a tu mascota o ver una carrera automovilística.",
+      "cta": "Ver guía de Tangamanga I"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes — Parque Tangamanga II",
+      "q1": "¿Es gratis el Parque Tangamanga II?",
+      "a1": "Sí. La entrada al parque y el uso de las canchas públicas y circuitos de correr es gratuito. Algunos clubes específicos (escuela de arquería, eventos de automovilismo) cobran sus propias cuotas.",
+      "q2": "¿Cuál es el horario de Tangamanga II?",
+      "a2": "Martes a domingo de 5:30 AM a 7 PM (última entrada 6 PM). Lunes 5:30–11 AM solamente — horario reducido por mantenimiento.",
+      "q3": "¿Dónde queda exactamente el Parque Tangamanga II?",
+      "a3": "Suroeste de San Luis Potosí, sobre Av. Salvador Nava Martínez. Fue construido sobre el antiguo aeropuerto municipal, así que se asienta en lo que era la pista y la plataforma de la terminal.",
+      "q4": "¿Puedo practicar tiro con arco en Tangamanga II?",
+      "a4": "Sí. El Club de Tiro con Arco Tangamanga ofrece práctica abierta y clases para principiantes. Contáctalos por su página de Facebook para horario y tarifas actualizadas.",
+      "q5": "¿Es seguro correr en Tangamanga II al amanecer?",
+      "a5": "Sí. Tangamanga II es popular entre corredores justamente porque está bien iluminado y vigilado desde las 5:30 AM. Las mañanas de fin de semana son las más concurridas y seguras."
     }
   }
 }

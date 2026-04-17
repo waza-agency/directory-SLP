@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { ClockIcon, MapPinIcon, TicketIcon, SunIcon, UsersIcon, SparklesIcon, HeartIcon, TrophyIcon, FireIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { ClockIcon, MapPinIcon, TicketIcon, SunIcon, UsersIcon, SparklesIcon, HeartIcon, TrophyIcon, FireIcon, ArrowTrendingUpIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import SEO from '@/components/common/SEO';
@@ -79,6 +80,11 @@ export default function ParqueTangamanga() {
     { q: t('tangamanga.faq.q3'), a: t('tangamanga.faq.a3') },
     { q: t('tangamanga.faq.q4'), a: t('tangamanga.faq.a4') },
     { q: t('tangamanga.faq.q5'), a: t('tangamanga.faq.a5') },
+    { q: t('tangamanga.faq.q6'), a: t('tangamanga.faq.a6') },
+    { q: t('tangamanga.faq.q7'), a: t('tangamanga.faq.a7') },
+    { q: t('tangamanga.faq.q8'), a: t('tangamanga.faq.a8') },
+    { q: t('tangamanga.faq.q9'), a: t('tangamanga.faq.a9') },
+    { q: t('tangamanga.faq.q10'), a: t('tangamanga.faq.a10') },
   ];
 
   return (
@@ -269,6 +275,47 @@ export default function ParqueTangamanga() {
                 </div>
               </div>
             </div>
+
+            {/* Maratón Callout */}
+            <section className="relative overflow-hidden rounded-2xl shadow-2xl" style={{ background: 'linear-gradient(135deg, #064e3b 0%, #134e4a 45%, #1e3a8a 100%)' }}>
+              <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(2px 2px at 20px 30px,white,transparent),radial-gradient(2px 2px at 60px 80px,white,transparent),radial-gradient(1px 1px at 120px 50px,white,transparent),radial-gradient(1px 1px at 180px 100px,white,transparent)', backgroundSize: '200px 130px' }} />
+              <div className="relative p-8 md:p-10 text-white">
+                <span className="inline-block bg-emerald-500/20 border border-emerald-400/40 rounded-full px-3 py-1 text-xs font-semibold text-emerald-200 mb-4">
+                  🏃 {t('tangamanga.maraton.badge')}
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold mb-3">{t('tangamanga.maraton.title')}</h2>
+                <p className="text-emerald-100 text-lg leading-relaxed mb-6 max-w-3xl">{t('tangamanga.maraton.subtitle')}</p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 text-sm">
+                    <CalendarIcon className="w-4 h-4 text-emerald-300" />
+                    <span className="font-semibold">{t('tangamanga.maraton.date')}</span>
+                  </span>
+                  <Link href="/events/maraton-tangamanga-2026" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-lg px-5 py-2.5 transition-colors">
+                    {t('tangamanga.maraton.linkText')}
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* Tangamanga I vs II Comparison */}
+            <section className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{t('tangamanga.comparison.title')}</h2>
+              <p className="text-gray-700 mb-6">{t('tangamanga.comparison.description')}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-green-50 border-2 border-green-200 rounded-xl p-6">
+                  <h3 className="text-xl font-bold text-green-900 mb-3">🌳 {t('tangamanga.comparison.t1Title')}</h3>
+                  <p className="text-green-900 text-sm leading-relaxed">{t('tangamanga.comparison.t1Desc')}</p>
+                </div>
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                  <h3 className="text-xl font-bold text-blue-900 mb-3">🏃 {t('tangamanga.comparison.t2Title')}</h3>
+                  <p className="text-blue-900 text-sm leading-relaxed mb-4">{t('tangamanga.comparison.t2Desc')}</p>
+                  <Link href="/parque-tangamanga-ii" className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-semibold text-sm">
+                    {t('tangamanga.comparison.ctaText')} <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </div>
+            </section>
 
             {/* History Section with Image */}
             <section className="bg-white rounded-xl p-8 shadow-lg">
@@ -991,6 +1038,24 @@ export default function ParqueTangamanga() {
               </ul>
             </div>
           </div>
+        </div>
+
+        {/* Nearby Parks */}
+        <div className="container mx-auto px-4 py-12 max-w-4xl">
+          <section className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">{t('tangamanga.nearbyParks.title')}</h2>
+            <p className="text-gray-700 mb-6">{t('tangamanga.nearbyParks.description')}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <Link href="/parque-tangamanga-ii" className="group block bg-blue-50 border-2 border-blue-100 hover:border-blue-300 rounded-xl p-5 transition-colors">
+                <h3 className="text-lg font-bold text-blue-900 mb-2 group-hover:underline">🏃 {t('tangamanga.nearbyParks.t2Name')}</h3>
+                <p className="text-sm text-blue-900">{t('tangamanga.nearbyParks.t2Desc')}</p>
+              </Link>
+              <div className="block bg-yellow-50 border-2 border-yellow-100 rounded-xl p-5">
+                <h3 className="text-lg font-bold text-yellow-900 mb-2">🌳 {t('tangamanga.nearbyParks.bicentenarioName')}</h3>
+                <p className="text-sm text-yellow-900">{t('tangamanga.nearbyParks.bicentenarioDesc')}</p>
+              </div>
+            </div>
+          </section>
         </div>
 
         {/* FAQ Section */}

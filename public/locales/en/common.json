@@ -605,7 +605,41 @@
       "q4": "Is Parque Tangamanga safe?",
       "a4": "Yes. The park is well-patrolled during opening hours. Avoid visiting alone after dark on weekdays. Weekend mornings are the busiest and safest time.",
       "q5": "How big is Parque Tangamanga compared to other parks?",
-      "a5": "Parque Tangamanga I covers 411 hectares, larger than Central Park in New York (341 ha). It has over 400,000 trees."
+      "a5": "Parque Tangamanga I covers 411 hectares, larger than Central Park in New York (341 ha). It has over 400,000 trees.",
+      "q6": "When is the BMW Tangamanga Marathon?",
+      "a6": "The Maratón Internacional Tangamanga runs every year on the last Sunday of June. Edition 40 takes place June 28, 2026, starting and ending at Parque Tangamanga I. Registration opens in January each year.",
+      "q7": "Is there parking at Parque Tangamanga?",
+      "a7": "Yes. Free parking is available at multiple entrances. The main lots are near the zoo (east entrance) and near the theater (north entrance). On weekends and holidays the lots fill before 11 AM — arrive early or use rideshare.",
+      "q8": "How do I get to Parque Tangamanga by public transit?",
+      "a8": "The park sits on Av. Dr. Salvador Nava. Several city bus routes stop at the main entrances: Ruta 23, 32, and 52 reach the east side (zoo). Rideshare and taxis drop visitors at any of the 8 gates.",
+      "q9": "What can kids do at Parque Tangamanga?",
+      "a9": "Splash aquarium, the free zoo, Laberinto de las Ciencias (science museum), paddle boats on the lake, the Japanese garden, open theater performances on weekends, bike rentals, and multiple playgrounds. Most activities are free.",
+      "q10": "What's the difference between Tangamanga I and Tangamanga II?",
+      "a10": "Tangamanga I (this page) is the 411-hectare tourist park with the zoo, planetarium, aquarium, and gardens. Tangamanga II is a 189-hectare sports park built over SLP's old airport — focused on archery, running tracks, auto racing, and soccer fields. Both are free and both are in San Luis Potosí city limits."
+    },
+    "maraton": {
+      "badge": "Annual Event",
+      "title": "BMW Maratón Internacional Tangamanga 2026 — 40th Anniversary",
+      "subtitle": "The city's biggest running event takes place right here in Tangamanga I every year. Over 17,000 runners, four certified distances (5K, 10K, half marathon, full marathon), and a forty-year tradition.",
+      "date": "June 28, 2026",
+      "linkText": "See full race guide"
+    },
+    "comparison": {
+      "title": "Parque Tangamanga I vs Tangamanga II",
+      "description": "San Luis Potosí has two Tangamanga parks. They share a name and a philosophy, but they serve different visitors.",
+      "t1Title": "Tangamanga I — 411 ha",
+      "t1Desc": "The iconic park. Zoo, planetarium, aquarium, Japanese garden, theater, lakes, and 400,000 trees. Best for families, tourists, and first-time visitors.",
+      "t2Title": "Tangamanga II — 189 ha",
+      "t2Desc": "Built over the city's old airport. Sports-focused: archery, auto racing track, soccer fields, basketball, tennis, pet zone and kids area. Best for athletes and serious runners.",
+      "ctaText": "Visit the Tangamanga II guide"
+    },
+    "nearbyParks": {
+      "title": "Other Parks Nearby",
+      "description": "Round out your visit with these other green spaces in San Luis Potosí.",
+      "bicentenarioName": "Parque Bicentenario",
+      "bicentenarioDesc": "Smaller urban park celebrating Mexico's bicentennial. Good for afternoon walks and family picnics.",
+      "t2Name": "Parque Tangamanga II",
+      "t2Desc": "The sports park — archery, running, auto racing, pet zone."
     }
   },
   "circleOfTrust": {
@@ -2404,6 +2438,66 @@
         "title": "Black Diamond Storm 500-R headlamp",
         "description": "Rechargeable, 500 lumens, water-resistant. Essential for camping Real de Catorce or night treks."
       }
+    }
+  },
+  "tangamanga2": {
+    "seo": {
+      "title": "Parque Tangamanga II: SLP's Sports Park Guide 2026",
+      "description": "189 ha built over SLP's old airport. Archery, auto racing track, sports courts, pet zone, running loops. Hours, directions, what to do — complete guide.",
+      "keywords": "parque tangamanga 2, parque tangamanga ii, tangamanga ii san luis potosi, pista tangamanga, tiro con arco tangamanga, parque deportivo slp"
+    },
+    "title": "Parque Tangamanga II",
+    "subtitle": "San Luis Potosí's sports park — 189 hectares over the city's old airport. Archery, auto racing, running tracks, pet zone.",
+    "hero": {
+      "badge": "Sports Park",
+      "size": "189 ha",
+      "admission": "Free",
+      "year": "Since 1985"
+    },
+    "quickFacts": {
+      "title": "Quick Facts",
+      "location": "South-west SLP, over the old airport runway",
+      "address": "Av. Salvador Nava Martínez, Fracc. Tangamanga",
+      "phone": "+52 (444) 811 5396",
+      "inaugurated": "1985 — 40th anniversary in 2025",
+      "hours": "Tue–Sun 5:30 AM–7 PM, Mon 5:30–11 AM"
+    },
+    "history": {
+      "title": "A Park Built on a Runway",
+      "body": "Parque Tangamanga II opened in 1985 on the site of San Luis Potosí's original municipal airport. When the state relocated the airport to its current location on the Mexico City highway, the old runway and terminal apron were reclaimed as an urban green space dedicated to sport and recreation. The long, flat geometry of the former runway made it ideal for running loops, cycling circuits, and an auto racing track — features that define Tangamanga II's identity to this day."
+    },
+    "attractions": {
+      "title": "Main Attractions",
+      "archeryTitle": "Archery Club",
+      "archeryDesc": "Home to Club de Tiro con Arco Tangamanga, one of Mexico's most active archery venues. Open practice fields plus coaching for beginners and competitors.",
+      "racingTitle": "Auto Racing Track",
+      "racingDesc": "Asphalt racing circuit hosting regional and national series events. The only permanent racing venue in the city.",
+      "sportsTitle": "Sports Courts",
+      "sportsDesc": "Soccer fields, basketball courts, tennis courts, volleyball, and a running track. Free to use, first-come first-served.",
+      "petTitle": "Pet Zone",
+      "petDesc": "Fenced off-leash area with agility equipment. One of few dog-friendly zones of its size in central Mexico.",
+      "kidsTitle": "Kids Zone",
+      "kidsDesc": "Playgrounds, open lawns for games, and seasonal family events. Popular for weekend birthday parties.",
+      "runningTitle": "Running Loops",
+      "runningDesc": "Flat, shaded loops of 1km, 2.5km, and 5km using the former runway and perimeter paths. Favorite among local marathoners."
+    },
+    "compare": {
+      "title": "Should I visit Tangamanga I or Tangamanga II?",
+      "body": "If it's your first time in San Luis Potosí, go to Tangamanga I — the bigger park with the zoo, planetarium, and gardens. Pick Tangamanga II if you're running, training a sport, bringing a pet, or watching a motorsport event.",
+      "cta": "See Tangamanga I guide"
+    },
+    "faq": {
+      "title": "FAQ — Parque Tangamanga II",
+      "q1": "Is Parque Tangamanga II free?",
+      "a1": "Yes. Entry to the park and use of the public courts and running loops is free. Some specific clubs (archery academy, auto racing events) charge their own fees.",
+      "q2": "What are Tangamanga II's hours?",
+      "a2": "Tuesday to Sunday 5:30 AM to 7 PM (last entry 6 PM). Monday 5:30–11 AM only — reduced hours for maintenance.",
+      "q3": "Where exactly is Parque Tangamanga II?",
+      "a3": "South-west San Luis Potosí, off Av. Salvador Nava Martínez. It was built over the old municipal airport, so it sits on what used to be the runway and terminal apron.",
+      "q4": "Can I do archery at Tangamanga II?",
+      "a4": "Yes. Club de Tiro con Arco Tangamanga offers open practice and beginner lessons. Contact them directly via their Facebook page for current schedule and rates.",
+      "q5": "Is it safe to run at Tangamanga II at dawn?",
+      "a5": "Yes. Tangamanga II is popular with runners precisely because it's well-lit and monitored from 5:30 AM. Weekend mornings are the busiest and safest."
     }
   }
 }
