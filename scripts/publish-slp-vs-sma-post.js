@@ -57,7 +57,7 @@ const contentEN = `<div class="prose prose-lg max-w-none">
 
 <div class="overflow-x-auto mb-12">
   <table class="min-w-full bg-white border-2 border-gray-200 rounded-lg shadow-lg">
-    <thead class="bg-gradient-to-r from-purple-600 to-pink-600">
+    <thead style="background: linear-gradient(to right, #9333ea, #db2777);">
       <tr>
         <th class="px-6 py-4 text-left text-sm font-bold text-white uppercase tracking-wider">Feature</th>
         <th class="px-6 py-4 text-center text-sm font-bold text-white uppercase tracking-wider">San Luis Potosí</th>
@@ -303,7 +303,7 @@ const contentEN = `<div class="prose prose-lg max-w-none">
 <section id="verdict" class="mb-12">
 <h2 class="text-3xl font-bold mb-6 text-gray-900 border-b-2 border-blue-200 pb-2">The Final Verdict</h2>
 
-<div class="bg-gradient-to-br from-purple-100 via-pink-100 to-purple-100 border-4 border-purple-500 rounded-2xl p-10 mb-12 shadow-2xl">
+<div class="rounded-2xl p-10 mb-12 shadow-2xl" style="background: linear-gradient(to bottom right, #f3e8ff, #fce7f3, #f3e8ff); border: 4px solid #a855f7;">
 <div class="text-center mb-8">
 <div class="text-6xl mb-4">🏆</div>
 <h3 class="text-2xl font-bold text-gray-900 mb-2">Our Recommendation</h3>
@@ -312,7 +312,7 @@ const contentEN = `<div class="prose prose-lg max-w-none">
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 <div class="bg-white p-6 rounded-xl shadow-lg">
-<div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold rounded-full text-sm mb-4">💼 CHOOSE SAN LUIS POTOSÍ IF</div>
+<div class="inline-flex items-center px-4 py-2 text-white font-bold rounded-full text-sm mb-4" style="background: linear-gradient(to right, #60a5fa, #2563eb);">💼 CHOOSE SAN LUIS POTOSÍ IF</div>
 <ul class="space-y-2 text-gray-700">
 <li>• You want to <strong>work or start a business</strong> in Mexico</li>
 <li>• Your budget is <strong>under $2,500 USD/month</strong></li>
@@ -323,7 +323,7 @@ const contentEN = `<div class="prose prose-lg max-w-none">
 </ul>
 </div>
 <div class="bg-white p-6 rounded-xl shadow-lg">
-<div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-400 to-pink-500 text-white font-bold rounded-full text-sm mb-4">🎨 CHOOSE SAN MIGUEL DE ALLENDE IF</div>
+<div class="inline-flex items-center px-4 py-2 text-white font-bold rounded-full text-sm mb-4" style="background: linear-gradient(to right, #c084fc, #ec4899);">🎨 CHOOSE SAN MIGUEL DE ALLENDE IF</div>
 <ul class="space-y-2 text-gray-700">
 <li>• You're <strong>retiring</strong> and want English-speaking services</li>
 <li>• Your budget is <strong>$3,500+ USD/month</strong></li>

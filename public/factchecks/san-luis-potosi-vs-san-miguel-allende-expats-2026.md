@@ -2,7 +2,7 @@
 
 **Source Analyzed:** https://www.sanluisway.com/blog/san-luis-potosi-vs-san-miguel-allende-expats-2026
 
-**Verification Date:** April 17, 2026
+**Verification Date:** March 17, 2026
 
 **Investigation Conducted By:** San Luis Way Fact-Check Team using AI-powered research agents
 
@@ -168,14 +168,15 @@ Both BMW and GM operate major assembly plants in San Luis Potosí, confirmed by 
 **VERDICT:** ✅ TRUE
 
 **INVESTIGATION SUMMARY:**
-Industry coverage suggests 350+ automotive-sector companies alone, with additional firms in aerospace, electronics, and logistics.
+Industry coverage suggests 350+ automotive-sector companies alone, and 2025 saw 16 new automotive projects alongside ongoing FDI in home appliances, electronics, and logistics. Up to 12 additional major investment projects are slated for 2026.
 
 **EVIDENCE CHAIN:**
-- **Primary Source:** [Mexico Business News — SLP automotive investment 2025](https://mexicobusiness.news/trade-and-investment/news/slp-closes-2025-us7618-million-automotive-investment) — 16 new automotive projects in 2025 alone
-- **Corroborating Source 1:** [Prodensa — Mexican Automotive Industry Report 2026](https://www.prodensa.com/insights/blog/mexican-automotive-industry-report) — SLP among Mexico's top automotive states
-- **Corroborating Source 2:** [Mexecution — SLP Nearshoring](https://mexecution.com/en/states/san-luis-potosi) — Confirms 350+ auto cluster
+- **Primary Source:** [Mexico Business News — SLP closes 2025 with US$761.8M automotive investment](https://mexicobusiness.news/trade-and-investment/news/slp-closes-2025-us7618-million-automotive-investment) — 16 new automotive projects, 5,988 new jobs
+- **Corroborating Source 1:** [Líder Empresarial — Up to 12 major projects in 2026](https://us.liderempresarial.com/posts/up-to-12-major-companies-could-finalize-investment-projects-in-san-luis-potosi-by-2026)
+- **Corroborating Source 2:** [CBRE — Emerging Industrial Markets: San Luis Potosí](https://www.cbre.com/insights/briefs/emerging-industrial-markets-san-luis-potosi-mexico)
+- **Corroborating Source 3:** [Mexecution — SLP Nearshoring](https://mexecution.com/en/states/san-luis-potosi) — Confirms 350+ auto cluster
 
-**CONFIDENCE:** High — Multiple industry trackers support the scale.
+**CONFIDENCE:** High — Multiple 2025–2026 industry trackers support the scale.
 
 ---
 
@@ -186,14 +187,18 @@ Industry coverage suggests 350+ automotive-sector companies alone, with addition
 **VERDICT:** ✅ TRUE
 
 **INVESTIGATION SUMMARY:**
-Travel + Leisure readers ranked San Miguel de Allende #1 in the 2024 World's Best Awards, matching prior wins in 2017 and 2018.
+Travel + Leisure readers ranked San Miguel de Allende #1 in the 2025 World's Best Awards — the second consecutive year — with a score of 93.33. Previous wins: 2017, 2018, 2024 and 2025.
 
 **EVIDENCE CHAIN:**
-- **Primary Source:** [Travel + Leisure 2024 World's Best Awards announcement](https://dotdashmeredith.mediaroom.com/2024-07-09-Travel-Leisure-Announces-2024-Worlds-Best-Awards-Unveiling-Top-Destinations,-Hotels,-Airlines-and-More)
-- **Corroborating Source 1:** [Mexico News Daily — SMA best city](https://mexiconewsdaily.com/travel/best-city-in-the-world-mexico/)
-- **Corroborating Source 2:** [Guanajuato.travel official statement](https://guanajuato.travel/san-miguel-de-allende-guanajuato-elegida-como-la-mejor-ciudad-del-mundo-en-los-worlds-best-awards-2024/)
+- **Primary Source:** [San Miguel Times — Travel + Leisure 2025 announcement](https://sanmigueltimes.com/2025/07/its-official-san-miguel-de-allende-crowned-best-city-in-the-world-by-travel-leisure/)
+- **Corroborating Source 1:** [San Miguel Post — Best City in the World 2025](https://sanmiguelpost.com/2025/07/10/san-miguel-de-allende-recognized-as-the-best-city-in-the-world-2025/)
+- **Corroborating Source 2:** [Mexico News Daily — Best City in the World honors](https://mexiconewsdaily.com/lifestyle/best-city-in-the-world-honors/)
+- **Historical Context:** [SMA.mx — Named #1 City](https://sma.mx/san-miguel-de-allende-named-1-city-in-the-world-by-travel-leisure-heres-why/) — covers 2017, 2018 wins
 
-**CONFIDENCE:** High — Publisher announcement plus independent press coverage.
+**DETAILED ANALYSIS:**
+The 2025 win was based on feedback from nearly 180,000 readers who rated cities on landmarks, culture, food, hospitality, shopping, and value. Mexico City placed #7, Oaxaca #9, and Mérida #13 in the same 2025 ranking.
+
+**CONFIDENCE:** High — Primary T+L announcement plus multiple independent press sources.
 
 ---
 
@@ -291,6 +296,6 @@ Tier 6 (Statistical Aggregators): Numbeo, Expatistan, Macrotrends, CityPopulatio
 
 - Numbeo contributor counts for SLP are limited ("~20 contributors in past 18 months"), introducing variance
 - Official expat-headcount data is not published at the municipal level in Mexico
-- Cost-of-living figures change monthly; specific USD values reflect April 2026 snapshot at MXN/USD ≈ 17
+- Cost-of-living figures change monthly; specific USD values reflect March 2026 snapshot at MXN/USD ≈ 17
 
-**VERIFICATION DATE:** April 17, 2026
+**VERIFICATION DATE:** March 17, 2026
