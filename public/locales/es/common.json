@@ -1818,7 +1818,7 @@
       "title": "FENAPO 2026",
       "subtitle": "Feria Nacional Potosina",
       "description": "La feria más tradicional de México regresa a San Luis Potosí con conciertos, gastronomía, cultura y entretenimiento para toda la familia. Artistas confirmados: Grupo Firme, Sin Bandera, Los Acosta.",
-      "note": "Programa completo por confirmar — esta página se actualiza conforme se anuncien artistas y fechas.",
+      "note": "Cartelera ampliada abril 2026: 3 artistas en Teatro del Pueblo + 6 en Palenque confirmados, además de 4 eventos pre-FENAPO entre abril y mayo. Fechas finales por confirmar — esta página se actualiza conforme se anuncian más artistas.",
       "cta": "Sitio oficial",
       "ctaArtists": "Ver artistas",
       "location": "San Luis Potosí, capital del estado de San Luis Potosí, México"
@@ -1827,7 +1827,7 @@
       "days": "Días",
       "daysValue": "~24",
       "artists": "Artistas confirmados",
-      "artistsValue": "3+",
+      "artistsValue": "9+",
       "entry": "Entrada general",
       "entryValue": "Gratis",
       "zones": "Zonas",
@@ -1853,15 +1853,31 @@
     },
     "artists": {
       "title": "Artistas Confirmados",
-      "subtitle": "La cartelera se actualiza conforme se anuncian artistas. Regresa pronto para ver las últimas novedades.",
+      "subtitle": "A abril de 2026 hay nueve artistas confirmados entre Teatro del Pueblo (gratis con entrada a la feria) y Palenque (boleto aparte). Más nombres se anunciarán conforme se acerca agosto.",
       "teatroTitle": "Teatro del Pueblo",
-      "teatroNote": "Entrada gratuita",
+      "teatroNote": "3 confirmados · 2 internacionales por confirmar",
       "palenqueTitle": "Palenque",
-      "palenqueNote": "Boletos a la venta",
+      "palenqueNote": "6 confirmados · cartelera completa",
       "tbc": "Más artistas por confirmar",
       "sinBandera": "Sin Bandera",
       "losAcosta": "Los Acosta",
-      "grupoFirme": "Grupo Firme"
+      "grupoFirme": "Grupo Firme",
+      "freeNotice": "Los conciertos del Teatro del Pueblo, juegos mecánicos, estacionamiento y entrada a la feria serán gratuitos este año por decreto del Gobernador de San Luis Potosí.",
+      "keniaOs": "Kenia Os",
+      "keniaOsGenre": "Pop / Urbano",
+      "sinBanderaGenre": "Balada Pop (dúo)",
+      "losAcostaGenre": "Cumbia / Regional",
+      "grupoFirmeGenre": "Regional Mexicano",
+      "edenMunoz": "Edén Muñoz",
+      "edenMunozGenre": "Regional Mexicano",
+      "gloriaTrevi": "Gloria Trevi",
+      "gloriaTreviGenre": "Pop Latino",
+      "losInvasores": "Los Invasores de Nuevo León",
+      "losInvasoresGenre": "Norteño",
+      "losCardenales": "Los Cardenales de Nuevo León",
+      "losCardenalesGenre": "Norteño",
+      "losViejones": "Los Viejones de Linares",
+      "losViejonesGenre": "Norteño"
     },
     "areas": {
       "title": "Áreas de la Feria",
@@ -1967,6 +1983,30 @@
       "official": "Sitio oficial",
       "newsletter": "Suscríbete para actualizaciones",
       "moreEvents": "Ver más eventos en SLP"
+    },
+    "preFenapo": {
+      "title": "Eventos Pre-FENAPO en el Recinto Ferial",
+      "subtitle": "El recinto ya está recibiendo eventos antes de la celebración principal de agosto. Gran oportunidad para conocer el lugar antes de que lleguen las multitudes.",
+      "event1Date": "18 de abril, 2026",
+      "event1Title": "Duelo de Acordeones",
+      "event1Desc": "Competencia regional norteña con grupos locales y en gira.",
+      "event2Date": "24 de abril, 2026",
+      "event2Title": "Victor Mendivil + Kevin AMF",
+      "event2Desc": "Doble cartel de regional mexicano en el Recinto Ferial.",
+      "event3Date": "16 de mayo, 2026",
+      "event3Title": "San Luis Metal Fest 2026",
+      "event3Desc": "El festival metalero más grande de SLP. Cobertura completa en nuestra página de evento.",
+      "event4Date": "22–24 de mayo, 2026",
+      "event4Title": "Copa Libertadores 2026 (Voleibol)",
+      "event4Desc": "Torneo internacional de voleibol en los pabellones de la feria."
+    },
+    "quickAnswer": {
+      "title": "FENAPO 2026 en breve",
+      "definition": "La FENAPO 2026 — la edición 77 de la Feria Nacional Potosina de México — se celebra en agosto de 2026 en el Recinto Ferial de la Av. Fco. Martínez de la Vega, San Luis Potosí. A abril de 2026 hay nueve artistas confirmados (tres para el Teatro del Pueblo gratis y seis para el Palenque de boleto pagado), con entrada, juegos mecánicos, estacionamiento y conciertos del Teatro del Pueblo gratuitos para los asistentes. La cartelera del Palenque está completa; el Teatro del Pueblo está 90% confirmado con dos artistas internacionales pendientes. Eventos pre-FENAPO ya están corriendo en el recinto de abril a mayo.",
+      "keyFactsTitle": "Datos clave (verificados 18 de abril, 2026)"
+    },
+    "sources": {
+      "title": "Fuentes consultadas"
     }
   },
   "b2b": {

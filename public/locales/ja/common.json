@@ -1835,7 +1835,7 @@
       "title": "FENAPO 2026",
       "subtitle": "フェリア・ナシオナル・ポトシーナ",
       "description": "メキシコで最も伝統的な祭典がサンルイスポトシに帰ってきます。コンサート、グルメ、文化、家族向けエンターテイメント。出演確定：Grupo Firme、Sin Bandera、Los Acosta。",
-      "note": "プログラム詳細は確認次第更新します。",
+      "note": "Lineup expanded April 2026: 3 Teatro del Pueblo + 6 Palenque artists confirmed, plus 4 pre-FENAPO events running April through May. Final dates TBC — this page updates as the fair announces more.",
       "cta": "公式サイト",
       "ctaArtists": "アーティストを見る",
       "location": "サンルイス・ポトシ、サンルイス・ポトシ州の州都、メキシコ"
@@ -1844,7 +1844,7 @@
       "days": "日間",
       "daysValue": "約24",
       "artists": "出演確定",
-      "artistsValue": "3+",
+      "artistsValue": "9+",
       "entry": "一般入場",
       "entryValue": "無料",
       "zones": "エリア",
@@ -1870,15 +1870,31 @@
     },
     "artists": {
       "title": "出演確定アーティスト",
-      "subtitle": "発表され次第更新されます。",
+      "subtitle": "As of April 2026, nine artists are confirmed across Teatro del Pueblo (free with fair admission) and Palenque (paid separate ticket). More names expected as August approaches.",
       "teatroTitle": "テアトロ・デル・プエブロ",
-      "teatroNote": "入場無料",
+      "teatroNote": "3 confirmed · 2 international TBC",
       "palenqueTitle": "パレンケ",
-      "palenqueNote": "チケット販売中",
+      "palenqueNote": "6 confirmed · cartelera complete",
       "tbc": "他のアーティストは追って発表",
       "sinBandera": "Sin Bandera",
       "losAcosta": "Los Acosta",
-      "grupoFirme": "Grupo Firme"
+      "grupoFirme": "Grupo Firme",
+      "freeNotice": "Teatro del Pueblo concerts, mechanical rides, parking, and fair entry will be free this year per the Governor of San Luis Potosí.",
+      "keniaOs": "Kenia Os",
+      "keniaOsGenre": "Pop / Urban",
+      "sinBanderaGenre": "Pop Ballad Duo",
+      "losAcostaGenre": "Cumbia / Regional",
+      "grupoFirmeGenre": "Regional Mexicano",
+      "edenMunoz": "Edén Muñoz",
+      "edenMunozGenre": "Regional Mexicano",
+      "gloriaTrevi": "Gloria Trevi",
+      "gloriaTreviGenre": "Pop Latino",
+      "losInvasores": "Los Invasores de Nuevo León",
+      "losInvasoresGenre": "Norteño",
+      "losCardenales": "Los Cardenales de Nuevo León",
+      "losCardenalesGenre": "Norteño",
+      "losViejones": "Los Viejones de Linares",
+      "losViejonesGenre": "Norteño"
     },
     "areas": {
       "title": "祭典エリア",
@@ -1984,6 +2000,30 @@
       "official": "公式サイト",
       "newsletter": "更新を購読",
       "moreEvents": "SLPのイベントをもっと見る"
+    },
+    "preFenapo": {
+      "title": "Pre-FENAPO Events at the Recinto Ferial",
+      "subtitle": "The fairgrounds are already hosting events ahead of the main August celebration. A great way to experience the venue before the crowds.",
+      "event1Date": "April 18, 2026",
+      "event1Title": "Duelo de Acordeones",
+      "event1Desc": "Regional norteño competition featuring local and touring accordion acts.",
+      "event2Date": "April 24, 2026",
+      "event2Title": "Victor Mendivil + Kevin AMF",
+      "event2Desc": "Regional Mexicano double bill at the Recinto Ferial.",
+      "event3Date": "May 16, 2026",
+      "event3Title": "San Luis Metal Fest 2026",
+      "event3Desc": "Mexico's biggest potosino metal festival. Full coverage on our event page.",
+      "event4Date": "May 22–24, 2026",
+      "event4Title": "Copa Libertadores 2026 (Volleyball)",
+      "event4Desc": "International volleyball tournament at the fair pavilions."
+    },
+    "quickAnswer": {
+      "title": "FENAPO 2026 at a glance",
+      "definition": "FENAPO 2026 — the 77th edition of Mexico's Feria Nacional Potosina — takes place in August 2026 at the Recinto Ferial on Av. Fco. Martínez de la Vega, San Luis Potosí. As of April 2026, nine headliners are confirmed (three for the free Teatro del Pueblo and six for the paid Palenque), with fair entry, rides, parking, and Teatro del Pueblo concerts free for attendees. The Palenque cartelera is complete; Teatro del Pueblo is 90% confirmed with two international artists pending announcement. Pre-FENAPO events are already running at the fairgrounds from April through May.",
+      "keyFactsTitle": "Key facts (verified April 18, 2026)"
+    },
+    "sources": {
+      "title": "Sources used on this page"
     }
   },
   "b2b": {
