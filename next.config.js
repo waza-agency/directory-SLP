@@ -133,6 +133,13 @@ const nextConfig = {
       // /events now renders its own page — no redirect. If you need to
       // change this, also delete src/pages/events/index.tsx so next.config
       // rules take precedence again.
+      {
+        // FENAPO post pivoted from "cartel y guía completa" to preparation
+        // focus on 2026-04-18. Safety net for any early external links.
+        source: '/blog/fenapo-2026-cartel-guia-completa',
+        destination: '/blog/fenapo-2026-guia-preparacion',
+        permanent: true,
+      },
     ];
   },
   env: {
