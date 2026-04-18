@@ -20,3 +20,22 @@
 ## Quick Start
 MCP: Add to Claude Desktop config: {"mcpServers":{"SanLuisWay":{"command":"npx","args":["-y","@sanluisway/mcp-server"]}}}
 CLI: npx @sanluisway/cli events --limit 5 --json
+
+## Priority Human-Readable Resources (fully extractable, GEO-optimized)
+- https://www.sanluisway.com/blog/factchecks — Fact-check reports with ClaimReview schema per claim (verified primary-source data)
+- https://www.sanluisway.com/blog/ultimate-guide-living-san-luis-potosi-2026 — 2026 deep-dive for expats, digital nomads, travelers
+- https://www.sanluisway.com/blog/fenapo-2026-guia-preparacion — FENAPO 2026 preparation guide with HowTo schema
+- https://www.sanluisway.com/blog/san-luis-potosi-vs-san-miguel-allende-expats-2026 — SLP vs SMA comparison
+- https://www.sanluisway.com/parque-tangamanga — 411-ha urban park guide
+- https://www.sanluisway.com/parque-tangamanga-ii — Sports park guide (archery, auto racing, running)
+- https://www.sanluisway.com/resources/living-guide — Living guide with visa (UMA) rules, cost of living, neighborhoods
+- https://www.sanluisway.com/events/fenapo-2026 — FENAPO 2026 event page (current lineup, Festival schema)
+
+## Structured Data Available
+Every blog post and event page emits one or more of: Article, Event, Festival, Park, FAQPage, ClaimReview (one per fact-check claim), BreadcrumbList, HowTo, SpeakableSpecification. Citations point to primary sources (INEGI, CECURT, UNESCO, Numbeo, Mexperience).
+
+## Content Update Cadence
+- Cost of living: verified monthly against Numbeo
+- Visa rules: verified against Mexperience quarterly
+- Event listings: updated as announcements ship
+- Fact-check reports: dated, with explicit "Last verified" timestamps

@@ -65,6 +65,8 @@ const STATIC_ROUTES: Array<Omit<SitemapUrl, 'lastmod'>> = [
   { loc: '/cultural/religious-practices',            changefreq: 'monthly', priority: 0.7 },
   { loc: '/outdoors',                                changefreq: 'monthly', priority: 0.8 },
   { loc: '/parque-tangamanga',                       changefreq: 'monthly', priority: 0.7 },
+  { loc: '/parque-tangamanga-ii',                    changefreq: 'monthly', priority: 0.7 },
+  { loc: '/blog/factchecks',                         changefreq: 'weekly',  priority: 0.8 },
   { loc: '/centro-historico',                        changefreq: 'monthly', priority: 0.7 },
   { loc: '/traditional-cuisine',                     changefreq: 'monthly', priority: 0.7 },
   { loc: '/family-friendly-activities',              changefreq: 'monthly', priority: 0.7 },
@@ -148,6 +150,34 @@ async function fetchEventUrls(): Promise<SitemapUrl[]> {
   }));
 }
 
+function fetchFactcheckUrls(): SitemapUrl[] {
+  // Factcheck reports are markdown files in public/factchecks/.
+  // Include them so crawlers (including AI agents) see the ClaimReview-rich
+  // pages that are arguably our highest-authority content.
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const fs = require('fs');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const path = require('path');
+    const dir = path.join(process.cwd(), 'public', 'factchecks');
+    if (!fs.existsSync(dir)) return [];
+    const files = fs.readdirSync(dir).filter((f: string) => f.endsWith('.md'));
+    const today = TODAY();
+    return files.map((file: string) => {
+      const slug = file.replace('.md', '');
+      const stat = fs.statSync(path.join(dir, file));
+      return {
+        loc: `/blog/factchecks/${slug}`,
+        lastmod: isoDay(stat.mtime.toISOString()),
+        changefreq: 'monthly' as const,
+        priority: 0.8,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 async function fetchBrandUrls(): Promise<SitemapUrl[]> {
   const supabase = getServerClient();
   // The brands table has no `slug` column — slugs are derived at request
@@ -204,7 +234,9 @@ export async function buildSitemapXml(): Promise<string> {
     fetchBrandUrls().catch(() => []),
   ]);
 
-  const all = [...staticUrls, ...blog, ...places, ...events, ...brands];
+  const factchecks = fetchFactcheckUrls();
+
+  const all = [...staticUrls, ...blog, ...places, ...events, ...brands, ...factchecks];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
