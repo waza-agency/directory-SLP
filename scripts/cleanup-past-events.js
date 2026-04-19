@@ -1,74 +1,40 @@
-/**
- * Script para eliminar eventos con fecha anterior a hoy de Supabase
- * Ejecutar: node scripts/cleanup-past-events.js
- */
-
-require('dotenv').config();
+require('dotenv').config({ path: '.env' });
 const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+const path = require('path');
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+const CUTOFF = process.argv[2] || '2026-04-18';
 
-const CUTOFF_DATE = '2026-03-10T00:00:00.000Z';
-
-async function main() {
-  console.log('=== Limpieza de eventos pasados ===\n');
-  console.log(`Fecha de corte: ${CUTOFF_DATE}\n`);
-
-  const { data: allEvents, error } = await supabase
+(async () => {
+  const { data: toDelete, error: fetchErr } = await supabase
     .from('events')
-    .select('id, title, start_date, end_date, category')
-    .order('start_date', { ascending: true });
+    .select('*')
+    .lt('end_date', CUTOFF)
+    .order('end_date');
 
-  if (error) {
-    console.error('Error obteniendo eventos:', error);
-    process.exit(1);
-  }
+  if (fetchErr) { console.error('Fetch:', fetchErr); process.exit(1); }
 
-  console.log(`Total de eventos en DB: ${allEvents.length}\n`);
-
-  const cutoff = new Date(CUTOFF_DATE);
-  const pastEvents = allEvents.filter(e => {
-    const endDate = e.end_date ? new Date(e.end_date) : null;
-    const startDate = new Date(e.start_date);
-    if (endDate) return endDate < cutoff;
-    return startDate < cutoff;
-  });
-
-  const futureEvents = allEvents.filter(e => !pastEvents.find(p => p.id === e.id));
-
-  console.log(`Eventos pasados a eliminar: ${pastEvents.length}`);
-  console.log(`Eventos futuros a mantener: ${futureEvents.length}\n`);
-
-  if (pastEvents.length === 0) {
-    console.log('No hay eventos pasados para eliminar.');
+  if (!toDelete?.length) {
+    console.log('Nothing to delete.');
     return;
   }
 
-  console.log('Eventos a eliminar:');
-  pastEvents.forEach((e, i) => {
-    console.log(`  ${i + 1}. ${e.title} | ${e.start_date} | ${e.category}`);
-  });
+  console.log(`Found ${toDelete.length} events ending before ${CUTOFF}:`);
+  toDelete.forEach((e) => console.log(`  ${e.end_date.slice(0, 10)} | ${e.category.padEnd(16)} | ${e.title}`));
 
-  const ids = pastEvents.map(e => e.id);
-  const { error: delError } = await supabase
-    .from('events')
-    .delete()
-    .in('id', ids);
+  const backupPath = path.join(__dirname, `deleted-events-backup-${CUTOFF}.json`);
+  fs.writeFileSync(backupPath, JSON.stringify(toDelete, null, 2));
+  console.log(`\nBackup saved: ${backupPath}`);
 
-  if (delError) {
-    console.error('\nError eliminando:', delError);
-    process.exit(1);
-  }
+  const ids = toDelete.map((e) => e.id);
+  const { error: deleteErr } = await supabase.from('events').delete().in('id', ids);
+  if (deleteErr) { console.error('Delete:', deleteErr); process.exit(1); }
 
-  console.log(`\nEliminados: ${pastEvents.length} eventos pasados`);
+  const { count: remaining } = await supabase.from('events').select('id', { count: 'exact', head: true });
+  const { count: remainingPast } = await supabase.from('events').select('id', { count: 'exact', head: true }).lt('end_date', CUTOFF);
 
-  console.log('\nEventos que permanecen:');
-  futureEvents.forEach((e, i) => {
-    console.log(`  ${i + 1}. ${e.title} | ${e.start_date} | ${e.category}`);
-  });
-}
-
-main();
+  console.log(`\n✅ Deleted ${toDelete.length} events.`);
+  console.log(`   Events remaining: ${remaining}`);
+  console.log(`   Past events still in DB: ${remainingPast}`);
+})();
