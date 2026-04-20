@@ -106,18 +106,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-T4LHTQ9C');`}
       </Script>
 
-      {/* GA4 + Google Ads — single gtag.js load (was 2 separate downloads) */}
+      {/* GA4 — gtag.js */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-5R48THR70E"
         strategy="lazyOnload"
       />
-      <Script id="ga4-ads" strategy="lazyOnload">
+      <Script id="ga4" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-5R48THR70E');
-          gtag('config', 'AW-17635572319');
         `}
       </Script>
 
