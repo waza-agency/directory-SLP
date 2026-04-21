@@ -63,6 +63,7 @@ export default function NewsletterAdminPage() {
   const [generationMessage, setGenerationMessage] = useState('');
   const [generatedNewsletter, setGeneratedNewsletter] = useState<GeneratedNewsletter | null>(null);
   const [linkValidation, setLinkValidation] = useState<LinkValidation | null>(null);
+  const [unfilledPlaceholders, setUnfilledPlaceholders] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
   const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
   const [showEditor, setShowEditor] = useState(false);
@@ -134,6 +135,7 @@ export default function NewsletterAdminPage() {
     setGenerationMessage('');
     setGeneratedNewsletter(null);
     setLinkValidation(null);
+    setUnfilledPlaceholders([]);
     setCopied(false);
 
     try {
@@ -171,6 +173,7 @@ export default function NewsletterAdminPage() {
         setGenerationMessage(data.message);
         setGeneratedNewsletter(data.newsletter);
         setLinkValidation(data.link_validation || null);
+        setUnfilledPlaceholders(Array.isArray(data.unfilled_placeholders) ? data.unfilled_placeholders : []);
       } else {
         throw new Error(data.error || data.message || 'Failed to generate');
       }
@@ -637,6 +640,31 @@ export default function NewsletterAdminPage() {
                           ✅ All {linkValidation.total_sanluisway_links} sanluisway.com link{linkValidation.total_sanluisway_links === 1 ? '' : 's'} verified (200 OK)
                         </div>
                       ) : null
+                    )}
+
+                    {/* Unfilled Placeholder Warning */}
+                    {unfilledPlaceholders.length > 0 && (
+                      <div className="mb-4 p-4 rounded-lg bg-amber-50 border border-amber-300">
+                        <div className="flex items-start gap-2">
+                          <span className="text-amber-600 text-xl">⚠️</span>
+                          <div className="flex-1">
+                            <p className="font-semibold text-amber-900 mb-1">
+                              {unfilledPlaceholders.length} placeholder{unfilledPlaceholders.length === 1 ? '' : 's'} left unfilled by the AI
+                            </p>
+                            <p className="text-sm text-amber-800 mb-2">
+                              These were stripped from the final HTML. Sections referencing them may render empty or half-populated. Consider regenerating.
+                            </p>
+                            <details className="text-sm">
+                              <summary className="cursor-pointer text-amber-900 font-medium">View unfilled placeholders</summary>
+                              <ul className="mt-2 ml-4 list-disc text-amber-800 font-mono text-xs space-y-1">
+                                {unfilledPlaceholders.map((p) => (
+                                  <li key={p}>{p}</li>
+                                ))}
+                              </ul>
+                            </details>
+                          </div>
+                        </div>
+                      </div>
                     )}
 
                     {/* Subject with copy button */}

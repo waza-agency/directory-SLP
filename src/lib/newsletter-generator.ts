@@ -792,6 +792,31 @@ export const NEWSLETTER_TEMPLATE = `
 </html>
 `;
 
+// Critical placeholders — if any remain in final HTML the newsletter is broken
+// enough that we'd rather fail generation than ship a malformed edition.
+const CRITICAL_PLACEHOLDERS = new Set([
+  '[WEEK_DATE_RANGE]',
+  '[OPENING_HOOK_TEXT]',
+  '[CTA_TITLE]',
+  '[CTA_BODY]',
+  '[CTA_BUTTON_LABEL]',
+  '[CTA_BUTTON_LINK]',
+  '[BLOG_POST_TITLE]',
+  '[BLOG_POST_URL]',
+  '[ONE_SENTENCE_TEASER]',
+]);
+
+/**
+ * Finds every unfilled [ALL_CAPS_PLACEHOLDER] left in the HTML. Previously
+ * these were silently stripped by cleanHtmlForBeehiiv, causing sections to
+ * render empty or half-filled without any warning to the admin.
+ */
+function detectUnfilledPlaceholders(html: string): string[] {
+  const matches = html.match(/\[[A-Z][A-Z0-9_]{2,}\]/g);
+  if (!matches) return [];
+  return Array.from(new Set(matches)).sort();
+}
+
 // Function to clean HTML for Beehiiv compatibility
 function cleanHtmlForBeehiiv(html: string): string {
   let cleaned = html;
@@ -2248,6 +2273,25 @@ Overall Summary: ${weatherForecast.summary}
   console.log('5. 📧 Injecting standardized footer and closing section...');
   htmlContent = injectFooterIntoNewsletter(htmlContent);
 
+  // Validate that the AI filled every placeholder before we strip the leftovers.
+  // cleanHtmlForBeehiiv silently removes [PLACEHOLDER] patterns, which used to
+  // produce half-filled sections with no signal that anything went wrong.
+  const unfilledPlaceholders = detectUnfilledPlaceholders(htmlContent);
+  const missingCritical = unfilledPlaceholders.filter((p) => CRITICAL_PLACEHOLDERS.has(p));
+  if (unfilledPlaceholders.length > 0) {
+    console.warn('   ⚠️ Unfilled placeholders remaining after generation:');
+    for (const p of unfilledPlaceholders) {
+      const critical = CRITICAL_PLACEHOLDERS.has(p) ? ' (CRITICAL)' : '';
+      console.warn(`      - ${p}${critical}`);
+    }
+  }
+  if (missingCritical.length > 0) {
+    throw new Error(
+      `AI left ${missingCritical.length} critical placeholder(s) unfilled: ${missingCritical.join(', ')}. ` +
+      `Re-run generation; if it persists, simplify the prompt or add examples for these fields.`
+    );
+  }
+
   // Clean HTML for Beehiiv compatibility (remove <style>, <head>, class attributes)
   console.log('6. 🧹 Cleaning HTML for Beehiiv compatibility...');
   htmlContent = cleanHtmlForBeehiiv(htmlContent);
@@ -2417,5 +2461,6 @@ Overall Summary: ${weatherForecast.summary}
       total_sanluisway_links: linkValidation.totalSanluiswayLinks,
       broken_links_replaced: linkValidation.brokenLinks,
     },
+    unfilled_placeholders: unfilledPlaceholders,
   };
 }
