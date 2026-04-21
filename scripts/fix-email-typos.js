@@ -13,20 +13,11 @@ const BEEHIIV_API_KEY = process.env.BEEHIIV_API_KEY;
 const BEEHIIV_PUBLICATION_ID = process.env.BEEHIIV_PUBLICATION_ID;
 
 const CORRECTIONS = [
+  { wrong: 'avatarthegreat99@gmail.coma', correct: 'avatarthegreat99@gmail.com' },
+  { wrong: 'jaimeemier@autlook.com', correct: 'jaimeemier@outlook.com' },
+  { wrong: 'carlos2013x_@hotmaim.com', correct: 'carlos2013x_@hotmail.com' },
   { wrong: 'yo@hotmsil.com', correct: 'yo@hotmail.com' },
   { wrong: 'racielrodriguez1977@gmqil.com', correct: 'racielrodriguez1977@gmail.com' },
-  { wrong: 'jaibolucas@hotmeil.com', correct: 'jaibolucas@hotmail.com' },
-  { wrong: 'alfredodavidesparzamendoza@gotmail.com', correct: 'alfredodavidesparzamendoza@hotmail.com' },
-  { wrong: 'hybridreactor@gnail.com', correct: 'hybridreactor@gmail.com' },
-  { wrong: 'abogadoeliasslp@hmail.com', correct: 'abogadoeliasslp@hotmail.com' },
-  { wrong: 'alesitafigueroa.22@icloud.com.com', correct: 'alesitafigueroa.22@icloud.com' },
-  { wrong: 'yiyis1505@gmail.comy', correct: 'yiyis1505@gmail.com' },
-  { wrong: 'pichardo38@hotmail.con', correct: 'pichardo38@hotmail.com' },
-  { wrong: 'soteloisaac76@gmail.com8', correct: 'soteloisaac76@gmail.com' },
-  { wrong: 'albertoyubaile@gmail.com.mx', correct: 'albertoyubaile@gmail.com' },
-  { wrong: 'serranopablo@hotmal.com', correct: 'serranopablo@hotmail.com' },
-  { wrong: 'mariacossio11@gmail.con', correct: 'mariacossio11@gmail.com' },
-  { wrong: 'muro.md@hotmail.con', correct: 'muro.md@hotmail.com' },
 ];
 
 const headers = {

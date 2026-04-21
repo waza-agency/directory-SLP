@@ -4,6 +4,27 @@ Log de todos los cambios exitosos realizados en el proyecto San Luis Way.
 
 ---
 
+## [2026-04-20] chore: Beehiiv import — leads (26).csv
+
+**Descripcion:** Import semanal de leads a Beehiiv usando skill `/import-leads`.
+
+**Resultados:**
+- CSV: `leads (26).csv` (290 leads)
+- Suscriptores existentes en Beehiiv antes del import: 795
+- ✅ Agregados: 76
+- ⏭️  Ya existían: 214
+- ❌ Fallidos: 0
+- Reporte: `scripts/import-report-1776734648042.txt`
+
+**Typos corregidos vía `scripts/fix-email-typos.js` (5/5 ok):**
+- `avatarthegreat99@gmail.coma` → `avatarthegreat99@gmail.com`
+- `jaimeemier@autlook.com` → `jaimeemier@outlook.com`
+- `carlos2013x_@hotmaim.com` → `carlos2013x_@hotmail.com`
+- `yo@hotmsil.com` → `yo@hotmail.com`
+- `racielrodriguez1977@gmqil.com` → `racielrodriguez1977@gmail.com`
+
+---
+
 ## [2026-03-25] feat: Homepage refactoring + neighborhood pages + social sharing + monetization
 
 **Descripcion:** Refactorizacion del homepage y nuevas funcionalidades para SEO y monetizacion.
