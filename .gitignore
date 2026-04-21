@@ -27,6 +27,11 @@ yarn-error.log*
 build.log
 export.log
 
+# local backups (contain PII — subscriber emails, names, etc.)
+backups/
+scripts/draft-newsletter.html
+scripts/draft-newsletter-final.html
+
 # local env files
 .env
 .env.*
