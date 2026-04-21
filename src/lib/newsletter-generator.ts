@@ -385,14 +385,14 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 4px 0 0 0; color: #BAE6FD; font-size: 12px;">The essentials before you start the week</p>
                 </div>
 
-                <!-- 🌦️ Weather Watch -->
+                <!-- WEATHER & ENVIRONMENT -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 8px 0; color: #0C4A6E; font-size: 16px;">🌦️ Weather Watch</h3>
                   <p style="margin: 0; font-size: 14px; color: #374151;"><strong>Forecast:</strong> [WEATHER_SUMMARY]</p>
                   <p style="margin: 4px 0 0 0; font-size: 14px; color: #374151;"><strong>Tip:</strong> [WEATHER_RECOMMENDATION]</p>
                 </div>
 
-                <!-- 💰 Market Watch -->
+                <!-- MARKET WATCH -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 12px 0; color: #166534; font-size: 16px;">💰 Market Watch</h3>
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -414,7 +414,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 8px 0 0 0; font-size: 12px; color: #6B7280; text-align: center;">[MARKET_TREND_NOTE]</p>
                 </div>
 
-                <!-- 📰 Top News (single detailed story) -->
+                <!-- NEWS SECTION -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 10px 0; color: #C75B39; font-size: 16px;">📰 Top News</h3>
                   <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #1F2937;">[NEWS_HEADLINE_1]</h4>
@@ -422,7 +422,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_1]</p>
                 </div>
 
-                <!-- ⚡ Quick Hits -->
+                <!-- QUICK HITS -->
                 <div style="padding: 18px 22px; background-color: #FAFBFC;">
                   <h3 style="margin: 0 0 10px 0; color: #374151; font-size: 15px;">⚡ Quick Hits</h3>
                   <ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #4B5563;">
@@ -444,7 +444,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 4px 0 0 0; color: #FFE9E0; font-size: 12px;">Events, places and openings worth your week</p>
                 </div>
 
-                <!-- 🌟 Top Picks -->
+                <!-- TOP PICKS -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 14px 0; color: #1F2937; font-size: 16px;">🌟 This Week's Top Picks</h3>
 
@@ -477,7 +477,7 @@ export const NEWSLETTER_TEMPLATE = `
                   </div>
                 </div>
 
-                <!-- 🎭 More This Week -->
+                <!-- MORE THIS WEEK -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 12px 0; color: #1F2937; font-size: 16px;">🎭 More This Week</h3>
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -508,7 +508,7 @@ export const NEWSLETTER_TEMPLATE = `
                   </table>
                 </div>
 
-                <!-- 📍 Spot of the Week -->
+                <!-- SPOT OF THE WEEK -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 10px 0; color: #EA580C; font-size: 16px;">📍 Spot of the Week</h3>
                   <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #1F2937;">[SPOT_NAME]</h4>
@@ -518,7 +518,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 0; font-size: 12px;"><a href="[SPOT_MAPS_LINK]" style="color: #EA580C; font-weight: bold;">View on Google Maps →</a></p>
                 </div>
 
-                <!-- 🏙️ Around Town -->
+                <!-- AROUND TOWN -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 10px 0; color: #059669; font-size: 16px;">🏙️ Around Town</h3>
                   <div style="background-color: #ECFDF5; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
@@ -533,7 +533,7 @@ export const NEWSLETTER_TEMPLATE = `
                   </div>
                 </div>
 
-                <!-- 📅 Coming Up -->
+                <!-- COMING UP -->
                 <div style="padding: 18px 22px; background-color: #FAFBFC;">
                   <h3 style="margin: 0 0 10px 0; color: #1F2937; font-size: 16px;">📅 Coming Up</h3>
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 13px;">
@@ -571,7 +571,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 4px 0 0 0; color: #E9D5FF; font-size: 12px;">Things that make living here easier</p>
                 </div>
 
-                <!-- 🙋 Ask an Expat -->
+                <!-- ASK AN EXPAT -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 10px 0; color: #5B21B6; font-size: 16px;">🙋 Ask an Expat</h3>
                   <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: bold; color: #5B21B6;">Q: "[EXPAT_QUESTION]"</p>
@@ -579,14 +579,14 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 0; font-size: 12px; color: #7C3AED; font-style: italic;">Got a question? Hit reply — we'll answer it in a future edition.</p>
                 </div>
 
-                <!-- 💡 Expat Pro Tip -->
+                <!-- PRO TIP -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 8px 0; color: #92400E; font-size: 16px;">💡 Expat Pro Tip</h3>
                   <h4 style="margin: 0 0 6px 0; font-size: 14px; color: #78350F;">[TIP_TITLE]</h4>
                   <p style="margin: 0; font-size: 14px; color: #4B5563;">[2-3 sentences with practical advice]</p>
                 </div>
 
-                <!-- 🗣️ Spanish Corner -->
+                <!-- SPANISH CORNER -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 12px 0; color: #1E40AF; font-size: 16px;">🗣️ Spanish Corner</h3>
                   <div style="background-color: #EFF6FF; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
@@ -601,7 +601,7 @@ export const NEWSLETTER_TEMPLATE = `
                   </div>
                 </div>
 
-                <!-- 🧠 Did You Know? -->
+                <!-- DID YOU KNOW? -->
                 <div style="padding: 18px 22px; background-color: #FFFBEB;">
                   <h3 style="margin: 0 0 8px 0; color: #92400E; font-size: 16px;">🧠 Did You Know?</h3>
                   <h4 style="margin: 0 0 6px 0; font-size: 14px; color: #78350F;">[FACT_TITLE]</h4>
@@ -620,7 +620,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 4px 0 0 0; color: #BBF7D0; font-size: 12px;">Long reads and community stories</p>
                 </div>
 
-                <!-- 🌿 Weekend Escape -->
+                <!-- WEEKEND ESCAPE -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 8px 0; color: #166534; font-size: 16px;">🌿 Weekend Escape</h3>
                   <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #1F2937;">[DESTINATION_NAME]</h4>
@@ -628,7 +628,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <a href="https://www.sanluisway.com/outdoors" style="color: #166534; font-weight: bold; font-size: 13px;">Explore more day trips →</a>
                 </div>
 
-                <!-- 📖 From the Blog -->
+                <!-- FROM THE BLOG - Featured Articles -->
                 <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
                   <h3 style="margin: 0 0 10px 0; color: #1F2937; font-size: 16px;">📖 From the Blog</h3>
                   <div style="background-color: #FEF3C7; border-radius: 8px; padding: 14px; margin-bottom: 12px;">
@@ -643,7 +643,7 @@ export const NEWSLETTER_TEMPLATE = `
                   <p style="margin: 0; font-size: 13px;"><a href="https://www.sanluisway.com/blog?category=travel" style="color: #2563EB;">→ Day trips &amp; adventures</a></p>
                 </div>
 
-                <!-- ✨ Community Spotlight -->
+                <!-- COMMUNITY SPOTLIGHT -->
                 <div style="padding: 18px 22px; background-color: #FFFBEB;">
                   <h3 style="margin: 0 0 10px 0; color: #92400E; font-size: 16px;">✨ Community Spotlight</h3>
                   <h4 style="margin: 0 0 4px 0; font-size: 15px; color: #1F2937;">[SPOTLIGHT_NAME]</h4>

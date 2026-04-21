@@ -80,7 +80,7 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'The Week in SLP',
     type: 'news',
     startPattern: /<!-- NEWS SECTION/i,
-    endPattern: /<!-- TOP PICKS/i,
+    endPattern: /<!-- QUICK HITS|<!-- TOP PICKS/i,
     editable: true
   },
   {
@@ -96,15 +96,7 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'More This Week',
     type: 'events',
     startPattern: /<!-- MORE THIS WEEK/i,
-    endPattern: /<!-- DID YOU KNOW/i,
-    editable: true
-  },
-  {
-    id: 'fact',
-    name: 'Did You Know?',
-    type: 'fact',
-    startPattern: /<!-- DID YOU KNOW/i,
-    endPattern: /<!-- SPOT OF THE WEEK|<!-- AROUND TOWN/i,
+    endPattern: /<!-- SPOT OF THE WEEK|<!-- DID YOU KNOW/i,
     editable: true
   },
   {
@@ -120,15 +112,7 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Around Town',
     type: 'around_town',
     startPattern: /<!-- AROUND TOWN/i,
-    endPattern: /<!-- WEEKEND ESCAPE/i,
-    editable: true
-  },
-  {
-    id: 'escape',
-    name: 'Weekend Escape',
-    type: 'escape',
-    startPattern: /<!-- WEEKEND ESCAPE/i,
-    endPattern: /<!-- COMING UP/i,
+    endPattern: /<!-- COMING UP|<!-- WEEKEND ESCAPE/i,
     editable: true
   },
   {
@@ -136,7 +120,7 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Coming Up',
     type: 'coming_up',
     startPattern: /<!-- COMING UP/i,
-    endPattern: /<!-- ASK AN EXPAT|<!-- PRO TIP/i,
+    endPattern: /<!-- AD_PLACEMENT_MIDDLE|<!-- CARD 3|<!-- ASK AN EXPAT|<!-- PRO TIP/i,
     editable: true
   },
   {
@@ -160,7 +144,23 @@ const SECTION_PATTERNS: { id: string; name: string; type: NewsletterSection['typ
     name: 'Spanish Corner',
     type: 'spanish_corner',
     startPattern: /<!-- SPANISH CORNER/i,
-    endPattern: /<!-- FROM THE BLOG/i,
+    endPattern: /<!-- DID YOU KNOW|<!-- FROM THE BLOG/i,
+    editable: true
+  },
+  {
+    id: 'fact',
+    name: 'Did You Know?',
+    type: 'fact',
+    startPattern: /<!-- DID YOU KNOW/i,
+    endPattern: /<!-- CARD 4|<!-- WEEKEND ESCAPE|<!-- FROM THE BLOG/i,
+    editable: true
+  },
+  {
+    id: 'escape',
+    name: 'Weekend Escape',
+    type: 'escape',
+    startPattern: /<!-- WEEKEND ESCAPE/i,
+    endPattern: /<!-- FROM THE BLOG|<!-- COMING UP/i,
     editable: true
   },
   {
