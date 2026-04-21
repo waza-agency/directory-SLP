@@ -792,6 +792,43 @@ export const NEWSLETTER_TEMPLATE = `
 </html>
 `;
 
+/**
+ * Injects a <style> block with mobile @media rules + dark-mode opt-out at the
+ * top of the cleaned newsletter HTML. Must run AFTER cleanHtmlForBeehiiv,
+ * which strips <head> and any AI-returned <style> blocks — otherwise this CSS
+ * would never reach the email client.
+ *
+ * Attribute selectors (e.g. td[style*="padding: 30px"]) are used so we don't
+ * depend on class attributes (also stripped by Beehiiv's templating layer).
+ * Gmail iOS/Android, Apple Mail, and Yahoo Mail honor @media + color-scheme.
+ * Outlook ignores @media but the base inline styles already render fine on
+ * desktop widths.
+ */
+function injectResponsiveStyles(html: string): string {
+  const responsiveCss = `
+<style>
+  :root { color-scheme: light; supported-color-schemes: light; }
+  @media only screen and (max-width: 620px) {
+    table[width="600"] { width: 100% !important; }
+    td[style*="padding: 30px"] { padding: 20px 16px !important; }
+    td[style*="padding: 40px 30px"] { padding: 28px 20px !important; }
+    td[style*="padding: 20px 30px"] { padding: 16px 18px !important; }
+    h1[style*="font-size: 28px"] { font-size: 24px !important; }
+    h2[style*="font-size: 24px"] { font-size: 20px !important; }
+    h2[style*="font-size: 20px"] { font-size: 18px !important; }
+    h2[style*="font-size: 18px"] { font-size: 17px !important; }
+    p[style*="font-size: 16px"] { font-size: 15px !important; line-height: 1.6 !important; }
+  }
+  @media (prefers-color-scheme: dark) {
+    /* Apple Mail / iOS Mail force-invert light emails. Forcing light
+       color-scheme via the :root rule above handles Gmail + Apple Mail.
+       Everything else falls back to the inline light-theme styles. */
+  }
+</style>
+`;
+  return responsiveCss + html;
+}
+
 // Critical placeholders — if any remain in final HTML the newsletter is broken
 // enough that we'd rather fail generation than ship a malformed edition.
 const CRITICAL_PLACEHOLDERS = new Set([
@@ -842,7 +879,9 @@ function cleanHtmlForBeehiiv(html: string): string {
   // Remove empty list items
   cleaned = cleaned.replace(/<li[^>]*>\s*<\/li>/gi, '');
 
-  // Remove DOCTYPE, html, head, and style tags
+  // Remove DOCTYPE, html, head, body, and any AI-emitted <style> blocks —
+  // Beehiiv supplies its own outer chrome, and we inject a clean responsive
+  // <style> right after this pass via injectResponsiveStyles().
   cleaned = cleaned.replace(/<!DOCTYPE[^>]*>/gi, '');
   cleaned = cleaned.replace(/<html[^>]*>/gi, '');
   cleaned = cleaned.replace(/<\/html>/gi, '');
@@ -1054,8 +1093,12 @@ export async function fetchAdsForPlacement(
 // Known-good fallback URLs for broken/unverified links
 const FALLBACK_URL = 'https://www.sanluisway.com/events';
 
-// Allowed external domains (links to these are kept even if we can't HEAD-check them)
+// Allowed external domains (links to these are kept even if we can't HEAD-check them).
+// Keep this in sync with the news / ticket / gov sources the AI prompt instructs
+// Gemini to cite — otherwise the validator silently swaps legitimate citations
+// for FALLBACK_URL and reads like we made the quotes up.
 const ALLOWED_EXTERNAL_DOMAINS = [
+  // Social + maps
   'facebook.com',
   'instagram.com',
   'twitter.com',
@@ -1068,10 +1111,43 @@ const ALLOWED_EXTERNAL_DOMAINS = [
   'maps.app.goo.gl',
   'goo.gl',
   'wa.me',
+
+  // Ticketing
   'ticketmaster.com.mx',
   'superboletos.com',
   'eventbrite.com',
   'eventbrite.com.mx',
+  'boletia.com',
+
+  // Local news sources cited in the AI prompt
+  'elsoldesanluis.com.mx',
+  'pulsoslp.com.mx',
+  'codigosanluis.com',
+  'planoinformativo.com',
+  'lajornadasanluis.com.mx',
+  'quadratin.com.mx',
+  'elexpres.com',
+  'elheraldoslp.com.mx',
+  'elmanana.com.mx',
+
+  // Government + institutional
+  'slp.gob.mx',
+  'sanluis.gob.mx',
+  'gob.mx',
+  'inegi.org.mx',
+  'visitmexico.com',
+  'visitsanluispotosi.com',
+  'uaslp.mx',
+
+  // Airlines / transport referenced for expat advice
+  'aeromexico.com',
+  'volaris.com',
+  'vivaaerobus.com',
+  'aa.com',
+
+  // Banks / SAT often referenced in Ask an Expat
+  'sat.gob.mx',
+  'condusef.gob.mx',
 ];
 
 // Template placeholders that are legitimate and should be skipped by the validator.
@@ -2292,9 +2368,15 @@ Overall Summary: ${weatherForecast.summary}
     );
   }
 
-  // Clean HTML for Beehiiv compatibility (remove <style>, <head>, class attributes)
+  // Clean HTML for Beehiiv compatibility (remove <head>, class attributes)
   console.log('6. 🧹 Cleaning HTML for Beehiiv compatibility...');
   htmlContent = cleanHtmlForBeehiiv(htmlContent);
+
+  // Inject responsive + dark-mode-safe styles. MUST happen after cleaning —
+  // cleanHtmlForBeehiiv wipes the <head>, which is where any AI-returned
+  // @media rules would have lived.
+  console.log('6.5. 📱 Injecting responsive styles...');
+  htmlContent = injectResponsiveStyles(htmlContent);
 
   // Validate and clean URLs (static cleanup + async HEAD verification of sanluisway.com links)
   console.log('7. 🔗 Validating and cleaning URLs...');
