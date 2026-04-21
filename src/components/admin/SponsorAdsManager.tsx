@@ -44,34 +44,30 @@ export default function SponsorAdsManager({ adminKey }: SponsorAdsManagerProps) 
   };
 
   const handleSave = async (adData: Partial<SponsorAd>) => {
+    const isUpdate = Boolean(editingAd?.id);
     try {
-      if (editingAd?.id) {
-        const res = await fetch(`/api/newsletter/sponsor-ads/${editingAd.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-admin-key': adminKey
-          },
-          body: JSON.stringify(adData)
-        });
-        if (!res.ok) throw new Error('Failed to update');
-      } else {
-        const res = await fetch('/api/newsletter/sponsor-ads', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-admin-key': adminKey
-          },
-          body: JSON.stringify(adData)
-        });
-        if (!res.ok) throw new Error('Failed to create');
+      const url = isUpdate
+        ? `/api/newsletter/sponsor-ads/${editingAd!.id}`
+        : '/api/newsletter/sponsor-ads';
+      const res = await fetch(url, {
+        method: isUpdate ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': adminKey
+        },
+        body: JSON.stringify(adData)
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.message || `${isUpdate ? 'Update' : 'Create'} failed (${res.status})`);
       }
       setShowEditor(false);
       setEditingAd(undefined);
       fetchAds();
     } catch (error) {
       console.error('Failed to save ad:', error);
-      alert('Failed to save ad. Please try again.');
+      const msg = error instanceof Error ? error.message : 'Unknown error';
+      alert(`Failed to save ad: ${msg}`);
     }
   };
 

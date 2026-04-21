@@ -49,22 +49,31 @@ async function getSponsorAd(req: NextApiRequest, res: NextApiResponse, id: strin
   }
 }
 
+const NULLABLE_FIELDS = [
+  'description', 'image_alt', 'link_url', 'height',
+  'section_anchor', 'start_date', 'end_date',
+  'impressions_limit', 'rotation_group',
+] as const;
+
 async function updateSponsorAd(req: NextApiRequest, res: NextApiResponse, id: string) {
   try {
-    const updates = req.body;
+    const updates: Record<string, unknown> = { ...req.body };
     delete updates.id;
     delete updates.created_at;
     delete updates.impressions_count;
     delete updates.clicks_count;
 
+    for (const field of NULLABLE_FIELDS) {
+      if (updates[field] === '' || updates[field] === undefined) {
+        updates[field] = null;
+      }
+    }
+
     if (updates.ad_type === 'html') {
-      updates.html_content = updates.html_content;
       updates.image_url = null;
       updates.image_alt = null;
     } else if (updates.ad_type === 'image') {
-      updates.image_url = updates.image_url;
       updates.html_content = null;
-      updates.image_alt = updates.image_alt;
     }
 
     const { data, error } = await supabase
@@ -80,7 +89,8 @@ async function updateSponsorAd(req: NextApiRequest, res: NextApiResponse, id: st
     return res.status(200).json({ ad: data });
   } catch (error) {
     logger.error('Update sponsor ad error:', error);
-    return res.status(500).json({ message: 'Failed to update sponsor ad' });
+    const message = error instanceof Error ? error.message : 'Failed to update sponsor ad';
+    return res.status(500).json({ message });
   }
 }
 

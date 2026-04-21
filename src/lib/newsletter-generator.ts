@@ -915,17 +915,24 @@ function findInsertionPoint(html: string, placement: string, markers: { top: Reg
   }
 
   if (placement === 'middle') {
-    const blogMatch = html.match(/📖 From the Blog/i);
-    if (blogMatch && blogMatch.index !== undefined) {
-      return blogMatch.index;
-    }
-    const comunidadMatch = html.match(/🤝 Comunidad/i);
-    if (comunidadMatch && comunidadMatch.index !== undefined) {
-      return comunidadMatch.index;
-    }
-    const ctaMatch = html.match(/Discover More|C75B39|cta[\s\S]{0,200}?button/i);
-    if (ctaMatch && ctaMatch.index !== undefined) {
-      return ctaMatch.index;
+    // HTML comment markers sit at a clean <tr>-boundary, so inserting the ad
+    // row right after the comment keeps the table structure intact. Earlier
+    // regex-based fallbacks (/cta|Discover More|C75B39/) matched content
+    // INSIDE sections and produced malformed HTML that email clients rendered
+    // near the top of the newsletter.
+    const middleMarkers = [
+      '<!-- WEEKEND ESCAPE -->',
+      '<!-- AROUND TOWN -->',
+      '<!-- COMING UP -->',
+      '<!-- SPOT OF THE WEEK -->',
+      '<!-- ASK AN EXPAT -->',
+      '<!-- FROM THE BLOG - Featured Articles -->',
+    ];
+    for (const marker of middleMarkers) {
+      const idx = html.indexOf(marker);
+      if (idx !== -1) {
+        return idx + marker.length;
+      }
     }
   }
 

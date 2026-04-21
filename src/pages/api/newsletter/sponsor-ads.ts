@@ -54,6 +54,8 @@ async function getSponsorAds(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
+const emptyToNull = <T>(v: T) => (v === '' || v === undefined ? null : v);
+
 async function createSponsorAd(req: NextApiRequest, res: NextApiResponse) {
   try {
     const {
@@ -93,23 +95,23 @@ async function createSponsorAd(req: NextApiRequest, res: NextApiResponse) {
       .from('sponsor_ads')
       .insert([{
         name,
-        description,
+        description: emptyToNull(description),
         ad_type,
         html_content: ad_type === 'html' ? html_content : null,
         image_url: ad_type === 'image' ? image_url : null,
-        image_alt: ad_type === 'image' ? image_alt : null,
-        link_url,
+        image_alt: ad_type === 'image' ? emptyToNull(image_alt) : null,
+        link_url: emptyToNull(link_url),
         link_target: link_target || '_blank',
         width: width || '100%',
-        height,
+        height: emptyToNull(height),
         placement: placement || 'middle',
-        section_anchor,
+        section_anchor: emptyToNull(section_anchor),
         priority: priority || 0,
         active: active !== false,
-        start_date,
-        end_date,
-        impressions_limit,
-        rotation_group
+        start_date: emptyToNull(start_date),
+        end_date: emptyToNull(end_date),
+        impressions_limit: emptyToNull(impressions_limit),
+        rotation_group: emptyToNull(rotation_group)
       }])
       .select()
       .single();
@@ -118,6 +120,7 @@ async function createSponsorAd(req: NextApiRequest, res: NextApiResponse) {
     return res.status(201).json({ ad: data });
   } catch (error) {
     logger.error('Create sponsor ad error:', error);
-    return res.status(500).json({ message: 'Failed to create sponsor ad' });
+    const message = error instanceof Error ? error.message : 'Failed to create sponsor ad';
+    return res.status(500).json({ message });
   }
 }
