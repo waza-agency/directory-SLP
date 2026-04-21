@@ -358,11 +358,11 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- HEADER -->
           <tr>
-            <td style="background-color: #C75B39; padding: 30px; text-align: center;">
+            <td bgcolor="#C75B39" style="background-color: #C75B39; padding: 30px; text-align: center;">
               <img src="https://www.sanluisway.com/images/logo.jpeg" alt="San Luis Way" width="200" style="max-width: 200px; height: auto;">
               <h1 style="color: #FFFFFF; font-family: Georgia, serif; font-size: 28px; margin: 20px 0 5px 0;">San Luis Way Weekly</h1>
-              <p style="color: #EEEEEE; font-size: 14px; margin: 0;">Your digest of Potosino life</p>
-              <p style="color: #DDDDDD; font-size: 13px; margin: 10px 0 0 0; font-weight: bold;">[WEEK_DATE_RANGE]</p>
+              <p style="color: #FFE9E0; font-size: 14px; margin: 0;">Your digest of Potosino life</p>
+              <p style="color: #FFD9C9; font-size: 13px; margin: 10px 0 0 0; font-weight: bold;">[WEEK_DATE_RANGE]</p>
             </td>
           </tr>
 
@@ -762,17 +762,17 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- CALL TO ACTION -->
           <tr>
-            <td style="background-color: #C75B39; text-align: center; padding: 40px 30px;">
+            <td bgcolor="#C75B39" style="background-color: #C75B39; text-align: center; padding: 40px 30px;">
               <h2 style="font-size: 24px; color: #FFFFFF; margin-bottom: 15px;">
                 [CTA_TITLE]
               </h2>
-              <p style="font-size: 16px; color: #EEEEEE; margin: 0 0 25px 0; line-height: 1.6;">
+              <p style="font-size: 16px; color: #FFE9E0; margin: 0 0 25px 0; line-height: 1.6;">
                 [CTA_BODY]
               </p>
               <a href="[CTA_BUTTON_LINK]" style="display: inline-block; padding: 14px 32px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
                 [CTA_BUTTON_LABEL]
               </a>
-              <p style="font-size: 13px; color: #CCCCCC; margin: 20px 0 0 0;">
+              <p style="font-size: 13px; color: #FFD9C9; margin: 20px 0 0 0;">
                 Join our community discovering the best of San Luis Potosí
               </p>
             </td>
@@ -840,6 +840,17 @@ function cleanHtmlForBeehiiv(html: string): string {
   cleaned = cleaned.replace(/background:\s*linear-gradient\([^)]*#C75B39[^)]*\)/gi, 'background-color: #C75B39');
   cleaned = cleaned.replace(/background:\s*linear-gradient\([^)]*#FEF3C7[^)]*\)/gi, 'background-color: #FEF3C7');
   cleaned = cleaned.replace(/background:\s*linear-gradient\([^)]*\)/gi, 'background-color: #F9FAFB');
+
+  // Ensure bgcolor attribute on rust-colored <td>s so the header & CTA stay
+  // visible even if email clients strip inline styles or Beehiiv re-serializes.
+  // Without this, white H1/H2 text renders on the container's white background.
+  cleaned = cleaned.replace(
+    /<td([^>]*?)style="([^"]*background-color:\s*#C75B39[^"]*)"([^>]*)>/gi,
+    (match, before, style, after) => {
+      if (/bgcolor\s*=/i.test(before + after)) return match;
+      return `<td${before}bgcolor="#C75B39" style="${style}"${after}>`;
+    }
+  );
 
   // Remove box-shadow (not well supported)
   cleaned = cleaned.replace(/box-shadow:[^;]+;/gi, '');
