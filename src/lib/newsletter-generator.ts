@@ -376,386 +376,285 @@ export const NEWSLETTER_TEMPLATE = `
 
           <!-- AD_PLACEMENT_TOP -->
 
-          <!-- WEATHER & ENVIRONMENT -->
+          <!-- CARD 1: THIS WEEK AT A GLANCE -->
           <tr>
-            <td style="background-color: #F0F9FF; padding: 20px 30px;">
-              <h2 style="font-size: 18px; color: #0C4A6E; margin-bottom: 10px;">
-                🌦️ Weather Watch
-              </h2>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td>
-                    <p style="margin: 0; font-size: 14px; color: #0C4A6E;"><strong>Forecast:</strong> [WEATHER_SUMMARY]</p>
-                    <p style="margin: 5px 0 0 0; font-size: 14px; color: #0C4A6E;"><strong>Tip:</strong> [WEATHER_RECOMMENDATION]</p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+            <td style="padding: 16px 24px;">
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden;">
+                <div bgcolor="#0C4A6E" style="background-color: #0C4A6E; padding: 16px 22px;">
+                  <h2 style="margin: 0; color: #FFFFFF; font-size: 20px; font-family: Georgia, serif;">🗞️ This Week at a Glance</h2>
+                  <p style="margin: 4px 0 0 0; color: #BAE6FD; font-size: 12px;">The essentials before you start the week</p>
+                </div>
 
-          <!-- MARKET WATCH -->
-          <tr>
-            <td style="background-color: #F0FDF4; padding: 20px 30px;">
-              <h2 style="font-size: 18px; color: #166534; margin-bottom: 10px;">
-                💰 Market Watch
-              </h2>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="33%" style="text-align: center; padding: 8px;">
-                    <p style="margin: 0; font-size: 12px; color: #6B7280;">USD/MXN</p>
-                    <p style="margin: 4px 0 0 0; font-size: 18px; font-weight: bold; color: #166534;">[EXCHANGE_RATE]</p>
-                  </td>
-                  <td width="33%" style="text-align: center; padding: 8px; border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB;">
-                    <p style="margin: 0; font-size: 12px; color: #6B7280;">Gasolina Regular</p>
-                    <p style="margin: 4px 0 0 0; font-size: 18px; font-weight: bold; color: #166534;">[GAS_PRICE] /L</p>
-                  </td>
-                  <td width="33%" style="text-align: center; padding: 8px;">
-                    <p style="margin: 0; font-size: 12px; color: #6B7280;">Gas LP</p>
-                    <p style="margin: 4px 0 0 0; font-size: 18px; font-weight: bold; color: #166534;">[LP_GAS_PRICE] /kg</p>
-                  </td>
-                </tr>
-              </table>
-              <p style="margin: 10px 0 0 0; font-size: 13px; color: #4B5563; text-align: center;">[MARKET_TREND_NOTE]</p>
-            </td>
-          </tr>
+                <!-- 🌦️ Weather Watch -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 8px 0; color: #0C4A6E; font-size: 16px;">🌦️ Weather Watch</h3>
+                  <p style="margin: 0; font-size: 14px; color: #374151;"><strong>Forecast:</strong> [WEATHER_SUMMARY]</p>
+                  <p style="margin: 4px 0 0 0; font-size: 14px; color: #374151;"><strong>Tip:</strong> [WEATHER_RECOMMENDATION]</p>
+                </div>
 
-          <!-- NEWS SECTION -->
-          <tr>
-            <td style="background-color: #FEF2F2; padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                📰 The Week in SLP
-              </h2>
-              <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">What you need to know</p>
+                <!-- 💰 Market Watch -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 12px 0; color: #166534; font-size: 16px;">💰 Market Watch</h3>
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="33%" style="text-align: center; padding: 4px;">
+                        <p style="margin: 0; font-size: 11px; color: #6B7280;">USD/MXN</p>
+                        <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold; color: #166534;">[EXCHANGE_RATE]</p>
+                      </td>
+                      <td width="34%" style="text-align: center; padding: 4px; border-left: 1px solid #E5E7EB; border-right: 1px solid #E5E7EB;">
+                        <p style="margin: 0; font-size: 11px; color: #6B7280;">Gasolina Regular</p>
+                        <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold; color: #166534;">[GAS_PRICE] /L</p>
+                      </td>
+                      <td width="33%" style="text-align: center; padding: 4px;">
+                        <p style="margin: 0; font-size: 11px; color: #6B7280;">Gas LP</p>
+                        <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold; color: #166534;">[LP_GAS_PRICE] /kg</p>
+                      </td>
+                    </tr>
+                  </table>
+                  <p style="margin: 8px 0 0 0; font-size: 12px; color: #6B7280; text-align: center;">[MARKET_TREND_NOTE]</p>
+                </div>
 
-              <!-- News Item 1 -->
-              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_1]</h3>
-                <!-- Optional Image for News 1 -->
-                <!-- <img src="[NEWS_IMAGE_1]" style="width: 100%; border-radius: 4px; margin-bottom: 10px;"> -->
-                <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[NEWS_SUMMARY_1]</p>
-                <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_1]</p>
-              </div>
+                <!-- 📰 Top News (single detailed story) -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 10px 0; color: #C75B39; font-size: 16px;">📰 Top News</h3>
+                  <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #1F2937;">[NEWS_HEADLINE_1]</h4>
+                  <p style="margin: 0 0 8px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[NEWS_SUMMARY_1]</p>
+                  <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_1]</p>
+                </div>
 
-              <!-- News Item 2 -->
-              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #C75B39; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <h3 style="font-size: 16px; margin: 0 0 10px 0; color: #1F2937;">[NEWS_HEADLINE_2]</h3>
-                <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[NEWS_SUMMARY_2]</p>
-                <p style="margin: 0; font-size: 13px; color: #C75B39; font-style: italic;">→ Why it matters: [IMPACT_2]</p>
-              </div>
-
-              <!-- Quick Hits (Practical Info) -->
-              <div style="background-color: #FFFFFF; border-radius: 8px; padding: 15px; margin-top: 15px;">
-                <p style="font-weight: bold; font-size: 14px; margin: 0 0 10px 0; color: #6B7280;">Quick hits:</p>
-                <ul style="margin: 0; padding-left: 20px; color: #4B5563; font-size: 14px;">
-                  <li style="margin-bottom: 5px;">[QUICK_HIT_1]</li>
-                  <li style="margin-bottom: 5px;">[QUICK_HIT_2]</li>
-                  <li>[QUICK_HIT_3]</li>
-                </ul>
+                <!-- ⚡ Quick Hits -->
+                <div style="padding: 18px 22px; background-color: #FAFBFC;">
+                  <h3 style="margin: 0 0 10px 0; color: #374151; font-size: 15px;">⚡ Quick Hits</h3>
+                  <ul style="margin: 0; padding-left: 18px; font-size: 14px; color: #4B5563;">
+                    <li style="margin-bottom: 6px;">[QUICK_HIT_1]</li>
+                    <li style="margin-bottom: 6px;">[QUICK_HIT_2]</li>
+                    <li>[QUICK_HIT_3]</li>
+                  </ul>
+                </div>
               </div>
             </td>
           </tr>
 
-          <!-- TOP PICKS -->
+          <!-- CARD 2: WHAT'S ON -->
           <tr>
-            <td style="padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                🌟 This Week's Top Picks
-              </h2>
+            <td style="padding: 16px 24px;">
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden;">
+                <div bgcolor="#C75B39" style="background-color: #C75B39; padding: 16px 22px;">
+                  <h2 style="margin: 0; color: #FFFFFF; font-size: 20px; font-family: Georgia, serif;">🎟️ What's On</h2>
+                  <p style="margin: 4px 0 0 0; color: #FFE9E0; font-size: 12px;">Events, places and openings worth your week</p>
+                </div>
 
-              <!-- Event 1 -->
-              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <span style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_1]</span>
-                <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_1]</h3>
-                <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
-                  📅 [DATE_TIME_1] &nbsp;|&nbsp; 📍 [VENUE_1]
-                </p>
-                <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_1]</p>
-                <p style="margin: 0; font-size: 13px;">
-                  <span style="color: #059669; font-weight: bold;">💰 [COST_1]</span>
-                  &nbsp;|&nbsp;
-                  <a href="[LINK_1]" style="color: #2563EB;">More info →</a>
-                </p>
-              </div>
+                <!-- 🌟 Top Picks -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 14px 0; color: #1F2937; font-size: 16px;">🌟 This Week's Top Picks</h3>
 
-              <!-- Event 2 -->
-              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <span style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_2]</span>
-                <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_2]</h3>
-                <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
-                  📅 [DATE_TIME_2] &nbsp;|&nbsp; 📍 [VENUE_2]
-                </p>
-                <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_2]</p>
-                <p style="margin: 0; font-size: 13px;">
-                  <span style="color: #059669; font-weight: bold;">💰 [COST_2]</span>
-                  &nbsp;|&nbsp;
-                  <a href="[LINK_2]" style="color: #2563EB;">More info →</a>
-                </p>
-              </div>
+                  <div style="background-color: #FAFBFC; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+                    <span style="display: inline-block; padding: 3px 8px; background-color: #FEF3C7; color: #92400E; border-radius: 10px; font-size: 11px; font-weight: bold;">[CATEGORY_1]</span>
+                    <h4 style="font-size: 16px; margin: 10px 0 8px 0; color: #1F2937;">[EVENT_NAME_1]</h4>
+                    <p style="color: #6B7280; font-size: 12px; margin: 0 0 8px 0;">📅 [DATE_TIME_1] &nbsp;|&nbsp; 📍 [VENUE_1]</p>
+                    <p style="margin: 0 0 10px 0; font-size: 13px; color: #4B5563;">[EVENT_DESCRIPTION_1]</p>
+                    <p style="margin: 0; font-size: 12px;"><span style="color: #059669; font-weight: bold;">💰 [COST_1]</span> &nbsp;|&nbsp; <a href="[LINK_1]" style="color: #2563EB;">More info →</a></p>
+                  </div>
 
-              <!-- Event 3 -->
-              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-                <span style="display: inline-block; padding: 4px 10px; background-color: #FEF3C7; color: #92400E; border-radius: 12px; font-size: 12px; font-weight: bold;">[CATEGORY_3]</span>
-                <h3 style="font-size: 18px; margin: 12px 0 10px 0; color: #1F2937;">[EVENT_NAME_3]</h3>
-                <p style="color: #6B7280; font-size: 13px; margin: 0 0 10px 0;">
-                  📅 [DATE_TIME_3] &nbsp;|&nbsp; 📍 [VENUE_3]
-                </p>
-                <p style="margin: 0 0 15px 0; font-size: 14px; color: #4B5563;">[EVENT_DESCRIPTION_3]</p>
-                <p style="margin: 0; font-size: 13px;">
-                  <span style="color: #059669; font-weight: bold;">💰 [COST_3]</span>
-                  &nbsp;|&nbsp;
-                  <a href="[LINK_3]" style="color: #2563EB;">More info →</a>
-                </p>
-              </div>
+                  <div style="background-color: #FAFBFC; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+                    <span style="display: inline-block; padding: 3px 8px; background-color: #FEF3C7; color: #92400E; border-radius: 10px; font-size: 11px; font-weight: bold;">[CATEGORY_2]</span>
+                    <h4 style="font-size: 16px; margin: 10px 0 8px 0; color: #1F2937;">[EVENT_NAME_2]</h4>
+                    <p style="color: #6B7280; font-size: 12px; margin: 0 0 8px 0;">📅 [DATE_TIME_2] &nbsp;|&nbsp; 📍 [VENUE_2]</p>
+                    <p style="margin: 0 0 10px 0; font-size: 13px; color: #4B5563;">[EVENT_DESCRIPTION_2]</p>
+                    <p style="margin: 0; font-size: 12px;"><span style="color: #059669; font-weight: bold;">💰 [COST_2]</span> &nbsp;|&nbsp; <a href="[LINK_2]" style="color: #2563EB;">More info →</a></p>
+                  </div>
 
-              <div style="text-align: center;">
-                <a href="https://www.sanluisway.com/events" style="display: inline-block; padding: 12px 24px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">See All Events →</a>
-              </div>
-            </td>
-          </tr>
+                  <div style="background-color: #FAFBFC; border: 1px solid #E5E7EB; border-left: 4px solid #FFCB05; border-radius: 8px; padding: 16px; margin-bottom: 14px;">
+                    <span style="display: inline-block; padding: 3px 8px; background-color: #FEF3C7; color: #92400E; border-radius: 10px; font-size: 11px; font-weight: bold;">[CATEGORY_3]</span>
+                    <h4 style="font-size: 16px; margin: 10px 0 8px 0; color: #1F2937;">[EVENT_NAME_3]</h4>
+                    <p style="color: #6B7280; font-size: 12px; margin: 0 0 8px 0;">📅 [DATE_TIME_3] &nbsp;|&nbsp; 📍 [VENUE_3]</p>
+                    <p style="margin: 0 0 10px 0; font-size: 13px; color: #4B5563;">[EVENT_DESCRIPTION_3]</p>
+                    <p style="margin: 0; font-size: 12px;"><span style="color: #059669; font-weight: bold;">💰 [COST_3]</span> &nbsp;|&nbsp; <a href="[LINK_3]" style="color: #2563EB;">More info →</a></p>
+                  </div>
 
-          <!-- MORE THIS WEEK -->
-          <tr>
-            <td style="background-color: #F9FAFB; padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                🎭 More This Week
-              </h2>
+                  <div style="text-align: center;">
+                    <a href="https://www.sanluisway.com/events" style="display: inline-block; padding: 10px 20px; background-color: #FFCB05; color: #1F2937; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 13px;">See All Events →</a>
+                  </div>
+                </div>
 
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td width="50%" valign="top" style="padding-right: 10px;">
-                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🎭 Culture & Arts</h4>
-                    <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
-                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
-                    </ul>
+                <!-- 🎭 More This Week -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 12px 0; color: #1F2937; font-size: 16px;">🎭 More This Week</h3>
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td width="50%" valign="top" style="padding-right: 8px;">
+                        <p style="font-size: 13px; color: #C75B39; margin: 0 0 6px 0; font-weight: bold;">🎭 Culture &amp; Arts</p>
+                        <ul style="margin: 0 0 14px 0; padding-left: 16px; font-size: 12px; color: #4B5563;">
+                          <li style="margin-bottom: 6px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                          <li style="margin-bottom: 6px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                        </ul>
+                        <p style="font-size: 13px; color: #C75B39; margin: 0 0 6px 0; font-weight: bold;">🍽️ Food &amp; Dining</p>
+                        <ul style="margin: 0; padding-left: 16px; font-size: 12px; color: #4B5563;">
+                          <li style="margin-bottom: 6px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                        </ul>
+                      </td>
+                      <td width="50%" valign="top" style="padding-left: 8px;">
+                        <p style="font-size: 13px; color: #C75B39; margin: 0 0 6px 0; font-weight: bold;">🎵 Music &amp; Nightlife</p>
+                        <ul style="margin: 0 0 14px 0; padding-left: 16px; font-size: 12px; color: #4B5563;">
+                          <li style="margin-bottom: 6px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                          <li style="margin-bottom: 6px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                        </ul>
+                        <p style="font-size: 13px; color: #C75B39; margin: 0 0 6px 0; font-weight: bold;">⚽ Sports</p>
+                        <ul style="margin: 0; padding-left: 16px; font-size: 12px; color: #4B5563;">
+                          <li style="margin-bottom: 6px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
 
-                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🍽️ Food & Dining</h4>
-                    <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
-                    </ul>
-                  </td>
-                  <td width="50%" valign="top" style="padding-left: 10px;">
-                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">🎵 Music & Nightlife</h4>
-                    <ul style="margin: 0 0 20px 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
-                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
-                    </ul>
+                <!-- 📍 Spot of the Week -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 10px 0; color: #EA580C; font-size: 16px;">📍 Spot of the Week</h3>
+                  <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #1F2937;">[SPOT_NAME]</h4>
+                  <p style="margin: 0 0 8px 0; font-size: 13px; color: #4B5563; line-height: 1.6;">[SPOT_DESCRIPTION]</p>
+                  <p style="margin: 0 0 4px 0; font-size: 12px; color: #6B7280;">📍 [SPOT_ADDRESS]</p>
+                  <p style="margin: 0 0 6px 0; font-size: 12px; color: #6B7280;">🕐 [SPOT_HOURS]</p>
+                  <p style="margin: 0; font-size: 12px;"><a href="[SPOT_MAPS_LINK]" style="color: #EA580C; font-weight: bold;">View on Google Maps →</a></p>
+                </div>
 
-                    <h4 style="font-size: 14px; color: #C75B39; margin: 0 0 10px 0;">⚽ Sports</h4>
-                    <ul style="margin: 0; padding-left: 18px; font-size: 13px; color: #4B5563;">
-                      <li style="margin-bottom: 8px;"><strong>[EVENT_NAME]</strong><br/><span style="color: #6B7280;">[DATE] @ [VENUE] · [TIME]</span></li>
-                    </ul>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+                <!-- 🏙️ Around Town -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 10px 0; color: #059669; font-size: 16px;">🏙️ Around Town</h3>
+                  <div style="background-color: #ECFDF5; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+                    <p style="margin: 0 0 4px 0; font-weight: bold; color: #059669; font-size: 11px;">✨ NOW OPEN</p>
+                    <h4 style="margin: 0 0 6px 0; font-size: 14px; color: #1F2937;">[NEW_PLACE_NAME]</h4>
+                    <p style="margin: 0 0 6px 0; font-size: 13px; color: #4B5563;">[DESCRIPTION - what it is, why check it out]</p>
+                    <p style="margin: 0; font-size: 12px; color: #6B7280;">📍 [ADDRESS] | <a href="[LINK]" style="color: #2563EB;">@instagram</a></p>
+                  </div>
+                  <div style="background-color: #EFF6FF; border-radius: 6px; padding: 12px;">
+                    <p style="margin: 0 0 4px 0; font-weight: bold; color: #1D4ED8; font-size: 11px;">📌 GOOD TO KNOW</p>
+                    <p style="margin: 0; font-size: 13px; color: #4B5563;">[PRACTICAL_CITY_UPDATE]</p>
+                  </div>
+                </div>
 
-          <!-- DID YOU KNOW? -->
-          <tr>
-            <td style="padding: 30px; background-color: #FFFBEB;">
-              <h2 style="font-size: 20px; color: #92400E; margin-bottom: 15px;">
-                🧠 Did You Know?
-              </h2>
-              <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[FACT_TITLE]</h3>
-              <p style="font-size: 14px; color: #78350F; margin: 0;">[FACT_BODY]</p>
-            </td>
-          </tr>
-
-          <!-- SPOT OF THE WEEK -->
-          <tr>
-            <td style="padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-                📍 Spot of the Week
-              </h2>
-              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">A hidden gem worth discovering</p>
-              <div style="background-color: #FFF7ED; border: 1px solid #FED7AA; border-left: 4px solid #EA580C; border-radius: 8px; padding: 20px;">
-                <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #EA580C;">[SPOT_NAME]</h3>
-                <p style="margin: 0 0 12px 0; font-size: 14px; color: #4B5563; line-height: 1.7;">[SPOT_DESCRIPTION]</p>
-                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6B7280;">📍 [SPOT_ADDRESS]</p>
-                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6B7280;">🕐 [SPOT_HOURS]</p>
-                <p style="margin: 0; font-size: 13px;">
-                  <a href="[SPOT_MAPS_LINK]" style="color: #EA580C; font-weight: bold;">View on Google Maps →</a>
-                </p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- AROUND TOWN -->
-          <tr>
-            <td style="padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                🏙️ Around Town
-              </h2>
-              <p style="color: #6B7280; font-size: 14px; margin-bottom: 20px;">What's new in the city</p>
-
-              <div style="background-color: #ECFDF5; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
-                <p style="margin: 0 0 5px 0; font-weight: bold; color: #059669; font-size: 13px;">✨ NOW OPEN</p>
-                <h4 style="margin: 0 0 8px 0; font-size: 16px; color: #1F2937;">[NEW_PLACE_NAME]</h4>
-                <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563;">[DESCRIPTION - what it is, why check it out]</p>
-                <p style="margin: 0; font-size: 13px; color: #6B7280;">📍 [ADDRESS] | <a href="[LINK]" style="color: #2563EB;">@instagram</a></p>
-              </div>
-
-              <div style="background-color: #EFF6FF; border-radius: 8px; padding: 20px;">
-                <p style="margin: 0 0 5px 0; font-weight: bold; color: #1D4ED8; font-size: 13px;">📌 GOOD TO KNOW</p>
-                <p style="margin: 0; font-size: 14px; color: #4B5563;">[PRACTICAL_CITY_UPDATE]</p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- WEEKEND ESCAPE -->
-          <tr>
-            <td style="background-color: #F0FDF4; padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-                🌿 Weekend Escape
-              </h2>
-              <h3 style="font-size: 18px; color: #166534; margin: 0 0 15px 0;">[DESTINATION_NAME]</h3>
-              <p style="font-size: 14px; color: #4B5563; margin: 0 0 15px 0;">[3-4 sentences about a day trip idea, Huasteca update, or regional attraction. Include practical info.]</p>
-              <a href="https://www.sanluisway.com/outdoors" style="color: #166534; font-weight: bold; font-size: 14px;">Explore more day trips →</a>
-            </td>
-          </tr>
-
-          <!-- COMING UP -->
-          <tr>
-            <td style="padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 20px;">
-                📅 Coming Up
-              </h2>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px;">
-                <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
-                    <strong style="color: #C75B39;">[DATE_1]</strong>
-                  </td>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">
-                    [UPCOMING_EVENT_1]
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
-                    <strong style="color: #C75B39;">[DATE_2]</strong>
-                  </td>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">
-                    [UPCOMING_EVENT_2]
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
-                    <strong style="color: #C75B39;">[DATE_3]</strong>
-                  </td>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">
-                    [UPCOMING_EVENT_3]
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <strong style="color: #C75B39;">[DATE_4]</strong>
-                  </td>
-                  <td style="padding: 8px 0; color: #4B5563;">
-                    [UPCOMING_EVENT_4]
-                  </td>
-                </tr>
-              </table>
-              <div style="text-align: center; margin-top: 20px;">
-                <a href="https://www.sanluisway.com/events" style="color: #2563EB; font-weight: bold; font-size: 14px;">Mark your calendar →</a>
-              </div>
-            </td>
-          </tr>
-
-          <!-- ASK AN EXPAT -->
-          <tr>
-            <td style="padding: 30px; background-color: #F5F3FF;">
-              <h2 style="font-size: 20px; color: #5B21B6; margin-bottom: 15px;">
-                🙋 Ask an Expat
-              </h2>
-              <div style="background-color: #FFFFFF; border: 1px solid #DDD6FE; border-radius: 8px; padding: 20px;">
-                <p style="margin: 0 0 12px 0; font-size: 15px; font-weight: bold; color: #5B21B6;">Q: "[EXPAT_QUESTION]"</p>
-                <p style="margin: 0 0 12px 0; font-size: 14px; color: #4B5563; line-height: 1.7;">[EXPAT_ANSWER]</p>
-                <p style="margin: 0; font-size: 13px; color: #7C3AED; font-style: italic;">Got a question? Hit reply and we'll answer it in a future edition!</p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- PRO TIP -->
-          <tr>
-            <td style="padding: 30px; background-color: #FEF3C7;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 15px;">
-                💡 Expat Pro Tip
-              </h2>
-              <h3 style="font-size: 16px; color: #92400E; margin: 0 0 10px 0;">[TIP_TITLE]</h3>
-              <p style="font-size: 14px; color: #4B5563; margin: 0;">[2-3 sentences with practical advice]</p>
-            </td>
-          </tr>
-
-          <!-- SPANISH CORNER -->
-          <tr>
-            <td style="padding: 30px; background-color: #EFF6FF;">
-              <h2 style="font-size: 20px; color: #1E40AF; margin-bottom: 15px;">
-                🗣️ Spanish Corner
-              </h2>
-              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Level up your Potosino Spanish</p>
-              <div style="background-color: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 20px; margin-bottom: 12px;">
-                <p style="margin: 0 0 8px 0; font-size: 18px; font-weight: bold; color: #1E40AF;">"[SPANISH_PHRASE_1]"</p>
-                <p style="margin: 0 0 8px 0; font-size: 14px; color: #4B5563;"><strong>Meaning:</strong> [PHRASE_MEANING_1]</p>
-                <p style="margin: 0; font-size: 13px; color: #6B7280; font-style: italic;">💬 Example: "[PHRASE_EXAMPLE_1]"</p>
-              </div>
-              <div style="background-color: #FFFFFF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 20px;">
-                <p style="margin: 0 0 8px 0; font-size: 18px; font-weight: bold; color: #1E40AF;">"[SPANISH_PHRASE_2]"</p>
-                <p style="margin: 0 0 8px 0; font-size: 14px; color: #4B5563;"><strong>Meaning:</strong> [PHRASE_MEANING_2]</p>
-                <p style="margin: 0; font-size: 13px; color: #6B7280; font-style: italic;">💬 Example: "[PHRASE_EXAMPLE_2]"</p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- FROM THE BLOG - Featured Articles -->
-          <tr>
-            <td style="padding: 30px;">
-              <h2 style="font-size: 20px; color: #1F2937; margin-bottom: 5px;">
-                📖 From the Blog
-              </h2>
-              <p style="font-size: 14px; color: #6B7280; margin: 0 0 20px 0;">Fresh reads from San Luis Way</p>
-
-              <!-- Featured Post -->
-              <div style="background-color: #FEF3C7; border-radius: 12px; padding: 25px; margin-bottom: 15px;">
-                <span style="display: inline-block; padding: 4px 10px; background-color: #C75B39; color: #FFFFFF; border-radius: 12px; font-size: 11px; font-weight: bold; margin-bottom: 12px;">FEATURED</span>
-                <h3 style="font-size: 18px; color: #1F2937; margin: 0 0 12px 0;">[BLOG_POST_TITLE]</h3>
-                <p style="font-size: 14px; color: #4B5563; margin: 0 0 18px 0; line-height: 1.6;">[ONE_SENTENCE_TEASER]</p>
-                <a href="[BLOG_POST_URL]" style="display: inline-block; padding: 12px 24px; background-color: #C75B39; color: #FFFFFF; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">Read the Full Story →</a>
-              </div>
-
-              <!-- Quick Blog Links -->
-              <div style="background-color: #F9FAFB; border-radius: 8px; padding: 20px;">
-                <p style="font-size: 13px; color: #6B7280; margin: 0 0 12px 0; font-weight: bold;">MORE POPULAR READS:</p>
-                <p style="margin: 0 0 8px 0; font-size: 14px;">
-                  <a href="https://www.sanluisway.com/blog" style="color: #2563EB; text-decoration: none;">→ Latest articles on expat life in SLP</a>
-                </p>
-                <p style="margin: 0 0 8px 0; font-size: 14px;">
-                  <a href="https://www.sanluisway.com/blog?category=food" style="color: #2563EB; text-decoration: none;">→ Food & restaurant guides</a>
-                </p>
-                <p style="margin: 0; font-size: 14px;">
-                  <a href="https://www.sanluisway.com/blog?category=travel" style="color: #2563EB; text-decoration: none;">→ Day trips & adventures</a>
-                </p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- COMMUNITY SPOTLIGHT -->
-          <tr>
-            <td style="padding: 30px; background-color: #FFFBEB;">
-              <h2 style="font-size: 20px; color: #92400E; margin-bottom: 15px;">
-                ✨ Community Spotlight
-              </h2>
-              <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Supporting local, one story at a time</p>
-              <div style="background-color: #FFFFFF; border: 1px solid #FDE68A; border-radius: 8px; padding: 20px;">
-                <h3 style="font-size: 18px; margin: 0 0 12px 0; color: #92400E;">[SPOTLIGHT_NAME]</h3>
-                <p style="margin: 0 0 5px 0; font-size: 12px; color: #B45309; font-weight: bold;">[SPOTLIGHT_TYPE]</p>
-                <p style="margin: 0 0 12px 0; font-size: 14px; color: #4B5563; line-height: 1.7;">[SPOTLIGHT_STORY]</p>
-                <p style="margin: 0 0 8px 0; font-size: 13px; color: #6B7280;">📍 [SPOTLIGHT_ADDRESS]</p>
-                <p style="margin: 0; font-size: 13px; color: #6B7280;">📱 [SPOTLIGHT_CONTACT]</p>
+                <!-- 📅 Coming Up -->
+                <div style="padding: 18px 22px; background-color: #FAFBFC;">
+                  <h3 style="margin: 0 0 10px 0; color: #1F2937; font-size: 16px;">📅 Coming Up</h3>
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 13px;">
+                    <tr>
+                      <td style="padding: 6px 0; border-bottom: 1px solid #E5E7EB; width: 35%;"><strong style="color: #C75B39;">[DATE_1]</strong></td>
+                      <td style="padding: 6px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">[UPCOMING_EVENT_1]</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 6px 0; border-bottom: 1px solid #E5E7EB;"><strong style="color: #C75B39;">[DATE_2]</strong></td>
+                      <td style="padding: 6px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">[UPCOMING_EVENT_2]</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 6px 0; border-bottom: 1px solid #E5E7EB;"><strong style="color: #C75B39;">[DATE_3]</strong></td>
+                      <td style="padding: 6px 0; border-bottom: 1px solid #E5E7EB; color: #4B5563;">[UPCOMING_EVENT_3]</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 6px 0;"><strong style="color: #C75B39;">[DATE_4]</strong></td>
+                      <td style="padding: 6px 0; color: #4B5563;">[UPCOMING_EVENT_4]</td>
+                    </tr>
+                  </table>
+                  <p style="margin: 12px 0 0 0; text-align: center; font-size: 12px;"><a href="https://www.sanluisway.com/events" style="color: #2563EB; font-weight: bold;">Mark your calendar →</a></p>
+                </div>
               </div>
             </td>
           </tr>
 
           <!-- AD_PLACEMENT_MIDDLE -->
+
+          <!-- CARD 3: EXPAT TOOLKIT -->
+          <tr>
+            <td style="padding: 16px 24px;">
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden;">
+                <div bgcolor="#5B21B6" style="background-color: #5B21B6; padding: 16px 22px;">
+                  <h2 style="margin: 0; color: #FFFFFF; font-size: 20px; font-family: Georgia, serif;">🧭 Expat Toolkit</h2>
+                  <p style="margin: 4px 0 0 0; color: #E9D5FF; font-size: 12px;">Things that make living here easier</p>
+                </div>
+
+                <!-- 🙋 Ask an Expat -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 10px 0; color: #5B21B6; font-size: 16px;">🙋 Ask an Expat</h3>
+                  <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: bold; color: #5B21B6;">Q: "[EXPAT_QUESTION]"</p>
+                  <p style="margin: 0 0 8px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[EXPAT_ANSWER]</p>
+                  <p style="margin: 0; font-size: 12px; color: #7C3AED; font-style: italic;">Got a question? Hit reply — we'll answer it in a future edition.</p>
+                </div>
+
+                <!-- 💡 Expat Pro Tip -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 8px 0; color: #92400E; font-size: 16px;">💡 Expat Pro Tip</h3>
+                  <h4 style="margin: 0 0 6px 0; font-size: 14px; color: #78350F;">[TIP_TITLE]</h4>
+                  <p style="margin: 0; font-size: 14px; color: #4B5563;">[2-3 sentences with practical advice]</p>
+                </div>
+
+                <!-- 🗣️ Spanish Corner -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 12px 0; color: #1E40AF; font-size: 16px;">🗣️ Spanish Corner</h3>
+                  <div style="background-color: #EFF6FF; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+                    <p style="margin: 0 0 4px 0; font-size: 15px; font-weight: bold; color: #1E40AF;">"[SPANISH_PHRASE_1]"</p>
+                    <p style="margin: 0 0 4px 0; font-size: 13px; color: #4B5563;"><strong>Meaning:</strong> [PHRASE_MEANING_1]</p>
+                    <p style="margin: 0; font-size: 12px; color: #6B7280; font-style: italic;">💬 [PHRASE_EXAMPLE_1]</p>
+                  </div>
+                  <div style="background-color: #EFF6FF; border-radius: 6px; padding: 12px;">
+                    <p style="margin: 0 0 4px 0; font-size: 15px; font-weight: bold; color: #1E40AF;">"[SPANISH_PHRASE_2]"</p>
+                    <p style="margin: 0 0 4px 0; font-size: 13px; color: #4B5563;"><strong>Meaning:</strong> [PHRASE_MEANING_2]</p>
+                    <p style="margin: 0; font-size: 12px; color: #6B7280; font-style: italic;">💬 [PHRASE_EXAMPLE_2]</p>
+                  </div>
+                </div>
+
+                <!-- 🧠 Did You Know? -->
+                <div style="padding: 18px 22px; background-color: #FFFBEB;">
+                  <h3 style="margin: 0 0 8px 0; color: #92400E; font-size: 16px;">🧠 Did You Know?</h3>
+                  <h4 style="margin: 0 0 6px 0; font-size: 14px; color: #78350F;">[FACT_TITLE]</h4>
+                  <p style="margin: 0; font-size: 14px; color: #78350F;">[FACT_BODY]</p>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- CARD 4: GO DEEPER -->
+          <tr>
+            <td style="padding: 16px 24px;">
+              <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; overflow: hidden;">
+                <div bgcolor="#166534" style="background-color: #166534; padding: 16px 22px;">
+                  <h2 style="margin: 0; color: #FFFFFF; font-size: 20px; font-family: Georgia, serif;">🧳 Go Deeper</h2>
+                  <p style="margin: 4px 0 0 0; color: #BBF7D0; font-size: 12px;">Long reads and community stories</p>
+                </div>
+
+                <!-- 🌿 Weekend Escape -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 8px 0; color: #166534; font-size: 16px;">🌿 Weekend Escape</h3>
+                  <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #1F2937;">[DESTINATION_NAME]</h4>
+                  <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[3-4 sentences about a day trip idea, Huasteca update, or regional attraction. Include practical info.]</p>
+                  <a href="https://www.sanluisway.com/outdoors" style="color: #166534; font-weight: bold; font-size: 13px;">Explore more day trips →</a>
+                </div>
+
+                <!-- 📖 From the Blog -->
+                <div style="padding: 18px 22px; border-bottom: 1px solid #F3F4F6;">
+                  <h3 style="margin: 0 0 10px 0; color: #1F2937; font-size: 16px;">📖 From the Blog</h3>
+                  <div style="background-color: #FEF3C7; border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+                    <span style="display: inline-block; padding: 3px 8px; background-color: #C75B39; color: #FFFFFF; border-radius: 10px; font-size: 10px; font-weight: bold; margin-bottom: 8px;">FEATURED</span>
+                    <h4 style="font-size: 15px; color: #1F2937; margin: 0 0 8px 0;">[BLOG_POST_TITLE]</h4>
+                    <p style="font-size: 13px; color: #4B5563; margin: 0 0 12px 0; line-height: 1.5;">[ONE_SENTENCE_TEASER]</p>
+                    <a href="[BLOG_POST_URL]" style="display: inline-block; padding: 8px 16px; background-color: #C75B39; color: #FFFFFF; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 13px;">Read the Full Story →</a>
+                  </div>
+                  <p style="margin: 0 0 6px 0; font-size: 12px; color: #6B7280; font-weight: bold;">MORE POPULAR READS:</p>
+                  <p style="margin: 0 0 4px 0; font-size: 13px;"><a href="https://www.sanluisway.com/blog" style="color: #2563EB;">→ Latest articles on expat life in SLP</a></p>
+                  <p style="margin: 0 0 4px 0; font-size: 13px;"><a href="https://www.sanluisway.com/blog?category=food" style="color: #2563EB;">→ Food &amp; restaurant guides</a></p>
+                  <p style="margin: 0; font-size: 13px;"><a href="https://www.sanluisway.com/blog?category=travel" style="color: #2563EB;">→ Day trips &amp; adventures</a></p>
+                </div>
+
+                <!-- ✨ Community Spotlight -->
+                <div style="padding: 18px 22px; background-color: #FFFBEB;">
+                  <h3 style="margin: 0 0 10px 0; color: #92400E; font-size: 16px;">✨ Community Spotlight</h3>
+                  <h4 style="margin: 0 0 4px 0; font-size: 15px; color: #1F2937;">[SPOTLIGHT_NAME]</h4>
+                  <p style="margin: 0 0 10px 0; font-size: 12px; color: #B45309; font-weight: bold;">[SPOTLIGHT_TYPE]</p>
+                  <p style="margin: 0 0 10px 0; font-size: 14px; color: #4B5563; line-height: 1.6;">[SPOTLIGHT_STORY]</p>
+                  <p style="margin: 0 0 4px 0; font-size: 12px; color: #6B7280;">📍 [SPOTLIGHT_ADDRESS]</p>
+                  <p style="margin: 0; font-size: 12px; color: #6B7280;">📬 [SPOTLIGHT_CONTACT]</p>
+                </div>
+              </div>
+            </td>
+          </tr>
 
           <!-- COMUNIDAD SECTION (Custom Content) -->
           <!-- COMUNIDAD_PLACEHOLDER -->
@@ -990,18 +889,16 @@ function findInsertionPoint(html: string, placement: string, markers: { top: Reg
   }
 
   if (placement === 'middle') {
-    // HTML comment markers sit at a clean <tr>-boundary, so inserting the ad
-    // row right after the comment keeps the table structure intact. Earlier
-    // regex-based fallbacks (/cta|Discover More|C75B39/) matched content
-    // INSIDE sections and produced malformed HTML that email clients rendered
-    // near the top of the newsletter.
+    // Primary marker sits at a clean <tr>-boundary between Card 2 ("What's On")
+    // and Card 3 ("Expat Toolkit") — the structural middle of the newsletter.
+    // Fallbacks cover legacy templates and any edition where the AI drops the
+    // marker. They still target true <tr>-boundaries to keep HTML well-formed.
     const middleMarkers = [
+      '<!-- AD_PLACEMENT_MIDDLE -->',
+      '<!-- CARD 3: EXPAT TOOLKIT -->',
+      '<!-- CARD 4: GO DEEPER -->',
       '<!-- WEEKEND ESCAPE -->',
-      '<!-- AROUND TOWN -->',
-      '<!-- COMING UP -->',
-      '<!-- SPOT OF THE WEEK -->',
       '<!-- ASK AN EXPAT -->',
-      '<!-- FROM THE BLOG - Featured Articles -->',
     ];
     for (const marker of middleMarkers) {
       const idx = html.indexOf(marker);
@@ -1841,7 +1738,7 @@ Overall Summary: ${weatherForecast.summary}
     - University news only if it affects the broader community
     AVOID: Pure political news without practical impact, crime blotters, national news unrelated to SLP
 
-    Also identify 3-4 "Quick Hits": short, practical updates (weather, traffic, construction, small alerts) to include as a bulleted list.
+    Identify exactly 3 "Quick Hits": one-line practical updates (traffic, construction, transit, utilities, weather alerts, small neighborhood news).
 
     SOURCES:
     - El Sol de San Luis (elsoldesanluis.com.mx)
@@ -1851,17 +1748,17 @@ Overall Summary: ${weatherForecast.summary}
     - La Jornada San Luis
     - Government sites: slp.gob.mx, sanluis.gob.mx
 
-    FORMAT FOR EACH NEWS ITEM:
-    - Headline (translated to English)
-    - **Detailed Summary (4-5 sentences)** providing context and depth.
-    - Why it matters to residents/expats
-    - Source link
-    - **Image URL** (if available from search source)
+    FORMAT FOR THE ONE TOP NEWS ITEM (fills [NEWS_HEADLINE_1] / [NEWS_SUMMARY_1] / [IMPACT_1]):
+    - Headline (translated to English) in [NEWS_HEADLINE_1]
+    - **Summary (3-4 sentences)** with context + source name inline in [NEWS_SUMMARY_1]
+    - One-sentence "Why it matters to residents/expats" in [IMPACT_1]
+    - Do NOT include <img> tags
 
-    FORMAT FOR QUICK HITS:
-    - List 3-4 short, practical updates.
-    - Format each as HTML: "<strong>[Category/Topic]:</strong> [Brief Update text]"
-    - Example: "<strong>Traffic Alert:</strong> Continued maintenance on Himno Nacional."
+    FORMAT FOR QUICK HITS (fills [QUICK_HIT_1] / [QUICK_HIT_2] / [QUICK_HIT_3]):
+    - Exactly 3 items, one sentence each.
+    - Each starts with a bold category/topic prefix.
+    - Example: "<strong>Traffic:</strong> Continued maintenance on Himno Nacional this week."
+    - Example: "<strong>Utilities:</strong> Interapas water cut Tuesday 8 AM – 4 PM, zonas norte."
 
     ═══════════════════════════════════════════════════════════
     SECTION 2: WEATHER FORECAST (USE REAL DATA PROVIDED BELOW)
@@ -2387,9 +2284,11 @@ Overall Summary: ${weatherForecast.summary}
   console.log('7. 💾 Extracting and saving content to prevent repetition...');
 
   // Save "Did You Know?" fact
+  // In the 4-card layout, the emoji title lives in <h3> and the actual
+  // fact title/body live in <h4>/<p>. Extract from those inner elements.
   try {
-    const factTitleMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
-    const factBodyMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+    const factTitleMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<h4[^>]*>([^<]+)<\/h4>/i);
+    const factBodyMatch = htmlContent.match(/🧠 Did You Know\?[\s\S]*?<\/h4>\s*<p[^>]*>([^<]+)<\/p>/i);
 
     if (factTitleMatch && factBodyMatch) {
       const factTitle = factTitleMatch[1].trim();
@@ -2409,8 +2308,8 @@ Overall Summary: ${weatherForecast.summary}
 
   // Save "Expat Pro Tip"
   try {
-    const tipTitleMatch = htmlContent.match(/💡 Expat Pro Tip[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
-    const tipBodyMatch = htmlContent.match(/💡 Expat Pro Tip[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+    const tipTitleMatch = htmlContent.match(/💡 Expat Pro Tip[\s\S]*?<h4[^>]*>([^<]+)<\/h4>/i);
+    const tipBodyMatch = htmlContent.match(/💡 Expat Pro Tip[\s\S]*?<\/h4>\s*<p[^>]*>([^<]+)<\/p>/i);
 
     if (tipTitleMatch && tipBodyMatch) {
       const tipTitle = tipTitleMatch[1].trim();
@@ -2450,7 +2349,7 @@ Overall Summary: ${weatherForecast.summary}
 
   // Save "Weekend Escape" destination
   try {
-    const escapeNameMatch = htmlContent.match(/🌿 Weekend Escape[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
+    const escapeNameMatch = htmlContent.match(/🌿 Weekend Escape[\s\S]*?<h4[^>]*>([^<]+)<\/h4>/i);
     if (escapeNameMatch) {
       const escapeName = escapeNameMatch[1].trim();
       if (escapeName && escapeName.length > 2) {
@@ -2464,8 +2363,8 @@ Overall Summary: ${weatherForecast.summary}
 
   // Save "Spot of the Week"
   try {
-    const spotNameMatch = htmlContent.match(/📍 Spot of the Week[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
-    const spotDescMatch = htmlContent.match(/📍 Spot of the Week[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+    const spotNameMatch = htmlContent.match(/📍 Spot of the Week[\s\S]*?<h4[^>]*>([^<]+)<\/h4>/i);
+    const spotDescMatch = htmlContent.match(/📍 Spot of the Week[\s\S]*?<\/h4>\s*<p[^>]*>([^<]+)<\/p>/i);
     if (spotNameMatch) {
       const spotName = spotNameMatch[1].trim();
       const spotDesc = spotDescMatch ? spotDescMatch[1].trim() : '';
@@ -2516,8 +2415,8 @@ Overall Summary: ${weatherForecast.summary}
 
   // Save "Community Spotlight" entry
   try {
-    const spotlightNameMatch = htmlContent.match(/✨ Community Spotlight[\s\S]*?<h3[^>]*>([^<]+)<\/h3>/i);
-    const spotlightTypeMatch = htmlContent.match(/✨ Community Spotlight[\s\S]*?<\/h3>\s*<p[^>]*>([^<]+)<\/p>/i);
+    const spotlightNameMatch = htmlContent.match(/✨ Community Spotlight[\s\S]*?<h4[^>]*>([^<]+)<\/h4>/i);
+    const spotlightTypeMatch = htmlContent.match(/✨ Community Spotlight[\s\S]*?<\/h4>\s*<p[^>]*>([^<]+)<\/p>/i);
 
     if (spotlightNameMatch) {
       const spotlightName = spotlightNameMatch[1].trim();
