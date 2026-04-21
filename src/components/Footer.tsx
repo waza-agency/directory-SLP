@@ -260,58 +260,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Enhanced Waza Studio Credit */}
+          {/* Waza Lab Credit */}
           <div className="mt-8 text-center">
             <div className="bg-gradient-to-r from-transparent via-gray-800/30 to-transparent p-6 rounded-2xl">
-              <p className="text-gray-300 text-lg mb-2">
-                {t('footer.madeWith')} <span className="text-pink-500 animate-pulse text-xl">❤</span> {t('footer.by')} <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-bold hover:text-pink-400 transition-all duration-200 hover:scale-105 inline-flex items-center gap-1">Waza Studio</a>
+              <p className="text-gray-300 text-lg">
+                {t('footer.madeWith')} <span className="text-pink-500 animate-pulse text-xl">❤</span> {t('footer.by')} <a href="https://waza.baby" target="_blank" rel="noopener noreferrer" className="text-pink-500 font-bold hover:text-pink-400 transition-all duration-200 hover:scale-105 inline-flex items-center gap-1">Waza Lab</a>
               </p>
-              <p className="text-gray-400 text-base mb-6">
-                {t('footer.wazaSlogan')}
-              </p>
-
-              {/* Other Waza Projects */}
-              <div className="border-t border-gray-700/50 pt-6">
-                <p className="text-gray-300 text-lg font-semibold mb-4">{t('footer.otherProjects')}</p>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <a
-                    href="https://vibecodingprd.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-pink-400 transition-all duration-200 p-4 rounded-lg hover:scale-105 group"
-                  >
-                    <div className="font-semibold group-hover:text-pink-400">ProductPulse</div>
-                    <div className="text-sm text-gray-400">AI Meeting Intelligence</div>
-                  </a>
-                  <a
-                    href="https://tacosnearme.net"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-pink-400 transition-all duration-200 p-4 rounded-lg hover:scale-105 group"
-                  >
-                    <div className="font-semibold group-hover:text-pink-400">TacosNearMe</div>
-                    <div className="text-sm text-gray-400">Find Great Tacos Fast</div>
-                  </a>
-                  <a
-                    href="https://sobrecitos.net"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-pink-400 transition-all duration-200 p-4 rounded-lg hover:scale-105 group"
-                  >
-                    <div className="font-semibold group-hover:text-pink-400">Sobrecitos</div>
-                    <div className="text-sm text-gray-400">Family Budget Tracker</div>
-                  </a>
-                  <a
-                    href="https://glamlocal.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-pink-400 transition-all duration-200 p-4 rounded-lg hover:scale-105 group"
-                  >
-                    <div className="font-semibold group-hover:text-pink-400">Glam Local</div>
-                    <div className="text-sm text-gray-400">Beauty Services Marketplace</div>
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
